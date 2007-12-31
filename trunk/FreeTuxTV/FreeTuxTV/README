@@ -1,0 +1,7 @@
+Installation des paquets necessaires :
+	$>sudo apt-get install libvlc-dev libhal-dev libgtk2.0-dev subversion
+
+Recuperer les Sources de VLC :
+	$>sudo svn co svn://svn.videolan.org/vlc/trunk /usr/src/vlc-trunk
+
+
