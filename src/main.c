@@ -68,7 +68,7 @@ int main (int argc, char *argv[])
     * événement survienne (touche pressée ou événement souris). */
 
 	 libvlc_playlist_clear(_vlcinstance,&_vlcexcep); //on vide la playlist
-	 libvlc_playlist_add (_vlcinstance,"file://./T-Shirt%20japonais.mpg",NULL,&_vlcexcep);//on ajoute le nouveau flux
+	 libvlc_playlist_add (_vlcinstance,"file://./tshirt_japonais.mpg",NULL,&_vlcexcep);//on ajoute le nouveau flux
 
 	 libvlc_playlist_play (_vlcinstance , -1, 0, NULL, &_vlcexcep);
 
