@@ -28,9 +28,9 @@ On doit pouvoir aussi lancer un enregistrement des chaines, soit en directe, soi
 == Programme TV ==
 
 La liste des chaines devra afficher pour chaque chaines :
-* Le logo de la chaines
-* Le programme en cours avec l'heure de début et l'heure de fin
-* Le programme à venir
+ * Le logo de la chaines
+ * Le programme en cours avec l'heure de début et l'heure de fin
+ * Le programme à venir
 
 On souhaitera aussi pouvoir gérer un affichage complet du programme TV, avec la possibilité de programmer facilement l'enregistrement d'un programme.
 
