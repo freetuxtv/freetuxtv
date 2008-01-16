@@ -1,13 +1,21 @@
-#summary One-sentence summary of this page.
+#summary Cahier des charges de FreetuxTV
 
 = Introduction =
 
-Cette page resume 
+Le projet FreetuxTV a été lancé par deux étudiants de master informatique de l'URF Sciences de Besançon dans le cadre de leur projet tutoré.
+Voici les objectifs que le projet s'est voulu de remplir.
 
+= Détails =
 
-= Details =
+== ==
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== Compatible Linux/Gnome ==
+
+Le logiciel devra 
+
+- utilisation de la librairie VLC
+- utilisation de GTK2+ (compatible Gnome)
+- fonctionne avec Free (eventuellement Neuf, WebTV, Radio...)
+- affichage des chaines et des programmes en cours avec heures-debut et heure de fin
+- affichage en plein écran
+- enregistrement (vérifier pour l'encodage de la vidéo)
