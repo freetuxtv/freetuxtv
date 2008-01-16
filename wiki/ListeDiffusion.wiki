@@ -1,0 +1,10 @@
+pour envoyer un message sur la liste, l'adresse est freetuxtv@ml.free.fr
+>> 	pour envoyer une commande au robot, l'adresse est freetuxtv-request@ml.free.fr
+>> 	pour envoyer une commande à l'administrateur, l'adresse est freetuxtv-owner@ml.free.fr
+ 
+>> 	
+
+Si vous souhaitez indiquer sur votre site web comment s'inscrire et se désinscrire :
+
+L'URL pour s'inscrire est : mailto:freetuxtv-request@ml.free.fr?subject=subscribe
+L'URL pour se désinscrire est : mailto:freetuxtv-request@ml.free.fr?subject=unsubscribe
