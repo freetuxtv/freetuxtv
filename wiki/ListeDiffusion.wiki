@@ -1,6 +1,11 @@
+#summary Instruction pour s'abonner à la liste de diffusion du projet
+#labels EMail,Listedediffusion
+
 L'adresse mail du projet est : freetuxtv@ml.free.fr
 
-Vous pouvez vous inscrire apres modération en envoyant un mail à :
+Un mail pour chaque commit sur le dépot subversion est envoyé à cette adresse.
+
+Vous pouvez vous inscrire après modération en envoyant un mail à :
   mailto:freetuxtv-request@ml.free.fr?subject=subscribe
 
 Et pour vous désinscrire :
