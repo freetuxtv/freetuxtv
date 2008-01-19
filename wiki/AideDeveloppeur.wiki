@@ -1,0 +1,23 @@
+#summary Aide et informations pour les développeurs de FreetuxTV.
+#labels Phase-Implementation
+
+= Introduction =
+
+Cette page recense des liens et des informations pour développer certains composant de FreetuxTV. Vous trouverez entre autre des aides et tutoriels pour la programmation en C/C++.
+
+= Détails =
+
+== GTK2+ ==
+
+Voici un tutoriel très complet sur la création d'interface graphique en GTK2+.
+http://gtk.developpez.com/cours/gtk2/index.php
+
+== Bibliothèque VLC ==
+
+Exemple d'utilisation de la libvlc dans une interface en QT.
+http://doc.qtfr.org/post/2007/02/21/Integration-de-VLC
+
+== Gestion du XML en C/C++ ==
+
+La page suivante explique comment utiliser la bibliothèque "libxml2" pour pour parser un fichier XML en C/C++.
+http://julp.developpez.com/c/libxml2/
