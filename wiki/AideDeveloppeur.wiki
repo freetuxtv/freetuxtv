@@ -9,7 +9,7 @@ Cette page recense des liens et des informations pour développer certains compo
 
 == GTK2+ ==
 
-Documentation de l'API GTK2+
+Documentation de l'API GTK2+ :
  * http://library.gnome.org/devel/gtk/stable/
 Voici des tutoriels très complet sur la création d'interface graphique en GTK2+ :
  * http://gtk.developpez.com/cours/gtk2/index.php
@@ -19,6 +19,8 @@ Sources d'un programme écrit en GTK2+ :
 
 == Bibliothèque VLC ==
 
+Documentation de la libvlc :
+ * http://www.videolan.org/developers/vlc/doc/doxygen/html/group__libvlc.html
 Exemple d'utilisation de la libvlc dans une interface en QT :
  * http://doc.qtfr.org/post/2007/02/21/Integration-de-VLC
 
