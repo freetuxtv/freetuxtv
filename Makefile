@@ -46,7 +46,7 @@ $(OBJ):
 
 $(BIN):
 	@echo " -- Creation du dossier: $(BIN)"
-	@mkdir $(DIST)
+	@mkdir $(BIN)
 
 clean:
 	@echo " -- Nettoyage"
