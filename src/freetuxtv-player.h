@@ -24,24 +24,21 @@
  */
 
 #include <gtk/gtk.h>
+#include <vlc/libvlc.h>
 
-#include "freetuxtv-main-window.h"
+typedef struct _FreetuxTVPlayerClass FreetuxTVPlayerClass;
 
-int main (int argc, char *argv[])
+struct _FreetuxTVPlayerClass
 {
-	gtk_init (&argc, &argv);
-	
-	FreetuxTVMainWindowClass* freetuxtv;
-	freetuxtv = freetuxtv_main_window_new ();
+	GtkWidget *widget;
+	libvlc_instance_t *vlcinstance;
+};
 
-	/* Dessin de l'interface */
-	gtk_widget_show_all (freetuxtv->mainwin);
+FreetuxTVPlayerClass *
+freetuxtv_player_new ();
 
-	freetuxtv_player_init(freetuxtv->player);
-	/*freetuxtv_player_play(freetuxtv->player,"file://./tshirt_japonais.mpg");*/
-	freetuxtv_player_play(freetuxtv->player,"http://mafreebox.freebox.fr/freeboxtv/playlist.m3u");
-	gtk_main ();
-	
-	
-	return 0;
-}
+void
+freetuxtv_player_init (FreetuxTVPlayerClass *self);
+
+void
+freetuxtv_player_play (FreetuxTVPlayerClass *self, gchar *uri);
