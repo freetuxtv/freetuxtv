@@ -9,10 +9,12 @@ Cette page recense des liens et des informations pour développer certains compo
 
 == GTK2+ ==
 
+Documentation de l'API GTK2+
+ * http://library.gnome.org/devel/gtk/stable/
 Voici des tutoriels très complet sur la création d'interface graphique en GTK2+ :
  * http://gtk.developpez.com/cours/gtk2/index.php
  * http://fr.wikibooks.org/wiki/Programmation_GTK2_en_C
-Sources d'un programme écrit en GTK+ :
+Sources d'un programme écrit en GTK2+ :
  * http://svn.gnome.org/svn/brasero/trunk/
 
 == Bibliothèque VLC ==
