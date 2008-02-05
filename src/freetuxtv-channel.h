@@ -23,42 +23,29 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#include <malloc.h>
 #include <gtk/gtk.h>
-#include <gdk/gdkx.h>
 
 #include "freetuxtv-player.h"
 
-FreetuxTVPlayer *
-freetuxtv_player_new ()
+typedef struct _FreetuxTVChannel FreetuxTVChannel;
+
+struct _FreetuxTVChannel
 {
-	FreetuxTVPlayer * self;
-	self = (FreetuxTVPlayer *)malloc(sizeof(FreetuxTVPlayer));
-	
-	/* Creation du widget */
-	self->widget = gtk_drawing_area_new ();
- 
-	return self;
-	
-}
+	GtkWidget *widget;
+	char *name;
+	char *uri;
+	GtkWidget *logo;
+	FreetuxTVPlayer *player;
+};
+
+FreetuxTVChannel *
+freetuxtv_channel_new (gchar *name, gchar *uri);
 
 void
-freetuxtv_player_init (FreetuxTVPlayer *self)
-{
-	/* Création d'une instance VLC */
-	libvlc_exception_t _vlcexcep;
-	libvlc_exception_init (&_vlcexcep);
-	self->vlcinstance=libvlc_new(0,NULL,&_vlcexcep);
-	XID xid = gdk_x11_drawable_get_xid(self->widget->window);
-	libvlc_video_set_parent(self->vlcinstance, xid, &_vlcexcep);	
-}
+freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file);
 
 void
-freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri)
-{
-	libvlc_exception_t _vlcexcep;
-	libvlc_exception_init (&_vlcexcep);
-	libvlc_playlist_clear (self->vlcinstance,&_vlcexcep);
-	libvlc_playlist_add (self->vlcinstance,uri,NULL,&_vlcexcep);
-	libvlc_playlist_play (self->vlcinstance , -1, 0, NULL, &_vlcexcep);
-}
+freetuxtv_channel_set_player (FreetuxTVChannel *self, FreetuxTVPlayer *player);
+
+void
+freetuxtv_channel_play (FreetuxTVChannel *self);
