@@ -23,49 +23,46 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#include <malloc.h>
-#include <gtk/gtk.h>
-#include <gdk/gdkx.h>
-
 #include "freetuxtv-channel.h"
+
+G_DEFINE_TYPE (FreetuxTVChannel, freetuxtv_channel, GTK_TYPE_BUTTON);
 
 static void
 freetuxtv_channel_onclicked (GtkWidget *widget, gpointer data);
 
-FreetuxTVChannel *
+GtkWidget *
 freetuxtv_channel_new (gchar *name, gchar *uri)
 {
-	FreetuxTVChannel * self;
-	self = (FreetuxTVChannel *)malloc(sizeof(FreetuxTVChannel));
-	
-	self->name=name;
-	self->uri=uri;
+	FreetuxTVChannel * channel = NULL;
+	channel = gtk_type_new (freetuxtv_channel_get_type ());
+
+	channel->name=name;
+	channel->uri=uri;
 
 	/* Creation du widget */
-	self->widget = gtk_button_new();
-	g_signal_connect(G_OBJECT(self->widget),
+	g_signal_connect(G_OBJECT(channel),
 			 "clicked",
 			 G_CALLBACK(freetuxtv_channel_onclicked),
-			 (gpointer) self);
+			 NULL);
 
 	GdkColor color;
 	color.pixel = 0;
 	color.red   = 0xff * 0x100;
         color.green = 0xff * 0x100;
         color.blue  = 0xff * 0x100;
-	gtk_widget_modify_bg(self->widget, GTK_STATE_NORMAL, &color);
+	gtk_widget_modify_bg(GTK_WIDGET(channel), GTK_STATE_NORMAL, &color);
 
 	GtkWidget *hbox;
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_container_add (GTK_CONTAINER(self->widget), hbox);
+	gtk_container_add (GTK_CONTAINER(channel), hbox);
 	
-	self->logo = gtk_image_new ();
-	gtk_box_pack_start (GTK_BOX(hbox), self->logo, FALSE, FALSE, 0);
+	channel->logo = gtk_image_new ();
+	gtk_box_pack_start (GTK_BOX(hbox), channel->logo, FALSE, FALSE, 0);
 	GtkWidget *label;
-	label = gtk_label_new (self->name);
+	label = gtk_label_new (channel->name);
 	gtk_box_pack_start (GTK_BOX(hbox), label, TRUE, TRUE, 0);
 	
-	return self;
+	return GTK_WIDGET(channel);
 }
 
 void
@@ -78,7 +75,7 @@ freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file)
 static void
 freetuxtv_channel_onclicked (GtkWidget *widget, gpointer data)
 {
-	FreetuxTVChannel *self = (FreetuxTVChannel *) data;
+	FreetuxTVChannel *self = FREETUXTV_CHANNEL(widget);
 	g_print ("Launching : %s\n", self->name);
 	freetuxtv_channel_play(self);
 }
@@ -94,4 +91,26 @@ freetuxtv_channel_play (FreetuxTVChannel *self)
 	if(self->player!=NULL){
 		freetuxtv_player_play(self->player, self->uri);
 	}
+}
+
+static void
+freetuxtv_channel_init (FreetuxTVChannel *object)
+{
+	object->name="";
+	object->uri="";
+	object->logo = NULL;
+	object->player = NULL;
+}
+
+static void
+freetuxtv_channel_finalize (GObject *object)
+{
+	
+}
+
+static void
+freetuxtv_channel_class_init (FreetuxTVChannelClass *klass)
+{
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	gobject_class->finalize = freetuxtv_channel_finalize;
 }

@@ -62,54 +62,21 @@ int main (int argc, char *argv[])
 	freetuxtv_channel_set_player (channel, freetuxtv->player);
 	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
 
+	channel=freetuxtv_channel_new("MCM Top (Web TV)",
+				      "mms://viplagardere.yacast.net/mcm_top");
+	freetuxtv_channel_set_player (channel, freetuxtv->player);
+	freetuxtv_channel_set_logo (channel, "./img/mcm top.jpg");
+	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
+
 	channel=freetuxtv_channel_new("T-Shirt Japonais",
 				      "file://./tshirt_japonais.mpg");
 	freetuxtv_channel_set_player (channel, freetuxtv->player);
 	freetuxtv_channel_set_logo (channel, "./img/Shangai Dragon TV.jpg");
 	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-	
-	freetuxtv_player_init(freetuxtv->player);
 
 	gtk_main ();
 
 	return 0;
-
-
-	/*
-
-	FreetuxTVChannel *channel;
-	channel=freetuxtv_channel_new("France 2",
-				      "rtsp://mafreebox.freebox.fr/freeboxtv/stream?id=201");
-	freetuxtv_channel_set_logo (channel, "./img/France 2.jpg");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-
-
-	channel=freetuxtv_channel_new("France 3",
-				      "rtsp://mafreebox.freebox.fr/freeboxtv/stream?id=202");
-	freetuxtv_channel_set_logo (channel, "./img/France 3.jpg");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-
-	channel=freetuxtv_channel_new("Canal +",
-				      "rtsp://mafreebox.freebox.fr/freeboxtv/stream?id=203");
-	freetuxtv_channel_set_logo (channel, "./img/canal+.jpg");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-
-	channel=freetuxtv_channel_new("W9",
-				      "rtsp://mafreebox.freebox.fr/freeboxtv/stream?id=211");
-	freetuxtv_channel_set_logo (channel, "./img/W9.jpg");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-
-	channel=freetuxtv_channel_new("T-Shirt Japonais",
-				      "file://./tshirt_japonais.mpg");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channel_set_logo (channel, "./img/Shangai Dragon TV.jpg");
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-	
-	freetuxtv_player_init(freetuxtv->player);
 
 	/*
 	freetuxtv_player_play(freetuxtv->player,"file://./tshirt_japonais.mpg");

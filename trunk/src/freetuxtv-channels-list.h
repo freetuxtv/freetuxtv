@@ -23,24 +23,47 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
+#ifndef FREETUXTV_CHANNELS_LIST_H
+#define FREETUXTV_CHANNELS_LIST_H
+
+#include <glib-object.h>
 #include <gtk/gtk.h>
-#include <vlc/libvlc.h>
 
 #include "freetuxtv-channel.h"
 
+G_BEGIN_DECLS
+
+#define FREETUXTV_TYPE_CHANNELS_LIST            (freetuxtv_channels_list_get_type ())
+#define FREETUXTV_CHANNELS_LIST(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), FREETUXTV_TYPE_CHANNELS_LIST, FreetuxTVChannelsList))
+#define FREETUXTV_CHANNELS_LIST_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), FREETUXTV_TYPE_CHANNELS_LIST, FreetuxTVChannelsListClass))
+#define FREETUXTV_IS_CHANNELS_LIST(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FREETUXTV_TYPE_CHANNELS_LIST))
+#define FREETUXTV_IS_CHANNELS_LIST_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FREETUXTV_TYPE_CHANNELS_LIST))
+#define FREETUXTV_CHANNELS_LIST_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), FREETUXTV_TYPE_CHANNELS_LIST, FreetuxTVChannelsListClass))
+
 typedef struct _FreetuxTVChannelsList FreetuxTVChannelsList;
+typedef struct _FreetuxTVChannelsListClass FreetuxTVChannelsListClass;
 
 struct _FreetuxTVChannelsList
 {
-	GtkWidget *widget;
+	GtkWindow parent;
+
 	GtkWidget *channels_widget;
-	FreetuxTVChannel **channels;
-	int count;
 };
 
-FreetuxTVChannelsList *
+struct _FreetuxTVChannelsListClass
+{
+	GtkWindowClass parent_class;
+};
+
+GType
+freetuxtv_channels_list_get_type (void);
+
+GtkWidget *
 freetuxtv_channels_list_new ();
 
 void
 freetuxtv_channels_list_add_channel (FreetuxTVChannelsList *self,
 				     FreetuxTVChannel *channel);
+G_END_DECLS
+
+#endif /* FREETUXTV_CHANNELS_LIST_H */
