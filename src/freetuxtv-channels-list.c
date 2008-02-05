@@ -23,29 +23,27 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#include <malloc.h>
-#include <gtk/gtk.h>
-
 #include "freetuxtv-channels-list.h"
+
+G_DEFINE_TYPE (FreetuxTVChannelsList, freetuxtv_channels_list, GTK_TYPE_VBOX);
 
 static void
 freetuxtv_channels_list_onclicked (GtkWidget *widget, gpointer *data);
 
-FreetuxTVChannelsList *
+GtkWidget *
 freetuxtv_channels_list_new ()
 {
-	FreetuxTVChannelsList * self;
-	self = (FreetuxTVChannelsList *)malloc(sizeof(FreetuxTVChannelsList));
-	
-	self->count=0;
+	FreetuxTVChannelsList * channels_list = NULL;
+	channels_list = gtk_type_new (freetuxtv_channels_list_get_type ());
 
 	/* Creation du widget */
-	self->widget = gtk_vbox_new(FALSE, 0);
-	
+	gtk_box_set_homogeneous(GTK_BOX(channels_list),FALSE);
+	gtk_box_set_spacing(GTK_BOX(channels_list),0);
+
 	/* Création du champs de recherche */
 	GtkWidget *hbox;
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start (GTK_BOX(self->widget), hbox, FALSE, FALSE, 10);
+	gtk_box_pack_start (GTK_BOX(channels_list), hbox, FALSE, FALSE, 10);
 	
 	GtkWidget *button;
 	button = gtk_button_new_with_label ("X");
@@ -61,36 +59,46 @@ freetuxtv_channels_list_new ()
 
 	GtkWidget *scrollbar;
 	scrollbar = gtk_scrolled_window_new(NULL, NULL);
-	self->channels_widget = gtk_vbox_new(FALSE,0);
+	channels_list->channels_widget = gtk_vbox_new(FALSE,0);
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollbar),
-					      self->channels_widget);
+					      channels_list->channels_widget);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollbar),
 				       GTK_POLICY_NEVER,
 				       GTK_POLICY_ALWAYS);
-	gtk_box_pack_start (GTK_BOX(self->widget), scrollbar, TRUE, TRUE, 10);
+	gtk_box_pack_start (GTK_BOX(channels_list), scrollbar, TRUE, TRUE, 10);
 	
-	return self;
+	return GTK_WIDGET (channels_list);
 }
 
 void
 freetuxtv_channels_list_add_channel (FreetuxTVChannelsList *self,
 				     FreetuxTVChannel *channel)
 {
-	self->count++;
-	if(self->count==1){
-		self->channels = (FreetuxTVChannel **)malloc(sizeof(FreetuxTVChannel *));	
-	}else{
-		self->channels = (FreetuxTVChannel **) realloc (self->channels,
-								self->count * sizeof(FreetuxTVChannel *));	
-	}
-	self->channels[self->count-1] = channel;
-	
-	gtk_box_pack_start (GTK_BOX(self->channels_widget), channel->widget, FALSE, FALSE, 0);
-	gtk_widget_show_all(channel->widget);
+	gtk_box_pack_start (GTK_BOX(self->channels_widget), GTK_WIDGET(channel), FALSE, FALSE, 0);
+	gtk_widget_show_all(GTK_WIDGET(channel));
 }
 
 static void
 freetuxtv_channels_list_onclicked (GtkWidget *widget, gpointer *data)
 {
 	gtk_main_quit();
+}
+
+static void
+freetuxtv_channels_list_init (FreetuxTVChannelsList *object)
+{
+	object->channels_widget = NULL;
+}
+
+static void
+freetuxtv_channels_list_finalize (GObject *object)
+{
+	
+}
+
+static void
+freetuxtv_channels_list_class_init (FreetuxTVChannelsListClass *klass)
+{
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	gobject_class->finalize = freetuxtv_channels_list_finalize;
 }
