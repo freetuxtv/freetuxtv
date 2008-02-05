@@ -26,19 +26,19 @@
 #include <gtk/gtk.h>
 #include <vlc/libvlc.h>
 
-typedef struct _FreetuxTVPlayerClass FreetuxTVPlayerClass;
+typedef struct _FreetuxTVPlayer FreetuxTVPlayer;
 
-struct _FreetuxTVPlayerClass
+struct _FreetuxTVPlayer
 {
 	GtkWidget *widget;
 	libvlc_instance_t *vlcinstance;
 };
 
-FreetuxTVPlayerClass *
+FreetuxTVPlayer *
 freetuxtv_player_new ();
 
 void
-freetuxtv_player_init (FreetuxTVPlayerClass *self);
+freetuxtv_player_init (FreetuxTVPlayer *self);
 
 void
-freetuxtv_player_play (FreetuxTVPlayerClass *self, gchar *uri);
+freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri);

@@ -23,26 +23,32 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#include <gtk/gtk.h>
-#include <malloc.h>
-
 #include "freetuxtv-main-window.h"
 
-FreetuxTVMainWindowClass *
+G_DEFINE_TYPE (FreetuxTVMainWindow, freetuxtv_main_window, GTK_TYPE_WINDOW);
+
+static void
+freetuxtv_main_window_ondestroy (GtkWidget *widget, gpointer *data);
+
+GtkWidget *
 freetuxtv_main_window_new ()
 {
-	FreetuxTVMainWindowClass * self;
-	self = (FreetuxTVMainWindowClass *)malloc(sizeof(FreetuxTVMainWindowClass *));
+	FreetuxTVMainWindow * main_window = NULL;
+	main_window = gtk_type_new (freetuxtv_main_window_get_type ());
+
 	/* Creation de la fenetre */
-	self->mainwin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title (GTK_WINDOW(self->mainwin), "FreetuxTV");
-	gtk_window_set_default_size (GTK_WINDOW(self->mainwin), 800, 600);
+	gtk_window_set_title (GTK_WINDOW(main_window), "FreetuxTV");
+	gtk_window_set_default_size (GTK_WINDOW(main_window), 800, 600);
+	g_signal_connect(G_OBJECT(main_window),
+			 "destroy",
+			 G_CALLBACK(freetuxtv_main_window_ondestroy),
+			 NULL);
 	
 	/* Separateur entre menu / panneau d'onglet et fenetre video */
 	GtkWidget *vbox;
 	vbox = gtk_vbox_new(FALSE, 0);
-	gtk_container_add (GTK_CONTAINER(self->mainwin), vbox);
-	
+	gtk_container_add (GTK_CONTAINER(main_window), vbox);
+
 	/* Création de la barre de menu */
 	GtkWidget *menubar;
 	GtkWidget *menu;
@@ -74,31 +80,93 @@ freetuxtv_main_window_new ()
 	GtkWidget *hbox;
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-	
+
 	/* Panneau d'onglets */
 	GtkWidget *notebook;
 	notebook = gtk_notebook_new ();
 	gtk_box_pack_start (GTK_BOX(hbox), notebook, FALSE, FALSE, 0);
 	gtk_notebook_set_tab_pos (GTK_NOTEBOOK(notebook), GTK_POS_LEFT);
-
-	/* Onglet "En cours" */
+	
 	GtkWidget * tablabel;
 	GtkWidget * tabcontent;
-	tablabel = gtk_label_new ("En cours");
-	gtk_label_set_angle (GTK_LABEL(tablabel), 90.00);
-	tabcontent = gtk_label_new ("Bienvenu dans FreetuxTV ! Enjoy !");
-	gtk_notebook_append_page (GTK_NOTEBOOK(notebook), tabcontent, tablabel);
-	
-	/* Onglet "Chaines"  */
+
+	/* Onglet "Chaines" */
 	tablabel = gtk_label_new ("Chaines");
 	gtk_label_set_angle (GTK_LABEL(tablabel), 90.00);
-	tabcontent = gtk_label_new ("Contexte");
+	main_window->channelslist = freetuxtv_channels_list_new();
+	gtk_notebook_append_page (GTK_NOTEBOOK(notebook), main_window->channelslist->widget, tablabel);
+	
+	/* Onglet "En cours" */
+	tablabel = gtk_label_new ("En cours");
+	gtk_label_set_angle (GTK_LABEL(tablabel), 90.00);
+	tabcontent = gtk_label_new ("Bienvenue dans FreetuxTV ! Enjoy !");
+	gtk_notebook_append_page (GTK_NOTEBOOK(notebook), tabcontent, tablabel);
+	
+	/* Cadre du player */
+	main_window->player = freetuxtv_player_new ();
+	gtk_box_pack_start (GTK_BOX(hbox), main_window->player->widget, TRUE, TRUE, 0);
+
+	return GTK_WIDGET (main_window);
+}
+
+static void
+freetuxtv_main_window_init (FreetuxTVMainWindow *object)
+{
+	object->player = NULL;
+	object->channelslist = NULL;
+}
+
+static void
+freetuxtv_main_window_finalize (GObject *object)
+{
+	
+}
+
+static void
+freetuxtv_main_window_class_init (FreetuxTVMainWindowClass *klass)
+{
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	gobject_class->finalize = freetuxtv_main_window_finalize;
+}
+
+
+/*
+static void
+freetuxtv_main_window_ondestroy (GtkWidget *widget, gpointer *data);
+
+FreetuxTVMainWindow *
+freetuxtv_main_window_new ()
+{
+	FreetuxTVMainWindow * self;
+
+	self->mainwin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	
+	GtkWidget * tablabel;
+	GtkWidget * tabcontent;
+
+	/* Onglet "Chaines"  
+	tablabel = gtk_label_new ("Chaines");
+	gtk_label_set_angle (GTK_LABEL(tablabel), 90.00);
+	self->channelslist = freetuxtv_channels_list_new();
+	gtk_notebook_append_page (GTK_NOTEBOOK(notebook), self->channelslist->widget, tablabel);
+	
+	/* Onglet "En cours" 
+	tablabel = gtk_label_new ("En cours");
+	gtk_label_set_angle (GTK_LABEL(tablabel), 90.00);
+	tabcontent = gtk_label_new ("Bienvenue dans FreetuxTV ! Enjoy !");
 	gtk_notebook_append_page (GTK_NOTEBOOK(notebook), tabcontent, tablabel);
 
-	/* Cadre du player */
+	/* Cadre du player 
 	self->player = freetuxtv_player_new ();
 	gtk_box_pack_start (GTK_BOX(hbox), self->player->widget, TRUE, TRUE, 0);
 
 	return self;
 	
+}
+*/
+
+static void
+freetuxtv_main_window_ondestroy (GtkWidget *widget, gpointer *data)
+{
+	gtk_main_quit();
 }
