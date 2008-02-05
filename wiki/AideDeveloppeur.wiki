@@ -13,6 +13,8 @@ Documentation pour la programmation objet en C avec Glib :
  * http://nicolasj.developpez.com/gobject/classe/
 Documentation de l'API GTK2+ :
  * http://library.gnome.org/devel/gtk/stable/
+Comment créer son propre widget GTK+ :
+ * http://franckh.developpez.com/tutoriels/gtk/creation-widget/
 Voici des tutoriels très complet sur la création d'interface graphique en GTK2+ :
  * http://gtk.developpez.com/cours/gtk2/index.php
  * http://fr.wikibooks.org/wiki/Programmation_GTK2_en_C
