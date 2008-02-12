@@ -50,7 +50,6 @@ struct _FreetuxTVChannel
 	char *name;
 	char *uri;
 	GtkWidget *logo;
-	FreetuxTVPlayer *player;
 };
 
 struct _FreetuxTVChannelClass
@@ -66,9 +65,6 @@ freetuxtv_channel_new (gchar *name, gchar *uri);
 
 void
 freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file);
-
-void
-freetuxtv_channel_set_player (FreetuxTVChannel *self, FreetuxTVPlayer *player);
 
 void
 freetuxtv_channel_play (FreetuxTVChannel *self);

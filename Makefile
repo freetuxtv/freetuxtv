@@ -1,11 +1,11 @@
 #executable
 EXEC=freetuxtv
 #compilateur
-CC=@gcc
-#inclusion -g -Wall -ansi -pedantic
-CFLAGS= -g -Wall `pkg-config --cflags gtk+-2.0` `vlc-config --cflags vlc` -I/usr/src/vlc-trunk/include
+CC=@gcc -g -Wall 
+#inclusion -g -Wall -ansi -pedantic -ansi -pedantic -W -Werror -Wall -Wstrict-prototypes -W -Wall -Werror -Wstrict-prototypes -Wparentheses -Wunused-function -Wunused-label -Wunused-variable -Wunused-value
+CFLAGS= `pkg-config --cflags gtk+-2.0` `vlc-config --cflags vlc` -I/usr/src/vlc-trunk/include
 #edition des liens
-LDFLAGS= `pkg-config --libs gtk+-2.0` `vlc-config --libs vlc` -lvlc
+LDFLAGS= `pkg-config --libs gtk+-2.0` `vlc-config --libs vlc` -lvlc -lsqlite3
 #dossiers source
 SRC=./src
 # .o temporaires
@@ -26,17 +26,17 @@ OBJS=$(SRCS:$(SRC)/%.c=$(OBJ)/%.o)
 .PHONY: clean
 
 #regle pour l'edition des liens
-$(BIN)/$(EXEC): $(OBJS) $(BIN)
+$(BIN)/$(EXEC): $(OBJS) $(BIN) $(OBJ)
 	@echo " -- Edition des liens pour l'executable: $(BIN)/$(EXEC)"
 	$(CC) -o $(BIN)/$(EXEC) $(OBJS) $(LDFLAGS)
 
 #regle pour la compilation d'un .o (lorsqu'il existe un .c et un .h correspondant)
-$(OBJ)/%.o: $(SRC)/%.c $(SRC)/%.h $(OBJ)
+$(OBJ)/%.o: $(SRC)/%.c $(SRC)/%.h
 	@echo " -- Compilation du fichier objet: $@ (sources: $(SRC)/$*.c $(SRC)/$*.h)"
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 #regle pour la compilation d'un .o (lorsqu'il n'existe qu'un .c correspondant)
-$(OBJ)/%.o: $(SRC)/%.c $(OBJ)
+$(OBJ)/%.o: $(SRC)/%.c
 	@echo " -- Compilation du fichier objet: $@ (source: $(SRC)/$*.c)"
 	$(CC) -c $< -o $@ $(CFLAGS)
 

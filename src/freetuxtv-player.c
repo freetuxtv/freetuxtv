@@ -34,7 +34,7 @@ freetuxtv_player_new ()
 {
 	FreetuxTVPlayer * player = NULL;
 	player = gtk_type_new (freetuxtv_player_get_type ());
-	
+	gtk_widget_show (GTK_WIDGET(player));
 	return GTK_WIDGET(player);
 	
 }
