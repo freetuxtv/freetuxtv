@@ -24,6 +24,7 @@
  */
 
 #include "freetuxtv-channel.h"
+#include "freetuxtv-main-window.h"
 
 G_DEFINE_TYPE (FreetuxTVChannel, freetuxtv_channel, GTK_TYPE_BUTTON);
 
@@ -36,8 +37,8 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 	FreetuxTVChannel * channel = NULL;
 	channel = gtk_type_new (freetuxtv_channel_get_type ());
 
-	channel->name=name;
-	channel->uri=uri;
+	channel->name = g_strdup(name);
+	channel->uri = g_strdup(uri);
 
 	/* Creation du widget */
 	g_signal_connect(G_OBJECT(channel),
@@ -62,6 +63,8 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 	label = gtk_label_new (channel->name);
 	gtk_box_pack_start (GTK_BOX(hbox), label, TRUE, TRUE, 0);
 	
+	gtk_widget_show_all (GTK_WIDGET(channel));
+
 	return GTK_WIDGET(channel);
 }
 
@@ -76,21 +79,16 @@ static void
 freetuxtv_channel_onclicked (GtkWidget *widget, gpointer data)
 {
 	FreetuxTVChannel *self = FREETUXTV_CHANNEL(widget);
-	g_print ("Launching : %s\n", self->name);
+	g_print ("FreetuxTV : launching channel \"%s\"\n", self->name);
 	freetuxtv_channel_play(self);
-}
-
-void
-freetuxtv_channel_set_player (FreetuxTVChannel *self, FreetuxTVPlayer *player){
-	self->player = player;	
 }
 
 void
 freetuxtv_channel_play (FreetuxTVChannel *self)
 {
-	if(self->player!=NULL){
-		freetuxtv_player_play(self->player, self->uri);
-	}
+	FreetuxTVMainWindow *main_window;
+	main_window = freetuxtv_channel_get_main_window(GTK_WIDGET(self));
+	freetuxtv_player_play(main_window->player, self->uri);
 }
 
 static void
@@ -99,7 +97,6 @@ freetuxtv_channel_init (FreetuxTVChannel *object)
 	object->name="";
 	object->uri="";
 	object->logo = NULL;
-	object->player = NULL;
 }
 
 static void

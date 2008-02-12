@@ -64,6 +64,10 @@ freetuxtv_channels_list_new ();
 void
 freetuxtv_channels_list_add_channel (FreetuxTVChannelsList *self,
 				     FreetuxTVChannel *channel);
+
+int
+freetuxtv_channels_list_set_from_db (FreetuxTVChannelsList *self);
+
 G_END_DECLS
 
 #endif /* FREETUXTV_CHANNELS_LIST_H */

@@ -62,6 +62,9 @@ freetuxtv_main_window_get_type (void);
 GtkWidget *
 freetuxtv_main_window_new ();
 
+FreetuxTVMainWindow *
+freetuxtv_channel_get_main_window (GtkWidget *self);
+
 G_END_DECLS
 
 #endif /* FREETUXTV_MAIN_WINDOW_H */
