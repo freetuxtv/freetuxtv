@@ -1,5 +1,6 @@
-Installation des paquets necessaires :
-	$>sudo apt-get install libvlc-dev libhal-dev libgtk2.0-dev subversion xmltv
+Installation des paquets necessaires pour compiler :
+	$>sudo apt-get install libvlc0-dev libhal-dev libgtk2.0-dev subversion xmltv libsqlite3-0 libsqlite3-dev
+
 
 Recuperer les Sources de VLC :
 	$>sudo svn co svn://svn.videolan.org/vlc/trunk /usr/src/vlc-trunk

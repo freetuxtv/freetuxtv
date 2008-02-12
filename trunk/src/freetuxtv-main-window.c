@@ -105,8 +105,23 @@ freetuxtv_main_window_new ()
 	/* Cadre du player */
 	main_window->player = FREETUXTV_PLAYER(freetuxtv_player_new ());
 	gtk_box_pack_start (GTK_BOX(hbox), GTK_WIDGET(main_window->player), TRUE, TRUE, 0);
+	
+	gtk_widget_show_all (GTK_WIDGET(main_window));
 
 	return GTK_WIDGET (main_window);
+}
+
+FreetuxTVMainWindow *
+freetuxtv_channel_get_main_window (GtkWidget *self)
+{
+	g_return_val_if_fail(self != NULL, NULL);
+	g_return_val_if_fail(GTK_IS_WIDGET(self), NULL);
+
+	if(FREETUXTV_IS_MAIN_WINDOW(self)){
+		return FREETUXTV_MAIN_WINDOW(self);
+	}else{
+		return freetuxtv_channel_get_main_window (gtk_widget_get_parent(self));
+	}
 }
 
 static void

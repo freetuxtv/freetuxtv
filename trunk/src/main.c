@@ -23,63 +23,95 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#include <gtk/gtk.h>
+#include <sys/stat.h>
 
+#include <gtk/gtk.h>
+#include <sqlite3.h>
+
+#include "freetuxtv-config.h"
 #include "freetuxtv-main-window.h"
+
+int
+init_app()
+{
+
+	struct sqlite3 *db;
+	int res;
+	char *err=0;
+	struct stat sb;
+
+	freetuxtv_config_init();
+
+	/* Verifie si le repertoire de configuration existe */
+	res = stat(FREETUXTV_USER_DIR, &sb);
+	if(res == -1){
+		/* Creation du repertoire de configuration */
+		res = mkdir(FREETUXTV_USER_DIR, S_IRWXU | S_IRGRP | S_IROTH);
+		if(res == -1){
+			perror("mkdir");
+			fprintf(stderr,
+				"FreetuxTV : Cannot create FreetuxTV user directory : %s\n",
+				FREETUXTV_USER_DIR);
+			return -1;
+		}else{
+			fprintf(stderr,
+				"FreetuxTV : User directory created : %s\n",
+				FREETUXTV_USER_DIR);
+		}
+	}else{
+		if(!S_ISDIR(sb.st_mode)){
+			fprintf(stderr,
+				"FreetuxTV : %s is not a directory\n",
+				FREETUXTV_USER_DIR);
+			return -1;
+		}
+	}
+	
+	/* Creation de la BDD si inexistante */
+	res = sqlite3_open(FREETUXTV_SQLITE_DB,&db);
+	if(res != SQLITE_OK){
+		fprintf(stderr,
+			"Sqlite3 : %s\n",
+			sqlite3_errmsg(db));
+		fprintf(stderr,
+			"FreetuxTV : Cannot open database %s\n",
+			FREETUXTV_SQLITE_DB);
+		sqlite3_close(db);
+		return -1;
+	}
+
+	/* Creation des tables de la base */
+	res=sqlite3_exec(db,
+			 "CREATE TABLE IF NOT EXISTS channel \
+                          (id_channel INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \
+                           name_channel VARCHAR(30) NOT NULL, \
+                           uri_channel VARCHAR(255) NOT NULL) ;"
+			 ,NULL,0,&err);
+	if(res != SQLITE_OK){
+		fprintf(stderr,
+			"Sqlite3 : %s\n",
+			sqlite3_errmsg(db));
+		fprintf(stderr,
+			"FreetuxTV : Cannot create table 'channel' %s\n",
+			FREETUXTV_SQLITE_DB);
+		sqlite3_free(err);
+	}
+
+	sqlite3_close(db);
+	return 0;
+}
 
 int main (int argc, char *argv[])
 {
+	
+	init_app();
+
 	gtk_init (&argc, &argv);
 	
 	FreetuxTVMainWindow *freetuxtv = NULL;
 	freetuxtv = FREETUXTV_MAIN_WINDOW(freetuxtv_main_window_new());
-	
-	gtk_widget_show_all (GTK_WIDGET(freetuxtv));
-	
-	FreetuxTVChannel *channel;
-	channel=freetuxtv_channel_new("France 2",
-				      "rtsp://mafreebox.freebox.fr/freeboxtv/stream?id=201");
-	freetuxtv_channel_set_logo (channel, "./img/France 2.jpg");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-
-
-	channel=freetuxtv_channel_new("France 3",
-				      "rtsp://mafreebox.freebox.fr/freeboxtv/stream?id=202");
-	freetuxtv_channel_set_logo (channel, "./img/France 3.jpg");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-
-	channel=freetuxtv_channel_new("Canal +",
-				      "rtsp://mafreebox.freebox.fr/freeboxtv/stream?id=203");
-	freetuxtv_channel_set_logo (channel, "./img/canal+.jpg");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-
-	channel=freetuxtv_channel_new("W9",
-				      "rtsp://mafreebox.freebox.fr/freeboxtv/stream?id=211");
-	freetuxtv_channel_set_logo (channel, "./img/W9.jpg");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-
-	channel=freetuxtv_channel_new("MCM Top (Web TV)",
-				      "mms://viplagardere.yacast.net/mcm_top");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channel_set_logo (channel, "./img/mcm top.jpg");
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
-
-	channel=freetuxtv_channel_new("T-Shirt Japonais",
-				      "file://./tshirt_japonais.mpg");
-	freetuxtv_channel_set_player (channel, freetuxtv->player);
-	freetuxtv_channel_set_logo (channel, "./img/Shangai Dragon TV.jpg");
-	freetuxtv_channels_list_add_channel (freetuxtv->channelslist, channel);
 
 	gtk_main ();
-
+	
 	return 0;
-
-	/*
-	freetuxtv_player_play(freetuxtv->player,"file://./tshirt_japonais.mpg");
-	/*freetuxtv_player_play(freetuxtv->player,"http://mafreebox.freebox.fr/freeboxtv/playlist.m3u");*/
-
 }
