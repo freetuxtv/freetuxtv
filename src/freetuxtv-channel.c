@@ -30,7 +30,7 @@
 G_DEFINE_TYPE (FreetuxTVChannel, freetuxtv_channel, GTK_TYPE_EVENT_BOX);
 
 static void
-freetuxtv_channel_onclicked (GtkWidget *widget, gpointer data);
+freetuxtv_channel_onclick (GtkWidget *widget, gpointer data);
 
 GtkWidget *
 freetuxtv_channel_new (gchar *name, gchar *uri)
@@ -44,7 +44,7 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 	/* Creation du widget */
 	g_signal_connect(G_OBJECT(channel),
 			 "button-press-event",
-			 G_CALLBACK(freetuxtv_channel_onclicked),
+			 G_CALLBACK(freetuxtv_channel_onclick),
 			 NULL);
 	
 	GdkColor color;
@@ -103,7 +103,7 @@ freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file)
 }
 
 static void
-freetuxtv_channel_onclicked (GtkWidget *widget, gpointer data)
+freetuxtv_channel_onclick (GtkWidget *widget, gpointer data)
 {
 	FreetuxTVChannel *self = FREETUXTV_CHANNEL(widget);
 	g_print ("FreetuxTV : launching channel \"%s\"\n", self->name);
