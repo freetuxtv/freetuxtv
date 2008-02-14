@@ -81,18 +81,13 @@ init_app()
 	}
 
 	/* Creation des tables de la base */
-	res=sqlite3_exec(db,
-			 "CREATE TABLE IF NOT EXISTS channel \
-                          (id_channel INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \
-                           name_channel VARCHAR(30) NOT NULL, \
-                           uri_channel VARCHAR(255) NOT NULL) ;"
-			 ,NULL,0,&err);
+	res=sqlite3_exec(db,FREETUXTV_SQL_CREATE_TABLES,NULL,0,&err);
 	if(res != SQLITE_OK){
 		fprintf(stderr,
-			"Sqlite3 : %s\n",
-			sqlite3_errmsg(db));
+			"Sqlite3 : %s\n%s\n",
+			sqlite3_errmsg(db),FREETUXTV_SQL_CREATE_TABLES);
 		fprintf(stderr,
-			"FreetuxTV : Cannot create table 'channel' %s\n",
+			"FreetuxTV : Cannot create tables in %s\n",
 			FREETUXTV_SQLITE_DB);
 		sqlite3_free(err);
 	}
