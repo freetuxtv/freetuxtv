@@ -34,6 +34,9 @@ G_DEFINE_TYPE (FreetuxTVChannelsGroup, freetuxtv_channels_group, GTK_TYPE_VBOX);
 static int 
 freetuxtv_channels_group_update_from_db_callback(void *data, int argc, char **argv, char **colsname);
 
+static void
+freetuxtv_channels_group_arrow_onclick (GtkWidget *widget, gpointer data);
+
 GtkWidget *
 freetuxtv_channels_group_new (gchar *id, gchar *name)
 {
@@ -45,22 +48,33 @@ freetuxtv_channels_group_new (gchar *id, gchar *name)
 	
 	channels_group->id = g_strdup(id);
 	channels_group->name = g_strdup(name);
-	
-	GtkWidget *eventbox = gtk_event_box_new ();
+
 	GdkColor color;
 	color.pixel = 0;
 	color.red   = 0xcf * 0x100;
         color.green = 0xe0 * 0x100;
         color.blue  = 0xf5 * 0x100;
+
+	GtkWidget *eventbox = gtk_event_box_new ();
 	gtk_widget_modify_bg(GTK_WIDGET(eventbox), GTK_STATE_NORMAL, &color);
 	gtk_box_pack_start (GTK_BOX(channels_group), eventbox, FALSE, FALSE, 0);
 
 	GtkWidget *hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_add (GTK_CONTAINER(eventbox), hbox);
 	
+	/* Fleche pour l'expand */
+	eventbox = gtk_event_box_new ();
+	gtk_widget_modify_bg(GTK_WIDGET(eventbox), GTK_STATE_NORMAL, &color);
+	g_signal_connect(G_OBJECT(eventbox),
+			 "button-press-event",
+			 G_CALLBACK(freetuxtv_channels_group_arrow_onclick),
+			 NULL);
+	gtk_box_pack_start (GTK_BOX(hbox), eventbox, FALSE, FALSE, 0);	
 	GtkWidget *arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_IN);
-	gtk_box_pack_start (GTK_BOX(hbox), arrow, FALSE, FALSE, 0);
-	
+	channels_group->arrow = arrow;
+	gtk_container_add (GTK_CONTAINER(eventbox), arrow);
+
+	/* Nom du groupe */
 	GtkWidget *label = gtk_label_new (channels_group->name);
 	gtk_misc_set_padding (GTK_MISC(label),3,3);
 	gtk_box_pack_start (GTK_BOX(hbox), label, FALSE, FALSE, 0);
@@ -82,6 +96,43 @@ freetuxtv_channels_group_add_channel (FreetuxTVChannelsGroup *self,
 	gtk_box_pack_start (GTK_BOX(self->channels_widget),
 			    GTK_WIDGET(channel),
 			    FALSE, FALSE, 0);
+}
+
+void
+freetuxtv_channels_group_change_collasped (FreetuxTVChannelsGroup *self)
+{
+	if(self->collapsed == 'N') {
+		freetuxtv_channels_group_set_collasped (self, 'Y');
+	}else{
+		freetuxtv_channels_group_set_collasped (self, 'N');	
+	}	
+}
+
+void
+freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
+					gchar mode)
+{
+	self->collapsed = mode;
+	if(self->collapsed == 'N') {
+		gtk_arrow_set (GTK_ARROW(self->arrow), GTK_ARROW_DOWN, GTK_SHADOW_NONE);
+		gtk_widget_show_all (GTK_WIDGET(self->channels_widget));
+	}else{
+		gtk_arrow_set (GTK_ARROW(self->arrow), GTK_ARROW_RIGHT, GTK_SHADOW_NONE);
+		gtk_widget_hide_all (GTK_WIDGET(self->channels_widget));	
+	}
+}
+
+FreetuxTVChannelsGroup *
+freetuxtv_channel_get_channels_group (GtkWidget *self)
+{
+	g_return_val_if_fail(self != NULL, NULL);
+	g_return_val_if_fail(GTK_IS_WIDGET(self), NULL);
+
+	if(FREETUXTV_IS_CHANNELS_GROUP(self)){
+		return FREETUXTV_CHANNELS_GROUP(self);
+	}else{
+		return freetuxtv_channel_get_channels_group (gtk_widget_get_parent(self));
+	}
 }
 
 int
@@ -120,6 +171,14 @@ freetuxtv_channels_group_update_from_db (FreetuxTVChannelsGroup *self)
 	return 0;
 }
 
+static void
+freetuxtv_channels_group_arrow_onclick (GtkWidget *widget, gpointer data)
+{
+	FreetuxTVChannelsGroup *self;
+	self = freetuxtv_channel_get_channels_group (GTK_WIDGET(widget));
+	freetuxtv_channels_group_change_collasped (self);
+}
+
 static int 
 freetuxtv_channels_group_update_from_db_callback(void *data, int argc, char **argv, char **colsname)
 {
@@ -139,6 +198,9 @@ freetuxtv_channels_group_init (FreetuxTVChannelsGroup *object)
 	object->id=0;
 	object->name="";
 	object->channels_widget = NULL;
+
+	object->collapsed = 'N';
+	object->arrow = NULL;
 }
 
 static void
