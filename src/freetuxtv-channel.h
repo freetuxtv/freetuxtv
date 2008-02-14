@@ -29,8 +29,6 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#include "freetuxtv-player.h"
-
 G_BEGIN_DECLS
 
 #define FREETUXTV_TYPE_CHANNEL            (freetuxtv_channel_get_type ())
@@ -45,7 +43,7 @@ typedef struct _FreetuxTVChannelClass FreetuxTVChannelClass;
 
 struct _FreetuxTVChannel
 {
-	GtkButton parent;
+	GtkEventBox parent;
 
 	char *name;
 	char *uri;
@@ -54,7 +52,7 @@ struct _FreetuxTVChannel
 
 struct _FreetuxTVChannelClass
 {
-	GtkButtonClass parent_class;
+	GtkEventBoxClass parent_class;
 };
 
 GType
