@@ -30,6 +30,7 @@
 #include <gtk/gtk.h>
 
 #include "freetuxtv-channels-list.h"
+#include "freetuxtv-player.h"
 
 G_BEGIN_DECLS
 

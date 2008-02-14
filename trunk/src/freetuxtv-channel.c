@@ -25,8 +25,9 @@
 
 #include "freetuxtv-channel.h"
 #include "freetuxtv-main-window.h"
+#include "freetuxtv-player.h"
 
-G_DEFINE_TYPE (FreetuxTVChannel, freetuxtv_channel, GTK_TYPE_BUTTON);
+G_DEFINE_TYPE (FreetuxTVChannel, freetuxtv_channel, GTK_TYPE_EVENT_BOX);
 
 static void
 freetuxtv_channel_onclicked (GtkWidget *widget, gpointer data);
@@ -42,10 +43,10 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 
 	/* Creation du widget */
 	g_signal_connect(G_OBJECT(channel),
-			 "clicked",
+			 "button-press-event",
 			 G_CALLBACK(freetuxtv_channel_onclicked),
 			 NULL);
-
+	
 	GdkColor color;
 	color.pixel = 0;
 	color.red   = 0xff * 0x100;
@@ -57,12 +58,38 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_container_add (GTK_CONTAINER(channel), hbox);
 	
+	/* Ajout du logo */
 	channel->logo = gtk_image_new ();
+	gtk_misc_set_padding (GTK_MISC(channel->logo),2,2);
 	gtk_box_pack_start (GTK_BOX(hbox), channel->logo, FALSE, FALSE, 0);
-	GtkWidget *label;
-	label = gtk_label_new (channel->name);
-	gtk_box_pack_start (GTK_BOX(hbox), label, TRUE, TRUE, 0);
 	
+	GtkWidget *vbox;
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
+
+	/* Ajout du nom du canal */
+	GtkWidget *label;
+	label = gtk_label_new (g_strconcat("<small>",channel->name,"</small>",NULL));
+	gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
+	gtk_misc_set_alignment (GTK_MISC(label),0,0.5);
+	gtk_box_pack_start (GTK_BOX(vbox), label, TRUE, TRUE, 0);
+	
+	
+	/* Barre de progression */
+	GtkWidget *progressbar;
+	progressbar = gtk_progress_bar_new ();
+	//gtk_progress_bar_set_text (GTK_PROGRESS_BAR(progressbar), "12:00 - 14:00");
+	gtk_progress_set_text_alignment (GTK_PROGRESS(progressbar), 0, 0.5);
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR(progressbar), 0.50);
+	gtk_box_pack_start (GTK_BOX(vbox), progressbar, FALSE, FALSE, 0);
+
+	/* Ajout du titre du programme */
+	label = gtk_label_new ("<small>Programme TV indisponible</small>");
+	gtk_label_set_use_markup (GTK_LABEL(label), TRUE);
+	gtk_misc_set_alignment (GTK_MISC(label),0,0.5);
+	gtk_label_set_ellipsize (GTK_LABEL(label), PANGO_ELLIPSIZE_END);
+	gtk_box_pack_start (GTK_BOX(vbox), label, TRUE, TRUE, 0);
+
 	gtk_widget_show_all (GTK_WIDGET(channel));
 
 	return GTK_WIDGET(channel);

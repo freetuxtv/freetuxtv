@@ -29,7 +29,7 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#include "freetuxtv-channel.h"
+#include "freetuxtv-channels-group.h"
 
 G_BEGIN_DECLS
 
@@ -45,14 +45,14 @@ typedef struct _FreetuxTVChannelsListClass FreetuxTVChannelsListClass;
 
 struct _FreetuxTVChannelsList
 {
-	GtkWindow parent;
+	GtkVBox parent;
 
-	GtkWidget *channels_widget;
+	GtkWidget *channelsgroups_widget;
 };
 
 struct _FreetuxTVChannelsListClass
 {
-	GtkWindowClass parent_class;
+	GtkVBoxClass parent_class;
 };
 
 GType
@@ -62,11 +62,11 @@ GtkWidget *
 freetuxtv_channels_list_new ();
 
 void
-freetuxtv_channels_list_add_channel (FreetuxTVChannelsList *self,
-				     FreetuxTVChannel *channel);
+freetuxtv_channels_list_add_channels_group (FreetuxTVChannelsList *self,
+				     FreetuxTVChannelsGroup *channels_group);
 
 int
-freetuxtv_channels_list_set_from_db (FreetuxTVChannelsList *self);
+freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self);
 
 G_END_DECLS
 
