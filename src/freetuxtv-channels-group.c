@@ -185,7 +185,7 @@ freetuxtv_channels_group_update_from_db_callback(void *data, int argc, char **ar
 	FreetuxTVChannelsGroup *self = (FreetuxTVChannelsGroup *) data;
 	FreetuxTVChannel *channel;
 	channel = freetuxtv_channel_new(argv[1], argv[3]);
-	freetuxtv_channel_set_logo (channel, g_strconcat("./img/channels/",
+	freetuxtv_channel_set_logo (channel, g_strconcat("./images/channels/",
 							 argv[2],NULL));
  
 	freetuxtv_channels_group_add_channel (self, channel);
