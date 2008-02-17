@@ -9,10 +9,11 @@ Cette page recense des liens et des informations pour développer certains compo
 
 == GTK2+ ==
 
+Page de la documentation officiel :
+ * http://library.gnome.org/devel/gtk/stable/
+
 Documentation pour la programmation objet en C avec Glib :
  * http://nicolasj.developpez.com/gobject/classe/
-Documentation de l'API GTK2+ :
- * http://library.gnome.org/devel/gtk/stable/
 Comment créer son propre widget GTK+ :
  * http://franckh.developpez.com/tutoriels/gtk/creation-widget/
 Voici des tutoriels très complet sur la création d'interface graphique en GTK2+ :
@@ -23,8 +24,9 @@ Sources d'un programme écrit en GTK2+ :
 
 == Bibliothèque VLC ==
 
-Documentation de la libvlc :
+Page de la documentation officiel :
  * http://www.videolan.org/developers/vlc/doc/doxygen/html/group__libvlc.html
+
 Exemple d'utilisation de la libvlc dans une interface en QT :
  * http://doc.qtfr.org/post/2007/02/21/Integration-de-VLC
 
@@ -34,6 +36,9 @@ La page suivante explique comment utiliser la bibliothèque "libxml2" pour pour 
  * http://julp.developpez.com/c/libxml2/
 
 == SQLite ==
+
+Page de la documentation officiel :
+ * http://www.sqlite.org/docs.html
 
 Exemple de connexion à une base de donnée SQLite :
  * http://www.cppfrance.com/codes/CONNEXION-BD-SQLITE_41706.aspx
