@@ -48,6 +48,7 @@ struct _FreetuxTVChannelsList
 	GtkVBox parent;
 
 	GtkWidget *channelsgroups_widget;
+	GtkWidget *filter_widget;
 };
 
 struct _FreetuxTVChannelsListClass
@@ -67,6 +68,9 @@ freetuxtv_channels_list_add_channels_group (FreetuxTVChannelsList *self,
 
 int
 freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self);
+
+FreetuxTVChannelsList *
+freetuxtv_channels_list_get_from_widget (GtkWidget *self);
 
 G_END_DECLS
 

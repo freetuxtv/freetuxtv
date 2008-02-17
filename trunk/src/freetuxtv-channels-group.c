@@ -122,8 +122,27 @@ freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
 	}
 }
 
+int
+freetuxtv_channels_group_apply_filter (FreetuxTVChannelsGroup *self, gchar *filter)
+{
+	int count = 0;
+	GList* tmp;
+	tmp = g_list_first (gtk_container_get_children (GTK_CONTAINER(self->channels_widget)));
+	gtk_widget_show_all (GTK_WIDGET(self));
+	while (tmp != NULL){
+		FreetuxTVChannel *channel;
+		channel = FREETUXTV_CHANNEL (tmp->data);
+		count += freetuxtv_channel_apply_filter (channel, filter);
+		tmp = g_list_next (tmp); 
+	}
+	if( count == 0 ){
+		gtk_widget_hide_all (GTK_WIDGET(self));
+	}
+	return count;
+}
+
 FreetuxTVChannelsGroup *
-freetuxtv_channel_get_channels_group (GtkWidget *self)
+freetuxtv_channels_group_get_from_widget (GtkWidget *self)
 {
 	g_return_val_if_fail(self != NULL, NULL);
 	g_return_val_if_fail(GTK_IS_WIDGET(self), NULL);
@@ -131,7 +150,7 @@ freetuxtv_channel_get_channels_group (GtkWidget *self)
 	if(FREETUXTV_IS_CHANNELS_GROUP(self)){
 		return FREETUXTV_CHANNELS_GROUP(self);
 	}else{
-		return freetuxtv_channel_get_channels_group (gtk_widget_get_parent(self));
+		return freetuxtv_channels_group_get_from_widget (gtk_widget_get_parent(self));
 	}
 }
 
@@ -175,7 +194,7 @@ static void
 freetuxtv_channels_group_arrow_onclick (GtkWidget *widget, gpointer data)
 {
 	FreetuxTVChannelsGroup *self;
-	self = freetuxtv_channel_get_channels_group (GTK_WIDGET(widget));
+	self = freetuxtv_channels_group_get_from_widget (GTK_WIDGET(widget));
 	freetuxtv_channels_group_change_collasped (self);
 }
 

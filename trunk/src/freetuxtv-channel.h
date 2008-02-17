@@ -67,6 +67,9 @@ freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file);
 void
 freetuxtv_channel_play (FreetuxTVChannel *self);
 
+int
+freetuxtv_channel_apply_filter (FreetuxTVChannel *self, gchar *filter);
+
 G_END_DECLS
 
 #endif /* FREETUXTV_CHANNEL_H */

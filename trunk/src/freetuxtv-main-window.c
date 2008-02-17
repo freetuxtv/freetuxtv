@@ -112,7 +112,7 @@ freetuxtv_main_window_new ()
 }
 
 FreetuxTVMainWindow *
-freetuxtv_channel_get_main_window (GtkWidget *self)
+freetuxtv_main_window_get_from_widget (GtkWidget *self)
 {
 	g_return_val_if_fail(self != NULL, NULL);
 	g_return_val_if_fail(GTK_IS_WIDGET(self), NULL);
@@ -120,7 +120,7 @@ freetuxtv_channel_get_main_window (GtkWidget *self)
 	if(FREETUXTV_IS_MAIN_WINDOW(self)){
 		return FREETUXTV_MAIN_WINDOW(self);
 	}else{
-		return freetuxtv_channel_get_main_window (gtk_widget_get_parent(self));
+		return freetuxtv_main_window_get_from_widget (gtk_widget_get_parent(self));
 	}
 }
 
