@@ -30,7 +30,13 @@
 G_DEFINE_TYPE (FreetuxTVChannel, freetuxtv_channel, GTK_TYPE_EVENT_BOX);
 
 static void
-freetuxtv_channel_onclick (GtkWidget *widget, gpointer data);
+freetuxtv_channel_event_button (GtkWidget *widget, GdkEventButton *event, gpointer func_data);
+
+static void
+freetuxtv_channel_event_motion (GtkWidget *widget, GdkEventMotion *event, gpointer func_data);
+
+static void
+freetuxtv_channel_modify_bg (FreetuxTVChannel *widget, gint red, gint green, gint blue);
 
 GtkWidget *
 freetuxtv_channel_new (gchar *name, gchar *uri)
@@ -41,18 +47,21 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 	channel->name = g_strdup(name);
 	channel->uri = g_strdup(uri);
 
-	/* Creation du widget */
+	/* Evenemment du widget */
 	g_signal_connect(G_OBJECT(channel),
 			 "button-press-event",
-			 G_CALLBACK(freetuxtv_channel_onclick),
+			 G_CALLBACK(freetuxtv_channel_event_button),
+			 NULL);
+	g_signal_connect(G_OBJECT(channel),
+			 "enter-notify-event",
+			 G_CALLBACK(freetuxtv_channel_event_motion),
+			 NULL);
+	g_signal_connect(G_OBJECT(channel),
+			 "leave-notify-event",
+			 G_CALLBACK(freetuxtv_channel_event_motion),
 			 NULL);
 	
-	GdkColor color;
-	color.pixel = 0;
-	color.red   = 0xff * 0x100;
-        color.green = 0xff * 0x100;
-        color.blue  = 0xff * 0x100;
-	gtk_widget_modify_bg(GTK_WIDGET(channel), GTK_STATE_NORMAL, &color);
+	freetuxtv_channel_modify_bg (channel, 0xff, 0xff, 0xff);
 
 	GtkWidget *hbox;
 	hbox = gtk_hbox_new(FALSE, 0);
@@ -69,13 +78,16 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 
 	/* Ajout du nom du canal */
 	GtkWidget *label;
-	label = gtk_label_new (g_strconcat("<small>",channel->name,"</small>",NULL));
+	label = gtk_label_new (g_strconcat("<small>",
+					   channel->name,
+					   "</small>",NULL));
 	gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
 	gtk_misc_set_alignment (GTK_MISC(label),0,0.5);
+	gtk_label_set_ellipsize (GTK_LABEL(label), PANGO_ELLIPSIZE_END);
 	gtk_box_pack_start (GTK_BOX(vbox), label, TRUE, TRUE, 0);
 	
 	
-	/* Barre de progression */
+	/* Barre de progression
 	GtkWidget *progressbar;
 	progressbar = gtk_progress_bar_new ();
 	//gtk_progress_bar_set_text (GTK_PROGRESS_BAR(progressbar), "12:00 - 14:00");
@@ -83,12 +95,12 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR(progressbar), 0.50);
 	gtk_box_pack_start (GTK_BOX(vbox), progressbar, FALSE, FALSE, 0);
 
-	/* Ajout du titre du programme */
+	/* Ajout du titre du programme
 	label = gtk_label_new ("<small>Programme TV indisponible</small>");
 	gtk_label_set_use_markup (GTK_LABEL(label), TRUE);
 	gtk_misc_set_alignment (GTK_MISC(label),0,0.5);
 	gtk_label_set_ellipsize (GTK_LABEL(label), PANGO_ELLIPSIZE_END);
-	gtk_box_pack_start (GTK_BOX(vbox), label, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX(vbox), label, TRUE, TRUE, 0);*/
 
 	gtk_widget_show_all (GTK_WIDGET(channel));
 
@@ -102,20 +114,64 @@ freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file)
 	gtk_widget_show(self->logo);
 }
 
-static void
-freetuxtv_channel_onclick (GtkWidget *widget, gpointer data)
-{
-	FreetuxTVChannel *self = FREETUXTV_CHANNEL(widget);
-	g_print ("FreetuxTV : launching channel \"%s\"\n", self->name);
-	freetuxtv_channel_play(self);
-}
-
 void
 freetuxtv_channel_play (FreetuxTVChannel *self)
 {
 	FreetuxTVMainWindow *main_window;
-	main_window = freetuxtv_channel_get_main_window(GTK_WIDGET(self));
+	main_window = freetuxtv_main_window_get_from_widget (GTK_WIDGET(self));
 	freetuxtv_player_play(main_window->player, self->uri);
+}
+
+int
+freetuxtv_channel_apply_filter (FreetuxTVChannel *self, gchar *filter)
+{
+	gchar *channel = g_utf8_strdown (self->name,-1);
+	gchar *search = g_strconcat("^.*",
+				    g_utf8_strdown (filter,-1),
+				    ".*$",NULL);
+
+	GRegex *regex;
+	regex = g_regex_new (search,0,0,NULL);
+	if (g_regex_match (regex, channel, 0, NULL)){
+		gtk_widget_show_all (GTK_WIDGET(self));
+		return 1;
+	}else{
+		gtk_widget_hide_all (GTK_WIDGET(self));
+		return 0;
+	}
+}
+
+static void
+freetuxtv_channel_event_button (GtkWidget *widget, GdkEventButton *event, gpointer func_data)
+{
+	FreetuxTVChannel *self = FREETUXTV_CHANNEL(widget);
+	if (event->type==GDK_2BUTTON_PRESS 
+	    || event->type==GDK_3BUTTON_PRESS) {
+		g_print ("FreetuxTV : launching channel \"%s\"\n",
+			 self->name);	
+		freetuxtv_channel_play(self);
+	}
+}
+
+static void
+freetuxtv_channel_event_motion (GtkWidget *widget, GdkEventMotion *event, gpointer func_data)
+{
+	if(event->type == GDK_ENTER_NOTIFY ){
+		freetuxtv_channel_modify_bg (FREETUXTV_CHANNEL(widget), 0xFA, 0xF8, 0xB9);
+	}
+	if(event->type == GDK_LEAVE_NOTIFY ){
+		freetuxtv_channel_modify_bg (FREETUXTV_CHANNEL(widget), 0xFF, 0xFF, 0xFF);	
+	}
+}
+
+static void
+freetuxtv_channel_modify_bg (FreetuxTVChannel *widget, gint red, gint green, gint blue){
+	GdkColor color;
+	color.pixel = 0;
+	color.red   = red * 0x100;
+        color.green = green * 0x100;
+        color.blue  = blue * 0x100;
+	gtk_widget_modify_bg(GTK_WIDGET(widget), GTK_STATE_NORMAL, &color);	
 }
 
 static void
