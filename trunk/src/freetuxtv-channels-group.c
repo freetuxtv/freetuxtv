@@ -26,6 +26,7 @@
 #include <sqlite3.h>
 
 #include "freetuxtv-channels-group.h"
+#include "freetuxtv-channels-list.h"
 #include "freetuxtv-config.h"
 #include "freetuxtv-channel.h"
 
@@ -115,7 +116,11 @@ freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
 	self->collapsed = mode;
 	if(self->collapsed == 'N') {
 		gtk_arrow_set (GTK_ARROW(self->arrow), GTK_ARROW_DOWN, GTK_SHADOW_NONE);
-		gtk_widget_show_all (GTK_WIDGET(self->channels_widget));
+		FreetuxTVChannelsList *channels_list;
+		channels_list = freetuxtv_channels_list_get_from_widget (GTK_WIDGET(self));
+		gchar *filter;
+		filter = (gchar *) gtk_entry_get_text ( GTK_ENTRY (channels_list->filter_widget));
+		freetuxtv_channels_group_apply_filter (self, filter);
 	}else{
 		gtk_arrow_set (GTK_ARROW(self->arrow), GTK_ARROW_RIGHT, GTK_SHADOW_NONE);
 		gtk_widget_hide_all (GTK_WIDGET(self->channels_widget));	

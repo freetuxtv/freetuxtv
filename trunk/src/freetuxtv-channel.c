@@ -134,9 +134,11 @@ freetuxtv_channel_apply_filter (FreetuxTVChannel *self, gchar *filter)
 	regex = g_regex_new (search,0,0,NULL);
 	if (g_regex_match (regex, channel, 0, NULL)){
 		gtk_widget_show_all (GTK_WIDGET(self));
+		g_regex_unref (regex);
 		return 1;
 	}else{
 		gtk_widget_hide_all (GTK_WIDGET(self));
+		g_regex_unref (regex);
 		return 0;
 	}
 }
