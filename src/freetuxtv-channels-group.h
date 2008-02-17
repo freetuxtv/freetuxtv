@@ -74,8 +74,8 @@ freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
 void
 freetuxtv_channels_group_change_collasped (FreetuxTVChannelsGroup *self);
 
-FreetuxTVChannelsGroup *
-freetuxtv_channel_get_channels_group (GtkWidget *self);
+int
+freetuxtv_channels_group_apply_filter (FreetuxTVChannelsGroup *self, gchar *filter);
 
 int
 freetuxtv_channels_group_update_from_db (FreetuxTVChannelsGroup *self);
@@ -83,6 +83,9 @@ freetuxtv_channels_group_update_from_db (FreetuxTVChannelsGroup *self);
 void
 freetuxtv_channels_group_add_channel (FreetuxTVChannelsGroup *self,
 				      FreetuxTVChannel *channel);
+
+FreetuxTVChannelsGroup *
+freetuxtv_channels_group_get_from_widget (GtkWidget *self);
 
 G_END_DECLS
 
