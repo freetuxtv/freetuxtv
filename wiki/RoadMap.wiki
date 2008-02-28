@@ -1,0 +1,34 @@
+#summary Feuille de route du projet FreetuxTV
+#labels Phase-Requirements
+
+= Introduction =
+
+Cette page indique l'ordre de réalisation des prochaines étapes qui concerne le développement de FreetuxTV.
+
+
+= Tâches en cours =
+
+ * Ajout et mis à jour des chaînes dans la base de données à partir d'une playlist M3U.
+ * Développement d'une mini librairie pour parser un fichier M3U.
+ * Création d'une table pour gérer les logos et les libellés de chaînes qui lui sont attaché.
+
+
+= Tâches en prévision =
+
+ * Interface utilisateur pour gérer la liste des logos et des libellés de celui-ci.
+ * Interface utilisateur pour gérer la liste des groupes de chaînes et de leurs chaînes.
+ * Gestion de l'enregistrement en direct d'une chaîne.
+ * Gestion de la programmation d'un enregistrement.
+ * Intégration du nom du programme en cours dans la liste des chaînes.
+ * Affichage des informations sur la chaîne en cours.
+ * Gestion d'un guide TV.
+ * Gestion du timeshifting.
+
+
+= Tâches effectuées =
+
+Effectué au 14/02/2008
+ * Répartition des chaînes par groupe.
+ * Liste des chaînes à partir de la base de donnée.
+ * Création de la fenêtre principale avec affichage de la liste des chaînes avec logos.
+ * Intégration de l'image dans une fenêtre GTK.
