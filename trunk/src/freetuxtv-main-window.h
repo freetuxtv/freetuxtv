@@ -31,6 +31,8 @@
 
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-player.h"
+#include "freetuxtv-statusbar.h"
+#include "freetuxtv-channel.h"
 
 G_BEGIN_DECLS
 
@@ -50,6 +52,9 @@ struct _FreetuxTVMainWindow
 
 	FreetuxTVPlayer *player;
 	FreetuxTVChannelsList *channelslist;
+	FreetuxTVStatusbar *statusbar;
+
+	FreetuxTVChannel *current_channel;
 };
 
 struct _FreetuxTVMainWindowClass
@@ -65,6 +70,9 @@ freetuxtv_main_window_new ();
 
 FreetuxTVMainWindow *
 freetuxtv_main_window_get_from_widget (GtkWidget *self);
+
+void freetuxtv_main_window_play_channel (FreetuxTVMainWindow *self, 
+					 FreetuxTVChannel *channel);
 
 G_END_DECLS
 

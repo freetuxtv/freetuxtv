@@ -87,8 +87,8 @@ freetuxtv_main_window_new ()
 	gtk_box_pack_start (GTK_BOX(hbox), notebook, FALSE, FALSE, 0);
 	gtk_notebook_set_tab_pos (GTK_NOTEBOOK(notebook), GTK_POS_LEFT);
 	
-	GtkWidget * tablabel;
-	GtkWidget * tabcontent;
+	GtkWidget *tablabel;
+	GtkWidget *tabcontent;
 
 	/* Onglet "Chaines" */
 	tablabel = gtk_label_new ("Chaines");
@@ -106,6 +106,10 @@ freetuxtv_main_window_new ()
 	main_window->player = FREETUXTV_PLAYER(freetuxtv_player_new ());
 	gtk_box_pack_start (GTK_BOX(hbox), GTK_WIDGET(main_window->player), TRUE, TRUE, 0);
 	
+	/* Barre de status */
+	main_window->statusbar = FREETUXTV_STATUSBAR(freetuxtv_statusbar_new ());
+	gtk_box_pack_end (GTK_BOX (vbox), GTK_WIDGET(main_window->statusbar), FALSE, FALSE, 0);
+
 	gtk_widget_show_all (GTK_WIDGET(main_window));
 
 	return GTK_WIDGET (main_window);
@@ -124,6 +128,14 @@ freetuxtv_main_window_get_from_widget (GtkWidget *self)
 	}
 }
 
+void freetuxtv_main_window_play_channel (FreetuxTVMainWindow *self, 
+					 FreetuxTVChannel *channel)
+{
+	self->current_channel=channel;
+	freetuxtv_statusbar_update_channel_info (self->statusbar, channel);
+	freetuxtv_player_play (self->player, channel->uri);
+}
+
 static void
 freetuxtv_main_window_ondestroy (GtkWidget *widget, gpointer *data)
 {
@@ -135,6 +147,8 @@ freetuxtv_main_window_init (FreetuxTVMainWindow *object)
 {
 	object->player = NULL;
 	object->channelslist = NULL;
+	object->statusbar = NULL;
+	object->current_channel = NULL;
 }
 
 static void
