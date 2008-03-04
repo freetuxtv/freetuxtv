@@ -26,6 +26,7 @@
 #include "freetuxtv-channel.h"
 #include "freetuxtv-main-window.h"
 #include "freetuxtv-player.h"
+#include "freetuxtv-config.h"
 
 G_DEFINE_TYPE (FreetuxTVChannel, freetuxtv_channel, GTK_TYPE_EVENT_BOX);
 
@@ -87,15 +88,15 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 	gtk_box_pack_start (GTK_BOX(vbox), label, TRUE, TRUE, 0);
 	
 	
-	/* Barre de progression
+	/* Barre de progression *//*
 	GtkWidget *progressbar;
 	progressbar = gtk_progress_bar_new ();
-	//gtk_progress_bar_set_text (GTK_PROGRESS_BAR(progressbar), "12:00 - 14:00");
+	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(progressbar), "12:00 - 14:00");
 	gtk_progress_set_text_alignment (GTK_PROGRESS(progressbar), 0, 0.5);
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR(progressbar), 0.50);
 	gtk_box_pack_start (GTK_BOX(vbox), progressbar, FALSE, FALSE, 0);
 
-	/* Ajout du titre du programme
+	/* Ajout du titre du programme 
 	label = gtk_label_new ("<small>Programme TV indisponible</small>");
 	gtk_label_set_use_markup (GTK_LABEL(label), TRUE);
 	gtk_misc_set_alignment (GTK_MISC(label),0,0.5);
@@ -110,7 +111,20 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 void
 freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file)
 {
-	gtk_image_set_from_file (GTK_IMAGE(self->logo), file);
+	gchar *imgfile;
+	//gchar *tmp = g_strconcat("./images/channels/", argv[2], NULL);
+	if(file == NULL){
+		imgfile = g_strconcat(FREETUXTV_USER_IMG_CHANNELS_DIR,"/_none.png",NULL);	
+		if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
+			imgfile = g_strconcat(FREETUXTV_IMG_CHANNELS_DIR,"/_none.png",NULL);	
+		}
+	}else{
+		imgfile = g_strconcat(FREETUXTV_USER_IMG_CHANNELS_DIR,"/",file,NULL);	
+		if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
+			imgfile = g_strconcat(FREETUXTV_IMG_CHANNELS_DIR,"/",file,NULL);	
+		}
+	}
+	gtk_image_set_from_file (GTK_IMAGE(self->logo), imgfile);
 	gtk_widget_show(self->logo);
 }
 
