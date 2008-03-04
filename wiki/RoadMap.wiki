@@ -11,6 +11,7 @@ Cette page indique l'ordre de réalisation des prochaines étapes qui concerne l
  * Ajout et mis à jour des chaînes dans la base de données à partir d'une playlist M3U.
  * Développement d'une mini librairie pour parser un fichier M3U.
  * Création d'une table pour gérer les logos et les libellés de chaînes qui lui sont attaché.
+ * Ajout d'une barre de statut pour afficher la chaîne en cours de lecture et d'autres informations.
 
 
 = Tâches en prévision =
