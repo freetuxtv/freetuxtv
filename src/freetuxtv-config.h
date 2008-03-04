@@ -28,23 +28,38 @@
 
 #include <glib.h>
 
+extern gchar *FREETUXTV_IMG_DIR;
+extern gchar *FREETUXTV_IMG_CHANNELS_DIR;
+
 extern gchar *FREETUXTV_USER_DIR;
-extern gchar *FREETUXTV_SQLITE_DB;
+extern gchar *FREETUXTV_USER_DB;
+extern gchar *FREETUXTV_USER_IMG_DIR;
+extern gchar *FREETUXTV_USER_IMG_CHANNELS_DIR;
 
 #define FREETUXTV_SQL_CREATE_TABLES "\
+        CREATE TABLE IF NOT EXISTS channel_logo ( \n\
+           id_channellogo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n\
+           filename_channellogo VARCHAR(20) \n\
+        ); \n\
+        CREATE TABLE IF NOT EXISTS label_channellogo ( \n\
+           id_labelchannellogo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n\
+           label_labelchannellogo VARCHAR(50) NOT NULL, \n\
+           idchannellogo_labelchannellogo INTEGER NOT NULL \n\
+             CONSTRAINT fk_idchannellogo_labelchannellogo REFERENCES channel_logo(id_channellogo) ON DELETE CASCADE \n\
+        ); \n\
         CREATE TABLE IF NOT EXISTS channels_group ( \n\
            id_channelsgroup INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,	\n\
-           name_channelsgroup VARCHAR(30) NOT NULL, \n\
-           logo_channelsgroup VARCHAR(20), \n\
+           name_channelsgroup VARCHAR(50) NOT NULL, \n\
            uri_channelsgroup VARCHAR(255) NOT NULL \n\
         ); \n\
         CREATE TABLE IF NOT EXISTS channel ( \n\
            id_channel INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \n\
-           name_channel VARCHAR(30) NOT NULL, \n\
-           logo_channel VARCHAR(20), \n\
+           name_channel VARCHAR(50) NOT NULL, \n\
+           idchannellogo_channel INTEGER NULL \n\
+             CONSTRAINT fk_idchannellogo_channel REFERENCES channel_logo(id_channellogo) ON DELETE SET NULL, \n\
            uri_channel VARCHAR(255) NOT NULL, \n\
-           channelsgroup_channel INTEGER NOT NULL, \n\
-           FOREING KEY channelsgroup_channel REFERENCES channels_group(id_channelsgroup) \n\
+           channelsgroup_channel INTEGER NOT NULL \n\
+             CONSTRAINT fk_channelsgroup_channel REFERENCES channels_group(id_channelsgroup) ON DELETE CASCADE \n\
         );"
 
 void

@@ -30,12 +30,22 @@
 
 #include "freetuxtv-config.h"
 
+gchar *FREETUXTV_IMG_DIR;
+gchar *FREETUXTV_IMG_CHANNELS_DIR;
+
 gchar *FREETUXTV_USER_DIR;
-gchar *FREETUXTV_SQLITE_DB;
+gchar *FREETUXTV_USER_DB;
+gchar *FREETUXTV_USER_IMG_DIR;
+gchar *FREETUXTV_USER_IMG_CHANNELS_DIR;
 
 void
 freetuxtv_config_init ()
 {
+	FREETUXTV_IMG_DIR = "./images";
+	FREETUXTV_IMG_CHANNELS_DIR = g_strconcat(FREETUXTV_IMG_DIR, "/channels", NULL);
+
 	FREETUXTV_USER_DIR = g_strconcat(getenv("HOME"), "/.freetuxtv", NULL);
-	FREETUXTV_SQLITE_DB = g_strconcat(FREETUXTV_USER_DIR, "/freetuxtv.db", NULL);
+	FREETUXTV_USER_DB = g_strconcat(FREETUXTV_USER_DIR, "/freetuxtv.db", NULL);
+	FREETUXTV_USER_IMG_DIR = g_strconcat(FREETUXTV_USER_DIR, "/images", NULL);
+	FREETUXTV_USER_IMG_CHANNELS_DIR = g_strconcat(FREETUXTV_USER_IMG_DIR, "/channels", NULL);
 }

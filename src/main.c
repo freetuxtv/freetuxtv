@@ -58,6 +58,32 @@ init_app()
 				"FreetuxTV : User directory created : %s\n",
 				FREETUXTV_USER_DIR);
 		}
+		/* Creation du repertoire d'images de l'utilisateur */
+		res = mkdir(FREETUXTV_USER_IMG_DIR, S_IRWXU | S_IRGRP | S_IROTH);
+		if(res == -1){
+			perror("mkdir");
+			fprintf(stderr,
+				"FreetuxTV : Cannot create FreetuxTV images user directory : %s\n",
+				FREETUXTV_USER_IMG_DIR);
+			return -1;
+		}else{
+			fprintf(stderr,
+				"FreetuxTV : Images user directory created : %s\n",
+				FREETUXTV_USER_IMG_DIR);
+		}
+		/* Creation du repertoire d'images des chaines de l'utilisateur */
+		res = mkdir(FREETUXTV_USER_IMG_CHANNELS_DIR, S_IRWXU | S_IRGRP | S_IROTH);
+		if(res == -1){
+			perror("mkdir");
+			fprintf(stderr,
+				"FreetuxTV : Cannot create FreetuxTV images channels user directory : %s\n",
+				FREETUXTV_USER_IMG_CHANNELS_DIR);
+			return -1;
+		}else{
+			fprintf(stderr,
+				"FreetuxTV : Images channels user directory created : %s\n",
+				FREETUXTV_USER_IMG_CHANNELS_DIR);
+		}
 	}else{
 		if(!S_ISDIR(sb.st_mode)){
 			fprintf(stderr,
@@ -68,14 +94,14 @@ init_app()
 	}
 	
 	/* Creation de la BDD si inexistante */
-	res = sqlite3_open(FREETUXTV_SQLITE_DB,&db);
+	res = sqlite3_open(FREETUXTV_USER_DB,&db);
 	if(res != SQLITE_OK){
 		fprintf(stderr,
 			"Sqlite3 : %s\n",
 			sqlite3_errmsg(db));
 		fprintf(stderr,
 			"FreetuxTV : Cannot open database %s\n",
-			FREETUXTV_SQLITE_DB);
+			FREETUXTV_USER_DB);
 		sqlite3_close(db);
 		return -1;
 	}
@@ -88,7 +114,7 @@ init_app()
 			sqlite3_errmsg(db),FREETUXTV_SQL_CREATE_TABLES);
 		fprintf(stderr,
 			"FreetuxTV : Cannot create tables in %s\n",
-			FREETUXTV_SQLITE_DB);
+			FREETUXTV_USER_DB);
 		sqlite3_free(err);
 	}
 
