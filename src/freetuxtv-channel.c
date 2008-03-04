@@ -133,7 +133,8 @@ freetuxtv_channel_play (FreetuxTVChannel *self)
 {
 	FreetuxTVMainWindow *main_window;
 	main_window = freetuxtv_main_window_get_from_widget (GTK_WIDGET(self));
-	freetuxtv_player_play(main_window->player, self->uri);
+	
+	freetuxtv_main_window_play_channel (main_window, self);
 }
 
 int
