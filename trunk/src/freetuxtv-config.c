@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
 /*
  * freetuxtv
  * Copyright (C) FreetuxTV Team's 2008
@@ -6,30 +6,16 @@
  * 
  * freetuxtv is free software.
  * 
- * You may redistribute it and/or modify it under the terms of the
- * GNU General Public License, as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option)
- * any later version.
- * 
- * freetuxtv is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with brasero.  If not, write to:
- * 	The Free Software Foundation, Inc.,
- * 	51 Franklin Street, Fifth Floor
- * 	Boston, MA  02110-1301, USA.
  */
 
 #include <stdlib.h>
 #include <string.h>
-
 #include <stdio.h>
 
 #include "freetuxtv-config.h"
 
+gchar *FREETUXTV_DIR;
+gchar *FREETUXTV_CONFIG_DIR;
 gchar *FREETUXTV_IMG_DIR;
 gchar *FREETUXTV_IMG_CHANNELS_DIR;
 
@@ -41,11 +27,25 @@ gchar *FREETUXTV_USER_IMG_CHANNELS_DIR;
 void
 freetuxtv_config_init ()
 {
-	FREETUXTV_IMG_DIR = "./images";
+	FREETUXTV_DIR = g_strconcat(".", NULL);
+	FREETUXTV_CONFIG_DIR = g_strconcat(FREETUXTV_DIR, "/config", NULL);
+	FREETUXTV_IMG_DIR = g_strconcat(FREETUXTV_DIR, "/images", NULL);
 	FREETUXTV_IMG_CHANNELS_DIR = g_strconcat(FREETUXTV_IMG_DIR, "/channels", NULL);
 
 	FREETUXTV_USER_DIR = g_strconcat(getenv("HOME"), "/.freetuxtv", NULL);
 	FREETUXTV_USER_DB = g_strconcat(FREETUXTV_USER_DIR, "/freetuxtv.db", NULL);
 	FREETUXTV_USER_IMG_DIR = g_strconcat(FREETUXTV_USER_DIR, "/images", NULL);
 	FREETUXTV_USER_IMG_CHANNELS_DIR = g_strconcat(FREETUXTV_USER_IMG_DIR, "/channels", NULL);
+}
+
+void
+freetuxtv_config_free ()
+{
+	g_free (FREETUXTV_IMG_DIR);
+	g_free (FREETUXTV_IMG_CHANNELS_DIR);
+
+	g_free (FREETUXTV_USER_DIR );
+	g_free (FREETUXTV_USER_DB);
+	g_free (FREETUXTV_USER_IMG_DIR);
+	g_free (FREETUXTV_USER_IMG_CHANNELS_DIR);
 }

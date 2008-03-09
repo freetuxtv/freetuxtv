@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
 /*
  * freetuxtv
  * Copyright (C) FreetuxTV Team's 2008
@@ -6,21 +6,6 @@
  * 
  * freetuxtv is free software.
  * 
- * You may redistribute it and/or modify it under the terms of the
- * GNU General Public License, as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option)
- * any later version.
- * 
- * freetuxtv is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with brasero.  If not, write to:
- * 	The Free Software Foundation, Inc.,
- * 	51 Franklin Street, Fifth Floor
- * 	Boston, MA  02110-1301, USA.
  */
 
 #include "freetuxtv-main-window.h"
@@ -40,15 +25,15 @@ freetuxtv_main_window_new ()
 	gtk_window_set_title (GTK_WINDOW(main_window), "FreetuxTV");
 	gtk_window_set_default_size (GTK_WINDOW(main_window), 1024, 600);
 	g_signal_connect(G_OBJECT(main_window),
-			 "destroy",
-			 G_CALLBACK(freetuxtv_main_window_ondestroy),
-			 NULL);
+					 "destroy",
+					 G_CALLBACK(freetuxtv_main_window_ondestroy),
+					 NULL);
 	
 	/* Separateur entre menu / panneau d'onglet et fenetre video */
 	GtkWidget *vbox;
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add (GTK_CONTAINER(main_window), vbox);
-
+	
 	/* Création de la barre de menu */
 	GtkWidget *menubar;
 	GtkWidget *menu;
@@ -90,8 +75,8 @@ freetuxtv_main_window_new ()
 	GtkWidget *tablabel;
 	GtkWidget *tabcontent;
 
-	/* Onglet "Chaines" */
-	tablabel = gtk_label_new ("Chaines");
+	/* Onglet "Chaînes" */
+	tablabel = gtk_label_new ("Chaînes");
 	gtk_label_set_angle (GTK_LABEL(tablabel), 90.00);
 	main_window->channelslist = FREETUXTV_CHANNELS_LIST(freetuxtv_channels_list_new());
 	gtk_notebook_append_page (GTK_NOTEBOOK(notebook), GTK_WIDGET(main_window->channelslist), tablabel);

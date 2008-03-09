@@ -11,7 +11,7 @@ SRC=./src
 # .o temporaires
 OBJ=./obj
 # ou placer l'executable ?
-BIN=./bin
+BIN=.
 
 
 #############################
