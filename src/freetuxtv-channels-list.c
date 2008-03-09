@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
 /*
  * freetuxtv
  * Copyright (C) FreetuxTV Team's 2008
@@ -6,21 +6,6 @@
  * 
  * freetuxtv is free software.
  * 
- * You may redistribute it and/or modify it under the terms of the
- * GNU General Public License, as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option)
- * any later version.
- * 
- * freetuxtv is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with brasero.  If not, write to:
- * 	The Free Software Foundation, Inc.,
- * 	51 Franklin Street, Fifth Floor
- * 	Boston, MA  02110-1301, USA.
  */
 
 #include <sqlite3.h>
@@ -33,16 +18,16 @@ G_DEFINE_TYPE (FreetuxTVChannelsList, freetuxtv_channels_list, GTK_TYPE_VBOX);
 
 static void
 freetuxtv_channels_list_event_button (GtkWidget *widget,
-				      GdkEventButton *event,
-				      gpointer func_data);
+									  GdkEventButton *event,
+									  gpointer func_data);
 
 static void
 freetuxtv_channels_list_event_entry_changed (GtkWidget *widget, 
-					     gpointer func_data);
+											 gpointer func_data);
 
 static int 
 freetuxtv_channels_list_db_exec_add_channels_group (void *data, int argc, 
-						    char **argv, char **colsname);
+													char **argv, char **colsname);
 
 GtkWidget *
 freetuxtv_channels_list_new ()
@@ -63,54 +48,55 @@ freetuxtv_channels_list_new ()
 	button = gtk_button_new_with_label ("X");
 	gtk_box_pack_start (GTK_BOX(hbox), button, FALSE, FALSE, 3);
 	g_signal_connect(G_OBJECT(button),
-			 "clicked",
-			 G_CALLBACK(freetuxtv_channels_list_event_button),
-			 NULL);
+					 "clicked",
+					 G_CALLBACK(freetuxtv_channels_list_event_button),
+					 NULL);
 	
 	channels_list->filter_widget = gtk_entry_new ();
 	g_signal_connect(G_OBJECT(channels_list->filter_widget),
-			 "changed",
-			 G_CALLBACK(freetuxtv_channels_list_event_entry_changed),
-			 NULL);
+					 "changed",
+					 G_CALLBACK(freetuxtv_channels_list_event_entry_changed),
+					 NULL);
 	gtk_box_pack_start (GTK_BOX(hbox), 
-			    channels_list->filter_widget, FALSE, FALSE, 3);
-
+						channels_list->filter_widget, FALSE, FALSE, 3);
+	
 	/* Widget contenant les groupes de chaines */
 	GtkWidget *scrollbar;
 	scrollbar = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollbar),
-				       GTK_POLICY_NEVER,
-				       GTK_POLICY_ALWAYS);
+								   GTK_POLICY_NEVER,
+								   GTK_POLICY_ALWAYS);
 	gtk_box_pack_start (GTK_BOX(channels_list), scrollbar, TRUE, TRUE, 0);
-
+	
 	GtkWidget *eventbox;
 	eventbox = gtk_event_box_new();
 	GdkColor color;
 	color.pixel = 0;
 	color.red   = 0xdf * 0x100;
-        color.green = 0xe0 * 0x100;
-        color.blue  = 0xe6 * 0x100;
+	color.green = 0xe0 * 0x100;
+	color.blue  = 0xe6 * 0x100;
 	gtk_widget_modify_bg(GTK_WIDGET(eventbox), GTK_STATE_NORMAL, &color);
-
+	
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollbar),
-					      eventbox);
-
+										  eventbox);
+	
 	channels_list->channelsgroups_widget = gtk_vbox_new(FALSE,0);
 	gtk_container_add (GTK_CONTAINER(eventbox), 
-			   channels_list->channelsgroups_widget );
+					   channels_list->channelsgroups_widget );
 	
 	freetuxtv_channels_list_update_from_db (channels_list);
-
+	
 	gtk_widget_show_all (GTK_WIDGET(channels_list));
-
+	
 	return GTK_WIDGET (channels_list);
 }
 
 void
 freetuxtv_channels_list_add_channels_group (FreetuxTVChannelsList *self,
-					    FreetuxTVChannelsGroup *channels_group)
+											FreetuxTVChannelsGroup *channels_group)
 {
-	gtk_box_pack_start (GTK_BOX(self->channelsgroups_widget), GTK_WIDGET(channels_group), FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(self->channelsgroups_widget), 
+						GTK_WIDGET(channels_group), FALSE, FALSE, 0);
 }
 
 int
@@ -119,14 +105,14 @@ freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self)
 	struct sqlite3 *db;
 	int res;
 	char *err=0;
-
+	
 	/* Ouverture de la BDD */
 	res = sqlite3_open(FREETUXTV_USER_DB,&db);
 	if(res != SQLITE_OK){
 		g_printerr("Sqlite3 : %s\n",
-			   sqlite3_errmsg(db));
+				   sqlite3_errmsg(db));
 		g_printerr("FreetuxTV : Cannot open database %s\n",
-			   FREETUXTV_USER_DB);
+				   FREETUXTV_USER_DB);
 		sqlite3_close(db);
 		return -1;
 	}
@@ -134,21 +120,21 @@ freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self)
 	/* Selection des channels */
 	gchar *query;
 	query = "SELECT id_channelsgroup, name_channelsgroup \
-                 FROM channels_group";
+             FROM channels_group";
 	res=sqlite3_exec(db,
-			 query,
-			 freetuxtv_channels_list_db_exec_add_channels_group,
-			 (void *)self, &err);
+					 query,
+					 freetuxtv_channels_list_db_exec_add_channels_group,
+					 (void *)self, &err);
 	if(res != SQLITE_OK){
 		g_printerr("Sqlite3 : %s\n",
-			   sqlite3_errmsg(db));
+				   sqlite3_errmsg(db));
 		g_printerr("FreetuxTV : Cannot read channels' group in %s\n",
-			   FREETUXTV_USER_DB);
+				   FREETUXTV_USER_DB);
 	}
-
+	
 	sqlite3_free(err);
 	sqlite3_close(db);
-
+	
 	return 0;
 }
 
