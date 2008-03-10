@@ -49,6 +49,12 @@ insert into channel_logo (filename_channellogo)
 			values ('aljazeera.png');
 insert into channel_logo (filename_channellogo)
 			values ('mcmtop.png');
+insert into channel_logo (filename_channellogo)
+			values ('france24.png');
+insert into channel_logo (filename_channellogo)
+			values ('itelevision.png');
+insert into channel_logo (filename_channellogo)
+			values ('libertytv.png');
 
 insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('FreeboxTV','http://mafreebox.freebox.fr/freeboxtv/playlist.m3u');
@@ -90,3 +96,10 @@ insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('Web TV','http://mafreebox.freebox.fr/freeboxtv/playlist.m3u');
 insert into channel (name_channel, idchannellogo_channel, uri_channel, channelsgroup_channel)
 			values ('MCM Top',13,'mms://viplagardere.yacast.net/mcm_top', 3);
+insert into channel (name_channel, idchannellogo_channel, uri_channel, channelsgroup_channel)
+			values ('France 24',14,'mms://live.france24.com/france24_fr.wsx', 3);
+insert into channel (name_channel, idchannellogo_channel, uri_channel, channelsgroup_channel)
+			values ('BFM TV',9,'mms://vipmms9.yacast.net/bfm_bfmtv', 3);
+insert into channel (name_channel, idchannellogo_channel, uri_channel, channelsgroup_channel)
+			values ('Liberty TV',16,'mms://193.252.152.88/livefr', 3);
+
