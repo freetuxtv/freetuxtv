@@ -21,10 +21,10 @@ freetuxtv_player_on_vlc_exception (FreetuxTVPlayer *self,
 GtkWidget *
 freetuxtv_player_new ()
 {
-	FreetuxTVPlayer * player = NULL;
-	player = gtk_type_new (freetuxtv_player_get_type ());
-	gtk_widget_show (GTK_WIDGET(player));
-	return GTK_WIDGET(player);
+	FreetuxTVPlayer *self = NULL;
+	self = gtk_type_new (freetuxtv_player_get_type ());
+	gtk_widget_show (GTK_WIDGET(self));
+	return GTK_WIDGET(self);
 	
 }
 

@@ -32,17 +32,17 @@ freetuxtv_channels_list_db_exec_add_channels_group (void *data, int argc,
 GtkWidget *
 freetuxtv_channels_list_new ()
 {
-	FreetuxTVChannelsList * channels_list = NULL;
-	channels_list = gtk_type_new (freetuxtv_channels_list_get_type ());
+	FreetuxTVChannelsList *self = NULL;
+	self = gtk_type_new (freetuxtv_channels_list_get_type ());
 
 	/* Creation du widget */
-	gtk_box_set_homogeneous(GTK_BOX(channels_list),FALSE);
-	gtk_box_set_spacing(GTK_BOX(channels_list),0);
+	gtk_box_set_homogeneous(GTK_BOX(self),FALSE);
+	gtk_box_set_spacing(GTK_BOX(self),0);
 
 	/* Création du champs de recherche */
 	GtkWidget *hbox;
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start (GTK_BOX(channels_list), hbox, FALSE, FALSE, 10);
+	gtk_box_pack_start (GTK_BOX(self), hbox, FALSE, FALSE, 10);
 	
 	GtkWidget *button;
 	button = gtk_button_new_with_label ("X");
@@ -52,13 +52,13 @@ freetuxtv_channels_list_new ()
 					 G_CALLBACK(freetuxtv_channels_list_event_button),
 					 NULL);
 	
-	channels_list->filter_widget = gtk_entry_new ();
-	g_signal_connect(G_OBJECT(channels_list->filter_widget),
+	self->filter_widget = gtk_entry_new ();
+	g_signal_connect(G_OBJECT(self->filter_widget),
 					 "changed",
 					 G_CALLBACK(freetuxtv_channels_list_event_entry_changed),
 					 NULL);
 	gtk_box_pack_start (GTK_BOX(hbox), 
-						channels_list->filter_widget, FALSE, FALSE, 3);
+						self->filter_widget, FALSE, FALSE, 3);
 	
 	/* Widget contenant les groupes de chaines */
 	GtkWidget *scrollbar;
@@ -66,7 +66,7 @@ freetuxtv_channels_list_new ()
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollbar),
 								   GTK_POLICY_NEVER,
 								   GTK_POLICY_ALWAYS);
-	gtk_box_pack_start (GTK_BOX(channels_list), scrollbar, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX(self), scrollbar, TRUE, TRUE, 0);
 	
 	GtkWidget *eventbox;
 	eventbox = gtk_event_box_new();
@@ -80,15 +80,15 @@ freetuxtv_channels_list_new ()
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollbar),
 										  eventbox);
 	
-	channels_list->channelsgroups_widget = gtk_vbox_new(FALSE,0);
+	self->channelsgroups_widget = gtk_vbox_new(FALSE,0);
 	gtk_container_add (GTK_CONTAINER(eventbox), 
-					   channels_list->channelsgroups_widget );
+					   self->channelsgroups_widget );
 	
-	freetuxtv_channels_list_update_from_db (channels_list);
+	freetuxtv_channels_list_update_from_db (self);
 	
-	gtk_widget_show_all (GTK_WIDGET(channels_list));
+	gtk_widget_show_all (GTK_WIDGET(self));
 	
-	return GTK_WIDGET (channels_list);
+	return GTK_WIDGET (self);
 }
 
 void
