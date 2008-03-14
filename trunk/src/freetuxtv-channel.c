@@ -30,36 +30,36 @@ freetuxtv_channel_modify_bg (FreetuxTVChannel *widget,
 GtkWidget *
 freetuxtv_channel_new (gchar *name, gchar *uri)
 {
-	FreetuxTVChannel * channel = NULL;
-	channel = gtk_type_new (freetuxtv_channel_get_type ());
+	FreetuxTVChannel *self = NULL;
+	self = gtk_type_new (freetuxtv_channel_get_type ());
 	
-	channel->name = g_strdup(name);
-	channel->uri = g_strdup(uri);
+	self->name = g_strdup(name);
+	self->uri = g_strdup(uri);
 	
 	/* Evenemment du widget */
-	g_signal_connect(G_OBJECT(channel),
+	g_signal_connect(G_OBJECT(self),
 					 "button-press-event",
 					 G_CALLBACK(freetuxtv_channel_event_button),
 					 NULL);
-	g_signal_connect(G_OBJECT(channel),
+	g_signal_connect(G_OBJECT(self),
 					 "enter-notify-event",
 					 G_CALLBACK(freetuxtv_channel_event_motion),
 					 NULL);
-	g_signal_connect(G_OBJECT(channel),
+	g_signal_connect(G_OBJECT(self),
 					 "leave-notify-event",
 					 G_CALLBACK(freetuxtv_channel_event_motion),
 					 NULL);
 	
-	freetuxtv_channel_modify_bg (channel, 0xff, 0xff, 0xff);
+	freetuxtv_channel_modify_bg (self, 0xff, 0xff, 0xff);
 	
 	GtkWidget *hbox;
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_container_add (GTK_CONTAINER(channel), hbox);
+	gtk_container_add (GTK_CONTAINER(self), hbox);
 	
 	/* Ajout du logo */
-	channel->logo = gtk_image_new ();
-	gtk_misc_set_padding (GTK_MISC(channel->logo),2,2);
-	gtk_box_pack_start (GTK_BOX(hbox), channel->logo, FALSE, FALSE, 0);
+	self->logo = gtk_image_new ();
+	gtk_misc_set_padding (GTK_MISC(self->logo),2,2);
+	gtk_box_pack_start (GTK_BOX(hbox), self->logo, FALSE, FALSE, 0);
 	
 	GtkWidget *vbox;
 	vbox = gtk_vbox_new(FALSE, 0);
@@ -68,7 +68,7 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 	/* Ajout du nom du canal */
 	GtkWidget *label;
 	label = gtk_label_new (g_strconcat("<small>",
-									   channel->name,
+									   self->name,
 									   "</small>",NULL));
 	gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
 	gtk_misc_set_alignment (GTK_MISC(label),0,0.5);
@@ -91,9 +91,9 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 	gtk_label_set_ellipsize (GTK_LABEL(label), PANGO_ELLIPSIZE_END);
 	gtk_box_pack_start (GTK_BOX(vbox), label, TRUE, TRUE, 0);*/
 
-	gtk_widget_show_all (GTK_WIDGET(channel));
+	gtk_widget_show_all (GTK_WIDGET(self));
 
-	return GTK_WIDGET(channel);
+	return GTK_WIDGET(self);
 }
 
 void

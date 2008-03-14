@@ -15,16 +15,16 @@ G_DEFINE_TYPE (FreetuxTVStatusbar, freetuxtv_statusbar, GTK_TYPE_STATUSBAR);
 GtkWidget *
 freetuxtv_statusbar_new ()
 {
-	FreetuxTVStatusbar *statusbar = NULL;
-	statusbar = gtk_type_new (freetuxtv_statusbar_get_type ());	
+	FreetuxTVStatusbar *self = NULL;
+	self = gtk_type_new (freetuxtv_statusbar_get_type ());	
 
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), TRUE);
-	gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, 
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (self), TRUE);
+	gtk_statusbar_push (GTK_STATUSBAR (self), 0, 
 						"Bienvenue dans FreetuxTV");
 	
-	gtk_widget_show_all (GTK_WIDGET(statusbar));
+	gtk_widget_show_all (GTK_WIDGET(self));
 
-	return GTK_WIDGET(statusbar);
+	return GTK_WIDGET(self);
 }
 
 void

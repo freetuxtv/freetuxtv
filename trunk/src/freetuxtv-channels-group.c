@@ -29,14 +29,14 @@ freetuxtv_channels_group_arrow_event_button (GtkWidget *widget,
 GtkWidget *
 freetuxtv_channels_group_new (gchar *id, gchar *name)
 {
-	FreetuxTVChannelsGroup *channels_group = NULL;
+	FreetuxTVChannelsGroup *self = NULL;
 	
-	channels_group = gtk_type_new (freetuxtv_channels_group_get_type ());
-	gtk_box_set_homogeneous(GTK_BOX(channels_group),FALSE);
-	gtk_box_set_spacing(GTK_BOX(channels_group),0);
+	self = gtk_type_new (freetuxtv_channels_group_get_type ());
+	gtk_box_set_homogeneous(GTK_BOX(self),FALSE);
+	gtk_box_set_spacing(GTK_BOX(self),0);
 	
-	channels_group->id = g_strdup(id);
-	channels_group->name = g_strdup(name);
+	self->id = g_strdup(id);
+	self->name = g_strdup(name);
 
 	GdkColor color;
 	color.pixel = 0;
@@ -46,7 +46,7 @@ freetuxtv_channels_group_new (gchar *id, gchar *name)
 
 	GtkWidget *eventbox = gtk_event_box_new ();
 	gtk_widget_modify_bg(GTK_WIDGET(eventbox), GTK_STATE_NORMAL, &color);
-	gtk_box_pack_start (GTK_BOX(channels_group), eventbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(self), eventbox, FALSE, FALSE, 0);
 
 	GtkWidget *hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_add (GTK_CONTAINER(eventbox), hbox);
@@ -60,23 +60,23 @@ freetuxtv_channels_group_new (gchar *id, gchar *name)
 					 NULL);
 	gtk_box_pack_start (GTK_BOX(hbox), eventbox, FALSE, FALSE, 0);	
 	GtkWidget *arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_IN);
-	channels_group->arrow = arrow;
+	self->arrow = arrow;
 	gtk_container_add (GTK_CONTAINER(eventbox), arrow);
 
 	/* Nom du groupe */
-	GtkWidget *label = gtk_label_new (channels_group->name);
+	GtkWidget *label = gtk_label_new (self->name);
 	gtk_misc_set_padding (GTK_MISC(label),3,3);
 	gtk_box_pack_start (GTK_BOX(hbox), label, FALSE, FALSE, 0);
 	
-	channels_group->channels_widget = gtk_vbox_new(FALSE, 1);
-	gtk_box_pack_start (GTK_BOX(channels_group), 
-						channels_group->channels_widget, FALSE, FALSE, 0);
+	self->channels_widget = gtk_vbox_new(FALSE, 1);
+	gtk_box_pack_start (GTK_BOX(self), 
+						self->channels_widget, FALSE, FALSE, 0);
 
-	freetuxtv_channels_group_update_from_db (channels_group);
+	freetuxtv_channels_group_update_from_db (self);
 	
-	gtk_widget_show_all (GTK_WIDGET(channels_group));
+	gtk_widget_show_all (GTK_WIDGET(self));
 	
-	return GTK_WIDGET(channels_group);
+	return GTK_WIDGET(self);
 }
 
 void
