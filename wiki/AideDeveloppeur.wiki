@@ -7,6 +7,11 @@ Cette page recense des liens et des informations pour développer certains compo
 
 = Détails =
 
+== Application Gnome ==
+
+Créer des applications pour gnome
+ * http://developer.gnome.org/doc/GGAD/ggad.html
+
 == GTK2+ ==
 
 Page de la documentation officiel :
