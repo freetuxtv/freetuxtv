@@ -8,6 +8,10 @@
  * 
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include "freetuxtv-main-window.h"
 
 #include "freetuxtv-channels-list-window.h"
