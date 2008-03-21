@@ -8,10 +8,13 @@
  * 
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include <sqlite3.h>
 
 #include "freetuxtv-channels-list.h"
-#include "freetuxtv-config.h"
 #include "freetuxtv-channels-group.h"
 
 G_DEFINE_TYPE (FreetuxTVChannelsList, freetuxtv_channels_list, GTK_TYPE_VBOX);
@@ -105,14 +108,18 @@ freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self)
 	struct sqlite3 *db;
 	int res;
 	char *err=0;
+
+	gchar *user_db;
+	user_db = g_strconcat(g_get_user_config_dir(), 
+						  "/FreetuxTV/freetuxtv.db", NULL);
 	
 	/* Ouverture de la BDD */
-	res = sqlite3_open(FREETUXTV_USER_DB,&db);
+	res = sqlite3_open(user_db,&db);
 	if(res != SQLITE_OK){
 		g_printerr("Sqlite3 : %s\n",
 				   sqlite3_errmsg(db));
 		g_printerr("FreetuxTV : Cannot open database %s\n",
-				   FREETUXTV_USER_DB);
+				   user_db);
 		sqlite3_close(db);
 		return -1;
 	}
@@ -129,11 +136,13 @@ freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self)
 		g_printerr("Sqlite3 : %s\n",
 				   sqlite3_errmsg(db));
 		g_printerr("FreetuxTV : Cannot read channels' group in %s\n",
-				   FREETUXTV_USER_DB);
+				   user_db);
 	}
 	
 	sqlite3_free(err);
 	sqlite3_close(db);
+
+	g_free(user_db);
 	
 	return 0;
 }

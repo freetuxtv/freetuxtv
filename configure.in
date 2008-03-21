@@ -9,6 +9,12 @@ VERSION=0.1
 
 AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
 
+if test "x${prefix}" = "xNONE"; then
+  AC_DEFINE_UNQUOTED(FREETUXTV_DIR, "${ac_default_prefix}/share/freetuxtv", [Location of FreetuxTV files])
+else
+  AC_DEFINE_UNQUOTED(FREETUXTV_DIR, "${prefix}/share/freetuxtv", [Location of FreetuxTV files])
+fi
+
 # Checks for programs.
 AC_PROG_CC
 AC_STDC_HEADERS
@@ -33,6 +39,7 @@ AC_CHECK_HEADERS(string.h stdlib.h)
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
+                 data/Makefile
                  images/Makefile
                  images/channels/Makefile])
 
