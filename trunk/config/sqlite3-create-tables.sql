@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS channel_logo (
    id_channellogo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+   label_channellogo VARCHAR(50) NOT NULL,
    filename_channellogo VARCHAR(20)
 );
 CREATE TABLE IF NOT EXISTS label_channellogo (
@@ -23,38 +24,38 @@ CREATE TABLE IF NOT EXISTS channel (
      CONSTRAINT fk_channelsgroup_channel REFERENCES channels_group(id_channelsgroup) ON DELETE CASCADE
 );
 
-insert into channel_logo (filename_channellogo)
-			values ('france2.png');
-insert into channel_logo (filename_channellogo)
-			values ('france3.png');
-insert into channel_logo (filename_channellogo)
-			values ('france4.png');
-insert into channel_logo (filename_channellogo)
-			values ('france5.png');
-insert into channel_logo (filename_channellogo)
-			values ('direct8.png');
-insert into channel_logo (filename_channellogo)
-			values ('nt1.png');
-insert into channel_logo (filename_channellogo)
-			values ('nrj12.png');
-insert into channel_logo (filename_channellogo)
-			values ('lcp.png');
-insert into channel_logo (filename_channellogo)
-			values ('bfmtv.png');
-insert into channel_logo (filename_channellogo)
-			values ('tv5.png');
-insert into channel_logo (filename_channellogo)
-			values ('franceo.png');
-insert into channel_logo (filename_channellogo)
-			values ('aljazeera.png');
-insert into channel_logo (filename_channellogo)
-			values ('mcmtop.png');
-insert into channel_logo (filename_channellogo)
-			values ('france24.png');
-insert into channel_logo (filename_channellogo)
-			values ('itelevision.png');
-insert into channel_logo (filename_channellogo)
-			values ('libertytv.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('France 2', 'france2.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('France 3', 'france3.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('France 4', 'france4.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('France 5', 'france5.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('Direct 8', 'direct8.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('NT1', 'nt1.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('NRJ 12', 'nrj12.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('La Chaîne Parlementaire', 'lcp.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('BFM TV', 'bfmtv.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('TV5', 'tv5.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('France Ô', 'franceo.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('Al Jazeera', 'aljazeera.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('MCM Top', 'mcmtop.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('France 24', 'france24.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('i>Télé', 'itelevision.png');
+insert into channel_logo (label_channellogo, filename_channellogo)
+			values ('Liberty TV', 'libertytv.png');
 
 insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('FreeboxTV','http://mafreebox.freebox.fr/freeboxtv/playlist.m3u');
