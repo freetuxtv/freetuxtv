@@ -8,10 +8,13 @@
  * 
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include <gtk/gtk.h>
 #include <sqlite3.h>
 
-#include "freetuxtv-config.h"
 #include "freetuxtv-main-window.h"
 
 int
@@ -22,68 +25,72 @@ init_app()
 	int res;
 	char *err=0;
 
-	freetuxtv_config_init();
+	gchar *user_img_channels_dir;
+	user_img_channels_dir = g_strconcat(g_get_user_config_dir(), 
+										"/FreetuxTV/images/channels", NULL);
+	gchar *user_db;
+	user_db = g_strconcat(g_get_user_config_dir(), 
+						  "/FreetuxTV/freetuxtv.db", NULL);
 
 	/* Verifie si le repertoire de configuration existe */
-	if (! g_file_test (FREETUXTV_USER_IMG_CHANNELS_DIR, 
+	if (! g_file_test (user_img_channels_dir, 
 					   G_FILE_TEST_EXISTS)){
-		res = g_mkdir_with_parents (FREETUXTV_USER_IMG_CHANNELS_DIR,
+		res = g_mkdir_with_parents (user_img_channels_dir,
 									0744);
 		if(res == 0){
 			g_printerr ("FreetuxTV : Directory created : %s\n",
-						FREETUXTV_USER_IMG_CHANNELS_DIR);	
+						user_img_channels_dir);	
 		}else{
 			g_printerr ("FreetuxTV : Cannot create directory : %s\n",
-						FREETUXTV_USER_IMG_CHANNELS_DIR);
+						user_img_channels_dir);
 		}
 	}
-	if (! g_file_test (FREETUXTV_USER_IMG_CHANNELS_DIR,
+	if (! g_file_test (user_img_channels_dir,
 					   G_FILE_TEST_IS_DIR)){
 		g_printerr ("FreetuxTV : Not a directory : %s\n",
-					FREETUXTV_USER_IMG_CHANNELS_DIR);
+					user_img_channels_dir);
 		return -1;
 	}
 	
 	/* Creation de la BDD si inexistante */
-	if (! g_file_test (FREETUXTV_USER_DB, G_FILE_TEST_IS_REGULAR)){
+	if (! g_file_test (user_db, G_FILE_TEST_IS_REGULAR)){
 		
-		res = sqlite3_open(FREETUXTV_USER_DB,&db);
+		res = sqlite3_open(user_db,&db);
 		if(res != SQLITE_OK){
 			g_printerr ("Sqlite3 : %s\n",
 						sqlite3_errmsg(db));
 			g_printerr ("FreetuxTV : Cannot open database %s\n",
-						FREETUXTV_USER_DB);
+						user_db);
 			sqlite3_close(db);
 			return -1;
 		}
 		
 		/* Lecture du fichier contenant les requetes de création de la base */
 		gchar* filename;
-		filename = g_strconcat(FREETUXTV_CONFIG_DIR,
-							   "/sqlite3-create-tables.sql",NULL);
+		filename = FREETUXTV_DIR "/sqlite3-create-tables.sql";
 		gchar* sql_query;
 		gsize filelen;
 		
 		if (g_file_get_contents (filename, &sql_query, &filelen, NULL)){
 			
-			res=sqlite3_exec(db,sql_query,NULL,0,&err);
+			res=sqlite3_exec(db, sql_query, NULL, 0, &err);
 			if(res != SQLITE_OK){
-				fprintf(stderr,
-					"Sqlite3 : %s\n%s\n",
-						sqlite3_errmsg(db),sql_query);
-				fprintf(stderr,
-						"FreetuxTV : Cannot create tables in %s\n",
-						FREETUXTV_USER_DB);
+				g_printerr("Sqlite3 : %s\n%s\n",
+						   sqlite3_errmsg(db), sql_query);
+				g_printerr("FreetuxTV : Cannot create tables in %s\n",
+						   user_db);
 				sqlite3_free(err);
 			}
 		}else{
-			fprintf(stderr,
-				"FreetuxTV : Cannot read file %s\n",
-				FREETUXTV_CONFIG_DIR);
+			g_printerr("FreetuxTV : Cannot read file %s\n", filename);
 		}
 		
 		sqlite3_close(db);	
 	}
+
+	g_free(user_img_channels_dir);
+	g_free(user_db);
+
 	return 0;
 }
 
@@ -98,8 +105,6 @@ int main (int argc, char *argv[])
 	freetuxtv = FREETUXTV_MAIN_WINDOW(freetuxtv_main_window_new());
 
 	gtk_main ();
-
-	freetuxtv_config_free ();
 	
 	return 0;
 }

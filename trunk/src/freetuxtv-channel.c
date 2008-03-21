@@ -8,10 +8,13 @@
  * 
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include "freetuxtv-channel.h"
 #include "freetuxtv-main-window.h"
 #include "freetuxtv-player.h"
-#include "freetuxtv-config.h"
 
 G_DEFINE_TYPE (FreetuxTVChannel, freetuxtv_channel, GTK_TYPE_EVENT_BOX);
 
@@ -100,21 +103,27 @@ void
 freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file)
 {
 	gchar *imgfile;
-	//gchar *tmp = g_strconcat("./images/channels/", argv[2], NULL);
+	gchar *user_img_channels_dir;
+	user_img_channels_dir = g_strconcat(g_get_user_data_dir(), 
+										"/.freetuxtv/images/channels", NULL);
 	if(file == NULL){
-		imgfile = g_strconcat(FREETUXTV_USER_IMG_CHANNELS_DIR,"/_none.png",NULL);	
+		imgfile = g_strconcat(user_img_channels_dir, "/_none.png", NULL);	
 		if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
-			imgfile = g_strconcat(FREETUXTV_IMG_CHANNELS_DIR,"/_none.png",NULL);	
+			imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/_none.png", NULL);	
 		}
 	}else{
-		imgfile = g_strconcat(FREETUXTV_USER_IMG_CHANNELS_DIR,"/",file,NULL);	
+		imgfile = g_strconcat(user_img_channels_dir,"/",file,NULL);	
 		if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
-			imgfile = g_strconcat(FREETUXTV_IMG_CHANNELS_DIR,"/",file,NULL);	
+			imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/", file, NULL);	
 		}
 	}
+
 	gtk_image_set_from_file (GTK_IMAGE(self->logo), imgfile);
 	gtk_widget_show(self->logo);
-}
+
+	g_free(user_img_channels_dir);
+	g_free(imgfile);
+}	
 
 void
 freetuxtv_channel_play (FreetuxTVChannel *self)
