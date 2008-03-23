@@ -17,6 +17,42 @@
 
 #include "freetuxtv-main-window.h"
 
+static void xml_start_cb(GMarkupParseContext *context,
+						 const gchar *element_name,
+						 const gchar **attribute_names,
+						 const gchar **attribute_values,
+						 gpointer data,
+						 GError **error)
+{
+	struct sqlite3 *db = (sqlite3*) data;
+	gchar* sql_query;
+	int res;
+	char *err=0;
+	
+	if(g_ascii_strncasecmp(element_name, "logo", 4) == 0){
+	
+		sql_query = g_strconcat("INSERT INTO channel_logo (label_channellogo, filename_channellogo) values ('", 
+					attribute_values[1], "', '", 
+					attribute_values[0], "');", NULL);
+		g_print("%s\n", sql_query);
+		res=sqlite3_exec(db, sql_query, NULL, 0, &err);
+		if(res != SQLITE_OK){
+			g_printerr("Sqlite3 : %s\n%s\n",
+					   sqlite3_errmsg(db), sql_query);
+			sqlite3_free(err);
+		}
+		g_free(sql_query);
+
+	}
+}
+
+static void xml_err_cb(GMarkupParseContext *context,
+					   GError *error,
+					   gpointer data)
+{
+	g_printerr("FreetuxTV : Error parsing XML -> %s\n", error->message);
+}
+
 int
 init_app()
 {
@@ -55,7 +91,7 @@ init_app()
 	/* Creation de la BDD si inexistante */
 	if (! g_file_test (user_db, G_FILE_TEST_IS_REGULAR)){
 		
-		res = sqlite3_open(user_db,&db);
+		res = sqlite3_open(user_db, &db);
 		if(res != SQLITE_OK){
 			g_printerr ("Sqlite3 : %s\n",
 						sqlite3_errmsg(db));
@@ -85,9 +121,24 @@ init_app()
 			g_printerr("FreetuxTV : Cannot read file %s\n", filename);
 		}
 		
-		sqlite3_close(db);	
-	}
+	
+		g_free(sql_query);
 
+		/* Ajout de la liste des logos dans la base de donnée */
+		static GMarkupParser parser = { xml_start_cb, NULL, NULL, 
+										NULL, xml_err_cb };
+		GMarkupParseContext *context;
+
+		context = g_markup_parse_context_new (&parser, 
+											  G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
+											  db, NULL);
+		gchar *xml_data;
+		g_file_get_contents (FREETUXTV_DIR "/channel_logos.xml", 
+							 &xml_data, &filelen, NULL);
+		g_markup_parse_context_parse (context, xml_data, -1, NULL);
+
+		sqlite3_close(db);
+	}
 	g_free(user_img_channels_dir);
 	g_free(user_db);
 
