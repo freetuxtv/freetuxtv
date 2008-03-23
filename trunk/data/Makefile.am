@@ -1,5 +1,5 @@
-SUBDIRS = images
+SUBDIRS = images menu
 
 freetuxtvdatadir   = $(datadir)/freetuxtv
-freetuxtvdata_DATA = sqlite3-create-tables.sql
+freetuxtvdata_DATA = sqlite3-create-tables.sql channel_logos.xml
 EXTRA_DIST   = $(freetuxtvdata_DATA)
