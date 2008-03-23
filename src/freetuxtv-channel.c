@@ -134,7 +134,7 @@ freetuxtv_channel_play (FreetuxTVChannel *self)
 	freetuxtv_main_window_play_channel (main_window, self);
 }
 
-int
+gint
 freetuxtv_channel_apply_filter (FreetuxTVChannel *self, gchar *filter)
 {
 	gchar *channel = g_utf8_strdown (self->name,-1);
@@ -162,8 +162,8 @@ freetuxtv_channel_event_button (GtkWidget *widget, GdkEventButton *event,
 	FreetuxTVChannel *self = FREETUXTV_CHANNEL(widget);
 	if (event->type==GDK_2BUTTON_PRESS 
 	    || event->type==GDK_3BUTTON_PRESS) {
-		g_print ("FreetuxTV : launching channel \"%s\"\n",
-				 self->name);	
+		g_print ("FreetuxTV : launching channel \"%s\" -> %s\n",
+				 self->name, self->uri);	
 		freetuxtv_channel_play(self);
 	}
 }

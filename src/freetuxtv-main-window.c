@@ -45,6 +45,17 @@ freetuxtv_main_window_new ()
 	gtk_window_set_title (GTK_WINDOW(self), "FreetuxTV");
 	gtk_window_set_default_size (GTK_WINDOW(self), 1024, 600);
 	gtk_window_set_position (GTK_WINDOW(self), GTK_WIN_POS_CENTER);
+	gtk_window_maximize (GTK_WINDOW(self));
+
+	GError **error;
+	GdkPixbuf *icon;
+	icon = gdk_pixbuf_new_from_file (FREETUXTV_DIR "/images/freetuxtv.ico", 
+									 &error);
+
+	gtk_window_set_icon (GTK_WINDOW(self), icon);
+
+
+
 	g_signal_connect(G_OBJECT(self),
 					 "destroy",
 					 G_CALLBACK(freetuxtv_main_window_ondestroy),

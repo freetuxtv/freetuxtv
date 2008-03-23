@@ -30,8 +30,8 @@ struct _FreetuxTVChannel
 {
 	GtkEventBox parent;
 
-	char *name;
-	char *uri;
+	gchar *name;
+	gchar *uri;
 	GtkWidget *logo;
 };
 
@@ -52,7 +52,7 @@ freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file);
 void
 freetuxtv_channel_play (FreetuxTVChannel *self);
 
-int
+gint
 freetuxtv_channel_apply_filter (FreetuxTVChannel *self, gchar *filter);
 
 G_END_DECLS
