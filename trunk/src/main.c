@@ -148,6 +148,11 @@ init_app()
 int main (int argc, char *argv[])
 {
 
+    // AJOUT JULIEN
+	printf("Debut \n");
+	int retour = freetuxtv_m3uparser_parse("playlist.m3u",NULL,NULL);
+	printf("Fin retour : %s\n",freetuxtv_m3uparser_errmsg(retour));
+
 	gtk_init (&argc, &argv);
 
 	init_app();
