@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Lecteur de chaînes de télévision FreetuxTV
+GenericName=Lecteur de chaînes de télévision
+Comment=Visionnez les chaînes de télévision sur internet
+Categories=GNOME;AudioVideo;
+Encoding=UTF-8
+Exec=freetuxtv
+Icon=freetuxtv
+Terminal=false
+Type=Application
