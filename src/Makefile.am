@@ -17,6 +17,8 @@ freetuxtv_SOURCES = \
   freetuxtv-player.h \
   freetuxtv-statusbar.c \
   freetuxtv-statusbar.h \
+  lib-m3uparser.c \
+  lib-m3uparser.h \
   main.c
 
 freetuxtv_LDADD = $(DEPS_LIBS)

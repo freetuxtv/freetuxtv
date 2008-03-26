@@ -23,7 +23,7 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#include "freetuxtv-m3uparser.h"
+#include "lib-m3uparser.h"
 
 /* Parse le fichier */
 int freetuxtv_m3uparser_parse(char* file,void* callback,void* data){

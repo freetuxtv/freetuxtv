@@ -16,6 +16,7 @@
 #include <sqlite3.h>
 
 #include "freetuxtv-main-window.h"
+#include "lib-m3uparser.h"
 
 static void xml_start_cb(GMarkupParseContext *context,
 						 const gchar *element_name,
