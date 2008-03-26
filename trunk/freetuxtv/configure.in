@@ -1,0 +1,50 @@
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.61)
+AC_INIT(src/main.c)
+AM_CONFIG_HEADER(config.h)
+
+PACKAGE=freetuxtv
+VERSION=0.1
+
+AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
+
+if test "x${prefix}" = "xNONE"; then
+  AC_DEFINE_UNQUOTED(FREETUXTV_DIR, "${ac_default_prefix}/share/freetuxtv", [Location of FreetuxTV files])
+else
+  AC_DEFINE_UNQUOTED(FREETUXTV_DIR, "${prefix}/share/freetuxtv", [Location of FreetuxTV files])
+fi
+
+# Checks for programs.
+AC_PROG_CC
+AC_STDC_HEADERS
+AC_PROG_INSTALL
+
+# Checks for libraries.
+PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.2 glib-2.0 >= 2.2)
+
+AC_CHECK_LIB(vlc, libvlc_new)
+AC_CHECK_LIB(sqlite3, sqlite3_open)
+
+AC_SUBST(DEPS_CFLAGS)
+AC_SUBST(DEPS_LIBS)
+
+# Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(string.h stdlib.h)
+
+# Checks for typedefs, structures, and compiler characteristics.
+
+# Checks for library functions.
+
+AC_CONFIG_FILES([Makefile
+                 src/Makefile
+                 data/Makefile
+                 data/menu/Makefile
+                 data/images/Makefile
+                 data/images/channels/Makefile])
+
+AC_OUTPUT
+
+
+
