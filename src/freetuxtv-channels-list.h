@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
 /*
  * freetuxtv
  * Copyright (C) FreetuxTV Team's 2008
@@ -49,7 +49,7 @@ freetuxtv_channels_list_new ();
 
 void
 freetuxtv_channels_list_add_channels_group (FreetuxTVChannelsList *self,
-											FreetuxTVChannelsGroup *channels_group);
+					    FreetuxTVChannelsGroup *channels_group);
 
 int
 freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self);
