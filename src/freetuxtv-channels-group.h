@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
 /*
  * freetuxtv
  * Copyright (C) FreetuxTV Team's 2008
@@ -54,21 +54,21 @@ freetuxtv_channels_group_new (gchar *id, gchar *name);
 
 void
 freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
-										gchar mode);
+					gchar mode);
 
 void
 freetuxtv_channels_group_change_collasped (FreetuxTVChannelsGroup *self);
 
 int
 freetuxtv_channels_group_apply_filter (FreetuxTVChannelsGroup *self, 
-									   gchar *filter);
+				       gchar *filter);
 
 int
 freetuxtv_channels_group_update_from_db (FreetuxTVChannelsGroup *self);
 
 void
 freetuxtv_channels_group_add_channel (FreetuxTVChannelsGroup *self,
-									  FreetuxTVChannel *channel);
+				      FreetuxTVChannel *channel);
 
 FreetuxTVChannelsGroup *
 freetuxtv_channels_group_get_from_widget (GtkWidget *self);
