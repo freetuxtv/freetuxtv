@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
 /*
  * freetuxtv
  * Copyright (C) FreetuxTV Team's 2008
@@ -29,14 +29,15 @@ typedef struct _FreetuxTVPlayerClass FreetuxTVPlayerClass;
 
 struct _FreetuxTVPlayer
 {
-	GtkDrawingArea parent;
+	GtkVBox parent;
 
+	GtkWidget *player;
 	libvlc_instance_t *vlcinstance;
 };
 
 struct _FreetuxTVPlayerClass
 {
-	GtkDrawingAreaClass parent_class;
+	GtkVBoxClass parent_class;
 };
 
 GType

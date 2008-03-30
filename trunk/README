@@ -10,17 +10,15 @@ Requirements:
 - sqlite3 (>= 3.4.2)
 - vlc (>= 0.8.6)
 
-Installation :
-Installation des paquets necessaires pour compiler :
+Installation:
+Installation des paquets necessaires pour compiler:
+Ubuntu Gusty & Hardy
 	$>sudo apt-get install vlc libvlc0-dev libhal-dev libgtk2.0-dev subversion libsqlite3-0 libsqlite3-dev autoconf automake
 Recuperer les sources de FreetuxTV
 	$>svn checkout http://freetuxtv.googlecode.com/svn/trunk/ freetuxtv-read-only
 	$>cd freetuxtv-read-only
 Compilation
-	$>aclocal
-	$>autoheader
-	$>autoconf
-	$>automake -a -c
+	$>aclocal && autoheader && autoconf && automake -a -c
 	$>./configure --prefix=/usr
 	$>make
 	$>sudo make install

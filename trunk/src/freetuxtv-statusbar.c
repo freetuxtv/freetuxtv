@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
 /*
  * freetuxtv
  * Copyright (C) FreetuxTV Team's 2008
@@ -20,7 +20,7 @@ freetuxtv_statusbar_new ()
 
 	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (self), TRUE);
 	gtk_statusbar_push (GTK_STATUSBAR (self), 0, 
-						"Bienvenue dans FreetuxTV");
+			    "Bienvenue dans FreetuxTV");
 	
 	gtk_widget_show_all (GTK_WIDGET(self));
 

@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
 /*
  * freetuxtv
  * Copyright (C) FreetuxTV Team's 2008
@@ -20,7 +20,7 @@
 G_DEFINE_TYPE (FreetuxTVMainWindow, freetuxtv_main_window, GTK_TYPE_WINDOW);
 
 static void
-freetuxtv_main_window_ondestroy (GtkWidget *widget, gpointer *data);
+on_mainwindow_destroy (GtkWidget *widget, gpointer *data);
 
 typedef struct _MenuBarAction
 {
@@ -33,7 +33,7 @@ typedef struct _MenuBarAction
 } MenuBarAction;
 
 static void
-freetuxtv_main_window_menubar_onactivate (GtkWidget *widget, gpointer *data);
+on_menubar_activate (GtkWidget *widget, gpointer *data);
 
 GtkWidget *
 freetuxtv_main_window_new ()
@@ -47,19 +47,15 @@ freetuxtv_main_window_new ()
 	gtk_window_set_position (GTK_WINDOW(self), GTK_WIN_POS_CENTER);
 	gtk_window_maximize (GTK_WINDOW(self));
 
-	GError **error;
+	GError *error;
 	GdkPixbuf *icon;
 	icon = gdk_pixbuf_new_from_file (FREETUXTV_DIR "/images/freetuxtv.ico", 
-									 &error);
+					 &error);
 
 	gtk_window_set_icon (GTK_WINDOW(self), icon);
 
-
-
-	g_signal_connect(G_OBJECT(self),
-					 "destroy",
-					 G_CALLBACK(freetuxtv_main_window_ondestroy),
-					 NULL);
+	g_signal_connect(G_OBJECT(self), "destroy",
+			 G_CALLBACK(on_mainwindow_destroy), NULL);
 	
 	/* Separateur entre menu / panneau d'onglet et fenetre video */
 	GtkWidget *vbox;
@@ -83,8 +79,7 @@ freetuxtv_main_window_new ()
 	menubaraction->window = self;
 	menubaraction->action = FREETUXTV_EXIT;
 	g_signal_connect (G_OBJECT (menuitem), "activate",
-					  G_CALLBACK(freetuxtv_main_window_menubar_onactivate),
-					  menubaraction);
+			  G_CALLBACK(on_menubar_activate), menubaraction);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 	
 	menuitem = gtk_menu_item_new_with_label ("Fichier");
@@ -99,8 +94,7 @@ freetuxtv_main_window_new ()
 	menubaraction->window = self;
 	menubaraction->action = FREETUXTV_SHOW_CHANNELS_LIST;
 	g_signal_connect (G_OBJECT (menuitem), "activate",
-					  G_CALLBACK(freetuxtv_main_window_menubar_onactivate),
-					  menubaraction);
+			  G_CALLBACK(on_menubar_activate), menubaraction);
 	gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
 
 	menuitem = gtk_menu_item_new_with_label ("Liste des logos");
@@ -108,8 +102,7 @@ freetuxtv_main_window_new ()
 	menubaraction->window = self;
 	menubaraction->action = FREETUXTV_SHOW_LOGOS_LIST;
 	g_signal_connect (G_OBJECT (menuitem), "activate",
-					  G_CALLBACK(freetuxtv_main_window_menubar_onactivate),
-					  menubaraction);
+			  G_CALLBACK(on_menubar_activate), menubaraction);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 
 	menuitem = gtk_menu_item_new_with_label("Options");
@@ -144,7 +137,8 @@ freetuxtv_main_window_new ()
 	tablabel = gtk_label_new ("Chaînes");
 	gtk_label_set_angle (GTK_LABEL(tablabel), 90.00);
 	self->channelslist = FREETUXTV_CHANNELS_LIST(freetuxtv_channels_list_new());
-	gtk_notebook_append_page (GTK_NOTEBOOK(notebook), GTK_WIDGET(self->channelslist), tablabel);
+	gtk_notebook_append_page (GTK_NOTEBOOK(notebook), 
+				  GTK_WIDGET(self->channelslist), tablabel);
 	
 	/* Onglet "En cours" */
 	tablabel = gtk_label_new ("En cours");
@@ -154,11 +148,13 @@ freetuxtv_main_window_new ()
 	
 	/* Cadre du player */
 	self->player = FREETUXTV_PLAYER(freetuxtv_player_new ());
-	gtk_box_pack_start (GTK_BOX(hbox), GTK_WIDGET(self->player), TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX(hbox), GTK_WIDGET(self->player), 
+			    TRUE, TRUE, 0);
 	
 	/* Barre de status */
 	self->statusbar = FREETUXTV_STATUSBAR(freetuxtv_statusbar_new ());
-	gtk_box_pack_end (GTK_BOX (vbox), GTK_WIDGET(self->statusbar), FALSE, FALSE, 0);
+	gtk_box_pack_end (GTK_BOX (vbox), GTK_WIDGET(self->statusbar), 
+			  FALSE, FALSE, 3);
 
 	gtk_widget_show_all (GTK_WIDGET(self));
 
@@ -187,13 +183,13 @@ void freetuxtv_main_window_play_channel (FreetuxTVMainWindow *self,
 }
 
 static void
-freetuxtv_main_window_ondestroy (GtkWidget *widget, gpointer *data)
+on_mainwindow_destroy (GtkWidget *widget, gpointer *data)
 {
 	gtk_main_quit();
 }
 
 static void
-freetuxtv_main_window_menubar_onactivate (GtkWidget *widget, gpointer *data)
+on_menubar_activate (GtkWidget *widget, gpointer *data)
 {
 	GtkWidget *window;
 	MenuBarAction *action = (MenuBarAction*)data;
@@ -206,18 +202,18 @@ freetuxtv_main_window_menubar_onactivate (GtkWidget *widget, gpointer *data)
 		window = freetuxtv_channels_list_window_new();
 		gtk_window_set_modal (GTK_WINDOW(window),TRUE);
 		gtk_window_set_transient_for (GTK_WINDOW(window),
-									  GTK_WINDOW(action->window));
+					      GTK_WINDOW(action->window));
 		gtk_window_set_position (GTK_WINDOW(window),
-								 GTK_WIN_POS_CENTER_ON_PARENT);
+					 GTK_WIN_POS_CENTER_ON_PARENT);
 		gtk_widget_show (window);
 		break;
 	case FREETUXTV_SHOW_LOGOS_LIST:
 		window = freetuxtv_logos_list_window_new();
 		gtk_window_set_modal (GTK_WINDOW(window),TRUE);
 		gtk_window_set_transient_for (GTK_WINDOW(window),
-									  GTK_WINDOW(action->window));
+					      GTK_WINDOW(action->window));
 		gtk_window_set_position (GTK_WINDOW(window),
-								 GTK_WIN_POS_CENTER_ON_PARENT);
+					 GTK_WIN_POS_CENTER_ON_PARENT);
 		gtk_widget_show (window);
 		break;
 	}
