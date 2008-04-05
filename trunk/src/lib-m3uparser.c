@@ -6,121 +6,191 @@
  * 
  * freetuxtv is free software.
  * 
- * You may redistribute it and/or modify it under the terms of the
- * GNU General Public License, as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option)
- * any later version.
- * 
- * freetuxtv is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with brasero.  If not, write to:
- * 	The Free Software Foundation, Inc.,
- * 	51 Franklin Street, Fifth Floor
- * 	Boston, MA  02110-1301, USA.
  */
+
+#include <stdlib.h>
+#include <string.h>
 
 #include "lib-m3uparser.h"
 
-/* Parse le fichier */
-int freetuxtv_m3uparser_parse(char* file,void* callback,void* data){
+int
+libm3uparser_parse(char *file, 
+		   int (*callback)(char *_url, int _argc, 
+				   char **_argv, void *_user_data), 
+		   void *user_data)
+{
+	int argc = 0;
+	char **argv = NULL;
 
-	int retour = OK;
-	int compteur=0;
-
-	// ouverture du fichier
-	FILE* fp = fopen (file, "r");
+	FILE* fp = NULL;
   	char* line = NULL;
   	size_t len = 0;
   	ssize_t read;
 
+	int i;
+	int err_callback = 0;
+	
+	if(callback == NULL){
+		return LIBM3UPARSER_INVALID_CALLBACK;
+	}
+
+	/* Ouverture du fichier */
+	fp = fopen (file, "r");
+	
+	/* Fichier inexistant */
 	if (fp == NULL){
-		// fichier inexistant
-		return FILE_NOT_FOUND;
+		fclose(fp);
+		return LIBM3UPARSER_FILE_NOT_FOUND;
 	}
-	while ((read = getline(&line, &len, fp)) != -1) {
-    		retour = freetuxtv_m3uparser_parse_line(line,callback,data);
-    		if (retour != OK)
-      			break;
-		compteur++;
-  	}
-	printf("Nombre d'enregistrements : %d \n",compteur);
-	fclose(fp);
-	return retour;
-
-}
-/* Parse une ligne */
-int freetuxtv_m3uparser_parse_line(char* buffer,void* callback,void *data){
-	char* c = buffer;
-	char* c2,*c3;
-	char* artiste,*nom,*nomChaine;
-	char* optionVlc;
 	
-	const char *extm3u="#EXTM3U";
-	const char *extinf="#EXTINF";
-	const char *extvlcopt="#EXTVLCOPT";
-
-	// si la ligne commence par un # 
-	if(*c=='#'){
-		// on passe les #
-		for(c = buffer; *c!='#';c++){
-			// passage sur #
-			printf("mange#");		
-		}
-		if(!strncmp(c,extm3u,strlen(extm3u))){
-			// on passe 
-			printf("Fichier M3U \n");
-		}
-		if(!strncmp(c,extinf,strlen(extinf))){
-			// lecture des infos EXTINF
-			printf("Infos : %s",c);
-			// + decoupage nom artiste 
-			// decoupage artiste apres #EXTINF:
-			c = strchr(buffer,':');
-			artiste = c + 1;
-			// jusqu'à ','
-			c2 = strchr(buffer,',');
-			*c2 = '\0';
-			// nom
-			nom = c2 + 1;
-			// sous decoupage special free
-			c3 = strchr(nom,'-');
-			nomChaine = c3 + 1 ;
-			printf("Artiste : %s Nom : %s NomChaine : %s",artiste,nom,nomChaine);
+	/* Traitement de chaque ligne */
+	while ((read = getline(&line, &len, fp)) != -1 && err_callback >= 0) {
+		if(read != 0){
+			int endline;
+			endline = strcspn (line, "\n\r");
+			char *textline;
+			textline = (char *) malloc ( (endline + 1) * sizeof(char));
+			strncpy (textline, line, (endline + 1));
+			textline[endline] = '\0';
 			
+			if(textline[0] == '#'){
+				if(strcmp(textline, "#EXTM3U") != 0){
+					argc++;
+					if(argc == 1){
+						argv = (char **) malloc (sizeof(char *));
+					}else{
+						argv = (char **) realloc (argv, argc * sizeof(char *));
+					}
+					argv[argc - 1] = malloc ((endline + 1) * sizeof(char));
+					strcpy(argv[argc - 1], textline);
+					argv[argc - 1][endline] = '\0';
+					
+				}
+			}else{
+				/* Envoi des options et de l'url au callback */
+				if(textline[0]!='\n'){
+					err_callback = callback(textline, 
+								argc, argv, 
+								user_data);
+					for(i=0; i<argc; i++){
+						free(argv[i]);
+					}
+					free(argv);
+					argc = 0;
+					argv = NULL;
+				}
+			}
+			free (textline);
+			textline = NULL;
 		}
-		if(!strncmp(c,extvlcopt,strlen(extvlcopt))){
-			// lecture des options VLC
-			c = strchr(buffer,':');
-			c++;
-			optionVlc = c;
-			printf("Options VLC : %s",c);
-
-		}
-		
-	}else{	
-		// ici on a que l'url
-		printf("%s",buffer);
+		free (line);
+		line = NULL;
+		len = 0;
 	}
 	
-	return OK;
+	free (line);
+	line = NULL;
+	
+	for(i=0; i<argc; i++){
+		free(argv[i]);
+	}
+	free(argv);
+	argc = 0;
+	argv = NULL;
+
+	fclose(fp);
+	
+	if(err_callback < 0){
+		return LIBM3UPARSER_CALLBACK_RETURN_ERROR;	
+	}
+
+	return LIBM3UPARSER_OK;
 }
 
-char* freetuxtv_m3uparser_errmsg(int err){
+int
+libm3uparser_get_extinfo (char argc, char **argv,
+			  char **time, char **artist, char **title){
+	int i;
+	for(i=0; i<argc; i++){
 
-	char retour[128];
-	sprintf(retour,"%s%d","Erreur numéro : ",err);
+		char *begin;
+		char *end;
+		char *optname;
+		char *tmp;
+		
+		int cars;
+		
+		if(time != NULL)
+			*time = NULL;
+		if(artist != NULL)
+			*artist = NULL;
+		if(title != NULL)
+			*title = NULL;
+		
+		/* Recupere le nom de l'option */
+		begin = argv[i];
+		end = strchr(argv[i], ':');
+		cars = end - begin;
+		optname = (char *) malloc ((cars + 1) * sizeof(char));
+		strncpy(optname, begin, cars);
+		optname[cars] = '\0';
+		
+		/* Si l'option est EXTINF on recupere le titre */
+       		if(strcmp(optname, "#EXTINF") == 0){
+			if(time != NULL){
+				begin = strchr(argv[i], ':') + 1;
+				end = strchr(argv[i], ',');
+				cars = end - begin;
+				tmp = (char *) malloc ((cars + 1) * sizeof(char));
+				strncpy(tmp, begin, cars);
+				tmp[cars] = '\0';
+				*time = tmp;
+			}
+			if(artist != NULL){
+				begin = strchr(argv[i], ',') + 1;
+				end = strchr(argv[i], '-') - 1;
+				cars = end - begin;
+				tmp = (char *) malloc ((cars + 1) * sizeof(char));
+				strncpy(tmp, begin, cars);
+				tmp[cars] = '\0';
+				*artist = tmp;
+			} 
+			if(title != NULL){
+				begin = strchr(argv[i], '-');
+				if (!begin){
+					begin = strchr(argv[i], ',') + 1;
+				}else{
+					begin = begin + 2;
+				}
+				end = begin + strlen(begin);
+				cars = end - begin;
+				tmp = (char *) malloc ((cars + 1) * sizeof(char));
+				strncpy(tmp, begin, cars);
+				tmp[cars] = '\0';
+				*title = tmp;
+			}   
+			free (optname);
+			return LIBM3UPARSER_OK;
+		}
+		free (optname);
+	}
+	return LIBM3UPARSER_EXTINFO_NOT_FOUND;
+}
 
+const char*
+libm3uparser_errmsg(int err){
 	switch(err){
-		case 0 : return "OK\n";
-		case -1 : return "Fichier non trouvé\n";
-		case -2 : return "Erreur de structure\n";
-		default: return retour;
+	case LIBM3UPARSER_OK :
+		return "OK";
+	case LIBM3UPARSER_INVALID_CALLBACK :
+		return "invalid callback function";
+	case LIBM3UPARSER_FILE_NOT_FOUND :
+		return "file not found";
+	case LIBM3UPARSER_EXTINFO_NOT_FOUND :
+		return "M3U EXTINFO option not found in the list";
+	case LIBM3UPARSER_CALLBACK_RETURN_ERROR :
+		return "the callback function has returned an error";
+	default:
+		return "bad error number";
 	}
 }
-
-
-

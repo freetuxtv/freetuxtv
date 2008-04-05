@@ -25,6 +25,8 @@ PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.2 glib-2.0 >= 2.2)
 
 AC_CHECK_LIB(vlc, libvlc_new)
 AC_CHECK_LIB(sqlite3, sqlite3_open)
+AC_CHECK_LIB(curl, curl_easy_init)
+
 
 AC_SUBST(DEPS_CFLAGS)
 AC_SUBST(DEPS_LIBS)

@@ -152,7 +152,12 @@ freetuxtv_main_window_new ()
 			    TRUE, TRUE, 0);
 	
 	/* Barre de status */
-	self->statusbar = FREETUXTV_STATUSBAR(freetuxtv_statusbar_new ());
+	self->statusbar = GTK_STATUSBAR(gtk_statusbar_new ());
+	gtk_statusbar_set_has_resize_grip (self->statusbar, TRUE);
+	gtk_statusbar_push (self->statusbar, 
+			    gtk_statusbar_get_context_id(self->statusbar, 
+							 "HelloMsg"),
+			    "Bienvenue dans FreetuxTV");
 	gtk_box_pack_end (GTK_BOX (vbox), GTK_WIDGET(self->statusbar), 
 			  FALSE, FALSE, 3);
 
@@ -178,7 +183,18 @@ void freetuxtv_main_window_play_channel (FreetuxTVMainWindow *self,
 					 FreetuxTVChannel *channel)
 {
 	self->current_channel=channel;
-	freetuxtv_statusbar_update_channel_info (self->statusbar, channel);
+	
+	gchar *text;
+	gtk_statusbar_pop (self->statusbar,
+			   gtk_statusbar_get_context_id(self->statusbar, 
+							"PlayChannelMsg"));
+	text = g_strconcat ("En cours de lecture : ", channel->name, NULL);
+	gtk_statusbar_push (self->statusbar,
+			    gtk_statusbar_get_context_id(self->statusbar, 
+							 "PlayChannelMsg"), 
+			    text);
+	g_free(text);
+
 	freetuxtv_player_play (self->player, channel->uri);
 }
 
