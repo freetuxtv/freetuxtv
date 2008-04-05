@@ -12,11 +12,11 @@
 #  include <config.h>
 #endif
 
+#include <stdlib.h> 
 #include <gtk/gtk.h>
 #include <sqlite3.h>
 
 #include "freetuxtv-main-window.h"
-#include "lib-m3uparser.h"
 
 static void xml_start_cb(GMarkupParseContext *context,
 			 const gchar *element_name,
@@ -35,7 +35,6 @@ static void xml_start_cb(GMarkupParseContext *context,
 		sql_query = g_strconcat("INSERT INTO channel_logo (label_channellogo, filename_channellogo) values ('", 
 					attribute_values[1], "', '", 
 					attribute_values[0], "');", NULL);
-		g_print("%s\n", sql_query);
 		res=sqlite3_exec(db, sql_query, NULL, 0, &err);
 		if(res != SQLITE_OK){
 			g_printerr("Sqlite3 : %s\n%s\n",
@@ -62,6 +61,10 @@ init_app()
 	int res;
 	char *err=0;
 	
+	gchar *user_cache_dir;
+	user_cache_dir = g_strconcat(g_get_user_config_dir(), 
+				     "/FreetuxTV/cache", NULL);
+
 	gchar *user_img_channels_dir;
 	user_img_channels_dir = g_strconcat(g_get_user_config_dir(), 
 					    "/FreetuxTV/images/channels", NULL);
@@ -69,7 +72,28 @@ init_app()
 	user_db = g_strconcat(g_get_user_config_dir(), 
 			      "/FreetuxTV/freetuxtv.db", NULL);
 	
-	/* Verifie si le repertoire de configuration existe */
+	/* Verifie si le repertoire des images utilisateur existe */
+	if (! g_file_test (user_cache_dir, 
+			   G_FILE_TEST_EXISTS)){
+		res = g_mkdir_with_parents (user_cache_dir,
+					    0744);
+		if(res == 0){
+			g_printerr ("FreetuxTV : Directory created : %s\n",
+				    user_cache_dir);	
+		}else{
+			g_printerr ("FreetuxTV : Cannot create directory : %s\n",
+				    user_cache_dir);
+			return -1;
+		}
+	}
+	if (! g_file_test (user_cache_dir,
+			   G_FILE_TEST_IS_DIR)){
+		g_printerr ("FreetuxTV : Not a directory : %s\n",
+			    user_cache_dir);
+		return -1;
+	}
+
+	/* Verifie si le repertoire des images utilisateur existe */
 	if (! g_file_test (user_img_channels_dir, 
 			   G_FILE_TEST_EXISTS)){
 		res = g_mkdir_with_parents (user_img_channels_dir,
@@ -80,6 +104,7 @@ init_app()
 		}else{
 			g_printerr ("FreetuxTV : Cannot create directory : %s\n",
 				    user_img_channels_dir);
+			return -1;
 		}
 	}
 	if (! g_file_test (user_img_channels_dir,
@@ -135,11 +160,13 @@ init_app()
 						      db, NULL);
 		gchar *xml_data;
 		g_file_get_contents (FREETUXTV_DIR "/channel_logos.xml", 
-							 &xml_data, &filelen, NULL);
+				     &xml_data, &filelen, NULL);
 		g_markup_parse_context_parse (context, xml_data, -1, NULL);
 		
 		sqlite3_close(db);
 	}
+
+	g_free(user_cache_dir);
 	g_free(user_img_channels_dir);
 	g_free(user_db);
 
@@ -148,12 +175,6 @@ init_app()
 
 int main (int argc, char *argv[])
 {
-	/*
-	// AJOUT JULIEN
-	printf("Debut \n");
-	int retour = freetuxtv_m3uparser_parse("playlist.m3u",NULL,NULL);
-	printf("Fin retour : %s\n",freetuxtv_m3uparser_errmsg(retour));
-	*/
 	gtk_init (&argc, &argv);
 	
 	init_app();

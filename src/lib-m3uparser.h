@@ -6,52 +6,32 @@
  * 
  * freetuxtv is free software.
  * 
- * You may redistribute it and/or modify it under the terms of the
- * GNU General Public License, as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option)
- * any later version.
- * 
- * freetuxtv is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with brasero.  If not, write to:
- * 	The Free Software Foundation, Inc.,
- * 	51 Franklin Street, Fifth Floor
- * 	Boston, MA  02110-1301, USA.
  */
 
-#ifndef FREETUXTV_M3UPARSER_H
-#define FREETUXTV_M3UPARSER_H
+#ifndef LIB_M3UPARSER_H
+#define LIB_M3UPARSER_H
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 
-enum erreur {FILE_NOT_FOUND=-1,OK=0};
+enum libm3uparser_error {
+	LIBM3UPARSER_OK = 0,
+	LIBM3UPARSER_INVALID_CALLBACK = -1,
+	LIBM3UPARSER_FILE_NOT_FOUND = -2,
+	LIBM3UPARSER_EXTINFO_NOT_FOUND = -3,
+	LIBM3UPARSER_CALLBACK_RETURN_ERROR = -4
+};
 
-/* 
- * Parse un fichier *.m3u
- */
-int freetuxtv_m3uparser_parse(char* file,void* callback,void* data);
+int 
+libm3uparser_parse(char *file,
+		   int (*callback)(char *url, int argc, 
+				    char **argv, void *user_data), 
+		   void *user_data);
 
-/* 
- * Parse une ligne
- */
-int freetuxtv_m3uparser_parse_line(char* buffer,void* callback,void* data);
+int
+libm3uparser_get_extinfo (char argc, char **argv, 
+			  char **time, char **artist, char **title);
 
+const char *
+libm3uparser_errmsg(int err);
 
-/* 
- * Gestion erreur affiche le message en fonction du code d'erreur passé
- */
-char* freetuxtv_m3uparser_errmsg(int err);
-
-/* 
- * Fonction appeler pour chaque enregistrement trouvé
- */
-void callback(void* data,char* url,int argc,char** argv);
-
-#endif /* FREETUXTV_M3UPARSER_H */
+#endif /* LIB_M3UPARSER_H */

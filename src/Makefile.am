@@ -15,8 +15,6 @@ freetuxtv_SOURCES = \
   freetuxtv-main-window.h \
   freetuxtv-player.c \
   freetuxtv-player.h \
-  freetuxtv-statusbar.c \
-  freetuxtv-statusbar.h \
   lib-m3uparser.c \
   lib-m3uparser.h \
   main.c

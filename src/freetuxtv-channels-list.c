@@ -123,7 +123,8 @@ freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self)
 	
 	/* Selection des channels */
 	gchar *query;
-	query = "SELECT id_channelsgroup, name_channelsgroup \
+	query = "SELECT id_channelsgroup, name_channelsgroup, \
+                 uri_channelsgroup			      \
                  FROM channels_group";
 	res=sqlite3_exec(db, query, on_exec_add_channels_group,
 			 (void *)self, &err);
@@ -192,7 +193,7 @@ on_exec_add_channels_group (void *data, int argc, char **argv, char **colsname)
 {
 	FreetuxTVChannelsList *self = (FreetuxTVChannelsList *) data;
 	FreetuxTVChannelsGroup *channels_group;
-	channels_group=FREETUXTV_CHANNELS_GROUP (freetuxtv_channels_group_new (argv[0], argv[1]));
+	channels_group=FREETUXTV_CHANNELS_GROUP (freetuxtv_channels_group_new (argv[0], argv[1], argv[2]));
 	freetuxtv_channels_list_add_channels_group (self, channels_group);
 	return 0;
 }
