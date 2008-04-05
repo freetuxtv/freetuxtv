@@ -34,6 +34,7 @@ struct _FreetuxTVChannelsGroup
 
 	gchar *id;
 	gchar *name;
+	gchar *uri;
 	GtkWidget *channels_widget;
 
 	gchar collapsed;
@@ -50,7 +51,7 @@ GType
 freetuxtv_channels_group_get_type (void);
 
 GtkWidget *
-freetuxtv_channels_group_new (gchar *id, gchar *name);
+freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri);
 
 void
 freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
@@ -64,7 +65,10 @@ freetuxtv_channels_group_apply_filter (FreetuxTVChannelsGroup *self,
 				       gchar *filter);
 
 int
-freetuxtv_channels_group_update_from_db (FreetuxTVChannelsGroup *self);
+freetuxtv_channels_group_reload_channels (FreetuxTVChannelsGroup *self);
+
+int
+freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self);
 
 void
 freetuxtv_channels_group_add_channel (FreetuxTVChannelsGroup *self,

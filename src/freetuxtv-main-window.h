@@ -16,7 +16,6 @@
 
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-player.h"
-#include "freetuxtv-statusbar.h"
 #include "freetuxtv-channel.h"
 
 G_BEGIN_DECLS
@@ -37,7 +36,7 @@ struct _FreetuxTVMainWindow
 
 	FreetuxTVPlayer *player;
 	FreetuxTVChannelsList *channelslist;
-	FreetuxTVStatusbar *statusbar;
+	GtkStatusbar *statusbar;
 
 	FreetuxTVChannel *current_channel;
 };
