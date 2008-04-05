@@ -23,6 +23,10 @@ Compilation
 	$>./configure --prefix=/usr
 	$>make
 	$>sudo make install
+Supprimer le répertoire de configuration (au moins la base de donnée)
+	$> rm -rf ~/.config/FreetuxTV
+Regarder la TV (marche aussi depuis le menu de Gnome)
+	$> freetuxtv
 
 
 
