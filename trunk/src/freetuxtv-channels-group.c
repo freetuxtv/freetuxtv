@@ -415,9 +415,19 @@ on_parsem3u_add_channel (char *url, int argc,
 	char *err=0;
 	
 	gchar *name;
-	res = libm3uparser_get_extinfo (argc, argv, NULL, NULL, &name);
+	res = libm3uparser_get_extinfo (argc, argv, NULL, &name);
 	if(res == LIBM3UPARSER_EXTINFO_NOT_FOUND){
 		name = g_strconcat("Inconnu", NULL);
+	}else{
+		/* Enleve le numero de chaine s'il est present */
+		gchar *tmp = name;
+		name = g_strrstr(tmp, " - ");
+		if(name != NULL){
+			name = g_strdup (name+3);
+			g_free (tmp);
+		}else{
+			name = tmp;
+		}
 	}
 	query = sqlite3_mprintf("INSERT INTO channel (name_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) values ('%q',(SELECT id_channellogo FROM channel_logo WHERE label_channellogo='%q' OR id_channellogo = (SELECT idchannellogo_labelchannellogo FROM label_channellogo WHERE label_labelchannellogo='%q')),'%q','%q');", 
 				name, name, name, url, data->id);
