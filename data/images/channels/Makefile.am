@@ -3,14 +3,17 @@ channels_DATA = \
   _none.png \
   ab1.png \
   action.png \
-  aljazeera.png \
+  aljazeerachildren.png \
+  aljazeerainternational.png \
   artchannel.png \
   arte.png \
   beurtv.png \
   bfmtv.png \
+  bloombergtv.png \
   canalplus.png \
   cinefx.png \
   cinepolar.png \
+  cmusictv.png \
   demaintv.png \
   direct8.png \
   euronews.png \
@@ -21,6 +24,7 @@ channels_DATA = \
   france5.png \
   franceo.png \
   freenewstv.png \
+  funtv.png \
   gameone.png \
   gulli.png \
   itelevision.png \
@@ -32,14 +36,24 @@ channels_DATA = \
   m6musicblack.png \
   m6musichits.png \
   m6musicrock.png \
+  mangas.png \
   mcm.png \
   mcmpop.png \
   mcmtop.png \
+  mezzo.png \
+  miziktropical.png \
+  mtv.png \
+  mtv2.png \
+  mtvdance.png \
+  mtvhits.png \
+  nationalgeographic.png \
+  nolife.png \
   nrj12.png \
   nrjhits.png \
   nt1.png \
   parispremiere.png \
   rtl9.png \
+  telemelody.png \
   teleplaisance.png \
   telif.png \
   teva.png \
@@ -49,6 +63,8 @@ channels_DATA = \
   turnerclassicmovies.png \
   tv5.png \
   tv8montblanc.png \
+  vh1.png \
+  vh1classic.png \
   videoclick.png \
   virgin17.png
 EXTRA_DIST   = $(channels_DATA)

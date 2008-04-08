@@ -1,9 +1,11 @@
 <channel_logos>
   <logo filename="ab1.png" label="AB 1"></logo>
 	<logo filename="action.png" label="Action"></logo>
-  <logo filename="aljazeera.png" label="Aljazeera">
-		<logolabel label="Al Jazeera"/>
+	<logo filename="aljazeera.png" label="Al Jazeera">
+		<logolabel label="Aljazeera"/>
 	</logo>
+  <logo filename="aljazeerachildren.png" label="Al Jazeera Children"></logo>
+  <logo filename="aljazeerainternational.png" label="Al Jazeera International"></logo>
 	<logo filename="artchannel.png" label="Art Channel"></logo>
   <logo filename="arte.png" label="Arte">
 		<logolabel label="Arte (bas debit)"/>
@@ -12,9 +14,13 @@
   <logo filename="bfmtv.png" label="BFM TV">
 		<logolabel label="BFM TV (bas debit)"/>
 	</logo>
+  <logo filename="bloombergtv.png" label="Bloomberg TV"></logo>
   <logo filename="canalplus.png" label="Canal+"></logo>
 	<logo filename="cinefx.png" label="Ciné FX"></logo>
 	<logo filename="cinepolar.png" label="Ciné Polar"></logo>
+  <logo filename="cmusictv.png" label="C Music TV">
+		<logolabel label="C Music"/>
+	</logo>
   <logo filename="demaintv.png" label="Demain.tv">
 		<logolabel label="Demain"/>
 	</logo>
@@ -64,6 +70,7 @@
 		<logolabel label="France o"/>
 	</logo>
   <logo filename="freenewstv.png" label="Freenews TV"></logo>
+  <logo filename="funtv.png" label="Fun TV"></logo>
   <logo filename="gameone.png" label="Game One"></logo>
   <logo filename="gulli.png" label="Gulli">
 		<logolabel label="Gulli (bas debit)"/>
@@ -86,9 +93,24 @@
   <logo filename="m6musicblack.png" label="M6 Music Black"></logo>
   <logo filename="m6musichits.png" label="M6 Music Hits"></logo>
   <logo filename="m6musicrock.png" label="M6 Music Rock"></logo>
+  <logo filename="mangas.png" label="Mangas"></logo>
   <logo filename="mcm.png" label="MCM"></logo>
-  <logo filename="mcmpop.png" label="MCM POP"></logo>
-  <logo filename="mcmtop.png" label="MCM TOP"></logo>
+  <logo filename="mcmpop.png" label="MCM Pop">
+		<logolabel label="MCM POP"/>
+	</logo>
+  <logo filename="mcmtop.png" label="MCM Top">
+		<logolabel label="MCM TOP"/>
+	</logo>	
+  <logo filename="mezzo.png" label="Mezzo"></logo>
+  <logo filename="miziktropical.png" label="Mizik Tropical"></logo>
+  <logo filename="mtv.png" label="MTV"></logo>
+  <logo filename="mtv2.png" label="MTV 2"></logo>
+  <logo filename="mtvdance.png" label="MTV Dance"></logo>
+  <logo filename="mtvhits.png" label="MTV Hits"></logo>
+  <logo filename="nationalgeographic.png" label="National Geographic">
+		<logolabel label="National Geographic HD"/>
+	</logo>
+  <logo filename="nolife.png" label="Nolife"></logo>
   <logo filename="nrj12.png" label="NRJ 12">
 		<logolabel label="NRJ 12 5.1"/>
 		<logolabel label="NRJ 12 NRJ 12"/>
@@ -102,6 +124,7 @@
 	</logo>
   <logo filename="parispremiere.png" label="Paris Première"></logo>
   <logo filename="rtl9.png" label="RTL9"></logo>
+  <logo filename="telemelody.png" label="Télé Mélody"></logo>
   <logo filename="teleplaisance.png" label="Teleplaisance"></logo>
   <logo filename="telif.png" label="Telif"></logo>
   <logo filename="teva.png" label="TEVA"></logo>
@@ -112,7 +135,11 @@
 	</logo>
   <logo filename="tracetv.png" label="Trace TV"></logo>
   <logo filename="tv5.png" label="TV5"></logo>
-  <logo filename="tv8montblanc.png" label="TV8 Mont BLanc"></logo>
+  <logo filename="tv8montblanc.png" label="TV8 Mont-Blanc">
+		<logolabel label="TV8 Mont BLanc"/>
+	</logo>
+  <logo filename="vh1.png" label="VH1"></logo>
+  <logo filename="vh1classic.png" label="VH1 Classic"></logo>
   <logo filename="videoclick.png" label="Video Click"></logo>
   <logo filename="virgin17.png" label="Virgin 17">
 		<logolabel label="Virgin 17 (bas debit)"/>
