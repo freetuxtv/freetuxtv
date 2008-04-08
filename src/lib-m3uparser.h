@@ -29,7 +29,7 @@ libm3uparser_parse(char *file,
 
 int
 libm3uparser_get_extinfo (char argc, char **argv, 
-			  char **time, char **artist, char **title);
+			  char **time, char **title);
 
 const char *
 libm3uparser_errmsg(int err);

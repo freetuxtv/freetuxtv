@@ -109,7 +109,7 @@ libm3uparser_parse(char *file,
 
 int
 libm3uparser_get_extinfo (char argc, char **argv,
-			  char **time, char **artist, char **title){
+			  char **time, char **title){
 	int i;
 	for(i=0; i<argc; i++){
 
@@ -122,8 +122,6 @@ libm3uparser_get_extinfo (char argc, char **argv,
 		
 		if(time != NULL)
 			*time = NULL;
-		if(artist != NULL)
-			*artist = NULL;
 		if(title != NULL)
 			*title = NULL;
 		
@@ -146,22 +144,8 @@ libm3uparser_get_extinfo (char argc, char **argv,
 				tmp[cars] = '\0';
 				*time = tmp;
 			}
-			if(artist != NULL){
-				begin = strchr(argv[i], ',') + 1;
-				end = strchr(argv[i], '-') - 1;
-				cars = end - begin;
-				tmp = (char *) malloc ((cars + 1) * sizeof(char));
-				strncpy(tmp, begin, cars);
-				tmp[cars] = '\0';
-				*artist = tmp;
-			} 
 			if(title != NULL){
-				begin = strchr(argv[i], '-');
-				if (!begin){
-					begin = strchr(argv[i], ',') + 1;
-				}else{
-					begin = begin + 2;
-				}
+				begin = strchr(argv[i], ',') + 1;
 				end = begin + strlen(begin);
 				cars = end - begin;
 				tmp = (char *) malloc ((cars + 1) * sizeof(char));
