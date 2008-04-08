@@ -1,33 +1,120 @@
 <channel_logos>
   <logo filename="ab1.png" label="AB 1"></logo>
-  <logo filename="aljazeera.png" label="Al Jazeera"></logo>
-  <logo filename="arte.png" label="Arte"></logo>
-  <logo filename="bfmtv.png" label="BFM TV"></logo>
+	<logo filename="action.png" label="Action"></logo>
+  <logo filename="aljazeera.png" label="Aljazeera">
+		<logolabel label="Al Jazeera"/>
+	</logo>
+	<logo filename="artchannel.png" label="Art Channel"></logo>
+  <logo filename="arte.png" label="Arte">
+		<logolabel label="Arte (bas debit)"/>
+	</logo>
+  <logo filename="beurtv.png" label="Beur TV"></logo>
+  <logo filename="bfmtv.png" label="BFM TV">
+		<logolabel label="BFM TV (bas debit)"/>
+	</logo>
   <logo filename="canalplus.png" label="Canal+"></logo>
-  <logo filename="direct8.png" label="Direct 8"></logo>
+	<logo filename="cinefx.png" label="Ciné FX"></logo>
+	<logo filename="cinepolar.png" label="Ciné Polar"></logo>
+  <logo filename="demaintv.png" label="Demain.tv">
+		<logolabel label="Demain"/>
+	</logo>
+  <logo filename="direct8.png" label="Direct 8">
+		<logolabel label="Direct 8 (bas debit)"/>
+	</logo>
   <logo filename="euronews.png" label="Euronews"></logo>
-  <logo filename="france2.png" label="France 2"></logo>
+  <logo filename="france2.png" label="France 2">
+		<logolabel label="France 2 (bas debit)"/>
+	</logo>
   <logo filename="france24.png" label="France 24"></logo>
-  <logo filename="france3.png" label="France 3"></logo>
-  <logo filename="france4.png" label="France 4"></logo>
-  <logo filename="france5.png" label="France 5"></logo>
-  <logo filename="franceo.png" label="France Ô"></logo>
+  <logo filename="france3.png" label="France 3">
+		<logolabel label="France 3 national"/>
+		<logolabel label="France 3 (bas debit)"/>
+		<logolabel label="France 3 Alsace"/>
+		<logolabel label="France 3 Alpes"/>
+		<logolabel label="France 3 Aquitaine"/>
+		<logolabel label="France 3 Auvergne"/>
+		<logolabel label="France 3 Bourgogne"/>
+		<logolabel label="France 3 Bretagne"/>
+		<logolabel label="France 3 Centre"/>
+		<logolabel label="France 3 Champagne-Ardenne"/>
+		<logolabel label="France 3 Corse"/>
+		<logolabel label="France 3 Côte-d'Azur"/>
+		<logolabel label="France 3 Franche-Comté"/>
+		<logolabel label="France 3 Languedoc-Roussillon"/>
+		<logolabel label="France 3 Limousin"/>
+		<logolabel label="France 3 Lorraine"/>
+		<logolabel label="France 3 Midi Pyrénées"/>
+		<logolabel label="France 3 Nord Pas-de-Calais"/>
+		<logolabel label="France 3 Haute-Normandie"/>
+		<logolabel label="France 3 Basse-Normandie"/>
+		<logolabel label="France 3 Paris Ile-de-France"/>
+		<logolabel label="France 3 Pays de Loire"/>
+		<logolabel label="France 3 Picardie"/>
+		<logolabel label="France 3 Poitou-Charentes"/>
+		<logolabel label="France 3 Provence-Alpes"/>
+		<logolabel label="France 3 Rhône-Alpes"/>
+	</logo>
+  <logo filename="france4.png" label="France 4">
+		<logolabel label="France 4 (bas debit)"/>
+	</logo>
+  <logo filename="france5.png" label="France 5">
+		<logolabel label="France 5 (bas debit)"/>
+	</logo>
+  <logo filename="franceo.png" label="France ô">
+		<logolabel label="France o"/>
+	</logo>
   <logo filename="freenewstv.png" label="Freenews TV"></logo>
   <logo filename="gameone.png" label="Game One"></logo>
-  <logo filename="gulli.png" label="Gulli"></logo>
-  <logo filename="itelevision.png" label="i>Télé"></logo>
-  <logo filename="lcp.png" label="La Chaîne Parlementaire"></logo>
+  <logo filename="gulli.png" label="Gulli">
+		<logolabel label="Gulli (bas debit)"/>
+	</logo>
+  <logo filename="itelevision.png" label="i>Télé">
+		<logolabel label="i> TELE"/>
+		<logolabel label="i>TELE"/>
+		<logolabel label="i>TELE (bas debit)"/>
+	</logo>
+	<logo filename="jet.png" label="JET"></logo>
+	<logo filename="kto.png" label="KTO"></logo>
+  <logo filename="lachaineparlementaire.png" label="La Chaîne Parlementaire">
+		<logolabel label="La Chaîne Parlementaire (bas debit)"/>
+		<logolabel label="La chaine parlementaire"/>
+	</logo>
+	<logo filename="lequipetv.png" label="L'équipe TV">
+		<logolabel label="L'equipe TV"/>
+	</logo>
   <logo filename="libertytv.png" label="Liberty TV"></logo>
   <logo filename="m6musicblack.png" label="M6 Music Black"></logo>
   <logo filename="m6musichits.png" label="M6 Music Hits"></logo>
   <logo filename="m6musicrock.png" label="M6 Music Rock"></logo>
   <logo filename="mcm.png" label="MCM"></logo>
+  <logo filename="mcmpop.png" label="MCM POP"></logo>
   <logo filename="mcmtop.png" label="MCM TOP"></logo>
-  <logo filename="nrj12.png" label="NRJ 12"></logo>
-  <logo filename="nt1.png" label="NT1"></logo>
+  <logo filename="nrj12.png" label="NRJ 12">
+		<logolabel label="NRJ 12 5.1"/>
+		<logolabel label="NRJ 12 NRJ 12"/>
+		<logolabel label="NRJ 12 Stéréo"/>
+		<logolabel label="NRJ 12 HD"/>
+		<logolabel label="NRJ 12 (bas debit)"/>
+	</logo>
+  <logo filename="nrjhits.png" label="NRJ Hits"></logo>
+  <logo filename="nt1.png" label="NT1">
+		<logolabel label="NT1 (bas debit)"/>
+	</logo>
+  <logo filename="parispremiere.png" label="Paris Première"></logo>
   <logo filename="rtl9.png" label="RTL9"></logo>
-  <logo filename="tmc.png" label="TMC"></logo>
+  <logo filename="teleplaisance.png" label="Teleplaisance"></logo>
+  <logo filename="telif.png" label="Telif"></logo>
+  <logo filename="teva.png" label="TEVA"></logo>
+  <logo filename="tfou.png" label="TFou"></logo>
+  <logo filename="turnerclassicmovies.png" label="TCM"></logo>
+  <logo filename="tmc.png" label="TMC">
+		<logolabel label="TMC (bas debit)"/>
+	</logo>
   <logo filename="tracetv.png" label="Trace TV"></logo>
   <logo filename="tv5.png" label="TV5"></logo>
-  <logo filename="virgin17.png" label="Virgin 17"></logo>
+  <logo filename="tv8montblanc.png" label="TV8 Mont BLanc"></logo>
+  <logo filename="videoclick.png" label="Video Click"></logo>
+  <logo filename="virgin17.png" label="Virgin 17">
+		<logolabel label="Virgin 17 (bas debit)"/>
+	</logo>
 </channel_logos>
