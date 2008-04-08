@@ -26,24 +26,37 @@ static void xml_start_cb(GMarkupParseContext *context,
 			 GError **error)
 {
 	struct sqlite3 *db = (sqlite3*) data;
-	gchar* sql_query;
+	gchar* sql_query = "";
 	int res;
 	char *err=0;
 	
-	if(g_ascii_strncasecmp(element_name, "logo", 4) == 0){
+	if(g_ascii_strcasecmp(element_name, "logo") == 0){
 		
-		sql_query = g_strconcat("INSERT INTO channel_logo (label_channellogo, filename_channellogo) values ('", 
-					attribute_values[1], "', '", 
-					attribute_values[0], "');", NULL);
+		sql_query = sqlite3_mprintf("INSERT INTO channel_logo (label_channellogo, filename_channellogo) values ('%q','%q');", 
+					    attribute_values[1],
+					    attribute_values[0]);
 		res=sqlite3_exec(db, sql_query, NULL, 0, &err);
 		if(res != SQLITE_OK){
 			g_printerr("Sqlite3 : %s\n%s\n",
 				   sqlite3_errmsg(db), sql_query);
 			sqlite3_free(err);
 		}
-		g_free(sql_query);
+		sqlite3_free(sql_query);		
+	}
+	if(g_ascii_strcasecmp(element_name, "logolabel") == 0){
+		
+		sql_query = sqlite3_mprintf("INSERT INTO label_channellogo (label_labelchannellogo, idchannellogo_labelchannellogo) values ('%q', (SELECT MAX(id_channellogo) FROM channel_logo));",
+					    attribute_values[0]);
+		res=sqlite3_exec(db, sql_query, NULL, 0, &err);
+		if(res != SQLITE_OK){
+			g_printerr("Sqlite3 : %s\n%s\n",
+				   sqlite3_errmsg(db), sql_query);
+			sqlite3_free(err);
+		}
+		sqlite3_free(sql_query);
 		
 	}
+	//g_print("%s\n", sql_query);
 }
 
 static void xml_err_cb(GMarkupParseContext *context,

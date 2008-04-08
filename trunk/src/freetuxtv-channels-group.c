@@ -419,8 +419,8 @@ on_parsem3u_add_channel (char *url, int argc,
 	if(res == LIBM3UPARSER_EXTINFO_NOT_FOUND){
 		name = g_strconcat("Inconnu", NULL);
 	}
-	query = sqlite3_mprintf("INSERT INTO channel (name_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) values ('%q',(SELECT id_channellogo FROM channel_logo WHERE label_channellogo='%q'),'%q','%q');", 
-				name, name, url, data->id);
+	query = sqlite3_mprintf("INSERT INTO channel (name_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) values ('%q',(SELECT id_channellogo FROM channel_logo WHERE label_channellogo='%q' OR id_channellogo = (SELECT idchannellogo_labelchannellogo FROM label_channellogo WHERE label_labelchannellogo='%q')),'%q','%q');", 
+				name, name, name, url, data->id);
 	g_free(name);
 	res=sqlite3_exec(db, query, NULL, 0, &err);
 	sqlite3_free(query);

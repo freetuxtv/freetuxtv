@@ -2,10 +2,16 @@ channelsdir   = $(datadir)/freetuxtv/images/channels
 channels_DATA = \
   _none.png \
   ab1.png \
+  action.png \
   aljazeera.png \
+  artchannel.png \
   arte.png \
+  beurtv.png \
   bfmtv.png \
   canalplus.png \
+  cinefx.png \
+  cinepolar.png \
+  demaintv.png \
   direct8.png \
   euronews.png \
   france2.png \
@@ -18,18 +24,31 @@ channels_DATA = \
   gameone.png \
   gulli.png \
   itelevision.png \
-  lcp.png \
+  jet.png \
+  kto.png \
+  lachaineparlementaire.png \
+  lequipetv.png \
   libertytv.png \
   m6musicblack.png \
   m6musichits.png \
   m6musicrock.png \
   mcm.png \
+  mcmpop.png \
   mcmtop.png \
   nrj12.png \
+  nrjhits.png \
   nt1.png \
+  parispremiere.png \
   rtl9.png \
+  teleplaisance.png \
+  telif.png \
+  teva.png \
+  tfou.png \
   tmc.png \
   tracetv.png \
+  turnerclassicmovies.png \
   tv5.png \
+  tv8montblanc.png \
+  videoclick.png \
   virgin17.png
 EXTRA_DIST   = $(channels_DATA)
