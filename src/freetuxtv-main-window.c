@@ -120,14 +120,14 @@ freetuxtv_main_window_new ()
 	gtk_menu_shell_append (GTK_MENU_SHELL(menubar), menuitem);
 	
 	/* Separateur entre menu / panneau d'onglet et fenetre video */
-	GtkWidget *hbox;
-	hbox = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+	GtkWidget *hpaned;
+	hpaned = gtk_hpaned_new ();
+	gtk_box_pack_start (GTK_BOX(vbox), hpaned, TRUE, TRUE, 0);
 
 	/* Panneau d'onglets */
 	GtkWidget *notebook;
 	notebook = gtk_notebook_new ();
-	gtk_box_pack_start (GTK_BOX(hbox), notebook, FALSE, FALSE, 0);
+	gtk_paned_add1(GTK_PANED(hpaned), notebook);
 	gtk_notebook_set_tab_pos (GTK_NOTEBOOK(notebook), GTK_POS_LEFT);
 	
 	GtkWidget *tablabel;
@@ -148,13 +148,12 @@ freetuxtv_main_window_new ()
 	
 	/* Cadre du player */
 	self->player = FREETUXTV_PLAYER(freetuxtv_player_new ());
-	gtk_box_pack_start (GTK_BOX(hbox), GTK_WIDGET(self->player), 
-			    TRUE, TRUE, 0);
+	gtk_paned_add2(GTK_PANED(hpaned), GTK_WIDGET(self->player));
 	
 	/* Barre de status */
 	self->statusbar = GTK_STATUSBAR(gtk_statusbar_new ());
 	gtk_statusbar_set_has_resize_grip (self->statusbar, TRUE);
-	gtk_statusbar_push (self->statusbar, 
+	gtk_statusbar_push (self->statusbar,
 			    gtk_statusbar_get_context_id(self->statusbar, 
 							 "HelloMsg"),
 			    "Bienvenue dans FreetuxTV");
