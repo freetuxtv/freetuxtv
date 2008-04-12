@@ -16,7 +16,7 @@ Ces tâches sont classé par ordre de priorité.
  * Sortie de la version 0.1.
  * Gestion de l'enregistrement en direct d'une chaîne.
  * Gestion de la programmation d'un enregistrement.
- * Création d'un serveur pour enregistrer les chaînes regardés par les utilisateurs dans le but de réaliser une playslist de chaînes par audience de FreetuxTV.
+ * Création d'un serveur pour enregistrer les chaînes regardées par les utilisateurs dans le but de réaliser une playslist de chaînes par audience.
  * Intégration du nom du programme en cours dans la liste des chaînes.
  * Affichage des informations sur la chaîne en cours.
  * Gestion d'un guide TV.
