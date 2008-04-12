@@ -27,6 +27,11 @@ Voici des tutoriels très complet sur la création d'interface graphique en GTK2
 Sources d'un programme écrit en GTK2+ :
  * http://svn.gnome.org/svn/brasero/trunk/
 
+== Glib ==
+
+Utilisation de Glib pour créer des threads :
+ * http://www.yolinux.com/TUTORIALS/GDK_Threads.html
+
 == Bibliothèque VLC ==
 
 Page de la documentation officiel :
