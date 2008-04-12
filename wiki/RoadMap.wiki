@@ -7,28 +7,28 @@ Cette page indique l'ordre de réalisation des prochaines étapes qui concerne l
 
 
 = Tâches en cours =
-
- * Ajout et mis à jour des chaînes dans la base de données à partir d'une playlist M3U.
- * Développement d'une mini librairie pour parser un fichier M3U.
- * Création d'une table pour gérer les logos et les libellés de chaînes qui lui sont attaché.
- * Ajout d'une barre de statut pour afficher la chaîne en cours de lecture et d'autres informations.
-
+ * Interface utilisateur pour gérer la liste des logos et des libellés de celui-ci.
+ * Interface utilisateur pour gérer la liste des groupes de chaînes et de leurs chaînes.
 
 = Tâches en prévision =
 
 Ces tâches sont classé par ordre de priorité.
- * Interface utilisateur pour gérer la liste des logos et des libellés de celui-ci.
- * Interface utilisateur pour gérer la liste des groupes de chaînes et de leurs chaînes.
  * Sortie de la version 0.1.
  * Gestion de l'enregistrement en direct d'une chaîne.
  * Gestion de la programmation d'un enregistrement.
+ * Création d'un serveur pour enregistrer les chaînes regardés par les utilisateurs dans le but de réaliser une playslist de chaînes par audience de FreetuxTV.
  * Intégration du nom du programme en cours dans la liste des chaînes.
  * Affichage des informations sur la chaîne en cours.
  * Gestion d'un guide TV.
  * Gestion du timeshifting.
 
-
 = Tâches effectuées =
+
+Effectué au 12/04/2008
+ * Ajout d'une barre de statut pour afficher la chaîne en cours de lecture et d'autres informations.
+ * Ajout et mis à jour des chaînes dans la base de données à partir d'une playlist M3U.
+ * Développement d'une mini librairie pour parser un fichier M3U.
+ * Création d'une table pour gérer les logos et les libellés de chaînes qui lui sont attaché.
 
 Effectué au 14/02/2008
  * Répartition des chaînes par groupe.
