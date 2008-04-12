@@ -10,6 +10,7 @@
   <logo filename="arte.png" label="Arte">
 		<logolabel label="Arte (bas debit)"/>
 	</logo>
+  <logo filename="bbcworld.png" label="BBC World"></logo>
   <logo filename="beurtv.png" label="Beur TV"></logo>
   <logo filename="bfmtv.png" label="BFM TV">
 		<logolabel label="BFM TV (bas debit)"/>
@@ -21,6 +22,7 @@
   <logo filename="cmusictv.png" label="C Music TV">
 		<logolabel label="C Music"/>
 	</logo>
+	<logo filename="cnbc.png" label="CNBC"></logo>
   <logo filename="demaintv.png" label="Demain.tv">
 		<logolabel label="Demain"/>
 	</logo>
@@ -28,6 +30,8 @@
 		<logolabel label="Direct 8 (bas debit)"/>
 	</logo>
   <logo filename="euronews.png" label="Euronews"></logo>
+  <logo filename="fashiontv.png" label="Fashion TV"></logo>
+  <logo filename="fmen.png" label="F Men"></logo>
   <logo filename="france2.png" label="France 2">
 		<logolabel label="France 2 (bas debit)"/>
 	</logo>
@@ -75,6 +79,7 @@
   <logo filename="gulli.png" label="Gulli">
 		<logolabel label="Gulli (bas debit)"/>
 	</logo>
+  <logo filename="guysentv.png" label="Guysen TV"></logo>
   <logo filename="itelevision.png" label="i>Télé">
 		<logolabel label="i> TELE"/>
 		<logolabel label="i>TELE"/>
@@ -124,6 +129,7 @@
 	</logo>
   <logo filename="parispremiere.png" label="Paris Première"></logo>
   <logo filename="rtl9.png" label="RTL9"></logo>
+  <logo filename="skynewsinternational.png" label="Sky News International"></logo>
   <logo filename="telemelody.png" label="Télé Mélody"></logo>
   <logo filename="teleplaisance.png" label="Teleplaisance"></logo>
   <logo filename="telif.png" label="Telif"></logo>
