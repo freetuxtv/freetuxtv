@@ -38,7 +38,7 @@ on_parsem3u_add_channel (char *url, int argc,
 			 char **argv, void *user_data);
 
 static void
-on_click_title (GtkWidget *widget, GdkEventButton *event, 
+on_click_refresh (GtkWidget *widget, GdkEventButton *event, 
 		gpointer user_data);
 
 static void
@@ -95,7 +95,7 @@ freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri)
 	eventbox = gtk_event_box_new ();
 	gtk_widget_modify_bg(GTK_WIDGET(eventbox), GTK_STATE_NORMAL, &color);
 	g_signal_connect(G_OBJECT(eventbox), "button-press-event",
-			 G_CALLBACK(on_click_title), NULL);
+			 G_CALLBACK(on_click_refresh), NULL);
 	gtk_box_pack_start (GTK_BOX(hbox), eventbox, FALSE, FALSE, 0);	
 	GtkWidget *image = gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_BUTTON);
 	gtk_container_add (GTK_CONTAINER(eventbox), image);
@@ -165,7 +165,7 @@ freetuxtv_channels_group_apply_filter (FreetuxTVChannelsGroup *self, gchar *filt
 		count += freetuxtv_channel_apply_filter (channel, filter);
 		tmp = g_list_next (tmp); 
 	}
-	if( count == 0 ){
+	if( count == 0 && g_ascii_strcasecmp(filter, "") != 0){
 		self->collapsed = 'Y';
 		gtk_arrow_set (GTK_ARROW(self->arrow), 
 			       GTK_ARROW_RIGHT,
@@ -215,6 +215,7 @@ freetuxtv_channels_group_reload_channels (FreetuxTVChannelsGroup *self)
 		return -1;
 	}
 	
+	gtk_widget_hide_all (GTK_WIDGET(self->channels_widget));
 	gtk_widget_destroy(GTK_WIDGET(self->channels_widget));
 	self->channels_widget = gtk_vbox_new(FALSE, 1);
 	gtk_box_pack_start (GTK_BOX(self), 
@@ -363,7 +364,6 @@ freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
 	sqlite3_close(db);
 	
 	g_free(user_db);
-
 	freetuxtv_channels_group_reload_channels (self);
 	gtk_statusbar_pop (mainwindow->statusbar, 
 			   gtk_statusbar_get_context_id(mainwindow->statusbar, 
@@ -372,8 +372,8 @@ freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
 }
 
 static void
-on_click_title (GtkWidget *widget, GdkEventButton *event,
-		gpointer user_data)
+on_click_refresh (GtkWidget *widget, GdkEventButton *event,
+		  gpointer user_data)
 {
 	FreetuxTVChannelsGroup *self;
 	self = freetuxtv_channels_group_get_from_widget (GTK_WIDGET(widget));

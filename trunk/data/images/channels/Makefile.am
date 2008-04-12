@@ -3,10 +3,12 @@ channels_DATA = \
   _none.png \
   ab1.png \
   action.png \
+  aljazeera.png \
   aljazeerachildren.png \
   aljazeerainternational.png \
   artchannel.png \
   arte.png \
+  bbcworld.png \
   beurtv.png \
   bfmtv.png \
   bloombergtv.png \
@@ -14,9 +16,12 @@ channels_DATA = \
   cinefx.png \
   cinepolar.png \
   cmusictv.png \
+  cnbc.png \
   demaintv.png \
   direct8.png \
   euronews.png \
+  fashiontv.png \
+  fmen.png \
   france2.png \
   france24.png \
   france3.png \
@@ -27,6 +32,7 @@ channels_DATA = \
   funtv.png \
   gameone.png \
   gulli.png \
+  guysentv.png \
   itelevision.png \
   jet.png \
   kto.png \
@@ -53,6 +59,7 @@ channels_DATA = \
   nt1.png \
   parispremiere.png \
   rtl9.png \
+  skynewsinternational.png \
   telemelody.png \
   teleplaisance.png \
   telif.png \
