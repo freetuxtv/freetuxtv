@@ -11,6 +11,10 @@ Cette page recense des liens et des informations pour développer certains compo
 
 Créer des applications pour gnome
  * http://developer.gnome.org/doc/GGAD/ggad.html
+Compilation des applications avec automake et autoconf
+ * http://www-igm.univ-mlv.fr/~dr/XPOSE/Breugnot/#Concept
+GTK Hello World avec automake et autoconf
+ * http://bo.majewski.name/bluear/gnu/GTK/plain/
 
 == GTK2+ ==
 
