@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS channel (
 insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('FreeboxTV','http://mafreebox.freebox.fr/freeboxtv/playlist.m3u');
 insert into channels_group (name_channelsgroup, uri_channelsgroup) 
-			values ('FreeboxTV (non dégroupé)','http://freetuxtv.googlecode.com/files/playlist_freeboxtv_nd.m3u');
+			values ('FreeboxTV (non dégroupé)','http://www.eric-beuque.com/freetuxtv/playlists/playlist_freeboxtv_nd.m3u');
 insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('Neuf TV','http://www.n9ws.com/tools/tvsurpc.m3u');
 insert into channels_group (name_channelsgroup, uri_channelsgroup)
-			values ('Web TV (Française)','http://freetuxtv.googlecode.com/files/playlist_webtv_fr.m3u');
+			values ('Web TV (Française)','http://www.eric-beuque.com/freetuxtv/playlists/playlist_webtv_fr.m3u');
 
