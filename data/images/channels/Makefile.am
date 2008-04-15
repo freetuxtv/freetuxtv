@@ -56,6 +56,7 @@ channels_DATA = \
   nolife.png \
   nrj12.png \
   nrjhits.png \
+  nrjparis.png \
   nt1.png \
   parispremiere.png \
   rtl9.png \
