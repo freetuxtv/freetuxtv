@@ -35,7 +35,10 @@
   <logo filename="france2.png" label="France 2">
 		<logolabel label="France 2 (bas debit)"/>
 	</logo>
-  <logo filename="france24.png" label="France 24"></logo>
+  <logo filename="france24.png" label="France 24">
+		<logolabel label="France 24 FR"/>
+		<logolabel label="France 24 EN"/>
+  </logo>
   <logo filename="france3.png" label="France 3">
 		<logolabel label="France 3 national"/>
 		<logolabel label="France 3 (bas debit)"/>
@@ -70,7 +73,8 @@
   <logo filename="france5.png" label="France 5">
 		<logolabel label="France 5 (bas debit)"/>
 	</logo>
-  <logo filename="franceo.png" label="France ô">
+  <logo filename="franceo.png" label="France Ô">
+		<logolabel label="France ô"/>
 		<logolabel label="France o"/>
 	</logo>
   <logo filename="freenewstv.png" label="Freenews TV"></logo>
@@ -124,6 +128,7 @@
 		<logolabel label="NRJ 12 (bas debit)"/>
 	</logo>
   <logo filename="nrjhits.png" label="NRJ Hits"></logo>
+  <logo filename="nrjparis.png" label="NRJ Paris"></logo>
   <logo filename="nt1.png" label="NT1">
 		<logolabel label="NT1 (bas debit)"/>
 	</logo>
