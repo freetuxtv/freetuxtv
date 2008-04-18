@@ -43,6 +43,9 @@ freetuxtv_channels_list_window_get_type (void);
 GtkWidget *
 freetuxtv_channels_list_window_new ();
 
+static void
+on_closeButton_clicked(GtkWidget *widget, gpointer *data);
+
 G_END_DECLS
 
 #endif /* FREETUXTV_CHANNELS_LIST_WINDOW_H */
