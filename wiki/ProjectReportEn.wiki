@@ -17,13 +17,13 @@ Linux, Gnome, GTK
 
 == 1.3 - FreetuxTV goals ==
 
-+ simple que VLC, gestion chaines, enregistrement, programme TV...
++ simple que VLC, gestion chaines, enregistrement, programme TV, libre...
 
 = 2 - Method =
 
 == 2.1 - Technical choices ==
 
-GTK, C, Rapidité, Google Hosting, Objet, Sqlite, libvlc...
+GTK, C, Rapidité, Google Hosting, Objet, Sqlite (structure BDD), libvlc...
 
 == 2.2 - Reading documentation ==
 
@@ -32,10 +32,29 @@ SQlite, GTK, VLC
 = 3 - Result =
 
 == 3.1 - FreetuxTV possibilities ==
+
+Afficher groupes de chaînes, ajout d'un groupe de chaines via une fichier m3u avec association du logo.
+
 == 3.2 - Difficulties ==
+
+Quantité de documentation, difficulté avec GObject, temps pour les fonctionnalités, difficulté des tests, présentation à la fac.
+Différence de niveau.
+
 == 3.3 - Future's project==
+
+Vit du projet après la fac.
+Enregistrement, programme TV...
+Engouement du projet.
+Deja des utilisateurs.
+Projet libre, communauté.
 
 = 4 - Discussion =
 == 4.1 - Technical ==
+
+librairie, c.
+
 == 4.2 - Human ==
+
+travaille en binone, communauté, communication
+
 = Conclusion =
