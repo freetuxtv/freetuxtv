@@ -1,0 +1,41 @@
+#summary English Report for the Project (for School)
+
+= Abstract =
+
+More and more, ISPs (Internet Service Provider) give the possibility to receive TV channels with the Internet connection. Generally, they give you a box to connect at he TV, nevertheless they often offe the way to watch channels on you PC by using a sofware like the famous VLC Media Player. VLC, which is a very good software, but not really, but not really user friendly, provide a free libray for developers who want to create another graphical user interface (GUI) which integrate the VLC player. By this fact, a lot of sofware are borned, more user friendly with an interface adapted for watching TV. For example, they allow you to record the channel, have a look at the TV guide, use the timeshifting or the PIP (Picture in Picture), easily change the channel… However, these software are by and large working only on the Windows operating system what is a really big problem for the Linux operating system's users. There is actually no software for them. So it was time to propose a new project, a software which allow you to watch the TV on Linux, which will be called FreetuxTV.
+
+
+= 1 - Introduction =
+
+== 1.1 - ADSL, TV & Player ==
+
+ISP comparatif, Player compratif, WebTV
+
+== 1.2 - Why FreetuxTV ? ==
+
+Linux, Gnome, GTK
+
+== 1.3 - FreetuxTV goals ==
+
++ simple que VLC, gestion chaines, enregistrement, programme TV...
+
+= 2 - Method =
+
+== 2.1 - Technical choices ==
+
+GTK, C, Rapidité, Google Hosting, Objet, Sqlite, libvlc...
+
+== 2.2 - Reading documentation ==
+
+SQlite, GTK, VLC
+
+= 3 - Result =
+
+== 3.1 - FreetuxTV possibilities ==
+== 3.2 - Difficulties ==
+== 3.3 - Future's project==
+
+= 4 - Discussion =
+== 4.1 - Technical ==
+== 4.2 - Human ==
+= Conclusion =
