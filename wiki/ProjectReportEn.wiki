@@ -92,7 +92,7 @@ travaille en binone, communauté, communication
 
 = Annexe =
 
-== Configure.in example ==
+== A.1 - Configure.in example ==
 
 The Configure.in of the project:
 
@@ -151,7 +151,7 @@ AC_CONFIG_FILES([Makefile
 AC_OUTPUT
 }}}
 
-== libVLC example ==
+== A.2 -  libVLC example ==
 
 Example for libVLC for version 0.8.6c in C language :
 
@@ -189,7 +189,7 @@ int main(int argc, char **argv) {
 }
 }}}
 
-== M3U file example ==
+== A.3 -  M3U file example ==
 
 Part of the M3U file containing the channels proposed on FreeboxTV (URL is http://mafreebox.freebox.fr/freeboxtv/playlist.m3u):
 
