@@ -72,7 +72,19 @@ We also have a look at the Gnome Application Development documentation (http://d
 
 == 3.1 - FreetuxTV possibilities ==
 
-Afficher groupes de chaînes, ajout d'un groupe de chaines via une fichier m3u avec association du logo.
+Here you can have look at the final result of the project:
+
+http://www.eric-beuque.com/freetuxtv/freetuxtv.png
+
+When you try to lunch FreetuxTV for the first time, it create automatically a new database in the user directory with some groups.
+This database is composed of four tables :
+
+ * channel_logo : The list of the channel logos that the software use and the name of the channel that it represents (ex: "france3.png", "France 3").
+ * label_channellogo : Alternative channel names of a logo (ex: "France 3 Auvergne").
+ * channels_group : List of channels group (ex: "FreeboxTV", "http://mafreebox.freebox.fr/freeboxtv/playlist.m3u").
+ * channel : List of channels with their URI (ex: "France 3", "rtsp://mafreebox.freebox.fr/freeboxtv/stream?id=202").
+
+This architecture means that a logo is represented with an image, a name and eventually several alternative name. A group is composed of a list of channels. And finally, a channel might be associated with a logo, when adding a channel, by comparing the channel's name and the logos' names. The database could be changed in the future for example, by adding. At the begining, the program load a XML file which has a list of logos with their label, and add these informations in the database. Finally, it display the main window. Of the left, there is a tab with the list of channels sorted by group. If you click on the refresh button at the right of the group's name, the program download the playslist from Internet and put it in cache. After, channels of the group in database are deleted and the M3U parser insert the news. For each channels, the software looks for the good logo which correspond to the name of the channel. At the top of the tabs, you can see an entry text zone. If you write something in, FreetuxTV display in the channels list only the channels which the name contains the text entered. If you click, on the arrow at the left of the group's name, you can collaspe/expand the list of the channels in the group. These fonctionnality are working thanks to approximatively 2500 lines of source code. The logo's database is around 80 logos found on Internet which were adapted to the interface (size, black border...).
 
 == 3.2 - Difficulties ==
 
