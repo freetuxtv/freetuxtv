@@ -2,8 +2,7 @@
 
 = Abstract =
 
-More and more, ISPs (Internet Service Provider) give the possibility to receive TV channels with the Internet connection. Generally, they give you a box to connect at he TV, nevertheless they often offe the way to watch channels on you PC by using a sofware like the famous VLC Media Player. VLC, which is a very good software, but not really, but not really user friendly, provide a free libray for developers who want to create another graphical user interface (GUI) which integrate the VLC player. By this fact, a lot of sofware are borned, more user friendly with an interface adapted for watching TV. For example, they allow you to record the channel, have a look at the TV guide, use the timeshifting or the PIP (Picture in Picture), easily change the channel… However, these software are by and large working only on the Windows operating system what is a really big problem for the Linux operating system's users. There is actually no software for them. So it was time to propose a new project, a software which allow you to watch the TV on Linux, which will be called FreetuxTV.
-
+More and more, ISPs (Internet Service Provider) give the possibility to receive TV channels with the Internet connection. Generally, they give you a box to connect at he TV, nevertheless they often offe the way to watch channels on you PC by using a sofware like the famous VLC Media Player. VLC, which is a very good software, but not really, but not really user friendly, provide a free libray for developers who want to create another graphical user interface (GUI) which integrate the VLC player. By this fact, a lot of sofware are borned, more user friendly with an interface adapted for watching TV. For example, they allow you to record the channel, have a look at the TV guide, use the timeshifting or the PIP (Picture in Picture), easily change the channel… However, these software are by and large working only on the Windows operating system what is a really big problem for the Linux operating system's users. There is actually no software for them. So it was time to propose a new project, a software which allow you to watch the TV on Linux, which will be called FreetuxTV. Thanks to M. Tatibouët who supervise this project.
 
 = 1 - Introduction =
 
@@ -46,7 +45,9 @@ In software development, make is a utility for automatically building large appl
 
 FreetuxTV need to display a video in the window. Of course, it was impossible to start a new video player from the begining for the project. It will be really difficult, should take a lot of time and some habilities we haven't. So we decided to look for a library which will be able to read video streaming from the ISP's service. The most famous video player like VLC Media Player and MPlayer provide library which can do this. For our project, we decided to use the VLC library because VLC can read the biggest part of video formats, without install anything to read it (like codecs...). The developers toolkit for the VLC library could be installed on Linux system generally by installing the libvlc0-dev package. So you have to add the -lvlc option at the compilation step, to use the libvlc. You can watch a code source example of libVLC in annexes.
 
-=== Database and SQLite ===
+=== SQLite ===
+
+FreetuxTV has to manage a list of channels with theirs groups, a list of logo, tv guide... By this fact, FreetuxTV need to store these datas into a database. The DBMS (Database Management Systems) we decided to use is SQLite because it's a small DBMS which don't need a server, because the database is stored in only one file. So it permit to create easily and fastly one FreetuxTV configuration per user on the machine. Of course, SQLite is limited by the performance for a great quantity of data, but its perfect for our project.
 
 === M3U Parser ===
 
@@ -56,9 +57,16 @@ M3U (Moving Picture Experts Group Audio Layer 3 Uniform Resource Locator, MP3 UR
 
 cURL is a command line tool for transferring files with URL syntax. The strong point of cURL is the number of data transfer protocols it supports (listed further down). Distributed under the MIT License, cURL is free software. Libcurl is the corresponding library/API that users may incorporate into their programs: cURL acts as a stand-alone wrapper to the libcurl library. libcurl is used to provide URL transfer capabilities to numerous applications (open-source as well as proprietary). FreetuxTV needs cURL to download the playlist from internet, before to parse them with the parser M3U.
 
-== 2.2 - Reading documentation ==
+== 2.2 - Library documentation ==
 
-SQlite, GTK, VLC
+A biggest part of the project consist to learn how the library work. We spend a long time on Internet readding the documention of them, because the documentation like the GTK/Glib's contains hundreds pages and it's really difficult to find exactly what you want.
+
+ * GTK/Glib : http://library.gnome.org/devel/gtk/stable/
+ * LibVLC : http://www.videolan.org/developers/vlc/doc/\\doxygen/html/group\_\_libvlc.html
+ * SQLite : http://www.sqlite.org/docs.html
+ * cURL : http://curl.haxx.se/libcurl/c/
+
+We also have a look at the Gnome Application Development documentation (http://developer.gnome.org/doc/GGAD/ggad.html), which is really difficult to understand when you know nothing about this. Moreover, we often used Google search engine and other website to find help to resolve our developpement problems.
 
 = 3 - Result =
 
