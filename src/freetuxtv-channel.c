@@ -128,15 +128,13 @@ freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file)
 void
 freetuxtv_channel_play (FreetuxTVChannel *self)
 {
-	FreetuxTVMainWindow *main_window;
-	main_window = freetuxtv_main_window_get_from_widget (GTK_WIDGET(self));
-	
-	freetuxtv_main_window_play_channel (main_window, self);
+	freetuxtv_main_window_play_channel (self);	
 }
 
 gint
 freetuxtv_channel_apply_filter (FreetuxTVChannel *self, gchar *filter)
 {
+	
 	gchar *channel = g_utf8_strdown (self->name,-1);
 	gchar *search = g_strconcat("^.*",
 				    g_utf8_strdown (filter,-1),

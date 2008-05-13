@@ -14,6 +14,8 @@
 
 #include <sqlite3.h>
 #include <glib.h>
+#include <gtk/gtk.h>
+#include <glade/glade.h>
 #include <curl/curl.h>
 
 #include "freetuxtv-main-window.h"
@@ -23,6 +25,8 @@
 #include "lib-m3uparser.h"
 
 G_DEFINE_TYPE (FreetuxTVChannelsGroup, freetuxtv_channels_group, GTK_TYPE_VBOX);
+
+extern GladeXML *gladexml;
 
 static int 
 on_exec_add_channel (void *data, int argc, char **argv, char **colsname);
@@ -134,15 +138,19 @@ void
 freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
 					gchar mode)
 {
+	GtkWidget *entryfilter;
+	gchar *filter;
+
 	self->collapsed = mode;
 	if(self->collapsed == 'N') {
 		gtk_arrow_set (GTK_ARROW(self->arrow), 
 			       GTK_ARROW_DOWN,
 			       GTK_SHADOW_NONE);
-		FreetuxTVChannelsList *channels_list;
-		channels_list = freetuxtv_channels_list_get_from_widget (GTK_WIDGET(self));
-		gchar *filter;
-		filter = (gchar *) gtk_entry_get_text ( GTK_ENTRY (channels_list->filter_widget));
+		
+	
+		entryfilter = glade_xml_get_widget (gladexml, "entryfilter");
+		filter = (gchar *)gtk_entry_get_text (GTK_ENTRY(entryfilter));
+
 		freetuxtv_channels_group_apply_filter (self, filter);
 	}else{
 		gtk_arrow_set (GTK_ARROW(self->arrow), 
@@ -266,24 +274,27 @@ freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
 	user_db = g_strconcat(g_get_user_config_dir(), 
 			      "/FreetuxTV/freetuxtv.db", NULL);
 
-	FreetuxTVMainWindow *mainwindow;
-	mainwindow = freetuxtv_main_window_get_from_widget (GTK_WIDGET(self));
-
 	/* Mise à jour de la barre de statut */
+	GtkWidget *statusbar;
 	gchar *text;
+	statusbar = glade_xml_get_widget (gladexml, "statusbar");
 	text = g_strconcat ("Mise à jour des chaines de \"", self->name,"\"", NULL);
-	gtk_statusbar_push (mainwindow->statusbar, 
-			    gtk_statusbar_get_context_id(mainwindow->statusbar,
+	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
+			    gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar),
 							 "UpdateMsg"),
 			    text);
 	g_main_iteration(FALSE);
 	g_free(text);
 
+	
+	GtkWidget *windowmain;
+	windowmain = glade_xml_get_widget (gladexml, "windowmain");
+
 	/* Ouverture de la BDD */
 	res = sqlite3_open(user_db, &db);
 	if(res != SQLITE_OK){
-		GtkWidget* dialog;
-		dialog = gtk_message_dialog_new(GTK_WINDOW(mainwindow),
+		GtkWidget* dialog;		
+		dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
 						GTK_DIALOG_MODAL, 
 						GTK_MESSAGE_ERROR,
 						GTK_BUTTONS_OK,
@@ -314,7 +325,7 @@ freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
 		sqlite3_free(query);
 		if(res != SQLITE_OK){
 			GtkWidget* dialog;
-			dialog = gtk_message_dialog_new(GTK_WINDOW(mainwindow),
+			dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
 							GTK_DIALOG_MODAL, 
 							GTK_MESSAGE_ERROR,
 							GTK_BUTTONS_OK,
@@ -336,7 +347,7 @@ freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
 			if (res < 0 ){
 				GtkWidget* dialog;
 				if (ret == LIBM3UPARSER_CALLBACK_RETURN_ERROR){				
-					dialog = gtk_message_dialog_new(GTK_WINDOW(mainwindow),
+					dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
 									GTK_DIALOG_MODAL, 
 									GTK_MESSAGE_ERROR,
 									GTK_BUTTONS_OK,
@@ -344,7 +355,7 @@ freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
 									sqlite3_errmsg(db)
 									);
 				}else{
-					dialog = gtk_message_dialog_new(GTK_WINDOW(mainwindow),
+					dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
 									GTK_DIALOG_MODAL, 
 									GTK_MESSAGE_ERROR,
 									GTK_BUTTONS_OK,
@@ -365,8 +376,8 @@ freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
 	
 	g_free(user_db);
 	freetuxtv_channels_group_reload_channels (self);
-	gtk_statusbar_pop (mainwindow->statusbar, 
-			   gtk_statusbar_get_context_id(mainwindow->statusbar, 
+	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
+			   gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
 							"UpdateMsg"));
 	return ret;
 }
@@ -451,16 +462,18 @@ get_group_file (FreetuxTVChannelsGroup *self, gchar **file, gboolean cache)
 		*file = g_strdup (uriv[1]);
 	}
 	if( g_ascii_strcasecmp (uriv[0], "http:") == 0 ){
-		
-		FreetuxTVMainWindow *mainwindow;
-		mainwindow = freetuxtv_main_window_get_from_widget (GTK_WIDGET(self));
 
-		/* Mise à jour de la barre de statut */
+		GtkWidget *windowmain;
+		windowmain = glade_xml_get_widget (gladexml, "windowmain");
+
+		/* Mise à jour de la barre de statut */				
+		GtkWidget *statusbar;
 		gchar *text;
+		statusbar = glade_xml_get_widget (gladexml, "statusbar");
 		text = g_strconcat ("Récupération du fichier : \"",
 				    self->uri,"\"", NULL);
-		gtk_statusbar_push (mainwindow->statusbar, 
-				    gtk_statusbar_get_context_id(mainwindow->statusbar, 
+		gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
+				    gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
 								 "UpdateMsg"),
 				    text);
 		g_main_iteration(FALSE);
@@ -488,7 +501,8 @@ get_group_file (FreetuxTVChannelsGroup *self, gchar **file, gboolean cache)
 
 			if(curlcode != 0){
 				GtkWidget* dialog;
-				dialog = gtk_message_dialog_new(GTK_WINDOW(mainwindow),
+					
+				dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
 								GTK_DIALOG_MODAL, 
 								GTK_MESSAGE_ERROR,
 								GTK_BUTTONS_OK,
@@ -505,8 +519,8 @@ get_group_file (FreetuxTVChannelsGroup *self, gchar **file, gboolean cache)
 
 		*file = groupfile;
 
-		gtk_statusbar_pop (mainwindow->statusbar, 
-				   gtk_statusbar_get_context_id(mainwindow->statusbar, 
+		gtk_statusbar_pop (GTK_STATUSBAR(statusbar), 
+				   gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
 								"UpdateMsg"));
 	}
 	
