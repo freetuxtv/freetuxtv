@@ -40,6 +40,7 @@ struct _FreetuxTVChannelsGroup
 	gchar collapsed;
 	GtkWidget *arrow;
 	
+	
 };
 
 struct _FreetuxTVChannelsGroupClass

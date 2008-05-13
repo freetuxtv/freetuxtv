@@ -21,12 +21,13 @@ AC_STDC_HEADERS
 AC_PROG_INSTALL
 
 # Checks for libraries.
-PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.2 glib-2.0 >= 2.2)
+PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.2 glib-2.0 >= 2.2 libglade-2.0 >= 2.6.2)
 
 AC_CHECK_LIB(vlc, libvlc_new)
 AC_CHECK_LIB(sqlite3, sqlite3_open)
 AC_CHECK_LIB(curl, curl_easy_init)
 AC_CHECK_LIB(gthread-2.0, g_thread_init)
+AC_CHECK_LIB(glade-2.0, glade_xml_new)
 
 AC_SUBST(DEPS_CFLAGS)
 AC_SUBST(DEPS_LIBS)
