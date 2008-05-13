@@ -30,15 +30,14 @@ typedef struct _FreetuxTVChannelsListClass FreetuxTVChannelsListClass;
 
 struct _FreetuxTVChannelsList
 {
-	GtkVBox parent;
+	GtkEventBox parent;
 
 	GtkWidget *channelsgroups_widget;
-	GtkWidget *filter_widget;
 };
 
 struct _FreetuxTVChannelsListClass
 {
-	GtkVBoxClass parent_class;
+	GtkEventBoxClass parent_class;
 };
 
 GType
@@ -47,15 +46,15 @@ freetuxtv_channels_list_get_type (void);
 GtkWidget *
 freetuxtv_channels_list_new ();
 
+GtkWidget *
+freetuxtv_channels_list_get_from_gladexml ();
+
 void
 freetuxtv_channels_list_add_channels_group (FreetuxTVChannelsList *self,
 					    FreetuxTVChannelsGroup *channels_group);
 
 int
 freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self);
-
-FreetuxTVChannelsList *
-freetuxtv_channels_list_get_from_widget (GtkWidget *self);
 
 G_END_DECLS
 

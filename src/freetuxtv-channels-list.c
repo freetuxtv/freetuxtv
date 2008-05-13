@@ -12,19 +12,16 @@
 #  include <config.h>
 #endif
 
+#include <gtk/gtk.h>
+#include <glade/glade.h>
 #include <sqlite3.h>
 
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group.h"
 
-G_DEFINE_TYPE (FreetuxTVChannelsList, freetuxtv_channels_list, GTK_TYPE_VBOX);
+G_DEFINE_TYPE (FreetuxTVChannelsList, freetuxtv_channels_list, GTK_TYPE_EVENT_BOX);
 
-static void
-on_button_clicked (GtkButton *button, GdkEventButton *event, 
-		   gpointer user_data);
-
-static void
-on_entry_changed (GtkEntry *entry, gpointer user_data);
+extern GladeXML *gladexml;
 
 static int 
 on_exec_add_channels_group (void *data, int argc, char **argv, char **colsname);
@@ -34,61 +31,36 @@ freetuxtv_channels_list_new ()
 {
 	FreetuxTVChannelsList *self = NULL;
 	self = gtk_type_new (freetuxtv_channels_list_get_type ());
-
-	/* Creation du widget */
-	gtk_box_set_homogeneous(GTK_BOX(self),FALSE);
-	gtk_box_set_spacing(GTK_BOX(self),0);
-
-	/* Création du champs de recherche */
-	GtkWidget *hbox;
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start (GTK_BOX(self), hbox, FALSE, FALSE, 10);
-	
-	GtkWidget *button;
-	GtkWidget *image;
-	button = gtk_button_new ();
-	image = gtk_image_new_from_stock (GTK_STOCK_CLEAR,
-					  GTK_ICON_SIZE_BUTTON);
-	gtk_button_set_image (GTK_BUTTON(button), image);
-	gtk_box_pack_start (GTK_BOX(hbox), button, FALSE, FALSE, 3);
-	g_signal_connect(G_OBJECT(button), "clicked",
-			 G_CALLBACK(on_button_clicked), NULL);
-	
-	self->filter_widget = gtk_entry_new ();
-	g_signal_connect(G_OBJECT(self->filter_widget), "changed",
-			 G_CALLBACK(on_entry_changed), NULL);
-	gtk_box_pack_start (GTK_BOX(hbox), 
-			    self->filter_widget, FALSE, FALSE, 3);
 	
 	/* Widget contenant les groupes de chaines */
-	GtkWidget *scrollbar;
-	scrollbar = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollbar),
-				       GTK_POLICY_NEVER,
-				       GTK_POLICY_ALWAYS);
-	gtk_box_pack_start (GTK_BOX(self), scrollbar, TRUE, TRUE, 0);
-	
-	GtkWidget *eventbox;
-	eventbox = gtk_event_box_new();
 	GdkColor color;
 	color.pixel = 0;
 	color.red   = 0xdf * 0x100;
 	color.green = 0xe0 * 0x100;
 	color.blue  = 0xe6 * 0x100;
-	gtk_widget_modify_bg(GTK_WIDGET(eventbox), GTK_STATE_NORMAL, &color);
-	
-	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollbar),
-					      eventbox);
+	gtk_widget_modify_bg(GTK_WIDGET(self), GTK_STATE_NORMAL, &color);
 	
 	self->channelsgroups_widget = gtk_vbox_new(FALSE,0);
-	gtk_container_add (GTK_CONTAINER(eventbox), 
-			   self->channelsgroups_widget );
+	gtk_container_add (GTK_CONTAINER(self), 
+			   self->channelsgroups_widget);
 	
 	freetuxtv_channels_list_update_from_db (self);
 	
 	gtk_widget_show_all (GTK_WIDGET(self));
 	
 	return GTK_WIDGET (self);
+}
+
+GtkWidget *
+freetuxtv_channels_list_get_from_gladexml ()
+{
+	GtkWidget *self;
+	
+	self = glade_xml_get_widget (gladexml,
+				     "scrolledwindowchannels");
+	self = gtk_bin_get_child (GTK_BIN(self));
+	self = gtk_bin_get_child (GTK_BIN(self));
+	return self;
 }
 
 void
@@ -148,44 +120,20 @@ freetuxtv_channels_list_apply_filter (FreetuxTVChannelsList *self)
 {
 	int count = 0;
 	GList* tmp;
+
+	GtkWidget *entryfilter;
+	gchar *filter;
+	entryfilter = glade_xml_get_widget (gladexml, "entryfilter");
+	filter = (gchar *)gtk_entry_get_text (GTK_ENTRY(entryfilter));
+
 	tmp = g_list_first (gtk_container_get_children (GTK_CONTAINER(self->channelsgroups_widget)));
 	while (tmp != NULL){
 		FreetuxTVChannelsGroup *channels_group;
 		channels_group = FREETUXTV_CHANNELS_GROUP (tmp->data);
-		gchar *filter;
-		filter = (gchar *)gtk_entry_get_text (GTK_ENTRY(self->filter_widget));
-		count += freetuxtv_channels_group_apply_filter (channels_group, filter);
+		count += freetuxtv_channels_group_apply_filter (channels_group, 
+								filter);
 		tmp = g_list_next (tmp); 
 	}
-}
-
-FreetuxTVChannelsList *
-freetuxtv_channels_list_get_from_widget (GtkWidget *self)
-{
-	g_return_val_if_fail(self != NULL, NULL);
-	g_return_val_if_fail(GTK_IS_WIDGET(self), NULL);
-
-	if(FREETUXTV_IS_CHANNELS_LIST(self)){
-		return FREETUXTV_CHANNELS_LIST(self);
-	}else{
-		return freetuxtv_channels_list_get_from_widget (gtk_widget_get_parent(self));
-	}
-}
-
-static void
-on_button_clicked (GtkButton *button, GdkEventButton *event, gpointer user_data)
-{
-	FreetuxTVChannelsList *self;
-	self = freetuxtv_channels_list_get_from_widget (GTK_WIDGET(button));
-	gtk_entry_set_text(GTK_ENTRY(self->filter_widget),"");
-	freetuxtv_channels_list_apply_filter (self);
-}
-
-static void
-on_entry_changed (GtkEntry *entry, gpointer user_data){
-	FreetuxTVChannelsList *self;
-	self = freetuxtv_channels_list_get_from_widget (GTK_WIDGET(entry));
-	freetuxtv_channels_list_apply_filter (self);
 }
 
 static int 
@@ -202,7 +150,6 @@ static void
 freetuxtv_channels_list_init (FreetuxTVChannelsList *object)
 {
 	object->channelsgroups_widget = NULL;
-	object->filter_widget = NULL;
 }
 
 static void

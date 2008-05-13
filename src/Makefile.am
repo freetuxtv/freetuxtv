@@ -1,6 +1,8 @@
 bin_PROGRAMS = freetuxtv
 
 freetuxtv_SOURCES = \
+  freetuxtv-callbacks.c \
+  freetuxtv-callbacks.h \
   freetuxtv-channel.c \
   freetuxtv-channel.h \
   freetuxtv-channels-group.c \
@@ -18,6 +20,9 @@ freetuxtv_SOURCES = \
   lib-m3uparser.c \
   lib-m3uparser.h \
   main.c
+
+# For libglade2 signals
+freetuxtv_LDFLAGS = -export-dynamic
 
 freetuxtv_LDADD = $(DEPS_LIBS)
 

@@ -29,15 +29,14 @@ typedef struct _FreetuxTVPlayerClass FreetuxTVPlayerClass;
 
 struct _FreetuxTVPlayer
 {
-	GtkVBox parent;
+	GtkDrawingArea parent;
 
-	GtkWidget *player;
 	libvlc_instance_t *vlcinstance;
 };
 
 struct _FreetuxTVPlayerClass
 {
-	GtkVBoxClass parent_class;
+	GtkDrawingAreaClass parent_class;
 };
 
 GType
@@ -46,8 +45,14 @@ freetuxtv_player_get_type (void);
 GtkWidget *
 freetuxtv_player_new ();
 
+GtkWidget *
+freetuxtv_player_get_from_gladexml ();
+
 void
 freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri);
+
+void
+freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value);
 
 G_END_DECLS
 
