@@ -18,7 +18,7 @@
 #include <glade/glade.h>
 #include <curl/curl.h>
 
-#include "freetuxtv-main-window.h"
+#include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-group.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channel.h"
@@ -148,7 +148,7 @@ freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
 			       GTK_SHADOW_NONE);
 		
 	
-		entryfilter = glade_xml_get_widget (gladexml, "entryfilter");
+		entryfilter = glade_xml_get_widget (gladexml, "windowmain_entryfilter");
 		filter = (gchar *)gtk_entry_get_text (GTK_ENTRY(entryfilter));
 
 		freetuxtv_channels_group_apply_filter (self, filter);
@@ -277,7 +277,7 @@ freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
 	/* Mise à jour de la barre de statut */
 	GtkWidget *statusbar;
 	gchar *text;
-	statusbar = glade_xml_get_widget (gladexml, "statusbar");
+	statusbar = glade_xml_get_widget (gladexml, "windowmain_statusbar");
 	text = g_strconcat ("Mise à jour des chaines de \"", self->name,"\"", NULL);
 	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
 			    gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar),
@@ -469,7 +469,7 @@ get_group_file (FreetuxTVChannelsGroup *self, gchar **file, gboolean cache)
 		/* Mise à jour de la barre de statut */				
 		GtkWidget *statusbar;
 		gchar *text;
-		statusbar = glade_xml_get_widget (gladexml, "statusbar");
+		statusbar = glade_xml_get_widget (gladexml, "windowmain_statusbar");
 		text = g_strconcat ("Récupération du fichier : \"",
 				    self->uri,"\"", NULL);
 		gtk_statusbar_push (GTK_STATUSBAR(statusbar), 

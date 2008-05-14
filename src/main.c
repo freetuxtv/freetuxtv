@@ -17,7 +17,6 @@
 #include <glade/glade.h>
 #include <sqlite3.h>
 
-#include "freetuxtv-callbacks.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-player.h"
 
@@ -214,12 +213,12 @@ int main (int argc, char *argv[])
 	/* Ajout du widget de la liste des chaines */
 	channelslist = freetuxtv_channels_list_new ();
 	scrolledwindowchannels = glade_xml_get_widget (gladexml,
-						       "scrolledwindowchannels");
+						       "windowmain_scrolledwindowchannels");
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolledwindowchannels),
 					      channelslist);
 
 	/* Ajout du widget du lecteur */
-	eventboxplayer = glade_xml_get_widget (gladexml, "eventboxplayer");
+	eventboxplayer = glade_xml_get_widget (gladexml, "windowmain_eventboxplayer");
 	player = freetuxtv_player_new ();
 	gtk_container_add (GTK_CONTAINER(eventboxplayer), player);
 
