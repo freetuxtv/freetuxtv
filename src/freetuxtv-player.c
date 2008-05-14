@@ -135,6 +135,22 @@ freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value)
         }
 }
 
+void
+freetuxtv_player_stop (FreetuxTVPlayer *self)
+{
+	libvlc_exception_t _vlcexcep;
+        libvlc_exception_init (&_vlcexcep);
+        if(self->vlcinstance != NULL){
+		// Arret de la chaine en cour de lecture
+		if (libvlc_playlist_isplaying (self->vlcinstance,&_vlcexcep)) {
+			on_vlc_exception (self, &_vlcexcep);
+			libvlc_playlist_stop (self->vlcinstance,&_vlcexcep);
+			on_vlc_exception (self, &_vlcexcep);
+		}
+        }
+
+
+}
 static void 
 on_vlc_exception (FreetuxTVPlayer *self, 
 		  libvlc_exception_t *excp)

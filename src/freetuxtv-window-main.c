@@ -82,6 +82,16 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 	freetuxtv_channels_list_apply_filter (FREETUXTV_CHANNELS_LIST(channelslist));
 }
 
+
+void
+on_windowmain_buttonstop_clicked (GtkButton *button,
+				  gpointer *data)
+{
+	GtkWidget *player;
+	player = freetuxtv_player_get_from_gladexml ();
+	freetuxtv_player_stop (FREETUXTV_PLAYER(player));
+}
+
 void
 on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 {
@@ -96,7 +106,7 @@ on_windowmain_volumecontrol_value_changed (GtkRange *range, gpointer  user_data)
         GtkWidget *player;
 	player = freetuxtv_player_get_from_gladexml ();
 	freetuxtv_player_set_volume (FREETUXTV_PLAYER(player),
-				     gtk_range_get_value (range) );
+				     gtk_range_get_value (range));
 }
 
 
