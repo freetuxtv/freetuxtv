@@ -13,7 +13,7 @@
 #endif
 
 #include "freetuxtv-channel.h"
-#include "freetuxtv-main-window.h"
+#include "freetuxtv-window-main.h"
 #include "freetuxtv-player.h"
 
 G_DEFINE_TYPE (FreetuxTVChannel, freetuxtv_channel, GTK_TYPE_EVENT_BOX);
@@ -128,7 +128,7 @@ freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file)
 void
 freetuxtv_channel_play (FreetuxTVChannel *self)
 {
-	freetuxtv_main_window_play_channel (self);	
+	freetuxtv_window_main_play_channel (self);	
 }
 
 gint

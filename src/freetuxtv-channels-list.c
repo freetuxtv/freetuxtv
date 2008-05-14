@@ -40,9 +40,7 @@ freetuxtv_channels_list_new ()
 	color.blue  = 0xe6 * 0x100;
 	gtk_widget_modify_bg(GTK_WIDGET(self), GTK_STATE_NORMAL, &color);
 	
-	self->channelsgroups_widget = gtk_vbox_new(FALSE,0);
-	gtk_container_add (GTK_CONTAINER(self), 
-			   self->channelsgroups_widget);
+	self->channelsgroups_widget = NULL;
 	
 	freetuxtv_channels_list_update_from_db (self);
 	
@@ -57,7 +55,7 @@ freetuxtv_channels_list_get_from_gladexml ()
 	GtkWidget *self;
 	
 	self = glade_xml_get_widget (gladexml,
-				     "scrolledwindowchannels");
+				     "windowmain_scrolledwindowchannels");
 	self = gtk_bin_get_child (GTK_BIN(self));
 	self = gtk_bin_get_child (GTK_BIN(self));
 	return self;
@@ -81,6 +79,14 @@ freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self)
 	gchar *user_db;
 	user_db = g_strconcat(g_get_user_config_dir(), 
 			      "/FreetuxTV/freetuxtv.db", NULL);
+	
+	if(self->channelsgroups_widget != NULL){
+		gtk_widget_destroy(self->channelsgroups_widget);
+		self->channelsgroups_widget = NULL;
+	}
+	self->channelsgroups_widget = gtk_vbox_new(FALSE,0);
+	gtk_container_add (GTK_CONTAINER(self), 
+			   self->channelsgroups_widget);
 	
 	/* Ouverture de la BDD */
 	res = sqlite3_open(user_db,&db);
@@ -112,6 +118,8 @@ freetuxtv_channels_list_update_from_db (FreetuxTVChannelsList *self)
 
 	g_free(user_db);
 	
+	gtk_widget_show_all (GTK_WIDGET(self));
+
 	return 0;
 }
 
@@ -123,7 +131,7 @@ freetuxtv_channels_list_apply_filter (FreetuxTVChannelsList *self)
 
 	GtkWidget *entryfilter;
 	gchar *filter;
-	entryfilter = glade_xml_get_widget (gladexml, "entryfilter");
+	entryfilter = glade_xml_get_widget (gladexml, "windowmain_entryfilter");
 	filter = (gchar *)gtk_entry_get_text (GTK_ENTRY(entryfilter));
 
 	tmp = g_list_first (gtk_container_get_children (GTK_CONTAINER(self->channelsgroups_widget)));

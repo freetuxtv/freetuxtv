@@ -1,8 +1,6 @@
 bin_PROGRAMS = freetuxtv
 
 freetuxtv_SOURCES = \
-  freetuxtv-callbacks.c \
-  freetuxtv-callbacks.h \
   freetuxtv-channel.c \
   freetuxtv-channel.h \
   freetuxtv-channels-group.c \
@@ -13,10 +11,10 @@ freetuxtv_SOURCES = \
   freetuxtv-channels-list-window.h \
   freetuxtv-logos-list-window.c \
   freetuxtv-logos-list-window.h \
-  freetuxtv-main-window.c \
-  freetuxtv-main-window.h \
   freetuxtv-player.c \
   freetuxtv-player.h \
+  freetuxtv-window-main.c \
+  freetuxtv-window-main.h \
   lib-m3uparser.c \
   lib-m3uparser.h \
   main.c
