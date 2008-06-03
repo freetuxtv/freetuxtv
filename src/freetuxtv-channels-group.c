@@ -18,6 +18,7 @@
 #include <glade/glade.h>
 #include <curl/curl.h>
 
+#include "freetuxtv-app.h"
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-group.h"
 #include "freetuxtv-channels-list.h"
@@ -26,7 +27,7 @@
 
 G_DEFINE_TYPE (FreetuxTVChannelsGroup, freetuxtv_channels_group, GTK_TYPE_VBOX);
 
-extern GladeXML *gladexml;
+extern FreetuxTVApp *app;
 
 static int 
 on_exec_add_channel (void *data, int argc, char **argv, char **colsname);
@@ -148,7 +149,8 @@ freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
 			       GTK_SHADOW_NONE);
 		
 	
-		entryfilter = glade_xml_get_widget (gladexml, "windowmain_entryfilter");
+		entryfilter = glade_xml_get_widget (app->windowmain,
+						    "windowmain_entryfilter");
 		filter = (gchar *)gtk_entry_get_text (GTK_ENTRY(entryfilter));
 
 		freetuxtv_channels_group_apply_filter (self, filter);
@@ -277,7 +279,8 @@ freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
 	/* Mise à jour de la barre de statut */
 	GtkWidget *statusbar;
 	gchar *text;
-	statusbar = glade_xml_get_widget (gladexml, "windowmain_statusbar");
+	statusbar = glade_xml_get_widget (app->windowmain,
+					  "windowmain_statusbar");
 	text = g_strconcat ("Mise à jour des chaines de \"", self->name,"\"", NULL);
 	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
 			    gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar),
@@ -288,7 +291,8 @@ freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
 
 	
 	GtkWidget *windowmain;
-	windowmain = glade_xml_get_widget (gladexml, "windowmain");
+	windowmain = glade_xml_get_widget (app->windowmain,
+					   "windowmain");
 
 	/* Ouverture de la BDD */
 	res = sqlite3_open(user_db, &db);
@@ -389,6 +393,7 @@ on_click_refresh (GtkWidget *widget, GdkEventButton *event,
 	FreetuxTVChannelsGroup *self;
 	self = freetuxtv_channels_group_get_from_widget (GTK_WIDGET(widget));
 	freetuxtv_channels_group_update_from_uri (self);
+	
 }
 
 static void
@@ -464,12 +469,14 @@ get_group_file (FreetuxTVChannelsGroup *self, gchar **file, gboolean cache)
 	if( g_ascii_strcasecmp (uriv[0], "http:") == 0 ){
 
 		GtkWidget *windowmain;
-		windowmain = glade_xml_get_widget (gladexml, "windowmain");
+		windowmain = glade_xml_get_widget (app->windowmain,
+						   "windowmain");
 
 		/* Mise à jour de la barre de statut */				
 		GtkWidget *statusbar;
 		gchar *text;
-		statusbar = glade_xml_get_widget (gladexml, "windowmain_statusbar");
+		statusbar = glade_xml_get_widget (app->windowmain,
+						  "windowmain_statusbar");
 		text = g_strconcat ("Récupération du fichier : \"",
 				    self->uri,"\"", NULL);
 		gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
