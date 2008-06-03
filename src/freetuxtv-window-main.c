@@ -16,11 +16,12 @@
 #include <glade/glade.h>
 #include <sqlite3.h>
 
+#include "freetuxtv-app.h"
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-player.h"
 
-extern GladeXML *gladexml;
+extern FreetuxTVApp *app;
 
 void
 freetuxtv_window_main_play_channel (FreetuxTVChannel *channel)
@@ -29,7 +30,8 @@ freetuxtv_window_main_play_channel (FreetuxTVChannel *channel)
 	GtkWidget *statusbar;
 	gchar *text;
 	
-	statusbar = glade_xml_get_widget (gladexml, "windowmain_statusbar");
+	statusbar = glade_xml_get_widget (app->windowmain,
+					  "windowmain_statusbar");
 	
 	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
 			   gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
@@ -62,10 +64,10 @@ void
 on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 					    gpointer user_data)
 {
-	GtkWidget *aboutdialog;
-	aboutdialog = glade_xml_get_widget(gladexml,"aboutdialog");
-	
-	gtk_widget_show(aboutdialog);
+	GladeXML *gladexml;	
+	gladexml = glade_xml_new (FREETUXTV_GLADEXML,
+				  "aboutdialog", NULL);
+	glade_xml_signal_autoconnect (gladexml);
 }
 
 void
@@ -73,7 +75,8 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 					 gpointer *data)
 {
 	GtkWidget *entryfilter;
-	entryfilter = glade_xml_get_widget(gladexml,"windowmain_entryfilter");
+	entryfilter = glade_xml_get_widget(app->windowmain,
+					   "windowmain_entryfilter");
 	
 	gtk_entry_set_text(GTK_ENTRY(entryfilter), "");
 
@@ -114,9 +117,9 @@ void
 on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 					  gpointer user_data)
 {
-	GtkWidget *aboutdialog;
-	aboutdialog = glade_xml_get_widget(gladexml,"dialogaddgroup");
-	gtk_widget_show(aboutdialog);
+	app->dialogaddgroup = glade_xml_new (FREETUXTV_GLADEXML,
+					     "dialogaddgroup", NULL);
+	glade_xml_signal_autoconnect (app->dialogaddgroup);
 }
 
 void
@@ -125,7 +128,6 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 {
 	GtkWidget *windowmain;
 	GtkWidget *channelslist;
-	GtkWidget *aboutdialog;
 	GtkWidget *groupname;
 	GtkWidget *groupuri;
 	GtkWidget *dialog;
@@ -142,8 +144,10 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	user_db = g_strdup_printf("%s/FreetuxTV/freetuxtv.db",
 				  g_get_user_config_dir());
 	
-	groupname = glade_xml_get_widget(gladexml,"dialogaddgroup_name");
-	groupuri = glade_xml_get_widget(gladexml,"dialogaddgroup_uri");
+	groupname = glade_xml_get_widget(app->dialogaddgroup,
+					 "dialogaddgroup_name");
+	groupuri = glade_xml_get_widget(app->dialogaddgroup,
+					"dialogaddgroup_uri");
 	
 	/* Verification des champs */
 	if(g_ascii_strcasecmp(gtk_entry_get_text(GTK_ENTRY(groupname)),"") == 0
@@ -184,7 +188,7 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	}
 	
 	if(errmsg != NULL){
-		windowmain = glade_xml_get_widget(gladexml,"windowmain");
+		windowmain = glade_xml_get_widget(app->windowmain,"windowmain");
 		dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
 						GTK_DIALOG_MODAL, 
 						GTK_MESSAGE_ERROR,
@@ -197,8 +201,7 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	}else{
 		channelslist = freetuxtv_channels_list_get_from_gladexml ();
 		freetuxtv_channels_list_update_from_db (FREETUXTV_CHANNELS_LIST(channelslist));
-		aboutdialog = glade_xml_get_widget(gladexml,"dialogaddgroup");
-		gtk_widget_hide(aboutdialog);
+		gtk_widget_destroy(gtk_widget_get_toplevel(GTK_WIDGET(button)));
 	}
 
 	g_free(errmsg);
@@ -208,7 +211,12 @@ void
 on_dialogaddgroup_cancel_clicked (GtkButton *button,
 				  gpointer   user_data)
 {
-	GtkWidget *aboutdialog;
-	aboutdialog = glade_xml_get_widget(gladexml,"dialogaddgroup");
-	gtk_widget_hide(aboutdialog);	
+	gtk_widget_destroy(gtk_widget_get_toplevel(GTK_WIDGET(button)));
+}
+
+void
+on_aboutdialog_response (GtkDialog *dialog,
+			 gpointer   user_data)
+{
+	gtk_widget_destroy(GTK_WIDGET(dialog));
 }

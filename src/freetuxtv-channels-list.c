@@ -16,12 +16,13 @@
 #include <glade/glade.h>
 #include <sqlite3.h>
 
+#include "freetuxtv-app.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group.h"
 
 G_DEFINE_TYPE (FreetuxTVChannelsList, freetuxtv_channels_list, GTK_TYPE_EVENT_BOX);
 
-extern GladeXML *gladexml;
+extern FreetuxTVApp *app;
 
 static int 
 on_exec_add_channels_group (void *data, int argc, char **argv, char **colsname);
@@ -54,7 +55,7 @@ freetuxtv_channels_list_get_from_gladexml ()
 {
 	GtkWidget *self;
 	
-	self = glade_xml_get_widget (gladexml,
+	self = glade_xml_get_widget (app->windowmain,
 				     "windowmain_scrolledwindowchannels");
 	self = gtk_bin_get_child (GTK_BIN(self));
 	self = gtk_bin_get_child (GTK_BIN(self));
@@ -131,7 +132,8 @@ freetuxtv_channels_list_apply_filter (FreetuxTVChannelsList *self)
 
 	GtkWidget *entryfilter;
 	gchar *filter;
-	entryfilter = glade_xml_get_widget (gladexml, "windowmain_entryfilter");
+	entryfilter = glade_xml_get_widget (app->windowmain,
+					    "windowmain_entryfilter");
 	filter = (gchar *)gtk_entry_get_text (GTK_ENTRY(entryfilter));
 
 	tmp = g_list_first (gtk_container_get_children (GTK_CONTAINER(self->channelsgroups_widget)));
