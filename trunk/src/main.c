@@ -17,6 +17,7 @@
 #include <glade/glade.h>
 #include <sqlite3.h>
 
+#include "freetuxtv-app.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-player.h"
 
@@ -188,11 +189,11 @@ init_app()
 	return 0;
 }
 
-GladeXML *gladexml;
-
-int main (int argc, char *argv[])
+static FreetuxTVApp *
+freetuxtv_app_create_app ()
 {
-	
+	FreetuxTVApp *app1;
+
 	GtkWidget *windowmain;
 	GtkWidget *filterentry;
 
@@ -202,27 +203,44 @@ int main (int argc, char *argv[])
 	GtkWidget *eventboxplayer;
 	GtkWidget *player;
 
-	init_app();
+	app1 = g_new0 (FreetuxTVApp, 1);
 
-	gtk_init(&argc, &argv);
-	gladexml = glade_xml_new (FREETUXTV_DIR "/freetuxtv.glade", NULL, NULL);
-
-	glade_xml_signal_autoconnect (gladexml);
-	windowmain = glade_xml_get_widget (gladexml,"windowmain");
+	/* Création de la fenêtre */
+	app1->windowmain = glade_xml_new (FREETUXTV_GLADEXML,
+					 "windowmain", NULL);
+	glade_xml_signal_autoconnect (app1->windowmain);
 	
 	/* Ajout du widget de la liste des chaines */
 	channelslist = freetuxtv_channels_list_new ();
-	scrolledwindowchannels = glade_xml_get_widget (gladexml,
+	scrolledwindowchannels = glade_xml_get_widget (app1->windowmain,
 						       "windowmain_scrolledwindowchannels");
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolledwindowchannels),
 					      channelslist);
 
 	/* Ajout du widget du lecteur */
-	eventboxplayer = glade_xml_get_widget (gladexml, "windowmain_eventboxplayer");
+	eventboxplayer = glade_xml_get_widget (app1->windowmain,
+					       "windowmain_eventboxplayer");
 	player = freetuxtv_player_new ();
 	gtk_container_add (GTK_CONTAINER(eventboxplayer), player);
 
-	gtk_widget_show(windowmain);
+	return app1;
+
+}
+
+
+FreetuxTVApp *app;
+
+int main (int argc, char *argv[])
+{
+	
+	init_app();
+
+	gtk_init(&argc, &argv);
+
+	app = freetuxtv_app_create_app ();
+	if (app == NULL)
+		return 1;	
+
 	gtk_main();
 	
 	return 0;

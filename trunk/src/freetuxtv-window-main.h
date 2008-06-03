@@ -54,4 +54,8 @@ void
 on_dialogaddgroup_cancel_clicked (GtkButton *button,
 				  gpointer   user_data);
 
+void
+on_aboutdialog_response (GtkDialog *dialog,
+			 gpointer   user_data);
+
 #endif /* FREETUXTV_WINDOW_MAIN_H */

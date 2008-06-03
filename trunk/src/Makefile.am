@@ -1,6 +1,7 @@
 bin_PROGRAMS = freetuxtv
 
 freetuxtv_SOURCES = \
+  freetuxtv-app.h \
   freetuxtv-channel.c \
   freetuxtv-channel.h \
   freetuxtv-channels-group.c \

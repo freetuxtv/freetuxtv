@@ -12,11 +12,12 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 
+#include "freetuxtv-app.h"
 #include "freetuxtv-player.h"
 
 G_DEFINE_TYPE (FreetuxTVPlayer, freetuxtv_player, GTK_TYPE_DRAWING_AREA);
 
-extern GladeXML *gladexml;
+extern FreetuxTVApp *app;
 
 static void 
 on_vlc_exception (FreetuxTVPlayer *self, 
@@ -47,7 +48,8 @@ freetuxtv_player_get_from_gladexml ()
 {
 	GtkWidget *self;
 	
-	self = glade_xml_get_widget (gladexml, "windowmain_eventboxplayer");
+	self = glade_xml_get_widget (app->windowmain,
+				     "windowmain_eventboxplayer");
 	self = gtk_bin_get_child (GTK_BIN(self));
 	return self;
 }
