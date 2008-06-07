@@ -25,6 +25,7 @@ Documentation pour la programmation objet en C avec Glib :
  * http://nicolasj.developpez.com/gobject/classe/
 Comment créer son propre widget GTK+ :
  * http://franckh.developpez.com/tutoriels/gtk/creation-widget/
+ * http://franckh.developpez.com/tutoriels/gtk/creation-signaux/
 Voici des tutoriels très complet sur la création d'interface graphique en GTK2+ :
  * http://gtk.developpez.com/cours/gtk2/index.php
  * http://fr.wikibooks.org/wiki/Programmation_GTK2_en_C
@@ -35,6 +36,11 @@ Sources d'un programme écrit en GTK2+ :
 
 Utilisation de Glib pour créer des threads :
  * http://www.yolinux.com/TUTORIALS/GDK_Threads.html
+
+== libglade ==
+
+Documentation officiel
+ * http://library.gnome.org/devel/libglade/stable/
 
 == Bibliothèque VLC ==
 
