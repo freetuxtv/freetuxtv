@@ -8,13 +8,7 @@
  * 
  */
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
-
 #include "freetuxtv-channel.h"
-#include "freetuxtv-window-main.h"
-#include "freetuxtv-player.h"
 
 G_DEFINE_TYPE (FreetuxTVChannel, freetuxtv_channel, GTK_TYPE_EVENT_BOX);
 
@@ -30,12 +24,20 @@ static void
 freetuxtv_channel_modify_bg (FreetuxTVChannel *widget, 
 			     gint red, gint green, gint blue);
 
+enum {
+  DBL_CLICKED,
+  LAST_SIGNAL
+};
+
+static guint channel_signals[LAST_SIGNAL];
+
 GtkWidget *
-freetuxtv_channel_new (gchar *name, gchar *uri)
+freetuxtv_channel_new (gchar *id, gchar *name, gchar *uri)
 {
 	FreetuxTVChannel *self = NULL;
 	self = gtk_type_new (freetuxtv_channel_get_type ());
-	
+
+	self->id = g_strdup(id);
 	self->name = g_strdup(name);
 	self->uri = g_strdup(uri);
 	
@@ -58,11 +60,12 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 	GtkWidget *hbox;
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_container_add (GTK_CONTAINER(self), hbox);
+	gtk_widget_set_tooltip_text (GTK_WIDGET(hbox), self->name);
 	
 	/* Ajout du logo */
-	self->logo = gtk_image_new ();
+	self->logo = GTK_IMAGE(gtk_image_new ());
 	gtk_misc_set_padding (GTK_MISC(self->logo),2,2);
-	gtk_box_pack_start (GTK_BOX(hbox), self->logo, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(hbox), GTK_WIDGET(self->logo), FALSE, FALSE, 0);
 	
 	GtkWidget *vbox;
 	vbox = gtk_vbox_new(FALSE, 0);
@@ -100,39 +103,21 @@ freetuxtv_channel_new (gchar *name, gchar *uri)
 }
 
 void
-freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file)
+freetuxtv_channel_set_id (FreetuxTVChannel *self, gchar *id)
 {
-	gchar *imgfile;
-	gchar *user_img_channels_dir;
-	user_img_channels_dir = g_strconcat(g_get_user_data_dir(), 
-					    "/.freetuxtv/images/channels", NULL);
-	if(file == NULL){
-		imgfile = g_strconcat(user_img_channels_dir, "/_none.png", NULL);	
-		if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
-			imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/_none.png", NULL);	
-		}
-	}else{
-		imgfile = g_strconcat(user_img_channels_dir,"/",file,NULL);	
-		if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
-			imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/", file, NULL);	
-		}
-	}
-	
-	gtk_image_set_from_file (GTK_IMAGE(self->logo), imgfile);
-	gtk_widget_show(self->logo);
-	
-	g_free(user_img_channels_dir);
-	g_free(imgfile);
-}	
+	g_free(self->id);
+	self->id = id;
+}
 
 void
-freetuxtv_channel_play (FreetuxTVChannel *self)
+freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file)
 {
-	freetuxtv_window_main_play_channel (self);	
+	gtk_image_set_from_file (self->logo, file);
+	gtk_widget_show(GTK_WIDGET(self->logo));
 }
 
 gint
-freetuxtv_channel_apply_filter (FreetuxTVChannel *self, gchar *filter)
+freetuxtv_channel_show_if_filter (FreetuxTVChannel *self, gchar *filter)
 {
 	
 	gchar *channel = g_utf8_strdown (self->name,-1);
@@ -158,11 +143,12 @@ on_channel_button_press_event (GtkWidget *widget, GdkEventButton *event,
 			       gpointer user_data)
 {
 	FreetuxTVChannel *self = FREETUXTV_CHANNEL(widget);
-	if (event->type==GDK_2BUTTON_PRESS 
-	    || event->type==GDK_3BUTTON_PRESS) {
-		g_print ("FreetuxTV : launching channel \"%s\" -> %s\n",
-			 self->name, self->uri);	
-		freetuxtv_channel_play(self);
+	if (event->type==GDK_2BUTTON_PRESS) {
+		/* Envoi du signal dbl-clicked */
+		g_signal_emit (G_OBJECT (widget),
+			       channel_signals [DBL_CLICKED],
+			       0
+			       );
 	}
 }
 
@@ -210,4 +196,15 @@ freetuxtv_channel_class_init (FreetuxTVChannelClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	gobject_class->finalize = freetuxtv_channel_finalize;
+
+	/* Enregistrements des signaux du widget */
+	channel_signals [DBL_CLICKED] = g_signal_new ("dbl-clicked",
+						      G_TYPE_FROM_CLASS (klass),
+						      G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+						      G_STRUCT_OFFSET (FreetuxTVChannelClass, dbl_clicked),
+						      NULL, NULL,
+						      g_cclosure_marshal_VOID__VOID,
+						      G_TYPE_NONE,
+						      0
+						      );
 }

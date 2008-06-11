@@ -45,9 +45,6 @@ freetuxtv_player_get_type (void);
 GtkWidget *
 freetuxtv_player_new ();
 
-GtkWidget *
-freetuxtv_player_get_from_gladexml ();
-
 void
 freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri);
 

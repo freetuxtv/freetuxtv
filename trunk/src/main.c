@@ -18,6 +18,7 @@
 #include <sqlite3.h>
 
 #include "freetuxtv-app.h"
+#include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-player.h"
 
@@ -192,54 +193,101 @@ init_app()
 static FreetuxTVApp *
 freetuxtv_app_create_app ()
 {
-	FreetuxTVApp *app1;
+	FreetuxTVApp *app;
 
 	GtkWidget *windowmain;
-	GtkWidget *filterentry;
+	GtkWidget *widget;
 
-	GtkWidget *scrolledwindowchannels;
-	GtkWidget *channelslist;	
+	GtkWidget *scrolledwindowchannels;	
 
 	GtkWidget *eventboxplayer;
-	GtkWidget *player;
 
-	app1 = g_new0 (FreetuxTVApp, 1);
+	app = g_new0 (FreetuxTVApp, 1);
+
+	app->name = "FreetuxTV";
 
 	/* Création de la fenêtre */
-	app1->windowmain = glade_xml_new (FREETUXTV_GLADEXML,
+	app->windowmain = glade_xml_new (FREETUXTV_GLADEXML,
 					 "windowmain", NULL);
-	glade_xml_signal_autoconnect (app1->windowmain);
+	glade_xml_signal_autoconnect (app->windowmain);
 	
 	/* Ajout du widget de la liste des chaines */
-	channelslist = freetuxtv_channels_list_new ();
-	scrolledwindowchannels = glade_xml_get_widget (app1->windowmain,
+	GtkWidget *eventbox;
+	GdkColor color;
+	eventbox = gtk_event_box_new();
+	color.pixel = 0;
+	color.red   = 0xdf * 0x100;
+	color.green = 0xe0 * 0x100;
+	color.blue  = 0xe6 * 0x100;
+	gtk_widget_modify_bg(eventbox, GTK_STATE_NORMAL, &color);
+	
+	scrolledwindowchannels = glade_xml_get_widget (app->windowmain,
 						       "windowmain_scrolledwindowchannels");
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolledwindowchannels),
-					      channelslist);
+					      eventbox);
+	app->channelsgroups = NULL;	
+	gtk_widget_show_all (eventbox);
 
 	/* Ajout du widget du lecteur */
-	eventboxplayer = glade_xml_get_widget (app1->windowmain,
+	eventboxplayer = glade_xml_get_widget (app->windowmain,
 					       "windowmain_eventboxplayer");
-	player = freetuxtv_player_new ();
-	gtk_container_add (GTK_CONTAINER(eventboxplayer), player);
+	app->player = FREETUXTV_PLAYER(freetuxtv_player_new ());
+	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
 
-	return app1;
+	/* Connexion des signaux */
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_menuitemgroupsadd");
+	g_signal_connect(G_OBJECT(widget),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
+			 app);
+
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonclearfilter");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowmain_buttonclearfilter_clicked),
+			 app);
+
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_entryfilter");
+	g_signal_connect(G_OBJECT(widget),
+			 "changed",
+			 G_CALLBACK(on_windowmain_entryfilter_changed),
+			 app);
+	
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonstop");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowmain_buttonstop_clicked),
+			 app);
+	
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_volumecontrol");
+	g_signal_connect(G_OBJECT(widget),
+			 "value-changed",
+			 G_CALLBACK(on_windowmain_volumecontrol_value_changed),
+			 app);
+
+	return app;
 
 }
-
-
-FreetuxTVApp *app;
 
 int main (int argc, char *argv[])
 {
 	
+	FreetuxTVApp *app;
+	
 	init_app();
-
+	
 	gtk_init(&argc, &argv);
-
+	
 	app = freetuxtv_app_create_app ();
 	if (app == NULL)
 		return 1;	
+
+	channels_list_update_from_db (app);
 
 	gtk_main();
 	

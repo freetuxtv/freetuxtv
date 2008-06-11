@@ -13,9 +13,6 @@
 
 #include "freetuxtv-channel.h"
 
-void 
-freetuxtv_window_main_play_channel (FreetuxTVChannel *channel);
-
 void
 on_windowmain_destroy (GtkWidget *widget, gpointer *data);
 
@@ -29,11 +26,11 @@ on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 
 void
 on_windowmain_buttonclearfilter_clicked (GtkButton *button,
-					 gpointer *data);
+					 gpointer user_data);
 
 void
 on_windowmain_buttonstop_clicked (GtkButton *button,
-				  gpointer *data);
+				  gpointer user_data);
 
 void
 on_windowmain_entryfilter_changed (GtkEntry *entry,
@@ -41,7 +38,7 @@ on_windowmain_entryfilter_changed (GtkEntry *entry,
 
 void
 on_windowmain_volumecontrol_value_changed (GtkRange *range,
-					   gpointer  user_data);
+					   gpointer user_data);
 
 void
 on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
@@ -52,10 +49,13 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 			       gpointer   user_data);
 void
 on_dialogaddgroup_cancel_clicked (GtkButton *button,
-				  gpointer   user_data);
+				  gpointer user_data);
 
 void
 on_aboutdialog_response (GtkDialog *dialog,
-			 gpointer   user_data);
+			 gpointer user_data);
+
+void
+windowmain_show_error (FreetuxTVApp *app, gchar *msg);
 
 #endif /* FREETUXTV_WINDOW_MAIN_H */
