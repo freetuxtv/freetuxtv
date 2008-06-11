@@ -24,6 +24,13 @@ CREATE TABLE IF NOT EXISTS channel (
      CONSTRAINT fk_channelsgroup_channel REFERENCES channels_group(id_channelsgroup) ON DELETE CASCADE
 );
 
+CREATE TRIGGER fkd_channel_channelsgroup_id
+  BEFORE DELETE ON channels_group
+  FOR EACH ROW BEGIN
+      DELETE from channel WHERE channelsgroup_channel = OLD.id_channelsgroup;
+  END;
+
+
 insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('FreeboxTV','http://mafreebox.freebox.fr/freeboxtv/playlist.m3u');
 insert into channels_group (name_channelsgroup, uri_channelsgroup) 

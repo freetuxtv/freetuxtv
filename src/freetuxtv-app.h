@@ -14,13 +14,21 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 
+#include "freetuxtv-player.h"
+
 G_BEGIN_DECLS
 
 #define FREETUXTV_GLADEXML FREETUXTV_DIR "/freetuxtv.glade"
 
 struct _FreetuxTVApp {
+	
+	gchar *name;
+
 	GladeXML *windowmain;
-	GladeXML *dialogaddgroup;	
+	GladeXML *dialogaddgroup;
+
+	FreetuxTVPlayer *player;
+	GtkVBox *channelsgroups;
 };
 typedef struct _FreetuxTVApp FreetuxTVApp;
 

@@ -12,46 +12,44 @@
 #  include <config.h>
 #endif
 
-#include <sqlite3.h>
+
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <glade/glade.h>
-#include <curl/curl.h>
 
-#include "freetuxtv-app.h"
-#include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-group.h"
-#include "freetuxtv-channels-list.h"
 #include "freetuxtv-channel.h"
-#include "lib-m3uparser.h"
 
 G_DEFINE_TYPE (FreetuxTVChannelsGroup, freetuxtv_channels_group, GTK_TYPE_VBOX);
 
-extern FreetuxTVApp *app;
-
-static int 
-on_exec_add_channel (void *data, int argc, char **argv, char **colsname);
-
-typedef struct _Parsem3uData
-{
-	gchar *id;
-	struct sqlite3 *db;
-} Parsem3uData;
-
-static int 
-on_parsem3u_add_channel (char *url, int argc, 
-			 char **argv, void *user_data);
+static void
+on_arrow_clicked (GtkWidget *widget, GdkEventButton *event, 
+		  gpointer user_data);
 
 static void
-on_click_refresh (GtkWidget *widget, GdkEventButton *event, 
-		gpointer user_data);
+on_grouphead_clicked (GtkWidget *widget, GdkEventButton *event, 
+		      gpointer user_data);
 
 static void
-on_click_arrow (GtkWidget *widget, GdkEventButton *event, 
-		gpointer user_data);
+on_menudeletegroup_activate (GtkMenuItem *menuitem, gpointer user_data);
 
-static int
-get_group_file (FreetuxTVChannelsGroup *self, gchar **filename, gboolean cache);
+static void
+on_menudeletechannels_activate (GtkMenuItem *menuitem, gpointer user_data);
+
+static void
+on_menurefresh_activate (GtkMenuItem *menuitem, gpointer user_data);
+
+static void
+show_popup_on_widget (FreetuxTVChannelsGroup *self, GtkWidget *widget, GdkEventButton *event);
+
+enum {
+  MENU_DELETE_GROUP,
+  MENU_DELETE_CHANNELS,
+  MENU_REFRESH_GROUP,
+  LAST_SIGNAL
+};
+
+static guint channelsgroup_signals[LAST_SIGNAL];
 
 GtkWidget *
 freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri)
@@ -65,6 +63,9 @@ freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri)
 	self->id = g_strdup(id);
 	self->name = g_strdup(name);
 	self->uri = g_strdup(uri);
+
+	self->filter = "";
+	self->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
  
 	GdkColor color;
 	color.pixel = 0;
@@ -78,13 +79,16 @@ freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri)
 
 	GtkWidget *hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_add (GTK_CONTAINER(eventbox), hbox);
+	gtk_widget_set_tooltip_text (GTK_WIDGET(hbox), self->name);
+	g_signal_connect(G_OBJECT(eventbox), "button-press-event",
+			 G_CALLBACK(on_grouphead_clicked), self);
 	
 	/* Fleche pour l'expand */
 	eventbox = gtk_event_box_new ();
 	gtk_widget_modify_bg(GTK_WIDGET(eventbox), GTK_STATE_NORMAL, &color);
 	g_signal_connect(G_OBJECT(eventbox), "button-press-event",
-			 G_CALLBACK(on_click_arrow), NULL);
-	gtk_box_pack_start (GTK_BOX(hbox), eventbox, FALSE, FALSE, 0);	
+			 G_CALLBACK(on_arrow_clicked), self);
+	gtk_box_pack_start (GTK_BOX(hbox), eventbox, FALSE, FALSE, 0);
 	GtkWidget *arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_IN);
 	self->arrow = arrow;
 	gtk_container_add (GTK_CONTAINER(eventbox), arrow);
@@ -96,20 +100,10 @@ freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri)
 	gtk_label_set_ellipsize (GTK_LABEL(label), PANGO_ELLIPSIZE_END);
 	gtk_box_pack_start (GTK_BOX(hbox), label, TRUE, TRUE, 0);
 
-	/* Bouton pour rafraichir la liste des chaines */
-	eventbox = gtk_event_box_new ();
-	gtk_widget_modify_bg(GTK_WIDGET(eventbox), GTK_STATE_NORMAL, &color);
-	g_signal_connect(G_OBJECT(eventbox), "button-press-event",
-			 G_CALLBACK(on_click_refresh), NULL);
-	gtk_box_pack_start (GTK_BOX(hbox), eventbox, FALSE, FALSE, 0);	
-	GtkWidget *image = gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_BUTTON);
-	gtk_container_add (GTK_CONTAINER(eventbox), image);
-
 	/* Liste des chaines du groupe */
 	self->channels_widget = gtk_vbox_new(FALSE, 1);
 	gtk_box_pack_start (GTK_BOX(self), 
 			    self->channels_widget, FALSE, FALSE, 0);
-	freetuxtv_channels_group_reload_channels (self);
 	
 	gtk_widget_show_all (GTK_WIDGET(self));
 	
@@ -126,34 +120,40 @@ freetuxtv_channels_group_add_channel (FreetuxTVChannelsGroup *self,
 }
 
 void
-freetuxtv_channels_group_change_collasped (FreetuxTVChannelsGroup *self)
+freetuxtv_channels_group_delete_channels (FreetuxTVChannelsGroup *self)
 {
-	if(self->collapsed == 'N') {
-		freetuxtv_channels_group_set_collasped (self, 'Y');
+	gtk_widget_destroy (GTK_WIDGET(self->channels_widget));
+	self->channels_widget = gtk_vbox_new(FALSE, 1);
+	gtk_box_pack_start (GTK_BOX(self), 
+			    self->channels_widget, FALSE, FALSE, 0);
+}
+
+void
+freetuxtv_channels_group_change_collapsed (FreetuxTVChannelsGroup *self)
+{
+	if(self->state == FREETUXTV_CHANNELS_GROUP_EXPANDED) {
+		freetuxtv_channels_group_set_collapsed (self,
+							FREETUXTV_CHANNELS_GROUP_COLLAPSED);
 	}else{
-		freetuxtv_channels_group_set_collasped (self, 'N');	
+		freetuxtv_channels_group_set_collapsed (self,
+							FREETUXTV_CHANNELS_GROUP_EXPANDED);	
 	}	
 }
 
 void
-freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
-					gchar mode)
+freetuxtv_channels_group_set_collapsed (FreetuxTVChannelsGroup *self,
+					FreetuxTVChannelsGroupState state)
 {
 	GtkWidget *entryfilter;
 	gchar *filter;
 
-	self->collapsed = mode;
-	if(self->collapsed == 'N') {
+	self->state = state;
+	if(self->state == FREETUXTV_CHANNELS_GROUP_EXPANDED) {
 		gtk_arrow_set (GTK_ARROW(self->arrow), 
 			       GTK_ARROW_DOWN,
 			       GTK_SHADOW_NONE);
-		
-	
-		entryfilter = glade_xml_get_widget (app->windowmain,
-						    "windowmain_entryfilter");
-		filter = (gchar *)gtk_entry_get_text (GTK_ENTRY(entryfilter));
 
-		freetuxtv_channels_group_apply_filter (self, filter);
+		freetuxtv_channels_group_set_filter (self, self->filter);
 	}else{
 		gtk_arrow_set (GTK_ARROW(self->arrow), 
 			       GTK_ARROW_RIGHT,
@@ -163,26 +163,30 @@ freetuxtv_channels_group_set_collasped (FreetuxTVChannelsGroup *self,
 }
 
 int
-freetuxtv_channels_group_apply_filter (FreetuxTVChannelsGroup *self, gchar *filter)
+freetuxtv_channels_group_set_filter (FreetuxTVChannelsGroup *self,
+				     gchar *filter)
 {
 	int count = 0;
 	GList* tmp;
+
+	self->filter = filter;
+
 	tmp = g_list_first (gtk_container_get_children (GTK_CONTAINER(self->channels_widget)));
 	gtk_widget_show_all (GTK_WIDGET(self));
 	while (tmp != NULL){
 		FreetuxTVChannel *channel;
 		channel = FREETUXTV_CHANNEL (tmp->data);
-		count += freetuxtv_channel_apply_filter (channel, filter);
+		count += freetuxtv_channel_show_if_filter (channel, self->filter);
 		tmp = g_list_next (tmp); 
 	}
 	if( count == 0 && g_ascii_strcasecmp(filter, "") != 0){
-		self->collapsed = 'Y';
+		self->state = FREETUXTV_CHANNELS_GROUP_COLLAPSED;
 		gtk_arrow_set (GTK_ARROW(self->arrow), 
 			       GTK_ARROW_RIGHT,
 			       GTK_SHADOW_NONE);
 		gtk_widget_hide_all (GTK_WIDGET(self));
 	}else{
-		self->collapsed = 'N';
+		self->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
 		gtk_arrow_set (GTK_ARROW(self->arrow), 
 			       GTK_ARROW_DOWN,
 			       GTK_SHADOW_NONE);	
@@ -190,350 +194,145 @@ freetuxtv_channels_group_apply_filter (FreetuxTVChannelsGroup *self, gchar *filt
 	return count;
 }
 
+gchar *
+freetuxtv_channels_group_get_filter (FreetuxTVChannelsGroup *self)
+{
+	return self->filter;
+}
+
 FreetuxTVChannelsGroup *
-freetuxtv_channels_group_get_from_widget (GtkWidget *self)
+freetuxtv_channels_group_get_from_channel (FreetuxTVChannel *channel)
 {
-	g_return_val_if_fail(self != NULL, NULL);
-	g_return_val_if_fail(GTK_IS_WIDGET(self), NULL);
-
-	if(FREETUXTV_IS_CHANNELS_GROUP(self)){
-		return FREETUXTV_CHANNELS_GROUP(self);
-	}else{
-		return freetuxtv_channels_group_get_from_widget (gtk_widget_get_parent(self));
-	}
-}
-
-int
-freetuxtv_channels_group_reload_channels (FreetuxTVChannelsGroup *self)
-{
-	struct sqlite3 *db;
-	int res;
-	char *err=0;
-
-	gchar *user_db;
-	user_db = g_strconcat(g_get_user_config_dir(), 
-			      "/FreetuxTV/freetuxtv.db", NULL);
+	GtkWidget *parent;
 	
-	/* Ouverture de la BDD */
-	res = sqlite3_open(user_db,&db);
-	if(res != SQLITE_OK){
-		g_printerr("Sqlite3 : %s\n",
-			   sqlite3_errmsg(db));
-		g_printerr("FreetuxTV : Cannot open database %s\n",
-			   user_db);
-		sqlite3_close(db);
-		return -1;
-	}
+	g_return_val_if_fail(channel != NULL, NULL);
+	g_return_val_if_fail(FREETUXTV_IS_CHANNEL(channel), NULL);
 	
-	gtk_widget_hide_all (GTK_WIDGET(self->channels_widget));
-	gtk_widget_destroy(GTK_WIDGET(self->channels_widget));
-	self->channels_widget = gtk_vbox_new(FALSE, 1);
-	gtk_box_pack_start (GTK_BOX(self), 
-			    self->channels_widget, FALSE, FALSE, 0);
+	parent = gtk_widget_get_parent(GTK_WIDGET(channel));
+	parent = gtk_widget_get_parent(parent);
 	
-	/* Selection des channels */
-	gchar *query;
-	query = g_strconcat("SELECT id_channel, name_channel, \
-                             filename_channellogo, \
-                             uri_channel FROM channel LEFT JOIN channel_logo \
-                             ON  id_channellogo=idchannellogo_channel \
-                             WHERE channelsgroup_channel=",
-			    self->id, NULL);
-	res = sqlite3_exec(db, query, on_exec_add_channel,
-			   (void *)self, &err);
-	g_free(query);
-	if(res != SQLITE_OK){
-		g_printerr("Sqlite3 : %s\n",
-			   sqlite3_errmsg(db));
-		g_printerr("FreetuxTV : Cannot read channels for group %s in %s\n",
-			   self->name,user_db);
-	}
-	
-	sqlite3_free(err);
-	sqlite3_close(db);
-	
-	self->collapsed = 'N';
-	gtk_arrow_set (GTK_ARROW(self->arrow), 
-		       GTK_ARROW_DOWN,
-		       GTK_SHADOW_NONE);
-	
-	gtk_widget_show_all (GTK_WIDGET(self->channels_widget));
+	return FREETUXTV_CHANNELS_GROUP(parent);
 
-	g_free(user_db);
-
-	return 0;
-}
-
-int
-freetuxtv_channels_group_update_from_uri (FreetuxTVChannelsGroup *self)
-{
-	struct sqlite3 *db;
-	int res;
-	char *err = 0;
-	int ret = 0;
-
-	gchar *user_db;
-	user_db = g_strconcat(g_get_user_config_dir(), 
-			      "/FreetuxTV/freetuxtv.db", NULL);
-
-	/* Mise à jour de la barre de statut */
-	GtkWidget *statusbar;
-	gchar *text;
-	statusbar = glade_xml_get_widget (app->windowmain,
-					  "windowmain_statusbar");
-	text = g_strconcat ("Mise à jour des chaines de \"", self->name,"\"", NULL);
-	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
-			    gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar),
-							 "UpdateMsg"),
-			    text);
-	g_main_iteration(FALSE);
-	g_free(text);
-
-	
-	GtkWidget *windowmain;
-	windowmain = glade_xml_get_widget (app->windowmain,
-					   "windowmain");
-
-	/* Ouverture de la BDD */
-	res = sqlite3_open(user_db, &db);
-	if(res != SQLITE_OK){
-		GtkWidget* dialog;		
-		dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
-						GTK_DIALOG_MODAL, 
-						GTK_MESSAGE_ERROR,
-						GTK_BUTTONS_OK,
-						"Impossible d'ouvrir la base de données.\n\nSQLite a retouné l'erreur : %s.",
-						sqlite3_errmsg(db)
-						);
-		
-		gtk_dialog_run(GTK_DIALOG(dialog));
-		gtk_widget_destroy(dialog);
-		ret = -1;
-	}
-	
-	char *file;
-	if(ret >= 0){
-		res = get_group_file (self, &file, TRUE);
-		if (res < 0){
-			ret = -1;
-		}
-	}
-
-	if (file != NULL && ret >= 0){
-
-		/* Effacement des channels */
-		gchar *query;
-		query = sqlite3_mprintf("DELETE FROM channel WHERE channelsgroup_channel=%q",
-					self->id);
-		res = sqlite3_exec(db, query, NULL, 0, &err);
-		sqlite3_free(query);
-		if(res != SQLITE_OK){
-			GtkWidget* dialog;
-			dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
-							GTK_DIALOG_MODAL, 
-							GTK_MESSAGE_ERROR,
-							GTK_BUTTONS_OK,
-							"La suppression des chaînes du groupe \"%s\" a échoué.\n\nSQLite a retouné l'erreur : %s.",
-							self->name,
-							sqlite3_errmsg(db)
-							);
-			
-			gtk_dialog_run(GTK_DIALOG(dialog));
-			gtk_widget_destroy(dialog);
-			ret = -1;
-		}else{
-			/* Parse le fichier M3U et ajoute les chaînes dans la BDD */
-			Parsem3uData *data;
-			data = g_new0(Parsem3uData, 1);
-			data->id = self->id;
-			data->db = db;
-			res = libm3uparser_parse(file, &on_parsem3u_add_channel, data);
-			if (res < 0 ){
-				GtkWidget* dialog;
-				if (ret == LIBM3UPARSER_CALLBACK_RETURN_ERROR){				
-					dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
-									GTK_DIALOG_MODAL, 
-									GTK_MESSAGE_ERROR,
-									GTK_BUTTONS_OK,
-									"L'ajout des chaînes n'a pas correctement fonctionné.\n\nSQLite a retouné l'erreur : %s.",
-									sqlite3_errmsg(db)
-									);
-				}else{
-					dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
-									GTK_DIALOG_MODAL, 
-									GTK_MESSAGE_ERROR,
-									GTK_BUTTONS_OK,
-									"L'ajout des chaînes n'a pas correctement fonctionné.\n\nM3UParser a retouné l'erreur : %s.",
-									libm3uparser_errmsg(ret)
-									);
-				}
-				gtk_dialog_run(GTK_DIALOG(dialog));
-				gtk_widget_destroy(dialog);
-				ret = -1;
-			}
-			g_free (data);
-		}
-	}
-	
-	sqlite3_free(err);
-	sqlite3_close(db);
-	
-	g_free(user_db);
-	freetuxtv_channels_group_reload_channels (self);
-	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
-			   gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
-							"UpdateMsg"));
-	return ret;
 }
 
 static void
-on_click_refresh (GtkWidget *widget, GdkEventButton *event,
+show_popup_on_widget (FreetuxTVChannelsGroup *self, GtkWidget *widget, GdkEventButton *event)
+{
+	GtkWidget *menu;
+	GtkWidget *menuitem;
+	GtkWidget *image;
+	int button, event_time;
+
+	menu = gtk_menu_new ();
+	
+	self->popup_menu = menu;
+
+	menuitem = gtk_image_menu_item_new_with_label("Actualiser depuis la playlist");
+	gtk_widget_set_tooltip_text (GTK_WIDGET(menuitem), self->uri);
+	image = gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
+	gtk_menu_append (GTK_MENU (menu), menuitem);
+	g_signal_connect(G_OBJECT(menuitem), "activate",
+			 G_CALLBACK(on_menurefresh_activate), self);
+	gtk_widget_show (menuitem);
+	
+	menuitem = gtk_image_menu_item_new_with_label("Supprimer les chaînes du groupe");
+	image = gtk_image_new_from_stock (GTK_STOCK_DELETE, GTK_ICON_SIZE_MENU);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
+	gtk_menu_append (GTK_MENU (menu), menuitem);
+	g_signal_connect(G_OBJECT(menuitem), "activate",
+			 G_CALLBACK(on_menudeletechannels_activate), self);
+	gtk_widget_show (menuitem);
+	
+	menuitem = gtk_image_menu_item_new_with_label("Supprimer le groupe");
+	image = gtk_image_new_from_stock (GTK_STOCK_DELETE, GTK_ICON_SIZE_MENU);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
+	gtk_menu_append (GTK_MENU (menu), menuitem);
+	g_signal_connect(G_OBJECT(menuitem), "activate",
+			 G_CALLBACK(on_menudeletegroup_activate), self);
+	gtk_widget_show (menuitem);
+
+	gtk_widget_show (menu);
+	
+	if (event){
+		button = event->button;
+		event_time = event->time;
+	}else{
+		button = 0;
+		event_time = gtk_get_current_event_time ();
+	}
+
+	gtk_menu_attach_to_widget (GTK_MENU (menu), widget, NULL);
+	gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, 
+			button, event_time);
+}
+
+static void
+on_menudeletegroup_activate (GtkMenuItem *menuitem, gpointer user_data)
+{
+	FreetuxTVChannelsGroup *self;
+	self = (FreetuxTVChannelsGroup *) user_data;
+	
+	gtk_widget_destroy (self->popup_menu);
+	
+	/* Envoi du signal delete-group */
+	g_signal_emit (G_OBJECT (self),
+		       channelsgroup_signals [MENU_DELETE_GROUP],
+		       0);
+}
+
+static void
+on_menudeletechannels_activate (GtkMenuItem *menuitem, gpointer user_data)
+{
+	FreetuxTVChannelsGroup *self;
+	self = (FreetuxTVChannelsGroup *) user_data;
+	
+	gtk_widget_destroy (self->popup_menu);
+	
+	/* Envoi du signal delete-channels */
+	g_signal_emit (G_OBJECT (self),
+		       channelsgroup_signals [MENU_DELETE_CHANNELS],
+		       0
+		       );
+
+	freetuxtv_channels_group_delete_channels (self);
+
+}
+
+static void
+on_menurefresh_activate (GtkMenuItem *menuitem, gpointer user_data)
+{
+	FreetuxTVChannelsGroup *self;
+	self = (FreetuxTVChannelsGroup *) user_data;
+	
+	gtk_widget_destroy (self->popup_menu);
+	
+	/* Envoi du signal refresh-group */
+	g_signal_emit (G_OBJECT (self),
+		       channelsgroup_signals [MENU_REFRESH_GROUP],
+		       0
+		       );
+
+}
+
+static void
+on_arrow_clicked (GtkWidget *widget, GdkEventButton *event,
 		  gpointer user_data)
 {
-	FreetuxTVChannelsGroup *self;
-	self = freetuxtv_channels_group_get_from_widget (GTK_WIDGET(widget));
-	freetuxtv_channels_group_update_from_uri (self);
-	
+	freetuxtv_channels_group_change_collapsed ((FreetuxTVChannelsGroup *) user_data);
 }
 
 static void
-on_click_arrow (GtkWidget *widget, GdkEventButton *event,
-		gpointer user_data)
+on_grouphead_clicked (GtkWidget *widget, GdkEventButton *event,
+		      gpointer user_data)
 {
-	FreetuxTVChannelsGroup *self;
-	self = freetuxtv_channels_group_get_from_widget (GTK_WIDGET(widget));
-	freetuxtv_channels_group_change_collasped (self);
-}
-
-static int 
-on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
-{
-	FreetuxTVChannelsGroup *self = (FreetuxTVChannelsGroup *) data;
-	FreetuxTVChannel *channel;
-	channel = FREETUXTV_CHANNEL(freetuxtv_channel_new(argv[1],
-							  argv[3]));
-	
-	freetuxtv_channel_set_logo (channel, (gchar *)argv[2]);
-	
-	freetuxtv_channels_group_add_channel (self, channel);
-	return 0;
-}
-
-static int 
-on_parsem3u_add_channel (char *url, int argc, 
-			 char **argv, void *user_data)
-{
-	Parsem3uData *data = (Parsem3uData *) user_data;
-
-	struct sqlite3 *db = data->db;
-	gchar* query;
-	int res;
-	char *err=0;
-	
-	gchar *name;
-	res = libm3uparser_get_extinfo (argc, argv, NULL, &name);
-	if(res == LIBM3UPARSER_EXTINFO_NOT_FOUND){
-		name = g_strconcat("Inconnu", NULL);
+	if(event->button == 3){
+		show_popup_on_widget ((FreetuxTVChannelsGroup *) user_data, widget, event);	
 	}else{
-		/* Enleve le numero de chaine s'il est present */
-		gchar *tmp = name;
-		name = g_strrstr(tmp, " - ");
-		if(name != NULL){
-			name = g_strdup (name+3);
-			g_free (tmp);
-		}else{
-			name = tmp;
+		if (event->type==GDK_2BUTTON_PRESS){
+			freetuxtv_channels_group_change_collapsed ((FreetuxTVChannelsGroup *) user_data);
 		}
 	}
-	query = sqlite3_mprintf("INSERT INTO channel (name_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) values ('%q',(SELECT id_channellogo FROM channel_logo WHERE label_channellogo='%q' OR id_channellogo = (SELECT idchannellogo_labelchannellogo FROM label_channellogo WHERE label_labelchannellogo='%q')),'%q','%q');", 
-				name, name, name, url, data->id);
-	g_free(name);
-	res=sqlite3_exec(db, query, NULL, 0, &err);
-	sqlite3_free(query);
-	if(res != SQLITE_OK){
-		return -1;
-	}
-	return 0;
-}
-
-static int
-get_group_file (FreetuxTVChannelsGroup *self, gchar **file, gboolean cache)
-{
-	gchar **uriv;
-	int ret = 0;
-	uriv = g_strsplit (self->uri, "//", 2);
-	*file = NULL;
-	if( g_ascii_strcasecmp (uriv[0], "file:") == 0 ){
-		*file = g_strdup (uriv[1]);
-	}
-	if( g_ascii_strcasecmp (uriv[0], "http:") == 0 ){
-
-		GtkWidget *windowmain;
-		windowmain = glade_xml_get_widget (app->windowmain,
-						   "windowmain");
-
-		/* Mise à jour de la barre de statut */				
-		GtkWidget *statusbar;
-		gchar *text;
-		statusbar = glade_xml_get_widget (app->windowmain,
-						  "windowmain_statusbar");
-		text = g_strconcat ("Récupération du fichier : \"",
-				    self->uri,"\"", NULL);
-		gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
-				    gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
-								 "UpdateMsg"),
-				    text);
-		g_main_iteration(FALSE);
-		g_free(text);
-
-		gchar *groupfile;
-		groupfile = g_strconcat(g_get_user_config_dir(), 
-					"/FreetuxTV/cache/playlist-group-",
-					self->id, ".dat", NULL);;
-			
-		if(cache){
-			/* Téléchargement du fichier */
-			CURL *session = curl_easy_init(); 
-			curl_easy_setopt(session, CURLOPT_URL, self->uri);
-			curl_easy_setopt(session, CURLOPT_TIMEOUT, 10);
-			FILE * fp = fopen(groupfile, "w"); 
-			curl_easy_setopt(session,
-					 CURLOPT_WRITEDATA, fp); 
-			curl_easy_setopt(session,
-					 CURLOPT_WRITEFUNCTION, fwrite);
-			CURLcode curlcode;
-			curlcode = curl_easy_perform(session);
-			fclose(fp);
-			curl_easy_cleanup(session);
-
-			if(curlcode != 0){
-				GtkWidget* dialog;
-					
-				dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
-								GTK_DIALOG_MODAL, 
-								GTK_MESSAGE_ERROR,
-								GTK_BUTTONS_OK,
-								"La playlist du groupe \"%s\" n'as pas pu être télécharger à partir de l'URL -> %s.\n\nCURL a retourné l'erreur : %s.",
-								self->name,
-								self->uri,
-								curl_easy_strerror(curlcode));
-				gtk_dialog_run(GTK_DIALOG(dialog));
-				gtk_widget_destroy(dialog);
-				ret = -1;
-			}
-
-		}
-
-		*file = groupfile;
-
-		gtk_statusbar_pop (GTK_STATUSBAR(statusbar), 
-				   gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
-								"UpdateMsg"));
-	}
-	
-
-	g_strfreev (uriv);
-	return ret;
 }
 
 static void
@@ -542,10 +341,12 @@ freetuxtv_channels_group_init (FreetuxTVChannelsGroup *object)
 	object->id=0;
 	object->name="";
 	object->uri="";
+	object->filter="";
+	object->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
+
 	object->channels_widget = NULL;
-	
-	object->collapsed = 'N';
 	object->arrow = NULL;
+	object->popup_menu = NULL;
 }
 
 static void
@@ -559,4 +360,34 @@ freetuxtv_channels_group_class_init (FreetuxTVChannelsGroupClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	gobject_class->finalize = freetuxtv_channels_group_finalize;
+
+	/* Enregistrements des signaux du widget */
+	channelsgroup_signals [MENU_DELETE_GROUP] = g_signal_new ("menu-delete-group",
+							     G_TYPE_FROM_CLASS (klass),
+							     G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+							     G_STRUCT_OFFSET (FreetuxTVChannelsGroupClass, menu_delete_group),
+							     NULL, NULL,
+							     g_cclosure_marshal_VOID__VOID,
+							     G_TYPE_NONE,
+							     0
+							     );
+	channelsgroup_signals [MENU_DELETE_CHANNELS] = g_signal_new ("menu-delete-channels",
+								G_TYPE_FROM_CLASS (klass),
+								G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+								G_STRUCT_OFFSET (FreetuxTVChannelsGroupClass, menu_delete_channels),
+								NULL, NULL,
+								g_cclosure_marshal_VOID__VOID,
+								G_TYPE_NONE,
+								0
+								);
+	channelsgroup_signals [MENU_REFRESH_GROUP] = g_signal_new ("menu-refresh-group",
+							      G_TYPE_FROM_CLASS (klass),
+							      G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+							      G_STRUCT_OFFSET (FreetuxTVChannelsGroupClass, menu_refresh_group),
+							      NULL, NULL,
+							      g_cclosure_marshal_VOID__VOID,
+							      G_TYPE_NONE,
+							      0
+							      );
+
 }
