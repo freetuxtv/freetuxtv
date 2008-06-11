@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Tue Jun  3 22:57:11 2008 -->
+<!--Generated with glade3 3.4.5 on Sun Jun  8 12:31:13 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="windowmain">
     <property name="visible">True</property>
@@ -49,7 +49,6 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">Ajouter un groupe</property>
                         <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_windowmain_menuitemgroupsadd_activate"/>
                       </widget>
                     </child>
                   </widget>
@@ -104,7 +103,6 @@
                             <property name="receives_default">True</property>
                             <property name="tooltip" translatable="yes">Effacer la zone de texte de recherche</property>
                             <property name="response_id">0</property>
-                            <signal name="clicked" handler="on_windowmain_buttonclearfilter_clicked"/>
                             <child>
                               <widget class="GtkImage" id="image1">
                                 <property name="visible">True</property>
@@ -122,7 +120,6 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="tooltip" translatable="yes">Zone de recherche de chaînes</property>
-                            <signal name="changed" handler="on_windowmain_entryfilter_changed"/>
                           </widget>
                           <packing>
                             <property name="expand">False</property>
@@ -287,7 +284,6 @@
                         <property name="receives_default">True</property>
                         <property name="tooltip" translatable="yes">Arrêter la lecture de la chaînes en cours</property>
                         <property name="response_id">0</property>
-                        <signal name="clicked" handler="on_windowmain_buttonstop_clicked"/>
                         <child>
                           <widget class="GtkImage" id="image3">
                             <property name="visible">True</property>
@@ -325,9 +321,8 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="tooltip" translatable="yes">Modifier le volume sonore de la chaîne</property>
-                            <property name="adjustment">80 0 100 1 10 10</property>
+                            <property name="adjustment">70 0 100 1 10 10</property>
                             <property name="draw_value">False</property>
-                            <signal name="value_changed" handler="on_windowmain_volumecontrol_value_changed"/>
                           </widget>
                           <packing>
                             <property name="position">2</property>
@@ -451,6 +446,7 @@
                       <widget class="GtkEntry" id="dialogaddgroup_name">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip" translatable="yes">Nom du groupe à ajouter</property>
                       </widget>
                       <packing>
                         <property name="left_attach">1</property>
@@ -471,6 +467,7 @@
                       <widget class="GtkEntry" id="dialogaddgroup_uri">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip" translatable="yes">URI de la playlist du groupe à ajouter</property>
                         <property name="width_chars">50</property>
                       </widget>
                       <packing>
@@ -533,7 +530,6 @@
                 <property name="label" translatable="yes">gtk-add</property>
                 <property name="use_stock">True</property>
                 <property name="response_id">0</property>
-                <signal name="clicked" handler="on_dialogaddgroup_add_clicked"/>
               </widget>
               <packing>
                 <property name="position">1</property>

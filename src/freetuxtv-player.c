@@ -43,17 +43,6 @@ freetuxtv_player_new ()
 	
 }
 
-GtkWidget *
-freetuxtv_player_get_from_gladexml ()
-{
-	GtkWidget *self;
-	
-	self = glade_xml_get_widget (app->windowmain,
-				     "windowmain_eventboxplayer");
-	self = gtk_bin_get_child (GTK_BIN(self));
-	return self;
-}
-
 void
 freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri)
 {

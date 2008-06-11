@@ -32,28 +32,32 @@ struct _FreetuxTVChannel
 
 	gchar *name;
 	gchar *uri;
-	GtkWidget *logo;
+	gchar *id;
+	
+	GtkImage *logo;
 };
 
 struct _FreetuxTVChannelClass
 {
 	GtkEventBoxClass parent_class;
+
+	void (* dbl_clicked) (FreetuxTVChannel *channel);
 };
 
 GType
 freetuxtv_channel_get_type (void);
 
 GtkWidget *
-freetuxtv_channel_new (gchar *name, gchar *uri);
+freetuxtv_channel_new (gchar *id, gchar *name, gchar *uri);
+
+void
+freetuxtv_channel_set_id (FreetuxTVChannel *self, gchar *id);
 
 void
 freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file);
 
-void
-freetuxtv_channel_play (FreetuxTVChannel *self);
-
 gint
-freetuxtv_channel_apply_filter (FreetuxTVChannel *self, gchar *filter);
+freetuxtv_channel_show_if_filter (FreetuxTVChannel *self, gchar *filter);
 
 G_END_DECLS
 
