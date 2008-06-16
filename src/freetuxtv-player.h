@@ -54,6 +54,9 @@ freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value);
 void
 freetuxtv_player_stop (FreetuxTVPlayer *self);
 
+void
+freetuxtv_player_fullscreen (FreetuxTVPlayer *self);
+
 G_END_DECLS
 
 #endif /* FREETUXTV_PLAYER_H */

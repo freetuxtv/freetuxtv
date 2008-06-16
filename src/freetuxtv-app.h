@@ -26,6 +26,7 @@ struct _FreetuxTVApp {
 
 	GladeXML *windowmain;
 	GladeXML *dialogaddgroup;
+	GladeXML *windowminimode;
 
 	FreetuxTVPlayer *player;
 	GtkVBox *channelsgroups;
