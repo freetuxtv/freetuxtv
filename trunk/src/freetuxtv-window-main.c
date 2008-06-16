@@ -56,13 +56,66 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 	channels_list_apply_filter (app);
 }
 
-
 void
 on_windowmain_buttonstop_clicked (GtkButton *button,
 				  gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	freetuxtv_player_stop (app->player);
+}
+
+void
+on_windowmain_buttonfullscreen_clicked (GtkButton *button,
+					gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	freetuxtv_player_fullscreen (app->player);
+}
+
+void
+on_windowmain_buttonminimode_clicked (GtkButton *button,
+				      gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GladeXML *tmp;	
+	
+	GtkWidget *widget;
+	
+	widget = glade_xml_get_widget(app->windowmain,
+				      "windowmain");
+	gtk_widget_hide (widget);
+
+	/* Affichage de la fenetre miniature */
+	app->windowminimode = glade_xml_new (FREETUXTV_GLADEXML,
+					     "windowminimode", NULL);
+	glade_xml_signal_autoconnect (app->windowminimode);
+
+	/* Connexion des signaux */
+	widget = glade_xml_get_widget(app->windowminimode,
+				      "windowminimode");
+	g_signal_connect(G_OBJECT(widget),
+			 "destroy",
+			 G_CALLBACK(on_windowmain_destroy),
+			 app);
+	
+	widget = glade_xml_get_widget(app->windowminimode,
+				      "windowminimode_buttonnormalmode");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowminimode_buttonnormalmode_clicked),
+			 app);
+
+	widget = glade_xml_get_widget(app->windowminimode,
+				      "windowminimode_eventboxplayer");
+	gtk_widget_reparent (GTK_WIDGET(app->player), widget);
+	
+	widget = glade_xml_get_widget (app->windowminimode,
+				       "windowminimode_volumecontrol");
+	g_signal_connect(G_OBJECT(widget),
+			 "value-changed",
+			 G_CALLBACK(on_windowmain_volumecontrol_value_changed),
+			 app);	
 }
 
 void
@@ -79,7 +132,6 @@ on_windowmain_volumecontrol_value_changed (GtkRange *range, gpointer user_data)
 	freetuxtv_player_set_volume (app->player,
 				     gtk_range_get_value (range));
 }
-
 
 void
 on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
@@ -98,6 +150,31 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 			 "clicked",
 			 G_CALLBACK(on_dialogaddgroup_add_clicked),
 			 app);
+}
+
+void
+on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
+					    gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GtkWidget *windowminimode;
+	GladeXML *tmp;	
+	
+	GtkWidget *widget;
+	
+	widget = glade_xml_get_widget(app->windowminimode,
+				      "windowminimode");
+	gtk_widget_hide (widget);
+	
+	/* Reaffichage de la fenetre principal */
+	widget = glade_xml_get_widget(app->windowmain,
+				      "windowmain");
+	gtk_widget_show (widget);
+	
+	widget = glade_xml_get_widget(app->windowmain,
+				      "windowmain_eventboxplayer");
+	gtk_widget_reparent (GTK_WIDGET(app->player), widget);
 }
 
 void

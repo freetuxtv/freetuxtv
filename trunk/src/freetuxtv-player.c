@@ -132,16 +132,34 @@ freetuxtv_player_stop (FreetuxTVPlayer *self)
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
         if(self->vlcinstance != NULL){
-		// Arret de la chaine en cour de lecture
-		if (libvlc_playlist_isplaying (self->vlcinstance,&_vlcexcep)) {
+		// Arret de la chaine en cours de lecture
+		if (libvlc_playlist_isplaying (self->vlcinstance, &_vlcexcep)) {
 			on_vlc_exception (self, &_vlcexcep);
-			libvlc_playlist_stop (self->vlcinstance,&_vlcexcep);
+			libvlc_playlist_stop (self->vlcinstance, &_vlcexcep);
 			on_vlc_exception (self, &_vlcexcep);
 		}
         }
-
-
 }
+
+
+void
+freetuxtv_player_fullscreen (FreetuxTVPlayer *self)
+{
+	libvlc_input_t *input_t;
+	libvlc_exception_t _vlcexcep;
+        libvlc_exception_init (&_vlcexcep);
+        if(self->vlcinstance != NULL){
+		// Mode plein écran si la chaine est en cours de lecture
+		if (libvlc_playlist_isplaying (self->vlcinstance, &_vlcexcep)) {
+			input_t = libvlc_playlist_get_input(self->vlcinstance,
+							    &_vlcexcep);
+			on_vlc_exception (self, &_vlcexcep);
+			libvlc_set_fullscreen(input_t, 1, &_vlcexcep);
+			on_vlc_exception (self, &_vlcexcep);
+		}
+        }
+}
+
 static void 
 on_vlc_exception (FreetuxTVPlayer *self, 
 		  libvlc_exception_t *excp)

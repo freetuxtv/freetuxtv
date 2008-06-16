@@ -33,6 +33,14 @@ on_windowmain_buttonstop_clicked (GtkButton *button,
 				  gpointer user_data);
 
 void
+on_windowmain_buttonfullscreen_clicked (GtkButton *button,
+					gpointer user_data);
+
+void
+on_windowmain_buttonminimode_clicked (GtkButton *button,
+				      gpointer user_data);
+
+void
 on_windowmain_entryfilter_changed (GtkEntry *entry,
 				   gpointer user_data);
 
@@ -43,6 +51,10 @@ on_windowmain_volumecontrol_value_changed (GtkRange *range,
 void
 on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 					  gpointer user_data);
+
+void
+on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
+					    gpointer user_data);
 
 void
 on_dialogaddgroup_add_clicked (GtkButton *button,

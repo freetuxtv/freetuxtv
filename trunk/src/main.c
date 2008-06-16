@@ -270,6 +270,20 @@ freetuxtv_app_create_app ()
 			 G_CALLBACK(on_windowmain_volumecontrol_value_changed),
 			 app);
 
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonfullscreen");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowmain_buttonfullscreen_clicked),
+			 app);
+
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonminimode");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowmain_buttonminimode_clicked),
+			 app);
+
 	return app;
 
 }
