@@ -28,6 +28,7 @@ freetuxtv_player_new ()
 {
 	FreetuxTVPlayer *self = NULL;
 	self = gtk_type_new (freetuxtv_player_get_type ());
+	self->volume = 70;
 
 	/* Widget contenant la vidéo */
 	GdkColor color;
@@ -118,12 +119,21 @@ void
 freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value)
 {
 	libvlc_exception_t _vlcexcep;
-        libvlc_exception_init (&_vlcexcep);
-        if(self->vlcinstance != NULL){
+        
+	self->volume = value;
+	
+	libvlc_exception_init (&_vlcexcep);
+	if(self->vlcinstance != NULL){
                 libvlc_audio_set_volume (self->vlcinstance, 
-                                         value, &_vlcexcep);    
+                                         (gint)value, &_vlcexcep);    
                 on_vlc_exception (self, &_vlcexcep);
         }
+}
+
+gdouble
+freetuxtv_player_get_volume (FreetuxTVPlayer *self)
+{
+	return self->volume;
 }
 
 void
@@ -174,6 +184,7 @@ static void
 freetuxtv_player_init (FreetuxTVPlayer *object)
 {
 	object->vlcinstance=NULL;
+	object->volume=70.00;
 }
 
 static void
