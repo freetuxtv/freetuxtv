@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Jun 16 23:36:34 2008 -->
+<!--Generated with glade3 3.4.5 on Wed Jun 18 14:28:59 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="windowmain">
     <property name="visible">True</property>
@@ -323,8 +323,9 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="tooltip" translatable="yes">Modifier le volume sonore de la chaîne</property>
-                            <property name="adjustment">70 0 100 1 10 10</property>
+                            <property name="adjustment">70 0 100 1 10 1</property>
                             <property name="draw_value">False</property>
+                            <property name="value_pos">GTK_POS_RIGHT</property>
                           </widget>
                           <packing>
                             <property name="position">2</property>
@@ -480,30 +481,14 @@
                     <property name="n_rows">3</property>
                     <property name="n_columns">2</property>
                     <child>
-                      <widget class="GtkLabel" id="label8">
+                      <widget class="GtkLabel" id="label10">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Nom du groupe :</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkEntry" id="dialogaddgroup_name">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="tooltip" translatable="yes">Nom du groupe à ajouter</property>
+                        <property name="label" translatable="yes">Protocole supporté : "file://" ou "http://".</property>
                       </widget>
                       <packing>
-                        <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="GtkLabel" id="label9">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">URI de la playlist : </property>
-                      </widget>
-                      <packing>
-                        <property name="top_attach">1</property>
-                        <property name="bottom_attach">2</property>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
                       </packing>
                     </child>
                     <child>
@@ -521,15 +506,31 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkLabel" id="label10">
+                      <widget class="GtkLabel" id="label9">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Protocole supporté : "file://" ou "http://".</property>
+                        <property name="label" translatable="yes">URI de la playlist : </property>
                       </widget>
                       <packing>
-                        <property name="right_attach">2</property>
-                        <property name="top_attach">2</property>
-                        <property name="bottom_attach">3</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
                       </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkEntry" id="dialogaddgroup_name">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip" translatable="yes">Nom du groupe à ajouter</property>
+                      </widget>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label8">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Nom du groupe :</property>
+                      </widget>
                     </child>
                   </widget>
                 </child>
@@ -631,8 +632,9 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="tooltip" translatable="yes">Modifier le volume sonore de la chaîne</property>
-                    <property name="adjustment">70 0 100 1 10 10</property>
+                    <property name="adjustment">70 0 100 1 10 1</property>
                     <property name="draw_value">False</property>
+                    <property name="value_pos">GTK_POS_RIGHT</property>
                   </widget>
                   <packing>
                     <property name="position">2</property>
