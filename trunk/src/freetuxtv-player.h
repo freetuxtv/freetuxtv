@@ -30,7 +30,8 @@ typedef struct _FreetuxTVPlayerClass FreetuxTVPlayerClass;
 struct _FreetuxTVPlayer
 {
 	GtkDrawingArea parent;
-
+	
+	gdouble volume;
 	libvlc_instance_t *vlcinstance;
 };
 
@@ -50,6 +51,9 @@ freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri);
 
 void
 freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value);
+
+gdouble
+freetuxtv_player_get_volume (FreetuxTVPlayer *self);
 
 void
 freetuxtv_player_stop (FreetuxTVPlayer *self);

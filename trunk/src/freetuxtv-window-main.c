@@ -79,12 +79,15 @@ on_windowmain_buttonminimode_clicked (GtkButton *button,
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
 	GladeXML *tmp;	
-	
 	GtkWidget *widget;
+
+	gdouble volume;
 	
 	widget = glade_xml_get_widget(app->windowmain,
 				      "windowmain");
 	gtk_widget_hide (widget);
+
+	volume = freetuxtv_player_get_volume (app->player);
 
 	/* Affichage de la fenetre miniature */
 	app->windowminimode = glade_xml_new (FREETUXTV_GLADEXML,
@@ -115,7 +118,8 @@ on_windowmain_buttonminimode_clicked (GtkButton *button,
 	g_signal_connect(G_OBJECT(widget),
 			 "value-changed",
 			 G_CALLBACK(on_windowmain_volumecontrol_value_changed),
-			 app);	
+			 app);
+	gtk_range_set_value (GTK_RANGE(widget), volume);
 }
 
 void
@@ -162,6 +166,9 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 	GladeXML *tmp;	
 	
 	GtkWidget *widget;
+	gdouble volume;
+
+	volume = freetuxtv_player_get_volume (app->player);
 	
 	widget = glade_xml_get_widget(app->windowminimode,
 				      "windowminimode");
@@ -175,6 +182,10 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 	widget = glade_xml_get_widget(app->windowmain,
 				      "windowmain_eventboxplayer");
 	gtk_widget_reparent (GTK_WIDGET(app->player), widget);
+
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_volumecontrol");
+	gtk_range_set_value (GTK_RANGE(widget), volume);
 }
 
 void
