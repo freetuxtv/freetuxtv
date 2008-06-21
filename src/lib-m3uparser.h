@@ -23,7 +23,7 @@ enum libm3uparser_error {
 
 int 
 libm3uparser_parse(char *file,
-		   int (*callback)(char *url, int argc, 
+		   int (*callback)(char *url, int num, int argc, 
 				    char **argv, void *user_data), 
 		   void *user_data);
 

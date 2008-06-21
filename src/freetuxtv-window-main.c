@@ -320,3 +320,37 @@ windowmain_show_error (FreetuxTVApp *app, gchar *msg)
 	gtk_dialog_run(GTK_DIALOG(dialog));
 	gtk_widget_destroy(dialog);
 }
+
+void
+windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg)
+{
+	
+	int context_id;
+
+	GtkWidget *statusbar;
+	statusbar = glade_xml_get_widget (app->windowmain,
+					  "windowmain_statusbar");
+	context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
+						  context);
+	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
+			    context_id,
+			    msg);
+	while (g_main_context_iteration(NULL, FALSE)){}
+}
+
+
+void
+windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
+{
+	
+	int context_id;
+
+	GtkWidget *statusbar;
+	statusbar = glade_xml_get_widget (app->windowmain,
+					  "windowmain_statusbar");
+	context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
+						  context);
+	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
+			   context_id);
+	// while (g_main_context_iteration(NULL, FALSE)){}		
+}
