@@ -15,7 +15,7 @@
 
 int
 libm3uparser_parse(char *file, 
-		   int (*callback)(char *_url, int _argc, 
+		   int (*callback)(char *_url, int _num, int _argc, 
 				   char **_argv, void *_user_data), 
 		   void *user_data)
 {
@@ -29,6 +29,8 @@ libm3uparser_parse(char *file,
 
 	int i;
 	int err_callback = 0;
+
+	int num = 0;
 	
 	if(callback == NULL){
 		return LIBM3UPARSER_INVALID_CALLBACK;
@@ -69,7 +71,8 @@ libm3uparser_parse(char *file,
 			}else{
 				/* Envoi des options et de l'url au callback */
 				if(textline[0]!='\n'){
-					err_callback = callback(textline, 
+					num++;
+					err_callback = callback(textline, num,
 								argc, argv, 
 								user_data);
 					for(i=0; i<argc; i++){

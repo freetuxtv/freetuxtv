@@ -70,4 +70,10 @@ on_aboutdialog_response (GtkDialog *dialog,
 void
 windowmain_show_error (FreetuxTVApp *app, gchar *msg);
 
+void
+windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg);
+
+void
+windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context);
+
 #endif /* FREETUXTV_WINDOW_MAIN_H */

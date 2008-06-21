@@ -65,7 +65,7 @@ static int
 on_exec_add_channel (void *data, int argc, char **argv, char **colsname);
 
 static int 
-on_parsem3u_add_channel (char *url, int argc, 
+on_parsem3u_add_channel (char *url, int num, int argc, 
 			 char **argv, void *user_data);
 
 void
@@ -182,23 +182,12 @@ on_channel_dbl_clicked (FreetuxTVChannel *channel, gpointer *data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) data;
 	
-	GtkWidget *statusbar;
 	gchar *text;
 	
 	g_print ("FreetuxTV : launching channel \"%s\" -> %s\n",
 		 channel->name, channel->uri);
-	
-	statusbar = glade_xml_get_widget (app->windowmain,
-					  "windowmain_statusbar");
-	
-	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
-			   gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
-							"PlayChannelMsg"));
-	text = g_strconcat ("En cours de lecture : ", channel->name, NULL);
-	gtk_statusbar_push (GTK_STATUSBAR(statusbar),
-			    gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
-							 "PlayChannelMsg"), 
-			    text);
+	text = g_strdup_printf ("En cours de lecture : %s", channel->name);
+	windowmain_statusbar_push (app, "PlayChannelMsg", text);
 	g_free(text);
 	
 	freetuxtv_player_play (app->player, channel->uri);
@@ -248,7 +237,8 @@ channels_group_reload_channels (FreetuxTVChannelsGroup *self,
                                  filename_channellogo,			\
                                  uri_channel FROM channel LEFT JOIN channel_logo \
                                  ON id_channellogo=idchannellogo_channel \
-                                 WHERE channelsgroup_channel=%s",
+                                 WHERE channelsgroup_channel=%s\
+                                 ORDER BY order_channel",
 				self->id);
 		res = sqlite3_exec(db, query, on_exec_add_channel,
 				   (void *)cbuserdata, &err);
@@ -420,16 +410,9 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 			      "/FreetuxTV/freetuxtv.db", NULL);
 
 	/* Mise à jour de la barre de statut */
-	GtkWidget *statusbar;
 	gchar *text;
-	statusbar = glade_xml_get_widget (app->windowmain,
-					  "windowmain_statusbar");
-	text = g_strconcat ("Mise à jour des chaines de \"", self->name,"\"", NULL);
-	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
-			    gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar),
-							 "UpdateMsg"),
-			    text);
-	g_main_iteration(FALSE);
+	text = g_strdup_printf("Mise à jour des chaines de \"%s\"", self->name);
+	windowmain_statusbar_push (app, "UpdateMsg", text);
 	g_free(text);
 	
 	/* Ouverture de la BDD */
@@ -506,10 +489,8 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 
 	if (ret == 0){
 		channels_group_reload_channels (self, app);
-		gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
-				   gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
-								"UpdateMsg"));
 	}
+	windowmain_statusbar_pop (app, "UpdateMsg");
 }
 
 
@@ -546,18 +527,11 @@ channels_group_get_file (FreetuxTVChannelsGroup *self, FreetuxTVApp *app, gchar 
 		windowmain = glade_xml_get_widget (app->windowmain,
 						   "windowmain");
 
-		/* Mise à jour de la barre de statut */				
-		GtkWidget *statusbar;
+		/* Mise à jour de la barre de statut */
 		gchar *text;
-		statusbar = glade_xml_get_widget (app->windowmain,
-						  "windowmain_statusbar");
-		text = g_strconcat ("Récupération du fichier : \"",
-				    self->uri,"\"", NULL);
-		gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
-				    gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
-								 "UpdateMsg"),
-				    text);
-		g_main_iteration(FALSE);
+		text = g_strdup_printf ("Récupération du fichier : \"%s\"",
+					self->uri);
+		windowmain_statusbar_push (app, "UpdateMsg", text);
 		g_free(text);
 
 		gchar *groupfile;
@@ -595,9 +569,7 @@ channels_group_get_file (FreetuxTVChannelsGroup *self, FreetuxTVApp *app, gchar 
 
 		*file = groupfile;
 		
-		gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
-				   gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
-								"UpdateMsg"));
+		windowmain_statusbar_pop (app, "UpdateMsg");
 	}
 	
 
@@ -663,7 +635,7 @@ on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
 }
 
 static int 
-on_parsem3u_add_channel (char *url, int argc, 
+on_parsem3u_add_channel (char *url, int num, int argc, 
 			 char **argv, void *user_data)
 {
 	Parsem3uData *data = (Parsem3uData *) user_data;
@@ -672,7 +644,6 @@ on_parsem3u_add_channel (char *url, int argc,
 	gchar* query;
 	int res;
 	char *err=0;
-	
 	gchar *name;
 	res = libm3uparser_get_extinfo (argc, argv, NULL, &name);
 	if(res == LIBM3UPARSER_EXTINFO_NOT_FOUND){
@@ -688,8 +659,8 @@ on_parsem3u_add_channel (char *url, int argc,
 			name = tmp;
 		}
 	}
-	query = sqlite3_mprintf("INSERT INTO channel (name_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) values ('%q',(SELECT id_channellogo FROM channel_logo WHERE label_channellogo='%q' OR id_channellogo = (SELECT idchannellogo_labelchannellogo FROM label_channellogo WHERE label_labelchannellogo='%q')),'%q','%q');", 
-				name, name, name, url, data->id);
+	query = sqlite3_mprintf("INSERT INTO channel (name_channel, order_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) values ('%q',%d,(SELECT id_channellogo FROM channel_logo WHERE label_channellogo='%q' OR id_channellogo = (SELECT idchannellogo_labelchannellogo FROM label_channellogo WHERE label_labelchannellogo='%q')),'%q','%q');", 
+				name, num, name, name, url, data->id);
 	g_free(name);
 	res=sqlite3_exec(db, query, NULL, 0, &err);
 	sqlite3_free(query);
