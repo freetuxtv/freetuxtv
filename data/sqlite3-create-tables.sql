@@ -17,12 +17,20 @@ CREATE TABLE IF NOT EXISTS channels_group (
 CREATE TABLE IF NOT EXISTS channel (
    id_channel INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
    name_channel VARCHAR(50) NOT NULL,
+   order_channel INTEGER NOT NULL,
    idchannellogo_channel INTEGER NULL
      CONSTRAINT fk_idchannellogo_channel REFERENCES channel_logo(id_channellogo) ON DELETE SET NULL,
    uri_channel VARCHAR(255) NOT NULL,
    channelsgroup_channel INTEGER NOT NULL
      CONSTRAINT fk_channelsgroup_channel REFERENCES channels_group(id_channelsgroup) ON DELETE CASCADE
 );
+
+CREATE TRIGGER fkd_channel_channellogo_id
+  BEFORE DELETE ON channel_logo
+  FOR EACH ROW BEGIN
+      UPDATE channel SET idchannellogo_channel = NULL WHERE idchannellogo_channel = OLD.id_channellogo;
+      DELETE FROM label_channellogo WHERE idchannellogo_labelchannellogo = OLD.id_channellogo;
+  END;
 
 CREATE TRIGGER fkd_channel_channelsgroup_id
   BEFORE DELETE ON channels_group
