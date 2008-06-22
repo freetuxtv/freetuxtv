@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS label_channellogo (
 CREATE TABLE IF NOT EXISTS channels_group (
    id_channelsgroup INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
    name_channelsgroup VARCHAR(50) NOT NULL,
+   bregex_channelsgroup VARCHAR(50) NULL,
+   eregex_channelsgroup VARCHAR(50) NULL,
    uri_channelsgroup VARCHAR(500)
 );
 CREATE TABLE IF NOT EXISTS channel (
@@ -25,22 +27,22 @@ CREATE TABLE IF NOT EXISTS channel (
      CONSTRAINT fk_channelsgroup_channel REFERENCES channels_group(id_channelsgroup) ON DELETE CASCADE
 );
 
-CREATE TRIGGER fkd_channel_channellogo_id
+CREATE TRIGGER fkd_channellogo_id
   BEFORE DELETE ON channel_logo
   FOR EACH ROW BEGIN
       UPDATE channel SET idchannellogo_channel = NULL WHERE idchannellogo_channel = OLD.id_channellogo;
       DELETE FROM label_channellogo WHERE idchannellogo_labelchannellogo = OLD.id_channellogo;
   END;
 
-CREATE TRIGGER fkd_channel_channelsgroup_id
+CREATE TRIGGER fkd_channel_id
   BEFORE DELETE ON channels_group
   FOR EACH ROW BEGIN
       DELETE from channel WHERE channelsgroup_channel = OLD.id_channelsgroup;
   END;
 
 
-insert into channels_group (name_channelsgroup, uri_channelsgroup)
-			values ('FreeboxTV','http://mafreebox.freebox.fr/freeboxtv/playlist.m3u');
+insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
+			values ('FreeboxTV','http://mafreebox.freebox.fr/freeboxtv/playlist.m3u', '[0-9]* - ');
 insert into channels_group (name_channelsgroup, uri_channelsgroup) 
 			values ('FreeboxTV (non dégroupé)','http://www.eric-beuque.com/freetuxtv/playlists/playlist_freeboxtv_nd.m3u');
 insert into channels_group (name_channelsgroup, uri_channelsgroup)

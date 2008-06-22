@@ -25,8 +25,11 @@
 
 typedef struct _Parsem3uData
 {
+	FreetuxTVApp *app;
 	gchar *id;
 	struct sqlite3 *db;
+	gchar *bregex;
+	gchar *eregex;	
 } Parsem3uData;
 
 typedef struct _CBUserData
@@ -54,6 +57,9 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 static void
 channels_group_reload_channels (FreetuxTVChannelsGroup *self,
 				gpointer data);
+static void
+channels_group_get_regexp (FreetuxTVChannelsGroup *self,
+			   gchar *bregexp, gchar *eregexp);
 
 static GtkWidget*
 channels_list_get_channelsgroups_parent (FreetuxTVApp *app);
@@ -63,6 +69,9 @@ on_exec_add_channels_group (void *data, int argc, char **argv, char **colsname);
 
 static int 
 on_exec_add_channel (void *data, int argc, char **argv, char **colsname);
+
+static int 
+on_exec_get_group_infos (void *data, int argc, char **argv, char **colsname);
 
 static int 
 on_parsem3u_add_channel (char *url, int num, int argc, 
@@ -402,10 +411,12 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 	int res;
 	char *err = 0;
 	gint ret = 0;
+	gchar *query;
 
 	gchar *err_msg = NULL;
 
 	gchar *user_db;
+
 	user_db = g_strconcat(g_get_user_config_dir(), 
 			      "/FreetuxTV/freetuxtv.db", NULL);
 
@@ -437,7 +448,6 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 	if (ret == 0){
 
 		/* Effacement des chaînes du groupe */
-		gchar *query;
 		query = sqlite3_mprintf("DELETE FROM channel WHERE channelsgroup_channel=%q",
 					self->id);
 		res = sqlite3_exec(db, query, NULL, 0, &err);
@@ -454,34 +464,56 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 		}
 	}
 
+	Parsem3uData *pdata;
+	pdata = g_new0(Parsem3uData, 1);
+	pdata->id = self->id;
+	pdata->db = db;
+	pdata->app = app;
+
+	if (ret == 0){
+		/* Recupère les informations du groupe */
+		query = sqlite3_mprintf("SELECT bregex_channelsgroup, eregex_channelsgroup FROM channels_group WHERE id_channelsgroup=%q",
+					self->id);
+		res = sqlite3_exec(db, query, on_exec_get_group_infos,
+				   (void *)pdata, &err);
+		sqlite3_free(query);
+		if(res != SQLITE_OK){
+			err_msg = g_strdup_printf("La selection des informations du groupe \"%s\" a échoué.\n\nSQLite a retouné l'erreur : \n%s.",
+						  self->name,
+						  sqlite3_errmsg(db));
+			windowmain_show_error (app, err_msg);
+			g_free(err_msg);
+			
+			ret = -1;			
+		}		
+	}
+
 	if (ret == 0){
 		/* Parse le fichier M3U et ajoute les chaînes dans la BDD */
-		Parsem3uData *data;
-		data = g_new0(Parsem3uData, 1);
-		data->id = self->id;
-		data->db = db;
-		res = libm3uparser_parse(file, &on_parsem3u_add_channel, data);
+		res = libm3uparser_parse(file, &on_parsem3u_add_channel, pdata);
 		if (res < 0 ){
 			
 			if (res == LIBM3UPARSER_CALLBACK_RETURN_ERROR){
-				
-				err_msg = g_strdup_printf("L'ajout des chaînes n'a pas correctement fonctionné.\n\nSQLite a retouné l'erreur : %s.",
-							  sqlite3_errmsg(db));
-				windowmain_show_error (app, err_msg);
-				g_free(err_msg);
-				ret = -1;
-			}else{
 
 				err_msg = g_strdup_printf("L'ajout des chaînes n'a pas correctement fonctionné.\n\nM3UParser a retouné l'erreur : %s.",
 							  libm3uparser_errmsg(ret));
 				windowmain_show_error (app, err_msg);
 				g_free(err_msg);
 				ret = -1;
+
+				
+			}else{
+				
+				err_msg = g_strdup_printf("L'ajout des chaînes n'a pas correctement fonctionné.\n\nSQLite a retouné l'erreur : %s.",
+							  sqlite3_errmsg(db));
+				windowmain_show_error (app, err_msg);
+				g_free(err_msg);
+				ret = -1;
 			}			
 		}
-		g_free (data);
 	}
-	
+	g_free (pdata);
+
 	sqlite3_free(err);
 	sqlite3_close(db);
 	
@@ -578,7 +610,6 @@ channels_group_get_file (FreetuxTVChannelsGroup *self, FreetuxTVApp *app, gchar 
 	return ret;
 }
 
-
 static int 
 on_exec_add_channels_group (void *data, int argc, char **argv, char **colsname)
 {
@@ -596,6 +627,7 @@ on_exec_add_channels_group (void *data, int argc, char **argv, char **colsname)
 static int 
 on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
 {
+	
 	CBUserData *cbuserdata = (CBUserData *) data;	
 
 	FreetuxTVChannel *channel;
@@ -635,6 +667,16 @@ on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
 }
 
 static int 
+on_exec_get_group_infos (void *data, int argc, char **argv, char **colsname)
+{
+	
+	Parsem3uData *cbuserdata = (Parsem3uData *) data;	
+	cbuserdata->bregex = g_strdup_printf("^%s", (argv[0]!=NULL?argv[0]:""));
+	cbuserdata->eregex = g_strdup_printf("%s$", (argv[1]!=NULL?argv[1]:""));
+	return 0;
+}
+
+static int 
 on_parsem3u_add_channel (char *url, int num, int argc, 
 			 char **argv, void *user_data)
 {
@@ -645,19 +687,30 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	int res;
 	char *err=0;
 	gchar *name;
+
+	gchar *err_msg;
+	
+
 	res = libm3uparser_get_extinfo (argc, argv, NULL, &name);
 	if(res == LIBM3UPARSER_EXTINFO_NOT_FOUND){
-		name = g_strconcat("Inconnu", NULL);
+		name = g_strdup_printf("Inconnu");
 	}else{
-		/* Enleve le numero de chaine s'il est present */
-		gchar *tmp = name;
-		name = g_strrstr(tmp, " - ");
-		if(name != NULL){
-			name = g_strdup (name+3);
-			g_free (tmp);
-		}else{
-			name = tmp;
-		}
+		GRegex* bregex;
+		GRegex* eregex;
+		gchar *tmp;
+		
+		bregex = g_regex_new (data->bregex, 0, 0, NULL);
+		eregex = g_regex_new (data->eregex, 0, 0, NULL);
+
+		tmp = g_regex_replace (bregex, name, -1, 0, "", 0, NULL);
+		g_free(name);
+		
+		name = g_regex_replace (eregex, tmp, -1, 0, "", 0, NULL);
+		g_free(tmp);		
+		
+		g_regex_unref (bregex);
+		g_regex_unref (eregex);
+		
 	}
 	query = sqlite3_mprintf("INSERT INTO channel (name_channel, order_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) values ('%q',%d,(SELECT id_channellogo FROM channel_logo WHERE label_channellogo='%q' OR id_channellogo = (SELECT idchannellogo_labelchannellogo FROM label_channellogo WHERE label_labelchannellogo='%q')),'%q','%q');", 
 				name, num, name, name, url, data->id);
@@ -665,6 +718,12 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	res=sqlite3_exec(db, query, NULL, 0, &err);
 	sqlite3_free(query);
 	if(res != SQLITE_OK){
+
+		err_msg = g_strdup_printf("L'ajout de la chaîne \"%s\" a échoué.\n\nSQLite a retouné l'erreur :\n%s.",
+					  sqlite3_errmsg(db));
+		windowmain_show_error (data->app, err_msg);
+		g_free(err_msg);
+
 		return -1;
 	}
 	return 0;
