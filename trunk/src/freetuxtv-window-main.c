@@ -195,7 +195,10 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	GtkWidget *windowmain;
 	GtkWidget *channelslist;
 	GtkWidget *groupname;
+	GtkWidget *groupprotocole;
 	GtkWidget *groupuri;
+	GtkWidget *bregex;
+	GtkWidget *eregex;
 	GtkWidget *dialog;
 	
 	gchar *user_db;
@@ -211,6 +214,7 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 
 	gchar * sgroupid;
 	gchar * sgroupname;
+	gchar * sgroupprotocole;
 	gchar * sgroupuri;
 
 	user_db = g_strdup_printf("%s/FreetuxTV/freetuxtv.db",
@@ -218,44 +222,56 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	
 	groupname = glade_xml_get_widget(app->dialogaddgroup,
 					 "dialogaddgroup_name");
+	groupprotocole = glade_xml_get_widget(app->dialogaddgroup,
+					      "dialogaddgroup_protocole");
 	groupuri = glade_xml_get_widget(app->dialogaddgroup,
 					"dialogaddgroup_uri");
+	bregex = glade_xml_get_widget(app->dialogaddgroup,
+				      "dialogaddgroup_bregex");
+	eregex = glade_xml_get_widget(app->dialogaddgroup,
+				      "dialogaddgroup_eregex");
 	
 	/* Verification des champs */
 	if(g_ascii_strcasecmp(gtk_entry_get_text(GTK_ENTRY(groupname)),"") == 0
 	   && errmsg==NULL){
 		errmsg = g_strdup_printf("Veuillez remplir le nom du groupe !");
 	}
+	if(gtk_combo_box_get_active_text(GTK_COMBO_BOX(groupprotocole)) == NULL
+	   && errmsg==NULL){
+		errmsg = g_strdup_printf("Veuillez choisir le protocole de l'URI du groupe !");
+	}
 	if(g_ascii_strcasecmp(gtk_entry_get_text(GTK_ENTRY(groupuri)),"") == 0
 	   && errmsg==NULL){
-		errmsg = g_strdup_printf("Veuillez remplir l'URL du groupe !");
-	}else{
-		if(g_ascii_strncasecmp(gtk_entry_get_text(GTK_ENTRY(groupuri)),"file://",7) != 0
-		   && g_ascii_strncasecmp(gtk_entry_get_text(GTK_ENTRY(groupuri)),"http://",7) != 0
-		   && errmsg==NULL){
-			errmsg = g_strdup_printf("L'accès à la playlist doit utiliser le protocole file:// ou http://.\nEx: http://mafreebox.freebox.fr/freeboxtv/playlist.m3u\n    file:///home/freetuxtv/playlist.m3u");
-		}
+		errmsg = g_strdup_printf("Veuillez remplir l'URI du groupe !");
 	}
 	
 	/* Ouverture de la BDD */
 	if(errmsg==NULL){
 		res = sqlite3_open(user_db,&db);
 		if(res != SQLITE_OK){
+			errmsg = g_strdup_printf("Impossible d'ouvrir la base de données.\n\nSQLite a retouné l'erreur :\n%s.",
+						 sqlite3_errmsg(db));
 			sqlite3_close(db);
-			errmsg = g_strdup_printf("Sqlite3 : %s\nFreetuxTV : Cannot open database %s\n", sqlite3_errmsg(db), user_db);
 		}
 	}
 	
 	if(errmsg == NULL){
 		sgroupname = g_strdup(gtk_entry_get_text(GTK_ENTRY(groupname)));
-		sgroupuri = g_strdup(gtk_entry_get_text(GTK_ENTRY(groupuri)));
-		query = sqlite3_mprintf("INSERT INTO channels_group (name_channelsgroup, uri_channelsgroup) VALUES ('%q','%q');", 
+		sgroupuri = g_strconcat(gtk_combo_box_get_active_text(GTK_COMBO_BOX(groupprotocole)),
+					gtk_entry_get_text(GTK_ENTRY(groupuri)),
+					NULL);
+		query = sqlite3_mprintf("INSERT INTO channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup, eregex_channelsgroup) VALUES ('%q','%q', '%q', '%q');", 
 					sgroupname,
-					sgroupuri);
+					sgroupuri,
+					gtk_entry_get_text(GTK_ENTRY(bregex)),
+					gtk_entry_get_text(GTK_ENTRY(eregex))
+					);
 		res=sqlite3_exec(db, query, NULL, 0, &sqlerr);
 		sqlite3_free(query);
 		if(res != SQLITE_OK){
-			errmsg = g_strdup_printf("Sqlite3 : %s\nFreetuxTV : Cannot add groups '%s' into database.\n", sqlite3_errmsg(db), gtk_entry_get_text(GTK_ENTRY(groupname)));
+			errmsg = g_strdup_printf("Impossible d'ajouter le groupe \"%s\" dans la base de données.\n\nSQLite a retouné l'erreur :\n%s.",
+						 gtk_entry_get_text(GTK_ENTRY(groupname)),
+						 sqlite3_errmsg(db));
 			g_free(sgroupname);
 			g_free(sgroupuri);
 		}
@@ -266,7 +282,6 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	if(errmsg != NULL){
 		windowmain_show_error (app, errmsg);
 	}else{
-		g_print("sqlite : %d", sqlite3_last_insert_rowid(db));
 		FreetuxTVChannelsGroup *channels_group;
 		
 		sgroupid = g_strdup_printf("%d", sqlite3_last_insert_rowid(db));

@@ -121,12 +121,11 @@ freetuxtv_channel_show_if_filter (FreetuxTVChannel *self, gchar *filter)
 {
 	
 	gchar *channel = g_utf8_strdown (self->name,-1);
-	gchar *search = g_strconcat("^.*",
-				    g_utf8_strdown (filter,-1),
-				    ".*$",NULL);
+	gchar *search = g_strdup_printf("^.*%s.*$",
+					g_utf8_strdown (filter,-1));
 	
 	GRegex *regex;
-	regex = g_regex_new (search,0,0,NULL);
+	regex = g_regex_new (search, 0, 0 ,NULL);
 	if (g_regex_match (regex, channel, 0, NULL)){
 		gtk_widget_show_all (GTK_WIDGET(self));
 		g_regex_unref (regex);
