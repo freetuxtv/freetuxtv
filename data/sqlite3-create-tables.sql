@@ -47,6 +47,6 @@ insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('FreeboxTV (non dégroupé)','http://www.eric-beuque.com/freetuxtv/playlists/playlist_freeboxtv_nd.m3u');
 insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('Neuf TV','http://www.n9ws.com/tools/tvsurpc.m3u');
-insert into channels_group (name_channelsgroup, uri_channelsgroup)
-			values ('Web TV (Française)','http://www.eric-beuque.com/freetuxtv/playlists/playlist_webtv_fr.m3u');
+insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
+			values ('Web TV (Française)','http://www.eric-beuque.com/freetuxtv/playlists/playlist_webtv_fr.m3u', '[0-9]* - ');
 
