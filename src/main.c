@@ -206,6 +206,12 @@ freetuxtv_app_create_app ()
 
 	app->name = "FreetuxTV";
 
+
+	/* Chargemetn de la configuration par defaut */
+	app->config.windowminimode_stayontop = FALSE;
+	app->config.windowminimode_width = 320;
+	app->config.windowminimode_height = 240;
+
 	/* Création de la fenêtre */
 	app->windowmain = glade_xml_new (FREETUXTV_GLADEXML,
 					 "windowmain", NULL);
