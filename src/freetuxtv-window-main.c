@@ -108,6 +108,15 @@ on_windowmain_buttonminimode_clicked (GtkButton *button,
 			 "clicked",
 			 G_CALLBACK(on_windowminimode_buttonnormalmode_clicked),
 			 app);
+	
+	widget = glade_xml_get_widget(app->windowminimode,
+				      "windowminimode_buttonstayontop");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget),
+				      app->config.windowminimode_stayontop);
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowminimode_buttonstayontop_clicked),
+			 app);
 
 	widget = glade_xml_get_widget(app->windowminimode,
 				      "windowminimode_eventboxplayer");
@@ -120,6 +129,8 @@ on_windowmain_buttonminimode_clicked (GtkButton *button,
 			 G_CALLBACK(on_windowmain_volumecontrol_value_changed),
 			 app);
 	gtk_range_set_value (GTK_RANGE(widget), volume);
+
+	windowminimode_set_from_config (app);
 }
 
 void
@@ -163,7 +174,7 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
 	GtkWidget *windowminimode;
-	GladeXML *tmp;	
+	GladeXML *tmp;
 	
 	GtkWidget *widget;
 	gdouble volume;
@@ -172,6 +183,10 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 	
 	widget = glade_xml_get_widget(app->windowminimode,
 				      "windowminimode");
+	gtk_window_get_size (GTK_WINDOW(widget), 
+			     &app->config.windowminimode_width,
+			     &app->config.windowminimode_height);
+
 	gtk_widget_hide (widget);
 	
 	/* Reaffichage de la fenetre principal */
@@ -186,6 +201,20 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain_volumecontrol");
 	gtk_range_set_value (GTK_RANGE(widget), volume);
+}
+
+void
+on_windowminimode_buttonstayontop_clicked (GtkButton *button,
+					   gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	if(app->config.windowminimode_stayontop){
+		app->config.windowminimode_stayontop = FALSE;	
+	}else{
+		app->config.windowminimode_stayontop = TRUE;
+	}
+
+	windowminimode_set_from_config (app);
 }
 
 void
@@ -368,4 +397,19 @@ windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
 	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
 			   context_id);
 	// while (g_main_context_iteration(NULL, FALSE)){}		
+}
+
+void
+windowminimode_set_from_config (FreetuxTVApp *app)
+{
+	GtkWidget *widget;
+
+	widget = glade_xml_get_widget(app->windowminimode,
+				      "windowminimode");
+	gtk_window_set_keep_above (GTK_WINDOW(widget),
+				   app->config.windowminimode_stayontop);
+
+	gtk_window_resize (GTK_WINDOW(widget),
+			   app->config.windowminimode_width,
+			   app->config.windowminimode_height);
 }

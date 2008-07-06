@@ -57,6 +57,10 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 					    gpointer user_data);
 
 void
+on_windowminimode_buttonstayontop_clicked (GtkButton *button,
+				       gpointer user_data);
+
+void
 on_dialogaddgroup_add_clicked (GtkButton *button,
 			       gpointer   user_data);
 void
@@ -75,5 +79,8 @@ windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg);
 
 void
 windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context);
+
+void
+windowminimode_set_from_config (FreetuxTVApp *app);
 
 #endif /* FREETUXTV_WINDOW_MAIN_H */

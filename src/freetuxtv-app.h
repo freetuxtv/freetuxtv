@@ -30,6 +30,12 @@ struct _FreetuxTVApp {
 
 	FreetuxTVPlayer *player;
 	GtkVBox *channelsgroups;
+
+	struct {
+		gboolean windowminimode_stayontop;		
+		gint windowminimode_width;
+		gint windowminimode_height;
+	} config;
 };
 typedef struct _FreetuxTVApp FreetuxTVApp;
 
