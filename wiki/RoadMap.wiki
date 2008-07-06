@@ -7,13 +7,13 @@ Cette page indique l'ordre de réalisation des prochaines étapes qui concerne l
 
 
 = Tâches en cours =
- * Interface utilisateur pour gérer la liste des logos et des libellés de celui-ci.
- * Interface utilisateur pour gérer la liste des groupes de chaînes et de leurs chaînes.
+
+ * Ajout  d'une chaîne à un groupe
+ * Gestion de l'enregistrement en direct d'une chaîne.
 
 = Tâches en prévision =
 
 Ces tâches sont classé par ordre de priorité.
- * Sortie de la version 0.1.
  * Gestion de l'enregistrement en direct d'une chaîne.
  * Gestion de la programmation d'un enregistrement.
  * Création d'un serveur pour enregistrer les chaînes regardées par les utilisateurs dans le but de réaliser une playslist de chaînes par audience.
@@ -21,8 +21,15 @@ Ces tâches sont classé par ordre de priorité.
  * Affichage des informations sur la chaîne en cours.
  * Gestion d'un guide TV.
  * Gestion du timeshifting.
+ * Support du PIP.
+ * Interface utilisateur pour gérer la liste des logos et des libellés de celui-ci.
+ * Interface utilisateur pour gérer la liste des groupes de chaînes et de leurs chaînes.
 
 = Tâches effectuées =
+
+Effectué au 06/07/2008
+ * Mode miniature.
+ * Chaîne suivante et chaîne précédente
 
 Effectué au 12/04/2008
  * Ajout d'une barre de statut pour afficher la chaîne en cours de lecture et d'autres informations.
