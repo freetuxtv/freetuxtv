@@ -263,6 +263,21 @@ freetuxtv_app_create_app ()
 			 app);
 	
 	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttongoback");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowmain_buttongoback_clicked),
+			 app);
+	
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttongoforward");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowmain_buttongoforward_clicked),
+			 app);
+
+
+	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain_buttonstop");
 	g_signal_connect(G_OBJECT(widget),
 			 "clicked",

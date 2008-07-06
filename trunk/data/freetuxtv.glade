@@ -369,9 +369,9 @@
 		  <property name="spacing">7</property>
 
 		  <child>
-		    <widget class="GtkButton" id="button1">
+		    <widget class="GtkButton" id="windowmain_buttongoback">
 		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Chaîne précédente (fonctionne pas)</property>
+		      <property name="tooltip" translatable="yes">Chaîne précédente</property>
 		      <property name="can_focus">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
@@ -396,9 +396,9 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkButton" id="button2">
+		    <widget class="GtkButton" id="windowmain_buttongoforward">
 		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Chaîne suivante (fonctionne pas)</property>
+		      <property name="tooltip" translatable="yes">Chaîne suivante</property>
 		      <property name="can_focus">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
