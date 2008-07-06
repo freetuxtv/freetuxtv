@@ -29,6 +29,14 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 					 gpointer user_data);
 
 void
+on_windowmain_buttongoback_clicked (GtkButton *button,
+				    gpointer user_data);
+
+void
+on_windowmain_buttongoforward_clicked (GtkButton *button,
+				       gpointer user_data);
+
+void
 on_windowmain_buttonstop_clicked (GtkButton *button,
 				  gpointer user_data);
 

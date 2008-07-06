@@ -15,6 +15,7 @@
 #include <glade/glade.h>
 
 #include "freetuxtv-player.h"
+#include "freetuxtv-channel.h"
 
 G_BEGIN_DECLS
 
@@ -36,6 +37,11 @@ struct _FreetuxTVApp {
 		gint windowminimode_width;
 		gint windowminimode_height;
 	} config;
+
+	struct {
+		FreetuxTVChannel *channel;
+	} current;
+
 };
 typedef struct _FreetuxTVApp FreetuxTVApp;
 
