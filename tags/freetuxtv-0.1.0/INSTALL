@@ -1,0 +1,46 @@
+
+    Installation de FreetuxTV
+    =========================
+
+    1) Récupérer l'archive
+    2) Copiez-là dans votre dossier personel
+    3) Décompressez-là :
+        $> tar xvzf freetuxtv-<version>.tar.gz
+    4) Entrez dans le nouveau dossier
+        $> cd freetuxtv-<version>
+    5) Lancez le script configure (Vous pouvez voir les options de configure avec l'option --help)
+        $> ./configure --prefix=/usr
+    6) Installez FreetuxTV
+        $> make install
+       Ou utilisez sudo pour avoir les droit de root
+        $> sudo make install
+    7) Lancez l'application
+        $> freetuxtv
+
+    Désinstallation de FreetuxTV
+    ============================
+
+    1) Désinstalltion du programme
+        $> make uninstall
+    2) Désinstallation de votre profil
+        $>  rm -rf ~/.config/FreetuxTV
+
+
+    Installation de la version SVN 
+    ==============================
+
+    1) Installation des paquets necessaires pour compiler
+        $> sudo apt-get install vlc libvlc0-dev libhal-dev libgtk2.0-dev libglade2-dev subversion libsqlite3-0 libsqlite3-dev libcurl3 libcurl3-dev autoconf automake
+    2) Recuperer les sources de FreetuxTV
+        $> svn checkout http://freetuxtv.googlecode.com/svn/trunk/ freetuxtv-read-only
+        $> cd freetuxtv-read-only
+    3) Compilation
+        $> aclocal && autoheader && autoconf && automake -a -c
+        $> ./configure --prefix=/usr
+        $> make
+        $> sudo make install
+    4) Supprimer le répertoire de configuration (au moins la base de donnée)
+        $> rm -rf ~/.config/FreetuxTV
+    5) Regarder la TV
+        $> freetuxtv
+

@@ -1,0 +1,23 @@
+
+    FreetuxTV
+    =========
+
+    FreetuxTV est un logiciel qui vous permet de regarder les chaînes de télévision sur votre PC.
+
+    Fonctionnalités:
+      - Lecture des chaînes de Free, Neuf, Web TV...
+      - Lecture en plein écran
+      - Mode miniature
+
+
+    Pré-requis
+    ==========
+
+    - gtk+ >= 2.12.0
+    - Hal (>= 0.50)
+    - libsqlite3 (>= 3.4.2)
+    - libvlc (>= 0.8.6)
+    - libcurl (>= 7.16.4)
+    - libglade2 (>= 2.6.2)
+
+
