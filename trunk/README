@@ -1,32 +1,23 @@
-FreetuxTV est un logiciel qui vous permet de regarder les chaînes de télévision sur votre PC.
 
-Fonctionnalités:
-- Lecture des chaînes de la Freebox
-- Lecture en plein écran
+    FreetuxTV
+    =========
 
-Requirements:
-- gtk+ >= 2.12.0
-- Hal (>= 0.50)
-- libsqlite3 (>= 3.4.2)
-- libvlc (>= 0.8.6)
-- libcurl (>= 7.16.4)
+    FreetuxTV est un logiciel qui vous permet de regarder les chaînes de télévision sur votre PC.
 
-Installation:
-Installation des paquets necessaires pour compiler:
-Ubuntu Gusty & Hardy
-	$>sudo apt-get install vlc libvlc0-dev libhal-dev libgtk2.0-dev libglade2-dev subversion libsqlite3-0 libsqlite3-dev libcurl3 libcurl3-dev autoconf automake
-Recuperer les sources de FreetuxTV
-	$>svn checkout http://freetuxtv.googlecode.com/svn/trunk/ freetuxtv-read-only
-	$>cd freetuxtv-read-only
-Compilation
-	$>aclocal && autoheader && autoconf && automake -a -c
-	$>./configure --prefix=/usr
-	$>make
-	$>sudo make install
-Supprimer le répertoire de configuration (au moins la base de donnée)
-	$> rm -rf ~/.config/FreetuxTV
-Regarder la TV (marche aussi depuis le menu de Gnome)
-	$> freetuxtv
+    Fonctionnalités:
+      - Lecture des chaînes de Free, Neuf, Web TV...
+      - Lecture en plein écran
+      - Mode miniature
 
+
+    Pré-requis
+    ==========
+
+    - gtk+ >= 2.12.0
+    - Hal (>= 0.50)
+    - libsqlite3 (>= 3.4.2)
+    - libvlc (>= 0.8.6)
+    - libcurl (>= 7.16.4)
+    - libglade2 (>= 2.6.2)
 
 
