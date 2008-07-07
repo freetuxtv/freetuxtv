@@ -41,6 +41,12 @@ FreetuxTV n'a malheureusement pas de logo officiel, ni d'icône. Alors si vous �
 
 Sur le même principe, une bannière un peu plus représentatif de l'esprit du projet pour le blog ne serait pas du luxe. Donc si vous avez des proposition ça m'intéresse.
 
+= Pour ceux qui aime faire de la documentation =
+
+== Documentation Ubuntu ==
+
+Créer une page pour FreetuxTV sur la documentation Ubuntu pour expliquer comment l'installer, l'utiliser...
+
 = Pour les développeurs =
 
 == Créer des paquets ==
