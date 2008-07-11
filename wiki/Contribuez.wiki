@@ -8,7 +8,7 @@ Aidez FreetuxTV à croire plus rapidement.
 
 Cette page recense une liste de tout ce que vous pouvez faire pour aider le projet.
 
-Pour tout contact ou informations : eric.beuque@gmail.com
+Pour toute envie de réaliser l'une des tâches ci-dessous ou demande d'informations : eric.beuque@gmail.com
 
 = Pour tous les utilisateurs =
 
@@ -46,6 +46,10 @@ Sur le même principe, une bannière un peu plus représentatif de l'esprit du p
 == Documentation Ubuntu ==
 
 Créer une page pour FreetuxTV sur la documentation Ubuntu pour expliquer comment l'installer, l'utiliser...
+
+== Tutoriel ==
+
+Réaliser une documentation utilisateur montrant comment profiter de toutes les fonctions de FreetuxtV, et qui pourra être accessible dans le programme via le menu aide.
 
 = Pour les développeurs =
 
