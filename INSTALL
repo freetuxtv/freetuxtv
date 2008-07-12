@@ -30,7 +30,11 @@
     ==============================
 
     1) Installation des paquets necessaires pour compiler
-        $> sudo apt-get install vlc libvlc0-dev libhal-dev libgtk2.0-dev libglade2-dev subversion libsqlite3-0 libsqlite3-dev libcurl3 libcurl3-dev autoconf automake
+      a) Ubuntu
+        $> sudo apt-get install subversion libgtk2.0-dev libglade2-dev vlc libvlc0-dev libhal-dev libsqlite3-0 libsqlite3-dev libcurl3 libcurl3-dev autoconf automake
+      b) Mandriva Linux
+	$> su root
+	$> urpmi subversion vlc autoconf automake gcc make libgtk+2.0_0-devel libglade2.0_0-devel libvlc-devel libsqlite3-devel libcurl-devel
     2) Recuperer les sources de FreetuxTV
         $> svn checkout http://freetuxtv.googlecode.com/svn/trunk/ freetuxtv-read-only
         $> cd freetuxtv-read-only

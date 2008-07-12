@@ -253,7 +253,7 @@ channels_group_reload_channels (FreetuxTVChannelsGroup *self,
 				self->id);
 		res = sqlite3_exec(db, query, on_exec_add_channel,
 				   (void *)cbuserdata, &err);
-		g_free(query);
+		sqlite3_free(query);
 		
 		if(res != SQLITE_OK){
 			err_msg = g_strdup_printf("L'affichage des chaînes du groupe \"%s\" a échoué.\n\nSQLite a retouné l'erreur :\n%s.",
