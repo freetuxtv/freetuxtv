@@ -21,7 +21,9 @@ AC_STDC_HEADERS
 AC_PROG_INSTALL
 
 # Checks for libraries.
-PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.2 glib-2.0 >= 2.2 libglade-2.0 >= 2.6.2)
+PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.2
+                        glib-2.0 >= 2.2
+                        libglade-2.0 >= 2.6.2)
 
 AC_CHECK_LIB(vlc, libvlc_new)
 AC_CHECK_LIB(sqlite3, sqlite3_open)
@@ -34,11 +36,18 @@ AC_SUBST(DEPS_LIBS)
 
 # Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(string.h stdlib.h)
+AC_CHECK_HEADERS(stdio.h string.h stdlib.h)
 
 # Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_SIZE_T
+AC_TYPE_SSIZE_T
+AC_FUNC_MALLOC
+AC_FUNC_REALLOC
 
 # Checks for library functions.
+AC_CHECK_FUNCS([strchr])
+AC_CHECK_FUNCS([strcspn])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile

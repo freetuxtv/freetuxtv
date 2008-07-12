@@ -11,8 +11,6 @@
 #ifndef LIB_M3UPARSER_H
 #define LIB_M3UPARSER_H
 
-#include <stdio.h>
-
 enum libm3uparser_error {
 	LIBM3UPARSER_OK = 0,
 	LIBM3UPARSER_INVALID_CALLBACK = -1,
