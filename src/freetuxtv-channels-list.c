@@ -151,7 +151,7 @@ channels_list_update_from_db (FreetuxTVApp *app)
 		
 		ret = -1;
 	}
-	
+
 	if(ret == 0){
 		/* Selection des groupes de chaînes */
 		query = "SELECT id_channelsgroup, name_channelsgroup, \
@@ -175,7 +175,7 @@ channels_list_update_from_db (FreetuxTVApp *app)
 	g_free(user_db);
 	
 	if(ret == 0){
-		gtk_widget_show_all (GTK_WIDGET(app->channelsgroups));
+		gtk_widget_show (GTK_WIDGET(app->channelsgroups));
 	}
 }
 
@@ -268,15 +268,14 @@ channels_group_reload_channels (FreetuxTVChannelsGroup *self,
 	}
 		
 	if(ret == 0){
+		freetuxtv_channels_group_set_collapsed (self, FREETUXTV_CHANNELS_GROUP_EXPANDED);
 		/*
-		  freetuxtv_channels_group_set_collapsed (self, FREETUXTV_CHANNELS_GROUP_EXPANDED);*/
-		
 		self->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
 		gtk_arrow_set (GTK_ARROW(self->arrow), 
 			       GTK_ARROW_DOWN,
-			       GTK_SHADOW_NONE);
+			       GTK_SHADOW_NONE);*/
 		
-		gtk_widget_show_all (GTK_WIDGET(self->channels_widget));
+		gtk_widget_show_all (GTK_WIDGET(self->channels));
 	}
 	
 	sqlite3_free(err);
