@@ -22,6 +22,24 @@
 
 G_DEFINE_TYPE (FreetuxTVChannelsGroup, freetuxtv_channels_group, GTK_TYPE_VBOX);
 
+
+typedef struct _FreetuxTVChannelsGroupPrivate FreetuxTVChannelsGroupPrivate;
+
+struct _FreetuxTVChannelsGroupPrivate
+{
+	gchar *filter;
+
+	FreetuxTVChannelsGroupState state;
+	
+	GtkWidget *arrow;
+	GtkWidget *popup_menu;
+	GtkWidget *infos;
+};
+
+#define FREETUXTV_CHANNELS_GROUP_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), \
+									      FREETUXTV_TYPE_CHANNELS_GROUP, \
+									      FreetuxTVChannelsGroupPrivate))
+
 static void
 on_arrow_clicked (GtkWidget *widget, GdkEventButton *event, 
 		  gpointer user_data);
@@ -43,10 +61,12 @@ static void
 show_popup_on_widget (FreetuxTVChannelsGroup *self, GtkWidget *widget, GdkEventButton *event);
 
 enum {
-  MENU_DELETE_GROUP,
-  MENU_DELETE_CHANNELS,
-  MENU_REFRESH_GROUP,
-  LAST_SIGNAL
+	MENU_DELETE_GROUP,
+	MENU_DELETE_CHANNELS,
+	MENU_REFRESH_GROUP,
+	EXPAND_GROUP,
+	COLLAPSE_GROUP,
+	LAST_SIGNAL
 };
 
 static guint channelsgroup_signals[LAST_SIGNAL];
@@ -55,17 +75,20 @@ GtkWidget *
 freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri)
 {
 	FreetuxTVChannelsGroup *self = NULL;
+	FreetuxTVChannelsGroupPrivate *priv = NULL;
 	
 	self = gtk_type_new (freetuxtv_channels_group_get_type ());
+	priv =  FREETUXTV_CHANNELS_GROUP_GET_PRIVATE (self);
+
 	gtk_box_set_homogeneous(GTK_BOX(self),FALSE);
 	gtk_box_set_spacing(GTK_BOX(self),0);
 	
 	self->id = g_strdup(id);
 	self->name = g_strdup(name);
 	self->uri = g_strdup(uri);
-
-	self->filter = "";
-	self->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
+	
+	priv->filter = "";
+	priv->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
  
 	GdkColor color;
 	color.pixel = 0;
@@ -89,9 +112,8 @@ freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri)
 	g_signal_connect(G_OBJECT(eventbox), "button-press-event",
 			 G_CALLBACK(on_arrow_clicked), self);
 	gtk_box_pack_start (GTK_BOX(hbox), eventbox, FALSE, FALSE, 0);
-	GtkWidget *arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_IN);
-	self->arrow = arrow;
-	gtk_container_add (GTK_CONTAINER(eventbox), arrow);
+	priv->arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_IN);
+	gtk_container_add (GTK_CONTAINER(eventbox), priv->arrow);
 
 	/* Nom du groupe */
 	GtkWidget *label = gtk_label_new (self->name);
@@ -99,14 +121,22 @@ freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri)
 	gtk_misc_set_alignment (GTK_MISC(label),0,0.5);
 	gtk_label_set_ellipsize (GTK_LABEL(label), PANGO_ELLIPSIZE_END);
 	gtk_box_pack_start (GTK_BOX(hbox), label, TRUE, TRUE, 0);
+	
+	priv->infos = gtk_label_new ("Pour charger la liste des chaînes, faîtes clic-droit \
+sur le nom du groupe puis \"Actualiser depuis la playlist\".");
+	gtk_label_set_line_wrap (GTK_LABEL(priv->infos), TRUE);
+	gtk_label_set_width_chars (GTK_LABEL(priv->infos), 20);
+	gtk_label_set_justify (GTK_LABEL(priv->infos), GTK_JUSTIFY_FILL);
+	gtk_box_pack_start (GTK_BOX(self), 
+			    priv->infos, FALSE, FALSE, 0);
 
 	/* Liste des chaines du groupe */
-	self->channels_widget = gtk_vbox_new(FALSE, 1);
+	self->channels = gtk_vbox_new(FALSE, 1);
 	gtk_box_pack_start (GTK_BOX(self), 
-			    self->channels_widget, FALSE, FALSE, 0);
+			    self->channels, FALSE, FALSE, 0);
 	
 	gtk_widget_show_all (GTK_WIDGET(self));
-	
+
 	return GTK_WIDGET(self);
 }
 
@@ -114,7 +144,7 @@ void
 freetuxtv_channels_group_add_channel (FreetuxTVChannelsGroup *self,
 				      FreetuxTVChannel *channel)
 {
-	gtk_box_pack_start (GTK_BOX(self->channels_widget),
+	gtk_box_pack_start (GTK_BOX(self->channels),
 			    GTK_WIDGET(channel),
 			    FALSE, FALSE, 0);
 }
@@ -122,16 +152,19 @@ freetuxtv_channels_group_add_channel (FreetuxTVChannelsGroup *self,
 void
 freetuxtv_channels_group_delete_channels (FreetuxTVChannelsGroup *self)
 {
-	gtk_widget_destroy (GTK_WIDGET(self->channels_widget));
-	self->channels_widget = gtk_vbox_new(FALSE, 1);
+	gtk_widget_destroy (GTK_WIDGET(self->channels));
+	self->channels = gtk_vbox_new(FALSE, 1);
 	gtk_box_pack_start (GTK_BOX(self), 
-			    self->channels_widget, FALSE, FALSE, 0);
+			    self->channels, FALSE, FALSE, 0);
 }
 
 void
 freetuxtv_channels_group_change_collapsed (FreetuxTVChannelsGroup *self)
 {
-	if(self->state == FREETUXTV_CHANNELS_GROUP_EXPANDED) {
+	FreetuxTVChannelsGroupPrivate *priv = NULL;
+	priv =  FREETUXTV_CHANNELS_GROUP_GET_PRIVATE (self);
+
+	if(priv->state == FREETUXTV_CHANNELS_GROUP_EXPANDED) {
 		freetuxtv_channels_group_set_collapsed (self,
 							FREETUXTV_CHANNELS_GROUP_COLLAPSED);
 	}else{
@@ -144,21 +177,30 @@ void
 freetuxtv_channels_group_set_collapsed (FreetuxTVChannelsGroup *self,
 					FreetuxTVChannelsGroupState state)
 {
-	GtkWidget *entryfilter;
 	gchar *filter;
-
-	self->state = state;
-	if(self->state == FREETUXTV_CHANNELS_GROUP_EXPANDED) {
-		gtk_arrow_set (GTK_ARROW(self->arrow), 
+	
+	FreetuxTVChannelsGroupPrivate *priv = NULL;
+	priv =  FREETUXTV_CHANNELS_GROUP_GET_PRIVATE (self);
+	priv->state = state;
+	if(priv->state == FREETUXTV_CHANNELS_GROUP_EXPANDED) {
+		gtk_arrow_set (GTK_ARROW(priv->arrow), 
 			       GTK_ARROW_DOWN,
 			       GTK_SHADOW_NONE);
 
-		freetuxtv_channels_group_set_filter (self, self->filter);
+		freetuxtv_channels_group_set_filter (self, priv->filter);
+		
+		if(freetuxtv_channels_group_get_channels_count(self) == 0){
+			gtk_widget_show (GTK_WIDGET(priv->infos));
+		}else{
+			gtk_widget_hide (GTK_WIDGET(priv->infos));
+		}
+
 	}else{
-		gtk_arrow_set (GTK_ARROW(self->arrow), 
+		gtk_arrow_set (GTK_ARROW(priv->arrow), 
 			       GTK_ARROW_RIGHT,
 			       GTK_SHADOW_NONE);
-		gtk_widget_hide_all (GTK_WIDGET(self->channels_widget));	
+		gtk_widget_hide_all (GTK_WIDGET(self->channels));
+		gtk_widget_hide (GTK_WIDGET(priv->infos));	
 	}
 }
 
@@ -168,26 +210,29 @@ freetuxtv_channels_group_set_filter (FreetuxTVChannelsGroup *self,
 {
 	int count = 0;
 	GList* tmp;
+	
+	FreetuxTVChannelsGroupPrivate *priv = NULL;
+	priv =  FREETUXTV_CHANNELS_GROUP_GET_PRIVATE (self);
+	
+	priv->filter = filter;
 
-	self->filter = filter;
-
-	tmp = g_list_first (gtk_container_get_children (GTK_CONTAINER(self->channels_widget)));
+	tmp = g_list_first (gtk_container_get_children (GTK_CONTAINER(self->channels)));
 	gtk_widget_show_all (GTK_WIDGET(self));
 	while (tmp != NULL){
 		FreetuxTVChannel *channel;
 		channel = FREETUXTV_CHANNEL (tmp->data);
-		count += freetuxtv_channel_show_if_filter (channel, self->filter);
+		count += freetuxtv_channel_show_if_filter (channel, priv->filter);
 		tmp = g_list_next (tmp); 
 	}
 	if( count == 0 && g_ascii_strcasecmp(filter, "") != 0){
-		self->state = FREETUXTV_CHANNELS_GROUP_COLLAPSED;
-		gtk_arrow_set (GTK_ARROW(self->arrow), 
+		priv->state = FREETUXTV_CHANNELS_GROUP_COLLAPSED;
+		gtk_arrow_set (GTK_ARROW(priv->arrow), 
 			       GTK_ARROW_RIGHT,
 			       GTK_SHADOW_NONE);
 		gtk_widget_hide_all (GTK_WIDGET(self));
 	}else{
-		self->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
-		gtk_arrow_set (GTK_ARROW(self->arrow), 
+		priv->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
+		gtk_arrow_set (GTK_ARROW(priv->arrow), 
 			       GTK_ARROW_DOWN,
 			       GTK_SHADOW_NONE);	
 	}
@@ -197,7 +242,18 @@ freetuxtv_channels_group_set_filter (FreetuxTVChannelsGroup *self,
 gchar *
 freetuxtv_channels_group_get_filter (FreetuxTVChannelsGroup *self)
 {
-	return self->filter;
+	FreetuxTVChannelsGroupPrivate *priv = NULL;
+	priv =  FREETUXTV_CHANNELS_GROUP_GET_PRIVATE (self);
+	
+	return priv->filter;
+}
+
+int
+freetuxtv_channels_group_get_channels_count (FreetuxTVChannelsGroup *self)
+{
+	GList* children;
+	children = gtk_container_get_children (GTK_CONTAINER(self->channels));
+	return g_list_length(children);
 }
 
 FreetuxTVChannelsGroup *
@@ -223,9 +279,12 @@ show_popup_on_widget (FreetuxTVChannelsGroup *self, GtkWidget *widget, GdkEventB
 	GtkWidget *image;
 	int button, event_time;
 
+	FreetuxTVChannelsGroupPrivate *priv = NULL;
+	priv =  FREETUXTV_CHANNELS_GROUP_GET_PRIVATE (self);
+
 	menu = gtk_menu_new ();
 	
-	self->popup_menu = menu;
+	priv->popup_menu = menu;
 
 	menuitem = gtk_image_menu_item_new_with_label("Actualiser depuis la playlist");
 	gtk_widget_set_tooltip_text (GTK_WIDGET(menuitem), self->uri);
@@ -272,8 +331,12 @@ on_menudeletegroup_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
 	FreetuxTVChannelsGroup *self;
 	self = (FreetuxTVChannelsGroup *) user_data;
+
+	FreetuxTVChannelsGroupPrivate *priv = NULL;
+	priv =  FREETUXTV_CHANNELS_GROUP_GET_PRIVATE (self);
+
 	
-	gtk_widget_destroy (self->popup_menu);
+	gtk_widget_destroy (priv->popup_menu);
 	
 	/* Envoi du signal delete-group */
 	g_signal_emit (G_OBJECT (self),
@@ -286,8 +349,11 @@ on_menudeletechannels_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
 	FreetuxTVChannelsGroup *self;
 	self = (FreetuxTVChannelsGroup *) user_data;
+
+	FreetuxTVChannelsGroupPrivate *priv = NULL;
+	priv =  FREETUXTV_CHANNELS_GROUP_GET_PRIVATE (self);
 	
-	gtk_widget_destroy (self->popup_menu);
+	gtk_widget_destroy (priv->popup_menu);
 	
 	/* Envoi du signal delete-channels */
 	g_signal_emit (G_OBJECT (self),
@@ -304,8 +370,11 @@ on_menurefresh_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
 	FreetuxTVChannelsGroup *self;
 	self = (FreetuxTVChannelsGroup *) user_data;
-	
-	gtk_widget_destroy (self->popup_menu);
+
+	FreetuxTVChannelsGroupPrivate *priv = NULL;
+	priv =  FREETUXTV_CHANNELS_GROUP_GET_PRIVATE (self);
+		
+	gtk_widget_destroy (priv->popup_menu);
 	
 	/* Envoi du signal refresh-group */
 	g_signal_emit (G_OBJECT (self),
@@ -338,15 +407,20 @@ on_grouphead_clicked (GtkWidget *widget, GdkEventButton *event,
 static void
 freetuxtv_channels_group_init (FreetuxTVChannelsGroup *object)
 {
+
+
+	FreetuxTVChannelsGroupPrivate *priv = NULL;
+	priv =  FREETUXTV_CHANNELS_GROUP_GET_PRIVATE (object);
+
 	object->id=0;
 	object->name="";
 	object->uri="";
-	object->filter="";
-	object->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
+	object->channels = NULL;
 
-	object->channels_widget = NULL;
-	object->arrow = NULL;
-	object->popup_menu = NULL;
+	priv->filter="";
+	priv->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
+	priv->arrow = NULL;
+	priv->popup_menu = NULL;
 }
 
 static void
@@ -360,6 +434,8 @@ freetuxtv_channels_group_class_init (FreetuxTVChannelsGroupClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	gobject_class->finalize = freetuxtv_channels_group_finalize;
+
+	g_type_class_add_private (klass, sizeof (FreetuxTVChannelsGroupPrivate));
 
 	/* Enregistrements des signaux du widget */
 	channelsgroup_signals [MENU_DELETE_GROUP] = g_signal_new ("menu-delete-group",

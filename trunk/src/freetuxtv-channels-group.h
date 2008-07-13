@@ -20,8 +20,8 @@ G_BEGIN_DECLS
 
 typedef enum
 {
-  FREETUXTV_CHANNELS_GROUP_COLLAPSED,
-  FREETUXTV_CHANNELS_GROUP_EXPANDED,
+	FREETUXTV_CHANNELS_GROUP_COLLAPSED,
+	FREETUXTV_CHANNELS_GROUP_EXPANDED,
 } FreetuxTVChannelsGroupState;
 
 
@@ -44,12 +44,7 @@ struct _FreetuxTVChannelsGroup
 	gchar *name;
 	gchar *uri;
 	
-	gchar *filter;
-	FreetuxTVChannelsGroupState state;
-
-	GtkWidget *channels_widget;
-	GtkWidget *arrow;
-	GtkWidget *popup_menu;
+	GtkWidget *channels;
 };
 
 struct _FreetuxTVChannelsGroupClass
@@ -87,6 +82,9 @@ freetuxtv_channels_group_add_channel (FreetuxTVChannelsGroup *self,
 
 void
 freetuxtv_channels_group_delete_channels (FreetuxTVChannelsGroup *self);
+
+int
+freetuxtv_channels_group_get_channels_count (FreetuxTVChannelsGroup *self);
 
 FreetuxTVChannelsGroup *
 freetuxtv_channels_group_get_from_channel (FreetuxTVChannel *channel);

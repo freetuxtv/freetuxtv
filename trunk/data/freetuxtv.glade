@@ -238,100 +238,6 @@
 		  <property name="type">tab</property>
 		</packing>
 	      </child>
-
-	      <child>
-		<widget class="GtkVBox" id="vbox4">
-		  <property name="visible">True</property>
-		  <property name="homogeneous">False</property>
-		  <property name="spacing">0</property>
-
-		  <child>
-		    <placeholder/>
-		  </child>
-
-		  <child>
-		    <placeholder/>
-		  </child>
-
-		  <child>
-		    <placeholder/>
-		  </child>
-		</widget>
-		<packing>
-		  <property name="tab_expand">False</property>
-		  <property name="tab_fill">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkLabel" id="label2">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">En cours</property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">False</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0.5</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">90</property>
-		</widget>
-		<packing>
-		  <property name="type">tab</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkVBox" id="vbox5">
-		  <property name="visible">True</property>
-		  <property name="homogeneous">False</property>
-		  <property name="spacing">0</property>
-
-		  <child>
-		    <placeholder/>
-		  </child>
-
-		  <child>
-		    <placeholder/>
-		  </child>
-
-		  <child>
-		    <placeholder/>
-		  </child>
-		</widget>
-		<packing>
-		  <property name="tab_expand">False</property>
-		  <property name="tab_fill">True</property>
-		</packing>
-	      </child>
-
-	      <child>
-		<widget class="GtkLabel" id="label3">
-		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">Enregistrements</property>
-		  <property name="use_underline">False</property>
-		  <property name="use_markup">False</property>
-		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
-		  <property name="selectable">False</property>
-		  <property name="xalign">0.5</property>
-		  <property name="yalign">0.5</property>
-		  <property name="xpad">0</property>
-		  <property name="ypad">0</property>
-		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
-		  <property name="single_line_mode">False</property>
-		  <property name="angle">90</property>
-		</widget>
-		<packing>
-		  <property name="type">tab</property>
-		</packing>
-	      </child>
 	    </widget>
 	    <packing>
 	      <property name="shrink">True</property>
@@ -649,13 +555,18 @@
   <property name="border_width">5</property>
   <property name="visible">True</property>
   <property name="destroy_with_parent">False</property>
-  <property name="name" translatable="yes">Nom de l'application</property>
+  <property name="name" translatable="yes">FreetuxTV</property>
   <property name="copyright" translatable="yes">GNU General Public License v2</property>
   <property name="comments" translatable="yes">Lecteur de chaînes de télévision sur Internet.</property>
   <property name="wrap_license">False</property>
   <property name="website">http://code.google.com/p/freetuxtv/</property>
   <property name="website_label" translatable="yes">Site Web du projet</property>
-  <property name="authors">Eric Beuque, Julien Masson</property>
+  <property name="authors">Créateur et développeur : Eric Beuque
+Paquets Ubuntu : Tuxcola
+Gestion du dépots : Romain Fluttaz
+Ancien membre(s) : Julien Masson
+Merci aussi à :
+13remi</property>
   <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
   <signal name="response" handler="on_aboutdialog_response"/>
 
