@@ -21,4 +21,5 @@ freetuxtv_LDFLAGS = -export-dynamic
 
 freetuxtv_LDADD = $(DEPS_LIBS)
 
-AM_CPPFLAGS = $(DEPS_CFLAGS)
+AM_CPPFLAGS = $(DEPS_CFLAGS) \
+              -DLOCALE_DIR=\""$(datadir)/locale"\"

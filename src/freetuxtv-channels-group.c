@@ -230,11 +230,17 @@ freetuxtv_channels_group_set_filter (FreetuxTVChannelsGroup *self,
 			       GTK_ARROW_RIGHT,
 			       GTK_SHADOW_NONE);
 		gtk_widget_hide_all (GTK_WIDGET(self));
+		gtk_widget_hide (GTK_WIDGET(priv->infos));
 	}else{
 		priv->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
 		gtk_arrow_set (GTK_ARROW(priv->arrow), 
 			       GTK_ARROW_DOWN,
-			       GTK_SHADOW_NONE);	
+			       GTK_SHADOW_NONE);
+		if(freetuxtv_channels_group_get_channels_count(self) == 0){
+			gtk_widget_show (GTK_WIDGET(priv->infos));
+		}else{
+			gtk_widget_hide (GTK_WIDGET(priv->infos));
+		}		
 	}
 	return count;
 }
