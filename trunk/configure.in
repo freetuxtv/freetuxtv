@@ -21,14 +21,35 @@ AC_PROG_CC
 AC_PROG_MAKE_SET
 AC_PROG_INSTALL
 
+# Arguments Libvlc
+LIBVLC_ARGS=`vlc-config --libs external`
+LIBVLC_ARGS="$LIBVLC_ARGS -lstdc++"
+
+LIBVLC_DEPS=""
+
+for i in $LIBVLC_ARGS ; do
+if echo $i | grep -q "\/"; then
+        j=`echo $i | sed -e 's/-l//g' -e 's/-L//g'`
+        if [ test -e "$j" ]; then
+                LIBVLC_DEPS="$LIBVLC_DEPS $i"
+        else echo "Missing $j from libvlc deps ... removed"
+        fi
+else
+        LIBVLC_DEPS="$LIBVLC_DEPS $i"
+fi
+done
+
 # Checks for libraries.
 PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.2
                         glib-2.0 >= 2.2
                         libglade-2.0 >= 2.6.2)
+
+DEPS_LIBS="$DEPS_LIBS $LIBVLC_DEPS"
+
 AC_SUBST(DEPS_CFLAGS)
 AC_SUBST(DEPS_LIBS)
 
-AC_CHECK_LIB(vlc, libvlc_new)
+AC_CHECK_LIB(vlc, libvlc_new,,,$LIBVLC_DEPS)
 AC_CHECK_LIB(sqlite3, sqlite3_open)
 AC_CHECK_LIB(curl, curl_easy_init)
 AC_CHECK_LIB(gthread-2.0, g_thread_init)
@@ -58,8 +79,7 @@ AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["${GETTEXT_PACKAGE}"], [gettext domain])
 
 
-AC_CONFIG_FILES([po/Makefile.in
-                 Makefile
+AC_CONFIG_FILES([Makefile
                  src/Makefile
                  data/Makefile
                  data/menu/Makefile
