@@ -38,10 +38,18 @@ void
 on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 					    gpointer user_data)
 {
-	GladeXML *gladexml;	
+	GladeXML *gladexml;
+	GtkWidget *widget;
 	gladexml = glade_xml_new (FREETUXTV_GLADEXML,
 				  "aboutdialog", NULL);
 	glade_xml_signal_autoconnect (gladexml);
+
+	widget = glade_xml_get_widget(gladexml,
+				      "aboutdialog");
+	
+	gtk_about_dialog_set_program_name (GTK_ABOUT_DIALOG(widget), "FreetuxTV");
+	gtk_about_dialog_set_version (GTK_ABOUT_DIALOG(widget), VERSION);
+
 }
 
 void
