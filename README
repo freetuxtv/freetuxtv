@@ -58,12 +58,11 @@
 libhal-dev libsqlite3-0 libsqlite3-dev libcurl3 libcurl3-dev 
       b) Mandriva Linux
 	$> su root
-	$> urpmi subversion vlc autoconf automake gcc make libgtk+2.0_0-devel libglade2.0_0-devel libvlc-devel libsqlite3-devel libcurl-devel
+	$> urpmi subversion vlc autoconf automake gcc make gettext libgtk+2.0_0-devel libglade2.0_0-devel libvlc-devel libsqlite3-devel libcurl-devel
     2) Recuperer les sources de FreetuxTV
         $> svn checkout http://freetuxtv.googlecode.com/svn/trunk/ freetuxtv-read-only
         $> cd freetuxtv-read-only
     3) Compilation
-	$> chmod a+x ./bootstrap
 	$> ./bootstrap
         $> ./configure --prefix=/usr
         $> make

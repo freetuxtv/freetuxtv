@@ -1,13 +1,8 @@
-2008-07-14  gettextize  <bug-gnu-gettext@gnu.org>
-
-	* Makefile.am (ACLOCAL_AMFLAGS): New variable.
-	(EXTRA_DIST): New variable.
-	* configure.in (AC_CONFIG_FILES): Add po/Makefile.in.
-
-FreetuxTV 0.1.1 (sortie le 2008-)
+FreetuxTV 0.1.1 (sortie le 2008-07-20)
   - Fix du bug de segmentation fault sur Mandriva/Debian
   - Retrait des onglets "En cours" et "Enregistrements" vide
   - Message quand la liste des chaînes est vide pour indiquer comment charger la liste des chaînes
+  - Numéro de la version dans la fenêtre à propos
 
 FreetuxTV 0.1.0 (sortie le 2008-07-06)
   - Première version
