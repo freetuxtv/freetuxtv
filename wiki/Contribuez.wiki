@@ -8,7 +8,7 @@ Aidez FreetuxTV à croire plus rapidement.
 
 Cette page recense une liste de tout ce que vous pouvez faire pour aider le projet.
 
-Pour toute envie de réaliser l'une des tâches ci-dessous ou demande d'informations : eric.beuque@gmail.com
+Pour toute envie de réaliser l'une des tâches ci-dessous ou demande d'informations : contactez [http://www.eric-beuque.com/ Eric Beuque]
 
 = Pour tous les utilisateurs =
 
