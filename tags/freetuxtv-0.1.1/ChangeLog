@@ -1,0 +1,15 @@
+FreetuxTV 0.1.1 (2008-07-20)
+  - Fix du bug de segmentation fault sur Mandriva/Debian
+  - Retrait des onglets "En cours" et "Enregistrements" vide
+  - Message quand la liste des chaînes est vide pour indiquer comment charger la liste des chaînes
+  - Numéro de la version dans la fenêtre à propos
+
+FreetuxTV 0.1.0 (2008-07-06)
+  - Première version
+  - Lecture des chaînes
+  - Mode plein écran
+  - Groupes de chaînes
+  - Actualisation via téléchargement de la playlist d'un groupe
+  - Association automatique avec le logo
+  - Recherche dynamique des chaînes
+  - Mode miniature
