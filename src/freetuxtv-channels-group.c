@@ -292,7 +292,7 @@ show_popup_on_widget (FreetuxTVChannelsGroup *self, GtkWidget *widget, GdkEventB
 	
 	priv->popup_menu = menu;
 
-	menuitem = gtk_image_menu_item_new_with_label("Actualiser depuis la playlist");
+	menuitem = gtk_image_menu_item_new_with_label("Refresh from the playlist");
 	gtk_widget_set_tooltip_text (GTK_WIDGET(menuitem), self->uri);
 	image = gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
@@ -301,7 +301,7 @@ show_popup_on_widget (FreetuxTVChannelsGroup *self, GtkWidget *widget, GdkEventB
 			 G_CALLBACK(on_menurefresh_activate), self);
 	gtk_widget_show (menuitem);
 	
-	menuitem = gtk_image_menu_item_new_with_label("Supprimer les chaînes du groupe");
+	menuitem = gtk_image_menu_item_new_with_label("Delete group's channels");
 	image = gtk_image_new_from_stock (GTK_STOCK_DELETE, GTK_ICON_SIZE_MENU);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
 	gtk_menu_append (GTK_MENU (menu), menuitem);
@@ -309,7 +309,7 @@ show_popup_on_widget (FreetuxTVChannelsGroup *self, GtkWidget *widget, GdkEventB
 			 G_CALLBACK(on_menudeletechannels_activate), self);
 	gtk_widget_show (menuitem);
 	
-	menuitem = gtk_image_menu_item_new_with_label("Supprimer le groupe");
+	menuitem = gtk_image_menu_item_new_with_label("Delete group");
 	image = gtk_image_new_from_stock (GTK_STOCK_DELETE, GTK_ICON_SIZE_MENU);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
 	gtk_menu_append (GTK_MENU (menu), menuitem);
