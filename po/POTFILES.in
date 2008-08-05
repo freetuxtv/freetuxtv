@@ -1,5 +1,5 @@
 # List of source files containing translatable strings.
-
+# Please keep this file sorted alphabetically.
 data/freetuxtv.glade
 src/freetuxtv-app.h
 src/freetuxtv-channel.c
