@@ -72,19 +72,12 @@ AC_CHECK_FUNCS([strcspn])
 
 # Internationalization
 #AM_GNU_GETTEXT([external])
-#ALL_LINGUAS=fr
+ALL_LINGUAS="fr"
+AM_GLIB_GNU_GETTEXT
 
 GETTEXT_PACKAGE=$PACKAGE
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["${GETTEXT_PACKAGE}"], [gettext domain])
-
-AM_GLIB_GNU_GETTEXT
-
-if test "x${prefix}" = "xNONE"; then
-  AC_DEFINE_UNQUOTED(LOCALEDIR, "${ac_default_prefix}/${DATADIRNAME}/locale", [Locale dir])
-else
-  AC_DEFINE_UNQUOTED(LOCALEDIR, "${prefix}/${DATADIRNAME}/locale", [Locale dir])
-fi
 
 
 AC_CONFIG_FILES([Makefile
