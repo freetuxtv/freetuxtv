@@ -4,7 +4,7 @@ AC_PREREQ(2.61)
 AC_INIT(src/main.c)
 
 PACKAGE=freetuxtv
-VERSION=0.1.1
+VERSION=0.1.2
 
 AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
 
@@ -70,16 +70,25 @@ AC_FUNC_REALLOC
 AC_CHECK_FUNCS([strchr])
 AC_CHECK_FUNCS([strcspn])
 
+# Internationalization
 #AM_GNU_GETTEXT([external])
-ALL_LINGUAS=""
-AM_GLIB_GNU_GETTEXT
+#ALL_LINGUAS=fr
 
 GETTEXT_PACKAGE=$PACKAGE
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["${GETTEXT_PACKAGE}"], [gettext domain])
 
+AM_GLIB_GNU_GETTEXT
+
+if test "x${prefix}" = "xNONE"; then
+  AC_DEFINE_UNQUOTED(LOCALEDIR, "${ac_default_prefix}/${DATADIRNAME}/locale", [Locale dir])
+else
+  AC_DEFINE_UNQUOTED(LOCALEDIR, "${prefix}/${DATADIRNAME}/locale", [Locale dir])
+fi
+
 
 AC_CONFIG_FILES([Makefile
+                 po/Makefile.in
                  src/Makefile
                  data/Makefile
                  data/menu/Makefile
