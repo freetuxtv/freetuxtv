@@ -1,18 +1,27 @@
 <channel_logos>
   <logo filename="ab1.png" label="AB 1"></logo>
+  <logo filename="abmoteurs.png" label="AB Moteurs"></logo>
 	<logo filename="action.png" label="Action"></logo>
 	<logo filename="aljazeera.png" label="Al Jazeera">
 		<logolabel label="Aljazeera"/>
 	</logo>
   <logo filename="aljazeerachildren.png" label="Al Jazeera Children"></logo>
   <logo filename="aljazeerainternational.png" label="Al Jazeera International"></logo>
+  <logo filename="aptv.png" label="APTV">
+		<logolabel label="APTV Martinique"/>
+	</logo>
 	<logo filename="artchannel.png" label="Art Channel"></logo>
   <logo filename="arte.png" label="Arte">
 		<logolabel label="Arte (bas debit)"/>
 	</logo>
+  <logo filename="artplatv.png" label="Artpla tv"></logo>
+  <logo filename="astrocentertv.png" label="Astro Center TV"></logo>
+  <logo filename="astv.png" label="ASTV"></logo>
+  <logo filename="babylontv.png" label="Babylon tv"></logo>
   <logo filename="bbcworld.png" label="BBC World"></logo>
   <logo filename="beurtv.png" label="Beur TV"></logo>
   <logo filename="bfmtv.png" label="BFM TV">
+		<logolabel label="BFMTV"/>
 		<logolabel label="BFM TV (bas debit)"/>
 	</logo>
   <logo filename="bloombergtv.png" label="Bloomberg TV"></logo>
@@ -34,6 +43,7 @@
   <logo filename="fmen.png" label="F Men"></logo>
   <logo filename="france2.png" label="France 2">
 		<logolabel label="France 2 (bas debit)"/>
+		<logolabel label="France 2 HD"/>
 	</logo>
   <logo filename="france24.png" label="France 24">
 		<logolabel label="France 24 FR"/>
@@ -95,6 +105,7 @@
 		<logolabel label="La Chaîne Parlementaire (bas debit)"/>
 		<logolabel label="La chaine parlementaire"/>
 	</logo>
+	<logo filename="lalocale.png" label="La Locale"></logo>
 	<logo filename="lequipetv.png" label="L'équipe TV">
 		<logolabel label="L'equipe TV"/>
 	</logo>
@@ -133,6 +144,9 @@
 		<logolabel label="NT1 (bas debit)"/>
 	</logo>
   <logo filename="parispremiere.png" label="Paris Première"></logo>
+  <logo filename="rmc.png" label="RMC">
+		<logolabel label="RMC Info"/>
+	</logo>
   <logo filename="rtl9.png" label="RTL9"></logo>
   <logo filename="skynewsinternational.png" label="Sky News International"></logo>
   <logo filename="telemelody.png" label="Télé Mélody"></logo>
