@@ -44,9 +44,9 @@ CREATE TRIGGER fkd_channel_id
 insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
 			values ('FreeboxTV','http://mafreebox.freebox.fr/freeboxtv/playlist.m3u', '[0-9]* - ');
 insert into channels_group (name_channelsgroup, uri_channelsgroup) 
-			values ('FreeboxTV (non dégroupé)','http://www.eric-beuque.com/freetuxtv/playlists/playlist_freeboxtv_nd.m3u');
+			values ('FreeboxTV (non dégroupé)','http://www.freetuxtv.org/playlists/playlist_freeboxtv_nd.m3u');
 insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('Neuf TV','http://www.n9ws.com/tools/tvsurpc.m3u');
 insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
-			values ('Web TV (Française)','http://www.eric-beuque.com/freetuxtv/playlists/playlist_webtv_fr.m3u', '[0-9]* - ');
+			values ('Web TV (Française)','http://www.freetuxtv.org/playlists/playlist_webtv_fr.m3u', '[0-9]* - ');
 

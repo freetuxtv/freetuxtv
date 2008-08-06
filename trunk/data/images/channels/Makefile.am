@@ -2,12 +2,18 @@ channelsdir   = $(datadir)/freetuxtv/images/channels
 channels_DATA = \
   _none.png \
   ab1.png \
+  abmoteurs.png \
   action.png \
   aljazeera.png \
   aljazeerachildren.png \
   aljazeerainternational.png \
+  aptv.png \
   artchannel.png \
   arte.png \
+  artplatv.png \
+  astrocentertv.png \
+  astv.png \
+  babylontv.png \
   bbcworld.png \
   beurtv.png \
   bfmtv.png \
@@ -37,6 +43,7 @@ channels_DATA = \
   jet.png \
   kto.png \
   lachaineparlementaire.png \
+  lalocale.png \
   lequipetv.png \
   libertytv.png \
   m6musicblack.png \
@@ -59,6 +66,7 @@ channels_DATA = \
   nrjparis.png \
   nt1.png \
   parispremiere.png \
+  rmc.png \
   rtl9.png \
   skynewsinternational.png \
   telemelody.png \
