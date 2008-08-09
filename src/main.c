@@ -16,8 +16,6 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <sqlite3.h>
-#include <libintl.h>
-#include <locale.h>
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-window-main.h"
@@ -332,7 +330,7 @@ int main (int argc, char *argv[])
 		return 1;	
 
 	channels_list_update_from_db (app);
-
+	
 	gtk_main();
 	
 	return 0;
