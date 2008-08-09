@@ -1,24 +1,24 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# French translation of freetuxtv.
+# Copyright (C) 2008 GNU General Public License v2
+# This file is distributed under the same license as the freetuxtv package.
+# BEUQUE Eric <eric.beuque@gmail.com>, 2008.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: freetuxtv.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-05 23:07+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2008-08-09 15:52+0200\n"
+"PO-Revision-Date: 2008-08-09 15:06+0200\n"
+"Last-Translator: BEUQUE Eric <eric.beuque@gmail.com>\n"
+"Language-Team: FR <eric.beuque@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/freetuxtv.glade:7 data/freetuxtv.glade:644
+#: data/freetuxtv.glade:7 data/freetuxtv.glade:645
 msgid "FreetuxTV"
-msgstr ""
+msgstr "FreetuxTV"
 
 #: data/freetuxtv.glade:21
 msgid "_File"
@@ -26,9 +26,9 @@ msgstr "_Fichier"
 
 #: data/freetuxtv.glade:42
 msgid "C_hannels"
-msgstr "_Chaines"
+msgstr "_Chaînes"
 
-#: data/freetuxtv.glade:50 data/freetuxtv.glade:401
+#: data/freetuxtv.glade:50 data/freetuxtv.glade:402
 msgid "Add a group"
 msgstr "Ajouter un groupe"
 
@@ -38,127 +38,142 @@ msgstr "Aide"
 
 #: data/freetuxtv.glade:103
 msgid "Delete the search text area"
-msgstr ""
+msgstr "Effacer la zone de texte de recherche"
 
 #: data/freetuxtv.glade:121
-msgid "Channels search text area"
-msgstr ""
+msgid "Channels' search text area"
+msgstr "Zone de recherche de chaînes"
 
 #: data/freetuxtv.glade:155
 msgid "Channels"
-msgstr ""
+msgstr "Chaînes"
 
 #: data/freetuxtv.glade:188
 msgid "Previous channel"
-msgstr ""
+msgstr "Chaîne précédente"
 
 #: data/freetuxtv.glade:206
 msgid "Next channel"
-msgstr ""
+msgstr "Chaîne suivante"
 
 #: data/freetuxtv.glade:225
 msgid "Stop playing the current channel"
-msgstr ""
+msgstr "Arrêter la lecture de la chaîne en cours"
 
-#: data/freetuxtv.glade:246 data/freetuxtv.glade:668
+#: data/freetuxtv.glade:246 data/freetuxtv.glade:669
 msgid "Vol : "
-msgstr ""
+msgstr "Vol : "
 
-#: data/freetuxtv.glade:252 data/freetuxtv.glade:674
+#: data/freetuxtv.glade:252 data/freetuxtv.glade:675
 msgid "-"
-msgstr ""
+msgstr "-"
 
-#: data/freetuxtv.glade:274 data/freetuxtv.glade:696
+#: data/freetuxtv.glade:274 data/freetuxtv.glade:697
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #: data/freetuxtv.glade:291
 msgid "Fullscreen mode"
-msgstr ""
+msgstr "Mode plein écran"
 
 #: data/freetuxtv.glade:310
 msgid "Small mode"
-msgstr ""
+msgstr "Mode réduit"
 
 #: data/freetuxtv.glade:360
 msgid "GNU General Public License v2"
-msgstr ""
+msgstr "GNU General Public License v2"
 
 #: data/freetuxtv.glade:361
 msgid "Web TV channels player."
-msgstr ""
+msgstr "Lecteur de chaînes de télévision sur Internet."
 
 #: data/freetuxtv.glade:363
-msgid "Project's Web"
-msgstr ""
+msgid "Project's Web Site"
+msgstr "Site Web du projet"
 
-#: data/freetuxtv.glade:376
+#: data/freetuxtv.glade:377
 msgid "translator-credits"
-msgstr ""
+msgstr "translator-credits"
 
-#: data/freetuxtv.glade:426
-msgid "* : field needed"
-msgstr ""
+#: data/freetuxtv.glade:427
+msgid "Playlist's URI* : "
+msgstr "URI de la playlist* : "
 
-#: data/freetuxtv.glade:446
-msgid ""
-"You can easily use regulary expression to delete some text in the channel's "
-"name of the groupe. For example, if in your playlist, you have the kind of "
-"name \"11 - NT1\", \"12 - NRJ 12\", FreetuxTV is able to remove the channel "
-"number before the name, by using the regexp \"[0-9]* - \"."
-msgstr ""
+#: data/freetuxtv.glade:439
+msgid "Name of the group which will be added"
+msgstr "Nom du groupe à ajouter"
 
-#: data/freetuxtv.glade:463
-msgid "Text or regexp which be deleted at the end of the channel's name"
-msgstr ""
+#: data/freetuxtv.glade:449
+msgid "Group's name* :"
+msgstr "Nome du groupe* : "
 
-#: data/freetuxtv.glade:476
-msgid "Text or regexp which be deleted at the beginning of the channel's name"
-msgstr ""
-
-#: data/freetuxtv.glade:486
-msgid "Text to delete at the end :"
-msgstr ""
-
-#: data/freetuxtv.glade:497
-msgid "Text to delete at the beginning :"
-msgstr ""
-
-#: data/freetuxtv.glade:514
-msgid "Channel's name process :"
-msgstr ""
-
-#: data/freetuxtv.glade:528
+#: data/freetuxtv.glade:461
 msgid ""
 "http://\n"
 "file://"
 msgstr ""
+"http://\n"
+"file://"
 
-#: data/freetuxtv.glade:540
-msgid "Playlist URI of the group to add"
+#: data/freetuxtv.glade:473
+msgid "Playlist's URI of the group which will be added"
+msgstr "URI de la playlist du groupe à ajouter"
+
+#: data/freetuxtv.glade:493
+msgid "Processing of channels' name :"
+msgstr "Traitement du nom des chaînes :"
+
+#: data/freetuxtv.glade:512
+#, fuzzy
+msgid "Delete this text before the name :"
+msgstr "Effacer la zone de texte de recherche"
+
+#: data/freetuxtv.glade:521
+#, fuzzy
+msgid "Delete this text behind the name :"
+msgstr "Effacer la zone de texte de recherche"
+
+#: data/freetuxtv.glade:533
+msgid ""
+"Text or regexp which must be deleted at the beginning of the channel's name"
 msgstr ""
+"Texte ou expression régulière qui sera retiré au début du nom de la chaîne"
 
-#: data/freetuxtv.glade:560
-msgid "Group name * :"
+#: data/freetuxtv.glade:544
+msgid "Text or regexp which must be deleted at the end of the channel's name"
 msgstr ""
+"Texte ou expression régulière qui sera retiré à la fin du nom de la chaîne"
 
-#: data/freetuxtv.glade:570
-msgid "Name of the group to add"
+#: data/freetuxtv.glade:557
+msgid ""
+"You can easily use regular expressions to delete some text in the channel's "
+"name of the groupe. For example, if in your playlist, you have a name like "
+"\"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV is able to remove the channel's "
+"number before the name, by using the regular expression \"[0-9]* - \"."
 msgstr ""
+"Vous pouvez utiliser les expressions régulières pour enlever du texte "
+"intutile dans le nom des chaînes du groupe. Par exemple, si dans votre "
+"playlist, vous avez des nom de chaînes du style \"11 - NT1\", \"12 - NRJ 12"
+"\", FreetuxTV peut enveler automatiquement le numéro de chaînes devant, en "
+"spéciafiant l'expression \"[0-9]* - \"."
 
-#: data/freetuxtv.glade:580
-msgid "Playlist URI* : "
-msgstr ""
+#: data/freetuxtv.glade:581
+msgid "* : field required"
+msgstr "* : champs obligatoire"
 
-#: data/freetuxtv.glade:595
-msgid "<b>Groupe to add</b>"
-msgstr ""
+#: data/freetuxtv.glade:596
+msgid "<b>Add a group</b>"
+msgstr "Ajouter un groupe"
 
-#: data/freetuxtv.glade:712
+#: data/freetuxtv.glade:713
 msgid "Go back to the normal mode"
-msgstr ""
+msgstr "Revenir au mode normal"
 
-#: data/freetuxtv.glade:732
-msgid "Set/Unset window always on top"
-msgstr ""
+#: data/freetuxtv.glade:733
+msgid "Activate/Deactivate the window always on top"
+msgstr "Active/Désactive fenêtre toujours au premier plan"
 
+#: src/freetuxtv-channels-group.c:308
+msgid "Delete group's channels"
+msgstr "Effacer le groupe"
