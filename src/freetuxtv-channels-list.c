@@ -18,6 +18,7 @@
 #include <curl/curl.h>
 #include <sqlite3.h>
 
+#include "internationalization.h"
 #include "freetuxtv-app.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group.h"
@@ -144,7 +145,7 @@ channels_list_update_from_db (FreetuxTVApp *app)
 	/* Ouverture de la BDD */
 	res = sqlite3_open(user_db,&db);
 	if(res != SQLITE_OK){
-		err_msg = g_strdup_printf("L'affichage de la liste des chaînes a échoué.\n\nSQLite a retouné l'erreur :\n%s.",
+		err_msg = g_strdup_printf(_("Error when displaying the channels.\n\nSQLite has returned error :\n%s."),
 					  sqlite3_errmsg(db));
 		windowmain_show_error (app, err_msg);
 		g_free(err_msg);
@@ -160,7 +161,7 @@ channels_list_update_from_db (FreetuxTVApp *app)
 		res=sqlite3_exec(db, query, on_exec_add_channels_group,
 				 (void *)app, &err);
 		if(res != SQLITE_OK){
-			err_msg = g_strdup_printf("L'affichage de la liste des chaînes a échoué.\n\nSQLite a retouné l'erreur :\n%s.",
+			err_msg = g_strdup_printf(_("Error when displaying the channels.\n\nSQLite has returned error :\n%s."),
 						  sqlite3_errmsg(db));
 			windowmain_show_error (app, err_msg);
 			g_free(err_msg);
@@ -195,7 +196,7 @@ on_channel_dbl_clicked (FreetuxTVChannel *channel, gpointer *data)
 	
 	g_print ("FreetuxTV : launching channel \"%s\" -> %s\n",
 		 channel->name, channel->uri);
-	text = g_strdup_printf ("En cours de lecture : %s", channel->name);
+	text = g_strdup_printf (_("Playing : %s"), channel->name);
 	windowmain_statusbar_push (app, "PlayChannelMsg", text);
 	g_free(text);
 	
@@ -226,7 +227,7 @@ channels_group_reload_channels (FreetuxTVChannelsGroup *self,
 	/* Ouverture de la BDD */
 	res = sqlite3_open(user_db,&db);
 	if(res != SQLITE_OK){		
-		err_msg = g_strdup_printf("L'affichage des chaînes du groupe \"%s\" a échoué.\n\nSQLite a retouné l'erreur :\n%s.",
+		err_msg = g_strdup_printf(_("Error when displaying the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
 					  self->name,
 					  sqlite3_errmsg(db));
 		windowmain_show_error (app, err_msg);
@@ -256,7 +257,7 @@ channels_group_reload_channels (FreetuxTVChannelsGroup *self,
 		sqlite3_free(query);
 		
 		if(res != SQLITE_OK){
-			err_msg = g_strdup_printf("L'affichage des chaînes du groupe \"%s\" a échoué.\n\nSQLite a retouné l'erreur :\n%s.",
+			err_msg = g_strdup_printf(_("Error when displaying the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
 						  self->name,
 						  sqlite3_errmsg(db));
 			windowmain_show_error (app, err_msg);
@@ -304,7 +305,7 @@ channels_group_delete_channels (FreetuxTVChannelsGroup *self,
 	/* Ouverture de la BDD */
 	res = sqlite3_open(user_db, &db);
 	if(res != SQLITE_OK){
-		err_msg = g_strdup_printf("Impossible d'ouvrir la base de données.\n\nSQLite a retouné l'erreur :\n%s.",
+		err_msg = g_strdup_printf(_("Cannot open database.\n\nSQLite has returned error :\n%s."),
 					  sqlite3_errmsg(db));
 		windowmain_show_error (app, err_msg);
 		g_free(err_msg);
@@ -320,7 +321,7 @@ channels_group_delete_channels (FreetuxTVChannelsGroup *self,
 		sqlite3_free(query);
 		if(res != SQLITE_OK){
 
-			err_msg = g_strdup_printf("La suppression des chaînes du groupe \"%s\" a échoué.\n\nSQLite a retouné l'erreur :\n%s.",
+			err_msg = g_strdup_printf(_("Error when deleting the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
 						  self->name,
 						  sqlite3_errmsg(db));
 			windowmain_show_error (app, err_msg);
@@ -363,7 +364,7 @@ channels_group_delete_group (FreetuxTVChannelsGroup *self,
 	/* Ouverture de la BDD */
 	res = sqlite3_open(user_db, &db);
 	if(res != SQLITE_OK){
-		err_msg = g_strdup_printf("Impossible d'ouvrir la base de données.\n\nSQLite a retouné l'erreur :\n%s.",
+		err_msg = g_strdup_printf(_("Cannot open database.\n\nSQLite has returned error :\n%s."),
 					  sqlite3_errmsg(db));
 		windowmain_show_error (app, err_msg);
 		g_free(err_msg);
@@ -379,7 +380,7 @@ channels_group_delete_group (FreetuxTVChannelsGroup *self,
 		sqlite3_free(query);
 		if(res != SQLITE_OK){
 
-			err_msg = g_strdup_printf("La suppression du groupe \"%s\" a échoué.\n\nSQLite a retouné l'erreur :\n%s.",
+			err_msg = g_strdup_printf(_("Error when deleting the group \"%s\".\n\nSQLite has returned error :\n%s."),
 						  self->name,
 						  sqlite3_errmsg(db));
 			windowmain_show_error (app, err_msg);
@@ -430,7 +431,7 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 	/* Ouverture de la BDD */
 	res = sqlite3_open(user_db, &db);
 	if(res != SQLITE_OK){
-		err_msg = g_strdup_printf("Impossible d'ouvrir la base de données.\n\nSQLite a retouné l'erreur :\n%s.",
+		err_msg = g_strdup_printf(_("Cannot open database.\n\nSQLite has returned error :\n%s."),
 					  sqlite3_errmsg(db));
 		windowmain_show_error (app, err_msg);
 		g_free(err_msg);
@@ -455,7 +456,7 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 		sqlite3_free(query);
 		if(res != SQLITE_OK){
 
-			err_msg = g_strdup_printf("La suppression des chaînes du groupe \"%s\" a échoué.\n\nSQLite a retouné l'erreur : %s.",
+			err_msg = g_strdup_printf(_("Error when deleting the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
 						  self->name,
 						  sqlite3_errmsg(db));
 			windowmain_show_error (app, err_msg);
@@ -479,7 +480,7 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 				   (void *)pdata, &err);
 		sqlite3_free(query);
 		if(res != SQLITE_OK){
-			err_msg = g_strdup_printf("La selection des informations du groupe \"%s\" a échoué.\n\nSQLite a retouné l'erreur : \n%s.",
+			err_msg = g_strdup_printf(_("Error when loading informations of the group \"%s\".\n\nSQLite has returned error :\n%s."),
 						  self->name,
 						  sqlite3_errmsg(db));
 			windowmain_show_error (app, err_msg);
@@ -496,7 +497,7 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 			
 			if (res == LIBM3UPARSER_CALLBACK_RETURN_ERROR){
 
-				err_msg = g_strdup_printf("L'ajout des chaînes n'a pas correctement fonctionné.\n\nM3UParser a retouné l'erreur : %s.",
+				err_msg = g_strdup_printf(_("Error when adding the channels.\n\nM3UParser has returned error :\n%s."),
 							  libm3uparser_errmsg(ret));
 				windowmain_show_error (app, err_msg);
 				g_free(err_msg);
@@ -505,7 +506,7 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 				
 			}else{
 				
-				err_msg = g_strdup_printf("L'ajout des chaînes n'a pas correctement fonctionné.\n\nSQLite a retouné l'erreur : %s.",
+				err_msg = g_strdup_printf(_("Error when adding the channels.\n\nM3UParser has returned error :\n%s."),
 							  sqlite3_errmsg(db));
 				windowmain_show_error (app, err_msg);
 				g_free(err_msg);
@@ -562,7 +563,7 @@ channels_group_get_file (FreetuxTVChannelsGroup *self, FreetuxTVApp *app, gchar 
 
 		/* Mise à jour de la barre de statut */
 		gchar *text;
-		text = g_strdup_printf ("Récupération du fichier : \"%s\"",
+		text = g_strdup_printf (_("Getting the file : \"%s\""), 
 					self->uri);
 		windowmain_statusbar_push (app, "UpdateMsg", text);
 		g_free(text);
@@ -589,7 +590,7 @@ channels_group_get_file (FreetuxTVChannelsGroup *self, FreetuxTVApp *app, gchar 
 
 			if(curlcode != 0){
 
-				err_msg = g_strdup_printf("La playlist du groupe \"%s\" n'as pas pu être télécharger à partir de l'URL -> %s.\n\nCURL a retourné l'erreur : %s.",
+				err_msg = g_strdup_printf(_("Error when downloading the playlist of the group \"%s\" from URL -> %s.\n\nCURL has returned error :\n%s."),
 							  self->name,
 							  self->uri,
 							  curl_easy_strerror(curlcode));
@@ -720,7 +721,7 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	sqlite3_free(query);
 	if(res != SQLITE_OK){
 
-		err_msg = g_strdup_printf("L'ajout de la chaîne \"%s\" a échoué.\n\nSQLite a retouné l'erreur :\n%s.",
+		err_msg = g_strdup_printf(_("Error when adding the channel \"%s\".\n\nSQLite has returned error :\n%s."),
 					  sqlite3_errmsg(db));
 		windowmain_show_error (data->app, err_msg);
 		g_free(err_msg);
