@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the freetuxtv package.
 # BEUQUE Eric <eric.beuque@gmail.com>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-09 15:52+0200\n"
+"POT-Creation-Date: 2008-08-12 20:48+0200\n"
 "PO-Revision-Date: 2008-08-09 15:06+0200\n"
 "Last-Translator: BEUQUE Eric <eric.beuque@gmail.com>\n"
 "Language-Team: FR <eric.beuque@gmail.com>\n"
@@ -125,14 +124,12 @@ msgid "Processing of channels' name :"
 msgstr "Traitement du nom des chaînes :"
 
 #: data/freetuxtv.glade:512
-#, fuzzy
 msgid "Delete this text before the name :"
-msgstr "Effacer la zone de texte de recherche"
+msgstr "Texte à enlever au début :"
 
 #: data/freetuxtv.glade:521
-#, fuzzy
 msgid "Delete this text behind the name :"
-msgstr "Effacer la zone de texte de recherche"
+msgstr "Texte à enlever à la fin :"
 
 #: data/freetuxtv.glade:533
 msgid ""
@@ -174,6 +171,179 @@ msgstr "Revenir au mode normal"
 msgid "Activate/Deactivate the window always on top"
 msgstr "Active/Désactive fenêtre toujours au premier plan"
 
-#: src/freetuxtv-channels-group.c:308
+#: src/freetuxtv-channels-group.c:125
+msgid ""
+"To load the channels list, right click on the group's name and \"Refresh "
+"from the playlist\""
+msgstr ""
+"Pour charger la liste des chaînes, faîtes clic-droit sur le nom du groupe "
+"puis \"Actualiser depuis la playlist\"."
+
+#: src/freetuxtv-channels-group.c:294
+msgid "Refresh from the playlist"
+msgstr "Actualiser depuis la playlist"
+
+#: src/freetuxtv-channels-group.c:303
 msgid "Delete group's channels"
+msgstr "Supprimer les chaînes du groupe"
+
+#: src/freetuxtv-channels-group.c:311
+msgid "Delete group"
 msgstr "Effacer le groupe"
+
+#: src/freetuxtv-channels-list.c:147 src/freetuxtv-channels-list.c:163
+#, c-format
+msgid ""
+"Error when displaying the channels.\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"L'affichage de la liste des chaînes a échoué.\n"
+"\n"
+"SQLite a retouné l'erreur :\n"
+"%s."
+
+#: src/freetuxtv-channels-list.c:198
+#, c-format
+msgid "Playing : %s"
+msgstr "En cours de lecture : %s"
+
+#: src/freetuxtv-channels-list.c:229 src/freetuxtv-channels-list.c:259
+#, c-format
+msgid ""
+"Error when displaying the channels of the group \"%s\".\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"L'affichage de la liste des chaînes du groupe \"%s\" a échoué.\n"
+"\n"
+"SQLite a retouné l'erreur :\n"
+"%s."
+
+#: src/freetuxtv-channels-list.c:307 src/freetuxtv-channels-list.c:366
+#: src/freetuxtv-channels-list.c:433 src/freetuxtv-window-main.c:335
+#, c-format
+msgid ""
+"Cannot open database.\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"Impossible d'ouvrir la base de données.\n"
+"\n"
+"SQLite a retouné l'erreur :\n"
+"%s."
+
+#: src/freetuxtv-channels-list.c:323 src/freetuxtv-channels-list.c:458
+#, c-format
+msgid ""
+"Error when deleting the channels of the group \"%s\".\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"La suppression des chaînes du groupe \"%s\" a échoué.\n"
+"\n"
+"SQLite a retouné l'erreur :\n"
+"%s."
+
+#: src/freetuxtv-channels-list.c:382
+#, c-format
+msgid ""
+"Error when deleting the group \"%s\".\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"La suppression du groupe \"%s\" a échoué.\n"
+"\n"
+"SQLite a retouné l'erreur :\n"
+"%s."
+
+#: src/freetuxtv-channels-list.c:482
+#, c-format
+msgid ""
+"Error when loading informations of the group \"%s\".\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"La récupération des informations du groupe \"%s\" a échoué.\n"
+"\n"
+"SQLite a retouné l'erreur :\n"
+"%s."
+
+#: src/freetuxtv-channels-list.c:499 src/freetuxtv-channels-list.c:508
+#, c-format
+msgid ""
+"Error when adding the channels.\n"
+"\n"
+"M3UParser has returned error :\n"
+"%s."
+msgstr ""
+"L'ajout des chaînes n'a pas correctement fonctionné.\n"
+"\n"
+"M3UParser a retouné l'erreur :\n"
+"%s."
+
+#: src/freetuxtv-channels-list.c:565
+#, c-format
+msgid "Getting the file : \"%s\""
+msgstr "Récupération du fichier : \"%s\""
+
+#: src/freetuxtv-channels-list.c:592
+#, c-format
+msgid ""
+"Error when downloading the playlist of the group \"%s\" from URL -> %s.\n"
+"\n"
+"CURL has returned error :\n"
+"%s."
+msgstr ""
+"La playlist du groupe \"%s\" n'as pas pu être télécharger à partir de l'URL -"
+"> %s.\n"
+"\n"
+"CURL a retourné l'erreur :\n"
+"%s."
+
+#: src/freetuxtv-channels-list.c:723
+#, c-format
+msgid ""
+"Error when adding the channel \"%s\".\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"L'ajout de la chaîne \"%s\" a échoué.\n"
+"\n"
+"SQLite a retouné l'erreur :\n"
+"%s."
+
+#: src/freetuxtv-window-main.c:320
+#, c-format
+msgid "Please enter the group's name !"
+msgstr "Veuillez remplir le nom du groupe !"
+
+#: src/freetuxtv-window-main.c:324
+#, c-format
+msgid "Please choose the protocole of the group's URI !"
+msgstr "Veuillez choisir le protocole de l'URI du groupe !"
+
+#: src/freetuxtv-window-main.c:328
+#, c-format
+msgid "Please enter the group's URI !"
+msgstr "Veuillez remplir l'URI du groupe !"
+
+#: src/freetuxtv-window-main.c:355
+#, c-format
+msgid ""
+"Cannot add the group \"%s\" in database.\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"Impossible d'ajouter le groupe \"%s\" dans la base de données.\n"
+"\n"
+"SQLite a retouné l'erreur :\n"
+"%s."

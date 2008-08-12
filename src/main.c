@@ -17,6 +17,7 @@
 #include <glade/glade.h>
 #include <sqlite3.h>
 
+#include "internationalization.h"
 #include "freetuxtv-app.h"
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
@@ -315,12 +316,12 @@ int main (int argc, char *argv[])
 	FreetuxTVApp *app;
 
 #ifdef ENABLE_NLS
-	//setlocale (LC_ALL, "");
+	setlocale (LC_ALL, "");
 	bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 #endif
-	
+
 	init_app();
 	
 	gtk_init(&argc, &argv);

@@ -16,6 +16,7 @@
 #include <glade/glade.h>
 #include <sqlite3.h>
 
+#include "internationalization.h"
 #include "freetuxtv-app.h"
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
@@ -317,22 +318,22 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	/* Verification des champs */
 	if(g_ascii_strcasecmp(gtk_entry_get_text(GTK_ENTRY(groupname)),"") == 0
 	   && errmsg==NULL){
-		errmsg = g_strdup_printf("Veuillez remplir le nom du groupe !");
+		errmsg = g_strdup_printf(_("Please enter the group's name !"));
 	}
 	if(gtk_combo_box_get_active_text(GTK_COMBO_BOX(groupprotocole)) == NULL
 	   && errmsg==NULL){
-		errmsg = g_strdup_printf("Veuillez choisir le protocole de l'URI du groupe !");
+		errmsg = g_strdup_printf( _("Please choose the protocole of the group's URI !"));
 	}
 	if(g_ascii_strcasecmp(gtk_entry_get_text(GTK_ENTRY(groupuri)),"") == 0
 	   && errmsg==NULL){
-		errmsg = g_strdup_printf("Veuillez remplir l'URI du groupe !");
+		errmsg = g_strdup_printf(_("Please enter the group's URI !"));
 	}
 	
 	/* Ouverture de la BDD */
 	if(errmsg==NULL){
 		res = sqlite3_open(user_db,&db);
 		if(res != SQLITE_OK){
-			errmsg = g_strdup_printf("Impossible d'ouvrir la base de données.\n\nSQLite a retouné l'erreur :\n%s.",
+			errmsg = g_strdup_printf(_("Cannot open database.\n\nSQLite has returned error :\n%s."),
 						 sqlite3_errmsg(db));
 			sqlite3_close(db);
 		}
@@ -352,7 +353,7 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 		res=sqlite3_exec(db, query, NULL, 0, &sqlerr);
 		sqlite3_free(query);
 		if(res != SQLITE_OK){
-			errmsg = g_strdup_printf("Impossible d'ajouter le groupe \"%s\" dans la base de données.\n\nSQLite a retouné l'erreur :\n%s.",
+			errmsg = g_strdup_printf(_("Cannot add the group \"%s\" in database.\n\nSQLite has returned error :\n%s."),
 						 gtk_entry_get_text(GTK_ENTRY(groupname)),
 						 sqlite3_errmsg(db));
 			g_free(sgroupname);
