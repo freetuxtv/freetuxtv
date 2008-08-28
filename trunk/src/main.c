@@ -17,6 +17,7 @@
 #include <glade/glade.h>
 #include <sqlite3.h>
 
+#include "lib-gmmkeys.h"
 #include "internationalization.h"
 #include "freetuxtv-app.h"
 #include "freetuxtv-window-main.h"
@@ -240,8 +241,11 @@ freetuxtv_app_create_app ()
 					       "windowmain_eventboxplayer");
 	app->player = FREETUXTV_PLAYER(freetuxtv_player_new ());
 	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
-
+	
 	/* Connexion des signaux */
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain");
+
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain_menuitemgroupsadd");
 	g_signal_connect(G_OBJECT(widget),
@@ -264,19 +268,25 @@ freetuxtv_app_create_app ()
 			 app);
 	
 	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttongoback");
+				       "windowmain_buttonprevious");
 	g_signal_connect(G_OBJECT(widget),
 			 "clicked",
-			 G_CALLBACK(on_windowmain_buttongoback_clicked),
+			 G_CALLBACK(on_windowmain_buttonprevious_clicked),
 			 app);
 	
 	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttongoforward");
+				       "windowmain_buttonnext");
 	g_signal_connect(G_OBJECT(widget),
 			 "clicked",
-			 G_CALLBACK(on_windowmain_buttongoforward_clicked),
+			 G_CALLBACK(on_windowmain_buttonnext_clicked),
 			 app);
 
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonplay");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowmain_buttonplay_clicked),
+			 app);
 
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain_buttonstop");
@@ -307,13 +317,89 @@ freetuxtv_app_create_app ()
 			 app);
 
 	return app;
+	
+}
 
+void
+freetuxtv_action_play_channel (FreetuxTVApp *app)
+{
+	on_channel_dbl_clicked (app->current.channel, (gpointer)app);
+}
+
+void
+freetuxtv_action_stop_channel (FreetuxTVApp *app)
+{
+	freetuxtv_player_stop (app->player);
+}
+
+void
+freetuxtv_action_prev_channel (FreetuxTVApp *app)
+{
+	GtkWidget* widget;
+	GList* children;
+	int pos;
+	FreetuxTVChannel *newchannel;
+	
+	if (app->current.channel != NULL) {
+		
+		widget = gtk_widget_get_parent (GTK_WIDGET(app->current.channel));
+		children = gtk_container_get_children (GTK_CONTAINER(widget));
+		pos =  g_list_index(children, app->current.channel);
+		
+		if(pos > 0){
+			newchannel = FREETUXTV_CHANNEL(g_list_nth_data (children,
+									pos - 1));
+			on_channel_dbl_clicked (newchannel, (gpointer)app);
+		}
+	}
+}
+
+void
+freetuxtv_action_next_channel (FreetuxTVApp *app)
+{
+	GtkWidget* widget;
+	GList* children;
+	int pos;
+	FreetuxTVChannel *newchannel;
+	
+	if (app->current.channel != NULL) {
+		widget = gtk_widget_get_parent (GTK_WIDGET(app->current.channel));
+		children = gtk_container_get_children (GTK_CONTAINER(widget));
+		pos =  g_list_index(children, app->current.channel);
+		if(pos < g_list_length(children) - 1){
+			newchannel = FREETUXTV_CHANNEL(g_list_nth_data (children,
+									pos + 1));
+			on_channel_dbl_clicked (newchannel, (gpointer)app);
+		}
+	}
+}
+
+static void
+on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp* app)
+{
+	switch(button){
+	case GMMKEYS_BUTTON_PLAY :
+	case GMMKEYS_BUTTON_PAUSE :
+		freetuxtv_action_play_channel (app);		
+		break;
+	case GMMKEYS_BUTTON_STOP :
+		freetuxtv_action_stop_channel (app);
+		break;
+	case GMMKEYS_BUTTON_PREV :
+		freetuxtv_action_prev_channel (app);
+		break;
+	case GMMKEYS_BUTTON_NEXT :
+		freetuxtv_action_next_channel (app);
+		break;
+	}
 }
 
 int main (int argc, char *argv[])
 {
 	
 	FreetuxTVApp *app;
+
+	GMMKeys* mmkeys;
 
 #ifdef ENABLE_NLS
 	setlocale (LC_ALL, "");
@@ -332,7 +418,18 @@ int main (int argc, char *argv[])
 
 	channels_list_update_from_db (app);
 	
+	mmkeys = g_mmkeys_new ("FreetuxTV");
+	g_mmkeys_activate (mmkeys);
+	
+	g_signal_connect(G_OBJECT(mmkeys),
+			 "mm_key_pressed",
+			 G_CALLBACK(on_freetuxtv_mm_key_pressed),
+			 app);
+	
 	gtk_main();
 	
+	g_mmkeys_deactivate (mmkeys);
+  
+
 	return 0;
 }

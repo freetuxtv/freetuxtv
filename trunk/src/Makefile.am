@@ -13,6 +13,8 @@ freetuxtv_SOURCES = \
   freetuxtv-window-main.c \
   freetuxtv-window-main.h \
   internationalization.h \
+  lib-gmmkeys.c \
+  lib-gmmkeys.h \
   lib-m3uparser.c \
   lib-m3uparser.h \
   main.c
