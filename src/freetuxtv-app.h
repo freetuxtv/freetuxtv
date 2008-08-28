@@ -45,6 +45,18 @@ struct _FreetuxTVApp {
 };
 typedef struct _FreetuxTVApp FreetuxTVApp;
 
+void
+freetuxtv_action_play_channel (FreetuxTVApp *app);
+
+void
+freetuxtv_action_stop_channel (FreetuxTVApp *app);
+
+void
+freetuxtv_action_prev_channel (FreetuxTVApp *app);
+
+void
+freetuxtv_action_next_channel (FreetuxTVApp *app);
+
 G_END_DECLS
 
 #endif /* FREETUXTV_APP_H */

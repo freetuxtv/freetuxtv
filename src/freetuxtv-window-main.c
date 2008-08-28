@@ -66,49 +66,19 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 }
 
 void
-on_windowmain_buttongoback_clicked (GtkButton *button,
+on_windowmain_buttonprevious_clicked (GtkButton *button,
 				    gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	
-	GtkWidget* widget;
-	GList* children;
-	int pos;
-	FreetuxTVChannel *newchannel;
-	
-	widget = gtk_widget_get_parent (GTK_WIDGET(app->current.channel));
-	children = gtk_container_get_children (GTK_CONTAINER(widget));
-	pos =  g_list_index(children, app->current.channel);
-
-	if(pos > 0){
-		newchannel = FREETUXTV_CHANNEL(g_list_nth_data (children,
-								pos - 1));
-		on_channel_dbl_clicked (newchannel, (gpointer)app);
-	}
-	
+	freetuxtv_action_prev_channel (app);	
 }
 
 void
-on_windowmain_buttongoforward_clicked (GtkButton *button,
+on_windowmain_buttonnext_clicked (GtkButton *button,
 				       gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	
-	GtkWidget* widget;
-	GList* children;
-	int pos;
-	FreetuxTVChannel *newchannel;
-	
-	widget = gtk_widget_get_parent (GTK_WIDGET(app->current.channel));
-	children = gtk_container_get_children (GTK_CONTAINER(widget));
-	pos =  g_list_index(children, app->current.channel);
-
-	if(pos < g_list_length(children)){
-		newchannel = FREETUXTV_CHANNEL(g_list_nth_data (children,
-								pos + 1));
-		on_channel_dbl_clicked (newchannel, (gpointer)app);
-	}
-	
+	freetuxtv_action_next_channel (app);	
 }
 
 void
@@ -116,7 +86,15 @@ on_windowmain_buttonstop_clicked (GtkButton *button,
 				  gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_player_stop (app->player);
+	freetuxtv_action_stop_channel (app);
+}
+
+void
+on_windowmain_buttonplay_clicked (GtkButton *button,
+				  gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	freetuxtv_action_play_channel (app);
 }
 
 void
