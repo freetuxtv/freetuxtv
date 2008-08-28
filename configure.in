@@ -42,7 +42,8 @@ done
 # Checks for libraries.
 PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.2
                         glib-2.0 >= 2.2
-                        libglade-2.0 >= 2.6.2)
+                        libglade-2.0 >= 2.6.2
+                        dbus-glib-1 >= 0.74)
 
 DEPS_LIBS="$DEPS_LIBS $LIBVLC_DEPS"
 
