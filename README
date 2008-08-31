@@ -55,11 +55,15 @@
 
     1) Installation des paquets necessaires pour compiler
       a) Ubuntu
-        $> sudo apt-get install vlc subversion autoconf automake gettext libgtk2.0-dev libglade2-dev libvlc0-dev libdvbpsi4-dev libtheora-dev libx264-dev libstdc++6-4.2-dev
-libhal-dev libsqlite3-0 libsqlite3-dev libcurl3 libcurl3-dev libdbus-glib-1-dev
+        $> sudo apt-get install subversion gcc autoconf automake make gettext libgtk2.0-dev libglade2-dev vlc libvlc0-dev libhal-dev libdvbpsi4-dev libtheora-dev libx264-dev libstdc++6-4.2-dev libsqlite3-0 libsqlite3-dev libcurl3 libcurl3-dev libdbus-glib-1-dev
       b) Mandriva Linux
         $> su root
-        $> urpmi subversion vlc autoconf automake gcc make gettext-devel libgtk+2.0_0-devel libglade2.0_0-devel libvlc-devel libsqlite3-devel libcurl-devel
+        $> urpmi subversion gcc autoconf automake make gettext-devel libgtk+2.0_0-devel libglade2.0_0-devel vlc libvlc-devel libsqlite3-devel libcurl-devel
+        $> exit
+      c) openSUSE
+        $> su root
+        $> zypper install subversion gcc autoconf automake make gettext-tools gtk2-devel libglade2-devel vlc vlc-devel hal-devel libdvbpsi-devel libtheora-devel libx264-devel live555 sqlite3-devel libcurl-devel dbus-1-glib-devel
+        $> exit
     2) Recuperer les sources de FreetuxTV
         $> svn checkout http://freetuxtv.googlecode.com/svn/trunk/ freetuxtv-read-only
         $> cd freetuxtv-read-only

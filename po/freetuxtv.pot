@@ -1,107 +1,108 @@
-# French translation of freetuxtv.
-# Copyright (C) 2008 GNU General Public License v2
-# This file is distributed under the same license as the freetuxtv package.
-# BEUQUE Eric <eric.beuque@gmail.com>, 2008.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: freetuxtv.HEAD\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-31 23:20+0200\n"
-"PO-Revision-Date: 2008-08-09 15:06+0200\n"
-"Last-Translator: BEUQUE Eric <eric.beuque@gmail.com>\n"
-"Language-Team: FR <eric.beuque@gmail.com>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: data/freetuxtv.glade:7 data/freetuxtv.glade:665
 msgid "FreetuxTV"
-msgstr "FreetuxTV"
+msgstr ""
 
 #: data/freetuxtv.glade:21
 msgid "_File"
-msgstr "_Fichier"
+msgstr ""
 
 #: data/freetuxtv.glade:42
 msgid "C_hannels"
-msgstr "_Chaînes"
+msgstr ""
 
 #: data/freetuxtv.glade:50 data/freetuxtv.glade:422
 msgid "Add a group"
-msgstr "Ajouter un groupe"
+msgstr ""
 
 #: data/freetuxtv.glade:61
 msgid "Help"
-msgstr "Aide"
+msgstr ""
 
 #: data/freetuxtv.glade:103
 msgid "Delete the search text area"
-msgstr "Effacer la zone de texte de recherche"
+msgstr ""
 
 #: data/freetuxtv.glade:121
 msgid "Channels' search text area"
-msgstr "Zone de recherche de chaînes"
+msgstr ""
 
 #: data/freetuxtv.glade:155
 msgid "Channels"
-msgstr "Chaînes"
+msgstr ""
 
 #: data/freetuxtv.glade:188
 msgid "Previous channel"
-msgstr "Chaîne précédente"
+msgstr ""
 
 #: data/freetuxtv.glade:207
 msgid "Play the current channel"
-msgstr "Lire la chaîne en cours"
+msgstr ""
 
 #: data/freetuxtv.glade:226
 msgid "Stop playing the current channel"
-msgstr "Arrêter la lecture de la chaîne en cours"
+msgstr ""
 
 #: data/freetuxtv.glade:245
 msgid "Next channel"
-msgstr "Chaîne suivante"
+msgstr ""
 
 #: data/freetuxtv.glade:266 data/freetuxtv.glade:689
 msgid "Vol : "
-msgstr "Vol : "
+msgstr ""
 
 #: data/freetuxtv.glade:272 data/freetuxtv.glade:695
 msgid "-"
-msgstr "-"
+msgstr ""
 
 #: data/freetuxtv.glade:294 data/freetuxtv.glade:717
 msgid "+"
-msgstr "+"
+msgstr ""
 
 #: data/freetuxtv.glade:311
 msgid "Fullscreen mode"
-msgstr "Mode plein écran"
+msgstr ""
 
 #: data/freetuxtv.glade:330
 msgid "Small mode"
-msgstr "Mode réduit"
+msgstr ""
 
 #: data/freetuxtv.glade:380
 msgid "GNU General Public License v2"
-msgstr "GNU General Public License v2"
+msgstr ""
 
 #: data/freetuxtv.glade:381
 msgid "Web TV channels player."
-msgstr "Lecteur de chaînes de télévision sur Internet."
+msgstr ""
 
 #: data/freetuxtv.glade:383
 msgid "Project's Web Site"
-msgstr "Site Web du projet"
+msgstr ""
 
 #: data/freetuxtv.glade:397
 msgid "translator-credits"
-msgstr "translator-credits"
+msgstr ""
 
 #: data/freetuxtv.glade:447
 msgid "* : field required"
-msgstr "* : champs obligatoire"
+msgstr ""
 
 #: data/freetuxtv.glade:467
 msgid ""
@@ -110,90 +111,79 @@ msgid ""
 "\"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV is able to remove the channel's "
 "number before the name, by using the regular expression \"[0-9]* - \"."
 msgstr ""
-"Vous pouvez utiliser les expressions régulières pour enlever du texte "
-"intutile dans le nom des chaînes du groupe. Par exemple, si dans votre "
-"playlist, vous avez des nom de chaînes du style \"11 - NT1\", \"12 - NRJ 12"
-"\", FreetuxTV peut enveler automatiquement le numéro de chaînes devant, en "
-"spéciafiant l'expression \"[0-9]* - \"."
 
 #: data/freetuxtv.glade:484
 msgid "Text or regexp which must be deleted at the end of the channel's name"
 msgstr ""
-"Texte ou expression régulière qui sera retiré à la fin du nom de la chaîne"
 
 #: data/freetuxtv.glade:497
 msgid ""
 "Text or regexp which must be deleted at the beginning of the channel's name"
 msgstr ""
-"Texte ou expression régulière qui sera retiré au début du nom de la chaîne"
 
 #: data/freetuxtv.glade:507
 msgid "Delete this text behind the name :"
-msgstr "Texte à enlever à la fin :"
+msgstr ""
 
 #: data/freetuxtv.glade:518
 msgid "Delete this text before the name :"
-msgstr "Texte à enlever au début :"
+msgstr ""
 
 #: data/freetuxtv.glade:535
 msgid "Processing of channels' name :"
-msgstr "Traitement du nom des chaînes :"
+msgstr ""
 
 #: data/freetuxtv.glade:549
 msgid ""
 "http://\n"
 "file://"
 msgstr ""
-"http://\n"
-"file://"
 
 #: data/freetuxtv.glade:561
 msgid "Playlist's URI of the group which will be added"
-msgstr "URI de la playlist du groupe à ajouter"
+msgstr ""
 
 #: data/freetuxtv.glade:581
 msgid "Group's name* :"
-msgstr "Nome du groupe* : "
+msgstr ""
 
 #: data/freetuxtv.glade:591
 msgid "Name of the group which will be added"
-msgstr "Nom du groupe à ajouter"
+msgstr ""
 
 #: data/freetuxtv.glade:601
 msgid "Playlist's URI* : "
-msgstr "URI de la playlist* : "
+msgstr ""
 
 #: data/freetuxtv.glade:616
 msgid "<b>Add a group</b>"
-msgstr "Ajouter un groupe"
+msgstr ""
 
 #: data/freetuxtv.glade:733
 msgid "Go back to the normal mode"
-msgstr "Revenir au mode normal"
+msgstr ""
 
 #: data/freetuxtv.glade:753
 msgid "Activate/Deactivate the window always on top"
-msgstr "Active/Désactive fenêtre toujours au premier plan"
+msgstr ""
 
 #: src/freetuxtv-channels-group.c:125
 msgid ""
 "To load the channels list, right click on the group's name and \"Refresh "
 "from the playlist\""
 msgstr ""
-"Pour charger la liste des chaînes, faîtes clic-droit sur le nom du groupe "
-"puis \"Actualiser depuis la playlist\"."
 
 #: src/freetuxtv-channels-group.c:294
 msgid "Refresh from the playlist"
-msgstr "Actualiser depuis la playlist"
+msgstr ""
 
 #: src/freetuxtv-channels-group.c:303
 msgid "Delete group's channels"
-msgstr "Supprimer les chaînes du groupe"
+msgstr ""
 
 #: src/freetuxtv-channels-group.c:311
 msgid "Delete group"
-msgstr "Effacer le groupe"
+msgstr ""
 
 #: src/freetuxtv-channels-list.c:148 src/freetuxtv-channels-list.c:164
 #, c-format
@@ -203,15 +193,11 @@ msgid ""
 "SQLite has returned error :\n"
 "%s."
 msgstr ""
-"L'affichage de la liste des chaînes a échoué.\n"
-"\n"
-"SQLite a retouné l'erreur :\n"
-"%s."
 
 #: src/freetuxtv-channels-list.c:199
 #, c-format
 msgid "Playing : %s"
-msgstr "En cours de lecture : %s"
+msgstr ""
 
 #: src/freetuxtv-channels-list.c:230 src/freetuxtv-channels-list.c:260
 #, c-format
@@ -221,10 +207,6 @@ msgid ""
 "SQLite has returned error :\n"
 "%s."
 msgstr ""
-"L'affichage de la liste des chaînes du groupe \"%s\" a échoué.\n"
-"\n"
-"SQLite a retouné l'erreur :\n"
-"%s."
 
 #: src/freetuxtv-channels-list.c:308 src/freetuxtv-channels-list.c:367
 #: src/freetuxtv-channels-list.c:434 src/freetuxtv-window-main.c:314
@@ -235,10 +217,6 @@ msgid ""
 "SQLite has returned error :\n"
 "%s."
 msgstr ""
-"Impossible d'ouvrir la base de données.\n"
-"\n"
-"SQLite a retouné l'erreur :\n"
-"%s."
 
 #: src/freetuxtv-channels-list.c:324 src/freetuxtv-channels-list.c:459
 #, c-format
@@ -248,10 +226,6 @@ msgid ""
 "SQLite has returned error :\n"
 "%s."
 msgstr ""
-"La suppression des chaînes du groupe \"%s\" a échoué.\n"
-"\n"
-"SQLite a retouné l'erreur :\n"
-"%s."
 
 #: src/freetuxtv-channels-list.c:383
 #, c-format
@@ -261,10 +235,6 @@ msgid ""
 "SQLite has returned error :\n"
 "%s."
 msgstr ""
-"La suppression du groupe \"%s\" a échoué.\n"
-"\n"
-"SQLite a retouné l'erreur :\n"
-"%s."
 
 #: src/freetuxtv-channels-list.c:483
 #, c-format
@@ -274,10 +244,6 @@ msgid ""
 "SQLite has returned error :\n"
 "%s."
 msgstr ""
-"La récupération des informations du groupe \"%s\" a échoué.\n"
-"\n"
-"SQLite a retouné l'erreur :\n"
-"%s."
 
 #: src/freetuxtv-channels-list.c:500 src/freetuxtv-channels-list.c:509
 #, c-format
@@ -287,15 +253,11 @@ msgid ""
 "M3UParser has returned error :\n"
 "%s."
 msgstr ""
-"L'ajout des chaînes n'a pas correctement fonctionné.\n"
-"\n"
-"M3UParser a retouné l'erreur :\n"
-"%s."
 
 #: src/freetuxtv-channels-list.c:566
 #, c-format
 msgid "Getting the file : \"%s\""
-msgstr "Récupération du fichier : \"%s\""
+msgstr ""
 
 #: src/freetuxtv-channels-list.c:593
 #, c-format
@@ -305,11 +267,6 @@ msgid ""
 "CURL has returned error :\n"
 "%s."
 msgstr ""
-"La playlist du groupe \"%s\" n'as pas pu être télécharger à partir de l'URL -"
-"> %s.\n"
-"\n"
-"CURL a retourné l'erreur :\n"
-"%s."
 
 #: src/freetuxtv-channels-list.c:724
 #, c-format
@@ -319,25 +276,21 @@ msgid ""
 "SQLite has returned error :\n"
 "%s."
 msgstr ""
-"L'ajout de la chaîne \"%s\" a échoué.\n"
-"\n"
-"SQLite a retouné l'erreur :\n"
-"%s."
 
 #: src/freetuxtv-window-main.c:299
 #, c-format
 msgid "Please enter the group's name !"
-msgstr "Veuillez remplir le nom du groupe !"
+msgstr ""
 
 #: src/freetuxtv-window-main.c:303
 #, c-format
 msgid "Please choose the protocole of the group's URI !"
-msgstr "Veuillez choisir le protocole de l'URI du groupe !"
+msgstr ""
 
 #: src/freetuxtv-window-main.c:307
 #, c-format
 msgid "Please enter the group's URI !"
-msgstr "Veuillez remplir l'URI du groupe !"
+msgstr ""
 
 #: src/freetuxtv-window-main.c:334
 #, c-format
@@ -347,7 +300,3 @@ msgid ""
 "SQLite has returned error :\n"
 "%s."
 msgstr ""
-"Impossible d'ajouter le groupe \"%s\" dans la base de données.\n"
-"\n"
-"SQLite a retouné l'erreur :\n"
-"%s."
