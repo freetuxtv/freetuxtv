@@ -18,8 +18,8 @@
 #include <curl/curl.h>
 #include <sqlite3.h>
 
-#include "internationalization.h"
 #include "freetuxtv-app.h"
+#include "freetuxtv-i18n.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group.h"
 #include "lib-m3uparser.h"

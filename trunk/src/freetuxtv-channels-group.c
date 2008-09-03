@@ -17,7 +17,7 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 
-#include "internationalization.h"
+#include "freetuxtv-i18n.h"
 #include "freetuxtv-channels-group.h"
 #include "freetuxtv-channel.h"
 
