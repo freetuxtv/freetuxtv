@@ -8,11 +8,11 @@ freetuxtv_SOURCES = \
   freetuxtv-channels-group.h \
   freetuxtv-channels-list.c \
   freetuxtv-channels-list.h \
+  freetuxtv-i18n.h \
   freetuxtv-player.c \
   freetuxtv-player.h \
   freetuxtv-window-main.c \
   freetuxtv-window-main.h \
-  internationalization.h \
   lib-gmmkeys.c \
   lib-gmmkeys.h \
   lib-m3uparser.c \
