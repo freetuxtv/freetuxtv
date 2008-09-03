@@ -18,8 +18,8 @@
 #include <sqlite3.h>
 
 #include "lib-gmmkeys.h"
-#include "internationalization.h"
 #include "freetuxtv-app.h"
+#include "freetuxtv-i18n.h"
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-player.h"
