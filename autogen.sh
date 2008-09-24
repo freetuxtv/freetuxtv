@@ -36,7 +36,7 @@ CONFIGURE="configure.in"
 }
 
 # Check for libtool if used
-(grep "^AM_PROG_LIBTOOL" $srcdir/configure.ac >/dev/null) && {
+(grep "^AM_PROG_LIBTOOL" $srcdir/$CONFIGURE >/dev/null) && {
   (libtool --version) < /dev/null > /dev/null 2>&1 || {
     echo
     echo "**Error**: You must have \`libtool' installed."
