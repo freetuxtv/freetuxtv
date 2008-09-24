@@ -5,7 +5,6 @@ AC_INIT(src/main.c)
 
 PACKAGE=freetuxtv
 VERSION=0.1.2
-
 AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
 
 AM_CONFIG_HEADER(config.h)
@@ -72,14 +71,12 @@ AC_CHECK_FUNCS([strchr])
 AC_CHECK_FUNCS([strcspn])
 
 # Internationalization
-#AM_GNU_GETTEXT([external])
-ALL_LINGUAS="fr"
-AM_GLIB_GNU_GETTEXT
-
 GETTEXT_PACKAGE=$PACKAGE
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["${GETTEXT_PACKAGE}"], [gettext domain])
 
+#IT_PROG_INTLTOOL([0.35.0])
+AM_GLIB_GNU_GETTEXT
 
 AC_CONFIG_FILES([Makefile
                  po/Makefile.in
@@ -90,6 +87,3 @@ AC_CONFIG_FILES([Makefile
                  data/images/channels/Makefile])
 
 AC_OUTPUT
-
-
-
