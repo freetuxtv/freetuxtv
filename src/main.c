@@ -245,7 +245,21 @@ freetuxtv_app_create_app ()
 	/* Connexion des signaux */
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain");
-
+	
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain");
+	g_signal_connect(G_OBJECT(widget),
+			 "destroy",
+			 G_CALLBACK(on_windowmain_destroy),
+			 app);
+	
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_menuitemquit");
+	g_signal_connect(G_OBJECT(widget),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitemquit_activate),
+			 app);
+	
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain_menuitemgroupsadd");
 	g_signal_connect(G_OBJECT(widget),
@@ -316,6 +330,71 @@ freetuxtv_app_create_app ()
 			 G_CALLBACK(on_windowmain_buttonminimode_clicked),
 			 app);
 
+	// Load FreetuxTV State	
+	GKeyFile *keyfile;
+	int i;
+	gboolean b;
+	gdouble d;
+	gchar *str;
+	char *filename;
+	GError *err = NULL;
+
+	filename = g_build_filename (g_get_user_config_dir(),
+				     "FreetuxTV/config.ini", NULL);
+	g_print("FreetuxTV : Loading config file %s\n", filename);
+	keyfile = g_key_file_new ();
+	if (g_key_file_load_from_file (keyfile, filename,
+				       G_KEY_FILE_NONE, NULL) == FALSE) {
+		g_print("FreetuxTV : Error when loading config file\n");
+		g_free (filename);
+	} else {
+		g_free (filename);
+
+		b = g_key_file_get_boolean (keyfile, "windowminimode",
+					    "stayontop", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->config.windowminimode_stayontop = b;		
+		}
+
+		i = g_key_file_get_integer (keyfile, "windowminimode",
+					    "width", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->config.windowminimode_width = i;
+		}
+
+
+		i = g_key_file_get_integer (keyfile, "windowminimode",
+					    "height", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->config.windowminimode_height = i;
+		}
+
+		
+		d = g_key_file_get_double (keyfile, "player",
+					   "volume", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->config.volume = d;			
+			widget = glade_xml_get_widget (app->windowmain,
+						       "windowmain_volumecontrol");
+			gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
+			freetuxtv_player_set_volume (app->player, app->config.volume);
+		}
+		
+		g_key_file_free (keyfile);
+	}
+
 	return app;
 	
 }
@@ -372,6 +451,47 @@ freetuxtv_action_next_channel (FreetuxTVApp *app)
 			on_channel_dbl_clicked (newchannel, (gpointer)app);
 		}
 	}
+}
+
+void
+freetuxtv_action_quit (FreetuxTVApp *app)
+{
+	GKeyFile *keyfile;
+	char *contents, *filename;
+	
+	// Save FreetuxTV state
+	keyfile = g_key_file_new ();
+	if(app->current.channel != NULL){
+		g_key_file_set_string (keyfile, "freetuxtv",
+				       "current_channel",
+				       app->current.channel->id);
+	}
+	g_key_file_set_boolean (keyfile, "windowminimode",
+				"stayontop",
+				app->config.windowminimode_stayontop);
+	g_key_file_set_integer (keyfile, "windowminimode",
+				"width",
+				app->config.windowminimode_width);
+	g_key_file_set_integer (keyfile, "windowminimode",
+				"height",
+				app->config.windowminimode_height);
+	g_key_file_set_double (keyfile, "player",
+			       "volume",
+			       app->config.volume);
+	
+	contents = g_key_file_to_data (keyfile, NULL, NULL);
+	g_key_file_free (keyfile);
+	filename = g_build_filename (g_get_user_config_dir(),
+				     "FreetuxTV/config.ini", NULL);
+	g_print("FreetuxTV : Writing config file %s\n", filename);
+	if (!g_file_set_contents (filename, contents, -1, NULL)){
+		g_print("FreetuxTV : Error when writing config file\n");
+	}
+
+	g_free (filename);
+	g_free (contents);
+
+	gtk_main_quit();
 }
 
 static void
