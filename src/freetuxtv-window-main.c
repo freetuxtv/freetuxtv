@@ -25,14 +25,16 @@
 void
 on_windowmain_destroy (GtkWidget *widget, gpointer *data)
 {
-	gtk_main_quit();
+	FreetuxTVApp *app = (FreetuxTVApp *) data;
+	freetuxtv_action_quit (app);
 }
 
 void 
 on_windowmain_menuitemquit_activate (GtkMenuItem *menuitem,
 				     gpointer user_data)
 {
-	gtk_main_quit();
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	freetuxtv_action_quit (app);
 }
 
 void
@@ -177,8 +179,8 @@ void
 on_windowmain_volumecontrol_value_changed (GtkRange *range, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_player_set_volume (app->player,
-				     gtk_range_get_value (range));
+	app->config.volume = gtk_range_get_value (range);
+	freetuxtv_player_set_volume (app->player, app->config.volume);
 }
 
 void
@@ -216,7 +218,7 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 	
 	widget = glade_xml_get_widget(app->windowminimode,
 				      "windowminimode");
-	gtk_window_get_size (GTK_WINDOW(widget), 
+	gtk_window_get_size (GTK_WINDOW(widget),
 			     &app->config.windowminimode_width,
 			     &app->config.windowminimode_height);
 
@@ -300,7 +302,7 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	}
 	if(gtk_combo_box_get_active_text(GTK_COMBO_BOX(groupprotocole)) == NULL
 	   && errmsg==NULL){
-		errmsg = g_strdup_printf( _("Please choose the protocole of the group's URI !"));
+		errmsg = g_strdup_printf(_("Please choose the protocole of the group's URI !"));
 	}
 	if(g_ascii_strcasecmp(gtk_entry_get_text(GTK_ENTRY(groupuri)),"") == 0
 	   && errmsg==NULL){
