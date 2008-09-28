@@ -33,7 +33,8 @@ struct _FreetuxTVApp {
 	GtkVBox *channelsgroups;
 
 	struct {
-		gboolean windowminimode_stayontop;		
+		gdouble volume;
+		gboolean windowminimode_stayontop;
 		gint windowminimode_width;
 		gint windowminimode_height;
 	} config;
@@ -56,6 +57,9 @@ freetuxtv_action_prev_channel (FreetuxTVApp *app);
 
 void
 freetuxtv_action_next_channel (FreetuxTVApp *app);
+
+void
+freetuxtv_action_quit (FreetuxTVApp *app);
 
 G_END_DECLS
 

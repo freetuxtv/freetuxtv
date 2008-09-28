@@ -8,7 +8,6 @@
     <property name="window_position">GTK_WIN_POS_CENTER</property>
     <property name="default_width">1024</property>
     <property name="default_height">600</property>
-    <signal name="destroy" handler="on_windowmain_destroy"/>
     <child>
       <widget class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -29,7 +28,6 @@
                         <property name="label">gtk-quit</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_windowmain_menuitemquit_activate"/>
                       </widget>
                     </child>
                   </widget>
@@ -442,101 +440,33 @@ AigleBlanc</property>
                     <property name="n_rows">4</property>
                     <property name="n_columns">2</property>
                     <child>
-                      <widget class="GtkLabel" id="label15">
+                      <widget class="GtkLabel" id="label9">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">* : field required</property>
+                        <property name="label" translatable="yes">Playlist's URI* : </property>
                       </widget>
                       <packing>
-                        <property name="right_attach">2</property>
-                        <property name="top_attach">3</property>
-                        <property name="bottom_attach">4</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="y_options"></property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkTable" id="table2">
+                      <widget class="GtkEntry" id="dialogaddgroup_name">
                         <property name="visible">True</property>
-                        <property name="n_rows">2</property>
-                        <property name="n_columns">3</property>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <widget class="GtkButton" id="button3">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip" translatable="yes">You can easily use regular expressions to delete some text in the channel's name of the groupe. For example, if in your playlist, you have a name like "11 - NT1" or "12 - NRJ 12", FreetuxTV is able to remove the channel's number before the name, by using the regular expression "[0-9]* - ".</property>
-                            <property name="label">gtk-help</property>
-                            <property name="relief">GTK_RELIEF_NONE</property>
-                            <property name="use_stock">True</property>
-                            <property name="response_id">0</property>
-                          </widget>
-                          <packing>
-                            <property name="left_attach">2</property>
-                            <property name="right_attach">3</property>
-                            <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkEntry" id="dialogaddgroup_eregex">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip" translatable="yes">Text or regexp which must be deleted at the end of the channel's name</property>
-                          </widget>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkEntry" id="dialogaddgroup_bregex">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip" translatable="yes">Text or regexp which must be deleted at the beginning of the channel's name</property>
-                          </widget>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkLabel" id="label16">
-                            <property name="visible">True</property>
-                            <property name="label" translatable="yes">Delete this text behind the name :</property>
-                          </widget>
-                          <packing>
-                            <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkLabel" id="label14">
-                            <property name="visible">True</property>
-                            <property name="label" translatable="yes">Delete this text before the name :</property>
-                          </widget>
-                          <packing>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip" translatable="yes">Name of the group which will be added</property>
                       </widget>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
-                        <property name="top_attach">2</property>
-                        <property name="bottom_attach">3</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkLabel" id="label10">
+                      <widget class="GtkLabel" id="label8">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Processing of channels' name :</property>
+                        <property name="label" translatable="yes">Group's name* :</property>
                       </widget>
                       <packing>
-                        <property name="top_attach">2</property>
-                        <property name="bottom_attach">3</property>
                         <property name="y_options"></property>
                       </packing>
                     </child>
@@ -576,34 +506,102 @@ file://</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkLabel" id="label8">
+                      <widget class="GtkLabel" id="label10">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Group's name* :</property>
+                        <property name="label" translatable="yes">Processing of channels' name :</property>
                       </widget>
                       <packing>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
                         <property name="y_options"></property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkEntry" id="dialogaddgroup_name">
+                      <widget class="GtkTable" id="table2">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="tooltip" translatable="yes">Name of the group which will be added</property>
+                        <property name="n_rows">2</property>
+                        <property name="n_columns">3</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <widget class="GtkLabel" id="label14">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Delete this text before the name :</property>
+                          </widget>
+                          <packing>
+                            <property name="y_options"></property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkLabel" id="label16">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Delete this text behind the name :</property>
+                          </widget>
+                          <packing>
+                            <property name="top_attach">1</property>
+                            <property name="bottom_attach">2</property>
+                            <property name="y_options"></property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkEntry" id="dialogaddgroup_bregex">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="tooltip" translatable="yes">Text or regexp which must be deleted at the beginning of the channel's name</property>
+                          </widget>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkEntry" id="dialogaddgroup_eregex">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="tooltip" translatable="yes">Text or regexp which must be deleted at the end of the channel's name</property>
+                          </widget>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">1</property>
+                            <property name="bottom_attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkButton" id="button3">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="tooltip" translatable="yes">You can easily use regular expressions to delete some text in the channel's name of the groupe. For example, if in your playlist, you have a name like "11 - NT1" or "12 - NRJ 12", FreetuxTV is able to remove the channel's number before the name, by using the regular expression "[0-9]* - ".</property>
+                            <property name="label">gtk-help</property>
+                            <property name="relief">GTK_RELIEF_NONE</property>
+                            <property name="use_stock">True</property>
+                            <property name="response_id">0</property>
+                          </widget>
+                          <packing>
+                            <property name="left_attach">2</property>
+                            <property name="right_attach">3</property>
+                            <property name="top_attach">1</property>
+                            <property name="bottom_attach">2</property>
+                          </packing>
+                        </child>
                       </widget>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkLabel" id="label9">
+                      <widget class="GtkLabel" id="label15">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Playlist's URI* : </property>
+                        <property name="label" translatable="yes">* : field required</property>
                       </widget>
                       <packing>
-                        <property name="top_attach">1</property>
-                        <property name="bottom_attach">2</property>
-                        <property name="y_options"></property>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">3</property>
+                        <property name="bottom_attach">4</property>
                       </packing>
                     </child>
                   </widget>
