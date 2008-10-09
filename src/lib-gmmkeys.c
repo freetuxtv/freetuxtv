@@ -109,7 +109,7 @@ g_mmkeys_activate (GMMKeys *self)
 							       "org.gnome.SettingsDaemon.MediaKeys",
 							       &error);
 		if (self->proxy == NULL) {
-			g_warning ("GMMKeys : Unable to grab media player keys: %s\n", error->message);
+			g_printerr ("GMMKeys : Unable to grab media player keys: %s\n", error->message);
 			g_error_free (error);
 		} else {
 			dbus_g_proxy_call (self->proxy,
@@ -159,7 +159,7 @@ g_mmkeys_activate (GMMKeys *self)
 				
 				self->grab_type = SETTINGS_DAEMON;
 			} else {
-				g_warning ("GMMKeys : Unable to grab media player keys: %s\n", error->message);
+				g_printerr ("GMMKeys : Unable to grab media player keys: %s\n", error->message);
 				g_error_free (error);
 			}
 		}
@@ -188,7 +188,7 @@ g_mmkeys_deactivate (GMMKeys *self)
 					   G_TYPE_STRING, self->application,
 					   G_TYPE_INVALID, G_TYPE_INVALID);
 			if (error != NULL) {
-				g_warning ("GMMKeys : Could not release media player keys: %s\n", error->message);
+				g_printerr ("GMMKeys : Could not release media player keys: %s\n", error->message);
 				g_error_free (error);
 			}
 			self->grab_type = NONE;

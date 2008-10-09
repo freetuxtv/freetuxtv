@@ -223,7 +223,7 @@ channels_group_reload_channels (FreetuxTVChannelsGroup *self,
 	gchar *user_db;
 	user_db = g_strconcat(g_get_user_config_dir(), 
 			      "/FreetuxTV/freetuxtv.db", NULL);
-	
+
 	/* Ouverture de la BDD */
 	res = sqlite3_open(user_db,&db);
 	if(res != SQLITE_OK){		
@@ -424,10 +424,11 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 
 	/* Mise à jour de la barre de statut */
 	gchar *text;
-	text = g_strdup_printf("Mise à jour des chaines de \"%s\"", self->name);
+	text = g_strdup_printf(_("Update \"%s\" channels list"), self->name);
 	windowmain_statusbar_push (app, "UpdateMsg", text);
 	g_free(text);
-	
+	g_print("FreetuxTV : Start updating \"%s\" channels list\n", self->name);
+
 	/* Ouverture de la BDD */
 	res = sqlite3_open(user_db, &db);
 	if(res != SQLITE_OK){
@@ -491,6 +492,7 @@ channels_group_refresh_group (FreetuxTVChannelsGroup *self,
 	}
 
 	if (ret == 0){
+		g_print("FreetuxTV : Parsing the file \"%s\"\n", file);
 		/* Parse le fichier M3U et ajoute les chaînes dans la BDD */
 		res = libm3uparser_parse(file, &on_parsem3u_add_channel, pdata);
 		if (res < 0 ){
@@ -567,17 +569,20 @@ channels_group_get_file (FreetuxTVChannelsGroup *self, FreetuxTVApp *app, gchar 
 					self->uri);
 		windowmain_statusbar_push (app, "UpdateMsg", text);
 		g_free(text);
+		g_print("FreetuxTV : Getting the file \"%s\"\n", self->uri);
 
 		gchar *groupfile;
 		groupfile = g_strconcat(g_get_user_config_dir(), 
 					"/FreetuxTV/cache/playlist-group-",
-					self->id, ".dat", NULL);;
-			
+					self->id, ".dat", NULL);
+		
 		if(cache){
 			/* Téléchargement du fichier */
 			CURL *session = curl_easy_init(); 
 			curl_easy_setopt(session, CURLOPT_URL, self->uri);
 			curl_easy_setopt(session, CURLOPT_TIMEOUT, 10);
+			// curl_easy_setopt(session, CURLOPT_VERBOSE, 1);
+			curl_easy_setopt(session, CURLOPT_FOLLOWLOCATION, 1);
 			FILE * fp = fopen(groupfile, "w"); 
 			curl_easy_setopt(session,
 					 CURLOPT_WRITEDATA, fp); 
