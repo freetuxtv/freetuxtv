@@ -345,7 +345,7 @@ freetuxtv_app_create_app ()
 	keyfile = g_key_file_new ();
 	if (g_key_file_load_from_file (keyfile, filename,
 				       G_KEY_FILE_NONE, NULL) == FALSE) {
-		g_print("FreetuxTV : Error when loading config file\n");
+		g_printerr("FreetuxTV : Error when loading config file\n");
 		g_free (filename);
 	} else {
 		g_free (filename);
@@ -485,7 +485,7 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 				     "FreetuxTV/config.ini", NULL);
 	g_print("FreetuxTV : Writing config file %s\n", filename);
 	if (!g_file_set_contents (filename, contents, -1, NULL)){
-		g_print("FreetuxTV : Error when writing config file\n");
+		g_printerr("FreetuxTV : Error when writing config file\n");
 	}
 
 	g_free (filename);
