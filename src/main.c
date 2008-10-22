@@ -213,6 +213,9 @@ freetuxtv_app_create_app ()
 	app->config.windowminimode_stayontop = FALSE;
 	app->config.windowminimode_width = 320;
 	app->config.windowminimode_height = 240;
+	app->config.channelonstartup = TRUE;
+	app->config.lastchannel = NULL;
+	app->current.lastchannelonstartup = FALSE;
 
 	/* Création de la fenêtre */
 	app->windowmain = glade_xml_new (FREETUXTV_GLADEXML,
@@ -253,6 +256,13 @@ freetuxtv_app_create_app ()
 			 G_CALLBACK(on_windowmain_destroy),
 			 app);
 	
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_menuitempreferences");
+	g_signal_connect(G_OBJECT(widget),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitempreferences_activate),
+			 app);
+
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain_menuitemquit");
 	g_signal_connect(G_OBJECT(widget),
@@ -351,7 +361,7 @@ freetuxtv_app_create_app ()
 		g_free (filename);
 
 		b = g_key_file_get_boolean (keyfile, "windowminimode",
-					    "stayontop", &err);
+					    "stay_on_top", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
@@ -379,7 +389,7 @@ freetuxtv_app_create_app ()
 		}
 
 		
-		d = g_key_file_get_double (keyfile, "player",
+		d = g_key_file_get_double (keyfile, "general",
 					   "volume", &err);
 		if (err != NULL) {
 			g_error_free (err);
@@ -390,6 +400,25 @@ freetuxtv_app_create_app ()
 						       "windowmain_volumecontrol");
 			gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
 			freetuxtv_player_set_volume (app->player, app->config.volume);
+		}
+		
+		b = g_key_file_get_boolean (keyfile, "general",
+					    "channel_on_startup", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->config.channelonstartup = b;		
+		}
+		
+		
+		str = g_key_file_get_string (keyfile, "general",
+					   "last_channel", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->config.lastchannel = str;		
 		}
 		
 		g_key_file_free (keyfile);
@@ -461,13 +490,21 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 	
 	// Save FreetuxTV state
 	keyfile = g_key_file_new ();
+	
+	
+	g_key_file_set_double (keyfile, "general",
+			       "volume",
+			       app->config.volume);
+	g_key_file_set_boolean (keyfile, "general",
+				"channel_on_startup",
+				app->config.channelonstartup);
 	if(app->current.channel != NULL){
-		g_key_file_set_string (keyfile, "freetuxtv",
-				       "current_channel",
+		g_key_file_set_string (keyfile, "general",
+				       "last_channel",
 				       app->current.channel->id);
 	}
 	g_key_file_set_boolean (keyfile, "windowminimode",
-				"stayontop",
+				"stay_on_top",
 				app->config.windowminimode_stayontop);
 	g_key_file_set_integer (keyfile, "windowminimode",
 				"width",
@@ -475,9 +512,6 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 	g_key_file_set_integer (keyfile, "windowminimode",
 				"height",
 				app->config.windowminimode_height);
-	g_key_file_set_double (keyfile, "player",
-			       "volume",
-			       app->config.volume);
 	
 	contents = g_key_file_to_data (keyfile, NULL, NULL);
 	g_key_file_free (keyfile);
@@ -536,7 +570,13 @@ int main (int argc, char *argv[])
 	if (app == NULL)
 		return 1;	
 
+	// Regarde si on charge une chaine au demarrage
+	if(app->config.channelonstartup == TRUE
+	   && app->config.lastchannel != NULL){
+		app->current.lastchannelonstartup = TRUE;
+	}
 	channels_list_update_from_db (app);
+	app->current.lastchannelonstartup = FALSE;
 	
 	mmkeys = g_mmkeys_new ("FreetuxTV");
 	g_mmkeys_activate (mmkeys);
