@@ -670,6 +670,14 @@ on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
 			 G_CALLBACK(on_channel_dbl_clicked),
 			 cbuserdata->app);
 
+	// Lit eventuellement la chaine
+	if(cbuserdata->app->current.lastchannelonstartup == TRUE
+	   && cbuserdata->app->config.lastchannel != NULL){
+		if(g_ascii_strcasecmp(argv[0], cbuserdata->app->config.lastchannel) == 0){
+			on_channel_dbl_clicked (channel, (void*)cbuserdata->app);
+		}
+	}
+
 	return 0;
 }
 

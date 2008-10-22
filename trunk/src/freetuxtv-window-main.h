@@ -17,6 +17,10 @@ void
 on_windowmain_destroy (GtkWidget *widget, gpointer *data);
 
 void
+on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
+					    gpointer user_data);
+
+void
 on_windowmain_menuitemquit_activate (GtkMenuItem *menuitem,
 				     gpointer user_data);
 
@@ -81,7 +85,13 @@ on_dialogaddgroup_cancel_clicked (GtkButton *button,
 
 void
 on_aboutdialog_response (GtkDialog *dialog,
+			 gint response_id,
 			 gpointer user_data);
+
+void
+on_dialogpreferences_response (GtkDialog *dialog,
+			       gint response_id,
+			       gpointer   user_data);
 
 void
 windowmain_show_error (FreetuxTVApp *app, gchar *msg);
