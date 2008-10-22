@@ -203,6 +203,31 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 }
 
 void
+on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
+					    gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	app->dialogpreferences = glade_xml_new (FREETUXTV_GLADEXML,
+						"dialogpreferences", NULL);
+	glade_xml_signal_autoconnect (app->dialogpreferences);
+
+	GtkWidget *widget;
+	widget = glade_xml_get_widget(app->dialogpreferences,
+				      "dialogpreferences");
+	gtk_dialog_add_buttons (GTK_DIALOG(widget),
+				"gtk-cancel", GTK_RESPONSE_CANCEL,
+				"gtk-apply", GTK_RESPONSE_APPLY, NULL);
+	g_signal_connect(G_OBJECT(widget),
+			 "response",
+			 G_CALLBACK(on_dialogpreferences_response),
+			 app);
+	
+	widget = glade_xml_get_widget(app->dialogpreferences,
+				      "dialogpreferences_channelonstartup");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->config.channelonstartup);
+}
+
+void
 on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 					    gpointer user_data)
 {
@@ -376,10 +401,27 @@ on_dialogaddgroup_cancel_clicked (GtkButton *button,
 
 void
 on_aboutdialog_response (GtkDialog *dialog,
+			 gint response_id,
 			 gpointer user_data)
 {
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 }
+
+void
+on_dialogpreferences_response (GtkDialog *dialog,
+			       gint response_id,
+			       gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp*)user_data;
+	GtkWidget* widget;
+	
+	if(response_id == GTK_RESPONSE_APPLY){	
+		widget = glade_xml_get_widget(app->dialogpreferences,
+					      "dialogpreferences_channelonstartup");
+		app->config.channelonstartup = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+	}
+	gtk_widget_destroy(GTK_WIDGET(dialog));
+} 
 
 void
 windowmain_show_error (FreetuxTVApp *app, gchar *msg)

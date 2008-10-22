@@ -28,12 +28,15 @@ struct _FreetuxTVApp {
 	GladeXML *windowmain;
 	GladeXML *dialogaddgroup;
 	GladeXML *windowminimode;
+	GladeXML *dialogpreferences;
 
 	FreetuxTVPlayer *player;
 	GtkVBox *channelsgroups;
 
 	struct {
 		gdouble volume;
+		gboolean channelonstartup;
+		gchar *lastchannel;
 		gboolean windowminimode_stayontop;
 		gint windowminimode_width;
 		gint windowminimode_height;
@@ -41,6 +44,7 @@ struct _FreetuxTVApp {
 
 	struct {
 		FreetuxTVChannel *channel;
+		gboolean lastchannelonstartup;
 	} current;
 
 };

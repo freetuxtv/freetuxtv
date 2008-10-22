@@ -2,6 +2,10 @@ FreetuxTV 0.1.2 (2008-)
   - Ajout de logo : AB Moteurs, APTV, Artpla TV, Astro Center TV, ASTV, Babylon TV, La Locale, RMC
   - Ajout d'un bouton lecture pour relancer la chaîne en cours si elle a été stoppé
   - Support des touches multimédia sur les claviers
+  - Gestion des redirections HTTP 302 pour le téléchargement des playlists pour Free
+  - Sauvergarde des paramètres de l'application
+  - Ajout d'un menu "Préférences"
+  - Chargement de la dernière chaîne au chargement de l'application
 
 FreetuxTV 0.1.1 (2008-07-20)
   - Fix du bug de segmentation fault sur Mandriva/Debian
