@@ -68,7 +68,6 @@
         $> svn checkout http://freetuxtv.googlecode.com/svn/trunk/ freetuxtv-read-only
         $> cd freetuxtv-read-only
     3) Compilation
-        $> glib-gettextize -c 
         $> ./autogen.sh
         $> ./configure --prefix=/usr
         $> make
