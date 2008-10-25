@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-22 23:29+0200\n"
+"POT-Creation-Date: 2008-10-25 14:00+0200\n"
 "PO-Revision-Date: 2008-08-09 15:06+0200\n"
 "Last-Translator: BEUQUE Eric <eric.beuque@gmail.com>\n"
 "Language-Team: FR <eric.beuque@gmail.com>\n"
@@ -277,7 +277,7 @@ msgstr ""
 #: src/freetuxtv-channels-list.c:427
 #, c-format
 msgid "Update \"%s\" channels list"
-msgstr ""
+msgstr "Mise à jour de la liste des chaînes de \"%s\""
 
 #: src/freetuxtv-channels-list.c:484
 #, c-format
