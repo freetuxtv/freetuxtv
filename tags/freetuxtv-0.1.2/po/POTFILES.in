@@ -1,0 +1,17 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+data/freetuxtv.glade
+src/freetuxtv-app.h
+src/freetuxtv-channel.c
+src/freetuxtv-channel.h
+src/freetuxtv-channels-group.c
+src/freetuxtv-channels-group.h
+src/freetuxtv-channels-list.c
+src/freetuxtv-channels-list.h
+src/freetuxtv-player.c
+src/freetuxtv-player.h
+src/freetuxtv-window-main.c
+src/freetuxtv-window-main.h
+src/lib-m3uparser.c
+src/lib-m3uparser.h
+src/main.c
