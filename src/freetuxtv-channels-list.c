@@ -735,7 +735,7 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	if(res != SQLITE_OK){
 
 		err_msg = g_strdup_printf(_("Error when adding the channel \"%s\".\n\nSQLite has returned error :\n%s."),
-					  sqlite3_errmsg(db));
+					  name, sqlite3_errmsg(db));
 		windowmain_show_error (data->app, err_msg);
 		g_free(err_msg);
 

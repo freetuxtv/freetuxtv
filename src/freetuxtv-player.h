@@ -13,7 +13,7 @@
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
-#include <vlc/libvlc.h>
+#include <vlc/vlc.h>
 
 G_BEGIN_DECLS
 
@@ -32,7 +32,11 @@ struct _FreetuxTVPlayer
 	GtkDrawingArea parent;
 	
 	gdouble volume;
-	libvlc_instance_t *vlcinstance;
+	
+	struct {
+		libvlc_instance_t *inst;
+		libvlc_media_player_t *mp;
+	} libvlc;
 };
 
 struct _FreetuxTVPlayerClass
