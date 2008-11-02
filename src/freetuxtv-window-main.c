@@ -373,7 +373,7 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	}else{
 		FreetuxTVChannelsGroup *channels_group;
 		
-		sgroupid = g_strdup_printf("%d", sqlite3_last_insert_rowid(db));
+		sgroupid = g_strdup_printf("%d", (int)sqlite3_last_insert_rowid(db));
 		channels_group = FREETUXTV_CHANNELS_GROUP (freetuxtv_channels_group_new (sgroupid,
 											 sgroupname,
 											 sgroupuri));
@@ -436,7 +436,7 @@ windowmain_show_error (FreetuxTVApp *app, gchar *msg)
 					GTK_DIALOG_MODAL, 
 					GTK_MESSAGE_ERROR,
 					GTK_BUTTONS_OK,
-					msg);
+					msg, NULL);
 	
 	gtk_dialog_run(GTK_DIALOG(dialog));
 	gtk_widget_destroy(dialog);

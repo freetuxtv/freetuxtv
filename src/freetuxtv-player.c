@@ -21,7 +21,7 @@ extern FreetuxTVApp *app;
 
 static void 
 on_vlc_exception (FreetuxTVPlayer *self, 
-		  libvlc_exception_t *excp);
+		  libvlc_exception_t *ex);
 
 GtkWidget *
 freetuxtv_player_new ()
@@ -47,72 +47,42 @@ freetuxtv_player_new ()
 void
 freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri)
 {
+	libvlc_media_t *m;
+	
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 
 	// Création de l'instance VLC si elle n'existe pas
-	if(self->vlcinstance == NULL){
-		self->vlcinstance=libvlc_new(0,NULL,&_vlcexcep);
+	if(self->libvlc.inst == NULL){
+		self->libvlc.inst = libvlc_new(0, NULL, &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
+	}
+	
+	// Création du mediaplayer s'il n'existe pas
+	if(self->libvlc.mp == NULL){
 		XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
-		libvlc_video_set_parent(self->vlcinstance, xid, &_vlcexcep);
+
+		self->libvlc.mp = libvlc_media_player_new (self->libvlc.inst,
+							   &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
-		libvlc_audio_set_volume (self->vlcinstance, 
+		libvlc_media_player_set_drawable (self->libvlc.mp, xid,
+						  &_vlcexcep);
+		
+		libvlc_audio_set_volume (self->libvlc.inst, 
 					 self->volume, &_vlcexcep);    
                 on_vlc_exception (self, &_vlcexcep);
 	}
 	
-	// Arret de la chaine en cour de lecture
-	if (libvlc_playlist_isplaying (self->vlcinstance,&_vlcexcep)) {
-		on_vlc_exception (self, &_vlcexcep);
-		libvlc_playlist_stop (self->vlcinstance,&_vlcexcep);
-		on_vlc_exception (self, &_vlcexcep);
-	}
-	
-	// Effacement de la playlist
-	if ( libvlc_playlist_items_count (self->vlcinstance,&_vlcexcep) ){
-		libvlc_playlist_clear (self->vlcinstance,&_vlcexcep);
-		on_vlc_exception (self, &_vlcexcep);
-	}
-	
-	// Ajout de l'URL dans la playlist
-	libvlc_playlist_add (self->vlcinstance, uri , NULL, &_vlcexcep);
+	// Ajout de l'URL dans le player
+	m = libvlc_media_new (self->libvlc.inst, uri, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
+	libvlc_media_player_set_media (self->libvlc.mp, m, &_vlcexcep);
+	on_vlc_exception (self, &_vlcexcep);
+	libvlc_media_release (m);
 
 	// Lecture de la chaine
-	if ( libvlc_playlist_items_count (self->vlcinstance, &_vlcexcep) ){
-		libvlc_playlist_play (self->vlcinstance, -1, 0, 
-				      NULL, &_vlcexcep);
-		on_vlc_exception (self, &_vlcexcep);
-	}
-
-	/*
-	libvlc_log_t *log;
- 	log = libvlc_log_open (self->vlcinstance, &_vlcexcep);
+	libvlc_media_player_play (self->libvlc.mp, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
-
-	libvlc_log_iterator_t *logiter;
- 	logiter = libvlc_log_get_iterator (log, &_vlcexcep);
-
-	int logc = libvlc_log_iterator_has_next (logiter, &_vlcexcep);
-	on_vlc_exception (self, &_vlcexcep);
-	while(logc == 1){
-		struct libvlc_log_message_t logmsg;
-		logmsg.sizeof_msg = sizeof(logmsg);
-		libvlc_log_iterator_next (logiter, &logmsg, &_vlcexcep);
-		on_vlc_exception (self, &_vlcexcep);
-		g_printerr("FreetuxTV : Log VLC -> %s\n", logmsg.psz_message);
-		logc = libvlc_log_iterator_has_next (logiter, &_vlcexcep);
-		on_vlc_exception (self, &_vlcexcep);
-	}
-
-	libvlc_log_clear (log, &_vlcexcep);
-	on_vlc_exception (self, &_vlcexcep);
-	libvlc_log_iterator_free (logiter, &_vlcexcep);
-	on_vlc_exception (self, &_vlcexcep);
-	libvlc_log_close (log, &_vlcexcep);
-	on_vlc_exception (self, &_vlcexcep);
-	*/
 }
 
 void
@@ -123,8 +93,8 @@ freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value)
 	self->volume = value;
 	
 	libvlc_exception_init (&_vlcexcep);
-	if(self->vlcinstance != NULL){
-                libvlc_audio_set_volume (self->vlcinstance, 
+	if(self->libvlc.inst != NULL){
+                libvlc_audio_set_volume (self->libvlc.inst, 
                                          (gint)value, &_vlcexcep);    
                 on_vlc_exception (self, &_vlcexcep);
         }
@@ -141,13 +111,10 @@ freetuxtv_player_stop (FreetuxTVPlayer *self)
 {
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
-        if(self->vlcinstance != NULL){
+        if(self->libvlc.mp != NULL){
 		// Arret de la chaine en cours de lecture
-		if (libvlc_playlist_isplaying (self->vlcinstance, &_vlcexcep)) {
-			on_vlc_exception (self, &_vlcexcep);
-			libvlc_playlist_stop (self->vlcinstance, &_vlcexcep);
-			on_vlc_exception (self, &_vlcexcep);
-		}
+		libvlc_media_player_stop (self->libvlc.mp, &_vlcexcep);
+		on_vlc_exception (self, &_vlcexcep);
         }
 }
 
@@ -155,35 +122,29 @@ freetuxtv_player_stop (FreetuxTVPlayer *self)
 void
 freetuxtv_player_fullscreen (FreetuxTVPlayer *self)
 {
-	libvlc_input_t *input_t;
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
-        if(self->vlcinstance != NULL){
-		// Mode plein écran si la chaine est en cours de lecture
-		if (libvlc_playlist_isplaying (self->vlcinstance, &_vlcexcep)) {
-			input_t = libvlc_playlist_get_input(self->vlcinstance,
-							    &_vlcexcep);
-			on_vlc_exception (self, &_vlcexcep);
-			libvlc_set_fullscreen(input_t, 1, &_vlcexcep);
-			on_vlc_exception (self, &_vlcexcep);
-		}
+        if(self->libvlc.mp != NULL){
+		libvlc_set_fullscreen (self->libvlc.mp, 1, &_vlcexcep);
+		on_vlc_exception (self, &_vlcexcep);
         }
 }
 
 static void 
 on_vlc_exception (FreetuxTVPlayer *self, 
-		  libvlc_exception_t *excp)
+		  libvlc_exception_t *ex)
 {
-	if(libvlc_exception_raised(excp)){
+	if(libvlc_exception_raised(ex)){
 		g_printerr("VLC : Error %s\n", 
-			   libvlc_exception_get_message(excp));
+			   libvlc_exception_get_message(ex));
 	}
 }
 
 static void
 freetuxtv_player_init (FreetuxTVPlayer *object)
 {
-	object->vlcinstance=NULL;
+	object->libvlc.inst=NULL;
+	object->libvlc.mp=NULL;
 	object->volume=70.00;
 }
 
