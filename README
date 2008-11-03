@@ -55,7 +55,7 @@
 
     1) Installation des paquets necessaires pour compiler
       a) Ubuntu
-        $> sudo apt-get install subversion gcc make autoconf automake gettext libgtk2.0-dev libglade2-dev libdbus-glib-1-dev libsqlite3-0 libsqlite3-dev vlc libvlc-dev
+        $> sudo apt-get install subversion gcc make autoconf automake gettext libgtk2.0-dev libglade2-dev libdbus-glib-1-dev libsqlite3-0 libsqlite3-dev libcurl3 libcurl4-openssl-dev vlc libvlc-dev
       b) Mandriva Linux
         $> su root
         $> urpmi subversion gcc autoconf automake make gettext-devel libgtk+2.0_0-devel libglade2.0_0-devel vlc libvlc-devel libsqlite3-devel libcurl-devel
