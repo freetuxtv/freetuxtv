@@ -1,3 +1,7 @@
+FreetuxTV 0.2.0 (2008-11-08)
+  - Migration vers libVLC 0.9.4.
+  - Utilisation d'un fichier de configuration de VLC alternatif
+
 FreetuxTV 0.1.2 (2008-10-25)
   - Ajout de logo : AB Moteurs, APTV, Artpla TV, Astro Center TV, ASTV, Babylon TV, La Locale, RMC
   - Ajout d'un bouton lecture pour relancer la chaîne en cours si elle a été stoppé

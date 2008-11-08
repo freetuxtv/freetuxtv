@@ -48,13 +48,20 @@ void
 freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri)
 {
 	libvlc_media_t *m;
+
+	char *config_file;
 	
+	config_file = g_build_filename (g_get_user_config_dir(),
+					"FreetuxTV/vlcrc", NULL);
+	const char * const vlc_args[] = {
+		"--config", config_file /* Use alternative VLC's config */,
+		"--save-config"};
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 
 	// Création de l'instance VLC si elle n'existe pas
-	if(self->libvlc.inst == NULL){
-		self->libvlc.inst = libvlc_new(0, NULL, &_vlcexcep);
+	if(self->libvlc.inst == NULL){		
+		self->libvlc.inst = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args, &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
 	}
 	
@@ -83,6 +90,9 @@ freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri)
 	// Lecture de la chaine
 	libvlc_media_player_play (self->libvlc.mp, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
+
+	g_free(config_file);
+
 }
 
 void
