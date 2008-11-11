@@ -1,0 +1,28 @@
+FreetuxTV 0.2.0 (2008-11-08)
+  - Migration vers libVLC 0.9.4.
+  - Utilisation d'un fichier de configuration de VLC alternatif
+
+FreetuxTV 0.1.2 (2008-10-25)
+  - Ajout de logo : AB Moteurs, APTV, Artpla TV, Astro Center TV, ASTV, Babylon TV, La Locale, RMC
+  - Ajout d'un bouton lecture pour relancer la chaîne en cours si elle a été stoppé
+  - Support des touches multimédia sur les claviers
+  - Gestion des redirections HTTP 302 pour le téléchargement des playlists pour Free
+  - Sauvergarde des paramètres de l'application
+  - Ajout d'un menu "Préférences"
+  - Chargement de la dernière chaîne au chargement de l'application
+
+FreetuxTV 0.1.1 (2008-07-20)
+  - Fix du bug de segmentation fault sur Mandriva/Debian
+  - Retrait des onglets "En cours" et "Enregistrements" vide
+  - Message quand la liste des chaînes est vide pour indiquer comment charger la liste des chaînes
+  - Numéro de la version dans la fenêtre à propos
+
+FreetuxTV 0.1.0 (2008-07-06)
+  - Première version
+  - Lecture des chaînes
+  - Mode plein écran
+  - Groupes de chaînes
+  - Actualisation via téléchargement de la playlist d'un groupe
+  - Association automatique avec le logo
+  - Recherche dynamique des chaînes
+  - Mode miniature
