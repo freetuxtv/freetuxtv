@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-25 14:00+0200\n"
+"POT-Creation-Date: 2008-12-22 11:21+0100\n"
 "PO-Revision-Date: 2008-08-09 15:06+0200\n"
 "Last-Translator: BEUQUE Eric <eric.beuque@gmail.com>\n"
 "Language-Team: FR <eric.beuque@gmail.com>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/freetuxtv.glade:7 data/freetuxtv.glade:671
+#: data/freetuxtv.glade:7 data/freetuxtv.glade:670
 msgid "FreetuxTV"
 msgstr "FreetuxTV"
 
@@ -27,7 +27,7 @@ msgstr "_Fichier"
 msgid "C_hannels"
 msgstr "_Chaînes"
 
-#: data/freetuxtv.glade:56 data/freetuxtv.glade:428
+#: data/freetuxtv.glade:56 data/freetuxtv.glade:427
 msgid "Add a group"
 msgstr "Ajouter un groupe"
 
@@ -63,15 +63,15 @@ msgstr "Arrêter la lecture de la chaîne en cours"
 msgid "Next channel"
 msgstr "Chaîne suivante"
 
-#: data/freetuxtv.glade:272 data/freetuxtv.glade:695
+#: data/freetuxtv.glade:272 data/freetuxtv.glade:694
 msgid "Vol : "
 msgstr "Vol : "
 
-#: data/freetuxtv.glade:278 data/freetuxtv.glade:701
+#: data/freetuxtv.glade:278 data/freetuxtv.glade:700
 msgid "-"
 msgstr "-"
 
-#: data/freetuxtv.glade:300 data/freetuxtv.glade:723
+#: data/freetuxtv.glade:300 data/freetuxtv.glade:722
 msgid "+"
 msgstr "+"
 
@@ -95,23 +95,23 @@ msgstr "Lecteur de chaînes de télévision sur Internet."
 msgid "Project's Web Site"
 msgstr "Site Web du projet"
 
-#: data/freetuxtv.glade:403
+#: data/freetuxtv.glade:402
 msgid "translator-credits"
 msgstr "translator-credits"
 
-#: data/freetuxtv.glade:453
+#: data/freetuxtv.glade:452
 msgid "Playlist's URI* : "
 msgstr "URI de la playlist* : "
 
-#: data/freetuxtv.glade:465
+#: data/freetuxtv.glade:464
 msgid "Name of the group which will be added"
 msgstr "Nom du groupe à ajouter"
 
-#: data/freetuxtv.glade:475
+#: data/freetuxtv.glade:474
 msgid "Group's name* :"
 msgstr "Nome du groupe* : "
 
-#: data/freetuxtv.glade:487
+#: data/freetuxtv.glade:486
 msgid ""
 "http://\n"
 "file://"
@@ -119,34 +119,34 @@ msgstr ""
 "http://\n"
 "file://"
 
-#: data/freetuxtv.glade:499
+#: data/freetuxtv.glade:498
 msgid "Playlist's URI of the group which will be added"
 msgstr "URI de la playlist du groupe à ajouter"
 
-#: data/freetuxtv.glade:519
+#: data/freetuxtv.glade:518
 msgid "Processing of channels' name :"
 msgstr "Traitement du nom des chaînes :"
 
-#: data/freetuxtv.glade:538
+#: data/freetuxtv.glade:537
 msgid "Delete this text before the name :"
 msgstr "Texte à enlever au début :"
 
-#: data/freetuxtv.glade:547
+#: data/freetuxtv.glade:546
 msgid "Delete this text behind the name :"
 msgstr "Texte à enlever à la fin :"
 
-#: data/freetuxtv.glade:559
+#: data/freetuxtv.glade:558
 msgid ""
 "Text or regexp which must be deleted at the beginning of the channel's name"
 msgstr ""
 "Texte ou expression régulière qui sera retiré au début du nom de la chaîne"
 
-#: data/freetuxtv.glade:570
+#: data/freetuxtv.glade:569
 msgid "Text or regexp which must be deleted at the end of the channel's name"
 msgstr ""
 "Texte ou expression régulière qui sera retiré à la fin du nom de la chaîne"
 
-#: data/freetuxtv.glade:583
+#: data/freetuxtv.glade:582
 msgid ""
 "You can easily use regular expressions to delete some text in the channel's "
 "name of the groupe. For example, if in your playlist, you have a name like "
@@ -159,27 +159,27 @@ msgstr ""
 "\", FreetuxTV peut enveler automatiquement le numéro de chaînes devant, en "
 "spéciafiant l'expression \"[0-9]* - \"."
 
-#: data/freetuxtv.glade:607
+#: data/freetuxtv.glade:606
 msgid "* : field required"
 msgstr "* : champs obligatoire"
 
-#: data/freetuxtv.glade:622
+#: data/freetuxtv.glade:621
 msgid "<b>Add a group</b>"
 msgstr "Ajouter un groupe"
 
-#: data/freetuxtv.glade:739
+#: data/freetuxtv.glade:738
 msgid "Go back to the normal mode"
 msgstr "Revenir au mode normal"
 
-#: data/freetuxtv.glade:759
+#: data/freetuxtv.glade:758
 msgid "Activate/Deactivate the window always on top"
 msgstr "Active/Désactive fenêtre toujours au premier plan"
 
-#: data/freetuxtv.glade:788
+#: data/freetuxtv.glade:787
 msgid "Preferences"
 msgstr "Préférences"
 
-#: data/freetuxtv.glade:799
+#: data/freetuxtv.glade:798
 msgid "Play last channel on startup"
 msgstr "Lire la dernière chaîne au démarrage"
 

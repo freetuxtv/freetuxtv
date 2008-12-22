@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-25 14:00+0200\n"
+"POT-Creation-Date: 2008-12-22 11:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/freetuxtv.glade:7 data/freetuxtv.glade:671
+#: data/freetuxtv.glade:7 data/freetuxtv.glade:670
 msgid "FreetuxTV"
 msgstr ""
 
@@ -28,7 +28,7 @@ msgstr ""
 msgid "C_hannels"
 msgstr ""
 
-#: data/freetuxtv.glade:56 data/freetuxtv.glade:428
+#: data/freetuxtv.glade:56 data/freetuxtv.glade:427
 msgid "Add a group"
 msgstr ""
 
@@ -64,15 +64,15 @@ msgstr ""
 msgid "Next channel"
 msgstr ""
 
-#: data/freetuxtv.glade:272 data/freetuxtv.glade:695
+#: data/freetuxtv.glade:272 data/freetuxtv.glade:694
 msgid "Vol : "
 msgstr ""
 
-#: data/freetuxtv.glade:278 data/freetuxtv.glade:701
+#: data/freetuxtv.glade:278 data/freetuxtv.glade:700
 msgid "-"
 msgstr ""
 
-#: data/freetuxtv.glade:300 data/freetuxtv.glade:723
+#: data/freetuxtv.glade:300 data/freetuxtv.glade:722
 msgid "+"
 msgstr ""
 
@@ -96,54 +96,54 @@ msgstr ""
 msgid "Project's Web Site"
 msgstr ""
 
-#: data/freetuxtv.glade:403
+#: data/freetuxtv.glade:402
 msgid "translator-credits"
 msgstr ""
 
-#: data/freetuxtv.glade:453
+#: data/freetuxtv.glade:452
 msgid "Playlist's URI* : "
 msgstr ""
 
-#: data/freetuxtv.glade:465
+#: data/freetuxtv.glade:464
 msgid "Name of the group which will be added"
 msgstr ""
 
-#: data/freetuxtv.glade:475
+#: data/freetuxtv.glade:474
 msgid "Group's name* :"
 msgstr ""
 
-#: data/freetuxtv.glade:487
+#: data/freetuxtv.glade:486
 msgid ""
 "http://\n"
 "file://"
 msgstr ""
 
-#: data/freetuxtv.glade:499
+#: data/freetuxtv.glade:498
 msgid "Playlist's URI of the group which will be added"
 msgstr ""
 
-#: data/freetuxtv.glade:519
+#: data/freetuxtv.glade:518
 msgid "Processing of channels' name :"
 msgstr ""
 
-#: data/freetuxtv.glade:538
+#: data/freetuxtv.glade:537
 msgid "Delete this text before the name :"
 msgstr ""
 
-#: data/freetuxtv.glade:547
+#: data/freetuxtv.glade:546
 msgid "Delete this text behind the name :"
 msgstr ""
 
-#: data/freetuxtv.glade:559
+#: data/freetuxtv.glade:558
 msgid ""
 "Text or regexp which must be deleted at the beginning of the channel's name"
 msgstr ""
 
-#: data/freetuxtv.glade:570
+#: data/freetuxtv.glade:569
 msgid "Text or regexp which must be deleted at the end of the channel's name"
 msgstr ""
 
-#: data/freetuxtv.glade:583
+#: data/freetuxtv.glade:582
 msgid ""
 "You can easily use regular expressions to delete some text in the channel's "
 "name of the groupe. For example, if in your playlist, you have a name like "
@@ -151,27 +151,27 @@ msgid ""
 "number before the name, by using the regular expression \"[0-9]* - \"."
 msgstr ""
 
-#: data/freetuxtv.glade:607
+#: data/freetuxtv.glade:606
 msgid "* : field required"
 msgstr ""
 
-#: data/freetuxtv.glade:622
+#: data/freetuxtv.glade:621
 msgid "<b>Add a group</b>"
 msgstr ""
 
-#: data/freetuxtv.glade:739
+#: data/freetuxtv.glade:738
 msgid "Go back to the normal mode"
 msgstr ""
 
-#: data/freetuxtv.glade:759
+#: data/freetuxtv.glade:758
 msgid "Activate/Deactivate the window always on top"
 msgstr ""
 
-#: data/freetuxtv.glade:788
+#: data/freetuxtv.glade:787
 msgid "Preferences"
 msgstr ""
 
-#: data/freetuxtv.glade:799
+#: data/freetuxtv.glade:798
 msgid "Play last channel on startup"
 msgstr ""
 
