@@ -389,15 +389,14 @@
     <property name="website_label" translatable="yes">Project's Web Site</property>
     <property name="authors">Creator and developer : Eric Beuque
 
-Ubuntu Package  : Tuxcola
-OpenSuse Package : Sabourin Gilles
-Mandriva Package : Gérald
-
 Repository Manager : Romain Fluttaz
 
 Old members : Julien Masson
 
 Special thanks to :
+Philippe, Tuxcola (Ubuntu Package)
+Gilles Sabourin (OpenSuse Package)
+Yannick, Gérald (Mandriva Package)
 13remi
 AigleBlanc</property>
     <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
