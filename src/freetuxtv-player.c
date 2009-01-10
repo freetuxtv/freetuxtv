@@ -23,6 +23,54 @@ static void
 on_vlc_exception (FreetuxTVPlayer *self, 
 		  libvlc_exception_t *ex);
 
+typedef struct _IdlePlayParam {
+	FreetuxTVPlayer *self;
+	char *url;
+} IdlePlayParam;
+
+static gboolean libvlc_idle_play_function(gpointer ptrdata){
+	IdlePlayParam *play_param = (IdlePlayParam*)ptrdata;
+	freetuxtv_player_play (play_param->self, play_param->url);
+	return FALSE;
+}
+
+static void 
+event(const libvlc_event_t * event, void * user_data){
+	FreetuxTVPlayer *self = (FreetuxTVPlayer*) user_data;
+	
+	libvlc_exception_t _vlcexcep;
+	libvlc_exception_init (&_vlcexcep);
+	
+	libvlc_media_t *current_m;
+	libvlc_media_t *new_m;
+	current_m = libvlc_media_player_get_media(self->libvlc.mp, &_vlcexcep);
+	on_vlc_exception (self, &_vlcexcep);
+	
+	libvlc_media_list_t *ml;
+ 	ml = libvlc_media_subitems (current_m, &_vlcexcep);
+	on_vlc_exception (self, &_vlcexcep);
+	if(ml != NULL){
+		int mlcount = libvlc_media_list_count(ml, &_vlcexcep);
+		if(mlcount > 0){
+			
+			// Lit le premier element de la media_list
+			char *newurl;
+			new_m = libvlc_media_list_item_at_index(ml, 0, &_vlcexcep);
+			on_vlc_exception (self, &_vlcexcep);
+			newurl = libvlc_media_get_mrl(new_m, &_vlcexcep);
+			on_vlc_exception (self, &_vlcexcep);
+			
+			IdlePlayParam *play_param = g_new0(IdlePlayParam, 1);
+			play_param->self = self;
+			play_param->url = newurl;
+			printf("FreetuxTV : Redirect channel to :'%s'\n", newurl);
+			// Necessaire pour envoyer une action dans le MainLoop de GTK
+			g_idle_add (libvlc_idle_play_function, play_param);
+		}	
+	}
+	
+}
+
 GtkWidget *
 freetuxtv_player_new ()
 {
@@ -79,20 +127,29 @@ freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri)
 					 self->volume, &_vlcexcep);    
                 on_vlc_exception (self, &_vlcexcep);
 	}
-	
+
 	// Ajout de l'URL dans le player
 	m = libvlc_media_new (self->libvlc.inst, uri, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
 	libvlc_media_player_set_media (self->libvlc.mp, m, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
 	libvlc_media_release (m);
-
+	
+	// Evenement sur le media
+	libvlc_event_manager_t *em;
+	m = libvlc_media_player_get_media(self->libvlc.mp, &_vlcexcep);
+	on_vlc_exception (self, &_vlcexcep);
+ 	em = libvlc_media_event_manager (m, &_vlcexcep);
+	on_vlc_exception (self, &_vlcexcep);
+	// Pour gerer si le media est une playlist
+	libvlc_event_attach (em, libvlc_MediaSubItemAdded, event, self, &_vlcexcep);
+	on_vlc_exception (self, &_vlcexcep);
+	
 	// Lecture de la chaine
 	libvlc_media_player_play (self->libvlc.mp, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
 
 	g_free(config_file);
-
 }
 
 void
