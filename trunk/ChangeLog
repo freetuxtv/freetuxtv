@@ -1,6 +1,7 @@
-FreetuxTV 0.2.1 (2009-)
+FreetuxTV 0.2.1 (2009-01-17)
   - Support de la redirection d'une URL dans une playlist
   - Meilleure intégration du thème GTK dans la liste des chaînes
+  - Ajout d'une couleur pour distinguer la chaînes en cours de lecture
 
 FreetuxTV 0.2.0 (2008-11-08)
   - Migration vers libVLC 0.9.4.
