@@ -221,16 +221,18 @@ freetuxtv_app_create_app ()
 	app->windowmain = glade_xml_new (FREETUXTV_GLADEXML,
 					 "windowmain", NULL);
 	glade_xml_signal_autoconnect (app->windowmain);
-	
+
 	/* Ajout du widget de la liste des chaines */
 	GtkWidget *eventbox;
-	GdkColor color;
 	eventbox = gtk_event_box_new();
-	color.pixel = 0;
-	color.red   = 0xdf * 0x100;
-	color.green = 0xe0 * 0x100;
-	color.blue  = 0xe6 * 0x100;
-	gtk_widget_modify_bg(eventbox, GTK_STATE_NORMAL, &color);
+		
+	GtkRcStyle *rc_style;
+	GtkStyle*style = gtk_rc_get_style(GTK_WIDGET(eventbox));
+	rc_style = gtk_rc_style_new();
+	rc_style->bg[GTK_STATE_NORMAL] = style->bg[GTK_STATE_NORMAL];
+	rc_style->color_flags[GTK_STATE_NORMAL] |= GTK_RC_BG;
+	gtk_widget_modify_style (GTK_WIDGET(eventbox), rc_style);
+	gtk_rc_style_unref(rc_style);
 	
 	scrolledwindowchannels = glade_xml_get_widget (app->windowmain,
 						       "windowmain_scrolledwindowchannels");
