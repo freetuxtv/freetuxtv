@@ -21,8 +21,7 @@ on_channel_notify_event (GtkWidget *widget, GdkEventMotion *event,
 			 gpointer user_data);
 
 static void
-freetuxtv_channel_modify_bg (FreetuxTVChannel *widget,
-			     FreetuxTVChannelStateType state, gboolean hover);
+freetuxtv_channel_modify_bg (FreetuxTVChannel *widget, gboolean hover);
 
 enum {
   DBL_CLICKED,
@@ -40,7 +39,6 @@ freetuxtv_channel_new (gchar *id, gchar *name, gchar *uri)
 	self->id = g_strdup(id);
 	self->name = g_strdup(name);
 	self->uri = g_strdup(uri);
-	self->state = FREETUXTV_CHANNEL_STATE_NORMAL;
 	
 	/* Evenemment du widget */
 	g_signal_connect(G_OBJECT(self),
@@ -94,7 +92,7 @@ freetuxtv_channel_new (gchar *id, gchar *name, gchar *uri)
 	gtk_label_set_ellipsize (GTK_LABEL(label), PANGO_ELLIPSIZE_END);
 	gtk_box_pack_start (GTK_BOX(vbox), label, TRUE, TRUE, 0);*/
 
-	freetuxtv_channel_modify_bg (self, self->state, FALSE);
+	freetuxtv_channel_set_state (self, FALSE);
 
 	gtk_widget_show_all (GTK_WIDGET(self));
 
@@ -113,6 +111,12 @@ freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file)
 {
 	gtk_image_set_from_file (self->logo, file);
 	gtk_widget_show(GTK_WIDGET(self->logo));
+}
+
+void
+freetuxtv_channel_set_state (FreetuxTVChannel *self, FreetuxTVChannelStateType state){
+	self->state = state;
+	freetuxtv_channel_modify_bg (FREETUXTV_CHANNEL(self), FALSE);
 }
 
 gint
@@ -155,36 +159,34 @@ on_channel_notify_event (GtkWidget *widget, GdkEventMotion *event,
 			 gpointer user_data)
 {
 	if(event->type == GDK_ENTER_NOTIFY ){
-		freetuxtv_channel_modify_bg (FREETUXTV_CHANNEL(widget), 
-					     FREETUXTV_CHANNEL(widget)->state, TRUE);
+		freetuxtv_channel_modify_bg (FREETUXTV_CHANNEL(widget), TRUE);
 	}
 	if(event->type == GDK_LEAVE_NOTIFY ){
-		freetuxtv_channel_modify_bg (FREETUXTV_CHANNEL(widget), 
-					     FREETUXTV_CHANNEL(widget)->state, FALSE);
+		freetuxtv_channel_modify_bg (FREETUXTV_CHANNEL(widget), FALSE);
 	}
 }
 
 static void
-freetuxtv_channel_modify_bg (FreetuxTVChannel *widget, 
-			     FreetuxTVChannelStateType state, gboolean hover){	
+freetuxtv_channel_modify_bg (FreetuxTVChannel *widget, gboolean hover){	
 	GtkRcStyle *rc_style;
 	GtkStyle*style = gtk_rc_get_style(GTK_WIDGET(widget));
 	rc_style = gtk_rc_style_new();
-	if(!hover){
-		switch(state){
-		case FREETUXTV_CHANNEL_STATE_NORMAL:
+
+	switch(widget->state){
+	case FREETUXTV_CHANNEL_STATE_NORMAL:
+		if(!hover){
 			rc_style->bg[GTK_STATE_NORMAL] = style->base[GTK_STATE_NORMAL];
 			rc_style->fg[GTK_STATE_NORMAL] = style->text[GTK_STATE_NORMAL];
-			break;
-		case FREETUXTV_CHANNEL_STATE_PLAYING:
-			rc_style->bg[GTK_STATE_NORMAL] = style->bg[GTK_STATE_NORMAL];
-			break;
+		}else{
+			rc_style->bg[GTK_STATE_NORMAL] = style->base[GTK_STATE_SELECTED];
+			rc_style->fg[GTK_STATE_NORMAL] = style->text[GTK_STATE_SELECTED];
 		}
-	}else{
-		rc_style->bg[GTK_STATE_NORMAL] = style->base[GTK_STATE_SELECTED];
-		rc_style->text[GTK_STATE_NORMAL] = style->text[GTK_STATE_SELECTED];
+		break;
+	case FREETUXTV_CHANNEL_STATE_PLAYING:
+		rc_style->bg[GTK_STATE_NORMAL] = style->bg[GTK_STATE_SELECTED];
+		rc_style->fg[GTK_STATE_NORMAL] = style->text[GTK_STATE_SELECTED];
+		break;
 	}
-	
 	rc_style->color_flags[GTK_STATE_NORMAL] |= GTK_RC_BG;
 	rc_style->color_flags[GTK_STATE_NORMAL] |= GTK_RC_FG;
 	gtk_widget_modify_style (GTK_WIDGET(widget), rc_style);

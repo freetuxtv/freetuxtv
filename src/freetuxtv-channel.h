@@ -68,6 +68,9 @@ freetuxtv_channel_set_logo (FreetuxTVChannel *self, gchar *file);
 gint
 freetuxtv_channel_show_if_filter (FreetuxTVChannel *self, gchar *filter);
 
+void
+freetuxtv_channel_set_state (FreetuxTVChannel *self, FreetuxTVChannelStateType state);
+
 G_END_DECLS
 
 #endif /* FREETUXTV_CHANNEL_H */
