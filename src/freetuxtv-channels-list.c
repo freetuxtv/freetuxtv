@@ -200,7 +200,12 @@ on_channel_dbl_clicked (FreetuxTVChannel *channel, gpointer *data)
 	windowmain_statusbar_push (app, "PlayChannelMsg", text);
 	g_free(text);
 	
+	if(app->current.channel != NULL){
+		freetuxtv_channel_set_state(app->current.channel, FREETUXTV_CHANNEL_STATE_NORMAL);
+	}
+
 	app->current.channel = channel;
+	freetuxtv_channel_set_state(app->current.channel, FREETUXTV_CHANNEL_STATE_PLAYING);
 
 	freetuxtv_player_play (app->player, channel->uri);
 }
