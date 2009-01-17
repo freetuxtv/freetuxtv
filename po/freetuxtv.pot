@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-22 11:21+0100\n"
+"POT-Creation-Date: 2009-01-17 17:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,21 +175,21 @@ msgstr ""
 msgid "Play last channel on startup"
 msgstr ""
 
-#: src/freetuxtv-channels-group.c:125
+#: src/freetuxtv-channels-group.c:126
 msgid ""
 "To load the channels list, right click on the group's name and \"Refresh "
 "from the playlist\""
 msgstr ""
 
-#: src/freetuxtv-channels-group.c:294
+#: src/freetuxtv-channels-group.c:295
 msgid "Refresh from the playlist"
 msgstr ""
 
-#: src/freetuxtv-channels-group.c:303
+#: src/freetuxtv-channels-group.c:304
 msgid "Delete group's channels"
 msgstr ""
 
-#: src/freetuxtv-channels-group.c:311
+#: src/freetuxtv-channels-group.c:312
 msgid "Delete group"
 msgstr ""
 
@@ -207,7 +207,7 @@ msgstr ""
 msgid "Playing : %s"
 msgstr ""
 
-#: src/freetuxtv-channels-list.c:230 src/freetuxtv-channels-list.c:260
+#: src/freetuxtv-channels-list.c:235 src/freetuxtv-channels-list.c:265
 #, c-format
 msgid ""
 "Error when displaying the channels of the group \"%s\".\n"
@@ -216,8 +216,8 @@ msgid ""
 "%s."
 msgstr ""
 
-#: src/freetuxtv-channels-list.c:308 src/freetuxtv-channels-list.c:367
-#: src/freetuxtv-channels-list.c:435 src/freetuxtv-window-main.c:341
+#: src/freetuxtv-channels-list.c:313 src/freetuxtv-channels-list.c:372
+#: src/freetuxtv-channels-list.c:440 src/freetuxtv-window-main.c:341
 #, c-format
 msgid ""
 "Cannot open database.\n"
@@ -226,7 +226,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: src/freetuxtv-channels-list.c:324 src/freetuxtv-channels-list.c:460
+#: src/freetuxtv-channels-list.c:329 src/freetuxtv-channels-list.c:465
 #, c-format
 msgid ""
 "Error when deleting the channels of the group \"%s\".\n"
@@ -235,7 +235,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: src/freetuxtv-channels-list.c:383
+#: src/freetuxtv-channels-list.c:388
 #, c-format
 msgid ""
 "Error when deleting the group \"%s\".\n"
@@ -244,12 +244,12 @@ msgid ""
 "%s."
 msgstr ""
 
-#: src/freetuxtv-channels-list.c:427
+#: src/freetuxtv-channels-list.c:432
 #, c-format
 msgid "Update \"%s\" channels list"
 msgstr ""
 
-#: src/freetuxtv-channels-list.c:484
+#: src/freetuxtv-channels-list.c:489
 #, c-format
 msgid ""
 "Error when loading informations of the group \"%s\".\n"
@@ -258,7 +258,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: src/freetuxtv-channels-list.c:502 src/freetuxtv-channels-list.c:511
+#: src/freetuxtv-channels-list.c:507 src/freetuxtv-channels-list.c:516
 #, c-format
 msgid ""
 "Error when adding the channels.\n"
@@ -267,12 +267,12 @@ msgid ""
 "%s."
 msgstr ""
 
-#: src/freetuxtv-channels-list.c:568
+#: src/freetuxtv-channels-list.c:573
 #, c-format
 msgid "Getting the file : \"%s\""
 msgstr ""
 
-#: src/freetuxtv-channels-list.c:598
+#: src/freetuxtv-channels-list.c:603
 #, c-format
 msgid ""
 "Error when downloading the playlist of the group \"%s\" from URL -> %s.\n"
@@ -281,7 +281,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: src/freetuxtv-channels-list.c:737
+#: src/freetuxtv-channels-list.c:742
 #, c-format
 msgid ""
 "Error when adding the channel \"%s\".\n"
