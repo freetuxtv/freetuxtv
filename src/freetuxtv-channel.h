@@ -26,6 +26,12 @@ G_BEGIN_DECLS
 typedef struct _FreetuxTVChannel FreetuxTVChannel;
 typedef struct _FreetuxTVChannelClass FreetuxTVChannelClass;
 
+typedef enum
+{
+	FREETUXTV_CHANNEL_STATE_NORMAL,
+	FREETUXTV_CHANNEL_STATE_PLAYING
+} FreetuxTVChannelStateType;
+
 struct _FreetuxTVChannel
 {
 	GtkEventBox parent;
@@ -34,7 +40,10 @@ struct _FreetuxTVChannel
 	gchar *uri;
 	gchar *id;
 	
+	FreetuxTVChannelStateType state;
+
 	GtkImage *logo;
+	GtkWidget *label_name;
 };
 
 struct _FreetuxTVChannelClass
