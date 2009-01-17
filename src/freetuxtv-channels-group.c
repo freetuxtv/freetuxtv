@@ -89,15 +89,15 @@ freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri)
 	
 	priv->filter = "";
 	priv->state = FREETUXTV_CHANNELS_GROUP_EXPANDED;
- 
-	GdkColor color;
-	color.pixel = 0;
-	color.red   = 0xcf * 0x100;
-	color.green = 0xe0 * 0x100;
-	color.blue  = 0xf5 * 0x100;
 
+	GtkRcStyle *rc_style;
+	GtkStyle*style = gtk_rc_get_style(GTK_WIDGET(self));
+	
 	GtkWidget *eventbox = gtk_event_box_new ();
-	gtk_widget_modify_bg(GTK_WIDGET(eventbox), GTK_STATE_NORMAL, &color);
+	rc_style = gtk_rc_style_new();
+	rc_style->bg[GTK_STATE_NORMAL] = style->bg[GTK_STATE_ACTIVE];
+	rc_style->color_flags[GTK_STATE_NORMAL] |= GTK_RC_BG;
+	gtk_widget_modify_style (GTK_WIDGET(eventbox), rc_style);
 	gtk_box_pack_start (GTK_BOX(self), eventbox, FALSE, FALSE, 0);
 
 	GtkWidget *hbox = gtk_hbox_new (FALSE, 0);
@@ -108,13 +108,14 @@ freetuxtv_channels_group_new (gchar *id, gchar *name, gchar *uri)
 	
 	/* Fleche pour l'expand */
 	eventbox = gtk_event_box_new ();
-	gtk_widget_modify_bg(GTK_WIDGET(eventbox), GTK_STATE_NORMAL, &color);
+	gtk_widget_modify_style (GTK_WIDGET(eventbox), rc_style);
+	gtk_rc_style_unref(rc_style);
 	g_signal_connect(G_OBJECT(eventbox), "button-press-event",
 			 G_CALLBACK(on_arrow_clicked), self);
 	gtk_box_pack_start (GTK_BOX(hbox), eventbox, FALSE, FALSE, 0);
 	priv->arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER(eventbox), priv->arrow);
-
+	
 	/* Nom du groupe */
 	GtkWidget *label = gtk_label_new (self->name);
 	gtk_misc_set_padding (GTK_MISC(label),3,3);

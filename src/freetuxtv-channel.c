@@ -21,8 +21,8 @@ on_channel_notify_event (GtkWidget *widget, GdkEventMotion *event,
 			 gpointer user_data);
 
 static void
-freetuxtv_channel_modify_bg (FreetuxTVChannel *widget, 
-			     gint red, gint green, gint blue);
+freetuxtv_channel_modify_bg (FreetuxTVChannel *widget,
+			     FreetuxTVChannelStateType state, gboolean hover);
 
 enum {
   DBL_CLICKED,
@@ -40,6 +40,7 @@ freetuxtv_channel_new (gchar *id, gchar *name, gchar *uri)
 	self->id = g_strdup(id);
 	self->name = g_strdup(name);
 	self->uri = g_strdup(uri);
+	self->state = FREETUXTV_CHANNEL_STATE_NORMAL;
 	
 	/* Evenemment du widget */
 	g_signal_connect(G_OBJECT(self),
@@ -54,9 +55,7 @@ freetuxtv_channel_new (gchar *id, gchar *name, gchar *uri)
 			 "leave-notify-event",
 			 G_CALLBACK(on_channel_notify_event),
 			 NULL);
-	
-	freetuxtv_channel_modify_bg (self, 0xff, 0xff, 0xff);
-	
+
 	GtkWidget *hbox;
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_container_add (GTK_CONTAINER(self), hbox);
@@ -71,17 +70,15 @@ freetuxtv_channel_new (gchar *id, gchar *name, gchar *uri)
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start (GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
 
-	/* Ajout du nom du canal */
-	GtkWidget *label;
-	label = gtk_label_new (g_strconcat("<small>",
-					   self->name,
-					   "</small>",NULL));
-	gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
-	gtk_misc_set_alignment (GTK_MISC(label),0,0.5);
-	gtk_label_set_ellipsize (GTK_LABEL(label), PANGO_ELLIPSIZE_END);
-	gtk_box_pack_start (GTK_BOX(vbox), label, TRUE, TRUE, 0);
-	
-	
+	/* Ajout du nom du canal */		
+	self->label_name = gtk_label_new (g_strconcat("<small>",
+						 self->name,
+						 "</small>",NULL));
+	gtk_label_set_use_markup(GTK_LABEL(self->label_name), TRUE);
+	gtk_misc_set_alignment (GTK_MISC(self->label_name),0,0.5);
+	gtk_label_set_ellipsize (GTK_LABEL(self->label_name), PANGO_ELLIPSIZE_END);
+	gtk_box_pack_start (GTK_BOX(vbox), self->label_name, TRUE, TRUE, 0);
+
 	/* Barre de progression *//*
 	GtkWidget *progressbar;
 	progressbar = gtk_progress_bar_new ();
@@ -96,6 +93,8 @@ freetuxtv_channel_new (gchar *id, gchar *name, gchar *uri)
 	gtk_misc_set_alignment (GTK_MISC(label),0,0.5);
 	gtk_label_set_ellipsize (GTK_LABEL(label), PANGO_ELLIPSIZE_END);
 	gtk_box_pack_start (GTK_BOX(vbox), label, TRUE, TRUE, 0);*/
+
+	freetuxtv_channel_modify_bg (self, self->state, FALSE);
 
 	gtk_widget_show_all (GTK_WIDGET(self));
 
@@ -157,23 +156,42 @@ on_channel_notify_event (GtkWidget *widget, GdkEventMotion *event,
 {
 	if(event->type == GDK_ENTER_NOTIFY ){
 		freetuxtv_channel_modify_bg (FREETUXTV_CHANNEL(widget), 
-					     0xFA, 0xF8, 0xB9);
+					     FREETUXTV_CHANNEL(widget)->state, TRUE);
 	}
 	if(event->type == GDK_LEAVE_NOTIFY ){
 		freetuxtv_channel_modify_bg (FREETUXTV_CHANNEL(widget), 
-					     0xFF, 0xFF, 0xFF);	
+					     FREETUXTV_CHANNEL(widget)->state, FALSE);
 	}
 }
 
 static void
 freetuxtv_channel_modify_bg (FreetuxTVChannel *widget, 
-			     gint red, gint green, gint blue){
-	GdkColor color;
-	color.pixel = 0;
-	color.red   = red * 0x100;
-	color.green = green * 0x100;
-	color.blue  = blue * 0x100;
-	gtk_widget_modify_bg(GTK_WIDGET(widget), GTK_STATE_NORMAL, &color);	
+			     FreetuxTVChannelStateType state, gboolean hover){	
+	GtkRcStyle *rc_style;
+	GtkStyle*style = gtk_rc_get_style(GTK_WIDGET(widget));
+	rc_style = gtk_rc_style_new();
+	if(!hover){
+		switch(state){
+		case FREETUXTV_CHANNEL_STATE_NORMAL:
+			rc_style->bg[GTK_STATE_NORMAL] = style->base[GTK_STATE_NORMAL];
+			rc_style->fg[GTK_STATE_NORMAL] = style->text[GTK_STATE_NORMAL];
+			break;
+		case FREETUXTV_CHANNEL_STATE_PLAYING:
+			rc_style->bg[GTK_STATE_NORMAL] = style->bg[GTK_STATE_NORMAL];
+			break;
+		}
+	}else{
+		rc_style->bg[GTK_STATE_NORMAL] = style->base[GTK_STATE_SELECTED];
+		rc_style->text[GTK_STATE_NORMAL] = style->text[GTK_STATE_SELECTED];
+	}
+	
+	rc_style->color_flags[GTK_STATE_NORMAL] |= GTK_RC_BG;
+	rc_style->color_flags[GTK_STATE_NORMAL] |= GTK_RC_FG;
+	gtk_widget_modify_style (GTK_WIDGET(widget), rc_style);
+	gtk_widget_modify_style (GTK_WIDGET(widget->label_name), rc_style);
+	gtk_rc_style_unref(rc_style);
+
+
 }
 
 static void
@@ -182,6 +200,8 @@ freetuxtv_channel_init (FreetuxTVChannel *object)
 	object->name="";
 	object->uri="";
 	object->logo = NULL;
+	object->state = FREETUXTV_CHANNEL_STATE_NORMAL;
+	object->label_name = NULL;
 }
 
 static void
