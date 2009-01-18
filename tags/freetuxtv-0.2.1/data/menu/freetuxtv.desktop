@@ -1,0 +1,20 @@
+[Desktop Entry]
+Categories=GNOME;AudioVideo;
+Comment=Watch television channels from internet
+Comment[fr]=Visionnez les chaînes de télévision sur internet
+Encoding=UTF-8
+Exec=freetuxtv
+GenericName=Television Channels Player
+GenericName[fr]=Lecteur de chaînes de télévision
+Icon=display
+MimeType=
+Name=FreetuxTV Television Channels Player
+Name[fr]=Lecteur de chaînes de télévision FreetuxTV
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DCOP-ServiceType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
