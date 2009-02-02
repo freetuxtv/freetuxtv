@@ -92,6 +92,14 @@ on_windowmain_buttonstop_clicked (GtkButton *button,
 }
 
 void
+on_windowmain_buttonrecord_clicked (GtkButton *button,
+				    gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	freetuxtv_action_record_channel (app);
+}
+
+void
 on_windowmain_buttonplay_clicked (GtkButton *button,
 				  gpointer user_data)
 {

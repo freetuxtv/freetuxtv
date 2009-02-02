@@ -320,6 +320,13 @@ freetuxtv_app_create_app ()
 			 "clicked",
 			 G_CALLBACK(on_windowmain_buttonstop_clicked),
 			 app);
+
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonrecord");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowmain_buttonrecord_clicked),
+			 app);
 	
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain_volumecontrol");
@@ -439,7 +446,25 @@ freetuxtv_action_play_channel (FreetuxTVApp *app)
 void
 freetuxtv_action_stop_channel (FreetuxTVApp *app)
 {
+	gchar *text;
+	text = g_strdup_printf (_("Stopping channel : %s"), app->current.channel->name);
+	windowmain_statusbar_push (app, "PlayChannelMsg", text);
+	g_free(text);
+	
 	freetuxtv_player_stop (app->player);
+}
+
+void
+freetuxtv_action_record_channel (FreetuxTVApp *app)
+{
+	gchar* out_filename;
+	gchar *text;
+	freetuxtv_player_record_current (app->player, &out_filename);
+	
+	text = g_strdup_printf (_("Recording : %s"), out_filename);
+	windowmain_statusbar_push (app, "PlayChannelMsg", text);
+	g_free(text);
+	g_free(out_filename);
 }
 
 void
@@ -526,6 +551,9 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 
 	g_free (filename);
 	g_free (contents);
+
+	// Stop the current channel
+	freetuxtv_action_stop_channel(app);
 
 	gtk_main_quit();
 }
