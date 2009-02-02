@@ -193,7 +193,10 @@ freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar** out_filename)
 		channel_infos = libvlc_media_get_user_data (m, &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
 
-		*out_filename = g_strconcat("/tmp/", channel_infos->name, ".mpg", NULL);
+		GTimeVal now;
+		g_get_current_time(&now);
+		*out_filename = g_strconcat("/tmp/", channel_infos->name, " - ",
+					    g_time_val_to_iso8601(&now), ".mpg", NULL);
 
 		g_print ("FreetuxTV : Recording channel \"%s\" -> %s (in %s)\n",
 			 channel_infos->name, channel_infos->url, *out_filename);
