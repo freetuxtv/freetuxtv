@@ -4,6 +4,8 @@ freetuxtv_SOURCES = \
   freetuxtv-app.h \
   freetuxtv-channel.c \
   freetuxtv-channel.h \
+  freetuxtv-channel-infos.h \
+  freetuxtv-channel-infos.c \
   freetuxtv-channels-group.c \
   freetuxtv-channels-group.h \
   freetuxtv-channels-list.c \

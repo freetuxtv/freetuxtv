@@ -15,6 +15,8 @@
 #include <gtk/gtk.h>
 #include <vlc/vlc.h>
 
+#include "freetuxtv-channel-infos.h"
+
 G_BEGIN_DECLS
 
 #define FREETUXTV_TYPE_PLAYER            (freetuxtv_player_get_type ())
@@ -51,7 +53,7 @@ GtkWidget *
 freetuxtv_player_new ();
 
 void
-freetuxtv_player_play (FreetuxTVPlayer *self, gchar *uri);
+freetuxtv_player_play (FreetuxTVPlayer *self, FreetuxTVChannelInfos *channel_infos);
 
 void
 freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value);
@@ -61,6 +63,9 @@ freetuxtv_player_get_volume (FreetuxTVPlayer *self);
 
 void
 freetuxtv_player_stop (FreetuxTVPlayer *self);
+
+void
+freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar** out_filename);
 
 void
 freetuxtv_player_fullscreen (FreetuxTVPlayer *self);
