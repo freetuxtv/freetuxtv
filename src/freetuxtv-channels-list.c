@@ -20,6 +20,7 @@
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
+#include "freetuxtv-channel-infos.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group.h"
 #include "lib-m3uparser.h"
@@ -194,8 +195,6 @@ on_channel_dbl_clicked (FreetuxTVChannel *channel, gpointer *data)
 	
 	gchar *text;
 	
-	g_print ("FreetuxTV : launching channel \"%s\" -> %s\n",
-		 channel->name, channel->uri);
 	text = g_strdup_printf (_("Playing : %s"), channel->name);
 	windowmain_statusbar_push (app, "PlayChannelMsg", text);
 	g_free(text);
@@ -207,7 +206,11 @@ on_channel_dbl_clicked (FreetuxTVChannel *channel, gpointer *data)
 	app->current.channel = channel;
 	freetuxtv_channel_set_state(app->current.channel, FREETUXTV_CHANNEL_STATE_PLAYING);
 
-	freetuxtv_player_play (app->player, channel->uri);
+	FreetuxTVChannelInfos *channel_infos;
+	channel_infos = freetuxtv_channel_infos_new(channel->name,
+						    channel->uri);
+	freetuxtv_player_play (app->player, channel_infos);
+	g_object_unref(channel_infos);
 }
 
 

@@ -45,6 +45,10 @@ on_windowmain_buttonstop_clicked (GtkButton *button,
 				  gpointer user_data);
 
 void
+on_windowmain_buttonrecord_clicked (GtkButton *button,
+				    gpointer user_data);
+
+void
 on_windowmain_buttonplay_clicked (GtkButton *button,
 				  gpointer user_data);
 
