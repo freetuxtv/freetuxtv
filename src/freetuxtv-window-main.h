@@ -11,8 +11,6 @@
 #ifndef FREETUXTV_WINDOW_MAIN_H
 #define FREETUXTV_WINDOW_MAIN_H
 
-#include "freetuxtv-channel.h"
-
 void
 on_windowmain_destroy (GtkWidget *widget, gpointer *data);
 

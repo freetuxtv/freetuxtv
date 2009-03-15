@@ -27,9 +27,13 @@ struct _FreetuxTVChannelInfos
 {
 	GObject parent_instance;
 
+	int id;
+	int rank;
 	char *name;
 	char *url;
 	char *redirect_url;
+
+	char *logo_name;
 };
 
 struct _FreetuxTVChannelInfosClass
@@ -39,7 +43,12 @@ struct _FreetuxTVChannelInfosClass
 };
 
 FreetuxTVChannelInfos*
-freetuxtv_channel_infos_new(char *name, char *url);
+freetuxtv_channel_infos_new(int id, int rank, char *name, char *url);
+
+void
+freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,
+				 char *logo_name);
+
 
 #endif /* FREETUXTV_CHANNEL_INFOS_H */
 
