@@ -13,15 +13,31 @@
 G_DEFINE_TYPE (FreetuxTVChannelInfos, freetuxtv_channel_infos, G_TYPE_OBJECT);
 
 FreetuxTVChannelInfos*
-freetuxtv_channel_infos_new(char *name, char *url)
+freetuxtv_channel_infos_new(int id, int rank, char *name, char *url)
 {
 	FreetuxTVChannelInfos *channel_infos;
 	channel_infos = g_object_new (FREETUXTV_TYPE_CHANNEL_INFOS, NULL);
 
-	channel_infos->name=name;
-	channel_infos->url=url;	
+	
+	channel_infos->id = id;
+	channel_infos->rank = rank;
+	channel_infos->name = g_strdup(name);
+	channel_infos->url = g_strdup(url);	
+
+	channel_infos->logo_name = NULL;
 
 	return channel_infos;
+}
+
+
+void
+freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,
+				 char *logo_name)
+{
+	if(self->logo_name != NULL){
+		g_free(self->logo_name);
+	}
+	self->logo_name = g_strdup(logo_name);
 }
 
 static GObject *
@@ -50,5 +66,7 @@ freetuxtv_channel_infos_init (FreetuxTVChannelInfos *self)
 	self->name=NULL;
 	self->url=NULL;
 	self->redirect_url=NULL;
+
+	self->logo_name = NULL;
 }
 

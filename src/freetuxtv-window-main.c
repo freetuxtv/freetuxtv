@@ -64,7 +64,7 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 	entryfilter = glade_xml_get_widget(app->windowmain,
 					   "windowmain_entryfilter");
 	gtk_entry_set_text(GTK_ENTRY(entryfilter), "");
-	channels_list_apply_filter (app);
+	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(app->channelslist));
 }
 
 void
@@ -180,7 +180,7 @@ void
 on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	channels_list_apply_filter (app);
+	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(app->channelslist));
 }
 
 void
@@ -379,22 +379,24 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	if(errmsg != NULL){
 		windowmain_show_error (app, errmsg);
 	}else{
-		FreetuxTVChannelsGroup *channels_group;
+		/*
+		// TODO FreetuxTVChannelsGroup *channels_group;
 		
 		sgroupid = g_strdup_printf("%d", (int)sqlite3_last_insert_rowid(db));
 		channels_group = FREETUXTV_CHANNELS_GROUP (freetuxtv_channels_group_new (sgroupid,
 											 sgroupname,
 											 sgroupuri));
-		channels_list_add_channels_group (app, channels_group);
+		// TODO channels_list_add_channels_group (app, channels_group);
 
 		g_free(sgroupid);
 		g_free(sgroupname);
 		g_free(sgroupuri);
 
-		channels_list_refresh_group (app, channels_group);
+		// TODO channels_list_refresh_group (app, channels_group);
 		//channels_group_reload_channels (channels_group, app);
 		
 		gtk_widget_destroy(gtk_widget_get_toplevel(GTK_WIDGET(button)));
+		*/
 	}
 
 	g_free(errmsg);
