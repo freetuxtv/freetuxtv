@@ -31,6 +31,10 @@ channels_list_load_channels_group (FreetuxTVApp *app,
 				   FreetuxTVChannelsGroupInfos* channels_group_infos);
 
 void
+channels_list_add_channels_group (FreetuxTVApp *app, 
+				  FreetuxTVChannelsGroupInfos* channels_group_infos);
+
+void
 channels_list_update_channels_group (FreetuxTVApp *app, 
 				     FreetuxTVChannelsGroupInfos* channels_group_infos);
 
