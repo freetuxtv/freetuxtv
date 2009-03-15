@@ -15,24 +15,31 @@
 #include <gtk/gtk.h>
 
 #include "freetuxtv-app.h"
-#include "freetuxtv-channels-group.h"
-#include "freetuxtv-channel.h"
+#include "freetuxtv-channels-group-infos.h"
 
 void
-channels_list_add_channels_group (FreetuxTVApp *app,
-				  FreetuxTVChannelsGroup *channels_group);
-
-void
-channels_list_refresh_group (FreetuxTVApp *app,
-			     FreetuxTVChannelsGroup *channels_group);
+channels_list_init (FreetuxTVApp *app);
 
 void
 channels_list_apply_filter (FreetuxTVApp *app);
 
 void
-channels_list_update_from_db (FreetuxTVApp *app);
+channels_list_load_channels (FreetuxTVApp *app);
 
 void
-on_channel_dbl_clicked (FreetuxTVChannel *channel, gpointer *data);
+channels_list_load_channels_group (FreetuxTVApp *app, 
+				   FreetuxTVChannelsGroupInfos* channels_group_infos);
+
+void
+channels_list_update_channels_group (FreetuxTVApp *app, 
+				     FreetuxTVChannelsGroupInfos* channels_group_infos);
+
+void
+channels_list_delete_channels_channels_group (FreetuxTVApp *app, 
+					      FreetuxTVChannelsGroupInfos* channels_group_infos);
+
+void
+channels_list_delete_channels_group (FreetuxTVApp *app, 
+				     FreetuxTVChannelsGroupInfos* channels_group_infos);
 
 #endif /* FREETUXTV_CHANNELS_LIST_H */

@@ -15,7 +15,6 @@
 #include <glade/glade.h>
 
 #include "freetuxtv-player.h"
-#include "freetuxtv-channel.h"
 
 G_BEGIN_DECLS
 
@@ -32,18 +31,19 @@ struct _FreetuxTVApp {
 
 	FreetuxTVPlayer *player;
 	GtkVBox *channelsgroups;
+	GtkTreeModel *channelslist;
 
 	struct {
 		gdouble volume;
 		gboolean channelonstartup;
-		gchar *lastchannel;
+		gint lastchannel;
 		gboolean windowminimode_stayontop;
 		gint windowminimode_width;
 		gint windowminimode_height;
 	} config;
 
 	struct {
-		FreetuxTVChannel *channel;
+		FreetuxTVChannelInfos *channel;
 		gboolean lastchannelonstartup;
 	} current;
 

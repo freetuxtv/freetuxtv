@@ -214,7 +214,7 @@ freetuxtv_app_create_app ()
 	app->config.windowminimode_width = 320;
 	app->config.windowminimode_height = 240;
 	app->config.channelonstartup = TRUE;
-	app->config.lastchannel = NULL;
+	app->config.lastchannel = -1;
 	app->current.lastchannelonstartup = FALSE;
 
 	/* Création de la fenêtre */
@@ -247,6 +247,9 @@ freetuxtv_app_create_app ()
 	app->player = FREETUXTV_PLAYER(freetuxtv_player_new ());
 	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
 	
+	/* Initialise la liste des chaines */
+	channels_list_init (app);
+
 	/* Connexion des signaux */
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain");
@@ -421,13 +424,13 @@ freetuxtv_app_create_app ()
 		}
 		
 		
-		str = g_key_file_get_string (keyfile, "general",
-					   "last_channel", &err);
+		i = g_key_file_get_integer (keyfile, "general",
+					    "last_channel", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
 		}else{
-			app->config.lastchannel = str;		
+			app->config.lastchannel = i;		
 		}
 		
 		g_key_file_free (keyfile);
@@ -439,8 +442,8 @@ freetuxtv_app_create_app ()
 
 void
 freetuxtv_action_play_channel (FreetuxTVApp *app)
-{
-	on_channel_dbl_clicked (app->current.channel, (gpointer)app);
+{	
+	freetuxtv_player_play (app->player, app->current.channel);
 }
 
 void
@@ -470,6 +473,7 @@ freetuxtv_action_record_channel (FreetuxTVApp *app)
 void
 freetuxtv_action_prev_channel (FreetuxTVApp *app)
 {
+	/*
 	GtkWidget* widget;
 	GList* children;
 	int pos;
@@ -484,14 +488,15 @@ freetuxtv_action_prev_channel (FreetuxTVApp *app)
 		if(pos > 0){
 			newchannel = FREETUXTV_CHANNEL(g_list_nth_data (children,
 									pos - 1));
-			on_channel_dbl_clicked (newchannel, (gpointer)app);
+			// TODO on_channel_dbl_clicked (newchannel, (gpointer)app);
 		}
-	}
+		}*/
 }
 
 void
 freetuxtv_action_next_channel (FreetuxTVApp *app)
 {
+	/*
 	GtkWidget* widget;
 	GList* children;
 	int pos;
@@ -504,9 +509,10 @@ freetuxtv_action_next_channel (FreetuxTVApp *app)
 		if(pos < g_list_length(children) - 1){
 			newchannel = FREETUXTV_CHANNEL(g_list_nth_data (children,
 									pos + 1));
-			on_channel_dbl_clicked (newchannel, (gpointer)app);
+			// TODO on_channel_dbl_clicked (newchannel, (gpointer)app);
 		}
 	}
+	*/
 }
 
 void
@@ -526,9 +532,9 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 				"channel_on_startup",
 				app->config.channelonstartup);
 	if(app->current.channel != NULL){
-		g_key_file_set_string (keyfile, "general",
-				       "last_channel",
-				       app->current.channel->id);
+		g_key_file_set_integer (keyfile, "general",
+					"last_channel",
+					app->current.channel->id);
 	}
 	g_key_file_set_boolean (keyfile, "windowminimode",
 				"stay_on_top",
@@ -602,10 +608,10 @@ int main (int argc, char *argv[])
 
 	// Regarde si on charge une chaine au demarrage
 	if(app->config.channelonstartup == TRUE
-	   && app->config.lastchannel != NULL){
+	   && app->config.lastchannel != -1){
 		app->current.lastchannelonstartup = TRUE;
 	}
-	channels_list_update_from_db (app);
+	channels_list_load_channels (app);
 	app->current.lastchannelonstartup = FALSE;
 	
 	mmkeys = g_mmkeys_new ("FreetuxTV");
