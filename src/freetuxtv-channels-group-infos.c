@@ -13,17 +13,34 @@
 G_DEFINE_TYPE (FreetuxTVChannelsGroupInfos, freetuxtv_channels_group_infos, G_TYPE_OBJECT);
 
 FreetuxTVChannelsGroupInfos*
-freetuxtv_channels_group_infos_new(int id, int rank, char *name, char *uri)
+freetuxtv_channels_group_infos_new(char *name, char *uri)
 {
 	FreetuxTVChannelsGroupInfos *channels_group_infos;
 	channels_group_infos = g_object_new (FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, NULL);
-
-	channels_group_infos->id=id;
-	channels_group_infos->rank=rank;
+	
 	channels_group_infos->name=g_strdup(name);
 	channels_group_infos->uri=g_strdup(uri);	
 
 	return channels_group_infos;
+}
+
+void
+freetuxtv_channels_group_infos_set_id (FreetuxTVChannelsGroupInfos *self, int id)
+{
+	self->id=id;	
+}
+
+void
+freetuxtv_channels_group_infos_set_rank (FreetuxTVChannelsGroupInfos *self, int rank)
+{
+	self->rank=rank;
+}
+
+void
+freetuxtv_channels_group_infos_set_regex (FreetuxTVChannelsGroupInfos *self, char *bregex, char *eregex)
+{
+	self->bregex=g_strdup(bregex);
+	self->eregex=g_strdup(eregex);	
 }
 
 static GObject *
@@ -51,5 +68,7 @@ freetuxtv_channels_group_infos_init (FreetuxTVChannelsGroupInfos *self)
 {
 	self->name=NULL;
 	self->uri=NULL;
+	self->bregex=NULL;
+	self->eregex=NULL;
 }
 

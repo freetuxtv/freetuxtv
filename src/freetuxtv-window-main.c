@@ -20,6 +20,7 @@
 #include "freetuxtv-i18n.h"
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
+#include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-player.h"
 
 void
@@ -298,25 +299,14 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 	GtkWidget *eregex;
 	GtkWidget *dialog;
 	
-	gchar *user_db;
-		
-	struct sqlite3 *db;
-	int res;
-	char *sqlerr = 0;
-
 	gchar *errmsg = NULL;
-	gchar *query;
 
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	gchar * sgroupid;
 	gchar * sgroupname;
 	gchar * sgroupprotocole;
 	gchar * sgroupuri;
 
-	user_db = g_strdup_printf("%s/FreetuxTV/freetuxtv.db",
-				  g_get_user_config_dir());
-	
 	groupname = glade_xml_get_widget(app->dialogaddgroup,
 					 "dialogaddgroup_name");
 	groupprotocole = glade_xml_get_widget(app->dialogaddgroup,
@@ -342,61 +332,33 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 		errmsg = g_strdup_printf(_("Please enter the group's URI !"));
 	}
 	
-	/* Ouverture de la BDD */
-	if(errmsg==NULL){
-		res = sqlite3_open(user_db,&db);
-		if(res != SQLITE_OK){
-			errmsg = g_strdup_printf(_("Cannot open database.\n\nSQLite has returned error :\n%s."),
-						 sqlite3_errmsg(db));
-			sqlite3_close(db);
-		}
-	}
-	
-	if(errmsg == NULL){
+	if(errmsg != NULL){
+		windowmain_show_error (app, errmsg);
+	}else{
+
 		sgroupname = g_strdup(gtk_entry_get_text(GTK_ENTRY(groupname)));
 		sgroupuri = g_strconcat(gtk_combo_box_get_active_text(GTK_COMBO_BOX(groupprotocole)),
 					gtk_entry_get_text(GTK_ENTRY(groupuri)),
 					NULL);
-		query = sqlite3_mprintf("INSERT INTO channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup, eregex_channelsgroup) VALUES ('%q','%q', '%q', '%q');", 
-					sgroupname,
-					sgroupuri,
-					gtk_entry_get_text(GTK_ENTRY(bregex)),
-					gtk_entry_get_text(GTK_ENTRY(eregex))
-					);
-		res=sqlite3_exec(db, query, NULL, 0, &sqlerr);
-		sqlite3_free(query);
-		if(res != SQLITE_OK){
-			errmsg = g_strdup_printf(_("Cannot add the group \"%s\" in database.\n\nSQLite has returned error :\n%s."),
-						 gtk_entry_get_text(GTK_ENTRY(groupname)),
-						 sqlite3_errmsg(db));
-			g_free(sgroupname);
-			g_free(sgroupuri);
-		}
-		sqlite3_free(sqlerr);
-		sqlite3_close(db);
-	}
-	
-	if(errmsg != NULL){
-		windowmain_show_error (app, errmsg);
-	}else{
-		/*
-		// TODO FreetuxTVChannelsGroup *channels_group;
-		
-		sgroupid = g_strdup_printf("%d", (int)sqlite3_last_insert_rowid(db));
-		channels_group = FREETUXTV_CHANNELS_GROUP (freetuxtv_channels_group_new (sgroupid,
-											 sgroupname,
-											 sgroupuri));
-		// TODO channels_list_add_channels_group (app, channels_group);
 
-		g_free(sgroupid);
+		FreetuxTVChannelsGroupInfos *channels_group_infos;		
+		channels_group_infos = freetuxtv_channels_group_infos_new (sgroupname, sgroupuri);
+		freetuxtv_channels_group_infos_set_regex (channels_group_infos,
+							  gtk_entry_get_text(GTK_ENTRY(bregex)),
+							  gtk_entry_get_text(GTK_ENTRY(eregex)));
+
+		channels_list_add_channels_group (app, channels_group_infos);
 		g_free(sgroupname);
 		g_free(sgroupuri);
+	
+		
+		// TODO channels_list_add_channels_group (app, channels_group);
 
 		// TODO channels_list_refresh_group (app, channels_group);
 		//channels_group_reload_channels (channels_group, app);
 		
 		gtk_widget_destroy(gtk_widget_get_toplevel(GTK_WIDGET(button)));
-		*/
+		
 	}
 
 	g_free(errmsg);

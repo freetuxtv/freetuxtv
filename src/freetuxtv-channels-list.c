@@ -331,6 +331,85 @@ channels_list_load_channels_group (FreetuxTVApp *app, FreetuxTVChannelsGroupInfo
 }
 
 void
+channels_list_add_channels_group (FreetuxTVApp *app, 
+				  FreetuxTVChannelsGroupInfos* channels_group_infos)
+{
+	struct sqlite3 *db;
+	int res;
+	char *err = 0;
+	gint ret = 0;
+	gchar *query;
+
+	gchar *err_msg = NULL;
+
+	gchar *user_db;
+
+	user_db = g_strconcat(g_get_user_config_dir(), 
+			      "/FreetuxTV/freetuxtv.db", NULL);
+
+	// Ouverture de la BDD
+	res = sqlite3_open(user_db, &db);
+	if(res != SQLITE_OK){
+		err_msg = g_strdup_printf(_("Cannot open database.\n\nSQLite has returned error :\n%s."),
+					  sqlite3_errmsg(db));
+		windowmain_show_error (app, err_msg);
+		g_free(err_msg);
+
+		ret = -1;
+	}
+
+	// Ajout le nouveau groupe
+	if (ret == 0){
+		query = sqlite3_mprintf("INSERT INTO channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup, eregex_channelsgroup) VALUES ('%q','%q', '%q', '%q');", 
+					channels_group_infos->name,
+					channels_group_infos->uri,
+					channels_group_infos->bregex,
+					channels_group_infos->eregex
+					);
+		res=sqlite3_exec(db, query, NULL, 0, &err);
+		sqlite3_free(query);
+		if(res != SQLITE_OK){
+			err_msg = g_strdup_printf(_("Cannot add the group \"%s\" in database.\n\nSQLite has returned error :\n%s."),
+						  channels_group_infos->name,
+						  sqlite3_errmsg(db));
+			windowmain_show_error (app, err_msg);
+			g_free(err_msg);
+			ret = -1;
+		}else{
+			freetuxtv_channels_group_infos_set_id (channels_group_infos,
+							       (int)sqlite3_last_insert_rowid(db));
+		}
+
+		sqlite3_free(err);
+		sqlite3_close(db);
+	}
+
+	if (ret == 0){
+	
+		GtkTreeIter iter_channelsgroup;
+	
+		GtkTreeModel *model;
+		GtkTreePath *path;
+		model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(app->channelslist));
+		gtk_tree_model_get_iter_first(model, &iter_channelsgroup);
+
+		int rank = 1;
+
+		while (gtk_tree_model_iter_next(model, &iter_channelsgroup)){
+			rank++;
+		}
+
+		freetuxtv_channels_group_infos_set_rank (channels_group_infos,
+							 rank + 1);
+
+		gtk_tree_store_append (GTK_TREE_STORE(model), &iter_channelsgroup, NULL);
+		gtk_tree_store_set (GTK_TREE_STORE(model), &iter_channelsgroup,
+				    CHANNELSGROUP_COLUMN, channels_group_infos, -1);
+		
+	}	
+}
+
+void
 channels_list_update_channels_group (FreetuxTVApp *app, 
 				     FreetuxTVChannelsGroupInfos* channels_group_infos)
 {
@@ -343,7 +422,7 @@ channels_list_update_channels_group (FreetuxTVApp *app,
 	gchar *err_msg = NULL;
 
 	gchar *user_db;
-
+	
 	user_db = g_strconcat(g_get_user_config_dir(), 
 			      "/FreetuxTV/freetuxtv.db", NULL);
 
@@ -713,7 +792,10 @@ on_exec_add_channels_group (void *data, int argc, char **argv, char **colsname)
 
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
 	int id = g_ascii_strtoll (argv[0], NULL, 10);
-	channels_group_infos = freetuxtv_channels_group_infos_new (id, cbuserdata->nb, argv[1],argv[2]);
+	channels_group_infos = freetuxtv_channels_group_infos_new (argv[1],argv[2]);
+	freetuxtv_channels_group_infos_set_id (channels_group_infos, id);
+	freetuxtv_channels_group_infos_set_rank (channels_group_infos, cbuserdata->nb);
+
 	GtkTreeModel *model;
 	model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(cbuserdata->app->channelslist));
 
