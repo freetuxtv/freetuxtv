@@ -2,6 +2,7 @@ FreetuxTV 0.3.0 (2009-)
   - Correction erreur X11 à la fermeture de l'application
   - Création d'un objet pour stocker les informations d'une chaîne
   - Enregistrement d'une chaîne en direct
+  - Ajout de logos : AccroTV, Argent Quebec, Bamboch TV, Bastille TV, Biscotte TV, Boardriders TV, C9, Calais tv, Canal savoir, CanalTV, Chérie FM, Corriland TV, CPAC
 
 FreetuxTV 0.2.1 (2009-01-17)
   - Support de la redirection d'une URL dans une playlist
@@ -13,7 +14,7 @@ FreetuxTV 0.2.0 (2008-11-08)
   - Utilisation d'un fichier de configuration de VLC alternatif
 
 FreetuxTV 0.1.2 (2008-10-25)
-  - Ajout de logo : AB Moteurs, APTV, Artpla TV, Astro Center TV, ASTV, Babylon TV, La Locale, RMC
+  - Ajout de logos : AB Moteurs, APTV, Artpla TV, Astro Center TV, ASTV, Babylon TV, La Locale, RMC
   - Ajout d'un bouton lecture pour relancer la chaîne en cours si elle a été stoppé
   - Support des touches multimédia sur les claviers
   - Gestion des redirections HTTP 302 pour le téléchargement des playlists pour Free

@@ -3,26 +3,39 @@ channels_DATA = \
   _none.png \
   ab1.png \
   abmoteurs.png \
+  accrotv.png \
   action.png \
   aljazeera.png \
   aljazeerachildren.png \
   aljazeerainternational.png \
   aptv.png \
+  argentquebec.png \
   artchannel.png \
   arte.png \
   artplatv.png \
   astrocentertv.png \
   astv.png \
   babylontv.png \
+  bambochtv.png \
+  bastilletv.png \
   bbcworld.png \
   beurtv.png \
   bfmtv.png \
+  biscottetv.png \
   bloombergtv.png \
+  boardriderstv.png \
+  c9.png \
+  calaistv.png \
   canalplus.png \
+  canalsavoir.png \
+  canaltv.png \
+  cheriefm.png \
   cinefx.png \
   cinepolar.png \
   cmusictv.png \
   cnbc.png \
+  corriland.png \
+  cpac.png \
   demaintv.png \
   direct8.png \
   euronews.png \
