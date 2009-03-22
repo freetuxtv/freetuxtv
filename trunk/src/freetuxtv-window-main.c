@@ -65,7 +65,14 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 	entryfilter = glade_xml_get_widget(app->windowmain,
 					   "windowmain_entryfilter");
 	gtk_entry_set_text(GTK_ENTRY(entryfilter), "");
+
+
 	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(app->channelslist));
+	
+	GtkWidget *treeview;
+	treeview = glade_xml_get_widget (app->windowmain,
+					 "windowsmain_treeviewchannelslist");
+	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
 
 void
@@ -105,7 +112,7 @@ on_windowmain_buttonplay_clicked (GtkButton *button,
 				  gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_play_channel (app);
+	freetuxtv_action_replay_channel (app);
 }
 
 void
@@ -182,6 +189,11 @@ on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(app->channelslist));
+
+	GtkWidget *treeview;
+	treeview = glade_xml_get_widget (app->windowmain,
+					 "windowsmain_treeviewchannelslist");
+	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
 
 void
@@ -344,8 +356,8 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 		FreetuxTVChannelsGroupInfos *channels_group_infos;		
 		channels_group_infos = freetuxtv_channels_group_infos_new (sgroupname, sgroupuri);
 		freetuxtv_channels_group_infos_set_regex (channels_group_infos,
-							  gtk_entry_get_text(GTK_ENTRY(bregex)),
-							  gtk_entry_get_text(GTK_ENTRY(eregex)));
+							  (gchar*)gtk_entry_get_text(GTK_ENTRY(bregex)),
+							  (gchar*)gtk_entry_get_text(GTK_ENTRY(eregex)));
 
 		channels_list_add_channels_group (app, channels_group_infos);
 		g_free(sgroupname);

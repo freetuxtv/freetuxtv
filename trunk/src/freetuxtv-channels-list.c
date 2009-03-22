@@ -647,6 +647,58 @@ channels_list_delete_channels_group (FreetuxTVApp *app,
 	g_free(user_db);	
 }
 
+gboolean
+channels_list_get_prev_channel (FreetuxTVApp *app, 
+				FreetuxTVChannelInfos* channel_infos,
+				FreetuxTVChannelInfos** prev_channel_infos)
+{
+	GtkTreeIter iter_channel;
+	
+	GtkTreeModel *model;
+	GtkTreePath *path;
+	model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(app->channelslist));
+	
+	if (app->current.channel != NULL) {
+		if(app->current.channel->rank > 1){
+			path = gtk_tree_path_new_from_indices(app->current.channel->group->rank - 1,
+							      app->current.channel->rank - 2,
+							      -1);
+			gtk_tree_model_get_iter (GTK_TREE_MODEL(model), &iter_channel, path);
+			gtk_tree_model_get(GTK_TREE_MODEL(model), &iter_channel, CHANNEL_COLUMN, &channel_infos, -1);
+			
+			*prev_channel_infos = channel_infos;
+			return TRUE;
+		}	       
+	}
+	return FALSE;
+}
+
+gboolean
+channels_list_get_next_channel (FreetuxTVApp *app, 
+				FreetuxTVChannelInfos* channel_infos,
+				FreetuxTVChannelInfos** next_channel_infos)
+{
+	GtkTreeIter iter_channel;
+	
+	GtkTreeModel *model;
+	GtkTreePath *path;
+	model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(app->channelslist));
+	
+	if (app->current.channel != NULL) {
+		if(app->current.channel->rank < app->current.channel->group->nb_channels){
+			path = gtk_tree_path_new_from_indices(app->current.channel->group->rank - 1,
+							      app->current.channel->rank,
+							      -1);
+			gtk_tree_model_get_iter (GTK_TREE_MODEL(model), &iter_channel, path);
+			gtk_tree_model_get(GTK_TREE_MODEL(model), &iter_channel, CHANNEL_COLUMN, &channel_infos, -1);
+			
+			*next_channel_infos = channel_infos;
+			return TRUE;
+		}	       
+	}
+	return FALSE;	
+}
+
 static void 
 channels_list_delete_rows (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos *channels_group_infos,
 			   gboolean justchannels)
@@ -709,7 +761,6 @@ channels_list_display_channels (FreetuxTVApp *app)
 	g_signal_connect(treeview, "button-press-event", G_CALLBACK(on_button_press_event_channels_list), app);
 
 	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
-
 }
 
 static int
@@ -829,8 +880,16 @@ on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
 			       cbuserdata->iter_channel, cbuserdata->iter_channelsgroup);
 	gtk_tree_store_set (GTK_TREE_STORE(model), cbuserdata->iter_channel,
 			    CHANNEL_COLUMN, channel_infos, -1);
-	/* TODO
 
+	// Pointeur de la chaine sur son groupe
+	FreetuxTVChannelsGroupInfos* channels_group_infos;	
+	gtk_tree_model_get(GTK_TREE_MODEL(model), cbuserdata->iter_channelsgroup, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
+	if(channels_group_infos != NULL){
+		channels_group_infos->nb_channels++;
+		freetuxtv_channel_infos_set_group (channel_infos, channels_group_infos);
+	}
+
+	/* TODO
 	// Lit eventuellement la chaine
 	if(cbuserdata->app->current.lastchannelonstartup == TRUE
 	   && cbuserdata->app->config.lastchannel != NULL){
@@ -866,21 +925,7 @@ on_row_activated_channels_list(GtkTreeView *view, GtkTreePath *path,
 	}else {
 		gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNEL_COLUMN, &channel_infos, -1);
 		
-		gchar *text;
-	
-		text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
-		windowmain_statusbar_push (app, "PlayChannelMsg", text);
-		g_free(text);
-
-		// TODO
-		if(app->current.channel != NULL){
-			// freetuxtv_channel_set_state(app->current.channel, FREETUXTV_CHANNEL_STATE_NORMAL);
-		}
-
-		app->current.channel = channel_infos;
-
-		freetuxtv_player_play (app->player, channel_infos);
-
+		freetuxtv_action_play_channel (app, channel_infos);
 	}
 }
 
@@ -1004,7 +1049,9 @@ on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 	
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
 	FreetuxTVChannelInfos* channel_infos;
-	
+
+	GtkTreeIter iter_channelsgroup;
+
 	GtkWidget *entryfilter;
 	gchar *filter;
 	entryfilter = glade_xml_get_widget (app->windowmain,
@@ -1016,20 +1063,32 @@ on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 		gtk_tree_model_get(GTK_TREE_MODEL(model), iter, CHANNEL_COLUMN, &channel_infos, -1);
 		
 		if(channel_infos != NULL){
+			
+			// Recupere le groupe parent
+			gtk_tree_model_iter_parent(GTK_TREE_MODEL(model), &iter_channelsgroup, iter);
+			gtk_tree_model_get(GTK_TREE_MODEL(model), &iter_channelsgroup,
+					   CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
+
 			gchar *channel = g_utf8_strdown (channel_infos->name,-1);
 			gchar *search = g_strdup_printf("^.*%s.*$",
 							g_utf8_strdown (filter,-1));
-			GRegex *regex;
+			GRegex *regex;			
 			regex = g_regex_new (search, 0, 0 ,NULL);
 			if (g_regex_match (regex, channel, 0, NULL)){
 				g_regex_unref (regex);
+				if(channels_group_infos != NULL){
+					channels_group_infos->nb_channels_visible++;
+				}
 				return TRUE;
 			}else{
 				g_regex_unref (regex);
 				return FALSE;
 			}
 			
-		}
+		}		
+	}else{	
+		channels_group_infos->nb_channels_visible == 0;
+		return TRUE;
 		
 	}
 	return TRUE;
