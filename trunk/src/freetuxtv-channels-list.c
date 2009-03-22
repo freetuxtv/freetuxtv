@@ -889,15 +889,14 @@ on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
 		freetuxtv_channel_infos_set_group (channel_infos, channels_group_infos);
 	}
 
-	/* TODO
 	// Lit eventuellement la chaine
 	if(cbuserdata->app->current.lastchannelonstartup == TRUE
-	   && cbuserdata->app->config.lastchannel != NULL){
-		if(g_ascii_strcasecmp(argv[0], cbuserdata->app->config.lastchannel) == 0){
-			on_channel_dbl_clicked (channel, (void*)cbuserdata->app);
+	   && cbuserdata->app->config.lastchannel != -1){
+		if(id == cbuserdata->app->config.lastchannel){
+			freetuxtv_action_play_channel (cbuserdata->app, channel_infos);
 		}
 	}
-	*/
+	
 	return 0;
 }
 
