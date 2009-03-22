@@ -46,4 +46,14 @@ void
 channels_list_delete_channels_group (FreetuxTVApp *app, 
 				     FreetuxTVChannelsGroupInfos* channels_group_infos);
 
+gboolean
+channels_list_get_prev_channel (FreetuxTVApp *app, 
+				FreetuxTVChannelInfos* channel_infos,
+				FreetuxTVChannelInfos** prev_channel_infos);
+
+gboolean
+channels_list_get_next_channel (FreetuxTVApp *app, 
+				FreetuxTVChannelInfos* channel_infos,
+				FreetuxTVChannelInfos** next_channel_infos);
+
 #endif /* FREETUXTV_CHANNELS_LIST_H */

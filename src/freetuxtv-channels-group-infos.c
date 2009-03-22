@@ -19,7 +19,9 @@ freetuxtv_channels_group_infos_new(char *name, char *uri)
 	channels_group_infos = g_object_new (FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, NULL);
 	
 	channels_group_infos->name=g_strdup(name);
-	channels_group_infos->uri=g_strdup(uri);	
+	channels_group_infos->uri=g_strdup(uri);
+	channels_group_infos->nb_channels = 0;	
+	channels_group_infos->nb_channels_visible = 0;
 
 	return channels_group_infos;
 }
@@ -70,5 +72,7 @@ freetuxtv_channels_group_infos_init (FreetuxTVChannelsGroupInfos *self)
 	self->uri=NULL;
 	self->bregex=NULL;
 	self->eregex=NULL;
+	self->nb_channels = 0;	
+	self->nb_channels_visible = 0;
 }
 

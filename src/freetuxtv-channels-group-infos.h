@@ -34,6 +34,9 @@ struct _FreetuxTVChannelsGroupInfos
 
 	char *bregex;
 	char *eregex;
+
+	int nb_channels;
+	int nb_channels_visible;
 };
 
 struct _FreetuxTVChannelsGroupInfosClass
