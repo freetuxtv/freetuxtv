@@ -209,12 +209,13 @@ freetuxtv_app_create_app ()
 	app->name = "FreetuxTV";
 
 
-	/* Chargemetn de la configuration par defaut */
+	/* Chargement de la configuration par defaut */
 	app->config.windowminimode_stayontop = FALSE;
 	app->config.windowminimode_width = 320;
 	app->config.windowminimode_height = 240;
 	app->config.channelonstartup = TRUE;
 	app->config.lastchannel = -1;
+	app->config.volume = 75.0;
 	app->current.lastchannelonstartup = FALSE;
 
 	/* Création de la fenêtre */
@@ -441,7 +442,26 @@ freetuxtv_app_create_app ()
 }
 
 void
-freetuxtv_action_play_channel (FreetuxTVApp *app)
+freetuxtv_action_play_channel (FreetuxTVApp *app, FreetuxTVChannelInfos *channel_infos)
+{
+	gchar *text;
+	
+	text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
+	windowmain_statusbar_push (app, "PlayChannelMsg", text);
+	g_free(text);
+	
+	// TODO
+	if(app->current.channel != NULL){
+		// freetuxtv_channel_set_state(app->current.channel, FREETUXTV_CHANNEL_STATE_NORMAL);
+	}
+	
+	app->current.channel = channel_infos;
+	
+	freetuxtv_player_play (app->player, channel_infos);
+}
+
+void
+freetuxtv_action_replay_channel (FreetuxTVApp *app)
 {	
 	freetuxtv_player_play (app->player, app->current.channel);
 }
@@ -450,10 +470,11 @@ void
 freetuxtv_action_stop_channel (FreetuxTVApp *app)
 {
 	gchar *text;
-	text = g_strdup_printf (_("Stopping channel : %s"), app->current.channel->name);
-	windowmain_statusbar_push (app, "PlayChannelMsg", text);
-	g_free(text);
-	
+	if(app->current.channel != NULL){
+		text = g_strdup_printf (_("Stopping channel : %s"), app->current.channel->name);
+		windowmain_statusbar_push (app, "PlayChannelMsg", text);
+		g_free(text);
+	}
 	freetuxtv_player_stop (app->player);
 }
 
@@ -472,47 +493,28 @@ freetuxtv_action_record_channel (FreetuxTVApp *app)
 
 void
 freetuxtv_action_prev_channel (FreetuxTVApp *app)
-{
-	/*
-	GtkWidget* widget;
-	GList* children;
-	int pos;
-	FreetuxTVChannel *newchannel;
-	
+{	
+	gboolean ret;
+	FreetuxTVChannelInfos* prev_channel_infos;
 	if (app->current.channel != NULL) {
-		
-		widget = gtk_widget_get_parent (GTK_WIDGET(app->current.channel));
-		children = gtk_container_get_children (GTK_CONTAINER(widget));
-		pos =  g_list_index(children, app->current.channel);
-		
-		if(pos > 0){
-			newchannel = FREETUXTV_CHANNEL(g_list_nth_data (children,
-									pos - 1));
-			// TODO on_channel_dbl_clicked (newchannel, (gpointer)app);
+		ret = channels_list_get_prev_channel (app, app->current.channel, &prev_channel_infos);
+		if(ret){			
+			freetuxtv_action_play_channel(app, prev_channel_infos);
 		}
-		}*/
+	}
 }
 
 void
 freetuxtv_action_next_channel (FreetuxTVApp *app)
 {
-	/*
-	GtkWidget* widget;
-	GList* children;
-	int pos;
-	FreetuxTVChannel *newchannel;
-	
+	gboolean ret;
+	FreetuxTVChannelInfos* next_channel_infos;
 	if (app->current.channel != NULL) {
-		widget = gtk_widget_get_parent (GTK_WIDGET(app->current.channel));
-		children = gtk_container_get_children (GTK_CONTAINER(widget));
-		pos =  g_list_index(children, app->current.channel);
-		if(pos < g_list_length(children) - 1){
-			newchannel = FREETUXTV_CHANNEL(g_list_nth_data (children,
-									pos + 1));
-			// TODO on_channel_dbl_clicked (newchannel, (gpointer)app);
+		ret = channels_list_get_next_channel (app, app->current.channel, &next_channel_infos);
+		if(ret){			
+			freetuxtv_action_play_channel(app, next_channel_infos);
 		}
 	}
-	*/
 }
 
 void
@@ -570,7 +572,7 @@ on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp
 	switch(button){
 	case GMMKEYS_BUTTON_PLAY :
 	case GMMKEYS_BUTTON_PAUSE :
-		freetuxtv_action_play_channel (app);		
+		freetuxtv_action_replay_channel (app);		
 		break;
 	case GMMKEYS_BUTTON_STOP :
 		freetuxtv_action_stop_channel (app);

@@ -32,11 +32,11 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 
 void
 on_windowmain_buttonprevious_clicked (GtkButton *button,
-				    gpointer user_data);
+				      gpointer user_data);
 
 void
 on_windowmain_buttonnext_clicked (GtkButton *button,
-				       gpointer user_data);
+				  gpointer user_data);
 
 void
 on_windowmain_buttonstop_clicked (GtkButton *button,

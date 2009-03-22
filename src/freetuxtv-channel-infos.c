@@ -40,6 +40,14 @@ freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,
 	self->logo_name = g_strdup(logo_name);
 }
 
+
+void
+freetuxtv_channel_infos_set_group(FreetuxTVChannelInfos* self,
+				  FreetuxTVChannelsGroupInfos *group)
+{
+	self->group = group;
+}
+
 static GObject *
 freetuxtv_channel_infos_constructor (GType                  gtype,
 				     guint                  n_properties,
@@ -68,5 +76,6 @@ freetuxtv_channel_infos_init (FreetuxTVChannelInfos *self)
 	self->redirect_url=NULL;
 
 	self->logo_name = NULL;
+	self->group = NULL;
 }
 

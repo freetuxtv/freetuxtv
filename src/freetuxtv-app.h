@@ -14,6 +14,7 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 
+#include "freetuxtv-channel-infos.h"
 #include "freetuxtv-player.h"
 
 G_BEGIN_DECLS
@@ -51,7 +52,10 @@ struct _FreetuxTVApp {
 typedef struct _FreetuxTVApp FreetuxTVApp;
 
 void
-freetuxtv_action_play_channel (FreetuxTVApp *app);
+freetuxtv_action_play_channel (FreetuxTVApp *app, FreetuxTVChannelInfos *channel_infos);
+
+void
+freetuxtv_action_replay_channel (FreetuxTVApp *app);
 
 void
 freetuxtv_action_stop_channel (FreetuxTVApp *app);

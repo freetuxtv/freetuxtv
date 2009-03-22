@@ -20,6 +20,8 @@
 #define FREETUXTV_IS_CHANNEL_INFOS_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), FREETUXTV_TYPE_CHANNEL_INFOS))
 #define FREETUXTV_CHANNEL_INFOS_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), FREETUXTV_TYPE_CHANNEL_INFOS, FreetuxTVChannelInfosClass))
 
+#include "freetuxtv-channels-group-infos.h"
+
 typedef struct _FreetuxTVChannelInfos        FreetuxTVChannelInfos;
 typedef struct _FreetuxTVChannelInfosClass   FreetuxTVChannelInfosClass;
 
@@ -34,6 +36,8 @@ struct _FreetuxTVChannelInfos
 	char *redirect_url;
 
 	char *logo_name;
+
+	FreetuxTVChannelsGroupInfos *group;
 };
 
 struct _FreetuxTVChannelInfosClass
@@ -49,6 +53,9 @@ void
 freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,
 				 char *logo_name);
 
+void
+freetuxtv_channel_infos_set_group(FreetuxTVChannelInfos* self,
+				  FreetuxTVChannelsGroupInfos *group);
 
 #endif /* FREETUXTV_CHANNEL_INFOS_H */
 
