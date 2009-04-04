@@ -48,6 +48,12 @@ typedef struct _CBGroupData
 	FreetuxTVChannelsGroupInfos *channelsgroup;
 } CBGroupData;
 
+typedef struct _CBRendererData
+{
+	FreetuxTVApp *app;
+	gint col;
+} CBRendererData;
+
 enum
 {
 	CHANNELSGROUP_COLUMN,
@@ -69,6 +75,11 @@ on_exec_add_channel (void *data, int argc, char **argv, char **colsname);
 static void 
 on_row_activated_channels_list (GtkTreeView        *view, GtkTreePath *path,
 				GtkTreeViewColumn  *col, gpointer user_data);
+
+static void 
+on_row_displayed_channels_list (GtkTreeViewColumn *col,
+				GtkCellRenderer *renderer, GtkTreeModel *model,
+				GtkTreeIter *iter, gpointer user_data);
 
 static gboolean
 on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event, gpointer user_data);
@@ -119,65 +130,6 @@ channels_list_init (FreetuxTVApp *app)
 	//g_unref(model);
 }
 
-void double_display_function(GtkTreeViewColumn *col,
-                             GtkCellRenderer *renderer, GtkTreeModel *model,
-                             GtkTreeIter *iter, gpointer user_data)
-{
-	guint idcol = GPOINTER_TO_UINT(user_data);
-	
-	FreetuxTVChannelsGroupInfos* channels_group_infos;
-	FreetuxTVChannelInfos* channels_infos;
-	
-	GdkPixbuf* logo;
-	
-	int expand;
-	g_object_get(G_OBJECT(renderer), "xalign", &expand, NULL);
-	//g_printf("id:%d\n", expand);	
-	
-	switch(idcol){
-	case 0:		
-		gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
-		if(channels_group_infos == NULL){
-			
-			gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channels_infos, -1);
-
-			gchar *imgfile;
-			gchar *user_img_channels_dir;
-			user_img_channels_dir = g_strconcat(g_get_user_data_dir(), 
-							    "/.freetuxtv/images/channels", NULL);
-			if(channels_infos->logo_name == NULL){
-				imgfile = g_strconcat(user_img_channels_dir, "/_none.png", NULL);	
-				if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
-					imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/_none.png", NULL);	
-				}
-			}else{
-				imgfile = g_strconcat(user_img_channels_dir,"/", channels_infos->logo_name, NULL);	
-				if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
-					imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/", channels_infos->logo_name, NULL);	
-				}
-			}
-						
-			logo = gdk_pixbuf_new_from_file(imgfile, NULL);
-
-			g_free(user_img_channels_dir);
-			g_free(imgfile);
-			
-			g_object_set(renderer, "pixbuf", logo, "visible", TRUE, NULL);   
-		}else{
-			g_object_set(renderer, "visible", FALSE, NULL);
-		}
-		break;
-	case 1:
-		gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
-		if(channels_group_infos == NULL){
-			gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channels_infos, -1);  
-			g_object_set(renderer, "text", channels_infos->name, "visible", TRUE, NULL);
-		}else{
-			g_object_set(renderer, "text", channels_group_infos->name, "visible", TRUE, NULL);
-		}
-	}
-}
-
 void
 channels_list_load_channels (FreetuxTVApp *app)
 {
@@ -209,7 +161,7 @@ channels_list_load_channels (FreetuxTVApp *app)
 		GtkTreeIter iter_channelsgroup;
 
 		CBUserData *cbuserdata;
-		cbuserdata = g_new0(CBUserData, 1); // Free it
+		cbuserdata = g_new0(CBUserData, 1); // TODO Free it
 		cbuserdata->app = app;
 		cbuserdata->nb = 0;
 		cbuserdata->iter_channelsgroup = &iter_channelsgroup;
@@ -742,18 +694,27 @@ channels_list_display_channels (FreetuxTVApp *app)
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
 	
 	column = gtk_tree_view_column_new();
-	
+
+	CBRendererData *cbrendererdata;
+	cbrendererdata = g_new0(CBRendererData, 1); // TODO Free it
+	cbrendererdata->app = app;
+	cbrendererdata->col = 0;
+
 	renderer = gtk_cell_renderer_pixbuf_new ();
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_cell_data_func(column, renderer,
-						double_display_function,
-						GUINT_TO_POINTER(0), NULL);
+						on_row_displayed_channels_list,
+						(gpointer)cbrendererdata, NULL);
+
+	cbrendererdata = g_new0(CBRendererData, 1); // TODO Free it
+	cbrendererdata->app = app;
+	cbrendererdata->col = 1;
 	
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_cell_data_func(column, renderer,
-						double_display_function,
-						GUINT_TO_POINTER(1), NULL);
+						on_row_displayed_channels_list,
+						(gpointer)cbrendererdata, NULL);
 	
 	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 
@@ -926,6 +887,100 @@ on_row_activated_channels_list(GtkTreeView *view, GtkTreePath *path,
 		
 		freetuxtv_action_play_channel (app, channel_infos);
 	}
+}
+
+static void 
+on_row_displayed_channels_list(GtkTreeViewColumn *col,
+			       GtkCellRenderer *renderer, GtkTreeModel *model,
+			       GtkTreeIter *iter, gpointer user_data)
+{
+	CBRendererData *cbrendererdata = (CBRendererData *)user_data;
+	
+	FreetuxTVChannelsGroupInfos* channels_group_infos = NULL;
+	FreetuxTVChannelInfos* channel_infos = NULL;
+	
+	GdkPixbuf* logo;
+	GdkColor color;
+	
+	int expand;
+	g_object_get(G_OBJECT(renderer), "xalign", &expand, NULL);
+	//g_printf("id:%d\n", expand);	
+
+	switch(cbrendererdata->col){
+	case 0:		
+		gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
+		if(channels_group_infos == NULL){
+			
+			gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channel_infos, -1);
+
+			gchar *imgfile;
+			gchar *user_img_channels_dir;
+			user_img_channels_dir = g_strconcat(g_get_user_data_dir(), 
+							    "/.freetuxtv/images/channels", NULL);
+			if(channel_infos->logo_name == NULL){
+				imgfile = g_strconcat(user_img_channels_dir, "/_none.png", NULL);	
+				if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
+					imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/_none.png", NULL);	
+				}
+			}else{
+				imgfile = g_strconcat(user_img_channels_dir,"/", channel_infos->logo_name, NULL);	
+				if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
+					imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/", channel_infos->logo_name, NULL);	
+				}
+			}
+						
+			logo = gdk_pixbuf_new_from_file(imgfile, NULL);
+
+			g_free(user_img_channels_dir);
+			g_free(imgfile);
+			
+			g_object_set(renderer, "pixbuf", logo, "visible", TRUE, NULL);   
+		}else{
+			g_object_set(renderer, "visible", FALSE, NULL);
+		}
+		break;
+	case 1:
+		gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
+		if(channels_group_infos == NULL){
+			gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channel_infos, -1);  
+			g_object_set(renderer, "text", channel_infos->name, "visible", TRUE, NULL);
+		}else{
+			g_object_set(renderer, "text", channels_group_infos->name, "visible", TRUE, NULL);
+		}
+		break;
+	}
+	
+	GtkWidget *treeview;
+	treeview = glade_xml_get_widget (cbrendererdata->app->windowmain,
+					 "windowsmain_treeviewchannelslist");	
+	GtkStyle *style = gtk_rc_get_style(GTK_WIDGET(treeview));	
+
+	if(channel_infos != NULL){
+		if(cbrendererdata->app->current.channel != NULL){
+			if(cbrendererdata->app->current.channel == channel_infos){
+				color = style->bg[GTK_STATE_SELECTED];
+			}else{				
+				color = style->base[GTK_STATE_NORMAL];
+			}
+		}else{
+			color = style->base[GTK_STATE_NORMAL];			
+		}
+	}else{
+		color = style->bg[GTK_STATE_ACTIVE];	
+	}
+	//g_object_set(renderer, "cell-background-gdk", &color, NULL);
+	
+	/*	  
+        GtkWidget *eventbox = gtk_event_box_new ();
+        rc_style = gtk_rc_style_new();
+        rc_style->bg[GTK_STATE_NORMAL] = style->bg[GTK_STATE_ACTIVE];
+        rc_style->color_flags[GTK_STATE_NORMAL] |= GTK_RC_BG;
+        gtk_widget_modify_style (GTK_WIDGET(eventbox), rc_style);
+        gtk_box_pack_start (GTK_BOX(self), eventbox, FALSE, FALSE, 0);
+
+*/
+
+
 }
 
 static gboolean
@@ -1139,6 +1194,9 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 		g_regex_unref (eregex);
 		
 	}
+	
+	g_strstrip(name);
+	
 	query = sqlite3_mprintf("INSERT INTO channel (name_channel, order_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) values ('%q',%d,(SELECT id_channellogo FROM channel_logo WHERE label_channellogo='%q' OR id_channellogo = (SELECT idchannellogo_labelchannellogo FROM label_channellogo WHERE label_labelchannellogo='%q')),'%q','%d');", 
 				name, num, name, name, url, data->id);
 	g_free(name);
