@@ -217,30 +217,12 @@ freetuxtv_app_create_app ()
 	app->config.lastchannel = -1;
 	app->config.volume = 75.0;
 	app->current.lastchannelonstartup = FALSE;
+	app->debug = FALSE;
 
 	/* Création de la fenêtre */
 	app->windowmain = glade_xml_new (FREETUXTV_GLADEXML,
 					 "windowmain", NULL);
 	glade_xml_signal_autoconnect (app->windowmain);
-
-	/* Ajout du widget de la liste des chaines */
-	GtkWidget *eventbox;
-	eventbox = gtk_event_box_new();
-		
-	GtkRcStyle *rc_style;
-	GtkStyle*style = gtk_rc_get_style(GTK_WIDGET(eventbox));
-	rc_style = gtk_rc_style_new();
-	rc_style->bg[GTK_STATE_NORMAL] = style->bg[GTK_STATE_NORMAL];
-	rc_style->color_flags[GTK_STATE_NORMAL] |= GTK_RC_BG;
-	gtk_widget_modify_style (GTK_WIDGET(eventbox), rc_style);
-	gtk_rc_style_unref(rc_style);
-	
-	scrolledwindowchannels = glade_xml_get_widget (app->windowmain,
-						       "windowmain_scrolledwindowchannels");
-	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolledwindowchannels),
-					      eventbox);
-	app->channelsgroups = NULL;	
-	gtk_widget_show_all (eventbox);
 
 	/* Ajout du widget du lecteur */
 	eventboxplayer = glade_xml_get_widget (app->windowmain,
@@ -250,7 +232,6 @@ freetuxtv_app_create_app ()
 	
 	/* Initialise la liste des chaines */
 	channels_list_init (app);
-
 	/* Connexion des signaux */
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain");
@@ -593,6 +574,8 @@ int main (int argc, char *argv[])
 
 	GMMKeys* mmkeys;
 
+	int p;
+
 #ifdef ENABLE_NLS
 	setlocale (LC_ALL, "");
 	bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
@@ -606,8 +589,15 @@ int main (int argc, char *argv[])
 	
 	app = freetuxtv_app_create_app ();
 	if (app == NULL)
-		return 1;	
-
+		return 1;
+	// Traitement des arguments du programme
+	for(p=1; p<argc; p++){
+		if(g_ascii_strcasecmp("-v",argv[p]) == 0){
+			g_print("FreetuxTV : Enable debug mode\n");
+			app->debug = TRUE;
+		}
+	}
+	
 	// Regarde si on charge une chaine au demarrage
 	if(app->config.channelonstartup == TRUE
 	   && app->config.lastchannel != -1){

@@ -31,7 +31,6 @@ struct _FreetuxTVApp {
 	GladeXML *dialogpreferences;
 
 	FreetuxTVPlayer *player;
-	GtkVBox *channelsgroups;
 	GtkTreeModel *channelslist;
 
 	struct {
@@ -47,6 +46,8 @@ struct _FreetuxTVApp {
 		FreetuxTVChannelInfos *channel;
 		gboolean lastchannelonstartup;
 	} current;
+
+	gboolean debug;	
 
 };
 typedef struct _FreetuxTVApp FreetuxTVApp;

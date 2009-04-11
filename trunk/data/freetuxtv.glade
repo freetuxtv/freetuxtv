@@ -57,6 +57,13 @@
                         <property name="use_underline">True</property>
                       </widget>
                     </child>
+                    <child>
+                      <widget class="GtkMenuItem" id="windowmain_menuitemupdatelogos">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Update logos list</property>
+                        <property name="use_underline">True</property>
+                      </widget>
+                    </child>
                   </widget>
                 </child>
               </widget>
@@ -140,7 +147,7 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkScrolledWindow" id="windowmain_scrolledwindowchannels">
+                      <widget class="GtkScrolledWindow" id="scrolledwindow1">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>

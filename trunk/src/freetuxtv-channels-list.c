@@ -157,6 +157,9 @@ channels_list_load_channels (FreetuxTVApp *app)
 	}
 
 	if(ret == 0){
+		if(app->debug == TRUE){
+			g_print("FreetuxTV-debug : Load all groups from database\n");
+		}
 
 		GtkTreeIter iter_channelsgroup;
 
@@ -220,6 +223,11 @@ channels_list_load_channels_group (FreetuxTVApp *app, FreetuxTVChannelsGroupInfo
 	}
 	
 	if(ret == 0){
+		if(app->debug == TRUE){
+			g_print("FreetuxTV-debug : Load channels group %d->'%s' from database\n",
+				channels_group_infos->id,
+				channels_group_infos->name);
+		}
 
 		GtkTreeIter iter_channelsgroup;
 		GtkTreeIter iter_channel;
@@ -833,6 +841,12 @@ on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
 	if(argv[2] != NULL){
 		freetuxtv_channel_infos_set_logo(channel_infos, argv[2]);
 	}
+	
+	if(cbuserdata->app->debug == TRUE){
+		g_print("FreetuxTV-debug : Load channel %d->'%s' from database\n",
+			channel_infos->id,
+			channel_infos->name);
+	}
 
 	GtkTreeModel *model;
 	model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(cbuserdata->app->channelslist));
@@ -1195,8 +1209,13 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 		
 	}
 	
-	g_strstrip(name);
+	g_strstrip(name);	
 	
+	if(data->app->debug == TRUE){
+		g_print("FreetuxTV-debug : Add channel in database '%s'\n",
+			name);
+	}
+
 	query = sqlite3_mprintf("INSERT INTO channel (name_channel, order_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) values ('%q',%d,(SELECT id_channellogo FROM channel_logo WHERE label_channellogo='%q' OR id_channellogo = (SELECT idchannellogo_labelchannellogo FROM label_channellogo WHERE label_labelchannellogo='%q')),'%q','%d');", 
 				name, num, name, name, url, data->id);
 	g_free(name);
