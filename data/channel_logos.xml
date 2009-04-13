@@ -62,8 +62,19 @@
 	<logo filename="direct8.png" label="Direct 8">
 		<logolabel label="Direct 8 (bas débit)"/>
 	</logo>
-	<logo filename="euronews.png" label="Euronews"></logo>
+	<logo filename="euronews.png" label="Euronews">
+		<logolabel label="Euronews FR"/>
+		<logolabel label="Euronews Arabe"/>
+		<logolabel label="Euronews English"/>
+		<logolabel label="Euronews Deutsch"/>
+		<logolabel label="Euronews Portugais"/>
+		<logolabel label="Euronews Russe"/>
+		<logolabel label="Euronews Espagnol"/>
+		<logolabel label="Euronews Italien"/>
+	</logo>
+	<logo filename="europe1.png" label="Europe 1"></logo>
 	<logo filename="fashiontv.png" label="Fashion TV"></logo>
+	<logo filename="fazzmusic.png" label="Fazz music"></logo>
 	<logo filename="fmen.png" label="F Men"></logo>
 	<logo filename="france2.png" label="France 2">
 		<logolabel label="France 2 (bas débit)"/>
@@ -71,7 +82,8 @@
 	</logo>
 	<logo filename="france24.png" label="France 24">
 		<logolabel label="France 24 FR"/>
-		<logolabel label="France 24 EN"/>
+		<logolabel label="France 24 English"/>
+		<logolabel label="France 24 Arab"/>
 	</logo>
 	<logo filename="france3.png" label="France 3">
 		<logolabel label="France 3 national"/>
@@ -107,11 +119,22 @@
 	<logo filename="france5.png" label="France 5">
 		<logolabel label="France 5 (bas débit)"/>
 	</logo>
+	<logo filename="francebleu.png" label="France Bleu">
+		<logolabel label="France BLEU - la CityRadio"/>
+	</logo>
+	<logo filename="franceculture.png" label="France Culture"></logo>
+	<logo filename="franceinfo.png" label="France Info"></logo>
+	<logo filename="franceinter.png" label="France Inter"></logo>
+	<logo filename="francemusique.png" label="France Musique">
+		<logolabel label="France Musiques"/>
+	</logo>
 	<logo filename="franceo.png" label="France Ô">
 		<logolabel label="France ô"/>
 		<logolabel label="France o"/>
 	</logo>
 	<logo filename="freenewstv.png" label="Freenews TV"></logo>
+	<logo filename="frequence3.png" label="Frequence 3"></logo>
+	<logo filename="funradio.png" label="Fun Radio"></logo>
 	<logo filename="funtv.png" label="Fun TV"></logo>
 	<logo filename="gameone.png" label="Game One"></logo>
 	<logo filename="gulli.png" label="Gulli">

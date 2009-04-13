@@ -39,15 +39,24 @@ channels_DATA = \
   demaintv.png \
   direct8.png \
   euronews.png \
+  europe1.png \
   fashiontv.png \
+  fazzmusic.png \
   fmen.png \
   france2.png \
   france24.png \
   france3.png \
   france4.png \
   france5.png \
+  francebleu.png \
+  franceculture.png \
+  franceinfo.png \
+  franceinter.png \
+  francemusique.png \
   franceo.png \
   freenewstv.png \
+  frequence3.png \
+  funradio.png \
   funtv.png \
   gameone.png \
   gulli.png \
