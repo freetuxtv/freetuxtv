@@ -40,6 +40,7 @@ struct _FreetuxTVApp {
 		gboolean windowminimode_stayontop;
 		gint windowminimode_width;
 		gint windowminimode_height;
+		gint logosfiledate;
 	} config;
 
 	struct {
