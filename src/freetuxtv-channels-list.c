@@ -16,7 +16,6 @@
 #include <glade/glade.h>
 #include <sqlite3.h>
 #include <curl/curl.h>
-#include <sqlite3.h>
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
@@ -160,6 +159,11 @@ channels_list_load_channels (FreetuxTVApp *app)
 		if(app->debug == TRUE){
 			g_print("FreetuxTV-debug : Load all groups from database\n");
 		}
+
+		// Efface les groupes dans la liste des chaines	
+		GtkTreeModel *model;
+		model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(app->channelslist));
+		gtk_tree_store_clear(GTK_TREE_STORE(model));
 
 		GtkTreeIter iter_channelsgroup;
 
@@ -1164,8 +1168,7 @@ on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 
 static int 
 on_exec_get_group_infos (void *data, int argc, char **argv, char **colsname)
-{
-	
+{	
 	Parsem3uData *cbuserdata = (Parsem3uData *) data;	
 	cbuserdata->bregex = g_strdup_printf("^%s", (argv[0]!=NULL?argv[0]:""));
 	cbuserdata->eregex = g_strdup_printf("%s$", (argv[1]!=NULL?argv[1]:""));
@@ -1212,7 +1215,7 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	g_strstrip(name);	
 	
 	if(data->app->debug == TRUE){
-		g_print("FreetuxTV-debug : Add channel in database '%s'\n",
+		g_print("FreetuxTV-debug : Add channel '%s' in database\n",
 			name);
 	}
 

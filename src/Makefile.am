@@ -9,6 +9,8 @@ freetuxtv_SOURCES = \
   freetuxtv-channels-list.c \
   freetuxtv-channels-list.h \
   freetuxtv-i18n.h \
+  freetuxtv-logos-list.c \
+  freetuxtv-logos-list.h \
   freetuxtv-player.c \
   freetuxtv-player.h \
   freetuxtv-window-main.c \
