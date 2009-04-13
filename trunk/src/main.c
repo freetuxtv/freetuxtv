@@ -12,6 +12,8 @@
 #  include <config.h>
 #endif
 
+#include <glib/gstdio.h>
+
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <glade/glade.h>
@@ -22,55 +24,8 @@
 #include "freetuxtv-i18n.h"
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
+#include "freetuxtv-logos-list.h"
 #include "freetuxtv-player.h"
-
-static void xml_start_cb(GMarkupParseContext *context,
-			 const gchar *element_name,
-			 const gchar **attribute_names,
-			 const gchar **attribute_values,
-			 gpointer data,
-			 GError **error)
-{
-	struct sqlite3 *db = (sqlite3*) data;
-	gchar* sql_query = "";
-	int res;
-	char *err=0;
-	
-	if(g_ascii_strcasecmp(element_name, "logo") == 0){
-		
-		sql_query = sqlite3_mprintf("INSERT INTO channel_logo (label_channellogo, filename_channellogo) values ('%q','%q');", 
-					    attribute_values[1],
-					    attribute_values[0]);
-		res=sqlite3_exec(db, sql_query, NULL, 0, &err);
-		if(res != SQLITE_OK){
-			g_printerr("Sqlite3 : %s\n%s\n",
-				   sqlite3_errmsg(db), sql_query);
-			sqlite3_free(err);
-		}
-		sqlite3_free(sql_query);		
-	}
-	if(g_ascii_strcasecmp(element_name, "logolabel") == 0){
-		
-		sql_query = sqlite3_mprintf("INSERT INTO label_channellogo (label_labelchannellogo, idchannellogo_labelchannellogo) values ('%q', (SELECT MAX(id_channellogo) FROM channel_logo));",
-					    attribute_values[0]);
-		res=sqlite3_exec(db, sql_query, NULL, 0, &err);
-		if(res != SQLITE_OK){
-			g_printerr("Sqlite3 : %s\n%s\n",
-				   sqlite3_errmsg(db), sql_query);
-			sqlite3_free(err);
-		}
-		sqlite3_free(sql_query);
-		
-	}
-	//g_print("%s\n", sql_query);
-}
-
-static void xml_err_cb(GMarkupParseContext *context,
-		       GError *error,
-		       gpointer data)
-{
-	g_printerr("FreetuxTV : Error parsing XML -> %s\n", error->message);
-}
 
 int
 init_app()
@@ -167,21 +122,7 @@ init_app()
 		}
 		
 		
-		g_free(sql_query);
-		
-		/* Ajout de la liste des logos dans la base de donnée */
-		static GMarkupParser parser = { xml_start_cb, NULL, NULL, 
-						NULL, xml_err_cb };
-		GMarkupParseContext *context;
-		
-		context = g_markup_parse_context_new (&parser, 
-						      G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
-						      db, NULL);
-		gchar *xml_data;
-		g_file_get_contents (FREETUXTV_DIR "/channel_logos.xml", 
-				     &xml_data, &filelen, NULL);
-		g_markup_parse_context_parse (context, xml_data, -1, NULL);
-		
+		g_free(sql_query);		
 		sqlite3_close(db);
 	}
 
@@ -216,6 +157,7 @@ freetuxtv_app_create_app ()
 	app->config.channelonstartup = TRUE;
 	app->config.lastchannel = -1;
 	app->config.volume = 75.0;
+	app->config.logosfiledate = 0;
 	app->current.lastchannelonstartup = FALSE;
 	app->debug = FALSE;
 
@@ -403,8 +345,7 @@ freetuxtv_app_create_app ()
 			err = NULL;
 		}else{
 			app->config.channelonstartup = b;		
-		}
-		
+		}		
 		
 		i = g_key_file_get_integer (keyfile, "general",
 					    "last_channel", &err);
@@ -413,6 +354,15 @@ freetuxtv_app_create_app ()
 			err = NULL;
 		}else{
 			app->config.lastchannel = i;		
+		}
+		
+		i = g_key_file_get_integer (keyfile, "general",
+					    "logos_file_date", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->config.logosfiledate = i;		
 		}
 		
 		g_key_file_free (keyfile);
@@ -519,6 +469,11 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 					"last_channel",
 					app->current.channel->id);
 	}
+	
+	g_key_file_set_integer (keyfile, "general",
+				"logos_file_date",
+				app->config.logosfiledate);
+
 	g_key_file_set_boolean (keyfile, "windowminimode",
 				"stay_on_top",
 				app->config.windowminimode_stayontop);
@@ -613,6 +568,19 @@ int main (int argc, char *argv[])
 			 "mm_key_pressed",
 			 G_CALLBACK(on_freetuxtv_mm_key_pressed),
 			 app);
+	
+	// Synchronize logos list if file modified
+	struct stat file_stat;
+	gint ret;
+	if(g_stat (FREETUXTV_DIR "/channel_logos.xml", &file_stat) == 0){
+		if(app->config.logosfiledate < (gint)file_stat.st_mtime){
+			// g_print("sync %d\n", (gint)file_stat.st_mtime);
+			ret = logos_list_synchronize(app);
+			if(ret == 0){
+				app->config.logosfiledate = (gint)file_stat.st_mtime;	
+			}
+		}
+	}
 	
 	gtk_main();
 	

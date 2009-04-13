@@ -11,7 +11,6 @@
 #ifndef FREETUXTV_CHANNELS_LIST_H
 #define FREETUXTV_CHANNELS_LIST_H
 
-#include <glib-object.h>
 #include <gtk/gtk.h>
 
 #include "freetuxtv-app.h"
