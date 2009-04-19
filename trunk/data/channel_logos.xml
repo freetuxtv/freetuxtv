@@ -137,26 +137,34 @@
 	<logo filename="funradio.png" label="Fun Radio"></logo>
 	<logo filename="funtv.png" label="Fun TV"></logo>
 	<logo filename="gameone.png" label="Game One"></logo>
+	<logo filename="grossecaisse.png" label="Grosse Caisse TV"></logo>
 	<logo filename="gulli.png" label="Gulli">
 		<logolabel label="Gulli (bas débit)"/>
 	</logo>
 	<logo filename="guysentv.png" label="Guysen TV"></logo>
+	<logo filename="idf1.png" label="IDF 1"></logo>
+	<logo filename="inraci.png" label="Inraci"></logo>
 	<logo filename="itelevision.png" label="i>Télé">
 		<logolabel label="i> TELE"/>
 		<logolabel label="i>TELE"/>
 		<logolabel label="i> TELE (bas débit)"/>
 	</logo>
+	<logo filename="jamzine.png" label="Jamzine TV"></logo>
 	<logo filename="jet.png" label="JET"></logo>
 	<logo filename="kto.png" label="KTO"></logo>
+	<logo filename="labelletv.png" label="LabelleTV"></logo>
 	<logo filename="lachaineparlementaire.png" label="La Chaîne Parlementaire">
 		<logolabel label="La Chaîne Parlementaire (bas débit)"/>
 		<logolabel label="La chaine parlementaire"/>
 	</logo>
 	<logo filename="lalocale.png" label="La Locale"></logo>
+	<logo filename="lcnquebec.png" label="LCN Québec"></logo>
+	<logo filename="lemouv.png" label="Le Mouv'"></logo>
 	<logo filename="lequipetv.png" label="L'équipe TV">
 		<logolabel label="L'equipe TV"/>
 	</logo>
-	<logo filename="libertytv.png" label="Liberty TV"></logo>
+	<logo filename="libertytv.png" label="M6 Boutique"></logo>
+	<logo filename="m6boutique.png" label="M6 Music Black"></logo>
 	<logo filename="m6musicblack.png" label="M6 Music Black"></logo>
 	<logo filename="m6musichits.png" label="M6 Music Hits"></logo>
 	<logo filename="m6musicrock.png" label="M6 Music Rock"></logo>
@@ -169,9 +177,13 @@
 	</logo>
 	<logo filename="mcmtop.png" label="MCM Top">
 		<logolabel label="MCM TOP"/>
-	</logo>	
+	</logo>
 	<logo filename="mezzo.png" label="Mezzo"></logo>
+	<logo filename="mfm.png" label="MFM">
+		<logolabel label="MFM Radio"/>
+	</logo>
 	<logo filename="miziktropical.png" label="Mizik Tropical"></logo>
+	<logo filename="mjcapt.png" label="MJC Apt TV"></logo>
 	<logo filename="mtv.png" label="MTV"></logo>
 	<logo filename="mtv2.png" label="MTV 2"></logo>
 	<logo filename="mtvdance.png" label="MTV Dance"></logo>
