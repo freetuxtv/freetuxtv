@@ -59,15 +59,23 @@ channels_DATA = \
   funradio.png \
   funtv.png \
   gameone.png \
+  grossecaisse.png \
   gulli.png \
   guysentv.png \
+  idf1.png \
+  inraci.png \
   itelevision.png \
+  jamzine.png \
   jet.png \
   kto.png \
+  labelletv.png \
   lachaineparlementaire.png \
   lalocale.png \
+  lcnquebec.png \
+  lemouv.png \
   lequipetv.png \
   libertytv.png \
+  m6boutique.png \
   m6musicblack.png \
   m6musichits.png \
   m6musicrock.png \
@@ -76,7 +84,9 @@ channels_DATA = \
   mcmpop.png \
   mcmtop.png \
   mezzo.png \
+  mfm.png \
   miziktropical.png \
+  mjcapt.png \
   mtv.png \
   mtv2.png \
   mtvdance.png \
