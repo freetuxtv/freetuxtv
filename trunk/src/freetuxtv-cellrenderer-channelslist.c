@@ -114,17 +114,16 @@ freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
 	gint calc_width;
 	gint calc_height;
 	
-	g_print("widget : %d\n", widget->allocation.width);
-	calc_width  = (gint) cell->xpad * 2 + widget->allocation.width;
+	calc_width  = (gint) cell->xpad * 2;
 	calc_height = (gint) cell->ypad * 2;
 	if(self->type == CELLRENDERER_TYPE_CHANNEL){
 		calc_height+=40;
 	}else{
 		calc_height+=20;
 	}
-
+	
 	if (cell_area){
-		// calc_width -= cell_area->x + cell_area->width;
+		calc_width += widget->allocation.width;
 	}
 
 	if (width)
@@ -143,12 +142,13 @@ freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
 			*y_offset = cell->yalign * (cell_area->height - calc_height);
 			*y_offset = MAX (*y_offset, 0);
 		}
-		
+		/*
 		g_print("size [%d,%d] [%d,%d] [%d,%d] [%f, %f] [%d,%d]\n", 
 			cell_area->x, cell_area->y, 
 			cell_area->width, cell_area->height,
 			*x_offset, *y_offset,
 			cell->xalign, cell->yalign, *width, *height);
+		*/
 	}
 }
 
@@ -180,16 +180,16 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 	
 	layout = gtk_widget_create_pango_layout (widget,
 						 self->name);
-	//pango_layout_set_width(layout, 30);
+	//pango_layout_set_width(layout, 700);
 	//pango_layout_set_height(layout, 20);
 	pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
 	/*
 	gtk_paint_flat_box (widget->style, window, GTK_STATE_SELECTED,
 			    GTK_SHADOW_NONE , NULL, widget,
 			    NULL,
-			    cell_area->x, cell_area->y,
-			    cell_area->width, cell_area->height);
-
+			    0, cell_area->y,
+			    cell_area->x + width, cell_area->height);
+	*/
 	/*
 	gtk_paint_hline (widget->style, window, state,
                          NULL, widget, NULL,
@@ -215,7 +215,7 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 			gtk_style_set_background (widget->style, window, state);			
 			gtk_style_apply_default_background  (widget->style, window, TRUE,
 							     state, NULL,
-							     0, cell_area->y, cell_area->x+width , height);
+							     0, cell_area->y, cell_area->x + width, cell_area->height);
 		
 			// g_print("cell : %d %d\n", cell_area->x, width);
 		}
@@ -237,7 +237,7 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 		
 		gtk_style_apply_default_background  (widget->style, window, TRUE,
 						     state, NULL,
-						     0, cell_area->y, cell_area->x + cell_area->width, height);
+						     0, cell_area->y, cell_area->x + width, cell_area->height);
 		
 		// g_print("cell : %d %d\n", cell_area->x, width);
 
