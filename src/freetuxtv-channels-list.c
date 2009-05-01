@@ -22,6 +22,7 @@
 #include "freetuxtv-channel-infos.h"
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-channels-list.h"
+#include "freetuxtv-cellrenderer-channelslist.h"
 #include "lib-m3uparser.h"
 
 typedef struct _Parsem3uData
@@ -46,12 +47,6 @@ typedef struct _CBGroupData
 	FreetuxTVApp *app;
 	FreetuxTVChannelsGroupInfos *channelsgroup;
 } CBGroupData;
-
-typedef struct _CBRendererData
-{
-	FreetuxTVApp *app;
-	gint col;
-} CBRendererData;
 
 enum
 {
@@ -699,25 +694,23 @@ channels_list_display_channels (FreetuxTVApp *app)
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	treeview = glade_xml_get_widget (app->windowmain,
-				     "windowsmain_treeviewchannelslist");
+					 "windowsmain_treeviewchannelslist");
 	
 	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(app->channelslist));
 
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
-	
+
 	column = gtk_tree_view_column_new();
-
-	CBRendererData *cbrendererdata;
-	cbrendererdata = g_new0(CBRendererData, 1); // TODO Free it
-	cbrendererdata->app = app;
-	cbrendererdata->col = 0;
-
-	renderer = gtk_cell_renderer_pixbuf_new ();
+	
+	//renderer = gtk_cell_renderer_pixbuf_new ();
+	renderer = freetuxtv_cellrenderer_channelslist_new ();
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_cell_data_func(column, renderer,
 						on_row_displayed_channels_list,
-						(gpointer)cbrendererdata, NULL);
+						(gpointer)app, NULL);
+	
 
+	/*
 	cbrendererdata = g_new0(CBRendererData, 1); // TODO Free it
 	cbrendererdata->app = app;
 	cbrendererdata->col = 1;
@@ -726,7 +719,7 @@ channels_list_display_channels (FreetuxTVApp *app)
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_cell_data_func(column, renderer,
 						on_row_displayed_channels_list,
-						(gpointer)cbrendererdata, NULL);
+						(gpointer)cbrendererdata, NULL);*/
 	
 	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 
@@ -912,7 +905,7 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 			       GtkCellRenderer *renderer, GtkTreeModel *model,
 			       GtkTreeIter *iter, gpointer user_data)
 {
-	CBRendererData *cbrendererdata = (CBRendererData *)user_data;
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	
 	FreetuxTVChannelsGroupInfos* channels_group_infos = NULL;
 	FreetuxTVChannelInfos* channel_infos = NULL;
@@ -922,52 +915,49 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 	
 	int expand;
 	g_object_get(G_OBJECT(renderer), "xalign", &expand, NULL);
-	//g_printf("id:%d\n", expand);	
+	// g_printf("id:%d\n", expand);	
 
-	switch(cbrendererdata->col){
-	case 0:		
-		gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
-		if(channels_group_infos == NULL){
-			
-			gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channel_infos, -1);
+	// Si on veut afficher un groupe
+	gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
+	if(channels_group_infos != NULL){
+		g_object_set(renderer, "type", CELLRENDERER_TYPE_CHANNELS_GROUP, "name", channels_group_infos->name, "visible", TRUE, NULL);
+	}else{
+		gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channel_infos, -1);  
 
-			gchar *imgfile;
-			gchar *user_img_channels_dir;
-			user_img_channels_dir = g_strconcat(g_get_user_data_dir(), 
-							    "/.freetuxtv/images/channels", NULL);
-			if(channel_infos->logo_name == NULL){
-				imgfile = g_strconcat(user_img_channels_dir, "/_none.png", NULL);	
-				if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
-					imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/_none.png", NULL);	
-				}
-			}else{
-				imgfile = g_strconcat(user_img_channels_dir,"/", channel_infos->logo_name, NULL);	
-				if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
-					imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/", channel_infos->logo_name, NULL);	
-				}
+		gchar *imgfile;
+		gchar *user_img_channels_dir;
+		user_img_channels_dir = g_strconcat(g_get_user_data_dir(), 
+						    "/.freetuxtv/images/channels", NULL);
+		if(channel_infos->logo_name == NULL){
+			imgfile = g_strconcat(user_img_channels_dir, "/_none.png", NULL);	
+			if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
+				imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/_none.png", NULL);	
 			}
-						
-			logo = gdk_pixbuf_new_from_file(imgfile, NULL);
+		}else{
+			imgfile = g_strconcat(user_img_channels_dir,"/", channel_infos->logo_name, NULL);	
+			if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
+				imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/", channel_infos->logo_name, NULL);	
+			}
+		}
 
-			g_free(user_img_channels_dir);
-			g_free(imgfile);
-			
-			g_object_set(renderer, "pixbuf", logo, "visible", TRUE, NULL);   
-		}else{
-			g_object_set(renderer, "visible", FALSE, NULL);
+		gboolean is_playing = FALSE;
+		if(app->current.channel != NULL){
+			if(app->current.channel->id == channel_infos->id){
+				is_playing = TRUE;
+			}	
 		}
-		break;
-	case 1:
-		gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
-		if(channels_group_infos == NULL){
-			gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channel_infos, -1);  
-			g_object_set(renderer, "text", channel_infos->name, "visible", TRUE, NULL);
-		}else{
-			g_object_set(renderer, "text", channels_group_infos->name, "visible", TRUE, NULL);
-		}
-		break;
+
+		g_object_set(renderer,
+			     "type", CELLRENDERER_TYPE_CHANNEL, "name", channel_infos->name,
+			     "logo", imgfile, "isplaying", is_playing,
+			     "visible", TRUE, NULL);
+		
+		g_free(user_img_channels_dir);
+		g_free(imgfile);
 	}
+
 	
+	/*
 	GtkWidget *treeview;
 	treeview = glade_xml_get_widget (cbrendererdata->app->windowmain,
 					 "windowsmain_treeviewchannelslist");	
