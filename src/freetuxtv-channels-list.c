@@ -109,8 +109,12 @@ channels_list_display_channels (FreetuxTVApp *app);
 void
 channels_list_init (FreetuxTVApp *app)
 {
-	// TODO : free it
+	GtkWidget *treeview;
+	GtkTreeViewColumn *column;
+	GtkCellRenderer *renderer;
 	GtkTreeStore *model;
+	
+	// TODO : free it
 	model = gtk_tree_store_new (N_COLUMNS,
 				    FREETUXTV_TYPE_CHANNELS_GROUP_INFOS,
 				    FREETUXTV_TYPE_CHANNEL_INFOS);
@@ -120,6 +124,23 @@ channels_list_init (FreetuxTVApp *app)
 	gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (app->channelslist),
 						on_filter_channels_list,
 						(gpointer) app, NULL);
+	
+	treeview = glade_xml_get_widget (app->windowmain,
+					 "windowsmain_treeviewchannelslist");	
+	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(app->channelslist));
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
+
+	column = gtk_tree_view_column_new();
+	renderer = freetuxtv_cellrenderer_channelslist_new ();
+	gtk_tree_view_column_pack_start(column, renderer, FALSE);
+	gtk_tree_view_column_set_cell_data_func(column, renderer,
+						on_row_displayed_channels_list,
+						(gpointer)app, NULL);	
+	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+
+	g_signal_connect(treeview, "row-activated", G_CALLBACK(on_row_activated_channels_list), app);
+	g_signal_connect(treeview, "button-press-event", G_CALLBACK(on_button_press_event_channels_list), app);
+
 
 	//g_unref(model);
 }
@@ -154,26 +175,24 @@ channels_list_load_channels (FreetuxTVApp *app)
 		if(app->debug == TRUE){
 			g_print("FreetuxTV-debug : Load all groups from database\n");
 		}
-
+		
 		// Efface les groupes dans la liste des chaines	
 		GtkTreeModel *model;
 		model = gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(app->channelslist));
 		gtk_tree_store_clear(GTK_TREE_STORE(model));
-
 		GtkTreeIter iter_channelsgroup;
+		
+		CBUserData cbuserdata;
+		cbuserdata.app = app;
+		cbuserdata.nb = 0;
+		cbuserdata.iter_channelsgroup = &iter_channelsgroup;
 
-		CBUserData *cbuserdata;
-		cbuserdata = g_new0(CBUserData, 1); // TODO Free it
-		cbuserdata->app = app;
-		cbuserdata->nb = 0;
-		cbuserdata->iter_channelsgroup = &iter_channelsgroup;
-
-		/* Selection des groupes de chaînes */
+		// Selection des groupes de chaînes 
 		query = "SELECT id_channelsgroup, name_channelsgroup, \
                          uri_channelsgroup				      \
                          FROM channels_group";
 		res=sqlite3_exec(db, query, on_exec_add_channels_group,
-				 (void *)cbuserdata, &err);
+				 (void *)&cbuserdata, &err);
 		if(res != SQLITE_OK){
 			err_msg = g_strdup_printf(_("Error when displaying the channels.\n\nSQLite has returned error :\n%s."),
 						  sqlite3_errmsg(db));
@@ -691,41 +710,8 @@ static void
 channels_list_display_channels (FreetuxTVApp *app)
 {
 	GtkWidget *treeview;
-	GtkTreeViewColumn *column;
-	GtkCellRenderer *renderer;
 	treeview = glade_xml_get_widget (app->windowmain,
 					 "windowsmain_treeviewchannelslist");
-	
-	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(app->channelslist));
-
-	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
-
-	column = gtk_tree_view_column_new();
-	
-	//renderer = gtk_cell_renderer_pixbuf_new ();
-	renderer = freetuxtv_cellrenderer_channelslist_new ();
-	gtk_tree_view_column_pack_start(column, renderer, FALSE);
-	gtk_tree_view_column_set_cell_data_func(column, renderer,
-						on_row_displayed_channels_list,
-						(gpointer)app, NULL);
-	
-
-	/*
-	cbrendererdata = g_new0(CBRendererData, 1); // TODO Free it
-	cbrendererdata->app = app;
-	cbrendererdata->col = 1;
-	
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start(column, renderer, FALSE);
-	gtk_tree_view_column_set_cell_data_func(column, renderer,
-						on_row_displayed_channels_list,
-						(gpointer)cbrendererdata, NULL);*/
-	
-	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
-
-	g_signal_connect(treeview, "row-activated", G_CALLBACK(on_row_activated_channels_list), app);
-	g_signal_connect(treeview, "button-press-event", G_CALLBACK(on_button_press_event_channels_list), app);
-
 	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
 

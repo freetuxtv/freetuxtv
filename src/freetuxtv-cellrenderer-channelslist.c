@@ -232,7 +232,6 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 				  cell->xpad * 2 + gdk_pixbuf_get_width(logo) + 5, cell_area->y + 15,
 				  layout);
 	}else{
-		
 		gtk_style_set_background (widget->style, window, state);
 		
 		gtk_style_apply_default_background  (widget->style, window, TRUE,
