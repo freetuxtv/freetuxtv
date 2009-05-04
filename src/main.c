@@ -158,6 +158,7 @@ freetuxtv_app_create_app ()
 	app->config.lastchannel = -1;
 	app->config.volume = 75.0;
 	app->config.logosfiledate = 0;
+	app->config.directoryrecord = g_strdup(g_get_home_dir());
 	app->current.lastchannelonstartup = FALSE;
 	app->debug = FALSE;
 
@@ -370,8 +371,17 @@ freetuxtv_app_create_app ()
 			err = NULL;
 		}else{
 			app->config.logosfiledate = i;		
-		}
+		}		
 		
+		str = g_key_file_get_string (keyfile, "general",
+					     "directory_record", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->config.directoryrecord = str;		
+		}
+
 		g_key_file_free (keyfile);
 	}
 
@@ -421,7 +431,7 @@ freetuxtv_action_record_channel (FreetuxTVApp *app)
 {
 	gchar* out_filename;
 	gchar *text;
-	freetuxtv_player_record_current (app->player, &out_filename);
+	freetuxtv_player_record_current (app->player, app->config.directoryrecord, &out_filename);
 	
 	text = g_strdup_printf (_("Recording : %s"), out_filename);
 	windowmain_statusbar_push (app, "PlayChannelMsg", text);
@@ -480,6 +490,11 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 	g_key_file_set_integer (keyfile, "general",
 				"logos_file_date",
 				app->config.logosfiledate);
+	
+	g_key_file_set_string (keyfile, "general",
+			       "directory_record",
+			       app->config.directoryrecord);
+	g_free(app->config.directoryrecord);
 
 	g_key_file_set_boolean (keyfile, "windowminimode",
 				"stay_on_top",

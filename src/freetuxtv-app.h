@@ -41,6 +41,7 @@ struct _FreetuxTVApp {
 		gint windowminimode_width;
 		gint windowminimode_height;
 		gint logosfiledate;
+		gchar* directoryrecord;
 	} config;
 
 	struct {
