@@ -21,6 +21,7 @@
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group-infos.h"
+#include "freetuxtv-logos-list.h"
 #include "freetuxtv-player.h"
 
 void
@@ -205,25 +206,6 @@ on_windowmain_volumecontrol_value_changed (GtkRange *range, gpointer user_data)
 }
 
 void
-on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
-					  gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	app->dialogaddgroup = glade_xml_new (FREETUXTV_GLADEXML,
-					     "dialogaddgroup", NULL);
-	glade_xml_signal_autoconnect (app->dialogaddgroup);
-	
-	/* Connexion des signaux */
-	GtkWidget *widget;
-	widget = glade_xml_get_widget(app->dialogaddgroup,
-				      "dialogaddgroup_add");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_dialogaddgroup_add_clicked),
-			 app);
-}
-
-void
 on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 					    gpointer user_data)
 {
@@ -246,6 +228,35 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	widget = glade_xml_get_widget(app->dialogpreferences,
 				      "dialogpreferences_channelonstartup");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->config.channelonstartup);
+}
+
+void
+on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
+					  gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	app->dialogaddgroup = glade_xml_new (FREETUXTV_GLADEXML,
+					     "dialogaddgroup", NULL);
+	glade_xml_signal_autoconnect (app->dialogaddgroup);
+	
+	/* Connexion des signaux */
+	GtkWidget *widget;
+	widget = glade_xml_get_widget(app->dialogaddgroup,
+				      "dialogaddgroup_add");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_dialogaddgroup_add_clicked),
+			 app);
+}
+
+void
+on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
+					    gpointer user_data)
+{
+	
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	logos_list_synchronize (app);			
+	channels_list_load_channels (app);
 }
 
 void

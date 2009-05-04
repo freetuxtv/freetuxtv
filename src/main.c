@@ -205,6 +205,13 @@ freetuxtv_app_create_app ()
 			 "activate",
 			 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
 			 app);
+	
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_menuitemupdatelogos");
+	g_signal_connect(G_OBJECT(widget),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitemupdatelogos_activate),
+			 app);
 
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain_buttonclearfilter");
@@ -553,6 +560,18 @@ int main (int argc, char *argv[])
 		}
 	}
 	
+	// Synchronize logos list if file modified
+	struct stat file_stat;
+	gint ret;
+	if(g_stat (FREETUXTV_DIR "/channel_logos.xml", &file_stat) == 0){
+		if(app->config.logosfiledate < (gint)file_stat.st_mtime){
+			ret = logos_list_synchronize(app);
+			if(ret == 0){
+				app->config.logosfiledate = (gint)file_stat.st_mtime;	
+			}
+		}
+	}
+
 	// Regarde si on charge une chaine au demarrage
 	if(app->config.channelonstartup == TRUE
 	   && app->config.lastchannel != -1){
@@ -569,18 +588,7 @@ int main (int argc, char *argv[])
 			 G_CALLBACK(on_freetuxtv_mm_key_pressed),
 			 app);
 	
-	// Synchronize logos list if file modified
-	struct stat file_stat;
-	gint ret;
-	if(g_stat (FREETUXTV_DIR "/channel_logos.xml", &file_stat) == 0){
-		if(app->config.logosfiledate < (gint)file_stat.st_mtime){
-			// g_print("sync %d\n", (gint)file_stat.st_mtime);
-			ret = logos_list_synchronize(app);
-			if(ret == 0){
-				app->config.logosfiledate = (gint)file_stat.st_mtime;	
-			}
-		}
-	}
+
 	
 	gtk_main();
 	

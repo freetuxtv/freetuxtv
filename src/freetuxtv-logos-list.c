@@ -103,8 +103,6 @@ logos_list_synchronize (FreetuxTVApp *app)
 			g_markup_parse_context_parse (context, xml_data, -1, NULL);
 			
 			sqlite3_close(db);
-			
-			channels_list_load_channels (app);
 		}
 	}
 
