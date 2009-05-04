@@ -19,6 +19,14 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 					    gpointer user_data);
 
 void
+on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
+					  gpointer user_data);
+
+void
+on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
+					    gpointer user_data);
+
+void
 on_windowmain_menuitemquit_activate (GtkMenuItem *menuitem,
 				     gpointer user_data);
 
@@ -65,10 +73,6 @@ on_windowmain_entryfilter_changed (GtkEntry *entry,
 void
 on_windowmain_volumecontrol_value_changed (GtkRange *range,
 					   gpointer user_data);
-
-void
-on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
-					  gpointer user_data);
 
 void
 on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
