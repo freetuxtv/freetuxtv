@@ -65,7 +65,7 @@ void
 freetuxtv_player_stop (FreetuxTVPlayer *self);
 
 void
-freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar** out_filename);
+freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar* directory_record, gchar** out_filename);
 
 void
 freetuxtv_player_fullscreen (FreetuxTVPlayer *self);

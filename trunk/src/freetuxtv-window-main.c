@@ -228,6 +228,11 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	widget = glade_xml_get_widget(app->dialogpreferences,
 				      "dialogpreferences_channelonstartup");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->config.channelonstartup);
+	
+	widget = glade_xml_get_widget(app->dialogpreferences,
+				      "dialogpreferences_directoryrecord");
+	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (widget),
+					     app->config.directoryrecord);
 }
 
 void
@@ -239,7 +244,7 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 					     "dialogaddgroup", NULL);
 	glade_xml_signal_autoconnect (app->dialogaddgroup);
 	
-	/* Connexion des signaux */
+	// Connexion des signaux
 	GtkWidget *widget;
 	widget = glade_xml_get_widget(app->dialogaddgroup,
 				      "dialogaddgroup_add");
@@ -414,6 +419,12 @@ on_dialogpreferences_response (GtkDialog *dialog,
 		widget = glade_xml_get_widget(app->dialogpreferences,
 					      "dialogpreferences_channelonstartup");
 		app->config.channelonstartup = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+	
+		widget = glade_xml_get_widget(app->dialogpreferences,
+					      "dialogpreferences_directoryrecord");
+		g_free(app->config.directoryrecord);
+		app->config.directoryrecord = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER (widget));	       
+
 	}
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 } 

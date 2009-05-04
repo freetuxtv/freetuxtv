@@ -180,7 +180,7 @@ freetuxtv_player_stop (FreetuxTVPlayer *self)
 }
 
 void
-freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar** out_filename)
+freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar* directory_record, gchar** out_filename)
 {
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
@@ -195,7 +195,7 @@ freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar** out_filename)
 
 		GTimeVal now;
 		g_get_current_time(&now);
-		*out_filename = g_strconcat("/tmp/", channel_infos->name, " - ",
+		*out_filename = g_strconcat(directory_record, "/", channel_infos->name, " - ",
 					    g_time_val_to_iso8601(&now), ".mpg", NULL);
 
 		g_print ("FreetuxTV : Recording channel \"%s\" -> %s (in %s)\n",
