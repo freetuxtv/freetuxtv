@@ -51,6 +51,10 @@ on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 
 	widget = glade_xml_get_widget(gladexml,
 				      "aboutdialog");
+	g_signal_connect(G_OBJECT(widget),
+			 "response",
+			 G_CALLBACK(on_aboutdialog_response),
+			 NULL);
 	
 	gtk_about_dialog_set_program_name (GTK_ABOUT_DIALOG(widget), "FreetuxTV");
 	gtk_about_dialog_set_version (GTK_ABOUT_DIALOG(widget), VERSION);
@@ -404,6 +408,7 @@ on_aboutdialog_response (GtkDialog *dialog,
 			 gint response_id,
 			 gpointer user_data)
 {
+	g_print("test\n");
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 }
 
