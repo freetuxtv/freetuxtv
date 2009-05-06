@@ -8,6 +8,7 @@
     <property name="window_position">center</property>
     <property name="default_width">1024</property>
     <property name="default_height">600</property>
+    <property name="icon_name">video-display</property>
     <child>
       <widget class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -418,7 +419,8 @@
   <widget class="GtkAboutDialog" id="aboutdialog">
     <property name="visible">True</property>
     <property name="border_width">5</property>
-    <property name="window_position">mouse</property>
+    <property name="window_position">center</property>
+    <property name="icon_name">video-display</property>
     <property name="type_hint">normal</property>
     <property name="copyright" translatable="yes">GNU General Public License v2</property>
     <property name="comments" translatable="yes">Web TV channels player.</property>
@@ -437,6 +439,7 @@ Yannick, G&#xE9;rald (Mandriva Package)
 13remi
 AigleBlanc</property>
     <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
+    <property name="logo_icon_name">video-display</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="aboutdialog-vbox">
         <property name="visible">True</property>
@@ -464,6 +467,7 @@ AigleBlanc</property>
     <property name="title" translatable="yes">Add a group</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
+    <property name="icon_name">video-display</property>
     <property name="type_hint">dialog</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
@@ -717,6 +721,7 @@ file://</property>
     <property name="window_position">center</property>
     <property name="default_width">320</property>
     <property name="default_height">240</property>
+    <property name="icon_name">video-display</property>
     <child>
       <widget class="GtkVBox" id="vbox6">
         <property name="visible">True</property>
@@ -839,6 +844,7 @@ file://</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Preferences</property>
     <property name="window_position">center-on-parent</property>
+    <property name="icon_name">video-display</property>
     <property name="type_hint">dialog</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox3">

@@ -408,7 +408,6 @@ on_aboutdialog_response (GtkDialog *dialog,
 			 gint response_id,
 			 gpointer user_data)
 {
-	g_print("test\n");
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 }
 
