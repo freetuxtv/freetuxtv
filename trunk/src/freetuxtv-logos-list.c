@@ -68,7 +68,12 @@ logos_list_synchronize (FreetuxTVApp *app)
 	
 	if(ret == 0){
 		
-		g_print("FreetuxTV : Synchronize the logo list\n");
+		// Mise à jour de la barre de statut
+		gchar *text;
+		text = g_strdup_printf(_("Synchronizing the logo list"));
+		windowmain_statusbar_push (app, "UpdateMsg", text);
+		g_free(text);
+		g_print("FreetuxTV : Synchronizing the logo list\n");
 
 		// Efface les anciens logos
 		query = sqlite3_mprintf("DELETE FROM channel_logo");
@@ -104,6 +109,8 @@ logos_list_synchronize (FreetuxTVApp *app)
 			
 			sqlite3_close(db);
 		}
+		
+		windowmain_statusbar_pop (app, "UpdateMsg");
 	}
 
 	return ret;
