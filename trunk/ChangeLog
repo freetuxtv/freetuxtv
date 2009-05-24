@@ -11,6 +11,7 @@ FreetuxTV 0.3.0 (2009-)
     Ouest tv, Oui FM, Radio FG, Radio libertaire, Radio nova, Railtv, RDI CANADA, Relax TV, RFM, 
     Rire et Chansons, Rock TV, RTL 2, RVE, SABC news, Skyrock, Tele 102, Teleblagon, téléGrenoble, 
     Tele night, Telessonne, TFOU WebTV, TLL Tele Loire, Trace Tropical, TVA Québec, Tvpi, Virgin Radio
+  - Mise à jour de logos : M6 Music Black, M6 Music Hits, RMC
   - Migration vers un GtkTreeview pour la liste des chaines
   - Synchronisation automatique de la liste des logos
 
