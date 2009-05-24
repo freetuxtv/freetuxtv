@@ -92,14 +92,30 @@ channels_DATA = \
   mtvdance.png \
   mtvhits.png \
   nationalgeographic.png \
+  nightmagcom.png \
   nolife.png \
+  normandietv.png \
+  nostalgie.png \
+  nrj.png \
   nrj12.png \
   nrjhits.png \
   nrjparis.png \
   nt1.png \
+  orleanstv.png \
+  ouesttv.png \
+  ouifm.png \
   parispremiere.png \
+  radiofg.png \
+  radiolibertaire.png \
+  radionova.png \
+  railtv.png \
+  rdicanada.png \
+  rfm.png \
+  rireetchansons.png \
   rmc.png \
+  rtl2.png \
   rtl9.png \
+  rve.png \
   skynewsinternational.png \
   telemelody.png \
   teleplaisance.png \
