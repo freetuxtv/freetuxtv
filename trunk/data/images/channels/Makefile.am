@@ -116,19 +116,31 @@ channels_DATA = \
   rtl2.png \
   rtl9.png \
   rve.png \
+  sabcnews.png \
   skynewsinternational.png \
+  skyrock.png \
+  tele102.png \
+  teleblagon.png \
+  telegrenoble.png \
   telemelody.png \
+  telenight.png \
   teleplaisance.png \
+  telessonne.png \
   telif.png \
   teva.png \
   tfou.png \
+  tfouwebtv.png \
+  tllteleloire.png \
   tmc.png \
   tracetv.png \
   turnerclassicmovies.png \
   tv5.png \
   tv8montblanc.png \
+  tvaquebec.png \
+  tvpi.png \
   vh1.png \
   vh1classic.png \
   videoclick.png \
-  virgin17.png
+  virgin17.png \
+  virginradio.png
 EXTRA_DIST   = $(channels_DATA)

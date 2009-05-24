@@ -7,7 +7,9 @@ FreetuxTV 0.3.0 (2009-)
     France Bleu, France Culture, France Info, France Inter, France Musique, Frequence 3, Fun Radio,
     Grosse Caisse, IDF 1, Inraci, Jamzine, LabelleTV, LCN Québec, Le Mouv', M6 Boutique, MFM,
     MJC Apt, Night-mag.com, Normandie TV, Nostalgie, NRJ, Orleans tv, Ouest tv, Oui FM,
-    Radio FG, Radio libertaire, Radio nova, Railtv, RDI CANADA, RFM, Rire et Chansons, RTL 2, RVE
+    Radio FG, Radio libertaire, Radio nova, Railtv, RDI CANADA, RFM, Rire et Chansons, RTL 2, RVE,
+    SABC news, Skyrock, Tele 102, Teleblagon, téléGrenoble, Tele night, Telessonne, TFOU WebTV,
+    TLL Tele Loire, TVA Québec, Tvpi, Virgin Radio
   - Migration vers un GtkTreeview pour la liste des chaines
   - Synchronisation automatique de la liste des logos
 
