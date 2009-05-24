@@ -18,6 +18,7 @@
 		<logolabel label="APTV Martinique"/>
 	</logo>
 	<logo filename="argentquebec.png" label="Canal argent Quebec"></logo>
+	<logo filename="arretsurimages.png" label="Arretsurimages.tv"></logo>
 	<logo filename="artchannel.png" label="Art Channel"></logo>
 	<logo filename="arte.png" label="Arte">
 		<logolabel label="Arte (bas débit)"/>
@@ -30,6 +31,7 @@
 	<logo filename="bambochtv.png" label="BAMBOCH TV - haiti"></logo>
 	<logo filename="bastilletv.png" label="Bastille tv"></logo>
 	<logo filename="bbcworld.png" label="BBC World"></logo>
+	<logo filename="bbcworldnews.png" label="BBC World News"></logo>
 	<logo filename="beurtv.png" label="Beur TV"></logo>
 	<logo filename="bfmtv.png" label="BFM TV">
 		<logolabel label="BFMTV"/>
@@ -44,11 +46,17 @@
 	<logo filename="canalsavoir.png" label="Canal savoir"></logo>
 	<logo filename="canaltv.png" label="CanalTV"></logo>
 	<logo filename="cheriefm.png" label="Chérie FM"></logo>
+	<logo filename="cinefirst.png" label="Ciné First">
+		<logolabel label="Ciné First (bas débit)"/>
+	</logo>
 	<logo filename="cinefx.png" label="Ciné FX">
 		<logolabel label="Ciné FX (bas débit)"/>
 	</logo>
 	<logo filename="cinepolar.png" label="Ciné Polar">
 		<logolabel label="Ciné Polar (bas débit)"/>
+	</logo>
+	<logo filename="clubbingtv.png" label="Clubbing TV">
+		<logolabel label="Clubbing TV (bas débit)"/>
 	</logo>
 	<logo filename="cmusictv.png" label="C Music TV">
 		<logolabel label="C Music"/>
@@ -76,6 +84,7 @@
 	<logo filename="fashiontv.png" label="Fashion TV"></logo>
 	<logo filename="fazzmusic.png" label="Fazz music"></logo>
 	<logo filename="fmen.png" label="F Men"></logo>
+	<logo filename="foxlife.png" label="Fox Life"></logo>
 	<logo filename="france2.png" label="France 2">
 		<logolabel label="France 2 (bas débit)"/>
 		<logolabel label="France 2 HD"/>
@@ -151,6 +160,7 @@
 	</logo>
 	<logo filename="jamzine.png" label="Jamzine TV"></logo>
 	<logo filename="jet.png" label="JET"></logo>
+	<logo filename="jukebox.png" label="Jukebox"></logo>
 	<logo filename="kto.png" label="KTO"></logo>
 	<logo filename="labelletv.png" label="LabelleTV"></logo>
 	<logo filename="lachaineparlementaire.png" label="La Chaîne Parlementaire">
@@ -166,6 +176,7 @@
 	<logo filename="libertytv.png" label="Liberty TV"></logo>
 	<logo filename="m6boutique.png" label="M6 Boutique"></logo>
 	<logo filename="m6musicblack.png" label="M6 Music Black"></logo>
+	<logo filename="m6musicclub.png" label="M6 Music Club"></logo>
 	<logo filename="m6musichits.png" label="M6 Music Hits"></logo>
 	<logo filename="m6musicrock.png" label="M6 Music Rock"></logo>
 	<logo filename="mangas.png" label="Mangas">
@@ -188,7 +199,8 @@
 	<logo filename="mtv2.png" label="MTV 2"></logo>
 	<logo filename="mtvdance.png" label="MTV Dance"></logo>
 	<logo filename="mtvhits.png" label="MTV Hits"></logo>
-	<logo filename="nationalgeographic.png" label="National Geographic">
+	<logo filename="natgeomusic.png" label="MTV Dance"></logo>
+	<logo filename="nationalgeographic.png" label="NatGeo Music">
 		<logolabel label="National Geographic HD HD"/>
 	</logo>
 	<logo filename="nightmagcom.png" label="Night-mag.com"></logo>
@@ -217,11 +229,13 @@
 	<logo filename="radionova.png" label="Radio nova"></logo>
 	<logo filename="railtv.png" label="Railtv"></logo>
 	<logo filename="rdicanada.png" label="RDI CANADA"></logo>
+	<logo filename="relaxtv.png" label="Relax TV"></logo>
 	<logo filename="rfm.png" label="RFM"></logo>
 	<logo filename="rireetchansons.png" label="Rire et Chansons"></logo>
 	<logo filename="rmc.png" label="RMC">
 		<logolabel label="RMC Info"/>
 	</logo>
+	<logo filename="rocktv.png" label="Rock TV"></logo>
 	<logo filename="rtl2.png" label="RTL 2"></logo>
 	<logo filename="rtl9.png" label="RTL9">
 		<logolabel label="RTL9 (bas débit)"/>
@@ -250,6 +264,7 @@
 	<logo filename="tmc.png" label="TMC">
 		<logolabel label="TMC (bas débit)"/>
 	</logo>
+	<logo filename="tracetropical.png" label="Trace Tropical"></logo>
 	<logo filename="tracetv.png" label="Trace TV"></logo>
 	<logo filename="tv5.png" label="TV5"></logo>
 	<logo filename="tv8montblanc.png" label="TV8 Mont-Blanc">
