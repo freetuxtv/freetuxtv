@@ -227,12 +227,25 @@
 		<logolabel label="RTL9 (bas débit)"/>
 	</logo>
 	<logo filename="rve.png" label="RVE"></logo>
+	<logo filename="sabcnews.png" label="SABC news"></logo>
 	<logo filename="skynewsinternational.png" label="Sky News International"></logo>
+	<logo filename="skyrock.png" label="Skyrock"></logo>
+	<logo filename="tele102.png" label="Tele 102"></logo>
+	<logo filename="teleblagon.png" label="Teleblagon"></logo>
+	<logo filename="telegrenoble.png" label="téléGrenoble">
+		<logolabel label="TéléGrenoble"/>	
+	</logo>
 	<logo filename="telemelody.png" label="Télé Mélody"></logo>
+	<logo filename="telenight.png" label="Tele night"></logo>
 	<logo filename="teleplaisance.png" label="Teleplaisance"></logo>
+	<logo filename="telessonne.png" label="Telessonne"></logo>
 	<logo filename="telif.png" label="Telif"></logo>
 	<logo filename="teva.png" label="TEVA"></logo>
 	<logo filename="tfou.png" label="TFou"></logo>
+	<logo filename="tfouwebtv.png" label="TFOU WebTV">
+		<logolabel label="TFOU WebTV (17h-20h)"/>
+	</logo>
+	<logo filename="tllteleloire.png" label="TLL Tele Loire"></logo>
 	<logo filename="turnerclassicmovies.png" label="TCM"></logo>
 	<logo filename="tmc.png" label="TMC">
 		<logolabel label="TMC (bas débit)"/>
@@ -242,10 +255,13 @@
 	<logo filename="tv8montblanc.png" label="TV8 Mont-Blanc">
 		<logolabel label="TV8 Mont BLanc"/>
 	</logo>
+	<logo filename="tvaquebec.png" label="TVA Québec"></logo>
+	<logo filename="tvpi.png" label="Tvpi"></logo>
 	<logo filename="vh1.png" label="VH1"></logo>
 	<logo filename="vh1classic.png" label="VH1 Classic"></logo>
 	<logo filename="videoclick.png" label="Video Click"></logo>
 	<logo filename="virgin17.png" label="Virgin 17">
 		<logolabel label="Virgin 17 (bas débit)"/>
 	</logo>
+	<logo filename="virginradio.png" label="Virgin Radio"></logo>
 </channel_logos>
