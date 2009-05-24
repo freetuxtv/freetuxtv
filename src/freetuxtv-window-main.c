@@ -113,11 +113,11 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 }
 
 void
-on_windowmain_buttonplay_clicked (GtkButton *button,
+on_windowmain_buttonplaypause_clicked (GtkButton *button,
 				  gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_replay_channel (app);
+	freetuxtv_action_playpause_channel (app);
 }
 
 void
@@ -262,7 +262,6 @@ void
 on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
 					    gpointer user_data)
 {
-	
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	logos_list_synchronize (app);			
 	channels_list_load_channels (app);
@@ -431,7 +430,104 @@ on_dialogpreferences_response (GtkDialog *dialog,
 
 	}
 	gtk_widget_destroy(GTK_WIDGET(dialog));
-} 
+}
+
+void
+windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
+{
+	GtkWidget *widget;
+	gboolean sensitive;
+	GtkWidget *image;
+	g_print("buttons\n");
+	// Button previous
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonprevious");
+	switch(mode){
+	case WINDOW_MODE_STOPPED :
+		if(app->current.channel != NULL){
+			sensitive = TRUE;		
+		}else{
+			sensitive = FALSE;	
+		}
+		break;
+	case WINDOW_MODE_RECORDING :
+		sensitive = FALSE;
+		break;
+	case WINDOW_MODE_PLAYING :
+		sensitive = TRUE;
+		break;
+	}
+	gtk_widget_set_sensitive(widget, sensitive);
+	
+	// Button next
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonnext");
+	switch(mode){
+	case WINDOW_MODE_STOPPED :
+		if(app->current.channel != NULL){
+			sensitive = TRUE;		
+		}else{
+			sensitive = FALSE;	
+		}
+		break;
+	case WINDOW_MODE_RECORDING :
+		sensitive = FALSE;
+		break;
+	case WINDOW_MODE_PLAYING :
+		sensitive = TRUE;		
+		break;
+	}
+	gtk_widget_set_sensitive(widget, sensitive);
+	
+	// Button play/pause
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonplaypause");
+	switch(mode){
+	case WINDOW_MODE_STOPPED :
+		if(app->current.channel == NULL){
+			sensitive = FALSE;
+		}else{
+			sensitive = TRUE;
+		}
+		image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PLAY, GTK_ICON_SIZE_BUTTON);
+		break;
+	case WINDOW_MODE_PLAYING :
+	case WINDOW_MODE_RECORDING :
+		sensitive = TRUE;
+		image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PAUSE, GTK_ICON_SIZE_BUTTON);
+		break;
+	}
+	gtk_widget_set_sensitive(widget, sensitive);
+	gtk_button_set_image (GTK_BUTTON(widget), image);
+	
+	// Button stop
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonstop");
+	switch(mode){
+	case WINDOW_MODE_STOPPED :
+		sensitive = FALSE;
+		break;
+	case WINDOW_MODE_PLAYING :
+	case WINDOW_MODE_RECORDING :
+		sensitive = TRUE;		
+		break;
+	}
+	gtk_widget_set_sensitive(widget, sensitive);
+
+	// Button record
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttonrecord");
+	switch(mode){
+	case WINDOW_MODE_STOPPED :
+	case WINDOW_MODE_RECORDING :
+		sensitive = FALSE;
+		break;
+	case WINDOW_MODE_PLAYING :
+		sensitive = TRUE;		
+		break;
+	}
+	gtk_widget_set_sensitive(widget, sensitive);
+}
 
 void
 windowmain_show_error (FreetuxTVApp *app, gchar *msg)

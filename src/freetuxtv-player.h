@@ -39,6 +39,8 @@ struct _FreetuxTVPlayer
 		libvlc_instance_t *inst;
 		libvlc_media_player_t *mp;
 	} libvlc;
+
+	gboolean is_recording;
 };
 
 struct _FreetuxTVPlayerClass
@@ -69,6 +71,12 @@ freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar* directory_record,
 
 void
 freetuxtv_player_fullscreen (FreetuxTVPlayer *self);
+
+gboolean
+freetuxtv_player_is_playing(FreetuxTVPlayer *self);
+
+gboolean
+freetuxtv_player_is_recording(FreetuxTVPlayer *self);
 
 G_END_DECLS
 

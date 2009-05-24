@@ -11,6 +11,13 @@
 #ifndef FREETUXTV_WINDOW_MAIN_H
 #define FREETUXTV_WINDOW_MAIN_H
 
+typedef enum {
+	WINDOW_MODE_STOPPED,
+	WINDOW_MODE_PLAYING,
+	WINDOW_MODE_PAUSED,
+	WINDOW_MODE_RECORDING
+} FreetuxTVWindowMode;
+
 void
 on_windowmain_destroy (GtkWidget *widget, gpointer *data);
 
@@ -55,7 +62,7 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 				    gpointer user_data);
 
 void
-on_windowmain_buttonplay_clicked (GtkButton *button,
+on_windowmain_buttonplaypause_clicked (GtkButton *button,
 				  gpointer user_data);
 
 void
@@ -98,6 +105,9 @@ void
 on_dialogpreferences_response (GtkDialog *dialog,
 			       gint response_id,
 			       gpointer   user_data);
+
+void
+windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode);
 
 void
 windowmain_show_error (FreetuxTVApp *app, gchar *msg);
