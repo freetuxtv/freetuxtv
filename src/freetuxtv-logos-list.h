@@ -16,4 +16,9 @@
 gint
 logos_list_synchronize (FreetuxTVApp *app);
 
+gchar*
+logos_list_get_channel_logo_filename(FreetuxTVApp *app, 
+				     FreetuxTVChannelInfos* channel_infos,
+				     gboolean none_icon);
+
 #endif /* FREETUXTV_LOGOS_LIST_H */

@@ -436,8 +436,9 @@ Special thanks to :
 Philippe, Tuxcola (Ubuntu Package)
 Gilles Sabourin (OpenSuse Package)
 Yannick, G&#xE9;rald (Mandriva Package)
-13remi
-AigleBlanc</property>
+13remi (logos)
+AigleBlanc (logos)
+Thomas L (logos)</property>
     <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
     <property name="logo_icon_name">video-display</property>
     <child internal-child="vbox">

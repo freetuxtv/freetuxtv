@@ -4,7 +4,7 @@ AC_PREREQ(2.61)
 AC_INIT(src/main.c)
 
 PACKAGE=freetuxtv
-VERSION=0.2.2
+VERSION=0.3.0
 AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
 
 AM_CONFIG_HEADER(config.h)
@@ -25,7 +25,8 @@ PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.12.0
                         glib-2.0 >= 2.16.0
                         libglade-2.0 >= 2.6.0
                         dbus-glib-1 >= 0.74
-                        libvlc >= 0.9.4)
+                        libvlc >= 0.9.4
+			libnotify >= 0.4)
 
 AC_SUBST(DEPS_CFLAGS)
 AC_SUBST(DEPS_LIBS)
@@ -35,6 +36,7 @@ AC_CHECK_LIB(sqlite3, sqlite3_open)
 AC_CHECK_LIB(curl, curl_easy_init)
 AC_CHECK_LIB(gthread-2.0, g_thread_init)
 AC_CHECK_LIB(glade-2.0, glade_xml_new)
+AC_CHECK_LIB(notify, notify_notification_new)
 
 # Checks for header files.
 AC_HEADER_STDC

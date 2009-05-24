@@ -23,6 +23,7 @@
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-cellrenderer-channelslist.h"
+#include "freetuxtv-logos-list.h"
 #include "lib-m3uparser.h"
 
 typedef struct _Parsem3uData
@@ -897,11 +898,7 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 	FreetuxTVChannelInfos* channel_infos = NULL;
 	
 	GdkPixbuf* logo;
-	GdkColor color;
-	
-	int expand;
-	g_object_get(G_OBJECT(renderer), "xalign", &expand, NULL);
-	// g_printf("id:%d\n", expand);	
+	GdkColor color;	
 
 	// Si on veut afficher un groupe
 	gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
@@ -911,20 +908,7 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 		gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channel_infos, -1);  
 
 		gchar *imgfile;
-		gchar *user_img_channels_dir;
-		user_img_channels_dir = g_strconcat(g_get_user_data_dir(), 
-						    "/.freetuxtv/images/channels", NULL);
-		if(channel_infos->logo_name == NULL){
-			imgfile = g_strconcat(user_img_channels_dir, "/_none.png", NULL);	
-			if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
-				imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/_none.png", NULL);	
-			}
-		}else{
-			imgfile = g_strconcat(user_img_channels_dir,"/", channel_infos->logo_name, NULL);	
-			if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
-				imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/", channel_infos->logo_name, NULL);	
-			}
-		}
+		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
 
 		gboolean is_playing = FALSE;
 		if(app->current.channel != NULL){
@@ -938,7 +922,6 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 			     "logo", imgfile, "isplaying", is_playing,
 			     "visible", TRUE, NULL);
 		
-		g_free(user_img_channels_dir);
 		g_free(imgfile);
 	}
 

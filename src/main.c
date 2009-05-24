@@ -18,6 +18,7 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <sqlite3.h>
+#include <libnotify/notification.h>
 
 #include "lib-gmmkeys.h"
 #include "freetuxtv-app.h"
@@ -396,16 +397,22 @@ freetuxtv_action_play_channel (FreetuxTVApp *app, FreetuxTVChannelInfos *channel
 	
 	text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
 	windowmain_statusbar_push (app, "PlayChannelMsg", text);
-	g_free(text);
-	
-	// TODO
-	if(app->current.channel != NULL){
-		// freetuxtv_channel_set_state(app->current.channel, FREETUXTV_CHANNEL_STATE_NORMAL);
-	}
 	
 	app->current.channel = channel_infos;
 	
 	freetuxtv_player_play (app->player, channel_infos);
+	
+	// Send notification to desktop
+	gchar *imgfile;
+	imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
+	
+	notify_notification_update (app->current.notification, "FreetuxTV", text, imgfile);
+	if (!notify_notification_show (app->current.notification, NULL)) {
+		g_printerr("FreetuxTV : Failed to send notification\n");
+	}
+	g_free(imgfile);
+	g_free(text);
+
 }
 
 void
@@ -575,6 +582,10 @@ int main (int argc, char *argv[])
 		}
 	}
 	
+	// Initialize notifications
+	notify_init("FreetuxTV");
+	app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL, NULL);
+
 	// Synchronize logos list if file modified
 	struct stat file_stat;
 	gint ret;
@@ -608,7 +619,8 @@ int main (int argc, char *argv[])
 	gtk_main();
 	
 	g_mmkeys_deactivate (mmkeys);
-  
+	g_object_unref(G_OBJECT(app->current.notification));
+	notify_uninit();  
 
 	return 0;
 }
