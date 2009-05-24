@@ -163,8 +163,8 @@
 	<logo filename="lequipetv.png" label="L'équipe TV">
 		<logolabel label="L'equipe TV"/>
 	</logo>
-	<logo filename="libertytv.png" label="M6 Boutique"></logo>
-	<logo filename="m6boutique.png" label="M6 Music Black"></logo>
+	<logo filename="libertytv.png" label="Liberty TV"></logo>
+	<logo filename="m6boutique.png" label="M6 Boutique"></logo>
 	<logo filename="m6musicblack.png" label="M6 Music Black"></logo>
 	<logo filename="m6musichits.png" label="M6 Music Hits"></logo>
 	<logo filename="m6musicrock.png" label="M6 Music Rock"></logo>
@@ -191,7 +191,11 @@
 	<logo filename="nationalgeographic.png" label="National Geographic">
 		<logolabel label="National Geographic HD HD"/>
 	</logo>
+	<logo filename="nightmagcom.png" label="Night-mag.com"></logo>
 	<logo filename="nolife.png" label="Nolife"></logo>
+	<logo filename="normandietv.png" label="Normandie TV"></logo>
+	<logo filename="nostalgie.png" label="Nostalgie"></logo>
+	<logo filename="nrj.png" label="NRJ"></logo>
 	<logo filename="nrj12.png" label="NRJ 12">
 		<logolabel label="NRJ 12 5.1"/>
 		<logolabel label="NRJ 12 NRJ 12"/>
@@ -204,13 +208,25 @@
 	<logo filename="nt1.png" label="NT1">
 		<logolabel label="NT1 (bas débit)"/>
 	</logo>
+	<logo filename="orleanstv.png" label="Orleans tv"></logo>
+	<logo filename="ouesttv.png" label="Ouest tv"></logo>
+	<logo filename="ouifm.png" label="Oui FM"></logo>
 	<logo filename="parispremiere.png" label="Paris Première"></logo>
+	<logo filename="radiofg.png" label="Radio FG"></logo>
+	<logo filename="radiolibertaire.png" label="Radio libertaire"></logo>
+	<logo filename="radionova.png" label="Radio nova"></logo>
+	<logo filename="railtv.png" label="Railtv"></logo>
+	<logo filename="rdicanada.png" label="RDI CANADA"></logo>
+	<logo filename="rfm.png" label="RFM"></logo>
+	<logo filename="rireetchansons.png" label="Rire et Chansons"></logo>
 	<logo filename="rmc.png" label="RMC">
 		<logolabel label="RMC Info"/>
 	</logo>
+	<logo filename="rtl2.png" label="RTL 2"></logo>
 	<logo filename="rtl9.png" label="RTL9">
 		<logolabel label="RTL9 (bas débit)"/>
 	</logo>
+	<logo filename="rve.png" label="RVE"></logo>
 	<logo filename="skynewsinternational.png" label="Sky News International"></logo>
 	<logo filename="telemelody.png" label="Télé Mélody"></logo>
 	<logo filename="teleplaisance.png" label="Teleplaisance"></logo>
