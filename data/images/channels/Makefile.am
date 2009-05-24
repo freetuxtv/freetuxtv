@@ -10,6 +10,7 @@ channels_DATA = \
   aljazeerainternational.png \
   aptv.png \
   argentquebec.png \
+  arretsurimages.png \
   artchannel.png \
   arte.png \
   artplatv.png \
@@ -19,6 +20,7 @@ channels_DATA = \
   bambochtv.png \
   bastilletv.png \
   bbcworld.png \
+  bbcworldnews.png \
   beurtv.png \
   bfmtv.png \
   biscottetv.png \
@@ -30,8 +32,10 @@ channels_DATA = \
   canalsavoir.png \
   canaltv.png \
   cheriefm.png \
+  cinefirst.png \
   cinefx.png \
   cinepolar.png \
+  clubbingtv.png \
   cmusictv.png \
   cnbc.png \
   corriland.png \
@@ -43,6 +47,7 @@ channels_DATA = \
   fashiontv.png \
   fazzmusic.png \
   fmen.png \
+  foxlife.png \
   france2.png \
   france24.png \
   france3.png \
@@ -67,6 +72,7 @@ channels_DATA = \
   itelevision.png \
   jamzine.png \
   jet.png \
+  jukebox.png \
   kto.png \
   labelletv.png \
   lachaineparlementaire.png \
@@ -77,6 +83,7 @@ channels_DATA = \
   libertytv.png \
   m6boutique.png \
   m6musicblack.png \
+  m6musicclub.png \
   m6musichits.png \
   m6musicrock.png \
   mangas.png \
@@ -91,6 +98,7 @@ channels_DATA = \
   mtv2.png \
   mtvdance.png \
   mtvhits.png \
+  natgeomusic.png \
   nationalgeographic.png \
   nightmagcom.png \
   nolife.png \
@@ -110,9 +118,11 @@ channels_DATA = \
   radionova.png \
   railtv.png \
   rdicanada.png \
+  relaxtv.png \
   rfm.png \
   rireetchansons.png \
   rmc.png \
+  rocktv.png \
   rtl2.png \
   rtl9.png \
   rve.png \
@@ -132,6 +142,7 @@ channels_DATA = \
   tfouwebtv.png \
   tllteleloire.png \
   tmc.png \
+  tracetropical.png \
   tracetv.png \
   turnerclassicmovies.png \
   tv5.png \

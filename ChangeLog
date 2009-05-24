@@ -2,14 +2,15 @@ FreetuxTV 0.3.0 (2009-)
   - Correction erreur X11 à la fermeture de l'application
   - Création d'un objet pour stocker les informations d'une chaîne et d'un groupe
   - Enregistrement d'une chaîne en direct
-  - Ajout de logos : AccroTV, Argent Quebec, Bamboch TV, Bastille TV, Biscotte TV, Boardriders TV, 
-    C9, Calais tv, Canal savoir, CanalTV, Chérie FM, Corriland TV, CPAC, Europe 1, Fazz Music, 
-    France Bleu, France Culture, France Info, France Inter, France Musique, Frequence 3, Fun Radio,
-    Grosse Caisse, IDF 1, Inraci, Jamzine, LabelleTV, LCN Québec, Le Mouv', M6 Boutique, MFM,
-    MJC Apt, Night-mag.com, Normandie TV, Nostalgie, NRJ, Orleans tv, Ouest tv, Oui FM,
-    Radio FG, Radio libertaire, Radio nova, Railtv, RDI CANADA, RFM, Rire et Chansons, RTL 2, RVE,
-    SABC news, Skyrock, Tele 102, Teleblagon, téléGrenoble, Tele night, Telessonne, TFOU WebTV,
-    TLL Tele Loire, TVA Québec, Tvpi, Virgin Radio
+  - Ajout de logos : AccroTV, Argent Quebec, Arretsurimages.tv, Bamboch TV, Bastille TV,
+    BBC World News, Biscotte TV, Boardriders TV, C9, Calais tv, Canal savoir, CanalTV, Chérie FM,
+    Ciné First, Clubbing TV, Corriland TV, CPAC, Europe 1, Fazz Music, Fox Life, France Bleu,
+    France Culture, France Info, France Inter, France Musique, Frequence 3, Fun Radio,
+    Grosse Caisse, IDF 1, Inraci, Jamzine, Jukebox, LabelleTV, LCN Québec, Le Mouv', M6 Boutique,
+    M6 Music Club, MFM, MJC Apt, NatGeo Music, Night-mag.com, Normandie TV, Nostalgie, NRJ, Orleans tv,
+    Ouest tv, Oui FM, Radio FG, Radio libertaire, Radio nova, Railtv, RDI CANADA, Relax TV, RFM, 
+    Rire et Chansons, Rock TV, RTL 2, RVE, SABC news, Skyrock, Tele 102, Teleblagon, téléGrenoble, 
+    Tele night, Telessonne, TFOU WebTV, TLL Tele Loire, Trace Tropical, TVA Québec, Tvpi, Virgin Radio
   - Migration vers un GtkTreeview pour la liste des chaines
   - Synchronisation automatique de la liste des logos
 
