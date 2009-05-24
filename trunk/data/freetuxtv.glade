@@ -224,7 +224,7 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkButton" id="windowmain_buttonplay">
+                      <widget class="GtkButton" id="windowmain_buttonplaypause">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
