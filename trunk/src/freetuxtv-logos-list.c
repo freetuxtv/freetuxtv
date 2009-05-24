@@ -116,6 +116,36 @@ logos_list_synchronize (FreetuxTVApp *app)
 	return ret;
 }
 
+gchar*
+logos_list_get_channel_logo_filename(FreetuxTVApp *app, 
+				     FreetuxTVChannelInfos* channel_infos,
+				     gboolean none_icon)
+{
+	gchar *imgfile = NULL;
+	gchar *user_img_channels_dir;
+	user_img_channels_dir = g_strconcat(g_get_user_data_dir(), 
+					    "/.freetuxtv/images/channels", NULL);
+	if(channel_infos->logo_name == NULL){
+		if(none_icon){
+			imgfile = g_strconcat(user_img_channels_dir, "/_none.png", NULL);	
+			if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
+				g_free(imgfile);
+				imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/_none.png", NULL);	
+			}
+		}
+	}else{
+		imgfile = g_strconcat(user_img_channels_dir,"/", channel_infos->logo_name, NULL);	
+		if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
+			g_free(imgfile);
+			imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/", channel_infos->logo_name, NULL);	
+		}
+	}
+	
+	g_free(user_img_channels_dir);
+	
+	return imgfile;
+}
+
 static void 
 xml_start_cb(GMarkupParseContext *context,
 	     const gchar *element_name,
