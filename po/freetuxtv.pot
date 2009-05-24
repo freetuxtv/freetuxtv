@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-24 13:54+0200\n"
+"POT-Creation-Date: 2009-05-24 18:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -314,17 +314,17 @@ msgid ""
 "%s."
 msgstr ""
 
-#: src/freetuxtv-window-main.c:356
+#: src/freetuxtv-window-main.c:355
 #, c-format
 msgid "Please enter the group's name !"
 msgstr ""
 
-#: src/freetuxtv-window-main.c:360
+#: src/freetuxtv-window-main.c:359
 #, c-format
 msgid "Please choose the protocole of the group's URI !"
 msgstr ""
 
-#: src/freetuxtv-window-main.c:364
+#: src/freetuxtv-window-main.c:363
 #, c-format
 msgid "Please enter the group's URI !"
 msgstr ""
@@ -334,12 +334,20 @@ msgstr ""
 msgid "Playing : %s"
 msgstr ""
 
-#: src/main.c:429
+#: src/main.c:408
+msgid "is playing"
+msgstr ""
+
+#: src/main.c:441
 #, c-format
 msgid "Stopping channel : %s"
 msgstr ""
 
-#: src/main.c:443
+#: src/main.c:469
+msgid "is recording"
+msgstr ""
+
+#: src/main.c:481
 #, c-format
 msgid "Recording : %s"
 msgstr ""
