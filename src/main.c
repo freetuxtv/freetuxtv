@@ -400,18 +400,19 @@ freetuxtv_action_play_channel (FreetuxTVApp *app, FreetuxTVChannelInfos *channel
 	
 	app->current.channel = channel_infos;
 	
-	freetuxtv_player_play (app->player, channel_infos);
-	
 	// Send notification to desktop
 	gchar *imgfile;
 	imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
 	
-	notify_notification_update (app->current.notification, "FreetuxTV", text, imgfile);
+	notify_notification_update (app->current.notification, channel_infos->name,
+				    NULL, imgfile);
 	if (!notify_notification_show (app->current.notification, NULL)) {
 		g_printerr("FreetuxTV : Failed to send notification\n");
 	}
 	g_free(imgfile);
 	g_free(text);
+	
+	freetuxtv_player_play (app->player, channel_infos);
 
 }
 
