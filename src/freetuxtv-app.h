@@ -13,6 +13,7 @@
 
 #include <gtk/gtk.h>
 #include <glade/glade.h>
+#include <libnotify/notification.h>
 
 #include "freetuxtv-channel-infos.h"
 #include "freetuxtv-player.h"
@@ -47,6 +48,7 @@ struct _FreetuxTVApp {
 	struct {
 		FreetuxTVChannelInfos *channel;
 		gboolean lastchannelonstartup;
+		NotifyNotification *notification;
 	} current;
 
 	gboolean debug;	

@@ -178,7 +178,7 @@ g_mmkeys_activate (GMMKeys *self)
 void
 g_mmkeys_deactivate (GMMKeys *self)
 {
-	
+	g_print("GMMKeys : deactivating media player keys\n");
 	if (self->proxy != NULL) {
 		GError *error = NULL;
 		
@@ -448,7 +448,7 @@ g_marshal_VOID__STRING_STRING (GClosure     *closure,
 static void
 g_mmkeys_finalize (GObject *object)
 {
-	
+	g_print ("GMMKeys : finalize\n");	
 }
 
 static void
