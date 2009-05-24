@@ -14,6 +14,7 @@ FreetuxTV 0.3.0 (2009-)
   - Mise à jour de logos : M6 Music Black, M6 Music Hits, RMC
   - Migration vers un GtkTreeview pour la liste des chaines
   - Synchronisation automatique de la liste des logos
+  - Notification lors du chargement d'une chaîne (avec libnotify)
 
 FreetuxTV 0.2.1 (2009-01-17)
   - Support de la redirection d'une URL dans une playlist
