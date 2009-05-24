@@ -6,7 +6,8 @@ FreetuxTV 0.3.0 (2009-)
     C9, Calais tv, Canal savoir, CanalTV, Chérie FM, Corriland TV, CPAC, Europe 1, Fazz Music, 
     France Bleu, France Culture, France Info, France Inter, France Musique, Frequence 3, Fun Radio,
     Grosse Caisse, IDF 1, Inraci, Jamzine, LabelleTV, LCN Québec, Le Mouv', M6 Boutique, MFM,
-    MJC Apt
+    MJC Apt, Night-mag.com, Normandie TV, Nostalgie, NRJ, Orleans tv, Ouest tv, Oui FM,
+    Radio FG, Radio libertaire, Radio nova, Railtv, RDI CANADA, RFM, Rire et Chansons, RTL 2, RVE
   - Migration vers un GtkTreeview pour la liste des chaines
   - Synchronisation automatique de la liste des logos
 
