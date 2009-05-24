@@ -175,7 +175,9 @@ freetuxtv_player_stop (FreetuxTVPlayer *self)
 			// Arret de la chaine en cours de lecture
 			libvlc_media_player_stop (self->libvlc.mp, &_vlcexcep);
 			on_vlc_exception (self, &_vlcexcep);
-		}		
+
+			self->is_recording = FALSE;
+		}
         }
 }
 
@@ -209,7 +211,7 @@ freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar* directory_record,
 		libvlc_media_player_set_media (self->libvlc.mp, m, &_vlcexcep);
 		libvlc_media_player_play (self->libvlc.mp, &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
-
+		self->is_recording = TRUE;
 		g_free(options);
         }
 }
@@ -223,6 +225,33 @@ freetuxtv_player_fullscreen (FreetuxTVPlayer *self)
 		libvlc_set_fullscreen (self->libvlc.mp, 1, &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
         }
+}
+
+gboolean
+freetuxtv_player_is_playing(FreetuxTVPlayer *self)
+{
+	gboolean result = FALSE;
+	libvlc_exception_t _vlcexcep;
+        libvlc_exception_init (&_vlcexcep);
+
+	libvlc_state_t state;
+	state = libvlc_media_player_get_state (self->libvlc.mp, &_vlcexcep);
+	if(state == libvlc_Opening){
+		result = TRUE;
+	}
+	if(state == libvlc_Buffering){
+		result = TRUE;
+	}
+	if(state == libvlc_Playing){
+		result = TRUE;
+	}
+	return result;
+}
+
+gboolean
+freetuxtv_player_is_recording(FreetuxTVPlayer *self)
+{
+	return self->is_recording;
 }
 
 static void 
@@ -275,9 +304,10 @@ event(const libvlc_event_t * event, void * user_data){
 static void
 freetuxtv_player_init (FreetuxTVPlayer *object)
 {
-	object->libvlc.inst=NULL;
-	object->libvlc.mp=NULL;
-	object->volume=70.00;
+	object->libvlc.inst = NULL;
+	object->libvlc.mp = NULL;
+	object->volume = 70.00;
+	object->is_recording = FALSE;
 }
 
 static void

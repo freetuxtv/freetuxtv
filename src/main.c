@@ -244,10 +244,10 @@ freetuxtv_app_create_app ()
 			 app);
 
 	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttonplay");
+				       "windowmain_buttonplaypause");
 	g_signal_connect(G_OBJECT(widget),
 			 "clicked",
-			 G_CALLBACK(on_windowmain_buttonplay_clicked),
+			 G_CALLBACK(on_windowmain_buttonplaypause_clicked),
 			 app);
 
 	widget = glade_xml_get_widget (app->windowmain,
@@ -394,32 +394,38 @@ void
 freetuxtv_action_play_channel (FreetuxTVApp *app, FreetuxTVChannelInfos *channel_infos)
 {
 	gchar *text;
-	
-	text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
-	windowmain_statusbar_push (app, "PlayChannelMsg", text);
-	
-	app->current.channel = channel_infos;
-	
-	// Send notification to desktop
-	gchar *imgfile;
-	imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
-	
-	notify_notification_update (app->current.notification, channel_infos->name,
-				    NULL, imgfile);
-	if (!notify_notification_show (app->current.notification, NULL)) {
-		g_printerr("FreetuxTV : Failed to send notification\n");
+	if(!freetuxtv_player_is_recording(app->player)){
+		text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
+		windowmain_statusbar_push (app, "PlayChannelMsg", text);
+		
+		app->current.channel = channel_infos;
+		
+		// Send notification to desktop
+		gchar *imgfile;
+		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
+		
+		notify_notification_update (app->current.notification, channel_infos->name,
+					    _("is playing"), imgfile);
+		if (!notify_notification_show (app->current.notification, NULL)) {
+			g_printerr("FreetuxTV : Failed to send notification\n");
+		}
+		g_free(imgfile);
+		g_free(text);
+		
+		windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
+		
+		freetuxtv_player_play (app->player, channel_infos);
 	}
-	g_free(imgfile);
-	g_free(text);
-	
-	freetuxtv_player_play (app->player, channel_infos);
-
 }
 
 void
-freetuxtv_action_replay_channel (FreetuxTVApp *app)
+freetuxtv_action_playpause_channel (FreetuxTVApp *app)
 {	
-	freetuxtv_player_play (app->player, app->current.channel);
+	if(app->current.channel != NULL){
+		if(!freetuxtv_player_is_playing (app->player)){
+			freetuxtv_action_play_channel (app, app->current.channel);
+		}
+	}
 }
 
 void
@@ -427,11 +433,23 @@ freetuxtv_action_stop_channel (FreetuxTVApp *app)
 {
 	gchar *text;
 	if(app->current.channel != NULL){
-		text = g_strdup_printf (_("Stopping channel : %s"), app->current.channel->name);
-		windowmain_statusbar_push (app, "PlayChannelMsg", text);
-		g_free(text);
+		if(freetuxtv_player_is_playing(app->player)){
+
+			gboolean recording;
+			recording = freetuxtv_player_is_recording(app->player);
+			
+			text = g_strdup_printf (_("Stopping channel : %s"), app->current.channel->name);
+			windowmain_statusbar_push (app, "PlayChannelMsg", text);
+			g_free(text);
+	
+			windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
+			freetuxtv_player_stop (app->player);
+
+			if(recording){
+				freetuxtv_action_playpause_channel (app);				
+			}
+		}
 	}
-	freetuxtv_player_stop (app->player);
 }
 
 void
@@ -439,12 +457,32 @@ freetuxtv_action_record_channel (FreetuxTVApp *app)
 {
 	gchar* out_filename;
 	gchar *text;
-	freetuxtv_player_record_current (app->player, app->config.directoryrecord, &out_filename);
+
+	if(freetuxtv_player_is_playing(app->player) &&
+	   !freetuxtv_player_is_recording(app->player)){
+
+		// Send notification to desktop
+		gchar *imgfile;
+		imgfile = logos_list_get_channel_logo_filename(app, app->current.channel, TRUE);
+		
+		notify_notification_update (app->current.notification, app->current.channel->name,
+					    _("is recording"), imgfile);
+		if (!notify_notification_show (app->current.notification, NULL)) {
+			g_printerr("FreetuxTV : Failed to send notification\n");
+		}
+		g_free(imgfile);
+		g_free(text);
 	
-	text = g_strdup_printf (_("Recording : %s"), out_filename);
-	windowmain_statusbar_push (app, "PlayChannelMsg", text);
-	g_free(text);
-	g_free(out_filename);
+		windowmain_display_buttons (app, WINDOW_MODE_RECORDING);
+
+		freetuxtv_player_record_current (app->player, app->config.directoryrecord,
+						 &out_filename);
+	
+		text = g_strdup_printf (_("Recording : %s"), out_filename);
+		windowmain_statusbar_push (app, "PlayChannelMsg", text);
+		g_free(text);
+		g_free(out_filename);
+	}
 }
 
 void
@@ -453,9 +491,11 @@ freetuxtv_action_prev_channel (FreetuxTVApp *app)
 	gboolean ret;
 	FreetuxTVChannelInfos* prev_channel_infos;
 	if (app->current.channel != NULL) {
-		ret = channels_list_get_prev_channel (app, app->current.channel, &prev_channel_infos);
-		if(ret){			
-			freetuxtv_action_play_channel(app, prev_channel_infos);
+		if(!freetuxtv_player_is_recording(app->player)){
+			ret = channels_list_get_prev_channel (app, app->current.channel, &prev_channel_infos);
+			if(ret){			
+				freetuxtv_action_play_channel(app, prev_channel_infos);
+			}
 		}
 	}
 }
@@ -466,9 +506,11 @@ freetuxtv_action_next_channel (FreetuxTVApp *app)
 	gboolean ret;
 	FreetuxTVChannelInfos* next_channel_infos;
 	if (app->current.channel != NULL) {
-		ret = channels_list_get_next_channel (app, app->current.channel, &next_channel_infos);
-		if(ret){			
-			freetuxtv_action_play_channel(app, next_channel_infos);
+		if(!freetuxtv_player_is_recording(app->player)){
+			ret = channels_list_get_next_channel (app, app->current.channel, &next_channel_infos);
+			if(ret){			
+				freetuxtv_action_play_channel(app, next_channel_infos);
+			}
 		}
 	}
 }
@@ -538,7 +580,7 @@ on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp
 	switch(button){
 	case GMMKEYS_BUTTON_PLAY :
 	case GMMKEYS_BUTTON_PAUSE :
-		freetuxtv_action_replay_channel (app);		
+		freetuxtv_action_playpause_channel (app);		
 		break;
 	case GMMKEYS_BUTTON_STOP :
 		freetuxtv_action_stop_channel (app);
@@ -598,6 +640,9 @@ int main (int argc, char *argv[])
 			}
 		}
 	}
+
+	// Initialise l'interface
+	windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
 
 	// Regarde si on charge une chaine au demarrage
 	if(app->config.channelonstartup == TRUE
