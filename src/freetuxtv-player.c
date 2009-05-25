@@ -57,26 +57,19 @@ freetuxtv_player_new ()
 	char *config_file;
 	config_file = g_build_filename (g_get_user_config_dir(),
 					"FreetuxTV/vlcrc", NULL);
-	const char * const vlc_args[] = {
+	
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
+	const char* const vlc_args[] = {
 		"--config", config_file /* Use alternative VLC's config */,
 		"--save-config", "--verbose=0"};
+
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 	if(self->libvlc.inst == NULL){		
 		self->libvlc.inst = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args, &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
-
-#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
-		// Création de l'instance VLC si elle n'existe pas
-                XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
-                libvlc_video_set_parent(self->libvlc.inst, xid, &_vlcexcep);
-                on_vlc_exception (self, &_vlcexcep);
-                libvlc_audio_set_volume (self->libvlc.inst, 
-                                         self->volume, &_vlcexcep);    
-                on_vlc_exception (self, &_vlcexcep);		
-#endif
-
 	}
+#endif
 	g_free(config_file);
   
 	gtk_widget_show (GTK_WIDGET(self));
@@ -146,7 +139,19 @@ freetuxtv_player_play (FreetuxTVPlayer *self, FreetuxTVChannelInfos *channel_inf
 	on_vlc_exception (self, &_vlcexcep);
 #endif
 
-#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8        
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+	// Création de l'instance VLC si elle n'existe pas
+	if(self->libvlc.inst == NULL){		
+		self->libvlc.inst = libvlc_new(0, NULL, &_vlcexcep);
+		on_vlc_exception (self, &_vlcexcep);
+                XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
+                libvlc_video_set_parent(self->libvlc.inst, xid, &_vlcexcep);
+                on_vlc_exception (self, &_vlcexcep);
+                libvlc_audio_set_volume (self->libvlc.inst,
+                                         self->volume, &_vlcexcep);
+                on_vlc_exception (self, &_vlcexcep);
+	}
+
         // Arret de la chaine en cour de lecture
         if (libvlc_playlist_isplaying (self->libvlc.inst,&_vlcexcep)) {
                 on_vlc_exception (self, &_vlcexcep);
