@@ -15,6 +15,23 @@ else
   AC_DEFINE_UNQUOTED(FREETUXTV_DIR, "${prefix}/share/freetuxtv", [Location of FreetuxTV files])
 fi
 
+# Get LibVLC version
+LIBVLC_VERSION="unknow"
+LIBVLC_PKGCONFIG=""
+if pkg-config --exists libvlc; then
+  if `pkg-config --atleast-version=0.9.0 libvlc`; then
+    LIBVLC_VERSION="0.9"
+    LIBVLC_PKGCONFIG="libvlc >= 0.9.0"
+  else
+    LIBVLC_VERSION=`pkg-config --modversion libvlc`
+    LIBVLC_PKGCONFIG="libvlc >= $LIBVLC_VERSION"
+  fi
+else
+  LIBVLC_VERSION="0.8.6"
+fi
+echo "detecting installed LibVLC version "$LIBVLC_VERSION
+AC_DEFINE_UNQUOTED(LIBVLC_VERSION, "$LIBVLC_VERSION", [Current LibVLC version])
+
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_MAKE_SET
@@ -25,7 +42,7 @@ PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.12.0
                         glib-2.0 >= 2.16.0
                         libglade-2.0 >= 2.6.0
                         dbus-glib-1 >= 0.74
-                        libvlc >= 0.9.4
+                        $LIBVLC_PKGCONFIG
 			libnotify >= 0.4)
 
 AC_SUBST(DEPS_CFLAGS)
