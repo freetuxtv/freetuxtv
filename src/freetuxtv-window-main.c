@@ -438,7 +438,6 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 	GtkWidget *widget;
 	gboolean sensitive;
 	GtkWidget *image;
-	g_print("buttons\n");
 	// Button previous
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain_buttonprevious");
