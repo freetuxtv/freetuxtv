@@ -11,6 +11,10 @@
 #ifndef FREETUXTV_PLAYER_H
 #define FREETUXTV_PLAYER_H
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #include <vlc/vlc.h>
@@ -37,7 +41,9 @@ struct _FreetuxTVPlayer
 	
 	struct {
 		libvlc_instance_t *inst;
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 		libvlc_media_player_t *mp;
+#endif
 	} libvlc;
 
 	gboolean is_recording;
