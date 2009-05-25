@@ -294,7 +294,7 @@ freetuxtv_player_fullscreen (FreetuxTVPlayer *self)
 
 #if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
 	libvlc_input_t *input_t;
-        if(self->vlcinstance != NULL){
+        if(self->libvlc.inst != NULL){
                 if (libvlc_playlist_isplaying (self->libvlc.inst, &_vlcexcep)) {
                         input_t = libvlc_playlist_get_input(self->libvlc.inst,
                                                             &_vlcexcep);
