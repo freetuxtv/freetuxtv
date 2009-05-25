@@ -16,21 +16,29 @@ else
 fi
 
 # Get LibVLC version
-LIBVLC_VERSION="unknow"
+LIBVLC_VERSION=""
 LIBVLC_PKGCONFIG=""
 if pkg-config --exists libvlc; then
-  if `pkg-config --atleast-version=0.9.0 libvlc`; then
-    LIBVLC_VERSION="0.9"
-    LIBVLC_PKGCONFIG="libvlc >= 0.9.0"
-  else
-    LIBVLC_VERSION=`pkg-config --modversion libvlc`
-    LIBVLC_PKGCONFIG="libvlc >= $LIBVLC_VERSION"
+  LIBVLC_VERSION=`pkg-config --modversion libvlc`
+  LIBVLC_PKGCONFIG="libvlc"
+else
+  LIBVLC_VERSION=`vlc-config --version`
+fi
+if test "$LIBVLC_VERSION" != ""; then
+  LIBVLC_VERSION_MAJOR=`echo $LIBVLC_VERSION | cut -d'.' -f1`
+  LIBVLC_VERSION_MINOR=`echo $LIBVLC_VERSION | cut -d'.' -f2`
+  echo "compiling with installed LibVLC version $LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR"
+  AC_DEFINE_UNQUOTED(LIBVLC_VERSION_MAJOR, $LIBVLC_VERSION_MAJOR, [LibVLC version major used for complication])
+  AC_DEFINE_UNQUOTED(LIBVLC_VERSION_MINOR, $LIBVLC_VERSION_MINOR, [Current LibVLC version minor])
+  if test "$LIBVLC_PKGCONFIG" != ""; then
+    LIBVLC_PKGCONFIG="libvlc >= $LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR"
   fi
 else
-  LIBVLC_VERSION="0.8.6"
+  echo
+  echo "**Error**: Cannot detect LibVLC version."
+  echo "Do you have installed the libvlc development (libvlc-dev) package?"
+  exit 1
 fi
-echo "detecting installed LibVLC version "$LIBVLC_VERSION
-AC_DEFINE_UNQUOTED(LIBVLC_VERSION, "$LIBVLC_VERSION", [Current LibVLC version])
 
 # Checks for programs.
 AC_PROG_CC
