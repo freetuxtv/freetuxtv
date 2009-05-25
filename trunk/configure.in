@@ -27,7 +27,7 @@ fi
 if test "$LIBVLC_VERSION" != ""; then
   LIBVLC_VERSION_MAJOR=`echo $LIBVLC_VERSION | cut -d'.' -f1`
   LIBVLC_VERSION_MINOR=`echo $LIBVLC_VERSION | cut -d'.' -f2`
-  echo "compiling with installed LibVLC version $LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR"
+  echo "compiling with LibVLC version $LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR"
   AC_DEFINE_UNQUOTED(LIBVLC_VERSION_MAJOR, $LIBVLC_VERSION_MAJOR, [LibVLC version major used for complication])
   AC_DEFINE_UNQUOTED(LIBVLC_VERSION_MINOR, $LIBVLC_VERSION_MINOR, [Current LibVLC version minor])
   if test "$LIBVLC_PKGCONFIG" != ""; then
