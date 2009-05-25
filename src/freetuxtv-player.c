@@ -65,6 +65,17 @@ freetuxtv_player_new ()
 	if(self->libvlc.inst == NULL){		
 		self->libvlc.inst = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args, &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+		// Création de l'instance VLC si elle n'existe pas
+                XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
+                libvlc_video_set_parent(self->libvlc.inst, xid, &_vlcexcep);
+                on_vlc_exception (self, &_vlcexcep);
+                libvlc_audio_set_volume (self->libvlc.inst, 
+                                         self->volume, &_vlcexcep);    
+                on_vlc_exception (self, &_vlcexcep);		
+#endif
+
 	}
 	g_free(config_file);
   
@@ -76,12 +87,11 @@ freetuxtv_player_new ()
 void
 freetuxtv_player_play (FreetuxTVPlayer *self, FreetuxTVChannelInfos *channel_infos)
 {
-	
-#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
-	libvlc_media_t *m;
-
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
+	libvlc_media_t *m;
 
 	// Création du mediaplayer s'il n'existe pas
 	if(self->libvlc.mp == NULL){
@@ -135,13 +145,40 @@ freetuxtv_player_play (FreetuxTVPlayer *self, FreetuxTVChannelInfos *channel_inf
 	libvlc_media_player_play (self->libvlc.mp, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
 #endif
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8        
+        // Arret de la chaine en cour de lecture
+        if (libvlc_playlist_isplaying (self->libvlc.inst,&_vlcexcep)) {
+                on_vlc_exception (self, &_vlcexcep);
+                libvlc_playlist_stop (self->libvlc.inst,&_vlcexcep);
+                on_vlc_exception (self, &_vlcexcep);
+        }
+        
+        // Effacement de la playlist
+        if ( libvlc_playlist_items_count (self->libvlc.inst,&_vlcexcep) ){
+                libvlc_playlist_clear (self->libvlc.inst,&_vlcexcep);
+                on_vlc_exception (self, &_vlcexcep);
+        }
+        
+        // Ajout de l'URL dans la playlist
+	g_print ("FreetuxTV : Launching channel \"%s\" -> %s\n",
+		 channel_infos->name, channel_infos->url);
+        libvlc_playlist_add (self->libvlc.inst, channel_infos->url, NULL, &_vlcexcep);
+        on_vlc_exception (self, &_vlcexcep);
+
+        // Lecture de la chaine
+        if ( libvlc_playlist_items_count (self->libvlc.inst, &_vlcexcep) ){
+                libvlc_playlist_play (self->libvlc.inst, -1, 0, 
+                                      NULL, &_vlcexcep);
+                on_vlc_exception (self, &_vlcexcep);
+        }
+#endif
+
 }
 
 void
 freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value)
 {
-	
-#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	libvlc_exception_t _vlcexcep;
         
 	self->volume = value;
@@ -152,7 +189,6 @@ freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value)
                                          (gint)value, &_vlcexcep);    
                 on_vlc_exception (self, &_vlcexcep);
         }
-#endif
 }
 
 gdouble
@@ -163,10 +199,11 @@ freetuxtv_player_get_volume (FreetuxTVPlayer *self)
 
 void
 freetuxtv_player_stop (FreetuxTVPlayer *self)
-{	
-#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
+{
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
+	
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
         if(self->libvlc.mp != NULL){
 		libvlc_media_t *m;
 		m = libvlc_media_player_get_media(self->libvlc.mp, &_vlcexcep);
@@ -190,6 +227,18 @@ freetuxtv_player_stop (FreetuxTVPlayer *self)
 		}
         }
 #endif
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+        if(self->libvlc.inst != NULL){
+                // Arret de la chaine en cours de lecture
+                if (libvlc_playlist_isplaying (self->libvlc.inst, &_vlcexcep)) {
+                        on_vlc_exception (self, &_vlcexcep);
+                        libvlc_playlist_stop (self->libvlc.inst, &_vlcexcep);
+                        on_vlc_exception (self, &_vlcexcep);
+                }
+        }
+#endif
+
 }
 
 void
@@ -233,27 +282,42 @@ freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar* directory_record,
 void
 freetuxtv_player_fullscreen (FreetuxTVPlayer *self)
 {
-#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
         if(self->libvlc.mp != NULL){
 		libvlc_set_fullscreen (self->libvlc.mp, 1, &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
         }
 #endif
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+	libvlc_input_t *input_t;
+        if(self->vlcinstance != NULL){
+                if (libvlc_playlist_isplaying (self->libvlc.inst, &_vlcexcep)) {
+                        input_t = libvlc_playlist_get_input(self->libvlc.inst,
+                                                            &_vlcexcep);
+                        on_vlc_exception (self, &_vlcexcep);
+                        libvlc_set_fullscreen(input_t, 1, &_vlcexcep);
+                        on_vlc_exception (self, &_vlcexcep);
+                }
+        }
+#endif
+
 }
 
 gboolean
 freetuxtv_player_is_playing(FreetuxTVPlayer *self)
 {
 	gboolean result = FALSE;
-
-#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
 
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	libvlc_state_t state;
 	state = libvlc_media_player_get_state (self->libvlc.mp, &_vlcexcep);
+	on_vlc_exception (self, &_vlcexcep);
 	if(state == libvlc_Opening){
 		result = TRUE;
 	}
@@ -264,6 +328,16 @@ freetuxtv_player_is_playing(FreetuxTVPlayer *self)
 		result = TRUE;
 	}
 #endif
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+	int is_playing;
+	is_playing = libvlc_playlist_isplaying (self->libvlc.inst, &_vlcexcep);
+	on_vlc_exception (self, &_vlcexcep);
+	if(is_playing){
+		result = TRUE;		
+	}
+#endif
+
 	return result;
 }
 

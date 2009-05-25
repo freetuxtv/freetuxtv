@@ -17,7 +17,12 @@
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 #include <vlc/vlc.h>
+#endif
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+#include <vlc/libvlc.h>
+#endif
 
 #include "freetuxtv-channel-infos.h"
 
