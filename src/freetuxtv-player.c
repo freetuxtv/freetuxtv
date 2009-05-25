@@ -21,6 +21,8 @@ static void
 on_vlc_exception (FreetuxTVPlayer *self, 
 		  libvlc_exception_t *ex);
 
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 typedef struct _IdlePlayParam {
 	FreetuxTVPlayer *self;
 	FreetuxTVChannelInfos *channel_infos;
@@ -34,6 +36,7 @@ static gboolean libvlc_idle_play_function(gpointer ptrdata){
 
 static void 
 event(const libvlc_event_t * event, void * user_data);
+#endif
 
 GtkWidget *
 freetuxtv_player_new ()
@@ -73,6 +76,8 @@ freetuxtv_player_new ()
 void
 freetuxtv_player_play (FreetuxTVPlayer *self, FreetuxTVChannelInfos *channel_infos)
 {
+	
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	libvlc_media_t *m;
 
 	libvlc_exception_t _vlcexcep;
@@ -129,11 +134,14 @@ freetuxtv_player_play (FreetuxTVPlayer *self, FreetuxTVChannelInfos *channel_inf
 	// Lecture de la chaine
 	libvlc_media_player_play (self->libvlc.mp, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
+#endif
 }
 
 void
 freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value)
 {
+	
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	libvlc_exception_t _vlcexcep;
         
 	self->volume = value;
@@ -144,6 +152,7 @@ freetuxtv_player_set_volume (FreetuxTVPlayer *self, gdouble value)
                                          (gint)value, &_vlcexcep);    
                 on_vlc_exception (self, &_vlcexcep);
         }
+#endif
 }
 
 gdouble
@@ -154,7 +163,8 @@ freetuxtv_player_get_volume (FreetuxTVPlayer *self)
 
 void
 freetuxtv_player_stop (FreetuxTVPlayer *self)
-{
+{	
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
         if(self->libvlc.mp != NULL){
@@ -179,11 +189,14 @@ freetuxtv_player_stop (FreetuxTVPlayer *self)
 			self->is_recording = FALSE;
 		}
         }
+#endif
 }
 
 void
 freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar* directory_record, gchar** out_filename)
 {
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
         if(self->libvlc.mp != NULL){
@@ -214,23 +227,28 @@ freetuxtv_player_record_current (FreetuxTVPlayer *self, gchar* directory_record,
 		self->is_recording = TRUE;
 		g_free(options);
         }
+#endif
 }
 
 void
 freetuxtv_player_fullscreen (FreetuxTVPlayer *self)
 {
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
         if(self->libvlc.mp != NULL){
 		libvlc_set_fullscreen (self->libvlc.mp, 1, &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
         }
+#endif
 }
 
 gboolean
 freetuxtv_player_is_playing(FreetuxTVPlayer *self)
 {
 	gboolean result = FALSE;
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	libvlc_exception_t _vlcexcep;
         libvlc_exception_init (&_vlcexcep);
 
@@ -245,6 +263,7 @@ freetuxtv_player_is_playing(FreetuxTVPlayer *self)
 	if(state == libvlc_Playing){
 		result = TRUE;
 	}
+#endif
 	return result;
 }
 
@@ -264,6 +283,7 @@ on_vlc_exception (FreetuxTVPlayer *self,
 	}
 }
 
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 static void 
 event(const libvlc_event_t * event, void * user_data){
 	FreetuxTVPlayer *self = (FreetuxTVPlayer*) user_data;
@@ -300,12 +320,15 @@ event(const libvlc_event_t * event, void * user_data){
 	}
 	
 }
+#endif
 
 static void
 freetuxtv_player_init (FreetuxTVPlayer *object)
 {
 	object->libvlc.inst = NULL;
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
 	object->libvlc.mp = NULL;
+#endif
 	object->volume = 70.00;
 	object->is_recording = FALSE;
 }
