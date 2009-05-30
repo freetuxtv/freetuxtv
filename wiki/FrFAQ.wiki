@@ -1,5 +1,5 @@
 #summary Foire aux questions en Français
-#labels Phase-Support
+#labels Phase-Support,Featured
 
 = Introduction =
 
