@@ -1,0 +1,10 @@
+#summary Foire aux questions en Français
+
+Vous trouverez sur cette page la réponse aux problèmes et aux questions les plus courantes sur FreetuxTV.
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
