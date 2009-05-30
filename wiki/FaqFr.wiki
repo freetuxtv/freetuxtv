@@ -1,10 +1,24 @@
 #summary Foire aux questions en Français
+#labels Phase-Support
+
+= Introduction =
 
 Vous trouverez sur cette page la réponse aux problèmes et aux questions les plus courantes sur FreetuxTV.
 
-= Details =
+= FAQ =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== Questions générales ==
+
+=== Peut-on enregistrer les chaînes de télévision ? ===
+
+La dernière version stable ne permet pour l'instant pas d'enregistrer des chaînes. En revanche, il est possible d'enregistrer des chaînes en direct dans la version de développement que vous pouvez compiler depuis le SVN.
+
+== Problèmes fréquents ==
+
+=== Mes groupes de chaînes ne contienne aucunes chaînes ===
+
+Pour mettre à jour la liste des chaînes, effectuer un clic droit sur le nom du groupe et choisissez l'option "Actualiser depuis la playlist".
+
+=== Comment rajouter un groupe supprimé ? ===
+
+Pour ajouter un groupe, cliquez sur le menu "Chaînes" puis "Ajouter un groupe". Saisissez alors le nom sur groupe et l'URI du fichier M3U. Vous pouvez aussi supprimer une partie du nom des chaînes dans la playlist en utilisant les expressions régulières. 
