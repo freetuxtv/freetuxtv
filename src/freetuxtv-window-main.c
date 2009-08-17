@@ -22,13 +22,14 @@
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-logos-list.h"
-#include "freetuxtv-player.h"
+#include "gtk-libvlc-media-player.h"
 
-void
-on_windowmain_destroy (GtkWidget *widget, gpointer *data)
+gboolean
+on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) data;
 	freetuxtv_action_quit (app);
+	return TRUE;
 }
 
 void 
@@ -114,7 +115,7 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 
 void
 on_windowmain_buttonplaypause_clicked (GtkButton *button,
-				  gpointer user_data)
+				       gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	freetuxtv_action_playpause_channel (app);
@@ -125,7 +126,7 @@ on_windowmain_buttonfullscreen_clicked (GtkButton *button,
 					gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_player_fullscreen (app->player);
+	gtk_libvlc_media_player_set_fullscreen (app->player, TRUE);
 }
 
 void
@@ -143,7 +144,7 @@ on_windowmain_buttonminimode_clicked (GtkButton *button,
 				      "windowmain");
 	gtk_widget_hide (widget);
 
-	volume = freetuxtv_player_get_volume (app->player);
+	volume = gtk_libvlc_media_player_get_volume (app->player);
 
 	/* Affichage de la fenetre miniature */
 	app->windowminimode = glade_xml_new (FREETUXTV_GLADEXML,
@@ -155,7 +156,7 @@ on_windowmain_buttonminimode_clicked (GtkButton *button,
 				      "windowminimode");
 	g_signal_connect(G_OBJECT(widget),
 			 "destroy",
-			 G_CALLBACK(on_windowmain_destroy),
+			 G_CALLBACK(on_windowmain_deleteevent),
 			 app);
 	
 	widget = glade_xml_get_widget(app->windowminimode,
@@ -206,7 +207,7 @@ on_windowmain_volumecontrol_value_changed (GtkRange *range, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	app->config.volume = gtk_range_get_value (range);
-	freetuxtv_player_set_volume (app->player, app->config.volume);
+	gtk_libvlc_media_player_set_volume (app->player, app->config.volume);
 }
 
 void
@@ -279,7 +280,7 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 	GtkWidget *widget;
 	gdouble volume;
 
-	volume = freetuxtv_player_get_volume (app->player);
+	volume = gtk_libvlc_media_player_get_volume (app->player);
 	
 	widget = glade_xml_get_widget(app->windowminimode,
 				      "windowminimode");

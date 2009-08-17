@@ -1,7 +1,4 @@
 FreetuxTV 0.3.0 (2009-)
-  - Correction erreur X11 à la fermeture de l'application
-  - Création d'un objet pour stocker les informations d'une chaîne et d'un groupe
-  - Enregistrement d'une chaîne en direct
   - Ajout de logos : AccroTV, Argent Quebec, Arretsurimages.tv, Bamboch TV, Bastille TV,
     BBC World News, Biscotte TV, Boardriders TV, C9, Calais tv, Canal savoir, CanalTV, Chérie FM,
     Ciné First, Clubbing TV, Corriland TV, CPAC, Europe 1, Fazz Music, Fox Life, France Bleu,
@@ -14,7 +11,11 @@ FreetuxTV 0.3.0 (2009-)
   - Mise à jour de logos : M6 Music Black, M6 Music Hits, RMC
   - Migration vers un GtkTreeview pour la liste des chaines
   - Synchronisation automatique de la liste des logos
-  - Notification lors du chargement d'une chaîne (avec libnotify)
+  - Notification lors du chargement et de l'enregistrement d'une chaîne (avec libnotify)
+  - Support de VLC 0.8.6 avec la migration vers libvlc-gtk
+  - Correction erreur X11 à la fermeture de l'application
+  - Création d'un objet pour stocker les informations d'une chaîne et d'un groupe
+  - Enregistrement d'une chaîne en direct
 
 FreetuxTV 0.2.1 (2009-01-17)
   - Support de la redirection d'une URL dans une playlist
