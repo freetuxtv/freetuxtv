@@ -18,8 +18,8 @@ typedef enum {
 	WINDOW_MODE_RECORDING
 } FreetuxTVWindowMode;
 
-void
-on_windowmain_destroy (GtkWidget *widget, gpointer *data);
+gboolean
+on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data);
 
 void
 on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,

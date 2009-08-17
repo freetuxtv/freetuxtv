@@ -16,7 +16,7 @@
 #include <libnotify/notification.h>
 
 #include "freetuxtv-channel-infos.h"
-#include "freetuxtv-player.h"
+#include "gtk-libvlc-media-player.h"
 
 G_BEGIN_DECLS
 
@@ -31,7 +31,7 @@ struct _FreetuxTVApp {
 	GladeXML *windowminimode;
 	GladeXML *dialogpreferences;
 
-	FreetuxTVPlayer *player;
+	GtkLibVLCMediaPlayer *player;
 	GtkTreeModel *channelslist;
 
 	struct {

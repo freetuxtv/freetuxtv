@@ -13,10 +13,15 @@ freetuxtv_SOURCES = \
   freetuxtv-i18n.h \
   freetuxtv-logos-list.c \
   freetuxtv-logos-list.h \
-  freetuxtv-player.c \
-  freetuxtv-player.h \
   freetuxtv-window-main.c \
   freetuxtv-window-main.h \
+  gtk-libvlc-include.h \
+  gtk-libvlc-instance.c \
+  gtk-libvlc-instance.h \
+  gtk-libvlc-media.c \
+  gtk-libvlc-media.h \
+  gtk-libvlc-media-player.c \
+  gtk-libvlc-media-player.h \
   lib-gmmkeys.c \
   lib-gmmkeys.h \
   lib-m3uparser.c \
