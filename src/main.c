@@ -26,7 +26,7 @@
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-logos-list.h"
-#include "freetuxtv-player.h"
+#include "gtk-libvlc-media-player.h"
 
 int
 init_app()
@@ -157,21 +157,26 @@ freetuxtv_app_create_app ()
 	app->config.windowminimode_height = 240;
 	app->config.channelonstartup = TRUE;
 	app->config.lastchannel = -1;
-	app->config.volume = 75.0;
+	app->config.volume = 0.75;
 	app->config.logosfiledate = 0;
 	app->config.directoryrecord = g_strdup(g_get_home_dir());
 	app->current.lastchannelonstartup = FALSE;
 	app->debug = FALSE;
+	
 
 	/* Création de la fenêtre */
 	app->windowmain = glade_xml_new (FREETUXTV_GLADEXML,
 					 "windowmain", NULL);
 	glade_xml_signal_autoconnect (app->windowmain);
 
-	/* Ajout du widget du lecteur */
+	/* Ajout du widget du lecteur */	
 	eventboxplayer = glade_xml_get_widget (app->windowmain,
 					       "windowmain_eventboxplayer");
-	app->player = FREETUXTV_PLAYER(freetuxtv_player_new ());
+	GtkLibVLCInstance* instance;
+	instance = gtk_libvlc_instance_new(NULL);
+	app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance));
+	gtk_widget_show(GTK_WIDGET(app->player));
+	g_object_unref(G_OBJECT(instance));
 	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
 	
 	/* Initialise la liste des chaines */
@@ -183,8 +188,8 @@ freetuxtv_app_create_app ()
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain");
 	g_signal_connect(G_OBJECT(widget),
-			 "destroy",
-			 G_CALLBACK(on_windowmain_destroy),
+			 "delete-event",
+			 G_CALLBACK(on_windowmain_deleteevent),
 			 app);
 	
 	widget = glade_xml_get_widget (app->windowmain,
@@ -344,7 +349,7 @@ freetuxtv_app_create_app ()
 			widget = glade_xml_get_widget (app->windowmain,
 						       "windowmain_volumecontrol");
 			gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
-			freetuxtv_player_set_volume (app->player, app->config.volume);
+			gtk_libvlc_media_player_set_volume (app->player, app->config.volume);
 		}
 		
 		b = g_key_file_get_boolean (keyfile, "general",
@@ -372,7 +377,7 @@ freetuxtv_app_create_app ()
 			err = NULL;
 		}else{
 			app->config.logosfiledate = i;		
-		}		
+		}
 		
 		str = g_key_file_get_string (keyfile, "general",
 					     "directory_record", &err);
@@ -393,8 +398,11 @@ freetuxtv_app_create_app ()
 void
 freetuxtv_action_play_channel (FreetuxTVApp *app, FreetuxTVChannelInfos *channel_infos)
 {
+	if(app->debug){
+		g_print("FreetuxTV-debug : freetuxtv_action_play_channel(%s)\n", channel_infos->name);
+	}
 	gchar *text;
-	if(!freetuxtv_player_is_recording(app->player)){
+	if(!gtk_libvlc_media_player_is_recording(app->player)){
 		text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
 		
@@ -414,52 +422,86 @@ freetuxtv_action_play_channel (FreetuxTVApp *app, FreetuxTVChannelInfos *channel
 		
 		windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
 		
-		freetuxtv_player_play (app->player, channel_infos);
+		GtkLibVLCMedia *media;
+		media = gtk_libvlc_media_new(channel_infos->url);
+		gtk_libvlc_media_player_clear_media_list(app->player);
+		gtk_libvlc_media_player_add_media(app->player, media);
+		g_object_unref(media);
+		gtk_libvlc_media_player_play(app->player);
+
+	}
+	if(app->debug){
+		g_print("FreetuxTV-debug : end freetuxtv_action_play_channel(%s)\n", channel_infos->name);
 	}
 }
 
 void
 freetuxtv_action_playpause_channel (FreetuxTVApp *app)
 {	
+	if(app->debug){
+		g_print("FreetuxTV-debug : freetuxtv_action_playpause_channel()\n");
+	}
 	if(app->current.channel != NULL){
-		if(!freetuxtv_player_is_playing (app->player)){
-			freetuxtv_action_play_channel (app, app->current.channel);
+		g_print("FreetuxTV-debug : current channel %s\n", app->current.channel->name);
+		GtkLibVLCState state = gtk_libvlc_media_player_get_state(app->player);
+		if(state != GTK_LIBVLC_STATE_PLAYING){
+			GtkLibVLCMedia *media;
+			media = gtk_libvlc_media_new(app->current.channel->url);
+			gtk_libvlc_media_player_clear_media_list(app->player);
+			gtk_libvlc_media_player_add_media(app->player, media);
+			g_object_unref(media);
+			gtk_libvlc_media_player_play(app->player);
 		}
+		g_print("FreetuxTV-debug : current channel %s\n", app->current.channel->name);
+		windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
+	}	
+	if(app->debug){
+		g_print("FreetuxTV-debug : exit freetuxtv_action_playpause_channel()\n");
 	}
 }
 
 void
 freetuxtv_action_stop_channel (FreetuxTVApp *app)
 {
+	if(app->debug){
+		g_print("FreetuxTV-debug : freetuxtv_action_stop_channel()\n");
+	}
 	gchar *text;
 	if(app->current.channel != NULL){
-		if(freetuxtv_player_is_playing(app->player)){
+		if(gtk_libvlc_media_player_get_state(app->player) == GTK_LIBVLC_STATE_PLAYING){
 
 			gboolean recording;
-			recording = freetuxtv_player_is_recording(app->player);
-			
+			recording = gtk_libvlc_media_player_is_recording(app->player);
+			g_print("bool %d\n", recording);
 			text = g_strdup_printf (_("Stopping channel : %s"), app->current.channel->name);
 			windowmain_statusbar_push (app, "PlayChannelMsg", text);
 			g_free(text);
 	
 			windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
-			freetuxtv_player_stop (app->player);
+			gtk_libvlc_media_player_stop (app->player);
 
 			if(recording){
 				freetuxtv_action_playpause_channel (app);				
 			}
 		}
+		g_print("FreetuxTV-debug : current channel %s\n", app->current.channel->name);
+	}
+	if(app->debug){
+		g_print("FreetuxTV-debug : exit freetuxtv_action_stop_channel()\n");
 	}
 }
 
 void
 freetuxtv_action_record_channel (FreetuxTVApp *app)
 {
+	if(app->debug){
+		g_print("FreetuxTV-debug : freetuxtv_action_record_channel()\n");
+	}
 	gchar* out_filename;
 	gchar *text;
 
-	if(freetuxtv_player_is_playing(app->player) &&
-	   !freetuxtv_player_is_recording(app->player)){
+	if(gtk_libvlc_media_player_get_state(app->player) == GTK_LIBVLC_STATE_PLAYING
+	   && !gtk_libvlc_media_player_is_recording(app->player)){
 
 		// Send notification to desktop
 		gchar *imgfile;
@@ -475,9 +517,13 @@ freetuxtv_action_record_channel (FreetuxTVApp *app)
 	
 		windowmain_display_buttons (app, WINDOW_MODE_RECORDING);
 
-		freetuxtv_player_record_current (app->player, app->config.directoryrecord,
-						 &out_filename);
-	
+		GTimeVal now;
+                g_get_current_time(&now);
+                out_filename = g_strconcat(app->config.directoryrecord, "/", app->current.channel->name, " - ",
+                                            g_time_val_to_iso8601(&now), ".mpg", NULL);
+		gtk_libvlc_media_player_record_current (app->player, out_filename);
+		
+		
 		text = g_strdup_printf (_("Recording : %s"), out_filename);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
 		g_free(text);
@@ -487,11 +533,14 @@ freetuxtv_action_record_channel (FreetuxTVApp *app)
 
 void
 freetuxtv_action_prev_channel (FreetuxTVApp *app)
-{	
+{
+	if(app->debug){
+		g_print("FreetuxTV-debug : freetuxtv_action_prev_channel()\n");
+	}
 	gboolean ret;
 	FreetuxTVChannelInfos* prev_channel_infos;
 	if (app->current.channel != NULL) {
-		if(!freetuxtv_player_is_recording(app->player)){
+		if(!gtk_libvlc_media_player_is_recording(app->player)){
 			ret = channels_list_get_prev_channel (app, app->current.channel, &prev_channel_infos);
 			if(ret){			
 				freetuxtv_action_play_channel(app, prev_channel_infos);
@@ -503,10 +552,13 @@ freetuxtv_action_prev_channel (FreetuxTVApp *app)
 void
 freetuxtv_action_next_channel (FreetuxTVApp *app)
 {
+	if(app->debug){
+		g_print("FreetuxTV-debug : freetuxtv_action_next_channel()\n");
+	}
 	gboolean ret;
 	FreetuxTVChannelInfos* next_channel_infos;
 	if (app->current.channel != NULL) {
-		if(!freetuxtv_player_is_recording(app->player)){
+		if(!gtk_libvlc_media_player_is_recording(app->player)){
 			ret = channels_list_get_next_channel (app, app->current.channel, &next_channel_infos);
 			if(ret){			
 				freetuxtv_action_play_channel(app, next_channel_infos);
@@ -518,6 +570,9 @@ freetuxtv_action_next_channel (FreetuxTVApp *app)
 void
 freetuxtv_action_quit (FreetuxTVApp *app)
 {
+	if(app->debug){
+		g_print("FreetuxTV-debug : freetuxtv_action_quit()\n");
+	}
 	GKeyFile *keyfile;
 	char *contents, *filename;
 	
@@ -577,6 +632,9 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 static void
 on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp* app)
 {
+	if(app->debug){
+		g_print("FreetuxTV-debug : on_freetuxtv_mm_key_pressed()\n");
+	}
 	switch(button){
 	case GMMKEYS_BUTTON_PLAY :
 	case GMMKEYS_BUTTON_PAUSE :
@@ -659,10 +717,9 @@ int main (int argc, char *argv[])
 	g_signal_connect(G_OBJECT(mmkeys),
 			 "mm_key_pressed",
 			 G_CALLBACK(on_freetuxtv_mm_key_pressed),
-			 app);
-	
+			 app);	
 
-	
+	g_print("test : %s\n", app->config.directoryrecord);
 	gtk_main();
 	
 	g_mmkeys_deactivate (mmkeys);
