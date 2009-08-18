@@ -155,7 +155,7 @@ on_windowmain_buttonminimode_clicked (GtkButton *button,
 	widget = glade_xml_get_widget(app->windowminimode,
 				      "windowminimode");
 	g_signal_connect(G_OBJECT(widget),
-			 "destroy",
+			 "delete-event",
 			 G_CALLBACK(on_windowmain_deleteevent),
 			 app);
 	
