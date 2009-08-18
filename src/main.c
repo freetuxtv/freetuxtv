@@ -160,6 +160,7 @@ freetuxtv_app_create_app ()
 	app->config.volume = 0.75;
 	app->config.logosfiledate = 0;
 	app->config.directoryrecord = g_strdup(g_get_home_dir());
+	app->current.channel = NULL;
 	app->current.lastchannelonstartup = FALSE;
 	app->debug = FALSE;
 	
@@ -325,7 +326,9 @@ freetuxtv_app_create_app ()
 			g_error_free (err);
 			err = NULL;
 		}else{
-			app->config.windowminimode_width = i;
+			if(i>0){
+				app->config.windowminimode_width = i;
+			}
 		}
 
 
@@ -335,7 +338,9 @@ freetuxtv_app_create_app ()
 			g_error_free (err);
 			err = NULL;
 		}else{
-			app->config.windowminimode_height = i;
+			if(i>0){
+				app->config.windowminimode_height = i;
+			}
 		}
 
 		
@@ -577,8 +582,7 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 	char *contents, *filename;
 	
 	// Save FreetuxTV state
-	keyfile = g_key_file_new ();
-	
+	keyfile = g_key_file_new ();	
 	
 	g_key_file_set_double (keyfile, "general",
 			       "volume",
@@ -587,11 +591,12 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 				"channel_on_startup",
 				app->config.channelonstartup);
 	if(app->current.channel != NULL){
+		g_print("- test %d\n", (int)app->current.channel);
+		g_print("- test %d\n", app->current.channel->id);
 		g_key_file_set_integer (keyfile, "general",
 					"last_channel",
 					app->current.channel->id);
 	}
-	
 	g_key_file_set_integer (keyfile, "general",
 				"logos_file_date",
 				app->config.logosfiledate);
@@ -683,7 +688,6 @@ int main (int argc, char *argv[])
 			app->debug = TRUE;
 		}
 	}
-	
 	// Initialize notifications
 	notify_init("FreetuxTV");
 	app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL, NULL);
@@ -718,8 +722,7 @@ int main (int argc, char *argv[])
 			 "mm_key_pressed",
 			 G_CALLBACK(on_freetuxtv_mm_key_pressed),
 			 app);	
-
-	g_print("test : %s\n", app->config.directoryrecord);
+	
 	gtk_main();
 	
 	g_mmkeys_deactivate (mmkeys);
