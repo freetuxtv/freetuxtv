@@ -721,7 +721,7 @@ int main (int argc, char *argv[])
 	g_signal_connect(G_OBJECT(mmkeys),
 			 "mm_key_pressed",
 			 G_CALLBACK(on_freetuxtv_mm_key_pressed),
-			 app);	
+			 app);
 	
 	gtk_main();
 	
