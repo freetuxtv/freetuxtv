@@ -348,6 +348,7 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibVLCMediaPlayer *self, gboolean ful
                         on_vlc_exception (self, &_vlcexcep);
                         libvlc_set_fullscreen(input_t, fullscreen, &_vlcexcep);
                         on_vlc_exception (self, &_vlcexcep);
+			libvlc_input_free(input_t);
                 }
         }
 #else
@@ -418,7 +419,47 @@ gtk_libvlc_media_player_get_state (GtkLibVLCMediaPlayer *self)
 	GtkLibVLCState gtkstate = GTK_LIBVLC_STATE_NOTHING_SPECIAL;
 
 #if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+	libvlc_instance_t *libvlc_instance;
+	libvlc_instance = self->libvlc_instance->libvlc_instance;
+	g_return_if_fail(libvlc_instance != NULL);
 
+        libvlc_input_t *input_t;
+        if(libvlc_instance != NULL){
+                if (libvlc_playlist_isplaying (libvlc_instance, &_vlcexcep)) {
+                        input_t = libvlc_playlist_get_input(libvlc_instance,
+                                                            &_vlcexcep);
+                        on_vlc_exception (self, &_vlcexcep);
+			int state = libvlc_input_get_state(input_t, &_vlcexcep);
+                        on_vlc_exception (self, &_vlcexcep);
+			switch(state){
+			case 0 :
+				gtkstate = GTK_LIBVLC_STATE_NOTHING_SPECIAL;
+				break;
+			case 1 :
+				gtkstate = GTK_LIBVLC_STATE_OPENING;
+				break;
+			case 2 :
+				gtkstate = GTK_LIBVLC_STATE_BUFFERING;	
+				break;
+			case 3 :
+				gtkstate = GTK_LIBVLC_STATE_PLAYING;
+				break;
+			case 4 :
+				gtkstate = GTK_LIBVLC_STATE_PAUSED;
+				break;
+			case 5 :
+				gtkstate = GTK_LIBVLC_STATE_STOPPED;
+				break;
+			case 6 :
+				gtkstate = GTK_LIBVLC_STATE_ENDED;
+				break;
+			case 7 :
+				gtkstate = GTK_LIBVLC_STATE_ERROR;
+				break;
+			}
+			libvlc_input_free(input_t);
+		}
+        }
 #else
 	g_return_if_fail(self->libvlc_mediaplayer != NULL);
 
@@ -771,7 +812,6 @@ gtk_libvlc_media_player_play_media(GtkLibVLCMediaPlayer *self, GtkLibVLCMedia *m
 	if(options != NULL){
 		int i;
 		for(i=0; i<g_strv_length(options); i++){
-			g_print("option %s\n", options[i]);
 
 		}
 		libvlc_playlist_add_extended(libvlc_instance, media->mrl, NULL,
@@ -795,7 +835,6 @@ gtk_libvlc_media_player_play_media(GtkLibVLCMediaPlayer *self, GtkLibVLCMedia *m
 	if(options != NULL){
 		int i=0;
 		for(i=0; i<g_strv_length(options); i++){
-			g_print("add options : %s\n", options[i]);
 			libvlc_media_add_option(m, g_strdup(options[i]), &_vlcexcep);
 			on_vlc_exception (self, &_vlcexcep);
 		}
