@@ -477,7 +477,6 @@ freetuxtv_action_stop_channel (FreetuxTVApp *app)
 
 			gboolean recording;
 			recording = gtk_libvlc_media_player_is_recording(app->player);
-			g_print("bool %d\n", recording);
 			text = g_strdup_printf (_("Stopping channel : %s"), app->current.channel->name);
 			windowmain_statusbar_push (app, "PlayChannelMsg", text);
 			g_free(text);
@@ -518,8 +517,6 @@ freetuxtv_action_record_channel (FreetuxTVApp *app)
 			g_printerr("FreetuxTV : Failed to send notification\n");
 		}
 		g_free(imgfile);
-		g_free(text);
-	
 		windowmain_display_buttons (app, WINDOW_MODE_RECORDING);
 
 		GTimeVal now;
@@ -527,7 +524,6 @@ freetuxtv_action_record_channel (FreetuxTVApp *app)
                 out_filename = g_strconcat(app->config.directoryrecord, "/", app->current.channel->name, " - ",
                                             g_time_val_to_iso8601(&now), ".mpg", NULL);
 		gtk_libvlc_media_player_record_current (app->player, out_filename);
-		
 		
 		text = g_strdup_printf (_("Recording : %s"), out_filename);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
