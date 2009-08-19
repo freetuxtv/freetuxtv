@@ -67,11 +67,23 @@ gtk_libvlc_media_player_new (GtkLibVLCInstance* libvlc_instance);
 void
 gtk_libvlc_media_player_add_media (GtkLibVLCMediaPlayer *self, GtkLibVLCMedia *media);
 
+GtkLibVLCMedia*
+gtk_libvlc_media_player_get_current_media (GtkLibVLCMediaPlayer *self);
+
+GtkLibVLCMedia*
+gtk_libvlc_media_player_get_media_from_path (GtkLibVLCMediaPlayer *self, GtkTreePath *path);
+
 void
 gtk_libvlc_media_player_clear_media_list(GtkLibVLCMediaPlayer *self);
 
 void
 gtk_libvlc_media_player_play (GtkLibVLCMediaPlayer *self);
+
+void
+gtk_libvlc_media_player_play_media_at_path (GtkLibVLCMediaPlayer *self, GtkTreePath *path);
+
+void
+gtk_libvlc_media_player_play_next (GtkLibVLCMediaPlayer *self);
 
 void
 gtk_libvlc_media_player_stop (GtkLibVLCMediaPlayer *self);
@@ -96,6 +108,9 @@ gtk_libvlc_media_player_get_state (GtkLibVLCMediaPlayer *self);
 
 const gchar*
 gtk_libvlc_media_player_state_tostring (GtkLibVLCState state);
+
+void
+gtk_libvlc_media_player_set_play_next_at_end (GtkLibVLCMediaPlayer *self, gboolean b);
 
 GtkLibVLCInstance*
 gtk_libvlc_media_player_get_instance (GtkLibVLCMediaPlayer *self);
