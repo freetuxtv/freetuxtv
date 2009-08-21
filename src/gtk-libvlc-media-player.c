@@ -260,8 +260,6 @@ gtk_libvlc_media_player_stop (GtkLibVLCMediaPlayer *self)
 	// Create the media player if not initialized
 	gtk_libvlc_media_player_initialize (self);
 	g_return_if_fail(priv->initialized == TRUE);
-
-	priv->play_next_at_end = FALSE;
 	
 	// Stop the current playing
 #if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
@@ -906,6 +904,8 @@ idle_play_next_function(gpointer ptrdata){
 static void 
 on_vlc_event(const libvlc_event_t *event, void *user_data)
 {
+	// g_print("event %s\n", libvlc_event_type_name (event->type));
+	
 	GtkLibVLCMediaPlayer *self;
 	g_return_if_fail(user_data != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(user_data));
