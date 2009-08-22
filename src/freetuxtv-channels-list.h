@@ -26,33 +26,36 @@ void
 channels_list_load_channels (FreetuxTVApp *app);
 
 void
-channels_list_load_channels_group (FreetuxTVApp *app, 
-				   FreetuxTVChannelsGroupInfos* channels_group_infos);
+channels_list_load_channels_group (FreetuxTVApp *app, GtkTreePath *path_group);
 
 void
 channels_list_add_channels_group (FreetuxTVApp *app, 
 				  FreetuxTVChannelsGroupInfos* channels_group_infos);
 
 void
-channels_list_update_channels_group (FreetuxTVApp *app, 
-				     FreetuxTVChannelsGroupInfos* channels_group_infos);
+channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group);
 
 void
-channels_list_delete_channels_channels_group (FreetuxTVApp *app, 
-					      FreetuxTVChannelsGroupInfos* channels_group_infos);
+channels_list_delete_channels_channels_group (FreetuxTVApp *app, GtkTreePath *path_group);
 
 void
-channels_list_delete_channels_group (FreetuxTVApp *app, 
-				     FreetuxTVChannelsGroupInfos* channels_group_infos);
+channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group);
 
 gboolean
-channels_list_get_prev_channel (FreetuxTVApp *app, 
-				FreetuxTVChannelInfos* channel_infos,
-				FreetuxTVChannelInfos** prev_channel_infos);
+channels_list_get_prev_channel (FreetuxTVApp *app,
+				GtkTreePath **path_prev_channel);
 
 gboolean
-channels_list_get_next_channel (FreetuxTVApp *app, 
-				FreetuxTVChannelInfos* channel_infos,
-				FreetuxTVChannelInfos** next_channel_infos);
+channels_list_get_next_channel (FreetuxTVApp *app,
+				GtkTreePath ** path_next_channel);
+
+void
+channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel);
+
+FreetuxTVChannelInfos*
+channels_list_get_channel(FreetuxTVApp *app, GtkTreePath* path_channel);
+
+FreetuxTVChannelsGroupInfos*
+channels_list_get_group(FreetuxTVApp *app, GtkTreePath* path_group);
 
 #endif /* FREETUXTV_CHANNELS_LIST_H */
