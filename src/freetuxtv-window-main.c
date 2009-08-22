@@ -71,13 +71,15 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 	entryfilter = glade_xml_get_widget(app->windowmain,
 					   "windowmain_entryfilter");
 	gtk_entry_set_text(GTK_ENTRY(entryfilter), "");
-
-
-	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(app->channelslist));
 	
 	GtkWidget *treeview;
+	GtkTreeModel *model;
 	treeview = glade_xml_get_widget (app->windowmain,
 					 "windowsmain_treeviewchannelslist");
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
+	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
+
 	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
 
@@ -194,11 +196,15 @@ void
 on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(app->channelslist));
 
 	GtkWidget *treeview;
+	GtkTreeModel *model;
 	treeview = glade_xml_get_widget (app->windowmain,
 					 "windowsmain_treeviewchannelslist");
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
+	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
+
 	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
 
@@ -444,7 +450,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 				       "windowmain_buttonprevious");
 	switch(mode){
 	case WINDOW_MODE_STOPPED :
-		if(app->current.channel != NULL){
+		if(app->current.path_channel != NULL){
 			sensitive = TRUE;		
 		}else{
 			sensitive = FALSE;	
@@ -464,7 +470,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 				       "windowmain_buttonnext");
 	switch(mode){
 	case WINDOW_MODE_STOPPED :
-		if(app->current.channel != NULL){
+		if(app->current.path_channel != NULL){
 			sensitive = TRUE;		
 		}else{
 			sensitive = FALSE;	
@@ -484,7 +490,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 				       "windowmain_buttonplaypause");
 	switch(mode){
 	case WINDOW_MODE_STOPPED :
-		if(app->current.channel == NULL){
+		if(app->current.path_channel == NULL){
 			sensitive = FALSE;
 		}else{
 			sensitive = TRUE;
@@ -493,7 +499,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 		break;
 	case WINDOW_MODE_PLAYING :
 	case WINDOW_MODE_RECORDING :
-		sensitive = TRUE;
+		sensitive = FALSE;
 		image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PAUSE, GTK_ICON_SIZE_BUTTON);
 		break;
 	}
