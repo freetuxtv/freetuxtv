@@ -680,16 +680,16 @@ void
 channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 {
 	GtkTreeIter iter;
-	
-	if(app->current.path_channel != NULL){
-		gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, app->current.path_channel);		
+	if(app->current.path_channel != path_channel){
+		if(app->current.path_channel != NULL){
+			gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, app->current.path_channel);		
+			gtk_tree_model_row_changed (GTK_TREE_MODEL(app->channelslist), app->current.path_channel, &iter);
+			gtk_tree_path_free(app->current.path_channel);
+		}
+		app->current.path_channel = gtk_tree_path_copy(path_channel);
+		gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, app->current.path_channel);
 		gtk_tree_model_row_changed (GTK_TREE_MODEL(app->channelslist), app->current.path_channel, &iter);
-		gtk_tree_path_free(app->current.path_channel);
 	}
-	app->current.path_channel = gtk_tree_path_copy(path_channel);
-	gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, app->current.path_channel);
-	gtk_tree_model_row_changed (GTK_TREE_MODEL(app->channelslist), app->current.path_channel, &iter);
-
 	GtkWidget *treeview;
 	treeview = glade_xml_get_widget (app->windowmain,
 					 "windowsmain_treeviewchannelslist");
@@ -697,6 +697,8 @@ channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 	gtk_tree_view_set_cursor (GTK_TREE_VIEW(treeview), app->current.path_channel,
 				  NULL, FALSE);
 				  gtk_widget_grab_focus (treeview);*/
+	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW(treeview), app->current.path_channel, NULL,
+				      TRUE, 0.5, 0.5);
 }
 
 FreetuxTVChannelInfos*

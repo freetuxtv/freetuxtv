@@ -234,6 +234,13 @@ freetuxtv_app_create_app ()
 			 "changed",
 			 G_CALLBACK(on_windowmain_entryfilter_changed),
 			 app);
+
+	widget = glade_xml_get_widget (app->windowmain,
+				       "windowmain_buttongotocurrent");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowmain_buttongotocurrent_clicked),
+			 app);
 	
 	widget = glade_xml_get_widget (app->windowmain,
 				       "windowmain_buttonprevious");
@@ -729,6 +736,11 @@ int main (int argc, char *argv[])
 	g_print("FreetuxTV : Load channels list\n", LIBVLC_VERSION_MAJOR, LIBVLC_VERSION_MINOR);
 	channels_list_load_channels (app);
 	app->current.lastchannelonstartup = FALSE;
+
+	// Scroll to the current channel
+	if(app->current.path_channel != NULL){
+		channels_list_set_playing (app, app->current.path_channel);
+	}
 	
 	mmkeys = g_mmkeys_new ("FreetuxTV");
 	g_mmkeys_activate (mmkeys);
