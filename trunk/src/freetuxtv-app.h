@@ -46,7 +46,8 @@ struct _FreetuxTVApp {
 	} config;
 
 	struct {
-		FreetuxTVChannelInfos *channel;
+		//FreetuxTVChannelInfos *channel;
+		GtkTreePath *path_channel;
 		gboolean lastchannelonstartup;
 		NotifyNotification *notification;
 	} current;
@@ -57,7 +58,7 @@ struct _FreetuxTVApp {
 typedef struct _FreetuxTVApp FreetuxTVApp;
 
 void
-freetuxtv_action_play_channel (FreetuxTVApp *app, FreetuxTVChannelInfos *channel_infos);
+freetuxtv_action_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel);
 
 void
 freetuxtv_action_playpause_channel (FreetuxTVApp *app);
