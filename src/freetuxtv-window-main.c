@@ -84,6 +84,15 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 }
 
 void
+on_windowmain_buttongotocurrent_clicked (GtkButton *button,
+					 gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	channels_list_set_playing(app, app->current.path_channel);
+}
+
+void
 on_windowmain_buttonprevious_clicked (GtkButton *button,
 				    gpointer user_data)
 {
