@@ -13,8 +13,6 @@ src/freetuxtv-channels-list.h
 src/freetuxtv-i18n.h
 src/freetuxtv-logos-list.c
 src/freetuxtv-logos-list.h
-src/freetuxtv-player.c
-src/freetuxtv-player.h
 src/freetuxtv-window-main.c
 src/freetuxtv-window-main.h
 src/lib-m3uparser.c
