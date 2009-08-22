@@ -495,7 +495,7 @@ freetuxtv_action_stop_channel (FreetuxTVApp *app)
 			gboolean recording;
 			recording = gtk_libvlc_media_player_is_recording(app->player);
 			if(recording){
-				text = g_strdup_printf (_("Playing channel : %s"), channel_infos->name);
+				text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
 			}else{
 				text = g_strdup_printf (_("Stopping channel : %s"), channel_infos->name);
 			}

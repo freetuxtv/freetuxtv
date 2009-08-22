@@ -9,7 +9,7 @@ FreetuxTV 0.3.0 (2009-)
     Rire et Chansons, Rock TV, RTL 2, RVE, SABC news, Skyrock, Tele 102, Teleblagon, téléGrenoble, 
     Tele night, Telessonne, TFOU WebTV, TLL Tele Loire, Trace Tropical, TVA Québec, Tvpi, Virgin Radio
   - Mise à jour de logos : M6 Music Black, M6 Music Hits, RMC
-  - Migration vers un GtkTreeview pour la liste des chaines
+  - Migration vers un GtkTreeView pour la liste des chaines
   - Synchronisation automatique de la liste des logos
   - Notification lors du chargement et de l'enregistrement d'une chaîne (avec libnotify)
   - Support de VLC 0.8.6 avec la migration vers libvlc-gtk
