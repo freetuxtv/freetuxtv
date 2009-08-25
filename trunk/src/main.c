@@ -162,6 +162,8 @@ freetuxtv_app_create_app ()
 	app->config.directoryrecord = g_strdup(g_get_home_dir());
 	app->current.path_channel = NULL;
 	app->current.lastchannelonstartup = FALSE;
+	app->current.recording.dst_file = NULL;
+	app->current.recording.duration = NULL;
 	app->debug = FALSE;
 	
 
@@ -521,7 +523,6 @@ freetuxtv_action_record_channel (FreetuxTVApp *app)
 	if(app->debug){
 		g_print("FreetuxTV-debug : freetuxtv_action_record_channel()\n");
 	}
-	gchar* out_filename;
 	gchar *text;
 
 	if(gtk_libvlc_media_player_get_state(app->player) == GTK_LIBVLC_STATE_PLAYING
@@ -542,16 +543,27 @@ freetuxtv_action_record_channel (FreetuxTVApp *app)
 		g_free(imgfile);
 		windowmain_display_buttons (app, WINDOW_MODE_RECORDING);
 
+		// Timer and file name
+		if(app->current.recording.duration != NULL){
+			g_timer_stop (app->current.recording.duration);
+			g_timer_destroy (app->current.recording.duration);
+		}
+		app->current.recording.duration = g_timer_new ();
+
 		GTimeVal now;
                 g_get_current_time(&now);
-                out_filename = g_strconcat(app->config.directoryrecord, "/", channel_infos->name, " - ",
-                                            g_time_val_to_iso8601(&now), ".mpg", NULL);
-		gtk_libvlc_media_player_record_current (app->player, out_filename);
+		if(app->current.recording.dst_file != NULL){
+			g_free(app->current.recording.dst_file);
+			app->current.recording.dst_file = NULL;
+		}
+
+                app->current.recording.dst_file = g_strconcat(app->config.directoryrecord, "/", channel_infos->name, " - ",
+							      g_time_val_to_iso8601(&now), ".mpg", NULL);
+		gtk_libvlc_media_player_record_current (app->player, app->current.recording.dst_file);
 		
-		text = g_strdup_printf (_("Recording : %s"), out_filename);
+		text = g_strdup_printf (_("Recording : %s"), app->current.recording.dst_file);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
 		g_free(text);
-		g_free(out_filename);
 	}
 }
 
@@ -677,6 +689,64 @@ on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp
 	}
 }
 
+
+static gchar*
+format_time(gint seconds)
+{
+	const gint s = seconds % 60;
+	const gint m = (seconds - s) / 60;
+	const gint h = (seconds - m) / (60*60);
+ 
+	return g_strdup_printf(_("%d:%02d:%02d"), h, m, s);
+}
+
+static gchar*
+format_size(glong size)
+{
+	if(size < 1){
+		return g_strdup_printf(_("%ld byte"), size);
+	}else if(size < 1000){
+		return g_strdup_printf(_("%ld bytes"), size);
+	}else if(size < 1000000){
+		return g_strdup_printf(_("%1.1f kB"), size/1000.0);		
+	}else if(size < 1000000000){
+		return g_strdup_printf(_("%1.1f MB"), size/1000000.0);	
+	}else{
+		return g_strdup_printf(_("%1.1f GB"), size/1000000000.0);		
+	}
+}
+
+gboolean
+increase_progress_timeout (FreetuxTVApp *app)
+{
+	if(gtk_libvlc_media_player_is_recording (app->player)){	
+		if(app->current.recording.duration != NULL){
+
+			FreetuxTVChannelInfos* channel;
+			channel = channels_list_get_channel (app, app->current.path_channel);
+
+			gint second;
+			second = (gint)g_timer_elapsed (app->current.recording.duration, NULL);
+
+			struct stat buf;
+			long file_size = 0;
+			if(g_stat(app->current.recording.dst_file, &buf) == 0){
+				file_size = buf.st_size;
+			}
+
+			gchar *format = format_time(second);
+			gchar *size_text = format_size(file_size);
+			gchar *text;
+			text = g_strdup_printf (_("Recording : %s (%s) -> %s (%s)"), channel->name, 
+						format, app->current.recording.dst_file, size_text);
+			windowmain_statusbar_pop (app, "RecordChannelMsg");
+			windowmain_statusbar_push (app, "RecordChannelMsg", text);
+			g_free(text);
+		}
+	}
+	return TRUE;
+}
+
 int main (int argc, char *argv[])
 {
 	
@@ -750,6 +820,9 @@ int main (int argc, char *argv[])
 			 G_CALLBACK(on_freetuxtv_mm_key_pressed),
 			 app);
 	
+	// Pour les traitements à interval régulier
+	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
+
 	gtk_main();
 	
 	g_mmkeys_deactivate (mmkeys);
