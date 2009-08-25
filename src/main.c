@@ -694,8 +694,8 @@ static gchar*
 format_time(gint seconds)
 {
 	const gint s = seconds % 60;
-	const gint m = (seconds - s) / 60;
-	const gint h = (seconds - m) / (60*60);
+	const gint m = ((seconds - s) / 60)%60;
+	const gint h = (seconds - m*60 - s) / (60*60);
 
 	return g_strdup_printf(_("%02dh%02dm%02ds"), h, m, s);
 }
