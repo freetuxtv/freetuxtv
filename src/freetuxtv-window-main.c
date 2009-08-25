@@ -397,9 +397,6 @@ on_dialogaddgroup_add_clicked (GtkButton *button,
 		channels_list_add_channels_group (app, channels_group_infos);
 		g_free(sgroupname);
 		g_free(sgroupuri);
-	
-		
-		// TODO channels_list_add_channels_group (app, channels_group);
 
 		// TODO channels_list_refresh_group (app, channels_group);
 		//channels_group_reload_channels (channels_group, app);

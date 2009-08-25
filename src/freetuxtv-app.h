@@ -46,10 +46,15 @@ struct _FreetuxTVApp {
 	} config;
 
 	struct {
-		//FreetuxTVChannelInfos *channel;
 		GtkTreePath *path_channel;
 		gboolean lastchannelonstartup;
 		NotifyNotification *notification;
+		
+		struct {
+			gchar* dst_file;
+			GTimer *duration;
+		} recording;
+
 	} current;
 
 	gboolean debug;	
