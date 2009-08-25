@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 17:41+0200\n"
+"POT-Creation-Date: 2009-08-25 19:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -333,25 +333,60 @@ msgstr ""
 msgid "Please enter the group's URI !"
 msgstr ""
 
-#: src/main.c:426 src/main.c:498
+#: src/main.c:428 src/main.c:500
 #, c-format
 msgid "Playing : %s"
 msgstr ""
 
-#: src/main.c:434
+#: src/main.c:436
 msgid "is playing"
 msgstr ""
 
-#: src/main.c:500
+#: src/main.c:502
 #, c-format
 msgid "Stopping channel : %s"
 msgstr ""
 
-#: src/main.c:538
+#: src/main.c:539
 msgid "is recording"
 msgstr ""
 
-#: src/main.c:551
+#: src/main.c:564
 #, c-format
 msgid "Recording : %s"
+msgstr ""
+
+#: src/main.c:700
+#, c-format
+msgid "%02dh%02dm%02ds"
+msgstr ""
+
+#: src/main.c:707
+#, c-format
+msgid "%ld byte"
+msgstr ""
+
+#: src/main.c:709
+#, c-format
+msgid "%ld bytes"
+msgstr ""
+
+#: src/main.c:711
+#, c-format
+msgid "%1.1f kB"
+msgstr ""
+
+#: src/main.c:713
+#, c-format
+msgid "%1.1f MB"
+msgstr ""
+
+#: src/main.c:715
+#, c-format
+msgid "%1.1f GB"
+msgstr ""
+
+#: src/main.c:740
+#, c-format
+msgid "Recording : %s (%s) -> %s (%s)"
 msgstr ""

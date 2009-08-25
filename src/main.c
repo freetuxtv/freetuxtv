@@ -423,7 +423,7 @@ freetuxtv_action_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 	if(!gtk_libvlc_media_player_is_recording(app->player)){
 
 		channels_list_set_playing(app, path_channel);
-		g_print("FreetuxTV-debug : channel(%s)\n", channel_infos->name);
+		g_print("FreetuxTV-debug : Launching channel '%s' -> %s\n", channel_infos->name, channel_infos->url);
 
 		text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
@@ -696,8 +696,8 @@ format_time(gint seconds)
 	const gint s = seconds % 60;
 	const gint m = (seconds - s) / 60;
 	const gint h = (seconds - m) / (60*60);
- 
-	return g_strdup_printf(_("%d:%02d:%02d"), h, m, s);
+
+	return g_strdup_printf(_("%02dh%02dm%02ds"), h, m, s);
 }
 
 static gchar*
