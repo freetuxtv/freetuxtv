@@ -9,6 +9,23 @@ Actuellement, des paquets sont disponible pour Ubuntu, openSuse et Mandriva.
 Leurs téléchargements est disponible ici : http://freetuxtv.eric-beuque.com/packages/.
 
 
+= Empaqueteurs actuels =
+
+|| *Distribution* || *Version* || *Architecture* || *Empaqueteurs* ||
+|| Ubuntu || Jaunty || i386 || Phillipe C. ||
+|| Ubuntu || Jaunty || amd64 || Tuxcola ||
+|| openSuse || all || all || Gilles S. ||
+|| Mandriva || 2009.1 || i586 || Yannick ||
+|| Mandriva || 2009.1 || x86_64 || Alvin M. ||
+|| Mandriva || 2009.0 || i586 || Yannick ||
+|| Mandriva || 2009.0 || x86_64 || _N/A_ ||
+
+N'hésitez pas à venir compléter la liste pour les distributions manquantes.
+
+= Transmission des paquets =
+
+Vous pouvez transmettre vos paquets par mail au développeur.
+
 = Consigne pour la création de paquets =
 
 Si vous souhaitez créer un paquet vous pouvez avoir besoin de connaître certaines informations sur le fonctionnement de FreetuxTV pour qu'il s'installe correctement.
