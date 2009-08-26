@@ -55,8 +55,8 @@ Réaliser une documentation utilisateur montrant comment profiter de toutes les 
 
 == Créer des paquets ==
 
-Vous pouvez contribuer en créant des paquet pour les différentes versions de Linux et architectures. S'il sont bien fonctionnel, il pourront être intégré dans la partie Downloads du site.
-Attention, ils doivent impérativement gérer les dépendances de paquets.
+Vous pouvez contribuer en créant des paquet pour les différentes versions de Linux et architectures.
+Pour cela, veuillez lire les consignes pour le développement d'un paquet pour FreetuxTV sur [FrInfosCreationPaquet cette page].
 
 == Version Windows/Mac ==
 
