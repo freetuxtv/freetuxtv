@@ -26,13 +26,31 @@ fi
 # Get LibVLC version
 LIBVLC_VERSION=""
 LIBVLC_PKGCONFIG=""
+#
+VLC_BIN=`whereis -b vlc | sed '/.*:$/d;s/.*: //;s/ /\'$'\n''/g' | sed q`
+VLC_CONFIG=`whereis -b vlc-config | sed '/.*:$/d;s/.*: //;s/ /\'$'\n''/g' | sed q`
+#
 if test "$PKGCONFIG" == "yes"; then
 	if pkg-config --exists libvlc; then
 	  LIBVLC_VERSION=`pkg-config --modversion libvlc | sed 's/-.*$//'`
 	  LIBVLC_PKGCONFIG="libvlc"
 	else
-	  LIBVLC_VERSION=`vlc-config --version | sed 's/-.*$//'`
+	  if [ -x "$VLC_CONFIG" ]; then
+	    LIBVLC_VERSION=`$VLC_CONFIG --version | sed 's/-.*$//'`
+	  else
+	    if [ -x "$VLC_BIN" ]; then
+	      LIBVLC_VERSION=`$VLC_BIN --version | sed -n 's/VLC version //p' | sed 's/ /\'$'\n''/g' | sed q | sed 's/-.*$//'`
+	    fi
+	  fi
 	fi
+else
+        if [ -x "$VLC_CONFIG" ]; then
+          LIBVLC_VERSION=`$VLC_CONFIG --version | sed 's/-.*$//'`
+        else
+          if [ -x "$VLC_BIN" ]; then
+            LIBVLC_VERSION=`$VLC_BIN --version | sed -n 's/VLC version //p' | sed 's/ /\'$'\n''/g' | sed q | sed 's/-.*$//'`
+	  fi
+        fi
 fi
 #
 if test "$LIBVLC_VERSION" != ""; then
