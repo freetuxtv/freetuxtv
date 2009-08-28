@@ -15,23 +15,36 @@ else
   AC_DEFINE_UNQUOTED(FREETUXTV_DIR, "${prefix}/share/freetuxtv", [Location of FreetuxTV files])
 fi
 
+# Check for pkg-config
+if pkg-config --version >/dev/null 2>&1; then
+  # We have pkg-config, everything is cool.
+  PKGCONFIG=yes
+else
+  PKGCONFIG=no
+fi
+
 # Get LibVLC version
 LIBVLC_VERSION=""
 LIBVLC_PKGCONFIG=""
-if pkg-config --exists libvlc; then
-  LIBVLC_VERSION=`pkg-config --modversion libvlc`
-  LIBVLC_PKGCONFIG="libvlc"
-else
-  LIBVLC_VERSION=`vlc-config --version`
+if test "$PKGCONFIG" == "yes"; then
+	if pkg-config --exists libvlc; then
+	  LIBVLC_VERSION=`pkg-config --modversion libvlc | sed 's/-.*$//'`
+	  LIBVLC_PKGCONFIG="libvlc"
+	else
+	  LIBVLC_VERSION=`vlc-config --version | sed 's/-.*$//'`
+	fi
 fi
+#
 if test "$LIBVLC_VERSION" != ""; then
   LIBVLC_VERSION_MAJOR=`echo $LIBVLC_VERSION | cut -d'.' -f1`
   LIBVLC_VERSION_MINOR=`echo $LIBVLC_VERSION | cut -d'.' -f2`
-  echo "compiling with LibVLC version $LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR"
+  LIBVLC_VERSION_REVISION=`echo $LIBVLC_VERSION | cut -d'.' -f3`
+  echo "compiling with LibVLC version $LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR.$LIBVLC_VERSION_REVISION"
   AC_DEFINE_UNQUOTED(LIBVLC_VERSION_MAJOR, $LIBVLC_VERSION_MAJOR, [LibVLC version major used for complication])
   AC_DEFINE_UNQUOTED(LIBVLC_VERSION_MINOR, $LIBVLC_VERSION_MINOR, [Current LibVLC version minor])
+  AC_DEFINE_UNQUOTED(LIBVLC_VERSION_REVISION, $LIBVLC_VERSION_REVISION, [Current LibVLC version revision])
   if test "$LIBVLC_PKGCONFIG" != ""; then
-    LIBVLC_PKGCONFIG="libvlc >= $LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR"
+    LIBVLC_PKGCONFIG="libvlc >= $LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR.$LIBVLC_VERSION_REVISION"
   fi
 else
   echo
