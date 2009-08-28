@@ -33,7 +33,7 @@ VLC_CONFIG=`whereis -b vlc-config | sed '/.*:$/d;s/.*: //;s/ /\'$'\n''/g' | sed 
 # Check first with pkg-config
 if test "$PKGCONFIG" == "yes"; then
   if pkg-config --exists libvlc; then
-    LIBVLC_VERSION=`pkg-config --modversion libvlc | sed 's/-.*$//'`
+    LIBVLC_VERSION=`pkg-config --modversion libvlc | sed 's/[[a-zA-Z\-]].*$//'`
     LIBVLC_PKGCONFIG="libvlc"
     LIBVLC_FOUND=yes
   fi
@@ -41,10 +41,8 @@ fi
 # If not found try with vlc-config
 if test "$LIBVLC_FOUND" == "no"; then
   if test -x "$VLC_CONFIG"; then
-    LIBVLC_VERSION=`$VLC_CONFIG --version | sed 's/-.*$//'`
+    LIBVLC_VERSION=`$VLC_CONFIG --version | sed 's/[[a-zA-Z\-]].*$//'`
     LIBVLC_FOUND=yes
-    #echo "*****"$LIBVLC_VERSION"*******";
-    #exit;
   fi
 fi
 # Finnaly if not found with vlc
