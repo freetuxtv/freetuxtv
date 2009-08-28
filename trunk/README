@@ -23,6 +23,7 @@
     - libsqlite3 (>= 3.4.0)
     - libvlc (>= 0.8.6)
     - libcurl (>= 7.16.4)
+    - libnotify (>= 0.4)
 
     Report bugs at
     ==============
