@@ -119,7 +119,7 @@ on_vlc_exception(GtkLibVLCInstance *self, libvlc_exception_t * ex)
 		//#if LIBVLC_VERSION_MAJOR == 1 && ((LIBVLC_VERSION_MINOR == 0 && LIBVLC_VERSION_REVISION >= 2) || LIBVLC_VERSION_MINOR > 0)
 		// g_printerr("libvlc-gtk error: %s\n", libvlc_errmsg());
 		//#else
-		g_printerr("libvlc-gtk error: %s\n", libvlc_exception_get_message(ex));
+		//g_printerr("libvlc-gtk error: %s\n", libvlc_exception_get_message(ex));
 		//#endif
 	}
 }
