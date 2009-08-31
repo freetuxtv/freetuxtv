@@ -13,7 +13,6 @@
 #endif
 
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 #include <sqlite3.h>
 
 #include "freetuxtv-app.h"
