@@ -12,7 +12,6 @@
 #define FREETUXTV_APP_H
 
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 #include <libnotify/notification.h>
 
 #include "freetuxtv-channel-infos.h"
@@ -26,10 +25,7 @@ struct _FreetuxTVApp {
 	
 	gchar *name;
 
-	GladeXML *windowmain;
-	GladeXML *dialogaddgroup;
-	GladeXML *windowminimode;
-	GladeXML *dialogpreferences;
+	GtkBuilder* gui;
 
 	GtkLibVLCMediaPlayer *player;
 	GtkTreeModel *channelslist;

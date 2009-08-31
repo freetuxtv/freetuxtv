@@ -13,7 +13,6 @@
 #endif
 
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 #include <sqlite3.h>
 #include <curl/curl.h>
 
@@ -128,8 +127,8 @@ channels_list_init (FreetuxTVApp *app)
 						on_filter_channels_list,
 						(gpointer) app, NULL);
 	
-	treeview = glade_xml_get_widget (app->windowmain,
-					 "windowsmain_treeviewchannelslist");	
+	treeview = (GtkWidget *)gtk_builder_get_object (app->gui,
+							"windowsmain_treeviewchannelslist");	
 	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(model));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
 
@@ -292,8 +291,8 @@ channels_list_load_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
 		
 	if(ret == 0){
 		GtkWidget *treeview;
-		treeview = glade_xml_get_widget (app->windowmain,
-						 "windowsmain_treeviewchannelslist");
+		treeview = (GtkWidget *)gtk_builder_get_object (app->gui,
+								"windowsmain_treeviewchannelslist");
 		gtk_tree_view_expand_row (GTK_TREE_VIEW(treeview), path_group, FALSE);
 	}
 	
@@ -633,8 +632,8 @@ channels_list_get_prev_channel (FreetuxTVApp *app,
 	GtkTreePath *path;
 	GtkTreeIter iter_channel;
 	
-	treeview = glade_xml_get_widget (app->windowmain,
-					 "windowsmain_treeviewchannelslist");
+	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
+							"windowsmain_treeviewchannelslist");
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 
 	if (app->current.path_channel != NULL) {
@@ -660,8 +659,8 @@ channels_list_get_next_channel (FreetuxTVApp *app,
 	GtkTreePath *path;
 	GtkTreeIter iter_channel;
 	
-	treeview = glade_xml_get_widget (app->windowmain,
-					 "windowsmain_treeviewchannelslist");
+	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
+							"windowsmain_treeviewchannelslist");
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 
 	if (app->current.path_channel != NULL) {
@@ -691,8 +690,8 @@ channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 		gtk_tree_model_row_changed (GTK_TREE_MODEL(app->channelslist), app->current.path_channel, &iter);
 	}
 	GtkWidget *treeview;
-	treeview = glade_xml_get_widget (app->windowmain,
-					 "windowsmain_treeviewchannelslist");
+	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
+							"windowsmain_treeviewchannelslist");
 	/*
 	gtk_tree_view_set_cursor (GTK_TREE_VIEW(treeview), app->current.path_channel,
 				  NULL, FALSE);
@@ -749,8 +748,8 @@ static void
 channels_list_display_channels (FreetuxTVApp *app)
 {
 	GtkWidget *treeview;
-	treeview = glade_xml_get_widget (app->windowmain,
-					 "windowsmain_treeviewchannelslist");
+	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
+							"windowsmain_treeviewchannelslist");
 	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
 
@@ -770,8 +769,8 @@ channels_group_get_file (FreetuxTVChannelsGroupInfos *self, FreetuxTVApp *app, g
 	if( g_ascii_strcasecmp (uriv[0], "http:") == 0 ){
 		
 		GtkWidget *windowmain;
-		windowmain = glade_xml_get_widget (app->windowmain,
-						   "windowmain");
+		windowmain = (GtkWidget *) gtk_builder_get_object(app->gui,
+								  "windowmain");
 
 		// Mise à jour de la barre de statut
 		gchar *text;
@@ -1096,8 +1095,8 @@ on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 
 	GtkWidget *entryfilter;
 	gchar *filter;
-	entryfilter = glade_xml_get_widget (app->windowmain,
-					    "windowmain_entryfilter");
+	entryfilter = (GtkWidget *) gtk_builder_get_object(app->gui,
+							   "windowmain_entryfilter");
 	filter = (gchar *)gtk_entry_get_text (GTK_ENTRY(entryfilter));
 	
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);

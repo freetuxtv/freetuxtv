@@ -18,6 +18,14 @@ typedef enum {
 	WINDOW_MODE_RECORDING
 } FreetuxTVWindowMode;
 
+
+enum {
+	FREETUXTV_RESPONSE_ADD = 1
+} FreetuxTVResponseDialog;
+
+void
+init_ui(FreetuxTVApp *app);
+
 gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data);
 
@@ -91,24 +99,21 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 
 void
 on_windowminimode_buttonstayontop_clicked (GtkButton *button,
-				       gpointer user_data);
+					   gpointer user_data);
+void
+on_dialogpreferences_response (GtkDialog *dialog,
+			       gint response_id,
+			       gpointer   user_data);
 
 void
-on_dialogaddgroup_add_clicked (GtkButton *button,
-			       gpointer   user_data);
-void
-on_dialogaddgroup_cancel_clicked (GtkButton *button,
-				  gpointer user_data);
+on_dialogaddgroup_response (GtkDialog *dialog,
+			    gint response_id,
+			    gpointer user_data);
 
 void
 on_aboutdialog_response (GtkDialog *dialog,
 			 gint response_id,
 			 gpointer user_data);
-
-void
-on_dialogpreferences_response (GtkDialog *dialog,
-			       gint response_id,
-			       gpointer   user_data);
 
 void
 windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode);
