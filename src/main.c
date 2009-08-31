@@ -16,7 +16,6 @@
 
 #include <stdlib.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 #include <sqlite3.h>
 #include <libnotify/notification.h>
 
@@ -150,7 +149,6 @@ freetuxtv_app_create_app ()
 
 	app->name = "FreetuxTV";
 
-
 	/* Chargement de la configuration par defaut */
 	app->config.windowminimode_stayontop = FALSE;
 	app->config.windowminimode_width = 320;
@@ -164,17 +162,15 @@ freetuxtv_app_create_app ()
 	app->current.lastchannelonstartup = FALSE;
 	app->current.recording.dst_file = NULL;
 	app->current.recording.duration = NULL;
-	app->debug = FALSE;
-	
+	app->debug = FALSE;	
 
 	/* Création de la fenêtre */
-	app->windowmain = glade_xml_new (FREETUXTV_GLADEXML,
-					 "windowmain", NULL);
-	glade_xml_signal_autoconnect (app->windowmain);
+	app->gui = gtk_builder_new ();
+	gtk_builder_add_from_file (app->gui, FREETUXTV_GLADEXML, NULL);
 
 	/* Ajout du widget du lecteur */	
-	eventboxplayer = glade_xml_get_widget (app->windowmain,
-					       "windowmain_eventboxplayer");
+	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
+							      "windowmain_eventboxplayer");
 	GtkLibVLCInstance* instance;
 	instance = gtk_libvlc_instance_new(NULL);
 	app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance));
@@ -182,123 +178,11 @@ freetuxtv_app_create_app ()
 	g_object_unref(G_OBJECT(instance));
 	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
 	
-	/* Initialise la liste des chaines */
+	// Initialise la liste des chaines
 	channels_list_init (app);
-	/* Connexion des signaux */
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain");
-	
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain");
-	g_signal_connect(G_OBJECT(widget),
-			 "delete-event",
-			 G_CALLBACK(on_windowmain_deleteevent),
-			 app);
-	
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_menuitempreferences");
-	g_signal_connect(G_OBJECT(widget),
-			 "activate",
-			 G_CALLBACK(on_windowmain_menuitempreferences_activate),
-			 app);
 
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_menuitemquit");
-	g_signal_connect(G_OBJECT(widget),
-			 "activate",
-			 G_CALLBACK(on_windowmain_menuitemquit_activate),
-			 app);
-	
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_menuitemgroupsadd");
-	g_signal_connect(G_OBJECT(widget),
-			 "activate",
-			 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
-			 app);
-	
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_menuitemupdatelogos");
-	g_signal_connect(G_OBJECT(widget),
-			 "activate",
-			 G_CALLBACK(on_windowmain_menuitemupdatelogos_activate),
-			 app);
-
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttonclearfilter");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowmain_buttonclearfilter_clicked),
-			 app);
-
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_entryfilter");
-	g_signal_connect(G_OBJECT(widget),
-			 "changed",
-			 G_CALLBACK(on_windowmain_entryfilter_changed),
-			 app);
-
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttongotocurrent");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowmain_buttongotocurrent_clicked),
-			 app);
-	
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttonprevious");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowmain_buttonprevious_clicked),
-			 app);
-	
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttonnext");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowmain_buttonnext_clicked),
-			 app);
-
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttonplaypause");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowmain_buttonplaypause_clicked),
-			 app);
-
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttonstop");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowmain_buttonstop_clicked),
-			 app);
-
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttonrecord");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowmain_buttonrecord_clicked),
-			 app);
-	
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_volumecontrol");
-	g_signal_connect(G_OBJECT(widget),
-			 "value-changed",
-			 G_CALLBACK(on_windowmain_volumecontrol_value_changed),
-			 app);
-
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttonfullscreen");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowmain_buttonfullscreen_clicked),
-			 app);
-
-	widget = glade_xml_get_widget (app->windowmain,
-				       "windowmain_buttonminimode");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowmain_buttonminimode_clicked),
-			 app);
+	// Initialise l'interface graphique
+	init_ui(app);		
 
 	// Load FreetuxTV State	
 	GKeyFile *keyfile;
@@ -360,8 +244,8 @@ freetuxtv_app_create_app ()
 			err = NULL;
 		}else{
 			app->config.volume = d;			
-			widget = glade_xml_get_widget (app->windowmain,
-						       "windowmain_volumecontrol");
+			widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+								      "windowmain_volumecontrol");
 			gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
 			gtk_libvlc_media_player_set_volume (app->player, app->config.volume);
 		}
@@ -612,6 +496,9 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 	GKeyFile *keyfile;
 	char *contents, *filename;
 
+	gboolean is_playing;
+	is_playing = (gtk_libvlc_media_player_get_state(app->player) == GTK_LIBVLC_STATE_PLAYING);
+
 	// Stop the current channel
 	freetuxtv_action_stop_channel(app);
 	
@@ -624,7 +511,7 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 	g_key_file_set_boolean (keyfile, "general",
 				"channel_on_startup",
 				app->config.channelonstartup);
-	if(app->current.path_channel != NULL){
+	if(app->current.path_channel != NULL && is_playing){
 		FreetuxTVChannelInfos* channel_infos;
 		channel_infos = channels_list_get_channel(app, app->current.path_channel);
 		g_key_file_set_integer (keyfile, "general",
