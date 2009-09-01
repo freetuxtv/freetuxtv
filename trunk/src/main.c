@@ -496,9 +496,6 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 	GKeyFile *keyfile;
 	char *contents, *filename;
 
-	gboolean is_playing;
-	is_playing = (gtk_libvlc_media_player_get_state(app->player) == GTK_LIBVLC_STATE_PLAYING);
-
 	// Stop the current channel
 	freetuxtv_action_stop_channel(app);
 	
@@ -511,7 +508,7 @@ freetuxtv_action_quit (FreetuxTVApp *app)
 	g_key_file_set_boolean (keyfile, "general",
 				"channel_on_startup",
 				app->config.channelonstartup);
-	if(app->current.path_channel != NULL && is_playing){
+	if(app->current.path_channel != NULL){
 		FreetuxTVChannelInfos* channel_infos;
 		channel_infos = channels_list_get_channel(app, app->current.path_channel);
 		g_key_file_set_integer (keyfile, "general",
