@@ -28,7 +28,63 @@ init_ui(FreetuxTVApp *app)
 {
 	GtkWidget *widget;
 	GtkWidget *button;
+	GtkWidget *menu_bar = NULL;
 	
+	// Cree la barre de menu	
+	menu_bar = gtk_menu_bar_new ();
+	GtkWidget *p_menu = NULL;
+	GtkWidget *p_menu_item = NULL;
+	
+	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_File"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
+	p_menu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
+	p_menu_item = gtk_image_menu_item_new_from_stock(GTK_STOCK_PREFERENCES, NULL);	
+	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
+	g_signal_connect(G_OBJECT(p_menu_item),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitempreferences_activate),
+			 app);
+	p_menu_item = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);	
+	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
+	g_signal_connect(G_OBJECT(p_menu_item),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitemquit_activate),
+			 app);
+
+	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Channels"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
+	p_menu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
+	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Add a group"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
+	g_signal_connect(G_OBJECT(p_menu_item),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
+			 app);
+	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Update logos list"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
+	g_signal_connect(G_OBJECT(p_menu_item),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitemupdatelogos_activate),
+			 app);
+
+	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Help"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
+	p_menu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
+	p_menu_item = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);	
+	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
+	g_signal_connect(G_OBJECT(p_menu_item),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitemaboutdialog_activate),
+			 app);
+
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+						   "windowmain_menubox");
+	gtk_box_pack_start (GTK_BOX (widget), GTK_WIDGET (menu_bar), FALSE, FALSE, 0);
+	gtk_widget_show_all(menu_bar);
+
 	// Connexion des signaux pour windowmain
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "windowmain");
@@ -36,42 +92,12 @@ init_ui(FreetuxTVApp *app)
 			 "delete-event",
 			 G_CALLBACK(on_windowmain_deleteevent),
 			 app);
-	
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-						      "windowmain_menuitempreferences");
-	g_signal_connect(G_OBJECT(widget),
-			 "activate",
-			 G_CALLBACK(on_windowmain_menuitempreferences_activate),
-			 app);
 
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-						      "windowmain_menuitemquit");
 	g_signal_connect(G_OBJECT(widget),
-			 "activate",
-			 G_CALLBACK(on_windowmain_menuitemquit_activate),
+			 "delete-event",
+			 G_CALLBACK(on_windowmain_deleteevent),
 			 app);
 	
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-						      "windowmain_menuitemgroupsadd");
-	g_signal_connect(G_OBJECT(widget),
-			 "activate",
-			 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
-			 app);
-	
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-						      "windowmain_menuitemupdatelogos");
-	g_signal_connect(G_OBJECT(widget),
-			 "activate",
-			 G_CALLBACK(on_windowmain_menuitemupdatelogos_activate),
-			 app);
-	
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-						      "windowmain_menuitemaboutdialog");
-	g_signal_connect(G_OBJECT(widget),
-			 "activate",
-			 G_CALLBACK(on_windowmain_menuitemaboutdialog_activate),
-			 app);
-
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "windowmain_buttonclearfilter");
 	g_signal_connect(G_OBJECT(widget),
