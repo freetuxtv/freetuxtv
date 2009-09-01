@@ -58,6 +58,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes">Delete the search text area</property>
                             <child>
                               <object class="GtkImage" id="image1">
                                 <property name="visible">True</property>
@@ -75,6 +76,7 @@
                           <object class="GtkEntry" id="windowmain_entryfilter">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="tooltip_text" translatable="yes">Channels' search text area</property>
                             <property name="invisible_char">&#x25CF;</property>
                           </object>
                           <packing>
@@ -88,6 +90,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes">Go to the current channel playing</property>
                             <child>
                               <object class="GtkImage" id="image7">
                                 <property name="visible">True</property>
@@ -165,6 +168,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Previous channel</property>
                         <child>
                           <object class="GtkImage" id="image4">
                             <property name="visible">True</property>
@@ -183,6 +187,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Play the current channel</property>
                         <child>
                           <object class="GtkImage" id="image8">
                             <property name="visible">True</property>
@@ -201,6 +206,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Stop playing the current channel</property>
                         <child>
                           <object class="GtkImage" id="image3">
                             <property name="visible">True</property>
@@ -219,6 +225,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Record the current channel</property>
                         <child>
                           <object class="GtkImage" id="image9">
                             <property name="visible">True</property>
@@ -237,6 +244,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Next channel</property>
                         <child>
                           <object class="GtkImage" id="image2">
                             <property name="visible">True</property>
@@ -305,6 +313,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Fullscreen mode</property>
                         <child>
                           <object class="GtkImage" id="image5">
                             <property name="visible">True</property>
@@ -323,6 +332,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Small mode</property>
                         <child>
                           <object class="GtkImage" id="image6">
                             <property name="visible">True</property>
