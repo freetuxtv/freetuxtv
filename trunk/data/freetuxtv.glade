@@ -23,9 +23,6 @@
     <property name="default_width">1024</property>
     <property name="default_height">600</property>
     <property name="icon_name">video-display</property>
-    <accel-groups>
-      <group name="accelgroup1"/>
-    </accel-groups>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -53,7 +50,6 @@
                 <child>
                   <object class="GtkVBox" id="vbox2">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkHBox" id="hbox2">
                         <property name="visible">True</property>
@@ -149,7 +145,6 @@
             <child>
               <object class="GtkVBox" id="vbox3">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkEventBox" id="windowmain_eventboxplayer">
                     <property name="visible">True</property>
