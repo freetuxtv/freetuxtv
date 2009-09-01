@@ -30,84 +30,10 @@
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
         <child>
-          <object class="GtkMenuBar" id="windowmain_menubar">
+          <object class="GtkHBox" id="windowmain_menubox">
             <property name="visible">True</property>
             <child>
-              <object class="GtkMenuItem" id="windowmain_menufile">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">_File</property>
-                <property name="use_underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu" id="windowmain_menupopfile">
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkImageMenuItem" id="windowmain_menuitempreferences">
-                        <property name="label">gtk-preferences</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <property name="accel_group">accelgroup1</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="windowmain_menuitemquit">
-                        <property name="label">gtk-quit</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <property name="accel_group">accelgroup1</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkMenuItem" id="windowmain_menuchannels">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">C_hannels</property>
-                <property name="use_underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu" id="windowmain_menupopchannels">
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkMenuItem" id="windowmain_menuitemgroupsadd">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Add a group</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkMenuItem" id="windowmain_menuitemupdatelogos">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Update logos list</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkMenuItem" id="windowmain_menuhelp">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">Help</property>
-                <property name="use_underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu" id="windowmain_menupophelp">
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkImageMenuItem" id="windowmain_menuitemaboutdialog">
-                        <property name="label">gtk-about</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <property name="accel_group">accelgroup1</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
+              <placeholder/>
             </child>
           </object>
           <packing>
@@ -127,6 +53,7 @@
                 <child>
                   <object class="GtkVBox" id="vbox2">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkHBox" id="hbox2">
                         <property name="visible">True</property>
@@ -134,8 +61,7 @@
                           <object class="GtkButton" id="windowmain_buttonclearfilter">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="tooltip_text" translatable="yes">Delete the search text area</property>
+                            <property name="receives_default">True</property>
                             <child>
                               <object class="GtkImage" id="image1">
                                 <property name="visible">True</property>
@@ -153,7 +79,7 @@
                           <object class="GtkEntry" id="windowmain_entryfilter">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="tooltip_text" translatable="yes">Channels' search text area</property>
+                            <property name="invisible_char">&#x25CF;</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -166,7 +92,6 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <property name="tooltip_text" translatable="yes">Go to the current channel playing</property>
                             <child>
                               <object class="GtkImage" id="image7">
                                 <property name="visible">True</property>
@@ -224,6 +149,7 @@
             <child>
               <object class="GtkVBox" id="vbox3">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkEventBox" id="windowmain_eventboxplayer">
                     <property name="visible">True</property>
@@ -243,8 +169,7 @@
                       <object class="GtkButton" id="windowmain_buttonprevious">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="tooltip_text" translatable="yes">Previous channel</property>
+                        <property name="receives_default">True</property>
                         <child>
                           <object class="GtkImage" id="image4">
                             <property name="visible">True</property>
@@ -263,7 +188,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Play the current channel</property>
                         <child>
                           <object class="GtkImage" id="image8">
                             <property name="visible">True</property>
@@ -281,8 +205,7 @@
                       <object class="GtkButton" id="windowmain_buttonstop">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="tooltip_text" translatable="yes">Stop playing the current channel</property>
+                        <property name="receives_default">True</property>
                         <child>
                           <object class="GtkImage" id="image3">
                             <property name="visible">True</property>
@@ -318,8 +241,7 @@
                       <object class="GtkButton" id="windowmain_buttonnext">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="tooltip_text" translatable="yes">Next channel</property>
+                        <property name="receives_default">True</property>
                         <child>
                           <object class="GtkImage" id="image2">
                             <property name="visible">True</property>
@@ -387,8 +309,7 @@
                       <object class="GtkButton" id="windowmain_buttonfullscreen">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="tooltip_text" translatable="yes">Fullscreen mode</property>
+                        <property name="receives_default">True</property>
                         <child>
                           <object class="GtkImage" id="image5">
                             <property name="visible">True</property>
@@ -406,8 +327,7 @@
                       <object class="GtkButton" id="windowmain_buttonminimode">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="tooltip_text" translatable="yes">Small mode</property>
+                        <property name="receives_default">True</property>
                         <child>
                           <object class="GtkImage" id="image6">
                             <property name="visible">True</property>
@@ -442,6 +362,7 @@
         <child>
           <object class="GtkStatusbar" id="windowmain_statusbar">
             <property name="visible">True</property>
+            <property name="spacing">2</property>
           </object>
           <packing>
             <property name="expand">False</property>
