@@ -38,7 +38,7 @@ struct _FreetuxTVApp {
 		gint windowminimode_width;
 		gint windowminimode_height;
 		gint logosfiledate;
-		gchar* directoryrecord;
+		gchar* directoryrecordings;
 	} config;
 
 	struct {
@@ -59,25 +59,28 @@ struct _FreetuxTVApp {
 typedef struct _FreetuxTVApp FreetuxTVApp;
 
 void
-freetuxtv_action_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel);
+freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel);
 
 void
-freetuxtv_action_playpause_channel (FreetuxTVApp *app);
+freetuxtv_play_media (FreetuxTVApp *app, GtkLibVLCMedia* media);
 
 void
-freetuxtv_action_stop_channel (FreetuxTVApp *app);
+freetuxtv_action_playpause (FreetuxTVApp *app);
 
 void
-freetuxtv_action_record_channel (FreetuxTVApp *app);
+freetuxtv_action_stop (FreetuxTVApp *app);
 
 void
-freetuxtv_action_prev_channel (FreetuxTVApp *app);
+freetuxtv_action_record (FreetuxTVApp *app);
 
 void
-freetuxtv_action_next_channel (FreetuxTVApp *app);
+freetuxtv_action_prev (FreetuxTVApp *app);
 
 void
-freetuxtv_action_quit (FreetuxTVApp *app);
+freetuxtv_action_next (FreetuxTVApp *app);
+
+void
+freetuxtv_quit (FreetuxTVApp *app);
 
 G_END_DECLS
 

@@ -106,11 +106,20 @@ gtk_libvlc_media_player_is_recording (GtkLibVLCMediaPlayer *self);
 GtkLibVLCState
 gtk_libvlc_media_player_get_state (GtkLibVLCMediaPlayer *self);
 
+glong
+gtk_libvlc_media_player_get_length(GtkLibVLCMediaPlayer *self);
+
+glong
+gtk_libvlc_media_player_get_time(GtkLibVLCMediaPlayer *self);
+
 const gchar*
 gtk_libvlc_media_player_state_tostring (GtkLibVLCState state);
 
 void
 gtk_libvlc_media_player_set_play_next_at_end (GtkLibVLCMediaPlayer *self, gboolean b);
+
+void
+gtk_libvlc_media_player_set_loop (GtkLibVLCMediaPlayer *self, gboolean b);
 
 GtkLibVLCInstance*
 gtk_libvlc_media_player_get_instance (GtkLibVLCMediaPlayer *self);
