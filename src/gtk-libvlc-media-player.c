@@ -545,7 +545,12 @@ gtk_libvlc_media_player_get_length(GtkLibVLCMediaPlayer *self)
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 	glong length;
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+	length = 0;
+#else
 	length = libvlc_media_player_get_length (self->libvlc_mediaplayer, &_vlcexcep);
+#endif
 	on_vlc_exception(self, &_vlcexcep);
 	return length;
 }
@@ -559,7 +564,12 @@ gtk_libvlc_media_player_get_time(GtkLibVLCMediaPlayer *self)
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 	glong time;
+
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+	time = 0;
+#else
 	time = libvlc_media_player_get_time (self->libvlc_mediaplayer, &_vlcexcep);
+#endif
 	on_vlc_exception(self, &_vlcexcep);
 	return time;
 }
@@ -572,7 +582,11 @@ gtk_libvlc_media_player_set_time(GtkLibVLCMediaPlayer *self, glong time)
 	
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
-	libvlc_media_player_get_time (self->libvlc_mediaplayer, &_vlcexcep);
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+
+#else
+	libvlc_media_player_set_time (self->libvlc_mediaplayer, time, &_vlcexcep);
+#endif
 	on_vlc_exception(self, &_vlcexcep);	
 }
 
