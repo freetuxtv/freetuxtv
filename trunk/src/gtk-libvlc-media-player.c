@@ -25,6 +25,7 @@ struct _GtkLibVLCMediaPlayerPrivate
 	gboolean is_media_parsed;
 	gboolean is_recording;
 	gboolean play_next_at_end;
+	gboolean loop;
 };
 
 #define LIBVLC_MAX_VOLUME_POWER 2.0 // Represent a percentage (2.0 = 200%)
@@ -208,13 +209,11 @@ gtk_libvlc_media_player_play_next (GtkLibVLCMediaPlayer *self)
 	gtk_libvlc_media_player_initialize (self);
 	g_return_if_fail(priv->initialized == TRUE);
 	
-	GtkTreePath* path;
-	path = priv->current_media;
-	if(path != NULL){
+	GtkTreePath* path = NULL;
+	if(priv->current_media != NULL){
 		GtkTreeIter iter1;
 		GtkTreeIter iter2;
-		g_return_if_fail(gtk_tree_model_get_iter (GTK_TREE_MODEL(self->media_list), &iter1, path) == TRUE);
-		
+		g_return_if_fail(gtk_tree_model_get_iter (GTK_TREE_MODEL(self->media_list), &iter1, priv->current_media) == TRUE);
 		if(gtk_tree_model_iter_has_child(GTK_TREE_MODEL(self->media_list), &iter1)){
 			gtk_tree_model_iter_children(GTK_TREE_MODEL(self->media_list), &iter2, &iter1);
 			path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter2);
@@ -226,6 +225,13 @@ gtk_libvlc_media_player_play_next (GtkLibVLCMediaPlayer *self)
 					if(gtk_tree_model_iter_next (GTK_TREE_MODEL(self->media_list), &iter2)){
 						path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter2);
 					}else{
+						if(priv->loop){
+							gtk_tree_model_get_iter_first(GTK_TREE_MODEL(self->media_list), &iter1);
+							path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter1);
+						}
+					}
+				}else{
+					if(priv->loop){
 						gtk_tree_model_get_iter_first(GTK_TREE_MODEL(self->media_list), &iter1);
 						path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter1);
 					}
@@ -234,10 +240,14 @@ gtk_libvlc_media_player_play_next (GtkLibVLCMediaPlayer *self)
 		}
 
 		// Play the next media
-		gtk_libvlc_media_player_play_media_at_path(self, path);
+		if(path != NULL){
+			gtk_libvlc_media_player_play_media_at_path(self, path);
+		}
 	}else{
 		// Play the first media
-		gtk_libvlc_media_player_play(self);	
+		if(priv->loop){
+			gtk_libvlc_media_player_play(self);
+		}
 	}	
 }
 
@@ -312,9 +322,9 @@ gtk_libvlc_media_player_get_volume (GtkLibVLCMediaPlayer *self)
 	libvlc_exception_init (&_vlcexcep);
 	
 	gint volume;
-	volume = libvlc_audio_get_volume (libvlc_instance, &_vlcexcep);    
+	volume = libvlc_audio_get_volume (libvlc_instance, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
-	return (gdouble)volume;
+	return (gdouble)volume/100;
 }
 
 void
@@ -409,7 +419,14 @@ GtkLibVLCState
 gtk_libvlc_media_player_get_state (GtkLibVLCMediaPlayer *self)
 {
 	g_return_if_fail(self != NULL);
-	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));	
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+
+	GtkLibVLCMediaPlayerPrivate* priv;
+	priv = GTK_LIBVLC_MEDIA_PLAYER_GET_PRIVATE(self);
+
+	// Create the media player if not initialized
+	gtk_libvlc_media_player_initialize (self);
+	g_return_if_fail(priv->initialized == TRUE);
 	
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
@@ -519,9 +536,49 @@ gtk_libvlc_media_player_state_tostring (GtkLibVLCState state)
 	}
 }
 
+glong
+gtk_libvlc_media_player_get_length(GtkLibVLCMediaPlayer *self)
+{
+	g_return_if_fail(self != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));	
+	
+	libvlc_exception_t _vlcexcep;
+	libvlc_exception_init (&_vlcexcep);
+	glong length;
+	length = libvlc_media_player_get_length (self->libvlc_mediaplayer, &_vlcexcep);
+	on_vlc_exception(self, &_vlcexcep);
+	return length;
+}
+
+glong
+gtk_libvlc_media_player_get_time(GtkLibVLCMediaPlayer *self)
+{
+	g_return_if_fail(self != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));	
+	
+	libvlc_exception_t _vlcexcep;
+	libvlc_exception_init (&_vlcexcep);
+	glong time;
+	time = libvlc_media_player_get_time (self->libvlc_mediaplayer, &_vlcexcep);
+	on_vlc_exception(self, &_vlcexcep);
+	return time;
+}
+
+void
+gtk_libvlc_media_player_set_time(GtkLibVLCMediaPlayer *self, glong time)
+{
+	g_return_if_fail(self != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));	
+	
+	libvlc_exception_t _vlcexcep;
+	libvlc_exception_init (&_vlcexcep);
+	libvlc_media_player_get_time (self->libvlc_mediaplayer, &_vlcexcep);
+	on_vlc_exception(self, &_vlcexcep);	
+}
+
 void
 gtk_libvlc_media_player_set_play_next_at_end (GtkLibVLCMediaPlayer *self, gboolean b)
-{	
+{
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
 
@@ -529,6 +586,18 @@ gtk_libvlc_media_player_set_play_next_at_end (GtkLibVLCMediaPlayer *self, gboole
 	priv = GTK_LIBVLC_MEDIA_PLAYER_GET_PRIVATE(self);
 
 	priv->play_next_at_end = b;	
+}
+
+void
+gtk_libvlc_media_player_set_loop (GtkLibVLCMediaPlayer *self, gboolean b)
+{
+	g_return_if_fail(self != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+
+	GtkLibVLCMediaPlayerPrivate* priv;
+	priv = GTK_LIBVLC_MEDIA_PLAYER_GET_PRIVATE(self);
+
+	priv->loop = b;	
 }
 
 GtkLibVLCInstance*
@@ -580,7 +649,8 @@ gtk_libvlc_media_player_init (GtkLibVLCMediaPlayer *object)
 	
 	priv->initialized = FALSE;
 	priv->is_recording = FALSE;
-	priv->play_next_at_end = TRUE;	
+	priv->play_next_at_end = TRUE;
+	priv->loop = FALSE;	
 }
 
 static void

@@ -16,6 +16,14 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="liststore_recordings">
+    <columns>
+      <!-- column-name Filename -->
+      <column type="gchararray"/>
+      <!-- column-name MRL -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="windowmain">
     <property name="visible">True</property>
     <property name="title" translatable="yes">FreetuxTV</property>
@@ -47,6 +55,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="tab_pos">left</property>
+                <property name="tab_vborder">0</property>
                 <child>
                   <object class="GtkVBox" id="vbox2">
                     <property name="visible">True</property>
@@ -117,7 +126,7 @@
                         <property name="hscrollbar_policy">automatic</property>
                         <property name="vscrollbar_policy">automatic</property>
                         <child>
-                          <object class="GtkTreeView" id="windowsmain_treeviewchannelslist">
+                          <object class="GtkTreeView" id="windowmain_treeviewchannelslist">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                           </object>
@@ -136,6 +145,46 @@
                     <property name="angle">90</property>
                   </object>
                   <packing>
+                    <property name="tab_fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolledwindow2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="vscrollbar_policy">automatic</property>
+                    <child>
+                      <object class="GtkTreeView" id="windowmain_treeviewrecordings">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">liststore_recordings</property>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn1">
+                            <property name="title">My recordings</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child type="tab">
+                  <object class="GtkLabel" id="label22">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Recordings</property>
+                    <property name="angle">90</property>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
                     <property name="tab_fill">False</property>
                   </packing>
                 </child>
@@ -160,6 +209,47 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkHBox" id="hbox4">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkLabel" id="label2">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">00:00:00</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHScale" id="hscale1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="draw_value">False</property>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label3">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">00:00:00</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkHBox" id="hbox1">
                     <property name="visible">True</property>
                     <property name="spacing">7</property>
@@ -168,7 +258,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Previous channel</property>
                         <child>
                           <object class="GtkImage" id="image4">
                             <property name="visible">True</property>
@@ -187,7 +276,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Play the current channel</property>
                         <child>
                           <object class="GtkImage" id="image8">
                             <property name="visible">True</property>
@@ -206,7 +294,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Stop playing the current channel</property>
                         <child>
                           <object class="GtkImage" id="image3">
                             <property name="visible">True</property>
@@ -225,7 +312,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Record the current channel</property>
                         <child>
                           <object class="GtkImage" id="image9">
                             <property name="visible">True</property>
@@ -244,7 +330,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Next channel</property>
                         <child>
                           <object class="GtkImage" id="image2">
                             <property name="visible">True</property>
@@ -284,7 +369,7 @@
                             <property name="width_request">200</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="adjustment">adjustment2</property>
+                            <property name="adjustment">adjustment_volume</property>
                             <property name="draw_value">False</property>
                             <property name="value_pos">right</property>
                           </object>
@@ -313,7 +398,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Fullscreen mode</property>
                         <child>
                           <object class="GtkImage" id="image5">
                             <property name="visible">True</property>
@@ -332,7 +416,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Small mode</property>
                         <child>
                           <object class="GtkImage" id="image6">
                             <property name="visible">True</property>
@@ -350,7 +433,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -660,7 +743,7 @@
                     <property name="width_request">200</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="adjustment">adjustment1</property>
+                    <property name="adjustment">adjustment_volume</property>
                     <property name="draw_value">False</property>
                     <property name="value_pos">right</property>
                   </object>
@@ -811,14 +894,7 @@
       </object>
     </child>
   </object>
-  <object class="GtkAdjustment" id="adjustment1">
-    <property name="value">0.75</property>
-    <property name="upper">1</property>
-    <property name="step_increment">0.01</property>
-    <property name="page_increment">0.10000000000000001</property>
-    <property name="page_size">0.01</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment2">
+  <object class="GtkAdjustment" id="adjustment_volume">
     <property name="value">0.75</property>
     <property name="upper">1</property>
     <property name="step_increment">0.01</property>
