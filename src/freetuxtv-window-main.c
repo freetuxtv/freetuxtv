@@ -24,13 +24,13 @@
 #include "gtk-libvlc-media-player.h"
 
 void
-init_ui(FreetuxTVApp *app)
+windowmain_init(FreetuxTVApp *app)
 {
 	GtkWidget *widget;
 	GtkWidget *button;
 	GtkWidget *menu_bar = NULL;
 	
-	// Cree la barre de menu	
+	// Initialize menu bar	
 	menu_bar = gtk_menu_bar_new ();
 	GtkWidget *p_menu = NULL;
 	GtkWidget *p_menu_item = NULL;
@@ -81,11 +81,11 @@ init_ui(FreetuxTVApp *app)
 			 app);
 
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-						   "windowmain_menubox");
+						      "windowmain_menubox");
 	gtk_box_pack_start (GTK_BOX (widget), GTK_WIDGET (menu_bar), FALSE, FALSE, 0);
 	gtk_widget_show_all(menu_bar);
 
-	// Connexion des signaux pour windowmain
+	// Initialize signals for windowmain
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "windowmain");
 	g_signal_connect(G_OBJECT(widget),
@@ -175,7 +175,36 @@ init_ui(FreetuxTVApp *app)
 			 G_CALLBACK(on_windowmain_buttonminimode_clicked),
 			 app);
 
-	// Connexion des signaux pour dialogpreferences
+	// Initialize signals for windowminimode
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowminimode");
+	g_signal_connect(G_OBJECT(widget),
+			 "delete-event",
+			 G_CALLBACK(on_windowmain_deleteevent),
+			 app);
+	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowminimode_buttonnormalmode");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowminimode_buttonnormalmode_clicked),
+			 app);
+	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowminimode_buttonstayontop");
+	g_signal_connect(G_OBJECT(widget),
+			 "clicked",
+			 G_CALLBACK(on_windowminimode_buttonstayontop_clicked),
+			 app);
+	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowminimode_volumecontrol");
+	g_signal_connect(G_OBJECT(widget),
+			 "value-changed",
+			 G_CALLBACK(on_windowmain_volumecontrol_value_changed),
+			 app);
+
+	// Initialize signals for dialogpreferences
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "dialogpreferences");
 	gtk_dialog_add_buttons (GTK_DIALOG(widget),
@@ -191,7 +220,7 @@ init_ui(FreetuxTVApp *app)
 			 G_CALLBACK(gtk_widget_hide_on_delete),
 			 NULL);
 
-	// Connexion des signaux pour dialogaddgroup
+	// Initialize signals for dialogaddgroup
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "dialogaddgroup");
 	gtk_dialog_add_buttons (GTK_DIALOG(widget),
@@ -210,7 +239,7 @@ init_ui(FreetuxTVApp *app)
 			 G_CALLBACK(gtk_widget_hide_on_delete),
 			 NULL);
 
-	// Connexion des signaux pour aboutdialog
+	// Initialize signals for aboutdialog
 	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
 							"aboutdialog");
 
@@ -230,7 +259,7 @@ gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) data;
-	freetuxtv_action_quit (app);
+	freetuxtv_quit (app);
 	return TRUE;
 }
 
@@ -239,7 +268,7 @@ on_windowmain_menuitemquit_activate (GtkMenuItem *menuitem,
 				     gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_quit (app);
+	freetuxtv_quit (app);
 }
 
 void
@@ -267,7 +296,7 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 	GtkWidget *treeview;
 	GtkTreeModel *model;
 	treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
-							  "windowsmain_treeviewchannelslist");
+							  "windowmain_treeviewchannelslist");
 
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
@@ -289,7 +318,7 @@ on_windowmain_buttonprevious_clicked (GtkButton *button,
 				    gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_prev_channel (app);	
+	freetuxtv_action_prev (app);	
 }
 
 void
@@ -297,7 +326,7 @@ on_windowmain_buttonnext_clicked (GtkButton *button,
 				       gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_next_channel (app);	
+	freetuxtv_action_next (app);	
 }
 
 void
@@ -305,7 +334,7 @@ on_windowmain_buttonstop_clicked (GtkButton *button,
 				  gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_stop_channel (app);
+	freetuxtv_action_stop (app);
 }
 
 void
@@ -313,7 +342,7 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 				    gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_record_channel (app);
+	freetuxtv_action_record (app);
 }
 
 void
@@ -321,7 +350,7 @@ on_windowmain_buttonplaypause_clicked (GtkButton *button,
 				       gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_playpause_channel (app);
+	freetuxtv_action_playpause (app);
 }
 
 void
@@ -338,55 +367,26 @@ on_windowmain_buttonminimode_clicked (GtkButton *button,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	GtkWidget *widget;
-
-	gdouble volume;
+	GtkWidget *widget;	
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowmain");
 	gtk_widget_hide(widget);
 
-	volume = gtk_libvlc_media_player_get_volume (app->player);
-
-	/* Affichage de la fenetre miniature */
+	// Display the mini mode window
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowminimode");
 	gtk_widget_show(widget);
-
-	/* Connexion des signaux */	
-	g_signal_connect(G_OBJECT(widget),
-			 "delete-event",
-			 G_CALLBACK(on_windowmain_deleteevent),
-			 app);
-	
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "windowminimode_buttonnormalmode");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowminimode_buttonnormalmode_clicked),
-			 app);
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowminimode_buttonstayontop");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget),
 				      app->config.windowminimode_stayontop);
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_windowminimode_buttonstayontop_clicked),
-			 app);
 
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowminimode_eventboxplayer");
 	gtk_widget_reparent (GTK_WIDGET(app->player), widget);
 	
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "windowminimode_volumecontrol");
-	g_signal_connect(G_OBJECT(widget),
-			 "value-changed",
-			 G_CALLBACK(on_windowmain_volumecontrol_value_changed),
-			 app);
-	gtk_range_set_value (GTK_RANGE(widget), volume);
-
 	windowminimode_set_from_config (app);
 }
 
@@ -398,7 +398,7 @@ on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 	GtkWidget *treeview;
 	GtkTreeModel *model;
 	treeview = (GtkWidget *) gtk_builder_get_object (app->gui,
-							 "windowsmain_treeviewchannelslist");
+							 "windowmain_treeviewchannelslist");
 	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
@@ -432,7 +432,7 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "dialogpreferences_directoryrecord");
 	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (widget),
-					     app->config.directoryrecord);
+					     app->config.directoryrecordings);
 }
 
 void
@@ -465,9 +465,6 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 	GtkWidget *windowminimode;
 	
 	GtkWidget *widget;
-	gdouble volume;
-
-	volume = gtk_libvlc_media_player_get_volume (app->player);
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowminimode");
@@ -477,7 +474,7 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 
 	gtk_widget_hide (widget);
 	
-	/* Reaffichage de la fenetre principal */
+	// Display the normal mode window
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowmain");
 	gtk_widget_show (widget);
@@ -485,10 +482,6 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowmain_eventboxplayer");
 	gtk_widget_reparent (GTK_WIDGET(app->player), widget);
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "windowmain_volumecontrol");
-	gtk_range_set_value (GTK_RANGE(widget), volume);
 }
 
 void
@@ -519,8 +512,8 @@ on_dialogpreferences_response (GtkDialog *dialog,
 	
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogpreferences_directoryrecord");
-		g_free(app->config.directoryrecord);
-		app->config.directoryrecord = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER (widget));	       
+		g_free(app->config.directoryrecordings);
+		app->config.directoryrecordings = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER (widget));	       
 
 	}
 	gtk_widget_hide(GTK_WIDGET(dialog));

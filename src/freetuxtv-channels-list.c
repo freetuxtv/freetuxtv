@@ -128,7 +128,7 @@ channels_list_init (FreetuxTVApp *app)
 						(gpointer) app, NULL);
 	
 	treeview = (GtkWidget *)gtk_builder_get_object (app->gui,
-							"windowsmain_treeviewchannelslist");	
+							"windowmain_treeviewchannelslist");	
 	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(model));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
 
@@ -292,7 +292,7 @@ channels_list_load_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
 	if(ret == 0){
 		GtkWidget *treeview;
 		treeview = (GtkWidget *)gtk_builder_get_object (app->gui,
-								"windowsmain_treeviewchannelslist");
+								"windowmain_treeviewchannelslist");
 		gtk_tree_view_expand_row (GTK_TREE_VIEW(treeview), path_group, FALSE);
 	}
 	
@@ -633,7 +633,7 @@ channels_list_get_prev_channel (FreetuxTVApp *app,
 	GtkTreeIter iter_channel;
 	
 	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
-							"windowsmain_treeviewchannelslist");
+							"windowmain_treeviewchannelslist");
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 
 	if (app->current.path_channel != NULL) {
@@ -660,7 +660,7 @@ channels_list_get_next_channel (FreetuxTVApp *app,
 	GtkTreeIter iter_channel;
 	
 	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
-							"windowsmain_treeviewchannelslist");
+							"windowmain_treeviewchannelslist");
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 
 	if (app->current.path_channel != NULL) {
@@ -691,7 +691,7 @@ channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 	}
 	GtkWidget *treeview;
 	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
-							"windowsmain_treeviewchannelslist");
+							"windowmain_treeviewchannelslist");
 	/*
 	gtk_tree_view_set_cursor (GTK_TREE_VIEW(treeview), app->current.path_channel,
 				  NULL, FALSE);
@@ -749,7 +749,7 @@ channels_list_display_channels (FreetuxTVApp *app)
 {
 	GtkWidget *treeview;
 	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
-							"windowsmain_treeviewchannelslist");
+							"windowmain_treeviewchannelslist");
 	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
 
@@ -889,7 +889,7 @@ on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
 			GtkTreePath* path;
 			path = gtk_tree_model_get_path(GTK_TREE_MODEL(cbuserdata->app->channelslist), cbuserdata->iter_channel);
 			g_print("FreetuxTV : Play last channel '%s'\n", channel_infos->name);
-			freetuxtv_action_play_channel (cbuserdata->app, path);
+			freetuxtv_play_channel (cbuserdata->app, path);
 			gtk_tree_path_free(path);
 		}
 	}
@@ -923,7 +923,7 @@ on_row_activated_channels_list(GtkTreeView *view, GtkTreePath *path,
 		}
 	
 	}else {
-		freetuxtv_action_play_channel (app, model_path);		
+		freetuxtv_play_channel (app, model_path);		
 	}
 	gtk_tree_path_free(model_path);
 }

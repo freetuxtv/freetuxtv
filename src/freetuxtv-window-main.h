@@ -24,7 +24,7 @@ enum {
 } FreetuxTVResponseDialog;
 
 void
-init_ui(FreetuxTVApp *app);
+windowmain_init(FreetuxTVApp *app);
 
 gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data);
