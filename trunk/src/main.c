@@ -21,6 +21,7 @@
 
 #include "lib-gmmkeys.h"
 #include "freetuxtv-app.h"
+#include "freetuxtv-utils.h"
 #include "freetuxtv-i18n.h"
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
@@ -150,27 +151,30 @@ freetuxtv_app_create_app ()
 
 	app->name = "FreetuxTV";
 
-	/* Chargement de la configuration par defaut */
+	// Loads default configuration
+	app->prefs.channelonstartup = TRUE;
+	app->prefs.enable_notification = TRUE;
+	app->prefs.directoryrecordings = g_strdup(g_get_home_dir());
+	app->prefs.transcoding_mode = 0;
+	app->prefs.transcoding_format = "0";
+
 	app->config.windowminimode_stayontop = FALSE;
 	app->config.windowminimode_width = 320;
 	app->config.windowminimode_height = 240;
-	app->config.channelonstartup = TRUE;
-	app->config.enable_notification = TRUE;
 	app->config.lastchannel = -1;
 	app->config.volume = 0.75;
 	app->config.logosfiledate = 0;
-	app->config.directoryrecordings = g_strdup(g_get_home_dir());
 	app->current.path_channel = NULL;
 	app->current.lastchannelonstartup = FALSE;
 	app->current.recording.dst_file = NULL;
 	app->current.recording.duration = NULL;
 	app->debug = FALSE;	
 
-	/* Création de la fenêtre */
+	// Create UI from file 
 	app->gui = gtk_builder_new ();
 	gtk_builder_add_from_file (app->gui, FREETUXTV_GLADEXML, NULL);
 
-	/* Ajout du widget du lecteur */	
+	// Add player to UI	
 	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
 							      "windowmain_eventboxplayer");
 	GtkLibVLCInstance* instance;
@@ -181,7 +185,7 @@ freetuxtv_app_create_app ()
 	g_object_unref(G_OBJECT(instance));
 	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
 	
-	// Initialise l'interface graphique
+	// Initialize UI
 	windowmain_init(app);
 	channels_list_init(app);
 	recordings_list_init(app);
@@ -206,6 +210,55 @@ freetuxtv_app_create_app ()
 	} else {
 		g_free (filename);
 
+		// Load prefs
+		b = g_key_file_get_boolean (keyfile, "general",
+					    "channel_on_startup", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.channelonstartup = b;		
+		}
+		
+		b = g_key_file_get_boolean (keyfile, "general",
+					    "enable_notification", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.enable_notification = b;		
+		}
+		
+		str = g_key_file_get_string (keyfile, "general",
+					     "directory_record", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.directoryrecordings = str;		
+		}
+
+		i = g_key_file_get_integer (keyfile, "general",
+					    "transcoding_mode", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			if(i>0 & i<2){
+				app->prefs.transcoding_mode = i;
+			}
+		}
+
+		str = g_key_file_get_string (keyfile, "general",
+					    "transcoding_format", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.transcoding_format = str;				
+		}
+
+		// Load current config
 		b = g_key_file_get_boolean (keyfile, "windowminimode",
 					    "stay_on_top", &err);
 		if (err != NULL) {
@@ -252,24 +305,6 @@ freetuxtv_app_create_app ()
 			gtk_libvlc_media_player_set_volume (app->player, app->config.volume);
 		}
 		
-		b = g_key_file_get_boolean (keyfile, "general",
-					    "channel_on_startup", &err);
-		if (err != NULL) {
-			g_error_free (err);
-			err = NULL;
-		}else{
-			app->config.channelonstartup = b;		
-		}
-		
-		b = g_key_file_get_boolean (keyfile, "general",
-					    "enable_notification", &err);
-		if (err != NULL) {
-			g_error_free (err);
-			err = NULL;
-		}else{
-			app->config.enable_notification = b;		
-		}		
-		
 		i = g_key_file_get_integer (keyfile, "general",
 					    "last_channel", &err);
 		if (err != NULL) {
@@ -286,15 +321,6 @@ freetuxtv_app_create_app ()
 			err = NULL;
 		}else{
 			app->config.logosfiledate = i;		
-		}
-		
-		str = g_key_file_get_string (keyfile, "general",
-					     "directory_record", &err);
-		if (err != NULL) {
-			g_error_free (err);
-			err = NULL;
-		}else{
-			app->config.directoryrecordings = str;		
 		}
 
 		g_key_file_free (keyfile);
@@ -327,7 +353,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 		gchar *imgfile;
 		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
 		
-		if(app->config.enable_notification){
+		if(app->prefs.enable_notification){
 			notify_notification_update (app->current.notification, channel_infos->name,
 						    _("is playing"), imgfile);
 			if (!notify_notification_show (app->current.notification, NULL)) {
@@ -450,7 +476,7 @@ freetuxtv_action_record (FreetuxTVApp *app)
 		gchar *imgfile;
 		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
 		
-		if(app->config.enable_notification){
+		if(app->prefs.enable_notification){
 			notify_notification_update (app->current.notification, channel_infos->name,
 						    _("is recording"), imgfile);
 			if (!notify_notification_show (app->current.notification, NULL)) {
@@ -475,7 +501,7 @@ freetuxtv_action_record (FreetuxTVApp *app)
 			app->current.recording.dst_file = NULL;
 		}
 
-                app->current.recording.dst_file = g_strconcat(app->config.directoryrecordings, "/", channel_infos->name, " - ",
+                app->current.recording.dst_file = g_strconcat(app->prefs.directoryrecordings, "/", channel_infos->name, " - ",
 							      g_time_val_to_iso8601(&now), ".mpg", NULL);
 		gtk_libvlc_media_player_record_current (app->player, app->current.recording.dst_file);
 		
@@ -535,20 +561,37 @@ freetuxtv_quit (FreetuxTVApp *app)
 	is_playing = (gtk_libvlc_media_player_get_state(app->player) == GTK_LIBVLC_STATE_PLAYING);
 
 	// Stop the current channel
-	freetuxtv_action_stop(app);
+	freetuxtv_action_stop(app);	
 	
-	// Save FreetuxTV state
-	keyfile = g_key_file_new ();	
+	keyfile = g_key_file_new ();
+
+	// Save prefs
+	g_key_file_set_boolean (keyfile, "general",
+				"channel_on_startup",
+				app->prefs.channelonstartup);
+	g_key_file_set_boolean (keyfile, "general",
+				"enable_notification",
+				app->prefs.enable_notification);
 	
+	g_key_file_set_string (keyfile, "general",
+			       "directory_record",
+			       app->prefs.directoryrecordings);
+	g_free(app->prefs.directoryrecordings);
+
+	g_key_file_set_integer (keyfile, "general",
+				"transcoding_mode",
+				app->prefs.transcoding_mode);
+
+	g_key_file_set_string (keyfile, "general",
+				"transcoding_format",
+				app->prefs.transcoding_format);
+
+	// Save current config
 	g_key_file_set_double (keyfile, "general",
 			       "volume",
 			       app->config.volume);
-	g_key_file_set_boolean (keyfile, "general",
-				"channel_on_startup",
-				app->config.channelonstartup);
-	g_key_file_set_boolean (keyfile, "general",
-				"enable_notification",
-				app->config.enable_notification);
+	
+
 	if(app->current.path_channel != NULL && is_playing){
 		FreetuxTVChannelInfos* channel_infos;
 		channel_infos = channels_list_get_channel(app, app->current.path_channel);
@@ -560,11 +603,6 @@ freetuxtv_quit (FreetuxTVApp *app)
 	g_key_file_set_integer (keyfile, "general",
 				"logos_file_date",
 				app->config.logosfiledate);
-	
-	g_key_file_set_string (keyfile, "general",
-			       "directory_record",
-			       app->config.directoryrecordings);
-	g_free(app->config.directoryrecordings);
 
 	g_key_file_set_boolean (keyfile, "windowminimode",
 				"stay_on_top",
@@ -614,33 +652,6 @@ on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp
 	}
 }
 
-
-static gchar*
-format_time(gint seconds)
-{
-	const gint s = seconds % 60;
-	const gint m = ((seconds - s) / 60)%60;
-	const gint h = (seconds - m*60 - s) / (60*60);
-
-	return g_strdup_printf(_("%02dh%02dm%02ds"), h, m, s);
-}
-
-static gchar*
-format_size(glong size)
-{
-	if(size < 1){
-		return g_strdup_printf(_("%ld byte"), size);
-	}else if(size < 1000){
-		return g_strdup_printf(_("%ld bytes"), size);
-	}else if(size < 1000000){
-		return g_strdup_printf(_("%1.1f kB"), size/1000.0);		
-	}else if(size < 1000000000){
-		return g_strdup_printf(_("%1.1f MB"), size/1000000.0);	
-	}else{
-		return g_strdup_printf(_("%1.1f GB"), size/1000000000.0);		
-	}
-}
-
 gboolean
 increase_progress_timeout (FreetuxTVApp *app)
 {
@@ -673,7 +684,7 @@ increase_progress_timeout (FreetuxTVApp *app)
 	}
 
 
-	g_print("time %ld/%ld\n", gtk_libvlc_media_player_get_time(app->player), gtk_libvlc_media_player_get_length(app->player));
+	// g_print("time %ld/%ld\n", gtk_libvlc_media_player_get_time(app->player), gtk_libvlc_media_player_get_length(app->player));
 
 	return TRUE;
 }
@@ -730,7 +741,7 @@ int main (int argc, char *argv[])
 	windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
 
 	// Regarde si on charge une chaine au demarrage
-	if(app->config.channelonstartup == TRUE
+	if(app->prefs.channelonstartup == TRUE
 	   && app->config.lastchannel != -1){
 		app->current.lastchannelonstartup = TRUE;
 	}
