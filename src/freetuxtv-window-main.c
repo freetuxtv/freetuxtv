@@ -430,6 +430,10 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->config.channelonstartup);
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "dialogpreferences_enablenotification");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->config.enable_notification);
+	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "dialogpreferences_directoryrecord");
 	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (widget),
 					     app->config.directoryrecordings);
@@ -505,10 +509,14 @@ on_dialogpreferences_response (GtkDialog *dialog,
 {
 	FreetuxTVApp *app = (FreetuxTVApp*)user_data;
 	GtkWidget* widget;
-	if(response_id == GTK_RESPONSE_APPLY){	
+	if(response_id == GTK_RESPONSE_APPLY){
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogpreferences_channelonstartup");
 		app->config.channelonstartup = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialogpreferences_enablenotification");
+		app->config.enable_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 	
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogpreferences_directoryrecord");
