@@ -984,7 +984,7 @@ dialogpreferences_update_view(FreetuxTVApp *app)
 	textbuffer = (GtkWidget *) gtk_builder_get_object (app->gui,
 							   "textbuffer_previewtranscoding");
 	gchar *text;
-	text = get_recording_options(app, "%filename%", TRUE);
+	text = get_recording_options(app, "%filename%", TRUE, NULL);
 	gtk_text_buffer_set_text (GTK_TEXT_BUFFER(textbuffer), text, -1);
 	g_free(text);
 }

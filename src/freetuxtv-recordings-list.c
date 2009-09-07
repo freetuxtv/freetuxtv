@@ -51,7 +51,7 @@ recordings_list_load_recordings(FreetuxTVApp *app)
 		const gchar *filename = NULL;
 		gchar *url = NULL;		
 		while (filename = g_dir_read_name (dir)) {
-			if(g_regex_match_simple(".*.mpg", filename, 0, 0)){
+			if(g_regex_match_simple(".*.(ts|ogg|mpg|avi)", filename, 0, 0)){
 				GtkTreeIter iter;
 				url = g_strconcat(app->prefs.directoryrecordings, "/", filename, NULL);
 				gtk_list_store_append(liststore, &iter);

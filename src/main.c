@@ -166,6 +166,7 @@ freetuxtv_app_create_app ()
 	app->config.logosfiledate = 0;
 	app->current.path_channel = NULL;
 	app->current.lastchannelonstartup = FALSE;
+	app->current.is_recording = FALSE;
 	app->current.recording.dst_file = NULL;
 	app->current.recording.duration = NULL;
 	app->debug = FALSE;	
@@ -341,7 +342,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 		g_print("FreetuxTV-debug : freetuxtv_play_channel(%s)\n", channel_infos->name);
 	}
 	gchar *text;
-	if(!gtk_libvlc_media_player_is_recording(app->player)){
+	if(!app->current.is_recording){
 
 		channels_list_set_playing(app, path_channel);
 		g_print("FreetuxTV-debug : Launching channel '%s' -> %s\n", channel_infos->name, channel_infos->url);
@@ -370,7 +371,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 		gtk_libvlc_media_player_clear_media_list(app->player);
 		gtk_libvlc_media_player_add_media(app->player, media);
 		g_object_unref(media);
-		gtk_libvlc_media_player_play(app->player);
+		gtk_libvlc_media_player_play(app->player, NULL);
 	}
 	if(app->debug){
 		g_print("FreetuxTV-debug : end freetuxtv_play_channel(%s)\n", channel_infos->name);
@@ -388,7 +389,7 @@ freetuxtv_play_media (FreetuxTVApp *app, GtkLibVLCMedia* media)
 	gtk_libvlc_media_player_clear_media_list(app->player);
 	gtk_libvlc_media_player_add_media(app->player, media);
 	g_object_unref(media);
-	gtk_libvlc_media_player_play(app->player);
+	gtk_libvlc_media_player_play(app->player, NULL);
 
 	if(app->debug){
 		g_print("FreetuxTV-debug : end freetuxtv_play_media(%s)\n", media->mrl);
@@ -413,7 +414,7 @@ freetuxtv_action_playpause (FreetuxTVApp *app)
 			gtk_libvlc_media_player_clear_media_list(app->player);
 			gtk_libvlc_media_player_add_media(app->player, media);
 			g_object_unref(media);
-			gtk_libvlc_media_player_play(app->player);
+			gtk_libvlc_media_player_play(app->player, NULL);
 		}
 		windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
 	}	
@@ -433,11 +434,9 @@ freetuxtv_action_stop (FreetuxTVApp *app)
 		FreetuxTVChannelInfos* channel_infos;
 		channel_infos = channels_list_get_channel (app, app->current.path_channel);
 		
-		if(gtk_libvlc_media_player_get_state(app->player) == GTK_LIBVLC_STATE_PLAYING){
+		if(gtk_libvlc_media_player_is_playing(app->player)){
 
-			gboolean recording;
-			recording = gtk_libvlc_media_player_is_recording(app->player);
-			if(recording){
+			if(app->current.is_recording){
 				text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
 			}else{
 				text = g_strdup_printf (_("Stopping channel : %s"), channel_infos->name);
@@ -446,9 +445,10 @@ freetuxtv_action_stop (FreetuxTVApp *app)
 			g_free(text);
 	
 			windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
-			gtk_libvlc_media_player_stop (app->player);
+			gtk_libvlc_media_player_stop (app->player);			
 
-			if(recording){
+			if(app->current.is_recording){
+				app->current.is_recording = FALSE;
 				freetuxtv_action_playpause (app);				
 			}
 		}
@@ -466,8 +466,8 @@ freetuxtv_action_record (FreetuxTVApp *app)
 	}
 	gchar *text;
 
-	if(gtk_libvlc_media_player_get_state(app->player) == GTK_LIBVLC_STATE_PLAYING
-	   && !gtk_libvlc_media_player_is_recording(app->player)){
+	if(gtk_libvlc_media_player_is_playing(app->player)
+	   && !app->current.is_recording){
 		
 		FreetuxTVChannelInfos* channel_infos;
 		channel_infos = channels_list_get_channel (app, app->current.path_channel);
@@ -501,10 +501,20 @@ freetuxtv_action_record (FreetuxTVApp *app)
 			app->current.recording.dst_file = NULL;
 		}
 
-                app->current.recording.dst_file = g_strconcat(app->prefs.directoryrecordings, "/", channel_infos->name, " - ",
-							      g_time_val_to_iso8601(&now), ".mpg", NULL);
-		gtk_libvlc_media_player_record_current (app->player, app->current.recording.dst_file);
+		gchar *base_filename;
+		base_filename = g_strconcat(channel_infos->name, " - ", g_time_val_to_iso8601(&now), NULL);
+
+		gchar *options[2];
+		options[0] = get_recording_options(app, base_filename, FALSE, &app->current.recording.dst_file);
+		options[1] = NULL;
 		
+		gtk_libvlc_media_player_play (app->player, options);
+
+		g_free(base_filename);
+		g_free(options[0]);
+		
+		app->current.is_recording = TRUE;
+
 		text = g_strdup_printf (_("Recording : %s"), app->current.recording.dst_file);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
 		g_free(text);
@@ -520,7 +530,7 @@ freetuxtv_action_prev (FreetuxTVApp *app)
 	gboolean ret;
 	GtkTreePath* path_prev_channel;
 	if (app->current.path_channel != NULL) {
-		if(!gtk_libvlc_media_player_is_recording(app->player)){
+		if(!app->current.is_recording){
 			ret = channels_list_get_prev_channel (app, &path_prev_channel);
 			if(ret){			
 				freetuxtv_play_channel (app, path_prev_channel);
@@ -538,7 +548,7 @@ freetuxtv_action_next (FreetuxTVApp *app)
 	gboolean ret;
 	GtkTreePath* path_next_channel;
 	if (app->current.path_channel != NULL) {
-		if(!gtk_libvlc_media_player_is_recording(app->player)){
+		if(!app->current.is_recording){
 			ret = channels_list_get_next_channel (app, &path_next_channel);
 			if(ret){
 				freetuxtv_play_channel (app, path_next_channel);
@@ -655,7 +665,7 @@ on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp
 gboolean
 increase_progress_timeout (FreetuxTVApp *app)
 {
-	if(gtk_libvlc_media_player_is_recording (app->player)){	
+	if(app->current.is_recording){	
 		if(app->current.recording.duration != NULL){
 
 			FreetuxTVChannelInfos* channel;
