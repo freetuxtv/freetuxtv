@@ -280,6 +280,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Previous channel</property>
                         <child>
                           <object class="GtkImage" id="image4">
                             <property name="visible">True</property>
@@ -298,6 +299,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Play the current channel</property>
                         <child>
                           <object class="GtkImage" id="image8">
                             <property name="visible">True</property>
@@ -316,6 +318,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Stop playing the current channel</property>
                         <child>
                           <object class="GtkImage" id="image3">
                             <property name="visible">True</property>
@@ -334,6 +337,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Record the current channel</property>
                         <child>
                           <object class="GtkImage" id="image9">
                             <property name="visible">True</property>
@@ -352,6 +356,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Next channel</property>
                         <child>
                           <object class="GtkImage" id="image2">
                             <property name="visible">True</property>
@@ -420,6 +425,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Fullscreen mode</property>
                         <child>
                           <object class="GtkImage" id="image5">
                             <property name="visible">True</property>
@@ -438,6 +444,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Small mode</property>
                         <child>
                           <object class="GtkImage" id="image6">
                             <property name="visible">True</property>
@@ -901,8 +908,8 @@
                         <property name="visible">True</property>
                         <property name="left_padding">12</property>
                         <child>
-                          <object class="GtkCheckButton" id="dialogpreferences_enablenotification">
-                            <property name="label" translatable="yes">Enable desktop notification</property>
+                          <object class="GtkCheckButton" id="dialogpreferences_enablenotifications">
+                            <property name="label" translatable="yes">Enable desktop notifications</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -914,7 +921,7 @@
                     <child type="label">
                       <object class="GtkLabel" id="label8">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Notification&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Notifications&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
                     </child>

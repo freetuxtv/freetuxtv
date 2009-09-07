@@ -568,8 +568,8 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.channelonstartup);
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "dialogpreferences_enablenotification");
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.enable_notification);
+						       "dialogpreferences_enablenotifications");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.enable_notifications);
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "dialogpreferences_directoryrecordings");
@@ -709,8 +709,8 @@ on_dialogpreferences_response (GtkDialog *dialog,
 		app->prefs.channelonstartup = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 		
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-							       "dialogpreferences_enablenotification");
-		app->prefs.enable_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+							       "dialogpreferences_enablenotifications");
+		app->prefs.enable_notifications = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 	
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogpreferences_directoryrecordings");
