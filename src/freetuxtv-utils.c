@@ -86,11 +86,13 @@ get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_pre
 							       "dialogpreferences_radiotranscodingpredefinedformats");		
 		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
 			transcoding_mode = 1;
-			
 			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 								       "dialogpreferences_transcodingformats");
-			gtk_combo_box_get_active_iter (GTK_COMBO_BOX(widget), &iter);
-			transcoding_format = gtk_tree_model_get_string_from_iter (model, &iter);
+			if(gtk_combo_box_get_active_iter (GTK_COMBO_BOX(widget), &iter)){
+				transcoding_format = gtk_tree_model_get_string_from_iter (model, &iter);
+			}else{
+				transcoding_format = g_strdup(app->prefs.transcoding_format);	
+			}
 		}		
 
 	}else{
