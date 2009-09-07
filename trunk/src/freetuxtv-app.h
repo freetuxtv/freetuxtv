@@ -33,7 +33,7 @@ struct _FreetuxTVApp {
 	struct {		
 		// Prefs general
 		gboolean channelonstartup;
-		gboolean enable_notification;
+		gboolean enable_notifications;
 		
 		// Prefs recordings
 		gchar* directoryrecordings;

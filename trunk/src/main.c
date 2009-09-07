@@ -153,7 +153,7 @@ freetuxtv_app_create_app ()
 
 	// Loads default configuration
 	app->prefs.channelonstartup = TRUE;
-	app->prefs.enable_notification = TRUE;
+	app->prefs.enable_notifications = TRUE;
 	app->prefs.directoryrecordings = g_strdup(g_get_home_dir());
 	app->prefs.transcoding_mode = 0;
 	app->prefs.transcoding_format = "0";
@@ -225,12 +225,12 @@ freetuxtv_app_create_app ()
 		}
 		
 		b = g_key_file_get_boolean (keyfile, "general",
-					    "enable_notification", &err);
+					    "enable_notifications", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
 		}else{
-			app->prefs.enable_notification = b;		
+			app->prefs.enable_notifications = b;		
 		}
 		
 		str = g_key_file_get_string (keyfile, "general",
@@ -357,7 +357,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 		gchar *imgfile;
 		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
 		
-		if(app->prefs.enable_notification){
+		if(app->prefs.enable_notifications){
 			notify_notification_update (app->current.notification, channel_infos->name,
 						    _("is playing"), imgfile);
 			if (!notify_notification_show (app->current.notification, NULL)) {
@@ -479,7 +479,7 @@ freetuxtv_action_record (FreetuxTVApp *app)
 		gchar *imgfile;
 		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
 		
-		if(app->prefs.enable_notification){
+		if(app->prefs.enable_notifications){
 			notify_notification_update (app->current.notification, channel_infos->name,
 						    _("is recording"), imgfile);
 			if (!notify_notification_show (app->current.notification, NULL)) {
@@ -583,8 +583,8 @@ freetuxtv_quit (FreetuxTVApp *app)
 				"channel_on_startup",
 				app->prefs.channelonstartup);
 	g_key_file_set_boolean (keyfile, "general",
-				"enable_notification",
-				app->prefs.enable_notification);
+				"enable_notifications",
+				app->prefs.enable_notifications);
 	
 	g_key_file_set_string (keyfile, "general",
 			       "directory_record",
