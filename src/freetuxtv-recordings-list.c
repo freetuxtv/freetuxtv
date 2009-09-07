@@ -46,14 +46,14 @@ recordings_list_load_recordings(FreetuxTVApp *app)
 							    "liststore_recordings");
 	gtk_list_store_clear(liststore);
 	
-	GDir *dir = g_dir_open (app->config.directoryrecordings, 0, NULL);
+	GDir *dir = g_dir_open (app->prefs.directoryrecordings, 0, NULL);
 	if (dir){
 		const gchar *filename = NULL;
 		gchar *url = NULL;		
 		while (filename = g_dir_read_name (dir)) {
 			if(g_regex_match_simple(".*.mpg", filename, 0, 0)){
 				GtkTreeIter iter;
-				url = g_strconcat(app->config.directoryrecordings, "/", filename, NULL);
+				url = g_strconcat(app->prefs.directoryrecordings, "/", filename, NULL);
 				gtk_list_store_append(liststore, &iter);
 				gtk_list_store_set(liststore, &iter,
 						   FILENAME_COLUMN, filename, MRL_COLUMN, url, -1);

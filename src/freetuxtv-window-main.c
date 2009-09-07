@@ -17,11 +17,117 @@
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
+#include "freetuxtv-utils.h"
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-logos-list.h"
 #include "gtk-libvlc-media-player.h"
+
+static gboolean
+on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data);
+
+static void
+on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
+					    gpointer user_data);
+
+static void
+on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
+					  gpointer user_data);
+
+static void
+on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
+					    gpointer user_data);
+
+static void
+on_windowmain_menuitemquit_activate (GtkMenuItem *menuitem,
+				     gpointer user_data);
+
+static void
+on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
+					    gpointer user_data);
+
+static void
+on_windowmain_buttonclearfilter_clicked (GtkButton *button,
+					 gpointer user_data);
+
+static void
+on_windowmain_buttongotocurrent_clicked (GtkButton *button,
+					 gpointer user_data);
+
+static void
+on_windowmain_buttonprevious_clicked (GtkButton *button,
+				      gpointer user_data);
+
+static void
+on_windowmain_buttonnext_clicked (GtkButton *button,
+				  gpointer user_data);
+
+static void
+on_windowmain_buttonstop_clicked (GtkButton *button,
+				  gpointer user_data);
+
+static void
+on_windowmain_buttonrecord_clicked (GtkButton *button,
+				    gpointer user_data);
+
+static void
+on_windowmain_buttonplaypause_clicked (GtkButton *button,
+				  gpointer user_data);
+
+static void
+on_windowmain_buttonfullscreen_clicked (GtkButton *button,
+					gpointer user_data);
+
+static void
+on_windowmain_buttonminimode_clicked (GtkButton *button,
+				      gpointer user_data);
+
+static void
+on_windowmain_entryfilter_changed (GtkEntry *entry,
+				   gpointer user_data);
+
+static void
+on_windowmain_volumecontrol_value_changed (GtkRange *range,
+					   gpointer user_data);
+
+static void
+on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
+					    gpointer user_data);
+
+static void
+on_windowminimode_buttonstayontop_clicked (GtkButton *button,
+					   gpointer user_data);
+
+static void
+on_dialogpreferences_directoryrecordings_changed (GtkFileChooser *chooser,
+						  gpointer user_data);
+
+static void
+on_dialogpreferences_radiotranscoding_toggled (GtkToggleButton *togglebutton,
+					       gpointer user_data);
+
+static void
+on_dialogpreferences_transcodingformats_changed (GtkComboBox *widget,
+						 gpointer user_data);
+
+static void
+on_dialogpreferences_response (GtkDialog *dialog,
+			       gint response_id,
+			       gpointer   user_data);
+
+static void
+on_dialogaddgroup_response (GtkDialog *dialog,
+			    gint response_id,
+			    gpointer user_data);
+
+static void
+on_aboutdialog_response (GtkDialog *dialog,
+			 gint response_id,
+			 gpointer user_data);
+
+static void
+dialogpreferences_update_view(FreetuxTVApp *app);
 
 void
 windowmain_init(FreetuxTVApp *app)
@@ -220,6 +326,34 @@ windowmain_init(FreetuxTVApp *app)
 			 G_CALLBACK(gtk_widget_hide_on_delete),
 			 NULL);
 
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+						      "dialogpreferences_directoryrecordings");	
+	g_signal_connect(G_OBJECT(widget),
+			 "selection-changed",
+			 G_CALLBACK(on_dialogpreferences_directoryrecordings_changed),
+			 app);
+
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+						      "dialogpreferences_radiotranscodingno");	
+	g_signal_connect(G_OBJECT(widget),
+			 "toggled",
+			 G_CALLBACK(on_dialogpreferences_radiotranscoding_toggled),
+			 app);
+
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+						      "dialogpreferences_radiotranscodingpredefinedformats");	
+	g_signal_connect(G_OBJECT(widget),
+			 "toggled",
+			 G_CALLBACK(on_dialogpreferences_radiotranscoding_toggled),
+			 app);
+
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+						      "dialogpreferences_transcodingformats");	
+	g_signal_connect(G_OBJECT(widget),
+			 "changed",
+			 G_CALLBACK(on_dialogpreferences_transcodingformats_changed),
+			 app);
+
 	// Initialize signals for dialogaddgroup
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "dialogaddgroup");
@@ -255,7 +389,7 @@ windowmain_init(FreetuxTVApp *app)
 			 NULL);	
 }
 
-gboolean
+static gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) data;
@@ -263,7 +397,7 @@ on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data)
 	return TRUE;
 }
 
-void 
+static void 
 on_windowmain_menuitemquit_activate (GtkMenuItem *menuitem,
 				     gpointer user_data)
 {
@@ -271,7 +405,7 @@ on_windowmain_menuitemquit_activate (GtkMenuItem *menuitem,
 	freetuxtv_quit (app);
 }
 
-void
+static void
 on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 					    gpointer user_data)
 {
@@ -283,7 +417,7 @@ on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 
 }
 
-void
+static void
 on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 					 gpointer user_data)
 {
@@ -304,7 +438,7 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
 
-void
+static void
 on_windowmain_buttongotocurrent_clicked (GtkButton *button,
 					 gpointer user_data)
 {
@@ -313,7 +447,7 @@ on_windowmain_buttongotocurrent_clicked (GtkButton *button,
 	channels_list_set_playing(app, app->current.path_channel);
 }
 
-void
+static void
 on_windowmain_buttonprevious_clicked (GtkButton *button,
 				    gpointer user_data)
 {
@@ -321,7 +455,7 @@ on_windowmain_buttonprevious_clicked (GtkButton *button,
 	freetuxtv_action_prev (app);	
 }
 
-void
+static void
 on_windowmain_buttonnext_clicked (GtkButton *button,
 				       gpointer user_data)
 {
@@ -329,7 +463,7 @@ on_windowmain_buttonnext_clicked (GtkButton *button,
 	freetuxtv_action_next (app);	
 }
 
-void
+static void
 on_windowmain_buttonstop_clicked (GtkButton *button,
 				  gpointer user_data)
 {
@@ -337,7 +471,7 @@ on_windowmain_buttonstop_clicked (GtkButton *button,
 	freetuxtv_action_stop (app);
 }
 
-void
+static void
 on_windowmain_buttonrecord_clicked (GtkButton *button,
 				    gpointer user_data)
 {
@@ -345,7 +479,7 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 	freetuxtv_action_record (app);
 }
 
-void
+static void
 on_windowmain_buttonplaypause_clicked (GtkButton *button,
 				       gpointer user_data)
 {
@@ -353,7 +487,7 @@ on_windowmain_buttonplaypause_clicked (GtkButton *button,
 	freetuxtv_action_playpause (app);
 }
 
-void
+static void
 on_windowmain_buttonfullscreen_clicked (GtkButton *button,
 					gpointer user_data)
 {
@@ -361,7 +495,7 @@ on_windowmain_buttonfullscreen_clicked (GtkButton *button,
 	gtk_libvlc_media_player_set_fullscreen (app->player, TRUE);
 }
 
-void
+static void
 on_windowmain_buttonminimode_clicked (GtkButton *button,
 				      gpointer user_data)
 {
@@ -377,6 +511,12 @@ on_windowmain_buttonminimode_clicked (GtkButton *button,
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowminimode");
 	gtk_widget_show(widget);
+	gtk_window_set_keep_above (GTK_WINDOW(widget),
+				   app->config.windowminimode_stayontop);
+
+	gtk_window_resize (GTK_WINDOW(widget),
+			   app->config.windowminimode_width,
+			   app->config.windowminimode_height);
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowminimode_buttonstayontop");
@@ -386,11 +526,9 @@ on_windowmain_buttonminimode_clicked (GtkButton *button,
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowminimode_eventboxplayer");
 	gtk_widget_reparent (GTK_WIDGET(app->player), widget);
-	
-	windowminimode_set_from_config (app);
 }
 
-void
+static void
 on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
@@ -406,7 +544,7 @@ on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
 
-void
+static void
 on_windowmain_volumecontrol_value_changed (GtkRange *range, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
@@ -414,7 +552,7 @@ on_windowmain_volumecontrol_value_changed (GtkRange *range, gpointer user_data)
 	gtk_libvlc_media_player_set_volume (app->player, app->config.volume);
 }
 
-void
+static void
 on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 					    gpointer user_data)
 {
@@ -427,19 +565,46 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "dialogpreferences_channelonstartup");
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->config.channelonstartup);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.channelonstartup);
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "dialogpreferences_enablenotification");
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->config.enable_notification);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.enable_notification);
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "dialogpreferences_directoryrecord");
+						       "dialogpreferences_directoryrecordings");
 	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (widget),
-					     app->config.directoryrecordings);
+					     app->prefs.directoryrecordings);
+
+	switch(app->prefs.transcoding_mode){
+	case 0:
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialogpreferences_radiotranscodingno");		
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);
+		break;
+	case 1:
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialogpreferences_radiotranscodingpredefinedformats");		
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);				
+		break;
+	default:
+		break;
+	}
+
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+
+	model = (GtkTreeModel *) gtk_builder_get_object (app->gui, "liststore_transcodeformat");
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "dialogpreferences_transcodingformats");
+	gtk_tree_model_get_iter_from_string (model, &iter, app->prefs.transcoding_format);
+	gtk_combo_box_set_active_iter (GTK_COMBO_BOX(widget), &iter);
+
+	dialogpreferences_update_view (app);
+
 }
 
-void
+static void
 on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 					  gpointer user_data)
 {
@@ -451,7 +616,7 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 	gtk_widget_show(widget);
 }
 
-void
+static void
 on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
 					    gpointer user_data)
 {
@@ -460,7 +625,7 @@ on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
 	channels_list_load_channels (app);
 }
 
-void
+static void
 on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 					    gpointer user_data)
 {
@@ -488,7 +653,7 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 	gtk_widget_reparent (GTK_WIDGET(app->player), widget);
 }
 
-void
+static void
 on_windowminimode_buttonstayontop_clicked (GtkButton *button,
 					   gpointer user_data)
 {
@@ -499,10 +664,39 @@ on_windowminimode_buttonstayontop_clicked (GtkButton *button,
 		app->config.windowminimode_stayontop = TRUE;
 	}
 
-	windowminimode_set_from_config (app);
+	GtkWidget *widget;	
+	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowminimode");
+	gtk_window_set_keep_above (GTK_WINDOW(widget),
+				   app->config.windowminimode_stayontop);
 }
 
-void
+static void
+on_dialogpreferences_directoryrecordings_changed (GtkFileChooser *chooser,
+						  gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp*)user_data;
+	dialogpreferences_update_view(app);	
+}
+
+static void
+on_dialogpreferences_radiotranscoding_toggled (GtkToggleButton *togglebutton,
+					       gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp*)user_data;
+	dialogpreferences_update_view(app);
+}
+
+static void
+on_dialogpreferences_transcodingformats_changed (GtkComboBox *widget,
+						 gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp*)user_data;
+	dialogpreferences_update_view(app);	
+}
+
+static void
 on_dialogpreferences_response (GtkDialog *dialog,
 			       gint response_id,
 			       gpointer user_data)
@@ -512,22 +706,43 @@ on_dialogpreferences_response (GtkDialog *dialog,
 	if(response_id == GTK_RESPONSE_APPLY){
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogpreferences_channelonstartup");
-		app->config.channelonstartup = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+		app->prefs.channelonstartup = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 		
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogpreferences_enablenotification");
-		app->config.enable_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+		app->prefs.enable_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 	
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-							       "dialogpreferences_directoryrecord");
-		g_free(app->config.directoryrecordings);
-		app->config.directoryrecordings = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER (widget));	       
+							       "dialogpreferences_directoryrecordings");
+		g_free(app->prefs.directoryrecordings);
+		app->prefs.directoryrecordings = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER (widget));
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialogpreferences_radiotranscodingno");	
+		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
+			app->prefs.transcoding_mode = 0;	
+		}
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialogpreferences_radiotranscodingpredefinedformats");		
+		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
+			app->prefs.transcoding_mode = 1;	
+		}
+
+		GtkTreeModel *model;
+		GtkTreeIter iter;
+		
+		model = (GtkTreeModel *) gtk_builder_get_object (app->gui, "liststore_transcodeformat");
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialogpreferences_transcodingformats");
+		gtk_combo_box_get_active_iter (GTK_COMBO_BOX(widget), &iter);
+		app->prefs.transcoding_format = gtk_tree_model_get_string_from_iter (model, &iter);
 
 	}
 	gtk_widget_hide(GTK_WIDGET(dialog));
 }
 
-void
+static void
 on_dialogaddgroup_response (GtkDialog *dialog,
 			    gint response_id,
 			    gpointer user_data)
@@ -607,7 +822,7 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 	}
 }
 
-void
+static void
 on_aboutdialog_response (GtkDialog *dialog,
 			 gint response_id,
 			 gpointer user_data)
@@ -733,7 +948,6 @@ windowmain_show_error (FreetuxTVApp *app, gchar *msg)
 void
 windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg)
 {
-	
 	int context_id;
 
 	GtkWidget *statusbar;
@@ -750,8 +964,7 @@ windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg)
 
 void
 windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
-{
-	
+{	
 	int context_id;
 
 	GtkWidget *statusbar;
@@ -764,17 +977,14 @@ windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
 	// while (g_main_context_iteration(NULL, FALSE)){}		
 }
 
-void
-windowminimode_set_from_config (FreetuxTVApp *app)
+static void
+dialogpreferences_update_view(FreetuxTVApp *app)
 {
-	GtkWidget *widget;
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "windowminimode");
-	gtk_window_set_keep_above (GTK_WINDOW(widget),
-				   app->config.windowminimode_stayontop);
-
-	gtk_window_resize (GTK_WINDOW(widget),
-			   app->config.windowminimode_width,
-			   app->config.windowminimode_height);
+	GtkWidget *textbuffer;
+	textbuffer = (GtkWidget *) gtk_builder_get_object (app->gui,
+							   "textbuffer_previewtranscoding");
+	gchar *text;
+	text = get_recording_options(app, "%filename%", TRUE);
+	gtk_text_buffer_set_text (GTK_TEXT_BUFFER(textbuffer), text, -1);
+	g_free(text);
 }
