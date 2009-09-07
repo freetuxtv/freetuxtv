@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-01 12:31+0200\n"
+"POT-Creation-Date: 2009-09-08 01:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,75 +16,83 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/freetuxtv.glade:21 data/freetuxtv.glade:614
+#: data/freetuxtv.glade:51 data/freetuxtv.glade:726
 msgid "FreetuxTV"
 msgstr ""
 
-#: data/freetuxtv.glade:61
+#: data/freetuxtv.glade:92
 msgid "Delete the search text area"
 msgstr ""
 
-#: data/freetuxtv.glade:79
+#: data/freetuxtv.glade:110
 msgid "Channels' search text area"
 msgstr ""
 
-#: data/freetuxtv.glade:93
+#: data/freetuxtv.glade:124
 msgid "Go to the current channel playing"
 msgstr ""
 
-#: data/freetuxtv.glade:135
+#: data/freetuxtv.glade:166
 msgid "Channels"
 msgstr ""
 
-#: data/freetuxtv.glade:171
+#: data/freetuxtv.glade:205 data/freetuxtv.glade:1114
+msgid "Recordings"
+msgstr ""
+
+#: data/freetuxtv.glade:239 data/freetuxtv.glade:260
+msgid "00:00:00"
+msgstr ""
+
+#: data/freetuxtv.glade:283
 msgid "Previous channel"
 msgstr ""
 
-#: data/freetuxtv.glade:190
+#: data/freetuxtv.glade:302
 msgid "Play the current channel"
 msgstr ""
 
-#: data/freetuxtv.glade:209
+#: data/freetuxtv.glade:321
 msgid "Stop playing the current channel"
 msgstr ""
 
-#: data/freetuxtv.glade:228
+#: data/freetuxtv.glade:340
 msgid "Record the current channel"
 msgstr ""
 
-#: data/freetuxtv.glade:247
+#: data/freetuxtv.glade:359
 msgid "Next channel"
 msgstr ""
 
-#: data/freetuxtv.glade:267 data/freetuxtv.glade:643
+#: data/freetuxtv.glade:379 data/freetuxtv.glade:755
 msgid "Vol : "
 msgstr ""
 
-#: data/freetuxtv.glade:276 data/freetuxtv.glade:652
+#: data/freetuxtv.glade:388 data/freetuxtv.glade:764
 msgid "-"
 msgstr ""
 
-#: data/freetuxtv.glade:298 data/freetuxtv.glade:674
+#: data/freetuxtv.glade:410 data/freetuxtv.glade:786
 msgid "+"
 msgstr ""
 
-#: data/freetuxtv.glade:316
+#: data/freetuxtv.glade:428
 msgid "Fullscreen mode"
 msgstr ""
 
-#: data/freetuxtv.glade:335
+#: data/freetuxtv.glade:447
 msgid "Small mode"
 msgstr ""
 
-#: data/freetuxtv.glade:382
+#: data/freetuxtv.glade:494
 msgid "Add a group"
 msgstr ""
 
-#: data/freetuxtv.glade:409
+#: data/freetuxtv.glade:521
 msgid "* : field required"
 msgstr ""
 
-#: data/freetuxtv.glade:428
+#: data/freetuxtv.glade:540
 msgid ""
 "You can easily use regular expressions to delete some text in the channel's "
 "name of the groupe. For example, if in your playlist, you have a name like "
@@ -92,84 +100,120 @@ msgid ""
 "number before the name, by using the regular expression \"[0-9]* - \"."
 msgstr ""
 
-#: data/freetuxtv.glade:443
+#: data/freetuxtv.glade:555
 msgid "Text or regexp which must be deleted at the end of the channel's name"
 msgstr ""
 
-#: data/freetuxtv.glade:456
+#: data/freetuxtv.glade:568
 msgid ""
 "Text or regexp which must be deleted at the beginning of the channel's name"
 msgstr ""
 
-#: data/freetuxtv.glade:466
+#: data/freetuxtv.glade:578
 msgid "Delete this text behind the name :"
 msgstr ""
 
-#: data/freetuxtv.glade:477
+#: data/freetuxtv.glade:589
 msgid "Delete this text before the name :"
 msgstr ""
 
-#: data/freetuxtv.glade:497
+#: data/freetuxtv.glade:609
 msgid "Processing of channels' name :"
 msgstr ""
 
-#: data/freetuxtv.glade:529
+#: data/freetuxtv.glade:641
 msgid "Playlist's URI of the group which will be added"
 msgstr ""
 
-#: data/freetuxtv.glade:549
+#: data/freetuxtv.glade:661
 msgid "Group's name* :"
 msgstr ""
 
-#: data/freetuxtv.glade:559
+#: data/freetuxtv.glade:671
 msgid "Name of the group which will be added"
 msgstr ""
 
-#: data/freetuxtv.glade:569
+#: data/freetuxtv.glade:681
 msgid "Playlist's URI* : "
 msgstr ""
 
-#: data/freetuxtv.glade:584
+#: data/freetuxtv.glade:696
 msgid "<b>Add a group</b>"
 msgstr ""
 
-#: data/freetuxtv.glade:692
+#: data/freetuxtv.glade:804
 msgid "Go back to the normal mode"
 msgstr ""
 
-#: data/freetuxtv.glade:712
+#: data/freetuxtv.glade:824
 msgid "Activate/Deactivate the window always on top"
 msgstr ""
 
-#: data/freetuxtv.glade:739
+#: data/freetuxtv.glade:851
 msgid "Preferences"
 msgstr ""
 
-#: data/freetuxtv.glade:756
+#: data/freetuxtv.glade:879
 msgid "Play last channel on startup"
 msgstr ""
 
-#: data/freetuxtv.glade:770
-msgid "Select a directory"
+#: data/freetuxtv.glade:891
+msgid "<b>Startup</b>"
 msgstr ""
 
-#: data/freetuxtv.glade:782
+#: data/freetuxtv.glade:912
+msgid "Enable desktop notifications"
+msgstr ""
+
+#: data/freetuxtv.glade:924
+msgid "<b>Notifications</b>"
+msgstr ""
+
+#: data/freetuxtv.glade:940
+msgid "General"
+msgstr ""
+
+#: data/freetuxtv.glade:964
 msgid "Directory Record :"
 msgstr ""
 
-#: data/freetuxtv.glade:836
+#: data/freetuxtv.glade:974
+msgid "Select a directory"
+msgstr ""
+
+#: data/freetuxtv.glade:987
+msgid "<b>Destination</b>"
+msgstr ""
+
+#: data/freetuxtv.glade:1011
+msgid "No transcoding"
+msgstr ""
+
+#: data/freetuxtv.glade:1024
+msgid "Predefined transcoding formats"
+msgstr ""
+
+#: data/freetuxtv.glade:1042
+msgid "Format :"
+msgstr ""
+
+#: data/freetuxtv.glade:1095
+msgid "<b>Transcoding options</b>"
+msgstr ""
+
+#: data/freetuxtv.glade:1161
 msgid "GNU General Public License v2"
 msgstr ""
 
-#: data/freetuxtv.glade:837
+#: data/freetuxtv.glade:1162
 msgid "Web TV channels player."
 msgstr ""
 
-#: data/freetuxtv.glade:839
+#: data/freetuxtv.glade:1164
 msgid "Project's Web Site"
 msgstr ""
 
-#: data/freetuxtv.glade:853
+#: data/freetuxtv.glade:1178
 msgid "translator-credits"
 msgstr ""
 
@@ -300,95 +344,95 @@ msgid ""
 "%s."
 msgstr ""
 
-#: src/freetuxtv-window-main.c:38
-msgid "_File"
-msgstr ""
-
-#: src/freetuxtv-window-main.c:55
-msgid "_Channels"
-msgstr ""
-
-#: src/freetuxtv-window-main.c:59
-msgid "_Add a group"
-msgstr ""
-
-#: src/freetuxtv-window-main.c:65
-msgid "_Update logos list"
-msgstr ""
-
-#: src/freetuxtv-window-main.c:72
-msgid "_Help"
-msgstr ""
-
-#: src/freetuxtv-window-main.c:566
-#, c-format
-msgid "Please enter the group's name !"
-msgstr ""
-
-#: src/freetuxtv-window-main.c:570
-#, c-format
-msgid "Please choose the protocole of the group's URI !"
-msgstr ""
-
-#: src/freetuxtv-window-main.c:574
-#, c-format
-msgid "Please enter the group's URI !"
-msgstr ""
-
-#: src/main.c:312 src/main.c:384
-#, c-format
-msgid "Playing : %s"
-msgstr ""
-
-#: src/main.c:320
-msgid "is playing"
-msgstr ""
-
-#: src/main.c:386
-#, c-format
-msgid "Stopping channel : %s"
-msgstr ""
-
-#: src/main.c:423
-msgid "is recording"
-msgstr ""
-
-#: src/main.c:448
-#, c-format
-msgid "Recording : %s"
-msgstr ""
-
-#: src/main.c:584
+#: src/freetuxtv-utils.c:29
 #, c-format
 msgid "%02dh%02dm%02ds"
 msgstr ""
 
-#: src/main.c:591
+#: src/freetuxtv-utils.c:36
 #, c-format
 msgid "%ld byte"
 msgstr ""
 
-#: src/main.c:593
+#: src/freetuxtv-utils.c:38
 #, c-format
 msgid "%ld bytes"
 msgstr ""
 
-#: src/main.c:595
+#: src/freetuxtv-utils.c:40
 #, c-format
 msgid "%1.1f kB"
 msgstr ""
 
-#: src/main.c:597
+#: src/freetuxtv-utils.c:42
 #, c-format
 msgid "%1.1f MB"
 msgstr ""
 
-#: src/main.c:599
+#: src/freetuxtv-utils.c:44
 #, c-format
 msgid "%1.1f GB"
 msgstr ""
 
-#: src/main.c:624
+#: src/freetuxtv-window-main.c:144
+msgid "_File"
+msgstr ""
+
+#: src/freetuxtv-window-main.c:161
+msgid "_Channels"
+msgstr ""
+
+#: src/freetuxtv-window-main.c:165
+msgid "_Add a group"
+msgstr ""
+
+#: src/freetuxtv-window-main.c:171
+msgid "_Update logos list"
+msgstr ""
+
+#: src/freetuxtv-window-main.c:178
+msgid "_Help"
+msgstr ""
+
+#: src/freetuxtv-window-main.c:782
+#, c-format
+msgid "Please enter the group's name !"
+msgstr ""
+
+#: src/freetuxtv-window-main.c:786
+#, c-format
+msgid "Please choose the protocole of the group's URI !"
+msgstr ""
+
+#: src/freetuxtv-window-main.c:790
+#, c-format
+msgid "Please enter the group's URI !"
+msgstr ""
+
+#: src/main.c:353 src/main.c:443
+#, c-format
+msgid "Playing : %s"
+msgstr ""
+
+#: src/main.c:362
+msgid "is playing"
+msgstr ""
+
+#: src/main.c:445
+#, c-format
+msgid "Stopping channel : %s"
+msgstr ""
+
+#: src/main.c:484
+msgid "is recording"
+msgstr ""
+
+#: src/main.c:521
+#, c-format
+msgid "Recording : %s"
+msgstr ""
+
+#: src/main.c:691
 #, c-format
 msgid "Recording : %s (%s) -> %s (%s)"
 msgstr ""
