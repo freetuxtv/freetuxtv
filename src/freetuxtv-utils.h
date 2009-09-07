@@ -22,7 +22,7 @@ gchar*
 format_size(glong size);
 
 gchar*
-get_recording_options(FreetuxTVApp *app, gchar* filename, gboolean from_preview);
+get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_preview, gchar **out_filename);
 
 
 #endif /* FREETUXTV_UTILS_H */
