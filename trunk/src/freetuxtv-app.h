@@ -57,6 +57,7 @@ struct _FreetuxTVApp {
 		gboolean lastchannelonstartup;
 		NotifyNotification *notification;
 		
+		gboolean is_recording;
 		struct {
 			gchar* dst_file;
 			GTimer *duration;

@@ -77,13 +77,13 @@ void
 gtk_libvlc_media_player_clear_media_list(GtkLibVLCMediaPlayer *self);
 
 void
-gtk_libvlc_media_player_play (GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_play (GtkLibVLCMediaPlayer *self, gchar **options);
 
 void
-gtk_libvlc_media_player_play_media_at_path (GtkLibVLCMediaPlayer *self, GtkTreePath *path);
+gtk_libvlc_media_player_play_media_at_path (GtkLibVLCMediaPlayer *self, GtkTreePath *path, gchar **options);
 
 void
-gtk_libvlc_media_player_play_next (GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_play_next (GtkLibVLCMediaPlayer *self, gchar **options);
 
 void
 gtk_libvlc_media_player_stop (GtkLibVLCMediaPlayer *self);
@@ -97,11 +97,8 @@ gtk_libvlc_media_player_get_volume (GtkLibVLCMediaPlayer *self);
 void
 gtk_libvlc_media_player_set_fullscreen (GtkLibVLCMediaPlayer *self, gboolean fullscreen);
 
-void
-gtk_libvlc_media_player_record_current (GtkLibVLCMediaPlayer *self, gchar* output_filename);
-
 gboolean
-gtk_libvlc_media_player_is_recording (GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_is_playing (GtkLibVLCMediaPlayer *self);
 
 GtkLibVLCState
 gtk_libvlc_media_player_get_state (GtkLibVLCMediaPlayer *self);

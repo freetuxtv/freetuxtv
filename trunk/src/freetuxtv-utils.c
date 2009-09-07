@@ -46,7 +46,7 @@ format_size(glong size)
 }
 
 gchar*
-get_recording_options(FreetuxTVApp *app, gchar* filename, gboolean from_preview)
+get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_preview, gchar **out_filename)
 {
 	gchar *text;
 
@@ -118,8 +118,11 @@ get_recording_options(FreetuxTVApp *app, gchar* filename, gboolean from_preview)
 		break;
 	}
 
+	if(out_filename != NULL){
+		*out_filename = g_strdup_printf("%s.%s", base_filename, mux);	
+	}
 
-	text = g_strdup_printf(":sout=#%sduplicate{dst=std{access=file,mux=%s,dst='%s/%s.%s'},dst=display}", transcode, mux, dir, filename, mux);
+	text = g_strdup_printf(":sout=#%sduplicate{dst=std{access=file,mux=%s,dst='%s/%s.%s'},dst=display}", transcode, mux, dir, base_filename, mux);
 
 	g_free(dir);
 	g_free(mux);
