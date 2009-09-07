@@ -155,6 +155,7 @@ freetuxtv_app_create_app ()
 	app->config.windowminimode_width = 320;
 	app->config.windowminimode_height = 240;
 	app->config.channelonstartup = TRUE;
+	app->config.enable_notification = TRUE;
 	app->config.lastchannel = -1;
 	app->config.volume = 0.75;
 	app->config.logosfiledate = 0;
@@ -258,6 +259,15 @@ freetuxtv_app_create_app ()
 			err = NULL;
 		}else{
 			app->config.channelonstartup = b;		
+		}
+		
+		b = g_key_file_get_boolean (keyfile, "general",
+					    "enable_notification", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->config.enable_notification = b;		
 		}		
 		
 		i = g_key_file_get_integer (keyfile, "general",
@@ -317,10 +327,12 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 		gchar *imgfile;
 		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
 		
-		notify_notification_update (app->current.notification, channel_infos->name,
-					    _("is playing"), imgfile);
-		if (!notify_notification_show (app->current.notification, NULL)) {
-			g_printerr("FreetuxTV : Failed to send notification\n");
+		if(app->config.enable_notification){
+			notify_notification_update (app->current.notification, channel_infos->name,
+						    _("is playing"), imgfile);
+			if (!notify_notification_show (app->current.notification, NULL)) {
+				g_printerr("FreetuxTV : Failed to send notification\n");
+			}
 		}
 		g_free(imgfile);
 		g_free(text);
@@ -438,11 +450,14 @@ freetuxtv_action_record (FreetuxTVApp *app)
 		gchar *imgfile;
 		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
 		
-		notify_notification_update (app->current.notification, channel_infos->name,
-					    _("is recording"), imgfile);
-		if (!notify_notification_show (app->current.notification, NULL)) {
-			g_printerr("FreetuxTV : Failed to send notification\n");
+		if(app->config.enable_notification){
+			notify_notification_update (app->current.notification, channel_infos->name,
+						    _("is recording"), imgfile);
+			if (!notify_notification_show (app->current.notification, NULL)) {
+				g_printerr("FreetuxTV : Failed to send notification\n");
+			}
 		}
+
 		g_free(imgfile);
 		windowmain_display_buttons (app, WINDOW_MODE_RECORDING);
 
@@ -531,6 +546,9 @@ freetuxtv_quit (FreetuxTVApp *app)
 	g_key_file_set_boolean (keyfile, "general",
 				"channel_on_startup",
 				app->config.channelonstartup);
+	g_key_file_set_boolean (keyfile, "general",
+				"enable_notification",
+				app->config.enable_notification);
 	if(app->current.path_channel != NULL && is_playing){
 		FreetuxTVChannelInfos* channel_infos;
 		channel_infos = channels_list_get_channel(app, app->current.path_channel);
@@ -635,6 +653,8 @@ increase_progress_timeout (FreetuxTVApp *app)
 			gint second;
 			second = (gint)g_timer_elapsed (app->current.recording.duration, NULL);
 			
+			// gtk_libvlc_media_player_set_time (app->player, second*1000);
+			
 			struct stat buf;
 			long file_size = 0;
 			if(g_stat(app->current.recording.dst_file, &buf) == 0){
@@ -653,7 +673,7 @@ increase_progress_timeout (FreetuxTVApp *app)
 	}
 
 
-	//g_print("time %ld/%ld\n", gtk_libvlc_media_player_get_time(app->player), gtk_libvlc_media_player_get_length(app->player));
+	g_print("time %ld/%ld\n", gtk_libvlc_media_player_get_time(app->player), gtk_libvlc_media_player_get_length(app->player));
 
 	return TRUE;
 }
@@ -693,7 +713,7 @@ int main (int argc, char *argv[])
 	// Initialize notifications
 	notify_init("FreetuxTV");
 	app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL, NULL);
-
+	
 	// Synchronize logos list if file modified
 	struct stat file_stat;
 	gint ret;
