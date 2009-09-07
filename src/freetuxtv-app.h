@@ -30,18 +30,26 @@ struct _FreetuxTVApp {
 	GtkLibVLCMediaPlayer *player;
 	GtkTreeModel *channelslist;
 
-	struct {
-		gdouble volume;
-		
+	struct {		
+		// Prefs general
 		gboolean channelonstartup;
 		gboolean enable_notification;
+		
+		// Prefs recordings
+		gchar* directoryrecordings;
+		gint transcoding_mode;
+		gchar* transcoding_format;
+		
+	} prefs;
+
+	struct {
+		gdouble volume;
 
 		gint lastchannel;
 		gboolean windowminimode_stayontop;
 		gint windowminimode_width;
 		gint windowminimode_height;
-		gint logosfiledate;
-		gchar* directoryrecordings;
+		gint logosfiledate;		
 	} config;
 
 	struct {

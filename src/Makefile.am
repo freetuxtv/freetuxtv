@@ -15,6 +15,8 @@ freetuxtv_SOURCES = \
   freetuxtv-logos-list.h \
   freetuxtv-recordings-list.c \
   freetuxtv-recordings-list.h \
+  freetuxtv-utils.c \
+  freetuxtv-utils.h \
   freetuxtv-window-main.c \
   freetuxtv-window-main.h \
   gtk-libvlc-include.h \
