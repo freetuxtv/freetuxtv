@@ -171,11 +171,19 @@ freetuxtv_app_create_app ()
 	app->current.recording.duration = NULL;
 	app->debug = FALSE;	
 
-	// Create UI from file 
+	// Create UI from file
+	g_print("FreetuxTV : Load user interface from file %s\n", FREETUXTV_GLADEXML);
 	app->gui = gtk_builder_new ();
 	gtk_builder_add_from_file (app->gui, FREETUXTV_GLADEXML, NULL);
 
+	// Initialize UI
+	g_print("FreetuxTV : Initialize user interface\n");
+	windowmain_init(app);
+	channels_list_init(app);
+	recordings_list_init(app);
+
 	// Add player to UI	
+	g_print("FreetuxTV : Create player\n");
 	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
 							      "windowmain_eventboxplayer");
 	GtkLibVLCInstance* instance;
@@ -185,11 +193,6 @@ freetuxtv_app_create_app ()
 	gtk_widget_show(GTK_WIDGET(app->player));
 	g_object_unref(G_OBJECT(instance));
 	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
-	
-	// Initialize UI
-	windowmain_init(app);
-	channels_list_init(app);
-	recordings_list_init(app);
 
 	// Load FreetuxTV State	
 	GKeyFile *keyfile;
@@ -715,12 +718,13 @@ int main (int argc, char *argv[])
 	textdomain (GETTEXT_PACKAGE);
 #endif
 
-	g_print("FreetuxTV : Compliled with LibVLC version %d.%d.%d\n",
+	g_print("FreetuxTV : Compiled with LibVLC version %d.%d.%d\n",
 		LIBVLC_VERSION_MAJOR, LIBVLC_VERSION_MINOR, LIBVLC_VERSION_REVISION);
 	init_app();
 	
 	gtk_init(&argc, &argv);
 	
+	g_print("FreetuxTV : Create application\n");
 	app = freetuxtv_app_create_app ();
 	if (app == NULL)
 		return 1;
