@@ -183,7 +183,7 @@
                         <property name="model">liststore_recordings</property>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn1">
-                            <property name="title">My recordings</property>
+                            <property name="title" translatable="yes">My recordings</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext1"/>
                               <attributes>

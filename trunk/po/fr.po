@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-08 01:39+0200\n"
+"POT-Creation-Date: 2009-09-08 01:45+0200\n"
 "PO-Revision-Date: 2008-08-09 15:06+0200\n"
 "Last-Translator: BEUQUE Eric <eric.beuque@gmail.com>\n"
 "Language-Team: FR <eric.beuque@gmail.com>\n"
@@ -34,6 +34,10 @@ msgstr "Aller à la chaîne en cours de lecture"
 #: data/freetuxtv.glade:166
 msgid "Channels"
 msgstr "Chaînes"
+
+#: data/freetuxtv.glade:186
+msgid "My recordings"
+msgstr "Mes enregistrements"
 
 #: data/freetuxtv.glade:205 data/freetuxtv.glade:1114
 msgid "Recordings"
@@ -169,7 +173,7 @@ msgstr "<b>Démarrage</b>"
 
 #: data/freetuxtv.glade:912
 msgid "Enable desktop notifications"
-msgstr ""
+msgstr "Activer les notifications du bureau"
 
 #: data/freetuxtv.glade:924
 msgid "<b>Notifications</b>"
