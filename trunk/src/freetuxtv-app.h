@@ -32,7 +32,10 @@ struct _FreetuxTVApp {
 
 	struct {
 		gdouble volume;
+		
 		gboolean channelonstartup;
+		gboolean enable_notification;
+
 		gint lastchannel;
 		gboolean windowminimode_stayontop;
 		gint windowminimode_width;
