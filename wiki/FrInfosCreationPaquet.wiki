@@ -13,11 +13,11 @@ Leurs téléchargements est disponible ici : http://freetuxtv.eric-beuque.com/pa
 
 || *Distribution* || *Version* || *Architecture* || *Empaqueteurs* ||
 || Ubuntu || Jaunty || i386 || Phillipe C. ||
-|| Ubuntu || Jaunty || amd64 || Tuxcola ||
+|| Ubuntu || Jaunty || amd64 || _N/A_ ||
 || openSuse || all || all || Gilles S. ||
-|| Mandriva || 2009.1 || i586 || Yannick ||
-|| Mandriva || 2009.1 || x86_64 || Alvin M. ||
-|| Mandriva || 2009.0 || i586 || Yannick ||
+|| Mandriva || 2009.1 || i586 || _N/A_ ||
+|| Mandriva || 2009.1 || x86_64 || _N/A_ ||
+|| Mandriva || 2009.0 || i586 || _N/A_ ||
 || Mandriva || 2009.0 || x86_64 || _N/A_ ||
 
 N'hésitez pas à venir compléter la liste pour les distributions manquantes.
