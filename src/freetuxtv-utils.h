@@ -19,6 +19,9 @@ gchar*
 format_time(gint seconds);
 
 gchar*
+format_time2(gint seconds);
+
+gchar*
 format_size(glong size);
 
 gchar*
