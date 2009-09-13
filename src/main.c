@@ -696,8 +696,10 @@ increase_progress_timeout (FreetuxTVApp *app)
 		}
 	}
 
-
-	// g_print("time %ld/%ld\n", gtk_libvlc_media_player_get_time(app->player), gtk_libvlc_media_player_get_length(app->player));
+	if(gtk_libvlc_media_player_is_playing(app->player)){
+		windowmain_timebar_update (app, gtk_libvlc_media_player_get_time(app->player), 
+					   gtk_libvlc_media_player_get_length(app->player));	
+	}
 
 	return TRUE;
 }

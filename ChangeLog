@@ -1,3 +1,9 @@
+FreetuxTV 0.3.1 (2009-)
+  - Migration vers GtkBuilder, déprécation de libglade
+  - Ajout d'un panneau pour voir la liste des enregistrements et les lire dans FreetuxTV
+  - Préférences pour activer ou non les notifications
+  - Ajout des préférences pour transcoder les enregistrements dans des formats prédéfinis
+
 FreetuxTV 0.3.0 (2009-08-25)
   - Ajout de logos : AccroTV, Argent Quebec, Arretsurimages.tv, Bamboch TV, Bastille TV,
     BBC World News, Biscotte TV, Boardriders TV, C9, Calais tv, Canal savoir, CanalTV, Chérie FM,

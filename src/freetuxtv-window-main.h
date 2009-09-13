@@ -38,4 +38,7 @@ windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg);
 void
 windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context);
 
+void
+windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms);
+
 #endif /* FREETUXTV_WINDOW_MAIN_H */
