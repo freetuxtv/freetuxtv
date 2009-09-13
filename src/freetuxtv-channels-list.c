@@ -882,15 +882,13 @@ on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
 		freetuxtv_channel_infos_set_group (channel_infos, channels_group_infos);
 	}
 
-	// Lit eventuellement la chaine
+	// Get the path of the channel to play, if needed
 	if(cbuserdata->app->current.lastchannelonstartup == TRUE
 	   && cbuserdata->app->config.lastchannel != -1){
 		if(id == cbuserdata->app->config.lastchannel){
 			GtkTreePath* path;
 			path = gtk_tree_model_get_path(GTK_TREE_MODEL(cbuserdata->app->channelslist), cbuserdata->iter_channel);
-			g_print("FreetuxTV : Play last channel '%s'\n", channel_infos->name);
-			freetuxtv_play_channel (cbuserdata->app, path);
-			gtk_tree_path_free(path);
+			cbuserdata->app->current.path_channel = path;
 		}
 	}
 	
