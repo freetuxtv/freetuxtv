@@ -47,6 +47,10 @@ static void
 on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 					    gpointer user_data);
 
+static gboolean
+on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
+			    gdouble value, gpointer user_data);
+
 static void
 on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 					 gpointer user_data);
@@ -217,7 +221,14 @@ windowmain_init(FreetuxTVApp *app)
 			 "changed",
 			 G_CALLBACK(on_windowmain_entryfilter_changed),
 			 app);
-
+	
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+						      "windowmain_scaletime");
+	g_signal_connect(G_OBJECT(widget),
+			 "change-value",
+			 G_CALLBACK(on_windowmain_valuechanged),
+			 app);
+	
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "windowmain_buttongotocurrent");
 	g_signal_connect(G_OBJECT(widget),
@@ -389,6 +400,175 @@ windowmain_init(FreetuxTVApp *app)
 			 NULL);	
 }
 
+void
+windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
+{
+	GtkWidget *widget;
+	gboolean sensitive;
+	GtkWidget *image;
+	// Button previous
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowmain_buttonprevious");
+	switch(mode){
+	case WINDOW_MODE_STOPPED :
+		if(app->current.path_channel != NULL){
+			sensitive = TRUE;		
+		}else{
+			sensitive = FALSE;	
+		}
+		break;
+	case WINDOW_MODE_RECORDING :
+		sensitive = FALSE;
+		break;
+	case WINDOW_MODE_PLAYING :
+		sensitive = TRUE;
+		break;
+	}
+	gtk_widget_set_sensitive(widget, sensitive);
+	
+	// Button next
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowmain_buttonnext");
+	switch(mode){
+	case WINDOW_MODE_STOPPED :
+		if(app->current.path_channel != NULL){
+			sensitive = TRUE;		
+		}else{
+			sensitive = FALSE;	
+		}
+		break;
+	case WINDOW_MODE_RECORDING :
+		sensitive = FALSE;
+		break;
+	case WINDOW_MODE_PLAYING :
+		sensitive = TRUE;		
+		break;
+	}
+	gtk_widget_set_sensitive(widget, sensitive);
+	
+	// Button play/pause
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowmain_buttonplaypause");
+	switch(mode){
+	case WINDOW_MODE_STOPPED :
+		if(app->current.path_channel == NULL){
+			sensitive = FALSE;
+		}else{
+			sensitive = TRUE;
+		}
+		image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PLAY, GTK_ICON_SIZE_BUTTON);
+		break;
+	case WINDOW_MODE_PLAYING :
+	case WINDOW_MODE_RECORDING :
+		sensitive = FALSE;
+		image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PAUSE, GTK_ICON_SIZE_BUTTON);
+		break;
+	}
+	gtk_widget_set_sensitive(widget, sensitive);
+	gtk_button_set_image (GTK_BUTTON(widget), image);
+	
+	// Button stop
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowmain_buttonstop");
+	switch(mode){
+	case WINDOW_MODE_STOPPED :
+		sensitive = FALSE;
+		break;
+	case WINDOW_MODE_PLAYING :
+	case WINDOW_MODE_RECORDING :
+		sensitive = TRUE;		
+		break;
+	}
+	gtk_widget_set_sensitive(widget, sensitive);
+
+	// Button record
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowmain_buttonrecord");
+	switch(mode){
+	case WINDOW_MODE_STOPPED :
+	case WINDOW_MODE_RECORDING :
+		sensitive = FALSE;
+		break;
+	case WINDOW_MODE_PLAYING :
+		sensitive = TRUE;		
+		break;
+	}
+	gtk_widget_set_sensitive(widget, sensitive);
+}
+
+void
+windowmain_show_error (FreetuxTVApp *app, gchar *msg)
+{
+	GtkWidget *windowmain;
+	GtkWidget* dialog;
+	
+	windowmain = (GtkWidget *) gtk_builder_get_object (app->gui,
+							   "windowmain");
+	
+	dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
+					GTK_DIALOG_MODAL, 
+					GTK_MESSAGE_ERROR,
+					GTK_BUTTONS_OK,
+					msg, NULL);
+	
+	gtk_dialog_run(GTK_DIALOG(dialog));
+	gtk_widget_destroy(dialog);
+}
+
+void
+windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg)
+{
+	int context_id;
+
+	GtkWidget *statusbar;
+	statusbar = (GtkWidget *) gtk_builder_get_object (app->gui,
+							  "windowmain_statusbar");
+	context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
+						  context);
+	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
+			    context_id,
+			    msg);
+	while (g_main_context_iteration(NULL, FALSE)){}
+}
+
+
+void
+windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
+{	
+	int context_id;
+
+	GtkWidget *statusbar;
+	statusbar = (GtkWidget *) gtk_builder_get_object (app->gui,
+							  "windowmain_statusbar");
+	context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
+						  context);
+	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
+			   context_id);
+	// while (g_main_context_iteration(NULL, FALSE)){}		
+}
+
+void
+windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms)
+{
+	GtkWidget *widget;
+	
+	gdouble time_s = time_ms/1000.0;
+	gdouble length_s = length_ms/1000.0;
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowmain_labeltime");
+	gtk_label_set_text(GTK_LABEL(widget), format_time2((glong)time_s));
+	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowmain_labellength");
+	gtk_label_set_text(GTK_LABEL(widget), format_time2((glong)length_s));
+	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "adjustment_time");
+	gtk_adjustment_set_upper (GTK_ADJUSTMENT(widget), length_s);
+	gtk_adjustment_set_value (GTK_ADJUSTMENT(widget), time_s);
+}
+
 static gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data)
 {
@@ -414,7 +594,6 @@ on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
 							"aboutdialog");
 	gtk_widget_show(widget);
-
 }
 
 static void
@@ -625,6 +804,20 @@ on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
 	channels_list_load_channels (app);
 }
 
+
+static gboolean
+on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
+			    gdouble value, gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	g_print("change %f\n", value);
+	if(!gtk_libvlc_media_player_is_playing(app->player)){
+		gtk_libvlc_media_player_play(app->player, NULL);
+	}
+	gtk_libvlc_media_player_set_time(app->player, (glong)value*1000);
+	return FALSE;
+}
+
 static void
 on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 					    gpointer user_data)
@@ -747,19 +940,15 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 			    gint response_id,
 			    gpointer user_data)
 {
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	gchar *errmsg = NULL;
+
 	if(response_id == FREETUXTV_RESPONSE_ADD){
-		GtkWidget *windowmain;
-		GtkWidget *channelslist;
 		GtkWidget *groupname;
 		GtkWidget *groupprotocole;
 		GtkWidget *groupuri;
 		GtkWidget *bregex;
 		GtkWidget *eregex;
-		GtkWidget *dialog;
-		
-		gchar *errmsg = NULL;
-		
-		FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 		
 		gchar * sgroupname;
 		gchar * sgroupprotocole;
@@ -830,152 +1019,6 @@ on_aboutdialog_response (GtkDialog *dialog,
 	gtk_widget_hide(GTK_WIDGET(dialog));
 }
 
-void
-windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
-{
-	GtkWidget *widget;
-	gboolean sensitive;
-	GtkWidget *image;
-	// Button previous
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "windowmain_buttonprevious");
-	switch(mode){
-	case WINDOW_MODE_STOPPED :
-		if(app->current.path_channel != NULL){
-			sensitive = TRUE;		
-		}else{
-			sensitive = FALSE;	
-		}
-		break;
-	case WINDOW_MODE_RECORDING :
-		sensitive = FALSE;
-		break;
-	case WINDOW_MODE_PLAYING :
-		sensitive = TRUE;
-		break;
-	}
-	gtk_widget_set_sensitive(widget, sensitive);
-	
-	// Button next
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "windowmain_buttonnext");
-	switch(mode){
-	case WINDOW_MODE_STOPPED :
-		if(app->current.path_channel != NULL){
-			sensitive = TRUE;		
-		}else{
-			sensitive = FALSE;	
-		}
-		break;
-	case WINDOW_MODE_RECORDING :
-		sensitive = FALSE;
-		break;
-	case WINDOW_MODE_PLAYING :
-		sensitive = TRUE;		
-		break;
-	}
-	gtk_widget_set_sensitive(widget, sensitive);
-	
-	// Button play/pause
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "windowmain_buttonplaypause");
-	switch(mode){
-	case WINDOW_MODE_STOPPED :
-		if(app->current.path_channel == NULL){
-			sensitive = FALSE;
-		}else{
-			sensitive = TRUE;
-		}
-		image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PLAY, GTK_ICON_SIZE_BUTTON);
-		break;
-	case WINDOW_MODE_PLAYING :
-	case WINDOW_MODE_RECORDING :
-		sensitive = FALSE;
-		image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PAUSE, GTK_ICON_SIZE_BUTTON);
-		break;
-	}
-	gtk_widget_set_sensitive(widget, sensitive);
-	gtk_button_set_image (GTK_BUTTON(widget), image);
-	
-	// Button stop
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "windowmain_buttonstop");
-	switch(mode){
-	case WINDOW_MODE_STOPPED :
-		sensitive = FALSE;
-		break;
-	case WINDOW_MODE_PLAYING :
-	case WINDOW_MODE_RECORDING :
-		sensitive = TRUE;		
-		break;
-	}
-	gtk_widget_set_sensitive(widget, sensitive);
-
-	// Button record
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "windowmain_buttonrecord");
-	switch(mode){
-	case WINDOW_MODE_STOPPED :
-	case WINDOW_MODE_RECORDING :
-		sensitive = FALSE;
-		break;
-	case WINDOW_MODE_PLAYING :
-		sensitive = TRUE;		
-		break;
-	}
-	gtk_widget_set_sensitive(widget, sensitive);
-}
-
-void
-windowmain_show_error (FreetuxTVApp *app, gchar *msg)
-{
-	GtkWidget *windowmain;
-	GtkWidget* dialog;
-	
-	windowmain = (GtkWidget *) gtk_builder_get_object (app->gui,
-							   "windowmain");
-	
-	dialog = gtk_message_dialog_new(GTK_WINDOW(windowmain),
-					GTK_DIALOG_MODAL, 
-					GTK_MESSAGE_ERROR,
-					GTK_BUTTONS_OK,
-					msg, NULL);
-	
-	gtk_dialog_run(GTK_DIALOG(dialog));
-	gtk_widget_destroy(dialog);
-}
-
-void
-windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg)
-{
-	int context_id;
-
-	GtkWidget *statusbar;
-	statusbar = (GtkWidget *) gtk_builder_get_object (app->gui,
-							  "windowmain_statusbar");
-	context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
-						  context);
-	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
-			    context_id,
-			    msg);
-	while (g_main_context_iteration(NULL, FALSE)){}
-}
-
-
-void
-windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
-{	
-	int context_id;
-
-	GtkWidget *statusbar;
-	statusbar = (GtkWidget *) gtk_builder_get_object (app->gui,
-							  "windowmain_statusbar");
-	context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
-						  context);
-	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
-			   context_id);
-	// while (g_main_context_iteration(NULL, FALSE)){}		
-}
 
 static void
 dialogpreferences_update_view(FreetuxTVApp *app)
