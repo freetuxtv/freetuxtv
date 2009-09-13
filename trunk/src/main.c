@@ -30,9 +30,8 @@
 #include "gtk-libvlc-media-player.h"
 
 int
-init_app()
+init_user_configuration()
 {
-
 	struct sqlite3 *db;
 	int res;
 	char *err=0;
@@ -135,66 +134,11 @@ init_app()
 	return 0;
 }
 
-static FreetuxTVApp *
-freetuxtv_app_create_app ()
+void
+load_user_configuration(FreetuxTVApp *app)
 {
-	FreetuxTVApp *app;
-
-	GtkWidget *windowmain;
 	GtkWidget *widget;
 
-	GtkWidget *scrolledwindowchannels;	
-
-	GtkWidget *eventboxplayer;
-
-	app = g_new0 (FreetuxTVApp, 1);
-
-	app->name = "FreetuxTV";
-
-	// Loads default configuration
-	app->prefs.channelonstartup = TRUE;
-	app->prefs.enable_notifications = TRUE;
-	app->prefs.directoryrecordings = g_strdup(g_get_home_dir());
-	app->prefs.transcoding_mode = 0;
-	app->prefs.transcoding_format = "0";
-
-	app->config.windowminimode_stayontop = FALSE;
-	app->config.windowminimode_width = 320;
-	app->config.windowminimode_height = 240;
-	app->config.lastchannel = -1;
-	app->config.volume = 0.75;
-	app->config.logosfiledate = 0;
-	app->current.path_channel = NULL;
-	app->current.lastchannelonstartup = FALSE;
-	app->current.is_recording = FALSE;
-	app->current.recording.dst_file = NULL;
-	app->current.recording.duration = NULL;
-	app->debug = FALSE;	
-
-	// Create UI from file
-	g_print("FreetuxTV : Load user interface from file %s\n", FREETUXTV_GLADEXML);
-	app->gui = gtk_builder_new ();
-	gtk_builder_add_from_file (app->gui, FREETUXTV_GLADEXML, NULL);
-
-	// Initialize UI
-	g_print("FreetuxTV : Initialize user interface\n");
-	windowmain_init(app);
-	channels_list_init(app);
-	recordings_list_init(app);
-
-	// Add player to UI	
-	g_print("FreetuxTV : Create player\n");
-	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
-							      "windowmain_eventboxplayer");
-	GtkLibVLCInstance* instance;
-	instance = gtk_libvlc_instance_new(NULL);
-	app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance));
-	
-	gtk_widget_show(GTK_WIDGET(app->player));
-	g_object_unref(G_OBJECT(instance));
-	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
-
-	// Load FreetuxTV State	
 	GKeyFile *keyfile;
 	int i;
 	gboolean b;
@@ -203,6 +147,7 @@ freetuxtv_app_create_app ()
 	char *filename;
 	GError *err = NULL;
 
+	// Loading FreetuxTV State
 	filename = g_build_filename (g_get_user_config_dir(),
 				     "FreetuxTV/config.ini", NULL);
 	g_print("FreetuxTV : Loading config file %s\n", filename);
@@ -330,6 +275,168 @@ freetuxtv_app_create_app ()
 		g_key_file_free (keyfile);
 	}
 
+	// Check if needs to load a channel on startup	
+	app->current.lastchannelonstartup = FALSE;
+	if(app->prefs.channelonstartup == TRUE
+	   && app->config.lastchannel != -1){
+		app->current.lastchannelonstartup = TRUE;
+	}
+
+}
+
+static void
+splashscreen_statusbar_push (FreetuxTVApp *app, gchar *msg)
+{
+	int context_id;
+
+	GtkWidget *statusbar;
+	statusbar = (GtkWidget *) gtk_builder_get_object (app->gui,
+							  "splashscreen_statusbar");
+	context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
+						  "Infos");
+	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
+			    context_id,
+			    msg);
+	while (g_main_context_iteration(NULL, FALSE)){}
+}
+
+void
+splashscreen_statusbar_pop (FreetuxTVApp *app)
+{	
+	int context_id;
+
+	GtkWidget *statusbar;
+	statusbar = (GtkWidget *) gtk_builder_get_object (app->gui,
+							  "splashscreen_statusbar");
+	context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), 
+						  "Infos");
+	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),  context_id);		
+}
+
+
+static gboolean
+splashscreen_app_init(gpointer data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *)data;
+	
+	GtkWidget *widget;
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "splashscreen_version");
+	gtk_label_set_text(GTK_LABEL(widget), VERSION);
+
+	// Initializing user configuration
+	splashscreen_statusbar_push (app, _("Initializing user configuration..."));
+	init_user_configuration();
+	splashscreen_statusbar_pop (app);
+
+	// Loading user configuration form .ini file
+	splashscreen_statusbar_push (app, _("Loading user configuration..."));
+	load_user_configuration(app);
+	splashscreen_statusbar_pop (app);	
+	
+	// Synchronizing the list of logos if file modified
+	splashscreen_statusbar_push (app, _("Synchronizing the list of logos..."));
+	struct stat file_stat;
+	gint ret;
+	if(g_stat (FREETUXTV_DIR "/channel_logos.xml", &file_stat) == 0){
+		if(app->config.logosfiledate < (gint)file_stat.st_mtime){
+			ret = logos_list_synchronize(app);
+			if(ret == 0){
+				app->config.logosfiledate = (gint)file_stat.st_mtime;	
+			}
+		}
+	}
+	splashscreen_statusbar_pop (app);
+
+	// Initialise l'interface
+	windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
+	
+	// Loading the list of channels
+	g_print("FreetuxTV : Loading the list of channels\n");
+	splashscreen_statusbar_push (app, _("Loading the list of channels..."));
+	channels_list_load_channels (app);
+	splashscreen_statusbar_pop (app);
+
+	// Loading the list of recordings
+	g_print("FreetuxTV : Loading the list of recordings\n");
+	splashscreen_statusbar_push (app, _("Loading the list of recordings..."));
+	recordings_list_load_recordings (app);
+	splashscreen_statusbar_pop (app);
+
+	// Showing the main window
+	g_print("FreetuxTV : Showing the main window\n");
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+						      "splashscreen");
+	gtk_widget_hide(widget);
+	
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+						      "windowmain");
+	gtk_widget_show(widget);
+
+	// Play the last channel if needed
+	if(app->current.path_channel != NULL){
+		freetuxtv_play_channel (app, app->current.path_channel);
+	}
+}
+
+static FreetuxTVApp *
+freetuxtv_app_create_app ()
+{
+	FreetuxTVApp *app;
+
+	GtkWidget *widget;
+
+	GtkWidget *scrolledwindowchannels;	
+
+	GtkWidget *eventboxplayer;
+
+	app = g_new0 (FreetuxTVApp, 1);
+
+	app->name = "FreetuxTV";
+
+	// Loads default configuration
+	app->prefs.channelonstartup = TRUE;
+	app->prefs.enable_notifications = TRUE;
+	app->prefs.directoryrecordings = g_strdup(g_get_home_dir());
+	app->prefs.transcoding_mode = 0;
+	app->prefs.transcoding_format = "0";
+
+	app->config.windowminimode_stayontop = FALSE;
+	app->config.windowminimode_width = 320;
+	app->config.windowminimode_height = 240;
+	app->config.lastchannel = -1;
+	app->config.volume = 0.75;
+	app->config.logosfiledate = 0;
+	app->current.path_channel = NULL;
+	app->current.lastchannelonstartup = FALSE;
+	app->current.is_recording = FALSE;
+	app->current.recording.dst_file = NULL;
+	app->current.recording.duration = NULL;
+	app->debug = FALSE;	
+
+	// Create UI from file
+	g_print("FreetuxTV : Loading user interface from file %s\n", FREETUXTV_GLADEXML);
+	app->gui = gtk_builder_new ();
+	gtk_builder_add_from_file (app->gui, FREETUXTV_GLADEXML, NULL);
+
+	// Initialize UI
+	g_print("FreetuxTV : Initializing user interface\n");
+	windowmain_init(app);
+	channels_list_init(app);
+	recordings_list_init(app);
+
+	// Add player to UI	
+	g_print("FreetuxTV : Creating media player widget\n");
+	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
+							      "windowmain_eventboxplayer");
+	GtkLibVLCInstance* instance;
+	instance = gtk_libvlc_instance_new(NULL);
+	app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance));
+	
+	gtk_widget_show(GTK_WIDGET(app->player));
+	g_object_unref(G_OBJECT(instance));
+	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
+
 	return app;
 	
 }
@@ -348,7 +455,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 	if(!app->current.is_recording){
 
 		channels_list_set_playing(app, path_channel);
-		g_print("FreetuxTV-debug : Launching channel '%s' -> %s\n", channel_infos->name, channel_infos->url);
+		g_print("FreetuxTV : Launching channel '%s' -> %s\n", channel_infos->name, channel_infos->url);
 
 		text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
@@ -721,12 +828,11 @@ int main (int argc, char *argv[])
 #endif
 
 	g_print("FreetuxTV : Compiled with LibVLC version %d.%d.%d\n",
-		LIBVLC_VERSION_MAJOR, LIBVLC_VERSION_MINOR, LIBVLC_VERSION_REVISION);
-	init_app();
-	
+		LIBVLC_VERSION_MAJOR, LIBVLC_VERSION_MINOR, LIBVLC_VERSION_REVISION);	
+
 	gtk_init(&argc, &argv);
-	
-	g_print("FreetuxTV : Create application\n");
+
+	g_print("FreetuxTV : Loading FreetuxTV %s\n", VERSION);
 	app = freetuxtv_app_create_app ();
 	if (app == NULL)
 		return 1;
@@ -737,43 +843,11 @@ int main (int argc, char *argv[])
 			app->debug = TRUE;
 		}
 	}
+
 	// Initialize notifications
 	notify_init("FreetuxTV");
 	app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL, NULL);
-	
-	// Synchronize logos list if file modified
-	struct stat file_stat;
-	gint ret;
-	if(g_stat (FREETUXTV_DIR "/channel_logos.xml", &file_stat) == 0){
-		if(app->config.logosfiledate < (gint)file_stat.st_mtime){
-			ret = logos_list_synchronize(app);
-			if(ret == 0){
-				app->config.logosfiledate = (gint)file_stat.st_mtime;	
-			}
-		}
-	}
 
-	// Initialise l'interface
-	windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
-
-	// Regarde si on charge une chaine au demarrage
-	if(app->prefs.channelonstartup == TRUE
-	   && app->config.lastchannel != -1){
-		app->current.lastchannelonstartup = TRUE;
-	}
-	
-	g_print("FreetuxTV : Load channels list\n", LIBVLC_VERSION_MAJOR, LIBVLC_VERSION_MINOR);
-	channels_list_load_channels (app);
-	app->current.lastchannelonstartup = FALSE;
-
-	// Loads recording
-	recordings_list_load_recordings (app);
-
-	// Scroll to the current channel
-	if(app->current.path_channel != NULL){
-		channels_list_set_playing (app, app->current.path_channel);
-	}
-	
 	mmkeys = g_mmkeys_new ("FreetuxTV");
 	g_mmkeys_activate (mmkeys);
 	
@@ -782,11 +856,13 @@ int main (int argc, char *argv[])
 			 G_CALLBACK(on_freetuxtv_mm_key_pressed),
 			 app);
 	
+	gtk_init_add (splashscreen_app_init, app);
+
 	// Pour les traitements à interval régulier
 	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
 
 	gtk_main();
-	
+
 	g_mmkeys_deactivate (mmkeys);
 	g_object_unref(G_OBJECT(app->current.notification));
 	notify_uninit();  

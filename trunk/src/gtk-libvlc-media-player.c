@@ -375,19 +375,22 @@ gtk_libvlc_media_player_is_playing (GtkLibVLCMediaPlayer *self)
 	
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
+	
+	int res;
 
 #if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
 	libvlc_instance_t *libvlc_instance;
 	libvlc_instance = self->libvlc_instance->libvlc_instance;
 	g_return_if_fail(libvlc_instance != NULL);
 	
-	int res;
 	res = libvlc_playlist_isplaying(libvlc_instance, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
 	return (res == 1);
 	
 #else
-	return (gtk_libvlc_media_player_get_state(self) == GTK_LIBVLC_STATE_PLAYING);
+	res = libvlc_media_player_is_playing (self->libvlc_mediaplayer, &_vlcexcep);
+	on_vlc_exception(self, &_vlcexcep);
+	return (res == 1);
 #endif
 }
 

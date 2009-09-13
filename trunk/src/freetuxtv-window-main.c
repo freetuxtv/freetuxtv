@@ -192,7 +192,7 @@ windowmain_init(FreetuxTVApp *app)
 
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "windowmain_menubox");
-	gtk_box_pack_start (GTK_BOX (widget), GTK_WIDGET (menu_bar), FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (widget), GTK_WIDGET (menu_bar), TRUE, TRUE, 0);
 	gtk_widget_show_all(menu_bar);
 
 	// Initialize signals for windowmain
@@ -565,12 +565,13 @@ windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms)
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowmain_scaletime");
-	gtk_range_set_range(GTK_RANGE(widget), 0.0, length_s);	
+	//gtk_range_set_range(GTK_RANGE(widget), 0.0, length_s);	
 
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "adjustment_time");
 	//gtk_adjustment_clamp_page(GTK_ADJUSTMENT(widget), 0.0, length_s);
 	//gtk_adjustment_set_upper (GTK_ADJUSTMENT(widget), length_s);
+	GTK_ADJUSTMENT(widget)->upper = length_s;
 	gtk_adjustment_set_value (GTK_ADJUSTMENT(widget), time_s);
 }
 
