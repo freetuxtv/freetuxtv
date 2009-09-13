@@ -564,8 +564,13 @@ windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms)
 	gtk_label_set_text(GTK_LABEL(widget), format_time2((glong)length_s));
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowmain_scaletime");
+	gtk_range_set_range(GTK_RANGE(widget), 0.0, length_s);	
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "adjustment_time");
-	gtk_adjustment_set_upper (GTK_ADJUSTMENT(widget), length_s);
+	//gtk_adjustment_clamp_page(GTK_ADJUSTMENT(widget), 0.0, length_s);
+	//gtk_adjustment_set_upper (GTK_ADJUSTMENT(widget), length_s);
 	gtk_adjustment_set_value (GTK_ADJUSTMENT(widget), time_s);
 }
 
