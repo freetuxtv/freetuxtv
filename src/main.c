@@ -284,6 +284,50 @@ load_user_configuration(FreetuxTVApp *app)
 
 }
 
+gboolean
+increase_progress_timeout (FreetuxTVApp *app)
+{
+	if(app->current.is_recording){	
+		if(app->current.recording.duration != NULL){
+
+			FreetuxTVChannelInfos* channel;
+			channel = channels_list_get_channel (app, app->current.path_channel);
+
+			gint second;
+			second = (gint)g_timer_elapsed (app->current.recording.duration, NULL);
+			
+			// gtk_libvlc_media_player_set_time (app->player, second*1000);
+			
+			struct stat buf;
+			long file_size = 0;
+			if(g_stat(app->current.recording.dst_file, &buf) == 0){
+				file_size = buf.st_size;
+			}
+
+			gchar *format = format_time(second);
+			gchar *size_text = format_size(file_size);
+			gchar *text;
+			text = g_strdup_printf (_("Recording : %s (%s) -> %s (%s)"), channel->name, 
+						format, app->current.recording.dst_file, size_text);
+			windowmain_statusbar_pop (app, "RecordChannelMsg");
+			windowmain_statusbar_push (app, "RecordChannelMsg", text);
+			g_free(text);
+		}
+	}
+
+	GtkLibVLCState state = gtk_libvlc_media_player_get_state(app->player);
+	switch(state){
+	case GTK_LIBVLC_STATE_PAUSED :
+	case GTK_LIBVLC_STATE_PLAYING :
+	case GTK_LIBVLC_STATE_ENDED :
+		windowmain_timebar_update (app, gtk_libvlc_media_player_get_time(app->player), 
+					   gtk_libvlc_media_player_get_length(app->player),
+					   gtk_libvlc_media_player_get_position(app->player));
+	}
+	
+	return TRUE;
+}
+
 static void
 splashscreen_statusbar_push (FreetuxTVApp *app, gchar *msg)
 {
@@ -377,6 +421,9 @@ splashscreen_app_init(gpointer data)
 	if(app->current.path_channel != NULL){
 		freetuxtv_play_channel (app, app->current.path_channel);
 	}
+
+	// Start internal timer
+	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);	
 }
 
 static FreetuxTVApp *
@@ -795,50 +842,6 @@ on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp
 	}
 }
 
-gboolean
-increase_progress_timeout (FreetuxTVApp *app)
-{
-	if(app->current.is_recording){	
-		if(app->current.recording.duration != NULL){
-
-			FreetuxTVChannelInfos* channel;
-			channel = channels_list_get_channel (app, app->current.path_channel);
-
-			gint second;
-			second = (gint)g_timer_elapsed (app->current.recording.duration, NULL);
-			
-			// gtk_libvlc_media_player_set_time (app->player, second*1000);
-			
-			struct stat buf;
-			long file_size = 0;
-			if(g_stat(app->current.recording.dst_file, &buf) == 0){
-				file_size = buf.st_size;
-			}
-
-			gchar *format = format_time(second);
-			gchar *size_text = format_size(file_size);
-			gchar *text;
-			text = g_strdup_printf (_("Recording : %s (%s) -> %s (%s)"), channel->name, 
-						format, app->current.recording.dst_file, size_text);
-			windowmain_statusbar_pop (app, "RecordChannelMsg");
-			windowmain_statusbar_push (app, "RecordChannelMsg", text);
-			g_free(text);
-		}
-	}
-
-	GtkLibVLCState state = gtk_libvlc_media_player_get_state(app->player);
-	switch(state){
-	case GTK_LIBVLC_STATE_PAUSED :
-	case GTK_LIBVLC_STATE_PLAYING :
-	case GTK_LIBVLC_STATE_ENDED :
-		windowmain_timebar_update (app, gtk_libvlc_media_player_get_time(app->player), 
-					   gtk_libvlc_media_player_get_length(app->player),
-					   gtk_libvlc_media_player_get_position(app->player));
-	}
-	
-	return TRUE;
-}
-
 int main (int argc, char *argv[])
 {
 	
@@ -885,9 +888,6 @@ int main (int argc, char *argv[])
 			 app);
 	
 	gtk_init_add (splashscreen_app_init, app);
-
-	// Pour les traitements à interval régulier
-	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
 
 	gtk_main();
 

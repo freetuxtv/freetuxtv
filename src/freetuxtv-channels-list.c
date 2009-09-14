@@ -899,9 +899,11 @@ on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
 	if(cbuserdata->app->current.lastchannelonstartup == TRUE
 	   && cbuserdata->app->config.lastchannel != -1){
 		if(id == cbuserdata->app->config.lastchannel){
+			g_print("FreetuxTV : get cahnnel\n");
 			GtkTreePath* path;
 			path = gtk_tree_model_get_path(GTK_TREE_MODEL(cbuserdata->app->channelslist), cbuserdata->iter_channel);
 			cbuserdata->app->current.path_channel = path;
+			g_print("FreetuxTV : get cahnnel\n");
 		}
 	}
 	
