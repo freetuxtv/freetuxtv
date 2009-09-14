@@ -75,7 +75,6 @@
             <child>
               <object class="GtkVBox" id="vbox2">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkNotebook" id="notebook1">
                     <property name="visible">True</property>
@@ -92,7 +91,6 @@
                         <child>
                           <object class="GtkVBox" id="vbox4">
                             <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkHBox" id="hbox2">
@@ -205,37 +203,9 @@
                         <child>
                           <object class="GtkVBox" id="vbox5">
                             <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
                             <property name="spacing">4</property>
                             <child>
-                              <object class="GtkFrame" id="frame1">
-                                <property name="visible">True</property>
-                                <property name="label_xalign">0</property>
-                                <property name="shadow_type">none</property>
-                                <child>
-                                  <object class="GtkAlignment" id="alignment2">
-                                    <property name="visible">True</property>
-                                    <property name="left_padding">12</property>
-                                    <child>
-                                      <object class="GtkLabel" id="label3">
-                                        <property name="visible">True</property>
-                                        <property name="label" translatable="yes">label</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child type="label">
-                                  <object class="GtkLabel" id="label2">
-                                    <property name="visible">True</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Selected recording&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
-                                  </object>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="position">0</property>
-                              </packing>
+                              <placeholder/>
                             </child>
                             <child>
                               <object class="GtkScrolledWindow" id="scrolledwindow2">
@@ -313,7 +283,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="hbox4">
+                  <object class="GtkHBox" id="windowmain_hboxtimebar">
                     <property name="visible">True</property>
                     <child>
                       <object class="GtkLabel" id="windowmain_labeltime">
@@ -1281,8 +1251,9 @@ Thomas L (logos)</property>
   </object>
   <object class="GtkTextBuffer" id="textbuffer_previewtranscoding"/>
   <object class="GtkAdjustment" id="adjustment_time">
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
+    <property name="upper">1</property>
+    <property name="step_increment">0.050000000000000003</property>
+    <property name="page_increment">0.10000000000000001</property>
   </object>
   <object class="GtkImage" id="image">
     <property name="visible">True</property>
@@ -1306,7 +1277,6 @@ Thomas L (logos)</property>
         <child>
           <object class="GtkVBox" id="vbox1">
             <property name="visible">True</property>
-            <property name="orientation">vertical</property>
             <child>
               <object class="GtkImage" id="image1">
                 <property name="visible">True</property>

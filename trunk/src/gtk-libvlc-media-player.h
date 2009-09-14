@@ -86,6 +86,12 @@ void
 gtk_libvlc_media_player_play_next (GtkLibVLCMediaPlayer *self, gchar **options);
 
 void
+gtk_libvlc_media_player_pause (GtkLibVLCMediaPlayer *self);
+
+gboolean
+gtk_libvlc_media_player_can_pause (GtkLibVLCMediaPlayer *self);
+
+void
 gtk_libvlc_media_player_stop (GtkLibVLCMediaPlayer *self);
 
 void
@@ -108,6 +114,18 @@ gtk_libvlc_media_player_get_length(GtkLibVLCMediaPlayer *self);
 
 glong
 gtk_libvlc_media_player_get_time(GtkLibVLCMediaPlayer *self);
+
+void
+gtk_libvlc_media_player_set_time(GtkLibVLCMediaPlayer *self, glong time);
+
+gfloat
+gtk_libvlc_media_player_get_position(GtkLibVLCMediaPlayer *self);
+
+void
+gtk_libvlc_media_player_set_position(GtkLibVLCMediaPlayer *self, gfloat position);
+
+gboolean
+gtk_libvlc_media_player_is_seekable (GtkLibVLCMediaPlayer *self);
 
 const gchar*
 gtk_libvlc_media_player_state_tostring (GtkLibVLCState state);

@@ -39,6 +39,6 @@ void
 windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context);
 
 void
-windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms);
+windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms, gfloat position);
 
 #endif /* FREETUXTV_WINDOW_MAIN_H */
