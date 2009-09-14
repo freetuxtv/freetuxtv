@@ -577,7 +577,7 @@ gtk_libvlc_media_player_get_length(GtkLibVLCMediaPlayer *self)
 	
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
-	glong length;
+	glong length = 0;
 
 #if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
 	libvlc_instance_t *libvlc_instance;
@@ -592,8 +592,13 @@ gtk_libvlc_media_player_get_length(GtkLibVLCMediaPlayer *self)
 	on_vlc_exception (self, &_vlcexcep);
 	libvlc_input_free(input_t);
 #else
-	length = libvlc_media_player_get_length (self->libvlc_mediaplayer, &_vlcexcep);
+	libvlc_media_t* media;
+	media = libvlc_media_player_get_media (self->libvlc_mediaplayer, &_vlcexcep);
 	on_vlc_exception(self, &_vlcexcep);
+	if(media != NULL){
+		length = libvlc_media_player_get_length (self->libvlc_mediaplayer, &_vlcexcep);
+		on_vlc_exception(self, &_vlcexcep);
+	}
 #endif
 	return length;
 }
@@ -606,7 +611,7 @@ gtk_libvlc_media_player_get_time(GtkLibVLCMediaPlayer *self)
 	
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
-	glong time;
+	glong time = 0;
 
 #if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
 	libvlc_instance_t *libvlc_instance;
@@ -621,8 +626,13 @@ gtk_libvlc_media_player_get_time(GtkLibVLCMediaPlayer *self)
 	on_vlc_exception (self, &_vlcexcep);
 	libvlc_input_free(input_t);
 #else
-	time = libvlc_media_player_get_time (self->libvlc_mediaplayer, &_vlcexcep);
+	libvlc_media_t* media;
+	media = libvlc_media_player_get_media (self->libvlc_mediaplayer, &_vlcexcep);
 	on_vlc_exception(self, &_vlcexcep);
+	if(media != NULL){
+		time = libvlc_media_player_get_time (self->libvlc_mediaplayer, &_vlcexcep);
+		on_vlc_exception(self, &_vlcexcep);
+	}
 #endif
 	return time;
 }
@@ -663,7 +673,7 @@ gtk_libvlc_media_player_get_position(GtkLibVLCMediaPlayer *self)
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 	
-	gfloat pos;
+	gfloat pos = 0.0;
 
 #if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
 	libvlc_instance_t *libvlc_instance;
@@ -678,8 +688,13 @@ gtk_libvlc_media_player_get_position(GtkLibVLCMediaPlayer *self)
 	on_vlc_exception (self, &_vlcexcep);
 	libvlc_input_free(input_t);
 #else
-	pos = libvlc_media_player_get_position (self->libvlc_mediaplayer, &_vlcexcep);
+	libvlc_media_t* media;
+	media = libvlc_media_player_get_media (self->libvlc_mediaplayer, &_vlcexcep);
 	on_vlc_exception(self, &_vlcexcep);
+	if(media != NULL){
+		pos = libvlc_media_player_get_position (self->libvlc_mediaplayer, &_vlcexcep);
+		on_vlc_exception(self, &_vlcexcep);
+	}
 #endif
 	return pos;
 	
@@ -734,7 +749,7 @@ gtk_libvlc_media_player_is_seekable (GtkLibVLCMediaPlayer *self)
 	input_t = libvlc_playlist_get_input(libvlc_instance,
 					    &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
-	//res = libvlc_input_get_position(input_t, &_vlcexcep);
+	res = libvlc_input_get_position(input_t, &_vlcexcep);
 	on_vlc_exception (self, &_vlcexcep);
 	libvlc_input_free(input_t);
 #else
