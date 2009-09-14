@@ -678,26 +678,39 @@ channels_list_get_next_channel (FreetuxTVApp *app,
 void
 channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 {
-	GtkTreeIter iter;
-	if(app->current.path_channel != path_channel){
-		if(app->current.path_channel != NULL){
-			gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, app->current.path_channel);		
-			gtk_tree_model_row_changed (GTK_TREE_MODEL(app->channelslist), app->current.path_channel, &iter);
-			gtk_tree_path_free(app->current.path_channel);
-		}
-		app->current.path_channel = gtk_tree_path_copy(path_channel);
-		gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, app->current.path_channel);
-		gtk_tree_model_row_changed (GTK_TREE_MODEL(app->channelslist), app->current.path_channel, &iter);
-	}
 	GtkWidget *treeview;
-	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
-							"windowmain_treeviewchannelslist");
-	/*
-	gtk_tree_view_set_cursor (GTK_TREE_VIEW(treeview), app->current.path_channel,
-				  NULL, FALSE);
-				  gtk_widget_grab_focus (treeview);*/
-	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW(treeview), app->current.path_channel, NULL,
-				      TRUE, 0.5, 0.5);
+	GtkTreeIter iter;
+
+	GtkTreeModel *model;
+	GtkTreePath* filter_path;
+
+	if(path_channel != NULL){
+		treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
+								"windowmain_treeviewchannelslist");
+		
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
+		
+		if(app->current.path_channel != path_channel){
+			if(app->current.path_channel != NULL){
+				gtk_tree_model_get_iter (model, &iter, app->current.path_channel);		
+				gtk_tree_model_row_changed (model, app->current.path_channel, &iter);
+				gtk_tree_path_free(app->current.path_channel);
+			}
+			app->current.path_channel = gtk_tree_path_copy(path_channel);
+			gtk_tree_model_get_iter (model, &iter, app->current.path_channel);
+			gtk_tree_model_row_changed (model, app->current.path_channel, &iter);
+		}
+
+		filter_path = gtk_tree_model_filter_convert_child_path_to_path (GTK_TREE_MODEL_FILTER(model), app->current.path_channel);
+		
+		if(filter_path != NULL){
+			gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW(treeview), filter_path, NULL,
+						      TRUE, 0.5, 0.5);
+			gtk_tree_view_set_cursor (GTK_TREE_VIEW(treeview), filter_path, NULL, FALSE);
+			//gtk_tree_view_set_cursor (GTK_TREE_VIEW(treeview), filter_path, NULL, FALSE);	
+			//gtk_widget_grab_focus (treeview);
+		}
+	}
 }
 
 FreetuxTVChannelInfos*

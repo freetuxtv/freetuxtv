@@ -430,7 +430,9 @@ freetuxtv_app_create_app ()
 	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
 							      "windowmain_eventboxplayer");
 	GtkLibVLCInstance* instance;
-	instance = gtk_libvlc_instance_new(NULL);
+	const gchar *options[] = {"--no-video-title-show"};
+
+	instance = gtk_libvlc_instance_new(options);
 	app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance));
 	
 	gtk_widget_show(GTK_WIDGET(app->player));
@@ -454,8 +456,9 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 	gchar *text;
 	if(!app->current.is_recording){
 
-		channels_list_set_playing(app, path_channel);
-		g_print("FreetuxTV : Launching channel '%s' -> %s\n", channel_infos->name, channel_infos->url);
+		g_print("FreetuxTV : Launching channel '%s' at '%s' -> %s\n",
+			channel_infos->name, gtk_tree_path_to_string(path_channel), channel_infos->url);
+		channels_list_set_playing(app, path_channel);		
 
 		text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
@@ -481,7 +484,13 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 		gtk_libvlc_media_player_clear_media_list(app->player);
 		gtk_libvlc_media_player_add_media(app->player, media);
 		g_object_unref(media);
-		gtk_libvlc_media_player_play(app->player, NULL);
+
+		gchar *options[3];
+		options[0] = ":access=timeshift";
+		options[1] = ":input-timeshift-granularity=50";
+		options[2] = NULL;
+
+		gtk_libvlc_media_player_play(app->player, options);
 	}
 	if(app->debug){
 		g_print("FreetuxTV-debug : end freetuxtv_play_channel(%s)\n", channel_infos->name);
@@ -513,20 +522,34 @@ freetuxtv_action_playpause (FreetuxTVApp *app)
 		g_print("FreetuxTV-debug : freetuxtv_action_playpause()\n");
 	}
 	if(app->current.path_channel != NULL){
-		FreetuxTVChannelInfos* channel_infos;
-		channel_infos = channels_list_get_channel (app, app->current.path_channel);
 
-		g_print("FreetuxTV-debug : current channel %s\n", channel_infos->name);
+		FreetuxTVChannelInfos* channel_infos;
+
 		GtkLibVLCState state = gtk_libvlc_media_player_get_state(app->player);
-		if(state != GTK_LIBVLC_STATE_PLAYING){
+		switch(state){
+		case GTK_LIBVLC_STATE_PAUSED :
+			gtk_libvlc_media_player_pause(app->player);
+			windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
+			break;
+		case GTK_LIBVLC_STATE_PLAYING :
+			if(gtk_libvlc_media_player_can_pause(app->player)){
+				gtk_libvlc_media_player_pause(app->player);
+			}
+			windowmain_display_buttons (app, WINDOW_MODE_PAUSED);
+			break;
+		default:
+			channel_infos = channels_list_get_channel (app, app->current.path_channel);
+			
+			g_print("FreetuxTV-debug : current channel %s\n", channel_infos->name);
 			GtkLibVLCMedia *media;
 			media = gtk_libvlc_media_new(channel_infos->url);
 			gtk_libvlc_media_player_clear_media_list(app->player);
 			gtk_libvlc_media_player_add_media(app->player, media);
 			g_object_unref(media);
 			gtk_libvlc_media_player_play(app->player, NULL);
+			
+			windowmain_display_buttons (app, WINDOW_MODE_PLAYING);	
 		}
-		windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
 	}	
 	if(app->debug){
 		g_print("FreetuxTV-debug : exit freetuxtv_action_playpause()\n");
@@ -803,11 +826,16 @@ increase_progress_timeout (FreetuxTVApp *app)
 		}
 	}
 
-	if(gtk_libvlc_media_player_is_playing(app->player)){
+	GtkLibVLCState state = gtk_libvlc_media_player_get_state(app->player);
+	switch(state){
+	case GTK_LIBVLC_STATE_PAUSED :
+	case GTK_LIBVLC_STATE_PLAYING :
+	case GTK_LIBVLC_STATE_ENDED :
 		windowmain_timebar_update (app, gtk_libvlc_media_player_get_time(app->player), 
-					   gtk_libvlc_media_player_get_length(app->player));	
+					   gtk_libvlc_media_player_get_length(app->player),
+					   gtk_libvlc_media_player_get_position(app->player));
 	}
-
+	
 	return TRUE;
 }
 

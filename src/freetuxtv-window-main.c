@@ -451,6 +451,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 						       "windowmain_buttonplaypause");
 	switch(mode){
 	case WINDOW_MODE_STOPPED :
+	case WINDOW_MODE_PAUSED :
 		if(app->current.path_channel == NULL){
 			sensitive = FALSE;
 		}else{
@@ -459,6 +460,9 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 		image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PLAY, GTK_ICON_SIZE_BUTTON);
 		break;
 	case WINDOW_MODE_PLAYING :
+		sensitive = TRUE;
+		image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PAUSE, GTK_ICON_SIZE_BUTTON);
+		break;
 	case WINDOW_MODE_RECORDING :
 		sensitive = FALSE;
 		image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PAUSE, GTK_ICON_SIZE_BUTTON);
@@ -548,7 +552,7 @@ windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
 }
 
 void
-windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms)
+windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms, gfloat position)
 {
 	GtkWidget *widget;
 	
@@ -561,18 +565,19 @@ windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms)
 	
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowmain_labellength");
-	gtk_label_set_text(GTK_LABEL(widget), format_time2((glong)length_s));
-	
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "windowmain_scaletime");
-	//gtk_range_set_range(GTK_RANGE(widget), 0.0, length_s);	
+	gtk_label_set_text(GTK_LABEL(widget), format_time2((glong)length_s));	
 
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "adjustment_time");
-	//gtk_adjustment_clamp_page(GTK_ADJUSTMENT(widget), 0.0, length_s);
-	//gtk_adjustment_set_upper (GTK_ADJUSTMENT(widget), length_s);
-	GTK_ADJUSTMENT(widget)->upper = length_s;
-	gtk_adjustment_set_value (GTK_ADJUSTMENT(widget), time_s);
+	gtk_adjustment_set_value (GTK_ADJUSTMENT(widget), position);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowmain_hboxtimebar");
+	if(gtk_libvlc_media_player_is_seekable(app->player)){
+		gtk_widget_set_sensitive(widget, TRUE);
+	}else{
+		gtk_widget_set_sensitive(widget, FALSE);
+	}
 }
 
 static gboolean
@@ -628,7 +633,7 @@ on_windowmain_buttongotocurrent_clicked (GtkButton *button,
 					 gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
+	
 	channels_list_set_playing(app, app->current.path_channel);
 }
 
@@ -820,7 +825,9 @@ on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
 	if(!gtk_libvlc_media_player_is_playing(app->player)){
 		gtk_libvlc_media_player_play(app->player, NULL);
 	}
-	gtk_libvlc_media_player_set_time(app->player, (glong)value*1000);
+	if(value >= 0.0 && value <= 1.0){
+		gtk_libvlc_media_player_set_position(app->player, value);
+	}
 	return FALSE;
 }
 
