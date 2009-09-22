@@ -10,6 +10,9 @@
 
 #include "gtk-libvlc-instance.h"
 
+#define LIBVLC_VERSION(major, minor, revision) str(major) "." str(minor) "." str(revision)
+#define str(s) #s
+
 static void
 gtk_libvlc_instance_class_init(GtkLibVLCInstanceClass *klass);
 static void
@@ -60,6 +63,22 @@ gtk_libvlc_instance_new (const gchar* vlc_args[])
 #endif
 	
 	return self;
+}
+
+const gchar*
+gtk_libvlc_get_libvlc_version (gint *major, gint *minor, gint *revision)
+{
+	if(major != NULL){
+		*major = LIBVLC_VERSION_MAJOR;
+	}
+	if(minor != NULL){
+		*minor = LIBVLC_VERSION_MINOR;
+	}
+	if(revision != NULL){
+		*revision = LIBVLC_VERSION_REVISION;
+	}
+		
+	return LIBVLC_VERSION(LIBVLC_VERSION_MAJOR, LIBVLC_VERSION_MINOR, LIBVLC_VERSION_REVISION);
 }
 
 static void
