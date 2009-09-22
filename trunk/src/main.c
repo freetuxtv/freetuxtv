@@ -858,8 +858,7 @@ int main (int argc, char *argv[])
 	textdomain (GETTEXT_PACKAGE);
 #endif
 
-	g_print("FreetuxTV : Compiled with LibVLC version %d.%d.%d\n",
-		LIBVLC_VERSION_MAJOR, LIBVLC_VERSION_MINOR, LIBVLC_VERSION_REVISION);	
+	g_print("FreetuxTV : Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));	
 
 	gtk_init(&argc, &argv);
 
