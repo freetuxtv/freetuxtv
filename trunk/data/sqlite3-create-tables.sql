@@ -48,5 +48,15 @@ insert into channels_group (name_channelsgroup, uri_channelsgroup)
 insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('SFR TV','http://televisionsurpc.sfr.fr/televisionsurpc.m3u');
 insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
+			values ('Web TV (German)','http://freetuxtv.googlecode.com/files/playlist_webtv_de.m3u', '[0-9]* - ');
+insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
+			values ('Web TV (English)','http://freetuxtv.googlecode.com/files/playlist_webtv_en.m3u', '[0-9]* - ');
+insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
+			values ('Web TV (Spanish)','http://freetuxtv.googlecode.com/files/playlist_webtv_es.m3u', '[0-9]* - ');
+insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
 			values ('Web TV (Française)','http://freetuxtv.googlecode.com/files/playlist_webtv_fr.m3u', '[0-9]* - ');
+insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
+			values ('Web TV (Italian)','http://freetuxtv.googlecode.com/files/playlist_webtv_it.m3u', '[0-9]* - ');
+insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
+			values ('Web TV (Chinese)','http://freetuxtv.googlecode.com/files/playlist_webtv_zh.m3u', '[0-9]* - ');
 
