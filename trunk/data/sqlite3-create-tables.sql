@@ -48,6 +48,12 @@ insert into channels_group (name_channelsgroup, uri_channelsgroup)
 insert into channels_group (name_channelsgroup, uri_channelsgroup)
 			values ('SFR TV','http://televisionsurpc.sfr.fr/televisionsurpc.m3u');
 insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
+			values ('Orange TV','http://vlc-media-player.org/m3u/orangetv.m3u', '[0-9]*\. ');
+insert into channels_group (name_channelsgroup, uri_channelsgroup)
+			values ('Bouygues TV','http://bbox-news.com/documents/tv_sur_pc_bbox.m3u');
+insert into channels_group (name_channelsgroup, uri_channelsgroup)
+			values ('Alice','http://vlc-media-player.org/m3u/alicetv.m3u');
+insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
 			values ('Web TV (German)','http://freetuxtv.googlecode.com/files/playlist_webtv_de.m3u', '[0-9]* - ');
 insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
 			values ('Web TV (English)','http://freetuxtv.googlecode.com/files/playlist_webtv_en.m3u', '[0-9]* - ');
