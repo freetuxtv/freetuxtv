@@ -174,7 +174,7 @@
 	<logo filename="jukebox.png" label="Jukebox"></logo>
 	<logo filename="kto.png" label="KTO"></logo>
 	<logo filename="labelletv.png" label="LabelleTV"></logo>
-	<logo filename="lachainechinoise.png" label="La chaîne chinoise">
+	<logo filename="lachainechinoise.png" label="La chaîne chinoise"></logo>
 	<logo filename="lachaineparlementaire.png" label="La Chaîne Parlementaire">
 		<logolabel label="La Chaîne Parlementaire (bas débit)"/>
 		<logolabel label="La chaine parlementaire"/>
