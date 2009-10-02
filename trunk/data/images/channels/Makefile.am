@@ -21,6 +21,7 @@ channels_DATA = \
   bastilletv.png \
   bbcworld.png \
   bbcworldnews.png \
+  beijingtv.png \
   beurtv.png \
   bfmtv.png \
   biscottetv.png \
@@ -31,6 +32,10 @@ channels_DATA = \
   canalplus.png \
   canalsavoir.png \
   canaltv.png \
+  cctv4.png \
+  cctv9.png \
+  cctvdivertissement.png \
+  cctvf.png \
   cheriefm.png \
   cinefirst.png \
   cinefx.png \
@@ -65,8 +70,10 @@ channels_DATA = \
   funtv.png \
   gameone.png \
   grossecaisse.png \
+  guangdongsoutherntv.png \
   gulli.png \
   guysentv.png \
+  hunansatellitetv.png \
   idf1.png \
   inraci.png \
   itelevision.png \
@@ -75,6 +82,7 @@ channels_DATA = \
   jukebox.png \
   kto.png \
   labelletv.png \
+  lachainechinoise.png \
   lachaineparlementaire.png \
   lalocale.png \
   lcnquebec.png \
@@ -113,6 +121,8 @@ channels_DATA = \
   ouesttv.png \
   ouifm.png \
   parispremiere.png \
+  phoenixchinesenewsandentertainment.png \
+  phoenixinfonews.png \
   radiofg.png \
   radiolibertaire.png \
   radionova.png \
@@ -127,6 +137,7 @@ channels_DATA = \
   rtl9.png \
   rve.png \
   sabcnews.png \
+  shanghaidragontv.png \
   skynewsinternational.png \
   skyrock.png \
   tele102.png \
@@ -153,5 +164,7 @@ channels_DATA = \
   vh1classic.png \
   videoclick.png \
   virgin17.png \
-  virginradio.png
+  virginradio.png \
+  xiamenstartv.png \
+	zhejiangstartv.png
 EXTRA_DIST   = $(channels_DATA)
