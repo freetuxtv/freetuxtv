@@ -33,6 +33,7 @@
 	<logo filename="bbcworld.png" label="BBC World"></logo>
 	<logo filename="bbcworldnews.png" label="BBC World News"></logo>
 	<logo filename="beurtv.png" label="Beur TV"></logo>
+	<logo filename="beijingtv.png" label="Beijing TV"></logo>
 	<logo filename="bfmtv.png" label="BFM TV">
 		<logolabel label="BFMTV"/>
 		<logolabel label="BFM TV (bas débit)"/>
@@ -45,6 +46,14 @@
 	<logo filename="canalplus.png" label="Canal+"></logo>
 	<logo filename="canalsavoir.png" label="Canal savoir"></logo>
 	<logo filename="canaltv.png" label="CanalTV"></logo>
+	<logo filename="cctv4.png" label="CCTV 4">
+		<logolabel label="CCTV4"/>
+	</logo>
+	<logo filename="cctv9.png" label="CCTV 9"></logo>
+	<logo filename="cctvdivertissement.png" label="CCTV Divertissement"></logo>
+	<logo filename="cctvf.png" label="CCTV F">
+		<logolabel label="CCTV-F"/>
+	</logo>
 	<logo filename="cheriefm.png" label="Chérie FM"></logo>
 	<logo filename="cinefirst.png" label="Ciné First">
 		<logolabel label="Ciné First (bas débit)"/>
@@ -147,10 +156,12 @@
 	<logo filename="funtv.png" label="Fun TV"></logo>
 	<logo filename="gameone.png" label="Game One"></logo>
 	<logo filename="grossecaisse.png" label="Grosse Caisse TV"></logo>
+	<logo filename="guangdongsoutherntv.png" label="Guangdong Southern TV"></logo>
 	<logo filename="gulli.png" label="Gulli">
 		<logolabel label="Gulli (bas débit)"/>
 	</logo>
 	<logo filename="guysentv.png" label="Guysen TV"></logo>
+	<logo filename="hunansatellitetv.png" label="Hunan Satellite TV"></logo>
 	<logo filename="idf1.png" label="IDF 1"></logo>
 	<logo filename="inraci.png" label="Inraci"></logo>
 	<logo filename="itelevision.png" label="i>Télé">
@@ -163,6 +174,7 @@
 	<logo filename="jukebox.png" label="Jukebox"></logo>
 	<logo filename="kto.png" label="KTO"></logo>
 	<logo filename="labelletv.png" label="LabelleTV"></logo>
+	<logo filename="lachainechinoise.png" label="La chaîne chinoise">
 	<logo filename="lachaineparlementaire.png" label="La Chaîne Parlementaire">
 		<logolabel label="La Chaîne Parlementaire (bas débit)"/>
 		<logolabel label="La chaine parlementaire"/>
@@ -224,6 +236,8 @@
 	<logo filename="ouesttv.png" label="Ouest tv"></logo>
 	<logo filename="ouifm.png" label="Oui FM"></logo>
 	<logo filename="parispremiere.png" label="Paris Première"></logo>
+	<logo filename="phoenixchinesenewsandentertainment.png" label="Phoenix Chinese News and Entertainment"></logo>
+	<logo filename="phoenixinfonews.png" label="Phoenix Infonews"></logo>
 	<logo filename="radiofg.png" label="Radio FG"></logo>
 	<logo filename="radiolibertaire.png" label="Radio libertaire"></logo>
 	<logo filename="radionova.png" label="Radio nova"></logo>
@@ -242,6 +256,7 @@
 	</logo>
 	<logo filename="rve.png" label="RVE"></logo>
 	<logo filename="sabcnews.png" label="SABC news"></logo>
+	<logo filename="shanghaidragontv.png" label="Shanghai Dragon TV"></logo>
 	<logo filename="skynewsinternational.png" label="Sky News International"></logo>
 	<logo filename="skyrock.png" label="Skyrock"></logo>
 	<logo filename="tele102.png" label="Tele 102"></logo>
@@ -279,4 +294,6 @@
 		<logolabel label="Virgin 17 (bas débit)"/>
 	</logo>
 	<logo filename="virginradio.png" label="Virgin Radio"></logo>
+	<logo filename="xiamenstartv.png" label="Xiamen Star TV"></logo>
+	<logo filename="zhejiangstartv.png" label="Zhejiang Star TV"></logo>
 </channel_logos>
