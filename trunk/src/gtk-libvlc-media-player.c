@@ -442,7 +442,7 @@ gtk_libvlc_media_player_is_playing (GtkLibVLCMediaPlayer *self)
 	on_vlc_exception (self, &_vlcexcep);
 	return (res == 1);	
 #elif LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 9
-	return (gtk_libvlc_media_player_get_state()==GTK_LIBVLC_STATE_PLAYING)
+	return (gtk_libvlc_media_player_get_state(self)==GTK_LIBVLC_STATE_PLAYING);
 #else
 	res = libvlc_media_player_is_playing (self->libvlc_mediaplayer, &_vlcexcep);
 	on_vlc_exception(self, &_vlcexcep);
