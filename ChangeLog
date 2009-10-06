@@ -1,4 +1,4 @@
-FreetuxTV 0.3.1 (2009-)
+FreetuxTV 0.4.0 (2009-)
   - Migration vers GtkBuilder, déprécation de libglade
   - Ajout d'un panneau pour voir la liste des enregistrements et les lire dans FreetuxTV
   - Préférences pour activer ou non les notifications
