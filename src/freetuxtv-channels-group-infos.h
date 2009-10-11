@@ -54,7 +54,7 @@ void
 freetuxtv_channels_group_infos_set_rank (FreetuxTVChannelsGroupInfos *self, int rank);
 
 void
-freetuxtv_channels_group_infos_set_regex (FreetuxTVChannelsGroupInfos *self, char *bregex, char *eregex);
+freetuxtv_channels_group_infos_set_regex (FreetuxTVChannelsGroupInfos *self, gchar *bregex, gchar *eregex);
 
 #endif /* FREETUXTV_CHANNELS_GROUP_INFOS_H */
 

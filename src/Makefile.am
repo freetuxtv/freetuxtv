@@ -10,6 +10,8 @@ freetuxtv_SOURCES = \
   freetuxtv-channels-group-infos.h \
   freetuxtv-channels-list.c \
   freetuxtv-channels-list.h \
+  freetuxtv-db-sync.c \
+  freetuxtv-db-sync.h \
   freetuxtv-i18n.h \
   freetuxtv-logos-list.c \
   freetuxtv-logos-list.h \

@@ -33,6 +33,9 @@ void
 windowmain_show_error (FreetuxTVApp *app, gchar *msg);
 
 void
+windowmain_show_gerror (FreetuxTVApp *app, GError *error);
+
+void
 windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg);
 
 void

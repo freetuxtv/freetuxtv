@@ -39,16 +39,20 @@ freetuxtv_channels_group_infos_set_rank (FreetuxTVChannelsGroupInfos *self, int 
 }
 
 void
-freetuxtv_channels_group_infos_set_regex (FreetuxTVChannelsGroupInfos *self, char *bregex, char *eregex)
+freetuxtv_channels_group_infos_set_regex (FreetuxTVChannelsGroupInfos *self, gchar *bregex, gchar *eregex)
 {
-	self->bregex=g_strdup(bregex);
-	self->eregex=g_strdup(eregex);	
+	if(bregex != NULL){
+		self->bregex=g_strdup(bregex);
+	}
+	if(eregex != NULL){
+		self->eregex=g_strdup(eregex);
+	}
 }
 
 static GObject *
-freetuxtv_channels_group_infos_constructor (GType                  gtype,
-				     guint                  n_properties,
-				     GObjectConstructParam *properties)
+freetuxtv_channels_group_infos_constructor (GType gtype,
+					    guint n_properties,
+					    GObjectConstructParam *properties)
 {
 	GObject *obj;
 	FreetuxTVChannelsGroupInfosClass *klass;
