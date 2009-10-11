@@ -30,14 +30,13 @@ struct _FreetuxTVChannelInfos
 	GObject parent_instance;
 
 	int id;
-	int rank;
+	int order;
 	char *name;
 	char *url;
-	char *redirect_url;
 
 	char *logo_name;
 
-	FreetuxTVChannelsGroupInfos *group;
+	FreetuxTVChannelsGroupInfos *channels_group;
 };
 
 struct _FreetuxTVChannelInfosClass
@@ -47,15 +46,21 @@ struct _FreetuxTVChannelInfosClass
 };
 
 FreetuxTVChannelInfos*
-freetuxtv_channel_infos_new(int id, int rank, char *name, char *url);
+freetuxtv_channel_infos_new(char *name, char *url);
+
+void
+freetuxtv_channel_infos_set_id(FreetuxTVChannelInfos* self, int id);
+
+void
+freetuxtv_channel_infos_set_order(FreetuxTVChannelInfos* self, int order);
 
 void
 freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,
 				 char *logo_name);
 
 void
-freetuxtv_channel_infos_set_group(FreetuxTVChannelInfos* self,
-				  FreetuxTVChannelsGroupInfos *group);
+freetuxtv_channel_infos_set_channels_group(FreetuxTVChannelInfos* self,
+					   FreetuxTVChannelsGroupInfos *group);
 
 #endif /* FREETUXTV_CHANNEL_INFOS_H */
 

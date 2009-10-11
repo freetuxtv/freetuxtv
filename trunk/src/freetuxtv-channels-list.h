@@ -16,17 +16,29 @@
 #include "freetuxtv-app.h"
 #include "freetuxtv-channels-group-infos.h"
 
+#define FREETUXTV_CURL_ERROR freetuxtv_curl_error_quark ()
+typedef enum
+{
+	FREETUXTV_CURL_ERROR_GET,
+} FreetuxTVCurlError;
+
+#define FREETUXTV_LIBM3UPARSE_ERROR freetuxtv_libm3uparse_error_quark ()
+typedef enum
+{
+	FREETUXTV_LIBM3UPARSE_ERROR_PARSE,
+} FreetuxTVLibM3UParseError;
+
+GQuark
+freetuxtv_dbsync_error_quark ();
+
+GQuark
+freetuxtv_libm3uparse_error_quark ();
+
 void
 channels_list_init (FreetuxTVApp *app);
 
 void
-channels_list_apply_filter (FreetuxTVApp *app);
-
-void
 channels_list_load_channels (FreetuxTVApp *app);
-
-void
-channels_list_load_channels_group (FreetuxTVApp *app, GtkTreePath *path_group);
 
 void
 channels_list_add_channels_group (FreetuxTVApp *app, 
