@@ -629,7 +629,7 @@
                       <object class="GtkLabel" id="label8">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Group's name : </property>
+                        <property name="label" translatable="yes">Group's name :</property>
                       </object>
                     </child>
                     <child>
@@ -647,7 +647,7 @@
                       <object class="GtkLabel" id="label9">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Playlist's URI : </property>
+                        <property name="label" translatable="yes">Playlist's URI :</property>
                       </object>
                       <packing>
                         <property name="top_attach">1</property>
@@ -669,73 +669,73 @@
                         <property name="visible">True</property>
                         <property name="left_padding">12</property>
                         <child>
-                          <object class="GtkTable" id="table2">
+                          <object class="GtkVBox" id="vbox2">
                             <property name="visible">True</property>
-                            <property name="border_width">3</property>
-                            <property name="n_rows">2</property>
-                            <property name="n_columns">3</property>
-                            <property name="column_spacing">3</property>
-                            <property name="row_spacing">3</property>
+                            <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkLabel" id="label14">
+                              <object class="GtkTable" id="table2">
                                 <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Delete this text before the name : </property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkEntry" id="dialogaddgroup_bregex">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
+                                <property name="border_width">3</property>
+                                <property name="n_rows">2</property>
+                                <property name="n_columns">2</property>
+                                <property name="column_spacing">3</property>
+                                <property name="row_spacing">3</property>
+                                <child>
+                                  <object class="GtkLabel" id="label14">
+                                    <property name="visible">True</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes">Delete this text before the name :</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="dialogaddgroup_bregex">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="invisible_char">&#x25CF;</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="right_attach">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="label16">
+                                    <property name="visible">True</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes">Delete this text behind the name :</property>
+                                  </object>
+                                  <packing>
+                                    <property name="top_attach">1</property>
+                                    <property name="bottom_attach">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="dialogaddgroup_eregex">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="invisible_char">&#x25CF;</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="right_attach">2</property>
+                                    <property name="top_attach">1</property>
+                                    <property name="bottom_attach">2</property>
+                                  </packing>
+                                </child>
                               </object>
                               <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="label16">
+                              <object class="GtkLabel" id="label3">
                                 <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Delete this text behind the name : </property>
+                                <property name="label" translatable="yes">You can easily use regular expressions to delete some text in the channel's name of the groupe. For example, if in your playlist, you have a name like "11 - NT1" or "12 - NRJ 12", FreetuxTV is able to remove the channel's number before the name, by using the regular expression "[0-9]* - ".</property>
+                                <property name="wrap">True</property>
                               </object>
                               <packing>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
+                                <property name="position">1</property>
                               </packing>
-                            </child>
-                            <child>
-                              <object class="GtkEntry" id="dialogaddgroup_eregex">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="button3">
-                                <property name="label">gtk-help</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="relief">none</property>
-                                <property name="use_stock">True</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">2</property>
-                                <property name="right_attach">3</property>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <placeholder/>
                             </child>
                           </object>
                         </child>
@@ -1518,51 +1518,70 @@ Thomas L (logos)</property>
                         <property name="visible">True</property>
                         <property name="left_padding">12</property>
                         <child>
-                          <object class="GtkTable" id="table2">
+                          <object class="GtkVBox" id="vbox3">
                             <property name="visible">True</property>
-                            <property name="border_width">3</property>
-                            <property name="n_rows">2</property>
-                            <property name="n_columns">2</property>
+                            <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkLabel" id="label8">
+                              <object class="GtkTable" id="table2">
                                 <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Delete this text before the name :</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label9">
-                                <property name="visible">True</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Delete this text after the name :</property>
+                                <property name="border_width">3</property>
+                                <property name="n_rows">2</property>
+                                <property name="n_columns">2</property>
+                                <child>
+                                  <object class="GtkLabel" id="label8">
+                                    <property name="visible">True</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes">Delete this text before the name :</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="label9">
+                                    <property name="visible">True</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes">Delete this text behind the name :</property>
+                                  </object>
+                                  <packing>
+                                    <property name="top_attach">1</property>
+                                    <property name="bottom_attach">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="dialoggroupproperties_bregex">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="invisible_char">&#x25CF;</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="right_attach">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="dialoggroupproperties_eregex">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="invisible_char">&#x25CF;</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="right_attach">2</property>
+                                    <property name="top_attach">1</property>
+                                    <property name="bottom_attach">2</property>
+                                  </packing>
+                                </child>
                               </object>
                               <packing>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="dialoggroupproperties_bregex">
+                              <object class="GtkLabel" id="label10">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
+                                <property name="label" translatable="yes">You can easily use regular expressions to delete some text in the channel's name of the groupe. For example, if in your playlist, you have a name like "11 - NT1" or "12 - NRJ 12", FreetuxTV is able to remove the channel's number before the name, by using the regular expression "[0-9]* - ".</property>
+                                <property name="wrap">True</property>
                               </object>
                               <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkEntry" id="dialoggroupproperties_eregex">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                           </object>
