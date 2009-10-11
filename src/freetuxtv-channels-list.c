@@ -23,16 +23,22 @@
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-cellrenderer-channelslist.h"
 #include "freetuxtv-logos-list.h"
+#include "freetuxtv-db-sync.h"
 #include "lib-m3uparser.h"
 
 typedef struct _Parsem3uData
 {
 	FreetuxTVApp *app;
-	gint id;
-	struct sqlite3 *db;
-	gchar *bregex;
-	gchar *eregex;	
+	FreetuxTVChannelsGroupInfos *channels_group_infos;
+	DBSync *dbsync;
+	GError** error;
 } Parsem3uData;
+
+typedef struct _CBIterData
+{
+	GtkTreeIter *iter;
+	GtkTreeIter *iter_parent;
+} CBIterData;
 
 typedef struct _CBUserData
 {
@@ -60,11 +66,13 @@ static void
 channels_list_delete_rows (FreetuxTVApp *app, GtkTreePath* path_group,
 			   gboolean justchannels);
 
-static int 
-on_exec_add_channels_group (void *data, int argc, char **argv, char **colsname);
+static int
+on_dbsync_add_channels_group(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* channels_group_infos,
+			     DBSync *dbsync, gpointer user_data, GError** error);
 
-static int 
-on_exec_add_channel (void *data, int argc, char **argv, char **colsname);
+static int
+on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* channel_infos,
+		      DBSync *dbsync, gpointer user_data, GError** error);
 
 static void 
 on_row_activated_channels_list (GtkTreeView        *view, GtkTreePath *path,
@@ -80,6 +88,9 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 
 static void
 on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data);
+
+static void
+on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
 on_popupmenu_activated_deletechannels (GtkMenuItem *menuitem, gpointer user_data);
@@ -98,13 +109,32 @@ static int
 on_parsem3u_add_channel (char *url, int num, int argc, 
 			 char **argv, void *user_data);
 
-static int
-channels_group_get_file (FreetuxTVChannelsGroupInfos *self, FreetuxTVApp *app,
-			 gchar **filename, gboolean cache);
+static void
+channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
+			 gboolean cache, GError** error);
 
 static void
 channels_list_display_channels (FreetuxTVApp *app);
 
+GQuark freetuxtv_curl_error = 0;
+
+GQuark
+freetuxtv_curl_error_quark () {
+	if (freetuxtv_curl_error == 0){
+		freetuxtv_curl_error = g_quark_from_string("FREETUXTV_CURL_ERROR");
+	}
+	return freetuxtv_curl_error;
+}
+
+GQuark freetuxtv_libm3uparse_error = 0;
+
+GQuark
+freetuxtv_libm3uparse_error_quark () {
+	if (freetuxtv_libm3uparse_error == 0){
+		freetuxtv_libm3uparse_error = g_quark_from_string("FREETUXTV_LIBM3UPARSE_ERROR");
+	}
+	return freetuxtv_libm3uparse_error;
+}
 
 void
 channels_list_init (FreetuxTVApp *app)
@@ -147,217 +177,53 @@ channels_list_init (FreetuxTVApp *app)
 void
 channels_list_load_channels (FreetuxTVApp *app)
 {
-	struct sqlite3 *db;
-	int res;
-	char *err=0;
-	gint ret = 0;
-	gchar *query;
+	GError* error = NULL;
 
-	gchar *err_msg = NULL;
-
-	gchar *user_db;
-	user_db = g_strconcat(g_get_user_config_dir(), 
-			      "/FreetuxTV/freetuxtv.db", NULL);
+	GtkTreeIter iter;
+	CBIterData iter_data;
 	
-	/* Ouverture de la BDD */
-	res = sqlite3_open(user_db,&db);
-	if(res != SQLITE_OK){
-		err_msg = g_strdup_printf(_("Error when displaying the channels.\n\nSQLite has returned error :\n%s."),
-					  sqlite3_errmsg(db));
-		windowmain_show_error (app, err_msg);
-		g_free(err_msg);
-		
-		ret = -1;
-	}
+	iter_data.iter = &iter;
+	iter_data.iter_parent = NULL;
 
-	if(ret == 0){
-		if(app->debug == TRUE){
-			g_print("FreetuxTV-debug : Load all groups from database\n");
-		}
-		
-		// Efface les groupes dans la liste des chaines
+	// Load list of channel from database
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+	if(error == NULL){
 		gtk_tree_store_clear(GTK_TREE_STORE(app->channelslist));
-		GtkTreeIter iter_channelsgroup;
-		
-		CBUserData cbuserdata;
-		cbuserdata.app = app;
-		cbuserdata.nb = 0;
-		cbuserdata.iter_channelsgroup = &iter_channelsgroup;
-
-		// Selection des groupes de chaînes 
-		query = "SELECT id_channelsgroup, name_channelsgroup, \
-                         uri_channelsgroup				      \
-                         FROM channels_group";
-		res=sqlite3_exec(db, query, on_exec_add_channels_group,
-				 (void *)&cbuserdata, &err);
-		if(res != SQLITE_OK){
-			err_msg = g_strdup_printf(_("Error when displaying the channels.\n\nSQLite has returned error :\n%s."),
-						  sqlite3_errmsg(db));
-			windowmain_show_error (app, err_msg);
-			g_free(err_msg);
-
-			ret = -1;
-		}
+		dbsync_select_channels_groups (&dbsync, app, on_dbsync_add_channels_group, &iter_data, &error);
 	}
 	
-	sqlite3_free(err);
-	sqlite3_close(db);
-
-	g_free(user_db);
-	
-	if(ret == 0){
+	/*
+	// Expand all channels
+	if(error == NULL){
 		channels_list_display_channels (app);
 	}
-}
+	*/
 
-void
-channels_list_load_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
-{
-	FreetuxTVChannelsGroupInfos* channels_group_infos;
-	channels_group_infos = channels_list_get_group (app, path_group);
-	
-	struct sqlite3 *db;
-	int res;
-	char *err=0;
-	gint ret = 0;
-	gchar *query;
-	
-	gchar *err_msg = NULL;
-
-	gchar *user_db;
-	user_db = g_strconcat(g_get_user_config_dir(), 
-			      "/FreetuxTV/freetuxtv.db", NULL);
-	
-	// Ouverture de la BDD
-	res = sqlite3_open(user_db,&db);
-	if(res != SQLITE_OK){		
-		err_msg = g_strdup_printf(_("Error when displaying the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
-					  channels_group_infos->name,
-					  sqlite3_errmsg(db));
-		windowmain_show_error (app, err_msg);
-		g_free(err_msg);
-		
-		ret = -1;
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
 	}
-	
-	if(ret == 0){
-		if(app->debug == TRUE){
-			g_print("FreetuxTV-debug : Load channels group %d->'%s' from database\n",
-				channels_group_infos->id,
-				channels_group_infos->name);
-		}
 
-		GtkTreeIter iter_channelsgroup;
-		GtkTreeIter iter_channel;
-				
-		GtkTreePath *path;
-		
-		// Selectionne le groupe
-		path = gtk_tree_path_new_from_indices(channels_group_infos->rank - 1, -1);
-		gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter_channelsgroup, path);
-
-		// Supprime les lignes attaché au groupe
-		channels_list_delete_rows (app, path, TRUE);
-		
-		// Selection des chaines
-		CBUserData cbuserdata;
-		cbuserdata.app = app;
-		cbuserdata.nb = 0;
-		cbuserdata.iter_channelsgroup =  &iter_channelsgroup;
-		cbuserdata.iter_channel = &iter_channel;
-		
-		query = sqlite3_mprintf("SELECT id_channel, name_channel, \
-                                 filename_channellogo,			\
-                                 uri_channel FROM channel LEFT JOIN channel_logo \
-                                 ON id_channellogo=idchannellogo_channel \
-                                 WHERE channelsgroup_channel=%d\
-                                 ORDER BY order_channel",
-					channels_group_infos->id);
-
-		res = sqlite3_exec(db, query, on_exec_add_channel,
-				   (void *)&cbuserdata, &err);
-		sqlite3_free(query);
-		
-		if(res != SQLITE_OK){
-			err_msg = g_strdup_printf(_("Error when displaying the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
-						  channels_group_infos->name,
-						  sqlite3_errmsg(db));
-			windowmain_show_error (app, err_msg);
-			g_free(err_msg);
-			
-			ret = -1;
-		}
-	}
-		
-	if(ret == 0){
-		GtkWidget *treeview;
-		treeview = (GtkWidget *)gtk_builder_get_object (app->gui,
-								"windowmain_treeviewchannelslist");
-		gtk_tree_view_expand_row (GTK_TREE_VIEW(treeview), path_group, FALSE);
-	}
-	
-	sqlite3_free(err);
-	sqlite3_close(db);
-	g_free(user_db);
-	
+	dbsync_close_db(&dbsync);
 }
 
 void
 channels_list_add_channels_group (FreetuxTVApp *app, 
 				  FreetuxTVChannelsGroupInfos* channels_group_infos)
 {
-	struct sqlite3 *db;
-	int res;
-	char *err = 0;
-	gint ret = 0;
-	gchar *query;
-
-	gchar *err_msg = NULL;
-
-	gchar *user_db;
-
-	user_db = g_strconcat(g_get_user_config_dir(), 
-			      "/FreetuxTV/freetuxtv.db", NULL);
-
-	// Ouverture de la BDD
-	res = sqlite3_open(user_db, &db);
-	if(res != SQLITE_OK){
-		err_msg = g_strdup_printf(_("Cannot open database.\n\nSQLite has returned error :\n%s."),
-					  sqlite3_errmsg(db));
-		windowmain_show_error (app, err_msg);
-		g_free(err_msg);
-
-		ret = -1;
-	}
-
-	// Ajout le nouveau groupe
-	if (ret == 0){
-		query = sqlite3_mprintf("INSERT INTO channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup, eregex_channelsgroup) VALUES ('%q','%q', '%q', '%q');", 
-					channels_group_infos->name,
-					channels_group_infos->uri,
-					channels_group_infos->bregex,
-					channels_group_infos->eregex
-					);
-		res=sqlite3_exec(db, query, NULL, 0, &err);
-		sqlite3_free(query);
-		if(res != SQLITE_OK){
-			err_msg = g_strdup_printf(_("Cannot add the group \"%s\" in database.\n\nSQLite has returned error :\n%s."),
-						  channels_group_infos->name,
-						  sqlite3_errmsg(db));
-			windowmain_show_error (app, err_msg);
-			g_free(err_msg);
-			ret = -1;
-		}else{
-			freetuxtv_channels_group_infos_set_id (channels_group_infos,
-							       (int)sqlite3_last_insert_rowid(db));
-		}
-
-		sqlite3_free(err);
-		sqlite3_close(db);
-	}
-
-	if (ret == 0){
+	GError* error = NULL;
 	
+	// Add the group in the database
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+	if(error == NULL){
+		dbsync_add_channels_group (&dbsync, channels_group_infos, &error);
+	}
+	dbsync_close_db(&dbsync);
+
+	// Add group in the treeview
+	if(error == NULL){	
 		GtkTreeIter iter_channelsgroup;
 	
 		GtkTreePath *path;
@@ -374,135 +240,107 @@ channels_list_add_channels_group (FreetuxTVApp *app,
 
 		gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup, NULL);
 		gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup,
-				    CHANNELSGROUP_COLUMN, channels_group_infos, -1);
-		
-	}	
+				    CHANNELSGROUP_COLUMN, channels_group_infos, -1);	
+
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 void
 channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
 {
+	GError* error = NULL;
+	
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
 	channels_group_infos = channels_list_get_group (app, path_group);
-	
-	struct sqlite3 *db;
-	int res;
-	char *err = 0;
-	gint ret = 0;
-	gchar *query;
 
-	gchar *err_msg = NULL;
-
-	gchar *user_db;
-	
-	user_db = g_strconcat(g_get_user_config_dir(), 
-			      "/FreetuxTV/freetuxtv.db", NULL);
-
-	// Mise à jour de la barre de statut
 	gchar *text;
+
+	// Update status bar
 	text = g_strdup_printf(_("Update \"%s\" channels list"), channels_group_infos->name);
 	windowmain_statusbar_push (app, "UpdateMsg", text);
 	g_free(text);
 	g_print("FreetuxTV : Start updating \"%s\" channels list\n", channels_group_infos->name);
 
-	// Ouverture de la BDD
-	res = sqlite3_open(user_db, &db);
-	if(res != SQLITE_OK){
-		err_msg = g_strdup_printf(_("Cannot open database.\n\nSQLite has returned error :\n%s."),
-					  sqlite3_errmsg(db));
-		windowmain_show_error (app, err_msg);
-		g_free(err_msg);
+	// Get the file of the playlist
+	text = g_strdup_printf (_("Getting the file : \"%s\""), channels_group_infos->uri);
+	windowmain_statusbar_push (app, "UpdateMsg", text);
+	g_free(text);
+	g_print("FreetuxTV : Getting the file \"%s\"\n", channels_group_infos->uri);
 
-		ret = -1;
-	}
-	
 	char *file;
-	if(ret == 0){
-		res = channels_group_get_file (channels_group_infos, app, &file, TRUE);
-		if (res < 0 || file == NULL ){
-			ret = -1;
-		}
+	channels_group_get_file (channels_group_infos, &file, TRUE, &error);		
+	windowmain_statusbar_pop (app, "UpdateMsg");
+
+	// Database connection
+	DBSync dbsync;	
+	if(error == NULL){
+		dbsync_open_db (&dbsync, &error);
 	}
 
-	if (ret == 0){
-
-		// Effacement des chaînes du groupe
-		query = sqlite3_mprintf("DELETE FROM channel WHERE channelsgroup_channel=%d",
-					channels_group_infos->id);
-		res = sqlite3_exec(db, query, NULL, 0, &err);
-		sqlite3_free(query);
-		if(res != SQLITE_OK){
-
-			err_msg = g_strdup_printf(_("Error when deleting the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
-						  channels_group_infos->name,
-						  sqlite3_errmsg(db));
-			windowmain_show_error (app, err_msg);
-			g_free(err_msg);
-			
-			ret = -1;
-		}
+	// Delete channels of the channels group in the database 
+	if(error == NULL){
+		dbsync_delete_channels_of_channels_group (&dbsync, channels_group_infos, &error);
 	}
-
-	Parsem3uData *pdata;
-	pdata = g_new0(Parsem3uData, 1);
-	pdata->id = channels_group_infos->id;
-	pdata->db = db;
-	pdata->app = app;
-
-	if (ret == 0){
-		// Recupère les informations du groupe
-		query = sqlite3_mprintf("SELECT bregex_channelsgroup, eregex_channelsgroup FROM channels_group WHERE id_channelsgroup=%d",
-					channels_group_infos->id);
-		res = sqlite3_exec(db, query, on_exec_get_group_infos,
-				   (void *)pdata, &err);
-		sqlite3_free(query);
-		if(res != SQLITE_OK){
-			err_msg = g_strdup_printf(_("Error when loading informations of the group \"%s\".\n\nSQLite has returned error :\n%s."),
-						  channels_group_infos->name,
-						  sqlite3_errmsg(db));
-			windowmain_show_error (app, err_msg);
-			g_free(err_msg);
-			
-			ret = -1;			
-		}		
-	}
-
-	if (ret == 0){
-		g_print("FreetuxTV : Parsing the file \"%s\"\n", file);
-		// Parse le fichier M3U et ajoute les chaînes dans la BDD
-		res = libm3uparser_parse(file, &on_parsem3u_add_channel, pdata);
-		if (res < 0 ){
-			
-			if (res == LIBM3UPARSER_CALLBACK_RETURN_ERROR){
-
-				err_msg = g_strdup_printf(_("Error when adding the channels.\n\nM3UParser has returned error :\n%s."),
-							  libm3uparser_errmsg(ret));
-				windowmain_show_error (app, err_msg);
-				g_free(err_msg);
-				ret = -1;
-
-				
-			}else{
-				
-				err_msg = g_strdup_printf(_("Error when adding the channels.\n\nM3UParser has returned error :\n%s."),
-							  sqlite3_errmsg(db));
-				windowmain_show_error (app, err_msg);
-				g_free(err_msg);
-				ret = -1;
-			}			
-		}
-	}
-	g_free (pdata);
-
-	sqlite3_free(err);
-	sqlite3_close(db);
 	
-	g_free(user_db);
+	// Parse the M3U file and add channels in the database
+	if(error == NULL){
+		Parsem3uData pdata;
+		pdata.channels_group_infos = channels_group_infos;
+		pdata.dbsync = &dbsync;
+		pdata.app = app;
+		pdata.error = &error;
+		int res = 0;
 
-	if (ret == 0){		
-		channels_list_load_channels_group(app, path_group);
+		g_print("FreetuxTV : Parsing the file \"%s\"\n", file);
+		res = libm3uparser_parse(file, &on_parsem3u_add_channel, &pdata);
+		if (res < 0 ){			
+			if (res == LIBM3UPARSER_CALLBACK_RETURN_ERROR){
+				error = g_error_new (FREETUXTV_LIBM3UPARSE_ERROR,
+						     FREETUXTV_LIBM3UPARSE_ERROR_PARSE,
+						     _("Error when adding the channels.\n\nM3UParser has returned error :\n%s."),
+						     libm3uparser_errmsg(res));
+			}
+		}
+		
 	}
-	windowmain_statusbar_pop (app, "UpdateMsg");	
+
+	if(error == NULL){
+		// Delete channels of the channels group in the treeview
+		channels_list_delete_rows (app, path_group, TRUE);
+
+		// Display the channels from the database
+		CBIterData iter_data;
+		GtkTreeIter iter_group;
+		GtkTreeIter iter_channel;
+		gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter_group, path_group);
+		
+		iter_data.iter = &iter_channel;
+		iter_data.iter_parent = &iter_group;
+
+		dbsync_select_channels_of_channels_group (&dbsync, channels_group_infos, app, on_dbsync_add_channel, &iter_data, &error);
+	}
+
+	// Expand the group
+	if(error == NULL){
+		GtkWidget *treeview;
+		treeview = (GtkWidget *)gtk_builder_get_object (app->gui,
+								"windowmain_treeviewchannelslist");
+		gtk_tree_view_expand_row (GTK_TREE_VIEW(treeview), path_group, FALSE);
+	}
+	
+	dbsync_close_db(&dbsync);
+	
+	windowmain_statusbar_pop (app, "UpdateMsg");
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 
@@ -512,55 +350,24 @@ channels_list_delete_channels_channels_group (FreetuxTVApp *app, GtkTreePath *pa
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
 	channels_group_infos = channels_list_get_group (app, path_group);
 	
-	struct sqlite3 *db;
-	int res;
-	char *err = 0;
-	gint ret = 0;
-	gchar *query;
-
-	gchar *err_msg = NULL;
+	GError* error = NULL;
 	
-	gchar *user_db;
-	user_db = g_strconcat(g_get_user_config_dir(), 
-			      "/FreetuxTV/freetuxtv.db", NULL);
-
-	// Ouverture de la BDD
-	res = sqlite3_open(user_db, &db);
-	if(res != SQLITE_OK){
-		err_msg = g_strdup_printf(_("Cannot open database.\n\nSQLite has returned error :\n%s."),
-					  sqlite3_errmsg(db));
-		windowmain_show_error (app, err_msg);
-		g_free(err_msg);
-
-		ret = -1;
+	// Delete channels in the database
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+	if(error == NULL){
+		dbsync_delete_channels_of_channels_group (&dbsync, channels_group_infos, &error);
 	}
+	dbsync_close_db(&dbsync);
 	
-	if(ret == 0){
-		// Effacement des chaînes du groupe
-		query = sqlite3_mprintf("DELETE FROM channel WHERE channelsgroup_channel=%d",
-					channels_group_infos->id);
-		res = sqlite3_exec(db, query, NULL, 0, &err);
-		sqlite3_free(query);
-		if(res != SQLITE_OK){
-
-			err_msg = g_strdup_printf(_("Error when deleting the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
-						  channels_group_infos->name,
-						  sqlite3_errmsg(db));
-			windowmain_show_error (app, err_msg);
-			g_free(err_msg);
-			
-			ret = -1;
-		}
-	}
-
-	sqlite3_free(err);
-	sqlite3_close(db);
-	
-	g_free(user_db);
-
-	if (ret == 0){
-		// Supprime les lignes attaché au groupe
+	// Delete channels in the treeview
+	if(error == NULL){
 		channels_list_delete_rows (app, path_group, TRUE);
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
 	}
 }
 
@@ -570,56 +377,25 @@ channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
 	channels_group_infos = channels_list_get_group (app, path_group);
 	
-	struct sqlite3 *db;
-	int res;
-	char *err = 0;
-	gint ret = 0;
-	gchar *query;
-
-	gchar *err_msg = NULL;
+	GError* error = NULL;
 	
-	gchar *user_db;
-	user_db = g_strconcat(g_get_user_config_dir(), 
-			      "/FreetuxTV/freetuxtv.db", NULL);
-
-	// Ouverture de la BDD
-	res = sqlite3_open(user_db, &db);
-	if(res != SQLITE_OK){
-		err_msg = g_strdup_printf(_("Cannot open database.\n\nSQLite has returned error :\n%s."),
-					  sqlite3_errmsg(db));
-		windowmain_show_error (app, err_msg);
-		g_free(err_msg);
-
-		ret = -1;
+	// Delete group in the database
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+	if(error == NULL){
+		dbsync_delete_channels_group (&dbsync, channels_group_infos, &error);
 	}
-	
-	if(ret == 0){
-		// Effacement du groupe
-		query = sqlite3_mprintf("DELETE FROM channels_group WHERE id_channelsgroup=%d",
-					channels_group_infos->id);
-		res = sqlite3_exec(db, query, NULL, 0, &err);
-		sqlite3_free(query);
-		if(res != SQLITE_OK){
+	dbsync_close_db(&dbsync);
 
-			err_msg = g_strdup_printf(_("Error when deleting the group \"%s\".\n\nSQLite has returned error :\n%s."),
-						  channels_group_infos->name,
-						  sqlite3_errmsg(db));
-			windowmain_show_error (app, err_msg);
-			g_free(err_msg);
-			
-			ret = -1;
-		}
-	}
-	
-	if (ret == 0){
-		// Supprime les lignes attaché au groupe
+	// Delete group in the treeview
+	if(error == NULL){
 		channels_list_delete_rows (app, path_group, FALSE);
 	}
 
-	sqlite3_free(err);
-	sqlite3_close(db);
-	
-	g_free(user_db);	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 gboolean
@@ -672,7 +448,7 @@ channels_list_get_next_channel (FreetuxTVApp *app,
 		}
 		gtk_tree_path_free(path);	       
 	}
-	return FALSE;	
+	return FALSE;
 }
 
 void
@@ -701,6 +477,8 @@ channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 			gtk_tree_model_row_changed (model, app->current.path_channel, &iter);
 		}
 
+		gtk_tree_view_expand_to_path (GTK_TREE_VIEW(treeview), app->current.path_channel);
+
 		filter_path = gtk_tree_model_filter_convert_child_path_to_path (GTK_TREE_MODEL_FILTER(model), app->current.path_channel);
 		
 		if(filter_path != NULL){
@@ -709,6 +487,7 @@ channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 			gtk_tree_view_set_cursor (GTK_TREE_VIEW(treeview), filter_path, NULL, FALSE);
 			//gtk_tree_view_set_cursor (GTK_TREE_VIEW(treeview), filter_path, NULL, FALSE);	
 			//gtk_widget_grab_focus (treeview);
+			gtk_tree_view_expand_to_path (GTK_TREE_VIEW(treeview), filter_path);
 		}
 	}
 }
@@ -766,11 +545,11 @@ channels_list_display_channels (FreetuxTVApp *app)
 	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
 
-static int
-channels_group_get_file (FreetuxTVChannelsGroupInfos *self, FreetuxTVApp *app, gchar **file, gboolean cache)
+static void
+channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **file,
+			 gboolean cache, GError** error)
 {
 	gchar **uriv;
-	int ret = 0;
 
 	gchar *err_msg = NULL;
 
@@ -779,26 +558,14 @@ channels_group_get_file (FreetuxTVChannelsGroupInfos *self, FreetuxTVApp *app, g
 	if( g_ascii_strcasecmp (uriv[0], "file:") == 0 ){
 		*file = g_strdup (uriv[1]);
 	}
-	if( g_ascii_strcasecmp (uriv[0], "http:") == 0 ){
+	if( g_ascii_strcasecmp (uriv[0], "http:") == 0 || g_ascii_strcasecmp (uriv[0], "https:") == 0){
 		
-		GtkWidget *windowmain;
-		windowmain = (GtkWidget *) gtk_builder_get_object(app->gui,
-								  "windowmain");
-
-		// Mise à jour de la barre de statut
-		gchar *text;
-		text = g_strdup_printf (_("Getting the file : \"%s\""), 
-					self->uri);
-		windowmain_statusbar_push (app, "UpdateMsg", text);
-		g_free(text);
-		g_print("FreetuxTV : Getting the file \"%s\"\n", self->uri);
-
 		gchar *groupfile;
 		groupfile = g_strdup_printf("%s/FreetuxTV/cache/playlist-group-%d.dat",
 					    g_get_user_config_dir(), self->id);
 		
 		if(cache){
-			// Téléchargement du fichier
+			// Download the file
 			CURL *session = curl_easy_init(); 
 			curl_easy_setopt(session, CURLOPT_URL, self->uri);
 			curl_easy_setopt(session, CURLOPT_TIMEOUT, 10);
@@ -815,98 +582,92 @@ channels_group_get_file (FreetuxTVChannelsGroupInfos *self, FreetuxTVApp *app, g
 			curl_easy_cleanup(session);
 
 			if(curlcode != 0){
-
-				err_msg = g_strdup_printf(_("Error when downloading the playlist of the group \"%s\" from URL -> %s.\n\nCURL has returned error :\n%s."),
-							  self->name,
-							  self->uri,
-							  curl_easy_strerror(curlcode));
-				windowmain_show_error (app, err_msg);
-				g_free(err_msg);
-				ret = -1;
+				if(error != NULL){
+					*error = g_error_new (FREETUXTV_CURL_ERROR,
+							      FREETUXTV_CURL_ERROR_GET,
+							      _("Error when downloading the playlist of the group \"%s\" from URL -> %s.\n\nCURL has returned error :\n%s."),
+							      self->name, self->uri, curl_easy_strerror(curlcode));
+				}
 			}
 
 		}
 
 		*file = groupfile;
-		
-		windowmain_statusbar_pop (app, "UpdateMsg");
 	}
 	
 
 	g_strfreev (uriv);
-	
-	return ret;
 }
 
-static int 
-on_exec_add_channels_group (void *data, int argc, char **argv, char **colsname)
+static int
+on_dbsync_add_channels_group(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* channels_group_infos,
+			     DBSync *dbsync, gpointer user_data, GError** error)
 {
-	CBUserData *cbuserdata = (CBUserData *) data;
-	cbuserdata->nb++;
 
-	FreetuxTVChannelsGroupInfos* channels_group_infos;
-	int id = g_ascii_strtoll (argv[0], NULL, 10);
-	channels_group_infos = freetuxtv_channels_group_infos_new (argv[1],argv[2]);
-	freetuxtv_channels_group_infos_set_id (channels_group_infos, id);
-	freetuxtv_channels_group_infos_set_rank (channels_group_infos, cbuserdata->nb);
+	gboolean no_err = TRUE;
+	
+	if(error != NULL){
+		if(*error != NULL){
+			no_err = FALSE;
+		}
+	}
+	
+	if(no_err){
+		CBIterData *iter_data = (CBIterData *)user_data;		
 
-	gtk_tree_store_append (GTK_TREE_STORE(cbuserdata->app->channelslist), cbuserdata->iter_channelsgroup, NULL);
-	gtk_tree_store_set (GTK_TREE_STORE(cbuserdata->app->channelslist), cbuserdata->iter_channelsgroup,
-			    CHANNELSGROUP_COLUMN, channels_group_infos, -1);
-	GtkTreePath *path;
-	path = gtk_tree_model_get_path(GTK_TREE_MODEL(cbuserdata->app->channelslist), cbuserdata->iter_channelsgroup);
-	channels_list_load_channels_group (cbuserdata->app, path);
-	gtk_tree_path_free(path);
+		gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), iter_data->iter, iter_data->iter_parent);
+		gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), iter_data->iter,
+				    CHANNELSGROUP_COLUMN, channels_group_infos, -1);
+
+		GtkTreeIter iter;
+		CBIterData iter_data2;
+		iter_data2.iter_parent = iter_data->iter;
+		iter_data2.iter = &iter;
+		dbsync_select_channels_of_channels_group (dbsync, channels_group_infos, app, on_dbsync_add_channel, &iter_data2, error);
+	}
 
 	return 0;
 }
 
-static int 
-on_exec_add_channel (void *data, int argc, char **argv, char **colsname)
+static int
+on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* channel_infos,
+		      DBSync *dbsync, gpointer user_data, GError** error)
 {
+	gboolean no_err = TRUE;
 	
-	CBUserData *cbuserdata = (CBUserData *) data;	
-	cbuserdata->nb++;
-
-	FreetuxTVChannelInfos* channel_infos;
-	int id = g_ascii_strtoll (argv[0], NULL, 10);
-	channel_infos = freetuxtv_channel_infos_new (id, cbuserdata->nb, argv[1], argv[3]);
-
-	if(argv[2] != NULL){
-		freetuxtv_channel_infos_set_logo(channel_infos, argv[2]);
+	if(error != NULL){
+		if(*error != NULL){
+			no_err = FALSE;
+		}
 	}
-	
-	if(cbuserdata->app->debug == TRUE){
-		g_print("FreetuxTV-debug : Load channel %d->'%s' from database\n",
+
+	if(app->debug == TRUE){
+		g_print("FreetuxTV-debug : Add channel %d->'%s' to the model\n",
 			channel_infos->id,
 			channel_infos->name);
 	}
 	
-	gtk_tree_store_append (GTK_TREE_STORE(cbuserdata->app->channelslist),
-			       cbuserdata->iter_channel, cbuserdata->iter_channelsgroup);
-	gtk_tree_store_set (GTK_TREE_STORE(cbuserdata->app->channelslist), cbuserdata->iter_channel,
-			    CHANNEL_COLUMN, channel_infos, -1);
+	if(no_err){
+		CBIterData *iter_data = (CBIterData *)user_data;
 
-	// Pointeur de la chaine sur son groupe
-	FreetuxTVChannelsGroupInfos* channels_group_infos;	
-	gtk_tree_model_get(GTK_TREE_MODEL(cbuserdata->app->channelslist), cbuserdata->iter_channelsgroup, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
-	if(channels_group_infos != NULL){
-		channels_group_infos->nb_channels++;
-		freetuxtv_channel_infos_set_group (channel_infos, channels_group_infos);
-	}
+		gtk_tree_store_append (GTK_TREE_STORE(app->channelslist),
+				       iter_data->iter, iter_data->iter_parent);
+		gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), iter_data->iter,
+				    CHANNEL_COLUMN, channel_infos, -1);
 
-	// Get the path of the channel to play, if needed
-	if(cbuserdata->app->current.lastchannelonstartup == TRUE
-	   && cbuserdata->app->config.lastchannel != -1){
-		if(id == cbuserdata->app->config.lastchannel){
-			g_print("FreetuxTV : get cahnnel\n");
-			GtkTreePath* path;
-			path = gtk_tree_model_get_path(GTK_TREE_MODEL(cbuserdata->app->channelslist), cbuserdata->iter_channel);
-			cbuserdata->app->current.path_channel = path;
-			g_print("FreetuxTV : get cahnnel\n");
+		// Get the path of the channel to play, if needed
+		if(app->current.lastchannelonstartup == TRUE
+		   && app->config.lastchannel != -1){
+			if(channel_infos->id == app->config.lastchannel){
+				g_print("FreetuxTV : get cahnnel\n"); // TODO
+				GtkTreePath* path;
+				path = gtk_tree_model_get_path(GTK_TREE_MODEL(app->channelslist), iter_data->iter);
+				app->current.path_channel = path;
+				g_print("FreetuxTV : get cahnnel\n");
+			}
 		}
 	}
-	
+
 	return 0;
 }
 
@@ -1031,13 +792,15 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 
 					menu = gtk_menu_new();
 					
-					menuitem = gtk_image_menu_item_new_with_label(_("Refresh from the playlist"));
+					menuitem = gtk_image_menu_item_new_from_stock ("gtk-refresh", NULL);
 					gtk_widget_set_tooltip_text (GTK_WIDGET(menuitem), channels_group_infos->uri);
-					image = gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU);
-					gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
 					gtk_menu_append (GTK_MENU (menu), menuitem);					
 					g_signal_connect(G_OBJECT(menuitem), "activate",
 							 G_CALLBACK(on_popupmenu_activated_refreshgroup), cbgroupdata);
+					gtk_widget_show (menuitem);
+					
+					menuitem = gtk_separator_menu_item_new();
+					gtk_menu_append (GTK_MENU (menu), menuitem);
 					gtk_widget_show (menuitem);
 						
 					menuitem = gtk_image_menu_item_new_with_label(_("Delete group's channels"));
@@ -1048,12 +811,20 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 							 G_CALLBACK(on_popupmenu_activated_deletechannels), cbgroupdata);
 					gtk_widget_show (menuitem);
 					
-					menuitem = gtk_image_menu_item_new_with_label(_("Delete group"));
-					image = gtk_image_new_from_stock (GTK_STOCK_DELETE, GTK_ICON_SIZE_MENU);
-					gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
+					menuitem = gtk_image_menu_item_new_from_stock ("gtk-delete", NULL);
 					gtk_menu_append (GTK_MENU (menu), menuitem);
 					g_signal_connect(G_OBJECT(menuitem), "activate",
 							 G_CALLBACK(on_popupmenu_activated_deletegroup), cbgroupdata);
+					gtk_widget_show (menuitem);
+					
+					menuitem = gtk_separator_menu_item_new();
+					gtk_menu_append (GTK_MENU (menu), menuitem);
+					gtk_widget_show (menuitem);
+					
+					menuitem = gtk_image_menu_item_new_from_stock ("gtk-properties", NULL);
+					gtk_menu_append (GTK_MENU (menu), menuitem);
+					g_signal_connect(G_OBJECT(menuitem), "activate",
+							 G_CALLBACK(on_popupmenu_activated_groupproperties), cbgroupdata);
 					gtk_widget_show (menuitem);
 						
 					gtk_widget_show(menu);
@@ -1079,6 +850,50 @@ on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data)
 {
 	CBGroupData *cbgroupdata = (CBGroupData *)user_data;
 	channels_list_update_channels_group(cbgroupdata->app, cbgroupdata->path_group);	
+}
+
+static void
+on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_data)
+{
+	CBGroupData *cbgroupdata = (CBGroupData *)user_data;
+	FreetuxTVApp *app = cbgroupdata->app;
+
+	GtkWidget *widget;
+	
+	// Display the window
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "dialoggroupproperties");
+	gtk_widget_show (widget);
+
+	FreetuxTVChannelsGroupInfos* group;
+	group = channels_list_get_group(app, cbgroupdata->path_group);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "dialoggroupproperties_name");
+	gtk_entry_set_text(GTK_ENTRY(widget), group->name);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "dialoggroupproperties_uri");
+	gtk_entry_set_text(GTK_ENTRY(widget), group->uri);
+
+	if(group->bregex != NULL){
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialoggroupproperties_bregex");
+		gtk_entry_set_text(GTK_ENTRY(widget), group->bregex);
+	}
+
+	if(group->eregex != NULL){
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialoggroupproperties_eregex");
+		gtk_entry_set_text(GTK_ENTRY(widget), group->eregex);
+	}
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "dialoggroupproperties_nbchannels");
+	gchar* str;
+	str = g_strdup_printf("%d", group->nb_channels);
+	gtk_label_set_text(GTK_LABEL(widget), str);
+	g_free(str);
 }
 
 static void
@@ -1149,71 +964,60 @@ on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 }
 
 static int 
-on_exec_get_group_infos (void *data, int argc, char **argv, char **colsname)
-{	
-	Parsem3uData *cbuserdata = (Parsem3uData *) data;	
-	cbuserdata->bregex = g_strdup_printf("^%s", (argv[0]!=NULL?argv[0]:""));
-	cbuserdata->eregex = g_strdup_printf("%s$", (argv[1]!=NULL?argv[1]:""));
-	return 0;
-}
-
-static int 
 on_parsem3u_add_channel (char *url, int num, int argc, 
 			 char **argv, void *user_data)
 {
 	Parsem3uData *data = (Parsem3uData *) user_data;
+	FreetuxTVChannelsGroupInfos* channels_group_infos = data->channels_group_infos;
 
-	struct sqlite3 *db = data->db;
 	gchar* query;
 	int res;
 	char *err=0;
-	gchar *name;
-
-	gchar *err_msg;
-	
+	gchar *name;	
 
 	res = libm3uparser_get_extinfo (argc, argv, NULL, &name);
 	if(res == LIBM3UPARSER_EXTINFO_NOT_FOUND){
 		name = g_strdup_printf("Inconnu");
 	}else{
-		GRegex* bregex;
-		GRegex* eregex;
+		GRegex* gregex;
 		gchar *tmp;
+		gchar *regex;
 		
-		bregex = g_regex_new (data->bregex, 0, 0, NULL);
-		eregex = g_regex_new (data->eregex, 0, 0, NULL);
+		if(channels_group_infos->bregex != NULL){
+			regex = g_strdup_printf("^%s", argv[0]);
+			gregex = g_regex_new (channels_group_infos->bregex, 0, 0, NULL);
+			g_free(regex);
+			tmp = g_regex_replace (gregex, name, -1, 0, "", 0, NULL);
+			g_regex_unref (gregex);
+		}else{
+			tmp = g_strdup(name);
+		}
+		g_free(name);		
 
-		tmp = g_regex_replace (bregex, name, -1, 0, "", 0, NULL);
-		g_free(name);
-		
-		name = g_regex_replace (eregex, tmp, -1, 0, "", 0, NULL);
-		g_free(tmp);		
-		
-		g_regex_unref (bregex);
-		g_regex_unref (eregex);
-		
+		if(channels_group_infos->eregex != NULL){
+			regex = g_strdup_printf("^%s", argv[0]);
+			gregex = g_regex_new (channels_group_infos->eregex, 0, 0, NULL);
+			g_free(regex);
+			name = g_regex_replace (gregex, tmp, -1, 0, "", 0, NULL);
+			g_regex_unref (gregex);
+		}else{
+			name = g_strdup(tmp);
+		}
+		g_free(tmp);
 	}
 	
 	g_strstrip(name);	
 	
 	if(data->app->debug == TRUE){
-		g_print("FreetuxTV-debug : Add channel '%s' in database\n",
-			name);
+		g_print("FreetuxTV-debug : Add channel '%s' in database\n", name);
 	}
 
-	query = sqlite3_mprintf("INSERT INTO channel (name_channel, order_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) values ('%q',%d,(SELECT id_channellogo FROM channel_logo WHERE label_channellogo='%q' OR id_channellogo = (SELECT idchannellogo_labelchannellogo FROM label_channellogo WHERE label_labelchannellogo='%q')),'%q','%d');", 
-				name, num, name, name, url, data->id);
-	g_free(name);
-	res=sqlite3_exec(db, query, NULL, 0, &err);
-	sqlite3_free(query);
-	if(res != SQLITE_OK){
+	FreetuxTVChannelInfos* channel_infos;
+	channel_infos = freetuxtv_channel_infos_new(name, url);
+	freetuxtv_channel_infos_set_order(channel_infos, num);
+	freetuxtv_channel_infos_set_channels_group(channel_infos, channels_group_infos);
 
-		err_msg = g_strdup_printf(_("Error when adding the channel \"%s\".\n\nSQLite has returned error :\n%s."),
-					  name, sqlite3_errmsg(db));
-		windowmain_show_error (data->app, err_msg);
-		g_free(err_msg);
+	dbsync_add_channel (data->dbsync, channel_infos, data->error);
 
-		return -1;
-	}
 	return 0;
 }

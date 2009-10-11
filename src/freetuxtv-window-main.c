@@ -22,6 +22,7 @@
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-logos-list.h"
+#include "freetuxtv-db-sync.h"
 #include "gtk-libvlc-media-player.h"
 
 static gboolean
@@ -124,6 +125,11 @@ static void
 on_dialogaddgroup_response (GtkDialog *dialog,
 			    gint response_id,
 			    gpointer user_data);
+
+static void
+on_dialoggroupproperties_response (GtkDialog *dialog,
+				   gint response_id,
+				   gpointer user_data);
 
 static void
 on_aboutdialog_response (GtkDialog *dialog,
@@ -384,6 +390,22 @@ windowmain_init(FreetuxTVApp *app)
 			 G_CALLBACK(gtk_widget_hide_on_delete),
 			 NULL);
 
+	// Initialize signals for dialoggroupproperties
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+						      "dialoggroupproperties");
+	gtk_dialog_add_buttons (GTK_DIALOG(widget),
+				"gtk-cancel", GTK_RESPONSE_CANCEL, "gtk-apply", GTK_RESPONSE_APPLY, NULL);
+	gtk_widget_show(button);
+	
+	g_signal_connect(G_OBJECT(widget),
+			 "response",
+			 G_CALLBACK(on_dialoggroupproperties_response),
+			 app);
+	g_signal_connect(G_OBJECT(widget),
+			 "delete-event",
+			 G_CALLBACK(gtk_widget_hide_on_delete),
+			 NULL);
+
 	// Initialize signals for aboutdialog
 	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
 							"aboutdialog");
@@ -520,6 +542,13 @@ windowmain_show_error (FreetuxTVApp *app, gchar *msg)
 }
 
 void
+windowmain_show_gerror (FreetuxTVApp *app, GError* error)
+{
+	g_return_if_fail(error != NULL);
+	windowmain_show_error (app, error->message);
+}
+
+void
 windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg)
 {
 	int context_id;
@@ -625,7 +654,8 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
 
-	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
+	gtk_tree_view_collapse_all (GTK_TREE_VIEW(treeview));
+	channels_list_set_playing (app, app->current.path_channel);
 }
 
 static void
@@ -731,7 +761,15 @@ on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
 
-	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
+	const gchar* text;
+	text = gtk_entry_get_text (entry);
+	
+	if(g_ascii_strcasecmp(text, "") == 0){
+		gtk_tree_view_collapse_all (GTK_TREE_VIEW(treeview));
+		channels_list_set_playing (app, app->current.path_channel);
+	}else{
+		gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
+	}
 }
 
 static void
@@ -821,7 +859,7 @@ on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
 			    gdouble value, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	g_print("change %f\n", value);
+	g_print("change %f\n", value); // TODO
 	if(!gtk_libvlc_media_player_is_playing(app->player)){
 		gtk_libvlc_media_player_play(app->player, NULL);
 	}
@@ -1018,6 +1056,32 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 		}
 		
 		g_free(errmsg);
+	}
+	if (response_id == GTK_RESPONSE_CANCEL){
+		gtk_widget_hide(GTK_WIDGET(dialog));
+	}
+}
+
+static void
+on_dialoggroupproperties_response (GtkDialog *dialog,
+				   gint response_id,
+				   gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	
+	GError *error = NULL;
+	DBSync dbsync;
+	
+	if(response_id == GTK_RESPONSE_APPLY){
+		dbsync_open_db (&dbsync, &error);
+		if(error == NULL){
+			dbsync_update_channels_group (&dbsync, NULL, &error);
+		}
+		dbsync_close_db (&dbsync);
+
+		if(error != NULL){
+			windowmain_show_gerror (app, error);
+		}
 	}
 	if (response_id == GTK_RESPONSE_CANCEL){
 		gtk_widget_hide(GTK_WIDGET(dialog));
