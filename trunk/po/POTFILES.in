@@ -10,6 +10,8 @@ src/freetuxtv-channels-group-infos.c
 src/freetuxtv-channels-group-infos.h
 src/freetuxtv-channels-list.c
 src/freetuxtv-channels-list.h
+src/freetuxtv-db-sync.c
+src/freetuxtv-db-sync.h
 src/freetuxtv-i18n.h
 src/freetuxtv-logos-list.c
 src/freetuxtv-logos-list.h
