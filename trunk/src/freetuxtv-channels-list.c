@@ -659,11 +659,9 @@ on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* channel_infos,
 		if(app->current.lastchannelonstartup == TRUE
 		   && app->config.lastchannel != -1){
 			if(channel_infos->id == app->config.lastchannel){
-				g_print("FreetuxTV : get cahnnel\n"); // TODO
 				GtkTreePath* path;
 				path = gtk_tree_model_get_path(GTK_TREE_MODEL(app->channelslist), iter_data->iter);
 				app->current.path_channel = path;
-				g_print("FreetuxTV : get cahnnel\n");
 			}
 		}
 	}
@@ -694,9 +692,8 @@ on_row_activated_channels_list(GtkTreeView *view, GtkTreePath *path,
 			gtk_tree_view_collapse_row (view, model_path);
 		}else{
 			gtk_tree_view_expand_row (view, model_path, TRUE);
-		}
-	
-	}else {
+		}	
+	}else{
 		freetuxtv_play_channel (app, model_path);		
 	}
 	gtk_tree_path_free(model_path);
@@ -1018,6 +1015,8 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	freetuxtv_channel_infos_set_channels_group(channel_infos, channels_group_infos);
 
 	dbsync_add_channel (data->dbsync, channel_infos, data->error);
+
+	g_object_unref(channel_infos);
 
 	return 0;
 }

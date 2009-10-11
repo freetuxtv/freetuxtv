@@ -19,6 +19,9 @@ typedef struct {
 	int (*callback)();
 	gpointer user_data;
 	GError** error;
+
+	gpointer cb_data1;
+
 }CBDBSync;
 
 static int 
@@ -142,6 +145,7 @@ dbsync_select_channels_of_channels_group (DBSync *dbsync,
 	cb_data.callback = callback;
 	cb_data.user_data = user_data;
 	cb_data.error = error;
+	cb_data.cb_data1 = channels_group_infos;
 
 	if(error != NULL){
 		if(*error != NULL){
@@ -363,6 +367,7 @@ static int
 on_exec_channel (void *data, int argc, char **argv, char **colsname)
 {
 	CBDBSync *cb_data = (CBDBSync *)data;
+	FreetuxTVChannelsGroupInfos* channels_group_infos = (FreetuxTVChannelsGroupInfos*)cb_data->cb_data1;
 
 	FreetuxTVChannelInfos* channel_infos;
 	int id = g_ascii_strtoll (argv[0], NULL, 10);
@@ -372,6 +377,9 @@ on_exec_channel (void *data, int argc, char **argv, char **colsname)
 	if(argv[2] != NULL){
 		freetuxtv_channel_infos_set_logo(channel_infos, argv[2]);
 	}
+	
+	freetuxtv_channel_infos_set_channels_group(channel_infos, channels_group_infos);
+	channels_group_infos->nb_channels++;
 
 	int res = 0;
 	res = cb_data->callback(cb_data->app, channel_infos, cb_data->dbsync, cb_data->user_data, cb_data->error);
