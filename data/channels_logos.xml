@@ -1,4 +1,4 @@
-<channel_logos>
+<channels_logos>
 	<logo filename="ab1.png" label="AB 1">
 		<logolabel label="AB 1 (bas débit)"/>
 	</logo>
@@ -296,4 +296,4 @@
 	<logo filename="virginradio.png" label="Virgin Radio"></logo>
 	<logo filename="xiamenstartv.png" label="Xiamen Star TV"></logo>
 	<logo filename="zhejiangstartv.png" label="Zhejiang Star TV"></logo>
-</channel_logos>
+</channels_logos>
