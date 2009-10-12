@@ -242,7 +242,7 @@ dbsync_add_channels_group (DBSync *dbsync,
 	
 	if(no_err){
 		// Add the group
-		query = sqlite3_mprintf("INSERT INTO channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup, eregex_channelsgroup) VALUES ('%q','%q', '%q', '%q');", 
+		query = sqlite3_mprintf("INSERT INTO channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup, eregex_channelsgroup) VALUES ('%q', %Q, %Q, %Q);", 
 					channels_group_infos->name,
 					channels_group_infos->uri,
 					channels_group_infos->bregex,
@@ -270,11 +270,46 @@ dbsync_add_channels_group (DBSync *dbsync,
 
 void
 dbsync_update_channels_group (DBSync *dbsync,
-			      FreetuxTVChannelsGroupInfos* channels_group,
+			      FreetuxTVChannelsGroupInfos* channels_group_infos,
 			      GError** error)
 {
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(channels_group_infos != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(channels_group_infos));
+
+	gchar *query;
+	gchar *db_err = 0;
 	int res;
 	gboolean no_err = TRUE;
+
+	if(error != NULL){
+		if(*error != NULL){
+			no_err = FALSE;
+		}
+	}
+	
+	if(no_err){
+		// Update the group
+		query = sqlite3_mprintf("UPDATE channels_group SET \
+                               name_channelsgroup='%q', uri_channelsgroup=%Q, \
+                               bregex_channelsgroup=%Q, eregex_channelsgroup=%Q \
+                               WHERE id_channelsgroup=%d", 
+					channels_group_infos->name, channels_group_infos->uri,
+					channels_group_infos->bregex, channels_group_infos->eregex,
+					channels_group_infos->id);
+		res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+		sqlite3_free(query);
+
+		if(res != SQLITE_OK){
+			no_err = FALSE;
+			if(error != NULL){
+				*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+						      FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+						      _("Error when updating the group \"%s\".\n\nSQLite has returned error :\n%s."),
+						      channels_group_infos->name, sqlite3_errmsg(dbsync->db_link));
+			}
+		}	
+	}
 }
 
 

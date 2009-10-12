@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS channels_group (
    name_channelsgroup VARCHAR(50) NOT NULL,
    bregex_channelsgroup VARCHAR(50) NULL,
    eregex_channelsgroup VARCHAR(50) NULL,
-   uri_channelsgroup VARCHAR(500)
+   uri_channelsgroup VARCHAR(500) NULL
 );
 CREATE TABLE IF NOT EXISTS channel (
    id_channel INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
