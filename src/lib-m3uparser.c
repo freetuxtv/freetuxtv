@@ -36,13 +36,12 @@ libm3uparser_parse(char *file,
 	if(callback == NULL){
 		return LIBM3UPARSER_INVALID_CALLBACK;
 	}
-
+	
 	/* Ouverture du fichier */
 	fp = fopen (file, "r");
 	
 	/* Fichier inexistant */
 	if (fp == NULL){
-		fclose(fp);
 		return LIBM3UPARSER_FILE_NOT_FOUND;
 	}
 	

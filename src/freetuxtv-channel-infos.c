@@ -115,6 +115,7 @@ freetuxtv_channel_infos_class_init (FreetuxTVChannelInfosClass *klass)
 static void
 freetuxtv_channel_infos_init (FreetuxTVChannelInfos *self)
 {
+	self->id = -1;
 	self->name=NULL;
 	self->url=NULL;
 
