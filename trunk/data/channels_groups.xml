@@ -1,0 +1,26 @@
+<channels_groups>
+	<language id="de" lang="German">
+		<channels_group name="Web TV (German)" uri="http://freetuxtv.googlecode.com/files/playlist_webtv_de.m3u" />
+	</language>
+	<language id="en" lang="English">
+		<channels_group name="Web TV (English)" uri="http://freetuxtv.googlecode.com/files/playlist_webtv_en.m3u" />
+	</language>
+	<language id="fr" lang="French">
+		<channels_group name="FreeboxTV" uri="http://mafreebox.freebox.fr/freeboxtv/playlist.m3u" bregexp="[0-9]* - " required_isp="Free"/>
+		<channels_group name="FreeboxTV (non dégroupé)" uri="http://freetuxtv.googlecode.com/files/playlist_freeboxtv_nd.m3u" required_isp="Free" />
+		<channels_group name="SFR TV" uri="http://televisionsurpc.sfr.fr/televisionsurpc.m3u" required_isp="SFR/Neuf" />
+		<channels_group name="Orange TV" uri="http://vlc-media-player.org/m3u/orangetv.m3u" bregexp="[0-9]*\. " required_isp="Orange" />
+		<channels_group name="Bouygues TV" uri="http://bbox-news.com/documents/tv_sur_pc_bbox.m3u" required_isp="Bouygues" />
+		<channels_group name="Alice" uri="http://vlc-media-player.org/m3u/alicetv.m3u" required_isp="Alice" />
+		<channels_group name="Web TV (French)" uri="http://freetuxtv.googlecode.com/files/playlist_webtv_fr.m3u" />
+	</language>
+	<language id="es" lang="Spanish">
+		<channels_group name="Web TV (Spanish)" uri="http://freetuxtv.googlecode.com/files/playlist_webtv_es.m3u" />
+	</language>
+	<language id="it" lang="Italian">
+		<channels_group name="Web TV (Italian)" uri="http://freetuxtv.googlecode.com/files/playlist_webtv_it.m3u" />
+	</language>
+	<language id="zh" lang="Chinese">
+		<channels_group name="Web TV (Chinese)" uri="http://freetuxtv.googlecode.com/files/playlist_webtv_zh.m3u" />
+	</language>
+</channels_groups>
