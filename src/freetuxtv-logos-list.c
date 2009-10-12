@@ -102,7 +102,7 @@ logos_list_synchronize (FreetuxTVApp *app)
 							      G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
 							      &cbxmldata, NULL);
 			gchar *xml_data;
-			g_file_get_contents (FREETUXTV_DIR "/channel_logos.xml", 
+			g_file_get_contents (FREETUXTV_DIR "/channels_logos.xml", 
 					     &xml_data, &filelen, NULL);
 			g_markup_parse_context_parse (context, xml_data, -1, NULL);
 			

@@ -382,7 +382,7 @@ splashscreen_app_init(gpointer data)
 	splashscreen_statusbar_push (app, _("Synchronizing the list of logos..."));
 	struct stat file_stat;
 	gint ret;
-	if(g_stat (FREETUXTV_DIR "/channel_logos.xml", &file_stat) == 0){
+	if(g_stat (FREETUXTV_DIR "/channels_logos.xml", &file_stat) == 0){
 		if(app->config.logosfiledate < (gint)file_stat.st_mtime){
 			ret = logos_list_synchronize(app);
 			if(ret == 0){
