@@ -29,11 +29,11 @@ struct _FreetuxTVChannelsGroupInfos
 
 	int id;
 	int rank;
-	char *name;
-	char *uri;
+	gchar *name;
+	gchar *uri;
 
-	char *bregex;
-	char *eregex;
+	gchar *bregex;
+	gchar *eregex;
 
 	int nb_channels;
 	int nb_channels_visible;
@@ -45,13 +45,19 @@ struct _FreetuxTVChannelsGroupInfosClass
 };
 
 FreetuxTVChannelsGroupInfos*
-freetuxtv_channels_group_infos_new(char *name, char *uri);
+freetuxtv_channels_group_infos_new(gchar *name, gchar *uri);
 
 void
 freetuxtv_channels_group_infos_set_id (FreetuxTVChannelsGroupInfos *self, int id);
 
 void
 freetuxtv_channels_group_infos_set_rank (FreetuxTVChannelsGroupInfos *self, int rank);
+
+void
+freetuxtv_channels_group_infos_set_name (FreetuxTVChannelsGroupInfos *self, gchar *name);
+
+void
+freetuxtv_channels_group_infos_set_uri (FreetuxTVChannelsGroupInfos *self, gchar *uri);
 
 void
 freetuxtv_channels_group_infos_set_regex (FreetuxTVChannelsGroupInfos *self, gchar *bregex, gchar *eregex);

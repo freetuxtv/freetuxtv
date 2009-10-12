@@ -996,19 +996,17 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 
 	if(response_id == FREETUXTV_RESPONSE_ADD){
 		GtkWidget *groupname;
-		GtkWidget *groupprotocole;
 		GtkWidget *groupuri;
 		GtkWidget *bregex;
 		GtkWidget *eregex;
 		
-		gchar * sgroupname;
-		gchar * sgroupprotocole;
-		gchar * sgroupuri;
+		const gchar *sgroupname;
+		const gchar *sgroupuri;
+		const gchar *sbregex;
+		const gchar *seregex;
 		
 		groupname = (GtkWidget *) gtk_builder_get_object (app->gui,
 								  "dialogaddgroup_name");
-		groupprotocole = (GtkWidget *) gtk_builder_get_object (app->gui,
-								       "dialogaddgroup_protocole");
 		groupuri = (GtkWidget *) gtk_builder_get_object (app->gui,
 								 "dialogaddgroup_uri");
 		bregex = (GtkWidget *) gtk_builder_get_object (app->gui,
@@ -1016,17 +1014,17 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 		eregex = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogaddgroup_eregex");
 		
-		/* Verification des champs */
-		if(g_ascii_strcasecmp(gtk_entry_get_text(GTK_ENTRY(groupname)),"") == 0
-		   && errmsg==NULL){
+		sgroupname = gtk_entry_get_text(GTK_ENTRY(groupname));
+		sgroupuri = gtk_entry_get_text(GTK_ENTRY(groupuri));
+		sbregex = gtk_entry_get_text(GTK_ENTRY(bregex));
+		seregex = gtk_entry_get_text(GTK_ENTRY(eregex));
+		
+
+		/* Check the field */
+		if(g_ascii_strcasecmp(sgroupname,"") == 0 && errmsg == NULL){
 			errmsg = g_strdup_printf(_("Please enter the group's name !"));
 		}
-		if(gtk_combo_box_get_active_text(GTK_COMBO_BOX(groupprotocole)) == NULL
-		   && errmsg==NULL){
-			errmsg = g_strdup_printf(_("Please choose the protocole of the group's URI !"));
-		}
-		if(g_ascii_strcasecmp(gtk_entry_get_text(GTK_ENTRY(groupuri)),"") == 0
-		   && errmsg==NULL){
+		if(g_ascii_strcasecmp(sgroupuri,"") == 0 && errmsg == NULL){
 			errmsg = g_strdup_printf(_("Please enter the group's URI !"));
 		}
 		
@@ -1034,20 +1032,18 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 			windowmain_show_error (app, errmsg);
 		}else{
 			
-			sgroupname = g_strdup(gtk_entry_get_text(GTK_ENTRY(groupname)));
-			sgroupuri = g_strconcat(gtk_combo_box_get_active_text(GTK_COMBO_BOX(groupprotocole)),
-						gtk_entry_get_text(GTK_ENTRY(groupuri)),
-						NULL);
-			
+			if(g_ascii_strcasecmp(sbregex,"") == 0 ){
+				bregex = NULL;
+			}
+			if(g_ascii_strcasecmp(seregex,"") == 0 ){
+				seregex = NULL;
+			}
+
 			FreetuxTVChannelsGroupInfos *channels_group_infos;		
-			channels_group_infos = freetuxtv_channels_group_infos_new (sgroupname, sgroupuri);
-			freetuxtv_channels_group_infos_set_regex (channels_group_infos,
-								  (gchar*)gtk_entry_get_text(GTK_ENTRY(bregex)),
-								  (gchar*)gtk_entry_get_text(GTK_ENTRY(eregex)));
+			channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
+			freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
 			
 			channels_list_add_channels_group (app, channels_group_infos);
-			g_free(sgroupname);
-			g_free(sgroupuri);
 
 			// TODO channels_list_refresh_group (app, channels_group);
 			//channels_group_reload_channels (channels_group, app);
@@ -1068,20 +1064,71 @@ on_dialoggroupproperties_response (GtkDialog *dialog,
 				   gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	
-	GError *error = NULL;
-	DBSync dbsync;
+	gchar *errmsg = NULL;
 	
 	if(response_id == GTK_RESPONSE_APPLY){
-		dbsync_open_db (&dbsync, &error);
-		if(error == NULL){
-			dbsync_update_channels_group (&dbsync, NULL, &error);
-		}
-		dbsync_close_db (&dbsync);
+		GtkWidget *groupname;
+		GtkWidget *groupuri;
+		GtkWidget *bregex;
+		GtkWidget *eregex;
+		
+		const gchar *sgroupname;
+		const gchar *sgroupuri;
+		const gchar *sbregex;
+		const gchar *seregex;
+		
+		groupname = (GtkWidget *) gtk_builder_get_object (app->gui,
+								  "dialoggroupproperties_name");
+		groupuri = (GtkWidget *) gtk_builder_get_object (app->gui,
+								 "dialoggroupproperties_uri");
+		bregex = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialoggroupproperties_bregex");
+		eregex = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialoggroupproperties_eregex");
+		
+		sgroupname = gtk_entry_get_text(GTK_ENTRY(groupname));
+		sgroupuri = gtk_entry_get_text(GTK_ENTRY(groupuri));
+		sbregex = gtk_entry_get_text(GTK_ENTRY(bregex));
+		seregex = gtk_entry_get_text(GTK_ENTRY(eregex));
+		
 
-		if(error != NULL){
-			windowmain_show_gerror (app, error);
+		/* Check the field */
+		if(g_ascii_strcasecmp(sgroupname,"") == 0 && errmsg == NULL){
+			errmsg = g_strdup_printf(_("Please enter the group's name !"));
 		}
+		if(g_ascii_strcasecmp(sgroupuri,"") == 0 && errmsg == NULL){
+			errmsg = g_strdup_printf(_("Please enter the group's URI !"));
+		}
+		
+		if(errmsg != NULL){
+			windowmain_show_error (app, errmsg);
+		}else{
+			
+			if(g_ascii_strcasecmp(sbregex,"") == 0 ){
+				bregex = NULL;
+			}
+			if(g_ascii_strcasecmp(seregex,"") == 0 ){
+				seregex = NULL;
+			}
+
+			FreetuxTVChannelsGroupInfos *channels_group_infos;
+			GtkTreePath *path_group;
+			channels_group_infos = (FreetuxTVChannelsGroupInfos *)g_object_get_data (G_OBJECT(dialog), "ChannelsGroup");
+			path_group = (GtkTreePath *)g_object_get_data (G_OBJECT(dialog), "PathChannelsGroup");
+			
+			freetuxtv_channels_group_infos_set_name (channels_group_infos, (gchar*)sgroupname);
+			freetuxtv_channels_group_infos_set_uri (channels_group_infos, (gchar*)sgroupuri);
+			freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
+			
+			channels_list_update_channels_group (app, path_group, channels_group_infos);
+
+			g_object_set_data (G_OBJECT(dialog), "ChannelsGroup", NULL);
+			g_object_set_data (G_OBJECT(dialog), "PathChannelsGroup", NULL);
+			
+			gtk_widget_hide(GTK_WIDGET(dialog));	
+		}
+		
+		g_free(errmsg);
 	}
 	if (response_id == GTK_RESPONSE_CANCEL){
 		gtk_widget_hide(GTK_WIDGET(dialog));

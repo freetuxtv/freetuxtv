@@ -408,7 +408,7 @@ splashscreen_app_init(gpointer data)
 	splashscreen_statusbar_pop (app);
 
 	// Showing the main window
-	g_print("FreetuxTV : Showing the main window\n");
+	g_print("FreetuxTV : Showing the main window, hide splashscreen\n");
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "splashscreen");
 	gtk_widget_hide(widget);
@@ -416,7 +416,7 @@ splashscreen_app_init(gpointer data)
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "windowmain");
 	gtk_widget_show(widget);
-
+	
 	// Play the last channel if needed
 	if(app->current.path_channel != NULL){
 		freetuxtv_play_channel (app, app->current.path_channel);

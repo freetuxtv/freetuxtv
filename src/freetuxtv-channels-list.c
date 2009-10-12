@@ -251,7 +251,35 @@ channels_list_add_channels_group (FreetuxTVApp *app,
 }
 
 void
-channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
+channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
+				     FreetuxTVChannelsGroupInfos* channels_group_infos)
+{
+	GError* error = NULL;
+	
+	// Update the group in the database
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+	if(error == NULL){
+		dbsync_update_channels_group (&dbsync, channels_group_infos, &error);
+	}
+	dbsync_close_db(&dbsync);
+
+	// Update the group in the treeview
+	if(error == NULL){
+		GtkTreeIter iter;
+		if(gtk_tree_model_get_iter(app->channelslist, &iter, path_group)){
+			gtk_tree_model_row_changed (app->channelslist, path_group, &iter);
+		}
+	}
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}	
+}
+
+void
+channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
 {
 	GError* error = NULL;
 	
@@ -298,8 +326,8 @@ channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
 
 		g_print("FreetuxTV : Parsing the file \"%s\"\n", file);
 		res = libm3uparser_parse(file, &on_parsem3u_add_channel, &pdata);
-		if (res < 0 ){			
-			if (res == LIBM3UPARSER_CALLBACK_RETURN_ERROR){
+		if (res != LIBM3UPARSER_OK){		
+			if (res != LIBM3UPARSER_CALLBACK_RETURN_ERROR){
 				error = g_error_new (FREETUXTV_LIBM3UPARSE_ERROR,
 						     FREETUXTV_LIBM3UPARSE_ERROR_PARSE,
 						     _("Error when adding the channels.\n\nM3UParser has returned error :\n%s."),
@@ -555,9 +583,7 @@ channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **file,
 
 	uriv = g_strsplit (self->uri, "//", 2);
 	*file = NULL;
-	if( g_ascii_strcasecmp (uriv[0], "file:") == 0 ){
-		*file = g_strdup (uriv[1]);
-	}
+	
 	if( g_ascii_strcasecmp (uriv[0], "http:") == 0 || g_ascii_strcasecmp (uriv[0], "https:") == 0){
 		
 		gchar *groupfile;
@@ -593,6 +619,8 @@ channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **file,
 		}
 
 		*file = groupfile;
+	}else{
+		*file = g_strdup (self->uri);		
 	}
 	
 
@@ -846,7 +874,7 @@ static void
 on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data)
 {
 	CBGroupData *cbgroupdata = (CBGroupData *)user_data;
-	channels_list_update_channels_group(cbgroupdata->app, cbgroupdata->path_group);	
+	channels_list_refresh_channels_group(cbgroupdata->app, cbgroupdata->path_group);	
 }
 
 static void
@@ -855,16 +883,12 @@ on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_dat
 	CBGroupData *cbgroupdata = (CBGroupData *)user_data;
 	FreetuxTVApp *app = cbgroupdata->app;
 
-	GtkWidget *widget;
-	
-	// Display the window
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "dialoggroupproperties");
-	gtk_widget_show (widget);
-
 	FreetuxTVChannelsGroupInfos* group;
 	group = channels_list_get_group(app, cbgroupdata->path_group);
 
+	GtkWidget *widget;
+	
+	// Set the value in the fields
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "dialoggroupproperties_name");
 	gtk_entry_set_text(GTK_ENTRY(widget), group->name);
@@ -891,6 +915,16 @@ on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_dat
 	str = g_strdup_printf("%d", group->nb_channels);
 	gtk_label_set_text(GTK_LABEL(widget), str);
 	g_free(str);
+	
+	// Display the window
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "dialoggroupproperties");
+	gtk_widget_show (widget);
+
+	g_object_set_data (G_OBJECT(widget), "ChannelsGroup", group);
+	g_object_set_data (G_OBJECT(widget), "PathChannelsGroup", cbgroupdata->path_group);
+
+	
 }
 
 static void
