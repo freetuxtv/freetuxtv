@@ -3,6 +3,8 @@ FreetuxTV 0.4.0 (2009-)
   - Ajout d'un panneau pour voir la liste des enregistrements et les lire dans FreetuxTV
   - Préférences pour activer ou non les notifications
   - Ajout des préférences pour transcoder les enregistrements dans des formats prédéfinis
+  - Ajout d'un menu pour voir les préférences d'un groupe
+  - Ajout d'un onglet dans la fenêtre d'ajout d'un groupe de chaînes, pour facilement ajouter les groupes prédéfinis.
   - Ajout de playlists : Orange, Bouygues, Alice, WebTV Chinoise, WebTV Anglaise, WebTV Espagnol,
     WebTV Italienne, WebTV Allemande
   - Ajout de logos : Beijing TV, CCTV 4, CCTV 9, CCTV Divertissement, CCTV F, Guangdong Southern TV,
