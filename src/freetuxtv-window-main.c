@@ -865,8 +865,26 @@ on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
 					    gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	logos_list_synchronize (app);			
-	channels_list_load_channels (app);
+
+	GError* error = NULL;
+
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+	
+	if(error == NULL){
+		logos_list_synchronize (app);			
+	}
+
+	if(error == NULL){
+		channels_list_load_channels (app, &dbsync, &error);
+	}
+
+	dbsync_close_db(&dbsync);
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 
@@ -1008,6 +1026,7 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 			    gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	GError* error = NULL;
 	gchar *errmsg = NULL;
 
 	GtkWidget* widget;
@@ -1018,143 +1037,149 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 	const gchar *seregex = NULL;
 	
 	if(response_id == FREETUXTV_RESPONSE_ADD){
+		DBSync dbsync;
+		dbsync_open_db (&dbsync, &error);
 		
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogaddgroup_notebook");
-		int page;
-		page = gtk_notebook_get_current_page (GTK_NOTEBOOK(widget));
-		switch(page){
-		case 0:
-			widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-								      "dialogaddgroup_treeviewchannelsgroups");
-			GtkTreeSelection *selection;
-			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(widget));
-			
-			GtkTreeModel* model;
-			model = (GtkTreeModel *) gtk_builder_get_object (app->gui,
-									 "treestore_channelsgroup");
-			GList *list;
-			list = gtk_tree_selection_get_selected_rows (selection, &model);
-
-			GList* iterator = NULL;
-			iterator = g_list_first (list);
-
-			if(iterator == NULL){
-				errmsg = g_strdup_printf(_("Please select a least one group !"));
-			}
-
-			GtkTreePath* last_ppath = NULL;
-			FreetuxTVChannelsGroupInfos *channels_group_infos;
-			
-			while(iterator != NULL){
-				GtkTreePath* path;
-				path = (GtkTreePath*)iterator->data;
-				GtkTreePath* parent_path;
-
-				GtkTreeIter iter;
-				GtkTreeIter iter_parent;
-				gboolean valid = TRUE;				
-
-				if(gtk_tree_path_get_depth (path) == 1){
-					last_ppath = path;
-
-					if(gtk_tree_model_get_iter (model, &iter_parent, path)){
-						if(gtk_tree_model_iter_children (model, &iter, &iter_parent)){
+		if(error == NULL){
+			int page;
+			page = gtk_notebook_get_current_page (GTK_NOTEBOOK(widget));
+			switch(page){
+			case 0:
+				widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+									      "dialogaddgroup_treeviewchannelsgroups");
+				GtkTreeSelection *selection;
+				selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(widget));
+				
+				GtkTreeModel* model;
+				model = (GtkTreeModel *) gtk_builder_get_object (app->gui,
+										 "treestore_channelsgroup");
+				GList *list;
+				list = gtk_tree_selection_get_selected_rows (selection, &model);
+				
+				GList* iterator = NULL;
+				iterator = g_list_first (list);
+				
+				if(iterator == NULL){
+					errmsg = g_strdup_printf(_("Please select a least one group !"));
+				}
+				
+				GtkTreePath* last_ppath = NULL;
+				FreetuxTVChannelsGroupInfos *channels_group_infos;
+				
+				while(iterator != NULL){
+					GtkTreePath* path;
+					path = (GtkTreePath*)iterator->data;
+					GtkTreePath* parent_path;
 					
-							do {
+					GtkTreeIter iter;
+					GtkTreeIter iter_parent;
+					gboolean valid = TRUE;				
+					
+					if(gtk_tree_path_get_depth (path) == 1){
+						last_ppath = path;
+						
+						if(gtk_tree_model_get_iter (model, &iter_parent, path)){
+							if(gtk_tree_model_iter_children (model, &iter, &iter_parent)){
+								
+								do {
+									gtk_tree_model_get (model, &iter, MODEL_CHANNELSGROUP_NAME, &sgroupname,
+											    MODEL_CHANNELSGROUP_URI, &sgroupuri,
+											    MODEL_CHANNELSGROUP_BREGEX, &sbregex,
+											    MODEL_CHANNELSGROUP_EREGEX, &seregex, -1);
+									
+									channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
+									freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
+									channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
+									
+								}while (gtk_tree_model_iter_next(model, &iter));
+								
+							}
+						}
+					}else{
+						parent_path = gtk_tree_path_copy (path);
+						gtk_tree_path_up(parent_path);
+						
+						if(last_ppath != NULL){
+							if(gtk_tree_path_compare (parent_path, last_ppath) == 0){
+								valid = FALSE;
+							}
+						}
+						gtk_tree_path_free (parent_path);
+						
+						if(valid){
+							if(gtk_tree_model_get_iter (model, &iter, path)){
 								gtk_tree_model_get (model, &iter, MODEL_CHANNELSGROUP_NAME, &sgroupname,
 										    MODEL_CHANNELSGROUP_URI, &sgroupuri,
 										    MODEL_CHANNELSGROUP_BREGEX, &sbregex,
 										    MODEL_CHANNELSGROUP_EREGEX, &seregex, -1);
 								
-								channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
-								freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
-								channels_list_add_channels_group (app, channels_group_infos);
-								
-							}while (gtk_tree_model_iter_next(model, &iter));
-
-						}
-					}
-				}else{
-					parent_path = gtk_tree_path_copy (path);
-					gtk_tree_path_up(parent_path);
-
-					if(last_ppath != NULL){
-						if(gtk_tree_path_compare (parent_path, last_ppath) == 0){
-							valid = FALSE;
-						}
-					}
-					gtk_tree_path_free (parent_path);
-
-					if(valid){
-						if(gtk_tree_model_get_iter (model, &iter, path)){
-							gtk_tree_model_get (model, &iter, MODEL_CHANNELSGROUP_NAME, &sgroupname,
-									    MODEL_CHANNELSGROUP_URI, &sgroupuri,
-									    MODEL_CHANNELSGROUP_BREGEX, &sbregex,
-									    MODEL_CHANNELSGROUP_EREGEX, &seregex, -1);
-
 							channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
 							freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
-							channels_list_add_channels_group (app, channels_group_infos);
-						}						
-					}					
+							channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
+							}						
+						}					
+					}
+					
+					iterator = g_list_next(iterator);
 				}
+				g_list_free (list);
 				
-				iterator = g_list_next(iterator);
-			}
-			g_list_free (list);
-
-			break;
-		case 1:
-			
-			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+				break;
+			case 1:
+				
+				widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 								       "dialogaddgroup_name");
-			sgroupname = gtk_entry_get_text(GTK_ENTRY(widget));
-			
-			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-									 "dialogaddgroup_uri");
-			sgroupuri = gtk_entry_get_text(GTK_ENTRY(widget));
-			
-			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-								       "dialogaddgroup_bregex");
-			sbregex = gtk_entry_get_text(GTK_ENTRY(widget));
-			
-			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-								       "dialogaddgroup_eregex");
-			seregex = gtk_entry_get_text(GTK_ENTRY(widget));			
-			
-			/* Check the field */
-			if(g_ascii_strcasecmp(sgroupname,"") == 0 && errmsg == NULL){
-				errmsg = g_strdup_printf(_("Please enter the group's name !"));
-			}
-			if(g_ascii_strcasecmp(sgroupuri,"") == 0 && errmsg == NULL){
-				errmsg = g_strdup_printf(_("Please enter the group's URI !"));
-			}
-			
-			if(errmsg == NULL){				
-				if(g_ascii_strcasecmp(sbregex,"") == 0 ){
-					sbregex = NULL;
+				sgroupname = gtk_entry_get_text(GTK_ENTRY(widget));
+				
+				widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+									       "dialogaddgroup_uri");
+				sgroupuri = gtk_entry_get_text(GTK_ENTRY(widget));
+				
+				widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+									       "dialogaddgroup_bregex");
+				sbregex = gtk_entry_get_text(GTK_ENTRY(widget));
+				
+				widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+									       "dialogaddgroup_eregex");
+				seregex = gtk_entry_get_text(GTK_ENTRY(widget));			
+				
+				/* Check the field */
+				if(g_ascii_strcasecmp(sgroupname,"") == 0 && errmsg == NULL){
+					errmsg = g_strdup_printf(_("Please enter the group's name !"));
 				}
-				if(g_ascii_strcasecmp(seregex,"") == 0 ){
-					seregex = NULL;
+				if(g_ascii_strcasecmp(sgroupuri,"") == 0 && errmsg == NULL){
+					errmsg = g_strdup_printf(_("Please enter the group's URI !"));
 				}
 				
-				FreetuxTVChannelsGroupInfos *channels_group_infos;		
-				channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
-				freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
+				if(errmsg == NULL){				
+					if(g_ascii_strcasecmp(sbregex,"") == 0 ){
+						sbregex = NULL;
+					}
+					if(g_ascii_strcasecmp(seregex,"") == 0 ){
+						seregex = NULL;
+					}
+					
+					FreetuxTVChannelsGroupInfos *channels_group_infos;		
+					channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
+					freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
+					
+					channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
+				}
 				
-				channels_list_add_channels_group (app, channels_group_infos);
-				
-				// TODO channels_list_refresh_group (app, channels_group);
-				//channels_group_reload_channels (channels_group, app);
+				break;
 			}
-			
-			break;
 		}
+		dbsync_close_db(&dbsync);
 
 		if(errmsg != NULL){
 			windowmain_show_error (app, errmsg);
 			g_free(errmsg);
+		}
+		if(error != NULL){
+			windowmain_show_gerror (app, error);
+			g_error_free (error);
 		}
 
 	}

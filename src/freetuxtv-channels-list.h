@@ -15,6 +15,7 @@
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-channels-group-infos.h"
+#include "freetuxtv-db-sync.h"
 
 #define FREETUXTV_CURL_ERROR freetuxtv_curl_error_quark ()
 typedef enum
@@ -29,7 +30,7 @@ typedef enum
 } FreetuxTVLibM3UParseError;
 
 GQuark
-freetuxtv_dbsync_error_quark ();
+freetuxtv_curl_error_quark ();
 
 GQuark
 freetuxtv_libm3uparse_error_quark ();
@@ -38,18 +39,19 @@ void
 channels_list_init (FreetuxTVApp *app);
 
 void
-channels_list_load_channels (FreetuxTVApp *app);
+channels_list_load_channels (FreetuxTVApp *app, DBSync* dbsync, GError** error);
 
 void
-channels_list_add_channels_group (FreetuxTVApp *app, 
-				  FreetuxTVChannelsGroupInfos* channels_group_infos);
+channels_list_add_channels_group (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* channels_group_infos,
+				  DBSync* dbsync, GError** error);
 
 void
 channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 				     FreetuxTVChannelsGroupInfos* channels_group_infos);
 
 void
-channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group);
+channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
+				      DBSync* dbsync, GError** error);
 
 void
 channels_list_delete_channels_channels_group (FreetuxTVApp *app, GtkTreePath *path_group);
