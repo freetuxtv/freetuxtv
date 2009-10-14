@@ -364,6 +364,10 @@ splashscreen_app_init(gpointer data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)data;
 	GError* error = NULL;
+
+	// Open database
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
 	
 	GtkWidget *widget;
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
@@ -398,16 +402,20 @@ splashscreen_app_init(gpointer data)
 	windowmain_display_buttons (app, WINDOW_MODE_STOPPED);	
 	
 	// Loading the models
-	g_print("FreetuxTV : Loading models\n");
-	splashscreen_statusbar_push (app, _("Loading models..."));
-	load_all_models (app, &error);
-	splashscreen_statusbar_pop (app);
+	if(error == NULL){
+		g_print("FreetuxTV : Loading models\n");
+		splashscreen_statusbar_push (app, _("Loading models..."));
+		load_all_models (app, &error);
+		splashscreen_statusbar_pop (app);
+	}
 
 	// Loading the list of channels
-	g_print("FreetuxTV : Loading the list of channels\n");
-	splashscreen_statusbar_push (app, _("Loading the list of channels..."));
-	channels_list_load_channels (app);
-	splashscreen_statusbar_pop (app);
+	if(error == NULL){
+		g_print("FreetuxTV : Loading the list of channels\n");
+		splashscreen_statusbar_push (app, _("Loading the list of channels..."));
+		channels_list_load_channels (app, &dbsync, &error);
+		splashscreen_statusbar_pop (app);
+	}
 
 	// Loading the list of recordings
 	g_print("FreetuxTV : Loading the list of recordings\n");
@@ -439,6 +447,9 @@ splashscreen_app_init(gpointer data)
 		gtk_widget_show(widget);
 	}	
 	
+	// Close database
+	dbsync_close_db(&dbsync);
+
 	// Start internal timer
 	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);	
 }

@@ -44,7 +44,7 @@ void
 dbsync_open_db(DBSync *dbsync, GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
-	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
 
 	gchar *user_db;
 	int res;
@@ -72,6 +72,7 @@ void
 dbsync_close_db (DBSync *dbsync)
 {
 	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
 
 	g_print("Close database\n");
 	sqlite3_close(dbsync->db_link);
@@ -85,6 +86,8 @@ dbsync_select_channels_groups (DBSync *dbsync, FreetuxTVApp *app,
 			       gpointer user_data, GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
 	g_return_if_fail(app != NULL);
 
 	gchar *query;
@@ -132,6 +135,8 @@ dbsync_select_channels_of_channels_group (DBSync *dbsync,
 					  gpointer user_data, GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
 	g_return_if_fail(app != NULL);
 
 	gchar *query;
@@ -181,6 +186,8 @@ dbsync_add_channel (DBSync *dbsync,
 		    GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
 	g_return_if_fail(channel_infos != NULL);
 	g_return_if_fail(FREETUXTV_IS_CHANNEL_INFOS(channel_infos));
 
@@ -232,6 +239,8 @@ dbsync_add_channels_group (DBSync *dbsync,
 			   GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
 	g_return_if_fail(channels_group_infos != NULL);
 	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(channels_group_infos));
 
@@ -274,6 +283,8 @@ dbsync_update_channels_group (DBSync *dbsync,
 			      GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
 	g_return_if_fail(channels_group_infos != NULL);
 	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(channels_group_infos));
 
@@ -318,7 +329,9 @@ dbsync_delete_channels_group (DBSync *dbsync,
 			      FreetuxTVChannelsGroupInfos* channels_group_infos,
 			      GError** error)
 {
+	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
 	g_return_if_fail(channels_group_infos != NULL);
 	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(channels_group_infos));
 
@@ -352,7 +365,9 @@ dbsync_delete_channels_of_channels_group (DBSync *dbsync,
 					  FreetuxTVChannelsGroupInfos* channels_group_infos,
 					  GError** error)
 {
+	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
 	g_return_if_fail(channels_group_infos != NULL);
 	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(channels_group_infos));
 
