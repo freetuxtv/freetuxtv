@@ -9,7 +9,6 @@
  */
 
 #include <gtk/gtk.h>
-#include <sqlite3.h>
 #include <curl/curl.h>
 
 #include "freetuxtv-channels-list.h"
@@ -172,9 +171,10 @@ channels_list_init (FreetuxTVApp *app)
 }
 
 void
-channels_list_load_channels (FreetuxTVApp *app)
+channels_list_load_channels (FreetuxTVApp *app, DBSync* dbsync, GError** error)
 {
-	GError* error = NULL;
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
 
 	GtkTreeIter iter;
 	CBIterData iter_data;
@@ -183,54 +183,34 @@ channels_list_load_channels (FreetuxTVApp *app)
 	iter_data.iter_parent = NULL;
 
 	// Load list of channel from database
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-	if(error == NULL){
+	if(*error == NULL){
 		gtk_tree_store_clear(GTK_TREE_STORE(app->channelslist));
-		dbsync_select_channels_groups (&dbsync, app, on_dbsync_add_channels_group, &iter_data, &error);
+		dbsync_select_channels_groups (dbsync, app, on_dbsync_add_channels_group, &iter_data, error);
 	}
-	
-	/*
-	// Expand all channels
-	if(error == NULL){
-		channels_list_display_channels (app);
-	}
-	*/
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-
-	dbsync_close_db(&dbsync);
 }
 
 void
-channels_list_add_channels_group (FreetuxTVApp *app, 
-				  FreetuxTVChannelsGroupInfos* channels_group_infos)
+channels_list_add_channels_group (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* channels_group_infos,
+				  DBSync* dbsync, GError** error)
 {
-	GError* error = NULL;
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
 	
-	// Add the group in the database
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-	if(error == NULL){
-		dbsync_add_channels_group (&dbsync, channels_group_infos, &error);
+	if(*error == NULL){
+		dbsync_add_channels_group (dbsync, channels_group_infos, error);
 	}
-	dbsync_close_db(&dbsync);
 
 	// Add group in the treeview
-	if(error == NULL){	
+	if(*error == NULL){	
 		GtkTreeIter iter_channelsgroup;
 		gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup, NULL);
 		gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup,
-				    CHANNELSGROUP_COLUMN, channels_group_infos, -1);	
+				    CHANNELSGROUP_COLUMN, channels_group_infos, -1);
 
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
+		GtkTreePath* path;
+		path = gtk_tree_model_get_path(app->channelslist, &iter_channelsgroup);
+		
+		channels_list_refresh_channels_group(app, path, dbsync, error);
 	}
 }
 
@@ -263,10 +243,12 @@ channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 }
 
 void
-channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
-{
-	GError* error = NULL;
-	
+channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
+				      DBSync* dbsync, GError** error)
+{	
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
+
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
 	channels_group_infos = channels_list_get_group (app, path_group);
 
@@ -285,43 +267,37 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 	g_print("FreetuxTV : Getting the file \"%s\"\n", channels_group_infos->uri);
 
 	char *file;
-	channels_group_get_file (channels_group_infos, &file, TRUE, &error);		
+	channels_group_get_file (channels_group_infos, &file, TRUE, error);		
 	windowmain_statusbar_pop (app, "UpdateMsg");
 
-	// Database connection
-	DBSync dbsync;	
-	if(error == NULL){
-		dbsync_open_db (&dbsync, &error);
-	}
-
 	// Delete channels of the channels group in the database 
-	if(error == NULL){
-		dbsync_delete_channels_of_channels_group (&dbsync, channels_group_infos, &error);
+	if(*error == NULL){
+		dbsync_delete_channels_of_channels_group (dbsync, channels_group_infos, error);
 	}
 	
 	// Parse the M3U file and add channels in the database
-	if(error == NULL){
+	if(*error == NULL){
 		Parsem3uData pdata;
 		pdata.channels_group_infos = channels_group_infos;
-		pdata.dbsync = &dbsync;
+		pdata.dbsync = dbsync;
 		pdata.app = app;
-		pdata.error = &error;
+		pdata.error = error;
 		int res = 0;
 
 		g_print("FreetuxTV : Parsing the file \"%s\"\n", file);
 		res = libm3uparser_parse(file, &on_parsem3u_add_channel, &pdata);
 		if (res != LIBM3UPARSER_OK){		
 			if (res != LIBM3UPARSER_CALLBACK_RETURN_ERROR){
-				error = g_error_new (FREETUXTV_LIBM3UPARSE_ERROR,
-						     FREETUXTV_LIBM3UPARSE_ERROR_PARSE,
-						     _("Error when adding the channels.\n\nM3UParser has returned error :\n%s."),
-						     libm3uparser_errmsg(res));
+				*error = g_error_new (FREETUXTV_LIBM3UPARSE_ERROR,
+						      FREETUXTV_LIBM3UPARSE_ERROR_PARSE,
+						      _("Error when adding the channels.\n\nM3UParser has returned error :\n%s."),
+						      libm3uparser_errmsg(res));
 			}
 		}
 		
 	}
 
-	if(error == NULL){
+	if(*error == NULL){
 		// Delete channels of the channels group in the treeview
 		channels_list_delete_rows (app, path_group, TRUE);
 
@@ -334,25 +310,18 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 		iter_data.iter = &iter_channel;
 		iter_data.iter_parent = &iter_group;
 
-		dbsync_select_channels_of_channels_group (&dbsync, channels_group_infos, app, on_dbsync_add_channel, &iter_data, &error);
+		dbsync_select_channels_of_channels_group (dbsync, channels_group_infos, app, on_dbsync_add_channel, &iter_data, error);
 	}
 
 	// Expand the group
-	if(error == NULL){
+	if(*error == NULL){
 		GtkWidget *treeview;
 		treeview = (GtkWidget *)gtk_builder_get_object (app->gui,
 								"windowmain_treeviewchannelslist");
 		gtk_tree_view_expand_row (GTK_TREE_VIEW(treeview), path_group, FALSE);
 	}
 	
-	dbsync_close_db(&dbsync);
-	
 	windowmain_statusbar_pop (app, "UpdateMsg");
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
 }
 
 
@@ -858,7 +827,22 @@ static void
 on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data)
 {
 	CBGroupData *cbgroupdata = (CBGroupData *)user_data;
-	channels_list_refresh_channels_group(cbgroupdata->app, cbgroupdata->path_group);	
+
+	GError* error = NULL;
+
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		channels_list_refresh_channels_group(cbgroupdata->app, cbgroupdata->path_group, &dbsync, &error);
+	}
+
+	dbsync_close_db(&dbsync);
+	
+	if(error != NULL){
+		windowmain_show_gerror (cbgroupdata->app, error);
+		g_error_free (error);
+	}	
 }
 
 static void
