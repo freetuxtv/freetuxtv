@@ -2,20 +2,6 @@
 <interface>
   <!-- interface-requires gtk+ 2.12 -->
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkListStore" id="liststore1">
-    <columns>
-      <!-- column-name item -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">http://</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">file://</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkListStore" id="liststore_recordings">
     <columns>
       <!-- column-name Filename -->
@@ -48,13 +34,15 @@
   </object>
   <object class="GtkTreeStore" id="treestore_channelsgroup">
     <columns>
-      <!-- column-name Language -->
-      <column type="gchararray"/>
-      <!-- column-name Channels -->
+      <!-- column-name Name -->
       <column type="gchararray"/>
       <!-- column-name URI -->
       <column type="gchararray"/>
-      <!-- column-name Required -->
+      <!-- column-name Required ISP -->
+      <column type="gchararray"/>
+      <!-- column-name BRegex -->
+      <column type="gchararray"/>
+      <!-- column-name ERegex -->
       <column type="gchararray"/>
     </columns>
   </object>
@@ -561,6 +549,7 @@
     <property name="title" translatable="yes">Add a group</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
+    <property name="default_height">450</property>
     <property name="icon_name">video-display</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">windowmain</property>
@@ -570,7 +559,7 @@
         <property name="visible">True</property>
         <property name="spacing">2</property>
         <child>
-          <object class="GtkNotebook" id="notebook1">
+          <object class="GtkNotebook" id="dialogaddgroup_notebook">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
@@ -598,14 +587,14 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">&#x25CF;</property>
-                        <property name="text" translatable="yes">http://code.google.com/p/freetuxtv/source/browse/#svn/trunk/data/channels_groups.xml</property>
+                        <property name="text" translatable="yes">http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml</property>
                       </object>
                       <packing>
                         <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button1">
+                      <object class="GtkButton" id="dialogaddgroup_buttonrefresh">
                         <property name="label" translatable="yes">gtk-refresh</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -634,25 +623,20 @@
                     <property name="vscrollbar_policy">automatic</property>
                     <property name="shadow_type">etched-in</property>
                     <child>
-                      <object class="GtkTreeView" id="treeview2">
+                      <object class="GtkTreeView" id="dialogaddgroup_treeviewchannelsgroups">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="model">treestore_channelsgroup</property>
                         <property name="headers_clickable">False</property>
                         <property name="expander_column">treeviewcolumn1</property>
                         <property name="search_column">0</property>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn1">
-                            <property name="title">Channels group</property>
+                            <property name="title">Languages/Channels group</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext1"/>
                               <attributes>
                                 <attribute name="text">0</attribute>
-                              </attributes>
-                            </child>
-                            <child>
-                              <object class="GtkCellRendererText" id="cellrenderertext4"/>
-                              <attributes>
-                                <attribute name="text">1</attribute>
                               </attributes>
                             </child>
                           </object>
@@ -674,7 +658,7 @@
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext3"/>
                               <attributes>
-                                <attribute name="text">4</attribute>
+                                <attribute name="text">1</attribute>
                               </attributes>
                             </child>
                           </object>
@@ -794,6 +778,8 @@
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -890,6 +876,8 @@
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -1646,6 +1634,8 @@ Thomas L (logos)</property>
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -1669,6 +1659,8 @@ Thomas L (logos)</property>
                                 <property name="border_width">3</property>
                                 <property name="n_rows">2</property>
                                 <property name="n_columns">2</property>
+                                <property name="column_spacing">3</property>
+                                <property name="row_spacing">3</property>
                                 <child>
                                   <object class="GtkLabel" id="label8">
                                     <property name="visible">True</property>
@@ -1741,6 +1733,8 @@ Thomas L (logos)</property>
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">1</property>
                   </packing>
                 </child>

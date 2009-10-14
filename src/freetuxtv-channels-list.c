@@ -8,19 +8,16 @@
  * 
  */
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
-
 #include <gtk/gtk.h>
 #include <sqlite3.h>
 #include <curl/curl.h>
+
+#include "freetuxtv-channels-list.h"
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
 #include "freetuxtv-channel-infos.h"
 #include "freetuxtv-channels-group-infos.h"
-#include "freetuxtv-channels-list.h"
 #include "freetuxtv-cellrenderer-channelslist.h"
 #include "freetuxtv-logos-list.h"
 #include "freetuxtv-db-sync.h"
@@ -225,19 +222,6 @@ channels_list_add_channels_group (FreetuxTVApp *app,
 	// Add group in the treeview
 	if(error == NULL){	
 		GtkTreeIter iter_channelsgroup;
-	
-		GtkTreePath *path;
-		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(app->channelslist), &iter_channelsgroup);
-
-		int rank = 1;
-
-		while (gtk_tree_model_iter_next(GTK_TREE_MODEL(app->channelslist), &iter_channelsgroup)){
-			rank++;
-		}
-
-		freetuxtv_channels_group_infos_set_rank (channels_group_infos,
-							 rank + 1);
-
 		gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup, NULL);
 		gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup,
 				    CHANNELSGROUP_COLUMN, channels_group_infos, -1);	

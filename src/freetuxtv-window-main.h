@@ -11,6 +11,8 @@
 #ifndef FREETUXTV_WINDOW_MAIN_H
 #define FREETUXTV_WINDOW_MAIN_H
 
+#include "freetuxtv-app.h"
+
 typedef enum {
 	WINDOW_MODE_STOPPED,
 	WINDOW_MODE_PLAYING,

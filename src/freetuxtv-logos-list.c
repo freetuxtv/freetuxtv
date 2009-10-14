@@ -8,12 +8,10 @@
  * 
  */
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
-
 #include <gtk/gtk.h>
 #include <sqlite3.h>
+
+#include "freetuxtv-logos-list.h"
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
