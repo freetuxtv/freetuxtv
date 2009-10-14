@@ -15,6 +15,8 @@ freetuxtv_SOURCES = \
   freetuxtv-i18n.h \
   freetuxtv-logos-list.c \
   freetuxtv-logos-list.h \
+  freetuxtv-models.c \
+  freetuxtv-models.h \
   freetuxtv-recordings-list.c \
   freetuxtv-recordings-list.h \
   freetuxtv-utils.c \

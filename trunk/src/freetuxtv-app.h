@@ -8,6 +8,10 @@
  * 
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #ifndef FREETUXTV_APP_H
 #define FREETUXTV_APP_H
 
@@ -64,7 +68,7 @@ struct _FreetuxTVApp {
 		} recording;
 
 	} current;
-
+	
 	gboolean debug;	
 
 };

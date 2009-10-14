@@ -40,29 +40,3 @@ CREATE TRIGGER fkd_channel_id
       DELETE from channel WHERE channelsgroup_channel = OLD.id_channelsgroup;
   END;
 
-
-insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
-			values ('FreeboxTV','http://mafreebox.freebox.fr/freeboxtv/playlist.m3u', '[0-9]* - ');
-insert into channels_group (name_channelsgroup, uri_channelsgroup) 
-			values ('FreeboxTV (non dégroupé)','http://freetuxtv.googlecode.com/files/playlist_freeboxtv_nd.m3u');
-insert into channels_group (name_channelsgroup, uri_channelsgroup)
-			values ('SFR TV','http://televisionsurpc.sfr.fr/televisionsurpc.m3u');
-insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
-			values ('Orange TV','http://vlc-media-player.org/m3u/orangetv.m3u', '[0-9]*\. ');
-insert into channels_group (name_channelsgroup, uri_channelsgroup)
-			values ('Bouygues TV','http://bbox-news.com/documents/tv_sur_pc_bbox.m3u');
-insert into channels_group (name_channelsgroup, uri_channelsgroup)
-			values ('Alice','http://vlc-media-player.org/m3u/alicetv.m3u');
-insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
-			values ('Web TV (German)','http://freetuxtv.googlecode.com/files/playlist_webtv_de.m3u', '[0-9]* - ');
-insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
-			values ('Web TV (English)','http://freetuxtv.googlecode.com/files/playlist_webtv_en.m3u', '[0-9]* - ');
-insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
-			values ('Web TV (Spanish)','http://freetuxtv.googlecode.com/files/playlist_webtv_es.m3u', '[0-9]* - ');
-insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
-			values ('Web TV (Française)','http://freetuxtv.googlecode.com/files/playlist_webtv_fr.m3u', '[0-9]* - ');
-insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
-			values ('Web TV (Italian)','http://freetuxtv.googlecode.com/files/playlist_webtv_it.m3u', '[0-9]* - ');
-insert into channels_group (name_channelsgroup, uri_channelsgroup, bregex_channelsgroup)
-			values ('Web TV (Chinese)','http://freetuxtv.googlecode.com/files/playlist_webtv_zh.m3u', '[0-9]* - ');
-
