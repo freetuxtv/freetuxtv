@@ -27,6 +27,7 @@
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-recordings-list.h"
 #include "freetuxtv-logos-list.h"
+#include "freetuxtv-models.h"
 #include "gtk-libvlc-media-player.h"
 
 int
@@ -362,6 +363,7 @@ static gboolean
 splashscreen_app_init(gpointer data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)data;
+	GError* error = NULL;
 	
 	GtkWidget *widget;
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
@@ -373,7 +375,7 @@ splashscreen_app_init(gpointer data)
 	init_user_configuration();
 	splashscreen_statusbar_pop (app);
 
-	// Loading user configuration form .ini file
+	// Loading user configuration from .ini file
 	splashscreen_statusbar_push (app, _("Loading user configuration..."));
 	load_user_configuration(app);
 	splashscreen_statusbar_pop (app);	
@@ -393,8 +395,14 @@ splashscreen_app_init(gpointer data)
 	splashscreen_statusbar_pop (app);
 
 	// Initialise l'interface
-	windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
+	windowmain_display_buttons (app, WINDOW_MODE_STOPPED);	
 	
+	// Loading the models
+	g_print("FreetuxTV : Loading models\n");
+	splashscreen_statusbar_push (app, _("Loading models..."));
+	load_all_models (app, &error);
+	splashscreen_statusbar_pop (app);
+
 	// Loading the list of channels
 	g_print("FreetuxTV : Loading the list of channels\n");
 	splashscreen_statusbar_push (app, _("Loading the list of channels..."));
@@ -422,6 +430,15 @@ splashscreen_app_init(gpointer data)
 		freetuxtv_play_channel (app, app->current.path_channel);
 	}
 
+	// Display add group window if no channels group installed
+	int nb_channelsgroup;
+	nb_channelsgroup = gtk_tree_model_iter_n_children (app->channelslist, NULL);
+	if(nb_channelsgroup == 0){
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialogaddgroup");
+		gtk_widget_show(widget);
+	}	
+	
 	// Start internal timer
 	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);	
 }
