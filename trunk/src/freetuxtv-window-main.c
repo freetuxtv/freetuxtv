@@ -1068,7 +1068,7 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 				GtkTreePath* last_ppath = NULL;
 				FreetuxTVChannelsGroupInfos *channels_group_infos;
 				
-				while(iterator != NULL){
+				while(iterator != NULL && error == NULL){
 					GtkTreePath* path;
 					path = (GtkTreePath*)iterator->data;
 					GtkTreePath* parent_path;
@@ -1093,7 +1093,7 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 									freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
 									channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
 									
-								}while (gtk_tree_model_iter_next(model, &iter));
+								}while (gtk_tree_model_iter_next(model, &iter) && error == NULL);
 								
 							}
 						}
