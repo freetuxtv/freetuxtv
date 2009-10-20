@@ -2,13 +2,30 @@
 	<language id="ar" lang="Arabic">
 		<channels_group name="Web TV (Arabic)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ar.m3u" />
 	</language>
+	<language id="ca" lang="Catalan">
+		<channels_group name="Web Radio (Catalan)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_ca.m3u" />
+		<channels_group name="Web TV (Catalan)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ca.m3u" />
+	</language>
+	<language id="cs" lang="Czech">
+		<channels_group name="Web TV (Czech)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_cs.m3u" />
+	</language>
 	<language id="de" lang="German">
 		<channels_group name="Web Radio (German)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_de.m3u" />
 		<channels_group name="Web TV (German)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_de.m3u" />
 	</language>
+	<language id="el" lang="Modern Greek">
+		<channels_group name="Web TV (Modern Greek)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_el.m3u" />
+	</language>
 	<language id="en" lang="English">
 		<channels_group name="Web Radio (English)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_en.m3u" />
 		<channels_group name="Web TV (English)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_en.m3u" />
+	</language>
+	<language id="es" lang="Spanish">
+		<channels_group name="Web TV (Spanish)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_es.m3u" />
+		<channels_group name="Web Radio (Spanish)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_es.m3u" />
+	</language>
+	<language id="fa" lang="Persian">
+		<channels_group name="Web TV (Persian)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fa.m3u" />
 	</language>
 	<language id="fr" lang="French">
 		<channels_group name="FreeboxTV" uri="http://mafreebox.freebox.fr/freeboxtv/playlist.m3u" bregex="[0-9]* - " required_isp="Free"/>
@@ -22,8 +39,8 @@
 		<channels_group name="Web Radio (French)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_fr.m3u" />
 		<channels_group name="Web TV (French)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fr.m3u" />
 	</language>
-	<language id="es" lang="Spanish">
-		<channels_group name="Web TV (Spanish)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_es.m3u" />
+	<language id="hu" lang="Hungarian">
+		<channels_group name="Web TV (Hungarian)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_hu.m3u" />
 	</language>
 	<language id="it" lang="Italian">
 		<channels_group name="Web TV (Italian)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_it.m3u" />
@@ -31,11 +48,38 @@
 	<language id="ja" lang="Japanese">
 		<channels_group name="Web TV (Japanese)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ja.m3u" />
 	</language>
+	<language id="ko" lang="Korean">
+		<channels_group name="Web TV (Korean)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ko.m3u" />
+	</language>
+	<language id="la" lang="Latin">
+		<channels_group name="Web TV (Latin)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_la.m3u" />
+	</language>
+	<language id="nl" lang="Dutch/Flemish">
+		<channels_group name="Web TV (Dutch/Flemish)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_nl.m3u" />
+	</language>
+	<language id="no" lang="Norwegian">
+		<channels_group name="Web TV (Norwegian)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_no.m3u" />
+	</language>
+	<language id="pl" lang="Polish">
+		<channels_group name="Web TV (Polish)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_pl.m3u" />
+	</language>
 	<language id="pt" lang="Portuguese">
 		<channels_group name="Web TV (Portuguese)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_pt.m3u" />
 	</language>
+	<language id="ro" lang="Romanian">
+		<channels_group name="Web TV (Romanian)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ro.m3u" />
+	</language>
 	<language id="ru" lang="Russian">
 		<channels_group name="Web TV (Russian)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ru.m3u" />
+	</language>
+	<language id="sk" lang="Slovak">
+		<channels_group name="Web TV (Slovak)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_sk.m3u" />
+	</language>
+	<language id="sv" lang="Swedish">
+		<channels_group name="Web TV (Swedish)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_sv.m3u" />
+	</language>
+	<language id="tr" lang="Turkish">
+		<channels_group name="Web TV (Turkish)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_tr.m3u" />
 	</language>
 	<language id="zh" lang="Chinese">
 		<channels_group name="Web TV (Chinese)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_zh.m3u" />
