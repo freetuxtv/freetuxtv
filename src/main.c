@@ -364,10 +364,6 @@ splashscreen_app_init(gpointer data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)data;
 	GError* error = NULL;
-
-	// Open database
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
 	
 	GtkWidget *widget;
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
@@ -382,7 +378,11 @@ splashscreen_app_init(gpointer data)
 	// Loading user configuration from .ini file
 	splashscreen_statusbar_push (app, _("Loading user configuration..."));
 	load_user_configuration(app);
-	splashscreen_statusbar_pop (app);	
+	splashscreen_statusbar_pop (app);
+
+	// Open database
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);	
 	
 	// Synchronizing the list of logos if file modified
 	splashscreen_statusbar_push (app, _("Synchronizing the list of logos..."));
@@ -451,7 +451,13 @@ splashscreen_app_init(gpointer data)
 	dbsync_close_db(&dbsync);
 
 	// Start internal timer
-	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);	
+	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
+
+
+	if(error != NULL){
+		g_print("FreetuxTV : Error %s\n", error->message);
+		g_error_free(error);
+	}
 }
 
 static FreetuxTVApp *
