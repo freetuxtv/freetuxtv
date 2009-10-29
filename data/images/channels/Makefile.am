@@ -1,6 +1,7 @@
 channelsdir   = $(datadir)/freetuxtv/images/channels
 channels_DATA = \
   _none.png \
+  2mmaroc.png \
   ab1.png \
   abmoteurs.png \
   accrotv.png \
@@ -8,6 +9,8 @@ channels_DATA = \
   aljazeera.png \
   aljazeerachildren.png \
   aljazeerainternational.png \
+  alsatictv.png \
+  apsaratv.png \
   aptv.png \
   argentquebec.png \
   arretsurimages.png \
@@ -22,35 +25,52 @@ channels_DATA = \
   bbcworld.png \
   bbcworldnews.png \
   beijingtv.png \
+  bestofshopping.png \
   beurtv.png \
+  bfmradio.png \
   bfmtv.png \
   biscottetv.png \
   bloombergtv.png \
   boardriderstv.png \
   c9.png \
   calaistv.png \
+  canalalgerie.png \
   canalplus.png \
   canalsavoir.png \
   canaltv.png \
+  cap24-paris.png \
+  cctv1.png \
+  cctv2.png \
   cctv4.png \
+  cctv7.png \
   cctv9.png \
+  cctv10.png \
+  cctv11.png \
+  cctv12.png \
   cctvdivertissement.png \
+  cctv_e.png \
   cctvf.png \
+  channelonerussia-orti.png \
   cheriefm.png \
+  chongqing_tv.png \
   cinefirst.png \
   cinefx.png \
   cinepolar.png \
+  clermontpremiere.png \
   clubbingtv.png \
   cmusictv.png \
   cnbc.png \
+  contactfm.png \
   corriland.png \
   cpac.png \
   demaintv.png \
   direct8.png \
+  dwtv-deutschewelle.png \
   euronews.png \
   europe1.png \
   fashiontv.png \
   fazzmusic.png \
+  fip.png \
   fmen.png \
   foxlife.png \
   france2.png \
@@ -69,10 +89,15 @@ channels_DATA = \
   funradio.png \
   funtv.png \
   gameone.png \
+  gameonemusichd.png \
+  grandlille_tv.png \
   grossecaisse.png \
   guangdongsoutherntv.png \
   gulli.png \
   guysentv.png \
+  hebei_tv.png \
+  heilongjiangtv.png \
+  hitwest.png \
   hunansatellitetv.png \
   idf1.png \
   inraci.png \
@@ -83,12 +108,17 @@ channels_DATA = \
   kto.png \
   labelletv.png \
   lachainechinoise.png \
+  lachainedejiangsu.png \
   lachaineparlementaire.png \
   lalocale.png \
+  laradiodelamer.png \
   lcnquebec.png \
+  lcm-marseille.png \
   lemouv.png \
   lequipetv.png \
   libertytv.png \
+  localesidf.png \
+  luxetv.png \
   m6boutique.png \
   m6musicblack.png \
   m6musicclub.png \
@@ -98,6 +128,7 @@ channels_DATA = \
   mcm.png \
   mcmpop.png \
   mcmtop.png \
+  medi1sat.png \
   mezzo.png \
   mfm.png \
   miziktropical.png \
@@ -108,6 +139,7 @@ channels_DATA = \
   mtvhits.png \
   natgeomusic.png \
   nationalgeographic.png \
+  nhk.png \
   nightmagcom.png \
   nolife.png \
   normandietv.png \
@@ -123,27 +155,44 @@ channels_DATA = \
   parispremiere.png \
   phoenixchinesenewsandentertainment.png \
   phoenixinfonews.png \
+  publicsenat.png \
+  radioclassique.png \
   radiofg.png \
   radiolibertaire.png \
   radionova.png \
+  raidue.png \
   railtv.png \
+  raitre.png \
+  raiuno.png \
+  rbg.png \
   rdicanada.png \
   relaxtv.png \
+  rfi.png \
   rfm.png \
   rireetchansons.png \
   rmc.png \
+  rmn.png \
   rocktv.png \
+  rtl.png \
   rtl2.png \
   rtl9.png \
+  rtpi.png \
+  rtrplaneta.png \
+  russiatoday.png \
   rve.png \
   sabcnews.png \
   shanghaidragontv.png \
+  shenzhen_tv.png \
+  skynews.png \
   skynewsinternational.png \
   skyrock.png \
+  soleil_la_radio.png \
+  souvenirfromearth.png \
   tele102.png \
   teleblagon.png \
   telegrenoble.png \
   telemelody.png \
+  telenantes.png \
   telenight.png \
   teleplaisance.png \
   telessonne.png \
@@ -152,19 +201,30 @@ channels_DATA = \
   tfou.png \
   tfouwebtv.png \
   tllteleloire.png \
+  tlm-lyon.png \
+  tlt-toulouse.png \
   tmc.png \
   tracetropical.png \
   tracetv.png \
+  trtint.png \
   turnerclassicmovies.png \
   tv5.png \
+  tv7bordeaux.png \
+  tv7tunisia.png \
   tv8montblanc.png \
   tvaquebec.png \
+  tveint.png \
   tvpi.png \
+  tvpolonia-tvp.png \
+  tvtours.png \
+  vesti.png \
   vh1.png \
   vh1classic.png \
   videoclick.png \
   virgin17.png \
   virginradio.png \
+  worldfashion.png \
   xiamenstartv.png \
+  zdf_de.png \
 	zhejiangstartv.png
 EXTRA_DIST   = $(channels_DATA)
