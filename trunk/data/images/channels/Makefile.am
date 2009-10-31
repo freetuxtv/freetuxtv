@@ -1,14 +1,18 @@
 channelsdir   = $(datadir)/freetuxtv/images/channels
 channels_DATA = \
   _none.png \
+  1onairconnect.png \
+  100pourcentradio.png \
   2mmaroc.png \
   ab1.png \
   abmoteurs.png \
   accrotv.png \
   action.png \
+  adofm.png \
   aljazeera.png \
   aljazeerachildren.png \
   aljazeerainternational.png \
+  alouettefm.png \
   alsatictv.png \
   apsaratv.png \
   aptv.png \
@@ -19,6 +23,7 @@ channels_DATA = \
   artplatv.png \
   astrocentertv.png \
   astv.png \
+  aupradio.png \
   babylontv.png \
   bambochtv.png \
   bastilletv.png \
@@ -26,6 +31,7 @@ channels_DATA = \
   bbcworldnews.png \
   beijingtv.png \
   bestofshopping.png \
+  beurfm.png \
   beurtv.png \
   bfmradio.png \
   bfmtv.png \
@@ -34,6 +40,7 @@ channels_DATA = \
   boardriderstv.png \
   c9.png \
   calaistv.png \
+  canalacademie.png \
   canalalgerie.png \
   canalplus.png \
   canalsavoir.png \
@@ -62,15 +69,22 @@ channels_DATA = \
   cnbc.png \
   contactfm.png \
   corriland.png \
+  couleur3-rsr.png \
   cpac.png \
   demaintv.png \
   direct8.png \
   dwtv-deutschewelle.png \
+  ekodesgarrigues.png \
   euronews.png \
   europe1.png \
+  espacefm.png \
+  espacemusique.png \
+  evasionfm.png \
   fashiontv.png \
   fazzmusic.png \
+  fcradiolessentiel.png \
   fip.png \
+  flyfm.png \
   fmen.png \
   foxlife.png \
   france2.png \
@@ -84,8 +98,10 @@ channels_DATA = \
   franceinter.png \
   francemusique.png \
   franceo.png \
+  francevivace.png \
   freenewstv.png \
   frequence3.png \
+  frequenceindia.png \
   funradio.png \
   funtv.png \
   gameone.png \
@@ -103,6 +119,12 @@ channels_DATA = \
   inraci.png \
   itelevision.png \
   jamzine.png \
+  jazzradioblack.png \
+  jazzradioblues.png \
+  jazzradio-exfrequencejazz.png \
+  jazzradioladies.png \
+  jazzradiolounge.png \
+  jazzradioreprises.png \ 
   jet.png \
   jukebox.png \
   kto.png \
@@ -131,12 +153,19 @@ channels_DATA = \
   medi1sat.png \
   mezzo.png \
   mfm.png \
+  mfmflashback.png \
+  mfmserenite.png \
+  mfmsexy.png \
   miziktropical.png \
   mjcapt.png \
+  montecarlodoualiya.png \
+  mosaiquefm.png \
+  mplusm.png \
   mtv.png \
   mtv2.png \
   mtvdance.png \
   mtvhits.png \
+  nasatv.png \
   natgeomusic.png \
   nationalgeographic.png \
   nhk.png \
@@ -147,19 +176,45 @@ channels_DATA = \
   nrj.png \
   nrj12.png \
   nrjhits.png \
+  nrjnouveautes.png \
   nrjparis.png \
   nt1.png \
+  nti.png \
   orleanstv.png \
+  ozradio.png \
   ouesttv.png \
   ouifm.png \
   parispremiere.png \
+  parentheseradio.png \
   phoenixchinesenewsandentertainment.png \
   phoenixinfonews.png \
   publicsenat.png \
+  radio8.png \
+  radiocean.png \
+  radioclapas.png \
   radioclassique.png \
+  radioethic.png \
   radiofg.png \
+  radiofgamerica.png \
+  radiofgchic.png \
+  radiofgclassics.png \
+  radiofgdance.png \
+  radiofgunderground.png \
+  radioicietmaintenant.png \
+  radiojunior.png \
+  radiolatina.png \
   radiolibertaire.png \
+  radiomelodie.png \
+  radioneo.png \
+  radionotredame.png \
   radionova.png \
+  radiopublicsante.png \
+  radioscoop80s.png \
+  radioscoopboxvintage.png \
+  radioscoopmusicpod.png \
+  radioscoop.png \
+  radiostar.png \
+  radiosun.png \
   raidue.png \
   railtv.png \
   raitre.png \
@@ -172,12 +227,14 @@ channels_DATA = \
   rireetchansons.png \
   rmc.png \
   rmn.png \
+  rocfm.png \
   rocktv.png \
   rtl.png \
   rtl2.png \
   rtl9.png \
   rtpi.png \
   rtrplaneta.png \
+  rtsfm.png \
   russiatoday.png \
   rve.png \
   sabcnews.png \
@@ -188,6 +245,7 @@ channels_DATA = \
   skyrock.png \
   soleil_la_radio.png \
   souvenirfromearth.png \
+  sudradio.png \
   tele102.png \
   teleblagon.png \
   telegrenoble.png \
@@ -197,6 +255,7 @@ channels_DATA = \
   teleplaisance.png \
   telessonne.png \
   telif.png \
+  tempomix.png \ 
   teva.png \
   tfou.png \
   tfouwebtv.png \
@@ -204,9 +263,11 @@ channels_DATA = \
   tlm-lyon.png \
   tlt-toulouse.png \
   tmc.png \
+  topmusic.png \
   tracetropical.png \
   tracetv.png \
   trtint.png \
+  tsfjazz.png \
   turnerclassicmovies.png \
   tv5.png \
   tv7bordeaux.png \
@@ -220,9 +281,11 @@ channels_DATA = \
   vesti.png \
   vh1.png \
   vh1classic.png \
+  vibration.png \
   videoclick.png \
   virgin17.png \
   virginradio.png \
+  voltage.png \
   worldfashion.png \
   xiamenstartv.png \
   zdf_de.png \
