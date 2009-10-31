@@ -13,17 +13,29 @@ FreetuxTV 0.4.0 (2009-)
     Web TV Néerlandaise, Web TV Norvégienne, Web TV Persane, Web TV Polonaise, Web TV Portugaise, 
     Web TV Roumaine, Web TV Russe, Web TV Slovaque, Web TV Suédoise, Web TV Tchèque, Web TV Turque
   - Mise à jour de logos : Game One, SABC News, Telessonne, SkyNews International
-  - Ajout de logos : Beijing TV, CCTV 4, CCTV 9, CCTV Divertissement, CCTV F, Guangdong Southern TV,
-    Hunan Satellite TV, La chaîne chinoise, Phoenix Chinese News and Entertainment, Phoenix Infonews,
-    Shanghai Dragon TV, Xiamen Star TV, Zhejiang Star TV
-    2M Maroc, Apsara TV, Alsatic TV, Best of Shopping, BFM, Canal Algérie, Cap 24 Paris, CCTV 1, CCTV 2, CCTV 7, 
-    CCTV 10, CCTV 11, CCTV 12, CCTV-E, Channel One Russia (ORTi), CCQTV (Chongqing), Clermont Première, Contact FM, 
-    DW-TV (Deutsche Welle), FIP, Game One Music HD HD, Grand Lille TV, HB TV 2 (Hebei), HLJTV HeiLongJiang (Harbin), 
-    Hit West, La chaîne internationale de Jiangsu, LCM - La Chaine Marseille, La Radio de la Mer, Locales IDF, Luxe.TV, 
-    Medi 1 sat, NHK, Public Sénat, Radio Classique, Rai Uno, Rai Due, Rai Tre, Radio Bro Gwened, RFI, RMN, RTL, 
-    RTP Internacional, RTR Planeta, Russia Today, SZTV (Shenzhen), Sky News International, Soleil La Radio, 
-    Souvenirs from Earth, Tele Nantes, TLM Lyon, TLT Toulouse, TRT International, TV7 Bordeaux, TV7 Tunisia, 
-    TVE Internacional, TVP Polonia, TV Tours, Vesti, World Fashion, ZDF.
+  - Ajout de logos : 
+    WebTV :  Beijing TV, CCTV 4, CCTV 9, CCTV Divertissement, CCTV F, Guangdong Southern TV,
+      Hunan Satellite TV, La chaîne chinoise, Phoenix Chinese News and Entertainment, Phoenix Infonews,
+      Shanghai Dragon TV, Xiamen Star TV, Zhejiang Star TV
+      2M Maroc, Apsara TV, Alsatic TV, Best of Shopping, BFM, Canal Algérie, Cap 24 Paris, CCTV 1, CCTV 2, CCTV 7, 
+      CCTV 10, CCTV 11, CCTV 12, CCTV-E, Channel One Russia (ORTi), CCQTV (Chongqing), Clermont Première, 
+      DW-TV (Deutsche Welle), Game One Music HD HD, Grand Lille TV, HB TV 2 (Hebei), HLJTV HeiLongJiang (Harbin), 
+      La chaîne internationale de Jiangsu, LCM - La Chaine Marseille, Locales IDF, Luxe.TV, 
+      Medi 1 sat, Nasa TV, NHK, Public Sénat, Rai Uno, Rai Due, Rai Tre,  
+      RTP Internacional, RTR Planeta, Russia Today, SZTV (Shenzhen), Sky News International,  
+      Souvenirs from Earth, Tele Nantes, TLM Lyon, TLT Toulouse, TRT International, TV7 Bordeaux, TV7 Tunisia, 
+      TVE Internacional, TVP Polonia, TV Tours, Vesti, World Fashion, ZDF.
+    WebRadio : 100 %, 1onAir Connect, Ado FM, Alouette FM, Aup Radio, Beur FM, Canal Académie,  Contact FM, Couleur 3,
+      Eko des Garrigues, Espace FM, Espace Musique Radio Canada, Evasion FM, FC RADIO L'essentiel, FIP, FLY FM,
+      France Vivace, Fréquence India, Jazz Radio (ex-Fréquence Jazz), Jazz Radio Black Music, Jazz Radio Blues,
+      Hit West, Jazz Radio Ladies and Crooners, Jazz Radio Lounge, Jazz Radio Reprises, La Radio de la Mer, MFM Flashback, 
+      MFM Sérénité, MFM Sexy, Monte-Carlo Doualiya, Mosaique FM, MplusM, NRJ Fresh (ex-Nouveautés), Radio NTI, 
+      Ouï FM Alternative Rock, Ouï FM Classic Rock, OZ Radio, Parenthèse Radio, Radio 8, Radio Bro Gwened, Radio Clapas, 
+      Radio Classique, Radio Ethic, Radio FG America, Radio FG Chic, Radio FG Classics, Radio FG Dance, 
+      Radio FG Underground, Radio Ici et Maintenant, Radio Junior, Radio Latina, Radio Mélodie, Radio Néo, 
+      Radio Notre-Dame, Radio Ocean, Radio Public Santé, Radio Scoop, Radio Scoop Années 80, Radio Scoop Music Pod, 
+      Radio Scoop Box Vintage, Radio Star, RFI, RMN, RTL, Soleil La Radio, SUN, Roc FM, Rts FM, Sud Radio, 
+      TEMPOMIX, Top Music, TSF Jazz, Vibration,  
 
 FreetuxTV 0.3.0 (2009-08-25)
   - Ajout de logos : AccroTV, Argent Quebec, Arretsurimages.tv, Bamboch TV, Bastille TV,
