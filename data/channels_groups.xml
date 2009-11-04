@@ -26,6 +26,7 @@
 		<channels_group name="Web TV (Catalan)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ca.m3u" />
 	</language>
 	<language id="zh" lang="Chinese Web TV and Radio">
+		<channels_group name="Web Radio (Chinese)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_zh.m3u" />
 		<channels_group name="Web TV (Chinese)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_zh.m3u" />
 	</language>
 	<language id="cs" lang="Czech Web TV and Radio">
@@ -94,5 +95,8 @@
 	</language>
 	<language id="tr" lang="Turkish Web TV and Radio">
 		<channels_group name="Web TV (Turkish)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_tr.m3u" />
+	</language>
+	<language id="webcam" lang="WebCam">	
+		<channels_group name="WebCam" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webcam.m3u" />
 	</language>
 </channels_groups>
