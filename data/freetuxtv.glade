@@ -650,7 +650,7 @@
                         <property name="search_column">0</property>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn2">
-                            <property name="title">Languages/Channels group</property>
+                            <property name="title" translatable="yes">Languages/Channels group</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext2"/>
                               <attributes>
@@ -661,7 +661,7 @@
                         </child>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn3">
-                            <property name="title">Required ISP</property>
+                            <property name="title" translatable="yes">Required ISP</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext3"/>
                               <attributes>
