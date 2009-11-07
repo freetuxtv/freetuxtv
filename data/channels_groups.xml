@@ -36,10 +36,12 @@
 		<channels_group name="Web TV (Dutch)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_nl.m3u" />
 	</language>
 	<language id="en" lang="English Web TV and Radio">
+		<channels_group name="Web Emissions (English)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_emissions_en.m3u" />
 		<channels_group name="Web Radio (English)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_en.m3u" />
 		<channels_group name="Web TV (English)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_en.m3u" />
 	</language>
 	<language id="fr" lang="French Web TV and Radio">
+		<channels_group name="Web Emissions (French)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_emissions_fr.m3u" />
 		<channels_group name="Web Radio (French)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_fr.m3u" />
 		<channels_group name="Web TV (French)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fr.m3u" />
 	</language>
