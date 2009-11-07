@@ -36,10 +36,16 @@ GQuark
 freetuxtv_dbsync_error_quark ();
 
 void
-dbsync_open_db(DBSync *dbsync, GError** error);
+dbsync_open_db (DBSync *dbsync, GError** error);
 
 void
 dbsync_close_db (DBSync *dbsync);
+
+gboolean
+dbsync_db_exists(DBSync *dbsync);
+
+void
+dbsync_create_db (DBSync *dbsync, GError** error);
 
 void
 dbsync_select_channels_groups (DBSync *dbsync,
@@ -81,5 +87,16 @@ void
 dbsync_delete_channels_of_channels_group (DBSync *dbsync,
 					  FreetuxTVChannelsGroupInfos* channels_group_infos,
 					  GError** error);
+
+void
+dbsync_delete_channels_logos (DBSync *dbsync, GError** error);
+
+void
+dbsync_add_channel_logo (DBSync *dbsync, gchar* label, gchar* filename, 
+			 glong *id, GError** error);
+
+void
+dbsync_add_label_channel_logo (DBSync *dbsync, gchar* label, glong id_logo, 
+			       GError** error);
 
 #endif /* FREETUXTV_DB_SYNC_H */

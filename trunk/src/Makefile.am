@@ -1,3 +1,5 @@
+SUBDIRS = libvlc-gtk
+
 bin_PROGRAMS = freetuxtv
 
 freetuxtv_SOURCES = \
@@ -12,6 +14,8 @@ freetuxtv_SOURCES = \
   freetuxtv-channels-list.h \
   freetuxtv-db-sync.c \
   freetuxtv-db-sync.h \
+  freetuxtv-fileutils.c \
+  freetuxtv-fileutils.h \
   freetuxtv-i18n.h \
   freetuxtv-logos-list.c \
   freetuxtv-logos-list.h \
@@ -23,23 +27,19 @@ freetuxtv_SOURCES = \
   freetuxtv-utils.h \
   freetuxtv-window-main.c \
   freetuxtv-window-main.h \
-  gtk-libvlc-include.h \
-  gtk-libvlc-instance.c \
-  gtk-libvlc-instance.h \
-  gtk-libvlc-media.c \
-  gtk-libvlc-media.h \
-  gtk-libvlc-media-player.c \
-  gtk-libvlc-media-player.h \
   lib-gmmkeys.c \
   lib-gmmkeys.h \
   lib-m3uparser.c \
   lib-m3uparser.h \
   main.c
 
+freetuxtv_CPPFLAGS = \
+  $(DEPS_CFLAGS) \
+	-I$(srcdir)/libvlc-gtk \
+  -DLOCALE_DIR=\""$(datadir)/locale"\"
+
 # For libglade2 signals
 freetuxtv_LDFLAGS = -export-dynamic
 
-freetuxtv_LDADD = $(DEPS_LIBS)
-
-AM_CPPFLAGS = $(DEPS_CFLAGS) \
-              -DLOCALE_DIR=\""$(datadir)/locale"\"
+freetuxtv_LDADD = $(DEPS_LIBS) \
+  libvlc-gtk/libvlc-gtk.la

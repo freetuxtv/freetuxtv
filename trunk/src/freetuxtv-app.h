@@ -18,8 +18,9 @@
 #include <gtk/gtk.h>
 #include <libnotify/notification.h>
 
+#include <gtk-libvlc-media-player.h>
+
 #include "freetuxtv-channel-infos.h"
-#include "gtk-libvlc-media-player.h"
 
 G_BEGIN_DECLS
 

@@ -12,9 +12,11 @@
 #define FREETUXTV_LOGOS_LIST_H
 
 #include "freetuxtv-app.h"
+#include "freetuxtv-db-sync.h"
 
-gint
-logos_list_synchronize (FreetuxTVApp *app);
+void
+logos_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
+			GError** error);
 
 gchar*
 logos_list_get_channel_logo_filename(FreetuxTVApp *app, 
