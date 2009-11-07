@@ -38,31 +38,25 @@ load_all_models(FreetuxTVApp* app, GError** error){
 void
 load_model_channels_group_from_file(FreetuxTVApp* app, GError** error)
 {
-	GError* tmp_error = NULL;
-
-	if(error != NULL){
-		tmp_error = *error;
-	}
-
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	
 	// Get the good file to use
 	gchar* file = NULL;
-	if(tmp_error == NULL){
-		file = g_strconcat(g_get_user_config_dir(), "/FreetuxTV/channels_groups.xml", NULL);
-		
-		struct stat file_stat;
-		if(g_stat (file, &file_stat) != 0){
-			g_free(file);
-			file = g_strdup(FREETUXTV_DIR "/channels_groups.xml");
-		}
-	}
+	file = g_strdup_printf("%s/FreetuxTV/cache/channels_groups.dat",
+			       g_get_user_config_dir());
 	
+	struct stat file_stat;
+	if(g_stat (file, &file_stat) != 0){
+		g_free(file);
+		file = g_strdup(FREETUXTV_DIR "/channels_groups.xml");
+	}
+
 	// Clear the model
 	GtkTreeModel *model;
-	if(tmp_error == NULL){
-		model = (GtkTreeModel *) gtk_builder_get_object (app->gui,
-								 "treestore_channelsgroup");
-		gtk_tree_store_clear (GTK_TREE_STORE(model));
-	}
+	model = (GtkTreeModel *) gtk_builder_get_object (app->gui,
+							 "treestore_channelsgroup");
+	gtk_tree_store_clear (GTK_TREE_STORE(model));
 		
 	// Parse the file	
 	gsize filelen;
@@ -70,35 +64,23 @@ load_model_channels_group_from_file(FreetuxTVApp* app, GError** error)
 	GMarkupParseContext *context;
 	
 	CBXMLData cbxmldata;
-	if(tmp_error == NULL){
-		cbxmldata.app = app;
-		cbxmldata.model = model;
-		context = g_markup_parse_context_new (&parser, 
-						      G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
-						      &cbxmldata, NULL);
-	}
+	cbxmldata.app = app;
+	cbxmldata.model = model;
+	context = g_markup_parse_context_new (&parser, 
+					      G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
+					      &cbxmldata, NULL);
 	
 	gchar *xml_data;
 	
-	if(tmp_error == NULL){
-		g_file_get_contents (file, &xml_data, &filelen, &tmp_error);		
-	}
-
-	if(tmp_error == NULL){
-		g_markup_parse_context_parse (context, xml_data, -1, &tmp_error);
+	g_file_get_contents (file, &xml_data, &filelen, error);		
+	
+	if(*error == NULL){
+		g_markup_parse_context_parse (context, xml_data, -1, error);
 	}
 	
 	if(file != NULL){
 		g_free(file);
-	}
-
-	if(error != NULL){
-		if(*error == NULL){
-			*error = tmp_error;
-		}
-	}
-
-	
+	}	
 }
 
 

@@ -1194,8 +1194,28 @@ on_dialogaddgroup_buttonrefresh_clicked (GtkButton *button,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	GError* error;
-	load_model_channels_group_from_file(app, &error);	
+	GError* error = NULL;
+
+	GtkWidget* widget;
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "dialogaddgroup_entrychannelsgroupfile");
+	gchar *url;
+	gchar *dst_file;
+	url = (gchar*)gtk_entry_get_text (GTK_ENTRY(widget));
+	dst_file = g_strdup_printf("%s/FreetuxTV/cache/channels_groups.dat",
+				   g_get_user_config_dir());
+	freetuxtv_fileutils_get_file (url, dst_file, &error);
+	
+	if(error == NULL){
+		load_model_channels_group_from_file(app, &error);
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+
+	g_free(dst_file);
 }
 
 static void
