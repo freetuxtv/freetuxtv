@@ -9,7 +9,6 @@
  */
 
 #include <gtk/gtk.h>
-#include <curl/curl.h>
 
 #include "freetuxtv-channels-list.h"
 
@@ -111,16 +110,6 @@ channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
 
 static void
 channels_list_display_channels (FreetuxTVApp *app);
-
-GQuark freetuxtv_curl_error = 0;
-
-GQuark
-freetuxtv_curl_error_quark () {
-	if (freetuxtv_curl_error == 0){
-		freetuxtv_curl_error = g_quark_from_string("FREETUXTV_CURL_ERROR");
-	}
-	return freetuxtv_curl_error;
-}
 
 GQuark freetuxtv_libm3uparse_error = 0;
 
@@ -245,7 +234,7 @@ channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 void
 channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 				      DBSync* dbsync, GError** error)
-{	
+{
 	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(error != NULL);
 
@@ -530,54 +519,12 @@ static void
 channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **file,
 			 gboolean cache, GError** error)
 {
-	gchar **uriv;
+	gchar *groupfile;
+	groupfile = g_strdup_printf("%s/FreetuxTV/cache/playlist-group-%d.dat",
+				    g_get_user_config_dir(), self->id);
+	freetuxtv_fileutils_get_file (self->uri, groupfile, error);
 
-	gchar *err_msg = NULL;
-
-	uriv = g_strsplit (self->uri, "//", 2);
-	*file = NULL;
-	
-	if( g_ascii_strcasecmp (uriv[0], "http:") == 0 || g_ascii_strcasecmp (uriv[0], "https:") == 0){
-		
-		gchar *groupfile;
-		groupfile = g_strdup_printf("%s/FreetuxTV/cache/playlist-group-%d.dat",
-					    g_get_user_config_dir(), self->id);
-		
-		if(cache){
-			// Download the file
-			CURL *session = curl_easy_init(); 
-			curl_easy_setopt(session, CURLOPT_URL, self->uri);
-			curl_easy_setopt(session, CURLOPT_TIMEOUT, 10);
-			// curl_easy_setopt(session, CURLOPT_VERBOSE, 1);
-			curl_easy_setopt(session, CURLOPT_FOLLOWLOCATION, 1);
-			FILE * fp = fopen(groupfile, "w"); 
-			curl_easy_setopt(session,
-					 CURLOPT_WRITEDATA, fp); 
-			curl_easy_setopt(session,
-					 CURLOPT_WRITEFUNCTION, fwrite);
-			CURLcode curlcode;
-			curlcode = curl_easy_perform(session);
-			fclose(fp);
-			curl_easy_cleanup(session);
-
-			if(curlcode != 0){
-				if(error != NULL){
-					*error = g_error_new (FREETUXTV_CURL_ERROR,
-							      FREETUXTV_CURL_ERROR_GET,
-							      _("Error when downloading the playlist of the group \"%s\" from URL -> %s.\n\nCURL has returned error :\n%s."),
-							      self->name, self->uri, curl_easy_strerror(curlcode));
-				}
-			}
-
-		}
-
-		*file = groupfile;
-	}else{
-		*file = g_strdup (self->uri);		
-	}
-	
-
-	g_strfreev (uriv);
+	*file = groupfile;
 }
 
 static int

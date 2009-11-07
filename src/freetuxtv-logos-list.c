@@ -9,7 +9,6 @@
  */
 
 #include <gtk/gtk.h>
-#include <sqlite3.h>
 
 #include "freetuxtv-logos-list.h"
 
@@ -20,8 +19,8 @@
 typedef struct _CBXMLData
 {
 	FreetuxTVApp *app;
-	struct sqlite3 *db;
-	int current_logo;	
+	DBSync *dbsync;
+	long current_logo;	
 } CBXMLData;
 
 static void 
@@ -38,79 +37,45 @@ xml_err_cb(GMarkupParseContext *context,
 	   gpointer data);
 
 
-gint
-logos_list_synchronize (FreetuxTVApp *app)
+void
+logos_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
+			GError** error)
 {
-	struct sqlite3 *db;
-	int res;
-	char *err=0;
-	gint ret = 0;
-	gchar *query;
-
-	gchar *err_msg = NULL;
-
-	gchar *user_db;
-	user_db = g_strconcat(g_get_user_config_dir(), 
-			      "/FreetuxTV/freetuxtv.db", NULL);
-
-	res = sqlite3_open(user_db, &db);
-	if(res != SQLITE_OK){
-		g_printerr ("Sqlite3 : %s\n",
-			    sqlite3_errmsg(db));
-		g_printerr ("FreetuxTV : Cannot open database %s\n",
-			    user_db);
-		sqlite3_close(db);
-		ret = -1;
-	}
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
 	
-	if(ret == 0){
+	// Mise à jour de la barre de statut
+	gchar *text;
+	text = g_strdup_printf(_("Synchronizing the logo list"));
+	windowmain_statusbar_push (app, "UpdateMsg", text);
+	g_free(text);
+	g_print("FreetuxTV : Synchronizing the logo list\n");
+
+	// Efface les anciens logos	
+	dbsync_delete_channels_logos (dbsync, error);
+
+	if(*error == NULL){
+		// Ajout de la liste des logos dans la base de donnée
+		CBXMLData cbxmldata;
+		cbxmldata.app = app;
+		cbxmldata.dbsync = dbsync;
+		cbxmldata.current_logo = -1;
 		
-		// Mise à jour de la barre de statut
-		gchar *text;
-		text = g_strdup_printf(_("Synchronizing the logo list"));
-		windowmain_statusbar_push (app, "UpdateMsg", text);
-		g_free(text);
-		g_print("FreetuxTV : Synchronizing the logo list\n");
-
-		// Efface les anciens logos
-		query = sqlite3_mprintf("DELETE FROM channel_logo");
-		res = sqlite3_exec(db, query, NULL, 0, &err);
-		if(res != SQLITE_OK){
-
-			err_msg = g_strdup_printf(_("Error when deleting the logos list.\n\nSQLite has returned error :\n%s."),
-						  sqlite3_errmsg(db));
-			windowmain_show_error (app, err_msg);
-			g_free(err_msg);
-			ret = -1;
-		}else{
-			sqlite3_free(query);
-
-			// Ajout de la liste des logos dans la base de donnée
-			CBXMLData cbxmldata;
-			cbxmldata.app = app;
-			cbxmldata.db = db;
-			cbxmldata.current_logo = -1;
-			
-			gsize filelen;
-			static GMarkupParser parser = { xml_start_cb, NULL, NULL, 
-							NULL, xml_err_cb };
-			GMarkupParseContext *context;
-			
-			context = g_markup_parse_context_new (&parser, 
-							      G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
-							      &cbxmldata, NULL);
-			gchar *xml_data;
-			g_file_get_contents (FREETUXTV_DIR "/channels_logos.xml", 
-					     &xml_data, &filelen, NULL);
-			g_markup_parse_context_parse (context, xml_data, -1, NULL);
-			
-			sqlite3_close(db);
-		}
+		gsize filelen;
+		static GMarkupParser parser = { xml_start_cb, NULL, NULL, 
+						NULL, xml_err_cb };
+		GMarkupParseContext *context;
 		
-		windowmain_statusbar_pop (app, "UpdateMsg");
+		context = g_markup_parse_context_new (&parser, 
+						      G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
+						      &cbxmldata, NULL);
+		gchar *xml_data;
+		g_file_get_contents (FREETUXTV_DIR "/channels_logos.xml", 
+				     &xml_data, &filelen, NULL);
+		g_markup_parse_context_parse (context, xml_data, -1, NULL);
 	}
-
-	return ret;
+		
+	windowmain_statusbar_pop (app, "UpdateMsg");
 }
 
 gchar*
@@ -154,64 +119,32 @@ xml_start_cb(GMarkupParseContext *context,
 
 	CBXMLData* cbxmldata = (CBXMLData*)data;
 	
-	gchar* sql_query = "";
-	int res;
-	char *err=0;
-
-	gchar *label;
+	gchar *label = NULL;
+	gchar *filename = NULL;
 
 	if(g_ascii_strcasecmp(element_name, "logo") == 0){
-		
 		label = g_strdup(attribute_values[1]);
-		sql_query = sqlite3_mprintf("INSERT INTO channel_logo (label_channellogo, filename_channellogo) values ('%q','%q');", 
-					    attribute_values[1],
-					    attribute_values[0]);
-		res=sqlite3_exec(cbxmldata->db, sql_query, NULL, 0, &err);
-		if(res != SQLITE_OK){
-			g_printerr("Sqlite3 : %s\n%s\n",
-				   sqlite3_errmsg(cbxmldata->db), sql_query);
-			sqlite3_free(err);
-		}
-
-		cbxmldata->current_logo = sqlite3_last_insert_rowid(cbxmldata->db);
-
-		sqlite3_free(sql_query);		
+		filename = g_strdup(attribute_values[0]);
+		dbsync_add_channel_logo (cbxmldata->dbsync, label, filename, 
+					 &(cbxmldata->current_logo), error);
+		g_free(filename);
+		
 	}
 	
 	if(g_ascii_strcasecmp(element_name, "logolabel") == 0){
-
-		label = g_strdup(attribute_values[0]);		
-		sql_query = sqlite3_mprintf("INSERT INTO label_channellogo (label_labelchannellogo, idchannellogo_labelchannellogo) values ('%q', (SELECT MAX(id_channellogo) FROM channel_logo));",
-					    attribute_values[0]);
-		res=sqlite3_exec(cbxmldata->db, sql_query, NULL, 0, &err);
-		if(res != SQLITE_OK){
-			g_printerr("Sqlite3 : %s\n%s\n",
-				   sqlite3_errmsg(cbxmldata->db), sql_query);
-			sqlite3_free(err);
-		}
-		sqlite3_free(sql_query);
-		
+		label = g_strdup(attribute_values[0]);
+		dbsync_add_label_channel_logo (cbxmldata->dbsync, label, 
+					       cbxmldata->current_logo, error);
 	}
 
-	if(cbxmldata->current_logo >= 0){
-		sql_query = sqlite3_mprintf("UPDATE channel SET idchannellogo_channel=%d WHERE name_channel = '%q';",
-					    cbxmldata->current_logo,
-					    label);
-		res=sqlite3_exec(cbxmldata->db, sql_query, NULL, 0, &err);
-		if(res != SQLITE_OK){
-			g_printerr("Sqlite3 : %s\n%s\n",
-				   sqlite3_errmsg(cbxmldata->db), sql_query);
-			sqlite3_free(err);
-		}
-		sqlite3_free(sql_query);
-
+	if(label != NULL){
 		if(cbxmldata->app->debug == TRUE){
 			g_print("FreetuxTV-debug : Add channel logos '%s' in database\n",
 				label);
 		}
 
 		g_free(label);
-	
+		label = NULL;
 	}
 }
 

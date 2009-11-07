@@ -17,20 +17,11 @@
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-db-sync.h"
 
-#define FREETUXTV_CURL_ERROR freetuxtv_curl_error_quark ()
-typedef enum
-{
-	FREETUXTV_CURL_ERROR_GET,
-} FreetuxTVCurlError;
-
 #define FREETUXTV_LIBM3UPARSE_ERROR freetuxtv_libm3uparse_error_quark ()
 typedef enum
 {
 	FREETUXTV_LIBM3UPARSE_ERROR_PARSE,
 } FreetuxTVLibM3UParseError;
-
-GQuark
-freetuxtv_curl_error_quark ();
 
 GQuark
 freetuxtv_libm3uparse_error_quark ();

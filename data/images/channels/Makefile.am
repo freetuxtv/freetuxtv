@@ -124,7 +124,7 @@ channels_DATA = \
   jazzradio-exfrequencejazz.png \
   jazzradioladies.png \
   jazzradiolounge.png \
-  jazzradioreprises.png \ 
+  jazzradioreprises.png \
   jet.png \
   jukebox.png \
   kto.png \
@@ -255,7 +255,7 @@ channels_DATA = \
   teleplaisance.png \
   telessonne.png \
   telif.png \
-  tempomix.png \ 
+  tempomix.png \
   teva.png \
   tfou.png \
   tfouwebtv.png \
