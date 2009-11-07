@@ -16,7 +16,6 @@
 
 #include <stdlib.h>
 #include <gtk/gtk.h>
-#include <sqlite3.h>
 #include <libnotify/notification.h>
 
 #include "lib-gmmkeys.h"
@@ -31,12 +30,10 @@
 #include "gtk-libvlc-media-player.h"
 
 int
-init_user_configuration()
+init_user_configuration(GError **error)
 {
-	struct sqlite3 *db;
 	int res;
-	char *err=0;
-	
+
 	gchar *user_cache_dir;
 	user_cache_dir = g_strconcat(g_get_user_config_dir(), 
 				     "/FreetuxTV/cache", NULL);
@@ -44,9 +41,6 @@ init_user_configuration()
 	gchar *user_img_channels_dir;
 	user_img_channels_dir = g_strconcat(g_get_user_config_dir(), 
 					    "/FreetuxTV/images/channels", NULL);
-	gchar *user_db;
-	user_db = g_strconcat(g_get_user_config_dir(), 
-			      "/FreetuxTV/freetuxtv.db", NULL);
 	
 	/* Verifie si le repertoire des images utilisateur existe */
 	if (! g_file_test (user_cache_dir, 
@@ -91,46 +85,17 @@ init_user_configuration()
 	}
 	
 	/* Creation de la BDD si inexistante */
-	if (! g_file_test (user_db, G_FILE_TEST_IS_REGULAR)){
-		
-		res = sqlite3_open(user_db, &db);
-		if(res != SQLITE_OK){
-			g_printerr ("Sqlite3 : %s\n",
-				    sqlite3_errmsg(db));
-			g_printerr ("FreetuxTV : Cannot open database %s\n",
-				    user_db);
-			sqlite3_close(db);
-			return -1;
+	DBSync dbsync;
+	if (!dbsync_db_exists(&dbsync)){
+		dbsync_open_db (&dbsync, error);
+		if(*error == NULL){
+			dbsync_create_db (&dbsync, error);
 		}
-		
-		/* Lecture du fichier contenant les requetes de création de la base */
-		gchar* filename;
-		filename = FREETUXTV_DIR "/sqlite3-create-tables.sql";
-		gchar* sql_query;
-		gsize filelen;
-		
-		if (g_file_get_contents (filename, &sql_query, &filelen, NULL)){
-			
-			res=sqlite3_exec(db, sql_query, NULL, 0, &err);
-			if(res != SQLITE_OK){
-				g_printerr("Sqlite3 : %s\n%s\n",
-					   sqlite3_errmsg(db), sql_query);
-				g_printerr("FreetuxTV : Cannot create tables in %s\n",
-					   user_db);
-				sqlite3_free(err);
-			}
-		}else{
-			g_printerr("FreetuxTV : Cannot read file %s\n", filename);
-		}
-		
-		
-		g_free(sql_query);		
-		sqlite3_close(db);
+		dbsync_close_db (&dbsync);
 	}
 
 	g_free(user_cache_dir);
 	g_free(user_img_channels_dir);
-	g_free(user_db);
 
 	return 0;
 }
@@ -369,34 +334,41 @@ splashscreen_app_init(gpointer data)
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "splashscreen_version");
 	gtk_label_set_text(GTK_LABEL(widget), VERSION);
+	
+	g_print("FreetuxTV : Using user configuration dir : %s\n", g_get_user_config_dir());
 
 	// Initializing user configuration
-	splashscreen_statusbar_push (app, _("Initializing user configuration..."));
-	init_user_configuration();
-	splashscreen_statusbar_pop (app);
+	if(error == NULL){
+		splashscreen_statusbar_push (app, _("Initializing user configuration..."));
+		init_user_configuration(&error);
+		splashscreen_statusbar_pop (app);
+	}
 
 	// Loading user configuration from .ini file
-	splashscreen_statusbar_push (app, _("Loading user configuration..."));
-	load_user_configuration(app);
-	splashscreen_statusbar_pop (app);
-
+	if(error == NULL){
+		splashscreen_statusbar_push (app, _("Loading user configuration..."));
+		load_user_configuration(app);
+		splashscreen_statusbar_pop (app);
+	}
+	
 	// Open database
 	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);	
-	
+	dbsync_open_db (&dbsync, &error);
+
 	// Synchronizing the list of logos if file modified
-	splashscreen_statusbar_push (app, _("Synchronizing the list of logos..."));
-	struct stat file_stat;
-	gint ret;
-	if(g_stat (FREETUXTV_DIR "/channels_logos.xml", &file_stat) == 0){
-		if(app->config.logosfiledate < (gint)file_stat.st_mtime){
-			ret = logos_list_synchronize(app);
-			if(ret == 0){
-				app->config.logosfiledate = (gint)file_stat.st_mtime;	
+	if(error == NULL){
+		splashscreen_statusbar_push (app, _("Synchronizing the list of logos..."));
+		struct stat file_stat;
+		if(g_stat (FREETUXTV_DIR "/channels_logos.xml", &file_stat) == 0){
+			if(app->config.logosfiledate < (gint)file_stat.st_mtime){
+				logos_list_synchronize(app, &dbsync, &error);
+				if(error == NULL){
+					app->config.logosfiledate = (gint)file_stat.st_mtime;	
+				}
 			}
 		}
+		splashscreen_statusbar_pop (app);
 	}
-	splashscreen_statusbar_pop (app);
 
 	// Initialise l'interface
 	windowmain_display_buttons (app, WINDOW_MODE_STOPPED);	

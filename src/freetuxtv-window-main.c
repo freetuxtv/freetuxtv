@@ -153,7 +153,7 @@ windowmain_init(FreetuxTVApp *app)
 	GtkWidget *p_menu = NULL;
 	GtkWidget *p_menu_item = NULL;
 	
-	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_File"));
+	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_FreetuxTV"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
 	p_menu = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
@@ -872,7 +872,7 @@ on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
 	dbsync_open_db (&dbsync, &error);
 	
 	if(error == NULL){
-		logos_list_synchronize (app);			
+		logos_list_synchronize (app, &dbsync, &error);			
 	}
 
 	if(error == NULL){
