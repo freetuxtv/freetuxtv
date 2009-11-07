@@ -930,8 +930,8 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 		gchar *regex;
 		
 		if(channels_group_infos->bregex != NULL){
-			regex = g_strdup_printf("^%s", argv[0]);
-			gregex = g_regex_new (channels_group_infos->bregex, 0, 0, NULL);
+			regex = g_strdup_printf("^%s", channels_group_infos->bregex);
+			gregex = g_regex_new (regex, 0, 0, NULL);
 			g_free(regex);
 			tmp = g_regex_replace (gregex, name, -1, 0, "", 0, NULL);
 			g_regex_unref (gregex);
@@ -941,8 +941,8 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 		g_free(name);		
 
 		if(channels_group_infos->eregex != NULL){
-			regex = g_strdup_printf("^%s", argv[0]);
-			gregex = g_regex_new (channels_group_infos->eregex, 0, 0, NULL);
+			regex = g_strdup_printf("%s$", channels_group_infos->eregex);
+			gregex = g_regex_new (regex, 0, 0, NULL);
 			g_free(regex);
 			name = g_regex_replace (gregex, tmp, -1, 0, "", 0, NULL);
 			g_regex_unref (gregex);
