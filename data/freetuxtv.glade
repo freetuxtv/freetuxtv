@@ -589,7 +589,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="entry1">
+                      <object class="GtkEntry" id="dialogaddgroup_entrychannelsgroupfile">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">&#x25CF;</property>
@@ -650,7 +650,7 @@
                         <property name="search_column">0</property>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn2">
-                            <property name="title" translatable="yes">Languages/Channels group</property>
+                            <property name="title">Languages/Channels group</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext2"/>
                               <attributes>
@@ -661,7 +661,7 @@
                         </child>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn3">
-                            <property name="title" translatable="yes">Required ISP</property>
+                            <property name="title">Required ISP</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext3"/>
                               <attributes>
