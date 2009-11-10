@@ -425,7 +425,6 @@ splashscreen_app_init(gpointer data)
 	// Start internal timer
 	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
 
-
 	if(error != NULL){
 		g_print("FreetuxTV : Error %s\n", error->message);
 		g_error_free(error);

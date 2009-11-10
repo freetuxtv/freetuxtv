@@ -100,7 +100,7 @@ xml_start_cb(GMarkupParseContext *context, const gchar *element_name,
 		const gchar* lang = NULL;
 		for(i=0; i<nb_attrs; i++){
 			if(g_ascii_strcasecmp(attribute_names[i], "lang") == 0){
-				lang = attribute_values[i];
+				lang = _(attribute_values[i]);
 			}
 		}
 
@@ -118,7 +118,7 @@ xml_start_cb(GMarkupParseContext *context, const gchar *element_name,
 		const gchar* eregex = NULL;		
 		for(i=0; i<nb_attrs; i++){
 			if(g_ascii_strcasecmp(attribute_names[i], "name") == 0){
-				name = attribute_values[i];
+				name = _(attribute_values[i]);
 			}
 			if(g_ascii_strcasecmp(attribute_names[i], "uri") == 0){
 				uri = attribute_values[i];

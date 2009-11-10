@@ -1,6 +1,7 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 data/freetuxtv.glade
+data/channels_groups.xml.in
 data/menu/freetuxtv.desktop.in
 src/freetuxtv-app.h
 src/freetuxtv-cellrenderer-channelslist.c
