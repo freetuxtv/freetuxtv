@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-08 12:41+0100\n"
+"POT-Creation-Date: 2009-11-08 17:33+0100\n"
 "PO-Revision-Date: 2009-10-30 15:06+0200\n"
 "Last-Translator: Yannick LE NY <yleny@laposte.net>\n"
 "Language-Team: FR <eric.beuque@gmail.com>\n"
@@ -336,6 +336,33 @@ msgstr ""
 #: ../data/freetuxtv.glade.h:78
 msgid ""
 "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:1
+msgid "Arabic Web TV and Radio"
+msgstr "Arabe : WebTV et Radio"
+
+#: ../data/channels_groups.xml.in.h:2
+#, fuzzy
+msgid "Catalan Web TV and Radio"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:3
+msgid "Web Radio (Arabic)"
+msgstr "Web Radio (Arabe)"
+
+#: ../data/channels_groups.xml.in.h:4
+#, fuzzy
+msgid "Web Radio (Catalan)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:5
+msgid "Web TV (Arabic)"
+msgstr "Web TV (Arabe)"
+
+#: ../data/channels_groups.xml.in.h:6
+#, fuzzy
+msgid "Web TV (Catalan)"
 msgstr ""
 
 #: ../data/menu/freetuxtv.desktop.in.h:1
