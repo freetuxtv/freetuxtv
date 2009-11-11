@@ -1,29 +1,18 @@
 <channel_logos>
 	<logo filename="100pourcentradio.png" label="100 %"></logo>
 	<logo filename="1onairconnect.png" label="1onAir Connect"></logo>
-	<logo filename="2mmaroc.png" label="2M Maroc">
-		<logolabel label="2M Maroc (par CanalSat)"/>
-	</logo>
-	<logo filename="ab1.png" label="AB 1">
-		<logolabel label="AB 1 (bas débit)"/>
-	</logo>
-	<logo filename="abmoteurs.png" label="AB Moteurs">
-		<logolabel label="AB Moteurs (bas débit)"/>
-	</logo>
+	<logo filename="2mmaroc.png" label="2M Maroc"></logo>
+	<logo filename="ab1.png" label="AB 1"></logo>
+	<logo filename="abmoteurs.png" label="AB Moteurs"></logo>
 	<logo filename="accrotv.png" label="AccroTV"></logo>
-	<logo filename="action.png" label="Action">
-		<logolabel label="Action (bas débit)"/>
-	</logo>
+	<logo filename="action.png" label="Action"></logo>
 	<logo filename="adofm.png" label="Ado FM"></logo>
 	<logo filename="aljazeera.png" label="Al Jazeera">
 		<logolabel label="Aljazeera"/>
-		<logolabel label="Al Jazeera (par CanalSat)"/>
 	</logo>
 	<logo filename="aljazeerachildren.png" label="Al Jazeera Children"></logo>
 	<logo filename="aljazeerainternational.png" label="Al Jazeera International"></logo>
-	<logo filename="alouettefm.png" label="Alouette FM (MP3)">
-		<logolabel label="Alouette FM (AAC)"/>
-	</logo>
+	<logo filename="alouettefm.png" label="Alouette FM"></logo>
 	<logo filename="alsatictv.png" label="Alsatic TV"></logo>
 	<logo filename="apsaratv.png" label="Apsara TV"></logo>
 	<logo filename="aptv.png" label="APTV Martinique"></logo>
@@ -31,9 +20,6 @@
 	<logo filename="arretsurimages.png" label="Arretsurimages.tv"></logo>
 	<logo filename="artchannel.png" label="Art Channel"></logo>
 	<logo filename="arte.png" label="Arte">
-		<logolabel label="Arte (bas débit)"/>
-		<logolabel label="Arte HD"/>
-		<logolabel label="Arte (en allemand par CanalSat)"/>
 		<logolabel label="Arte Allemand"/>
 	</logo>
 	<logo filename="artplatv.png" label="Artpla tv"></logo>
@@ -51,25 +37,16 @@
 	<logo filename="beurtv.png" label="Beur TV"></logo>
 	<logo filename="beijingtv.png" label="Beijing TV"></logo>
 	<logo filename="bestofshopping.png" label="Best of Shopping"></logo>
-	<logo filename="bfmradio.png" label="BFM">
-		<logolabel label="BFM (MP3)"/>
-		<logolabel label="BFM (WMA)"/>
-	</logo>
-	<logo filename="bfmtv.png" label="BFM TV">
-		<logolabel label="BFM TV (bas débit)"/>
-	</logo>
+	<logo filename="bfmradio.png" label="BFM"></logo>
+	<logo filename="bfmtv.png" label="BFM TV"></logo>
 	<logo filename="biscottetv.png" label="Biscotte TV"></logo>
 	<logo filename="bloombergtv.png" label="Bloomberg TV"></logo>
 	<logo filename="boardriderstv.png" label="Boardriders TV"></logo>
 	<logo filename="c9.png" label="C9"></logo>
 	<logo filename="calaistv.png" label="Calais TV"></logo>
-	<logo filename="canalacademie.png" label="Canal Académie">
-		<logolabel label="Canal Académie (Bas débit)"/>
-		<logolabel label="Canal Académie (Haut débit)"/>
-	</logo>
+	<logo filename="canalacademie.png" label="Canal Académie"></logo>
 	<logo filename="canalalgerie.png" label="Canal Algérie">
 		<logolabel label="Canal Algerie"/>
-		<logolabel label="Canal Algerie (par CanalSat)"/>
 	</logo>
 	<logo filename="canalplus.png" label="Canal+"></logo>
 	<logo filename="canalsavoir.png" label="Canal savoir"></logo>
@@ -105,27 +82,16 @@
 		<logolabel label="CCQTV 6 (Chongqing)"/>
 		<logolabel label="CCQTV 7 (Chongqing)"/>
 	</logo>
-	<logo filename="cinefirst.png" label="Ciné First">
-		<logolabel label="Ciné First (bas débit)"/>
-	</logo>
-	<logo filename="cinefx.png" label="Ciné FX">
-		<logolabel label="Ciné FX (bas débit)"/>
-	</logo>
-	<logo filename="cinepolar.png" label="Ciné Polar">
-		<logolabel label="Ciné Polar (bas débit)"/>
-	</logo>
+	<logo filename="cinefirst.png" label="Ciné First"></logo>
+	<logo filename="cinefx.png" label="Ciné FX"></logo>
+	<logo filename="cinepolar.png" label="Ciné Polar"></logo>
 	<logo filename="clermontpremiere.png" label="Clermont Première"></logo>
-	<logo filename="clubbingtv.png" label="Clubbing TV">
-		<logolabel label="Clubbing TV (bas débit)"/>
-	</logo>
+	<logo filename="clubbingtv.png" label="Clubbing TV"></logo>
 	<logo filename="cmusictv.png" label="C Music"></logo>
 	<logo filename="cnbc.png" label="CNBC">
 		<logolabel label="CNBC Europe"/>
 	</logo>
-	<logo filename="contactfm.png" label="Contact FM">
-		<logolabel label="Contact FM (Bas débit)"/>
-		<logolabel label="Contact FM (Haut débit)"/>
-	</logo>
+	<logo filename="contactfm.png" label="Contact FM"></logo>
 	<logo filename="corriland.png" label="Corriland TV"></logo>
 	<logo filename="couleur3-rsr.png" label="Couleur 3"></logo>
 	<logo filename="cpac.png" label="CPAC"></logo>
@@ -133,15 +99,11 @@
 		<logolabel label="Demain"/>
 		<logolabel label="Demain TV"/>
 	</logo>
-	<logo filename="direct8.png" label="Direct 8">
-		<logolabel label="Direct 8 (bas débit)"/>
-	</logo>
+	<logo filename="direct8.png" label="Direct 8"></logo>
 	<logo filename="dwtv-deutschewelle.png" label="DW-TV">
 		<logolabel label="Deutsche Welle"/>
 	</logo>
-	<logo filename="ekodesgarrigues.png" label="Eko des Garrigues (OGG)">
-		<logolabel label="Eko des Garrigues (MP3)"/>
-	</logo>
+	<logo filename="ekodesgarrigues.png" label="Eko des Garrigues"></logo>
 	<logo filename="espacefm.png" label="Espace FM"></logo>
 	<logo filename="espacemusique.png" label="Espace Musique Radio Canada"></logo>
 	<logo filename="euronews.png" label="Euronews">
@@ -155,24 +117,16 @@
 		<logolabel label="Euronews (en francais)"/>
 		<logolabel label="Euronews (en anglais)"/>
 	</logo>
-	<logo filename="europe1.png" label="Europe 1 (MP3)">
-		<logolabel label="Europe 1 (WMA)"/>
-	</logo>
+	<logo filename="europe1.png" label="Europe 1"></logo>
 	<logo filename="evasionfm.png" label="Evasion FM"></logo>
 	<logo filename="fashiontv.png" label="Fashion TV"></logo>
 	<logo filename="fazzmusic.png" label="Fazz music"></logo>
 	<logo filename="fcradiolessentiel.png" label="FC RADIO L'essentiel"></logo>
-	<logo filename="fip.png" label="FIP">
-		<logolabel label="FIP (Bas débit)"/>
-		<logolabel label="FIP (Haut débit)"/>
-	</logo>
+	<logo filename="fip.png" label="FIP"></logo>
 	<logo filename="flyfm.png" label="FLY FM"></logo>
 	<logo filename="fmen.png" label="F Men"></logo>
 	<logo filename="foxlife.png" label="Fox Life"></logo>
-	<logo filename="france2.png" label="France 2">
-		<logolabel label="France 2 (bas débit)"/>
-		<logolabel label="France 2 HD"/>
-	</logo>
+	<logo filename="france2.png" label="France 2"></logo>
 	<logo filename="france24.png" label="France 24">
 		<logolabel label="France 24 FR"/>
 		<logolabel label="France 24 English"/>
@@ -181,7 +135,6 @@
 	<logo filename="france3.png" label="France 3">
 		<logolabel label="France 3 national"/>
 		<logolabel label="France 3 National"/>
-		<logolabel label="France 3 (bas débit)"/>
 		<logolabel label="France 3 Alsace"/>
 		<logolabel label="France 3 Alpes"/>
 		<logolabel label="France 3 Aquitaine"/>
@@ -207,13 +160,8 @@
 		<logolabel label="France 3 Provence-Alpes"/>
 		<logolabel label="France 3 Rhône-Alpes"/>		
 	</logo>
-	<logo filename="france4.png" label="France 4">
-		<logolabel label="France 4 (bas débit)"/>
-	</logo>
-	<logo filename="france5.png" label="France 5">
-		<logolabel label="France 5 (bas débit)"/>
-		<logolabel label="France 5 (par CanalSat)"/>
-	</logo>
+	<logo filename="france4.png" label="France 4"></logo>
+	<logo filename="france5.png" label="France 5"></logo>
 	<logo filename="francebleu.png" label="France Bleu">
 		<logolabel label="France BLEU - la CityRadio"/>
 	</logo>
@@ -225,49 +173,32 @@
 		<logolabel label="France o"/>
 		<logolabel label="France Ô"/>
 		<logolabel label="France ô"/>
-		<logolabel label="France O (par CanalSat)"/>
 	</logo>
 	<logo filename="francevivace.png" label="France Vivace"></logo>
 	<logo filename="freenewstv.png" label="Freenews TV"></logo>
-	<logo filename="frequence3.png" label="Fréquence 3 (OGG)">
-		<logolabel label="Fréquence 3 (MP3)"/>
-	</logo>
-	<logo filename="frequenceindia.png" label="Fréquence India">
-	      <logolabel label="Fréquence India (MP3)"/>
-	      <logolabel label="Fréquence India (WMA)"/>
-	</logo>
-	<logo filename="funradio.png" label="Fun Radio">
-	      <logolabel label="Fun Radio (Bas débit)"/>
-	      <logolabel label="Fun Radio (Haut débit)"/>
-	</logo>
+	<logo filename="frequence3.png" label="Fréquence 3"></logo>
+	<logo filename="frequenceindia.png" label="Fréquence India"></logo>
+	<logo filename="funradio.png" label="Fun Radio"></logo>
 	<logo filename="funtv.png" label="Fun TV"></logo>
 	<logo filename="gameone.png" label="Game One"></logo>
 	<logo filename="gameonemusichd.png" label="Game One Music HD HD"></logo>
 	<logo filename="grandlille_tv.png" label="Grand Lille TV"></logo>
 	<logo filename="grossecaisse.png" label="Grosse Caisse TV"></logo>
 	<logo filename="guangdongsoutherntv.png" label="Guangdong Southern TV"></logo>
-	<logo filename="gulli.png" label="Gulli">
-		<logolabel label="Gulli (bas débit)"/>
-	</logo>
+	<logo filename="gulli.png" label="Gulli"></logo>
 	<logo filename="guysentv.png" label="Guysen TV"></logo>
 	<logo filename="hebei_tv.png" label="HB TV 2 (Hebei)"></logo>
 	<logo filename="heilongjiangtv.png" label="HLJTV HeiLongJiang (Harbin)"></logo>
-	<logo filename="hitwest.png" label="Hit West">
-		<logolabel label="Hit West (AAC)"/>
-		<logolabel label="Hit West (MP3) (Bas débit)"/>
-		<logolabel label="Hit West (MP3) (Haut débit)"/>
-	</logo>
+	<logo filename="hitwest.png" label="Hit West"></logo>
 	<logo filename="hunansatellitetv.png" label="Hunan Satellite TV"></logo>
 	<logo filename="idf1.png" label="IDF 1"></logo>
 	<logo filename="inraci.png" label="Inraci"></logo>
 	<logo filename="itelevision.png" label="i>TELE">
 		<logolabel label="i> TELE"/>
-		<logolabel label="i> TELE (bas débit)"/>
 		<logolabel label="i>Tele"/>
-		<logolabel label="i>Tele (par CanalSat)"/>
 	</logo>
 	<logo filename="jamzine.png" label="Jamzine TV"></logo>
-		<logo filename="jazzradio-exfrequencejazz.png" label="Fréquence Jazz">
+	<logo filename="jazzradio-exfrequencejazz.png" label="Fréquence Jazz">
 	      <logolabel label="Jazz Radio (ex-Fréquence Jazz)"/>	
 	</logo>
 	<logo filename="jazzradioblack.png" label="Jazz Radio Black Music"></logo>
@@ -277,24 +208,17 @@
 	<logo filename="jazzradioreprises.png" label="Jazz Radio Reprises"></logo>
 	<logo filename="jet.png" label="JET"></logo>
 	<logo filename="jukebox.png" label="Jukebox"></logo>
-	<logo filename="kto.png" label="KTO">
-		<logolabel label="KTO (par CanalSat)"/>
-	</logo>
+	<logo filename="kto.png" label="KTO"></logo>
 	<logo filename="labelletv.png" label="LabelleTV"></logo>
 	<logo filename="lachainechinoise.png" label="La chaîne chinoise"></logo>
 	<logo filename="lachainedejiangsu.png" label="La chaîne internationale de Jiangsu"></logo>
 	<logo filename="lachaineparlementaire.png" label="La Chaîne Parlementaire">
-		<logolabel label="La Chaîne Parlementaire (bas débit)"/>
 		<logolabel label="La chaine parlementaire"/>
 		<logolabel label="LCP - Assemblée Nationale 24h/24"/>
 		<logolabel label="LCP/PS"/>
-		<logolabel label="LCP/PS (par CanalSat)"/>
 	</logo>
 	<logo filename="lalocale.png" label="La Locale"></logo>
-	<logo filename="laradiodelamer.png" label="La radio de la mer">
-		<logolabel label="La radio de la mer (MP3)"/>
-		<logolabel label="La radio de la mer (WMA)"/>
-	</logo>
+	<logo filename="laradiodelamer.png" label="La radio de la mer"></logo>
 	<logo filename="lcm-marseille.png" label="La Chaîne Marseille"></logo>
 	<logo filename="lcnquebec.png" label="LCN Québec"></logo>
 	<logo filename="lemouv.png" label="Le Mouv'"></logo>
@@ -302,18 +226,14 @@
 	<logo filename="libertytv.png" label="Liberty TV"></logo>
 	<logo filename="localesidf.png" label="Locales Ile de France"></logo>
 	<logo filename="luxetv.png" label="Luxe.TV">
-		<logolabel label="Luxe.TV HD"/>
 		<logolabel label="Luxe TV"/>
-		<logolabel label="Luxe TV HD"/>
 	</logo>
 	<logo filename="m6boutique.png" label="M6 Boutique"></logo>
 	<logo filename="m6musicblack.png" label="M6 Music Black"></logo>
 	<logo filename="m6musicclub.png" label="M6 Music Club"></logo>
 	<logo filename="m6musichits.png" label="M6 Music Hits"></logo>
 	<logo filename="m6musicrock.png" label="M6 Music Rock"></logo>
-	<logo filename="mangas.png" label="Mangas">
-		<logolabel label="Mangas (bas débit)"/>
-	</logo>
+	<logo filename="mangas.png" label="Mangas"></logo>
 	<logo filename="mcm.png" label="MCM"></logo>
 	<logo filename="mcmpop.png" label="MCM POP"></logo>
 	<logo filename="mcmtop.png" label="MCM TOP"></logo>
@@ -329,10 +249,7 @@
 	<logo filename="mjcapt.png" label="MJC Apt TV"></logo>
 	<logo filename="montecarlodoualiya.png" label="Monte-Carlo Doualiya"></logo>
 	<logo filename="mosaiquefm.png" label="Mosaique FM"></logo>
-	<logo filename="mplusm.png" label="MplusM">
-		<logolabel label="MplusM (AAC)"/>
-		<logolabel label="MplusM (MP3)"/>
-	</logo>
+	<logo filename="mplusm.png" label="MplusM"></logo>
 	<logo filename="mtv.png" label="MTV"></logo>
 	<logo filename="mtv2.png" label="MTV 2"></logo>
 	<logo filename="mtvdance.png" label="MTV Dance"></logo>
@@ -341,27 +258,21 @@
 		<logolabel label="NASA TV (Media Channel)"/>
 		<logolabel label="NASA TV (Education Channel)"/>
 	</logo>
-	<logo filename="natgeomusic.png" label="MTV Dance"></logo>
-	<logo filename="nationalgeographic.png" label="NatGeo Music">
-		<logolabel label="National Geographic HD HD"/>
-	</logo>
+	<logo filename="natgeomusic.png" label="atGeo Music"></logo>
+	<logo filename="nationalgeographic.png" label="National Geographic HD"></logo>
 	<logo filename="nhk.png" label="NHK"></logo>
 	<logo filename="nightmagcom.png" label="Night-mag.com"></logo>
 	<logo filename="nolife.png" label="Nolife"></logo>
 	<logo filename="normandietv.png" label="Normandie TV"></logo>
 	<logo filename="nostalgie.png" label="Nostalgie"></logo>
 	<logo filename="nrj.png" label="NRJ"></logo>
-	<logo filename="nrj12.png" label="NRJ 12">
-		<logolabel label="NRJ 12 HD"/>
-		<logolabel label="NRJ 12 (bas débit)"/>
-	</logo>
+	<logo filename="nrj12.png" label="NRJ 12"></logo>
 	<logo filename="nrjhits.png" label="NRJ Hits"></logo>
 	<logo filename="nrjnouveautes.png" label="NRJ Nouveautés">
 		<logolabel label="NRJ Fresh (ex-Nouveautés)"/>
 	</logo>
 	<logo filename="nrjparis.png" label="NRJ Paris"></logo>
 	<logo filename="nt1.png" label="NT1">
-		<logolabel label="NT1 (bas débit)"/>
 		<logolabel label="NT 1"/>
 	</logo>
 	<logo filename="nti.png" label="NTI">
@@ -382,8 +293,6 @@
 	<logo filename="radio8.png" label="Radio 8"></logo>
 	<logo filename="radioclapas.png" label="Radio Clapas"></logo>
 	<logo filename="radioclassique.png" label="Radio Classique">
-		<logolabel label="Radio Classique (Haut débit)"/>
-		<logolabel label="Radio Classique (Bas débit)"/>
 		<logolabel label="Radio Classique Cinéma"/>
 	</logo>
 	<logo filename="radioethic.png" label="Radio Ethic"></logo>
@@ -393,28 +302,14 @@
 	<logo filename="radiofgclassics.png" label="Radio FG Classics"></logo>
 	<logo filename="radiofgdance.png" label="Radio FG Dance"></logo>
 	<logo filename="radiofgunderground.png" label="Radio FG Underground"></logo>
-	<logo filename="radioicietmaintenant.png" label="Radio Ici et Maintenant">
-		<logolabel label="Radio Ici et Maintenant (MP3) (Haut débit)"/>
-		<logolabel label="Radio Ici et Maintenant (MP3) (Bas débit)"/>
-		<logolabel label="Radio Ici et Maintenant (OGG)"/>
-	</logo>
-	<logo filename="radiojunior.png" label="Radio Junior">
-		<logolabel label="Radio Junior (Haut débit)"/>
-		<logolabel label="Radio Junior (Bas débit)"/>
-	</logo>
+	<logo filename="radioicietmaintenant.png" label="Radio Ici et Maintenant"></logo>
+	<logo filename="radiojunior.png" label="Radio Junior"></logo>
 	<logo filename="radiolatina.png" label="Radio Latina">
 		<logolabel label="Latina (ex-Radio Latina)"/>
 	</logo>
-	<logo filename="radiolibertaire.png" label="Radio libertaire (MP3) (Haut débit)">
-		<logolabel label="Radio libertaire (MP3) (Bas débit)"/>
-		<logolabel label="Radio libertaire (OGG) (Haut débit)"/>
-		<logolabel label="Radio libertaire (OGG) (Bas débit)"/>
-	</logo>
+	<logo filename="radiolibertaire.png" label="Radio libertaire"></logo>
 	<logo filename="radiomelodie.png" label="Radio Mélodie"></logo>
-	<logo filename="radioneo.png" label="Radio Néo">
-		<logolabel label="Radio Néo (Bas débit)"/>
-		<logolabel label="Radio Néo (Haut débit)"/>
-	</logo>
+	<logo filename="radioneo.png" label="Radio Néo"></logo>
 	<logo filename="radionotredame.png" label="Radio Notre-Dame"></logo>
 	<logo filename="radionova.png" label="Nova"></logo>
 	<logo filename="radiocean.png" label="Radio Ocean"></logo>
@@ -429,9 +324,7 @@
 	<logo filename="raiuno.png" label="Rai Uno"></logo>
 	<logo filename="raidue.png" label="Rai Due"></logo>
 	<logo filename="raitre.png" label="Rai Tre"></logo>
-	<logo filename="rbg.png" label="Radio Bro Gwened (MP3)">
-		<logolabel label="Radio Bro Gwened (OGG)"/>
-	</logo>
+	<logo filename="rbg.png" label="Radio Bro Gwened"></logo>
 	<logo filename="rdicanada.png" label="RDI CANADA"></logo>
 	<logo filename="relaxtv.png" label="Relax TV"></logo>
 	<logo filename="rfi.png" label="RFI">
@@ -442,30 +335,15 @@
 	</logo>
 	<logo filename="rfm.png" label="RFM"></logo>
 	<logo filename="rireetchansons.png" label="Rire et Chansons"></logo>
-	<logo filename="rmc.png" label="RMC Info">
-		<logolabel label="RMC (ex-RMC Info) (WMA)"/>
-		<logolabel label="RMC (ex-RMC Info) (MP3)"/>
-	</logo>
+	<logo filename="rmc.png" label="RMC Info"></logo>
 	<logo filename="rmn.png" label="RMN FM"></logo>
-	<logo filename="rocfm.png" label="Roc FM">
-		<logolabel label="Roc FM (Haut débit)"/>
-		<logolabel label="Roc FM (Bas débit)"/>
-	</logo>
+	<logo filename="rocfm.png" label="Roc FM"></logo>
 	<logo filename="rocktv.png" label="Rock TV"></logo>
-	<logo filename="rtl.png" label="RTL">
-		<logolabel label="RTL (Haut débit)"/>
-		<logolabel label="RTL (Bas débit)"/>
-	</logo>
-	<logo filename="rtl2.png" label="RTL 2">
-		<logolabel label="RTL 2 (Haut débit)"/>
-		<logolabel label="RTL 2 (Bas débit)"/>
-	</logo>
-	<logo filename="rtl9.png" label="RTL9">
-		<logolabel label="RTL9 (bas débit)"/>
-	</logo>
+	<logo filename="rtl.png" label="RTL"></logo>
+	<logo filename="rtl2.png" label="RTL 2"></logo>
+	<logo filename="rtl9.png" label="RTL9"></logo>
 	<logo filename="rtpi.png" label="RTPi">
 		<logolabel label="RTP Internacional"/>
-		<logolabel label="RTP Internacional (par CanalSat)"/>
 		<logolabel label="RTP"/>
 	</logo>
 	<logo filename="rtrplaneta.png" label="RTR Planeta"></logo>
@@ -498,9 +376,7 @@
 	<logo filename="tempomix.png" label="TEMPOMIX"></logo>
 	<logo filename="teva.png" label="TEVA"></logo>
 	<logo filename="tfou.png" label="TFou"></logo>
-	<logo filename="tfouwebtv.png" label="TFOU WebTV">
-		<logolabel label="TFOU WebTV (17h-20h)"/>
-	</logo>
+	<logo filename="tfouwebtv.png" label="TFOU WebTV"></logo>
 	<logo filename="tllteleloire.png" label="TLL Tele Loire"></logo>
 	<logo filename="tlm-lyon.png" label="TLM">
 		<logolabel label="TLM Television Lyon Metropole"/>
@@ -519,12 +395,9 @@
 	<logo filename="tsfjazz.png" label="TSF Jazz"></logo>
 	<logo filename="tv5.png" label="TV5">
 		<logolabel label="TV 5 Monde"/>
-		<logolabel label="TV 5 Monde (par CanalSat)"/>
 	</logo>
 	<logo filename="tv7bordeaux.png" label="TV7 Bordeaux"></logo>
-	<logo filename="tv7tunisia.png" label="TV7 Tunisia">
-		<logolabel label="TV7 Tunisia (par CanalSat)"/>
-	</logo>
+	<logo filename="tv7tunisia.png" label="TV7 Tunisia"></logo>
 	<logo filename="tv8montblanc.png" label="TV8 Mont-Blanc">
 		<logolabel label="TV8 Mont Blanc"/>
 	</logo>
@@ -543,9 +416,7 @@
 	<logo filename="vh1classic.png" label="VH1 Classic"></logo>
 	<logo filename="vibration.png" label="Vibration"></logo>
 	<logo filename="videoclick.png" label="Video Click"></logo>
-	<logo filename="virgin17.png" label="Virgin 17">
-		<logolabel label="Virgin 17 (bas débit)"/>
-	</logo>
+	<logo filename="virgin17.png" label="Virgin 17"></logo>
 	<logo filename="virginradio.png" label="Virgin Radio"></logo>
 	<logo filename="voltage.png" label="Voltage"></logo>
 	<logo filename="worldfashion.png" label="World Fashion"></logo>
