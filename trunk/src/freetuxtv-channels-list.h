@@ -58,6 +58,9 @@ gboolean
 channels_list_get_next_channel (FreetuxTVApp *app,
 				GtkTreePath ** path_next_channel);
 
+gint
+channels_list_get_channels_count (FreetuxTVApp *app);
+
 void
 channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel);
 

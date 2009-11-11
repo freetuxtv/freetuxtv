@@ -417,7 +417,10 @@ splashscreen_app_init(gpointer data)
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogaddgroup");
 		gtk_widget_show(widget);
-	}	
+	}
+
+	// Update statut bar
+	windowmain_update_statusbar_infos (app);
 	
 	// Close database
 	dbsync_close_db(&dbsync);
