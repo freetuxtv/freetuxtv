@@ -163,6 +163,8 @@ windowmain_init(FreetuxTVApp *app)
 			 "activate",
 			 G_CALLBACK(on_windowmain_menuitempreferences_activate),
 			 app);
+	p_menu_item = gtk_separator_menu_item_new();	
+	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
 	p_menu_item = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);	
 	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
 	g_signal_connect(G_OBJECT(p_menu_item),
@@ -185,6 +187,17 @@ windowmain_init(FreetuxTVApp *app)
 	g_signal_connect(G_OBJECT(p_menu_item),
 			 "activate",
 			 G_CALLBACK(on_windowmain_menuitemupdatelogos_activate),
+			 app);
+
+	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Video"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
+	p_menu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
+	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Deinterlace"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
+	g_signal_connect(G_OBJECT(p_menu_item),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
 			 app);
 
 	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Help"));
@@ -594,6 +607,22 @@ windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
 	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
 			   context_id);
 	// while (g_main_context_iteration(NULL, FALSE)){}		
+}
+
+void
+windowmain_update_statusbar_infos (FreetuxTVApp *app)
+{
+	GtkWidget *widget;
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+						       "windowmain_channelscount");
+
+	gint channels_count;
+	channels_count = channels_list_get_channels_count (app);
+	
+	gchar *str;
+	str = g_strdup_printf("%d", channels_count);
+	gtk_label_set_text(GTK_LABEL(widget), str);
+	g_free(str);	
 }
 
 void

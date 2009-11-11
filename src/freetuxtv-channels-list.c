@@ -201,6 +201,10 @@ channels_list_add_channels_group (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos
 		
 		channels_list_refresh_channels_group(app, path, dbsync, error);
 	}
+
+	if(*error == NULL){		
+		windowmain_update_statusbar_infos (app);
+	}
 }
 
 void
@@ -223,8 +227,9 @@ channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 		if(gtk_tree_model_get_iter(app->channelslist, &iter, path_group)){
 			gtk_tree_model_row_changed (app->channelslist, path_group, &iter);
 		}
+		windowmain_update_statusbar_infos (app);
 	}
-	
+
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
 		g_error_free (error);
@@ -333,6 +338,7 @@ channels_list_delete_channels_channels_group (FreetuxTVApp *app, GtkTreePath *pa
 	// Delete channels in the treeview
 	if(error == NULL){
 		channels_list_delete_rows (app, path_group, TRUE);
+		windowmain_update_statusbar_infos (app);
 	}
 
 	if(error != NULL){
@@ -360,6 +366,7 @@ channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
 	// Delete group in the treeview
 	if(error == NULL){
 		channels_list_delete_rows (app, path_group, FALSE);
+		windowmain_update_statusbar_infos (app);
 	}
 
 	if(error != NULL){
@@ -419,6 +426,26 @@ channels_list_get_next_channel (FreetuxTVApp *app,
 		gtk_tree_path_free(path);	       
 	}
 	return FALSE;
+}
+
+gint
+channels_list_get_channels_count (FreetuxTVApp *app)
+{
+	gint channels_count = 0;
+
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+
+	model = app->channelslist;
+
+	if(gtk_tree_model_get_iter_first (model, &iter)){
+
+		do {
+			channels_count += gtk_tree_model_iter_n_children (model, &iter);
+		}while(gtk_tree_model_iter_next(model, &iter));
+	}
+
+	return channels_count;
 }
 
 void
@@ -783,8 +810,12 @@ on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data)
 	if(error == NULL){
 		channels_list_refresh_channels_group(cbgroupdata->app, cbgroupdata->path_group, &dbsync, &error);
 	}
-
+	
 	dbsync_close_db(&dbsync);
+
+	if(error == NULL){
+		windowmain_update_statusbar_infos (cbgroupdata->app);
+	}
 	
 	if(error != NULL){
 		windowmain_show_gerror (cbgroupdata->app, error);
