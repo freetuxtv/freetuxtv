@@ -31,12 +31,6 @@ xml_start_cb(GMarkupParseContext *context,
 	     gpointer data,
 	     GError **error);
 
-static void 
-xml_err_cb(GMarkupParseContext *context,
-	   GError *error,
-	   gpointer data);
-
-
 void
 logos_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 			GError** error)
@@ -63,7 +57,7 @@ logos_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 		
 		gsize filelen;
 		static GMarkupParser parser = { xml_start_cb, NULL, NULL, 
-						NULL, xml_err_cb };
+						NULL, NULL };
 		GMarkupParseContext *context;
 		
 		context = g_markup_parse_context_new (&parser, 
@@ -72,7 +66,7 @@ logos_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 		gchar *xml_data;
 		g_file_get_contents (FREETUXTV_DIR "/channels_logos.xml", 
 				     &xml_data, &filelen, NULL);
-		g_markup_parse_context_parse (context, xml_data, -1, NULL);
+		g_markup_parse_context_parse (context, xml_data, -1, error);
 	}
 		
 	windowmain_statusbar_pop (app, "UpdateMsg");
@@ -146,12 +140,4 @@ xml_start_cb(GMarkupParseContext *context,
 		g_free(label);
 		label = NULL;
 	}
-}
-
-static void 
-xml_err_cb(GMarkupParseContext *context,
-	   GError *error,
-	   gpointer data)
-{
-	g_printerr("FreetuxTV : Error parsing XML -> %s\n", error->message);
 }

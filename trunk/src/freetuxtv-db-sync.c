@@ -234,15 +234,15 @@ dbsync_add_channel (DBSync *dbsync,
 	gchar *query;
 	gchar *db_err = NULL;
 	int res;
-
+	
 	// Add the channel
 	query = sqlite3_mprintf("INSERT INTO channel \
                      (name_channel, order_channel, idchannellogo_channel, uri_channel, channelsgroup_channel) \
                      VALUES ('%q',%d, \
                         (SELECT id_channellogo FROM channel_logo \
-                         WHERE label_channellogo='%q' OR id_channellogo = \
+                         WHERE ('%q' LIKE label_channellogo||'%%') OR id_channellogo = \
                             (SELECT idchannellogo_labelchannellogo FROM label_channellogo \
-                             WHERE label_labelchannellogo='%q' \
+                             WHERE ('%q' LIKE label_labelchannellogo||'%%') \
                             ) \
                      ),'%q','%d');", 
 				channel_infos->name, channel_infos->order, channel_infos->name,
@@ -544,7 +544,7 @@ dbsync_link_logo_to_channels (DBSync *dbsync, gchar *label, glong id_logo,
 	glong id;
 
 	// Link logo to channels 
-	query = sqlite3_mprintf("UPDATE channel SET idchannellogo_channel=%ld WHERE name_channel = '%q';", id_logo, label);
+	query = sqlite3_mprintf("UPDATE channel SET idchannellogo_channel=%ld WHERE name_channel LIKE '%q%%';", id_logo, label);
 	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
 	sqlite3_free(query);	
 	if(res != SQLITE_OK){
