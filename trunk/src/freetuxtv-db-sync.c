@@ -243,7 +243,9 @@ dbsync_add_channel (DBSync *dbsync,
                          WHERE ('%q' LIKE label_channellogo||'%%') OR id_channellogo = \
                             (SELECT idchannellogo_labelchannellogo FROM label_channellogo \
                              WHERE ('%q' LIKE label_labelchannellogo||'%%') \
+                             ORDER BY label_labelchannellogo DESC \
                             ) \
+                         ORDER BY label_channellogo DESC \
                      ),'%q','%d');", 
 				channel_infos->name, channel_infos->order, channel_infos->name,
 				channel_infos->name, channel_infos->url, channel_infos->channels_group->id);
