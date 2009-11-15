@@ -549,6 +549,7 @@
                     <property name="visible">True</property>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -1396,21 +1397,16 @@
     <property name="comments" translatable="yes">Web TV channels player</property>
     <property name="website">http://code.google.com/p/freetuxtv/</property>
     <property name="website_label" translatable="yes">Project's Web Site</property>
-    <property name="authors">Creator and developer : Eric Beuque
+    <property name="license">FreetuxTV is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
-Repository Manager : Romain Fluttaz
+FreetuxTV is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-Old members : Julien Masson
-
-Special thanks to :
-Philippe, Tuxcola (Ubuntu Package)
-Gilles Sabourin (OpenSuse Package)
-Yannick, G&#xE9;rald (Mandriva Package)
-13remi (logos)
-AigleBlanc (logos)
-Thomas L (logos)</property>
+You should have received a copy of the GNU General Public License along with Glade; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</property>
+    <property name="authors">Eric Beuque &lt;eric.beuque@gmail.com&gt;</property>
     <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
+    <property name="artists">Yannick Le Ny &lt;yleny@laposte.net&gt;</property>
     <property name="logo_icon_name">video-display</property>
+    <property name="wrap_license">True</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="aboutdialog-vbox">
         <property name="visible">True</property>

@@ -1,25 +1,24 @@
+		FreetuxTV Team
+		==============
 
-    Creator and developer
-    =====================
-
-    Eric Beuque <eric.beuque@gmail.com>
-
-    Old members
-    ===========
-
-    Julien Masson
-
-    Package Maintainers
-    ===================
-
-    Ubuntu Package : Philippe, Tuxcola
-    OpenSuse Package : Gilles SABOURIN
-    Mandriva Package : Yannick LE NY, Gérald, Alvin M.
+		Eric Beuque <eric.beuque@gmail.com>
+				Creator and developer
+		Yannick Le Ny
+				WebTV et Web Radio channel manager, channels logos creator, translator, beta tester, Mandriva packager
 
     Great thanks for their contribution
     ===================================
+		
+    Philippe C (Ubuntu packages, FreetuxTV PPA)
+		Tuxcola (Ubuntu/Debian packages)
+    Gilles Sabourin (OpenSuse packages)
+		Gérald (Mandriva packages)
+		Alvin M. (Mandriva packages)
+		gksam (Debian packages)
 
+		Julien Masson (old developer)
+		Romain Fluttaz (old repository manager)
+		
     13remi (logos)
     AigleBlanc (logos)
     Thomas L (logos)
-		Yannick LE NY (logos, foreign languages playlist)
