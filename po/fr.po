@@ -17,9 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../data/freetuxtv.glade.h:1
-#, fuzzy
 msgid " channels"
-msgstr "Chaînes"
+msgstr " chaînes"
 
 #: ../data/freetuxtv.glade.h:2
 msgid "+"
