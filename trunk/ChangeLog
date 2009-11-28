@@ -5,9 +5,14 @@ FreetuxTV 0.4.0 (2009-)
   - Ajout des préférences pour transcoder les enregistrements dans des formats prédéfinis
   - Ajout d'un menu pour voir les préférences d'un groupe
   - Ajout d'un onglet dans la fenêtre d'ajout d'un groupe de chaînes, pour facilement ajouter les groupes prédéfinis.
+  - Ajout d'un fenetre de sélection des chaines de FAI, WebTV, WebRadio suivant le FAI (Founisseurs d'accès Internet) 
+    ou parmi l'une des vingtaine de langues disponibles 
 
   - Ajout de playlists : 
     FAI : Orange, Bouygues, Alice
+    Webcam : webcams de différents lieux dans le monde entier
+    Emissions : Emissions en Français, Emissions en Anglais 
+    Il s'agit d'émissions particulières en direct ou archive de la dernière émission sur Internet
     WebRadio : Web Radio Anglaise, Web Radio Arabe, Web Radio Catalane, Web Radio Espagnole, Web Radio Française 
     WebTV : WebTV Arabe, WebTV Allemande, WebTV Anglaise, Web TV Catalane, WebTV Chinoise, Web TV Coréenne, 
     WebTV Espagnole, Web TV Grec Moderne, Web TV Hongroise, WebTV Italienne, Web TV Japonaise, Web TV Latine, 
