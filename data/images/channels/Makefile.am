@@ -6,17 +6,22 @@ channels_DATA = \
   2mmaroc.png \
   ab1.png \
   abmoteurs.png \
+  abudhabitv.png \
   accrotv.png \
+  aci.png \
   action.png \
   adofm.png \
   aljazeera.png \
   aljazeerachildren.png \
   aljazeerainternational.png \
+  almasriya.png \
   alouettefm.png \
   alsatictv.png \
   apsaratv.png \
   aptv.png \
   argentquebec.png \
+  armeniapublictv.png \
+  armeniatv.png \
   arretsurimages.png \
   artchannel.png \
   arte.png \
@@ -26,6 +31,7 @@ channels_DATA = \
   aupradio.png \
   babylontv.png \
   bambochtv.png \
+  baraem.png \
   bastilletv.png \
   bbcworld.png \
   bbcworldnews.png \
@@ -38,14 +44,17 @@ channels_DATA = \
   biscottetv.png \
   bloombergtv.png \
   boardriderstv.png \
+  bulgariatv.png \
   c9.png \
   calaistv.png \
   canalacademie.png \
   canalalgerie.png \
+  canalinfonews.png \
   canalplus.png \
   canalsavoir.png \
   canaltv.png \
   cap24-paris.png \
+  cashtv.png \
   cctv1.png \
   cctv2.png \
   cctv4.png \
@@ -73,13 +82,18 @@ channels_DATA = \
   cpac.png \
   demaintv.png \
   direct8.png \
+  dubaitv.png \
   dwtv-deutschewelle.png \
   ekodesgarrigues.png \
+  equidia.png \
+  ertworld.png \
   euronews.png \
   europe1.png \
   espacefm.png \
   espacemusique.png \
+  etbsat.png \
   evasionfm.png \
+  extra3channel.png \
   fashiontv.png \
   fazzmusic.png \
   fcradiolessentiel.png \
@@ -98,6 +112,7 @@ channels_DATA = \
   franceinter.png \
   francemusique.png \
   franceo.png \
+  franceteleachat.png \
   francevivace.png \
   freenewstv.png \
   frequence3.png \
@@ -106,6 +121,7 @@ channels_DATA = \
   funtv.png \
   gameone.png \
   gameonemusichd.png \
+  godtv.png \
   grandlille_tv.png \
   grossecaisse.png \
   guangdongsoutherntv.png \
@@ -113,10 +129,13 @@ channels_DATA = \
   guysentv.png \
   hebei_tv.png \
   heilongjiangtv.png \
+  hilaltv.png \
   hitwest.png \
   hunansatellitetv.png \
   idf1.png \
   inraci.png \
+  inspirationnetwork.png \
+  ishtartv.png \
   itelevision.png \
   jamzine.png \
   jazzradioblack.png \
@@ -126,8 +145,14 @@ channels_DATA = \
   jazzradiolounge.png \
   jazzradioreprises.png \
   jet.png \
+  jordansatellitechannel.png \
   jukebox.png \
+  kanal7int.png \
+  kanal24.png \
+  kanalavrupa.png \
   kto.png \
+  kuwaittv1.png \
+  kuwaittv2.png \
   labelletv.png \
   lachainechinoise.png \
   lachainedejiangsu.png \
@@ -188,7 +213,10 @@ channels_DATA = \
   parentheseradio.png \
   phoenixchinesenewsandentertainment.png \
   phoenixinfonews.png \
+  pokerchannel.png \
+  powerturktv.png \
   publicsenat.png \
+  purescreens.png \
   radio8.png \
   radiocean.png \
   radioclapas.png \
@@ -221,6 +249,7 @@ channels_DATA = \
   raiuno.png \
   rbg.png \
   rdicanada.png \
+  recordinternacional.png \
   relaxtv.png \
   rfi.png \
   rfm.png \
@@ -229,6 +258,7 @@ channels_DATA = \
   rmn.png \
   rocfm.png \
   rocktv.png \
+  rtcgsat.png \
   rtl.png \
   rtl2.png \
   rtl9.png \
@@ -238,6 +268,7 @@ channels_DATA = \
   russiatoday.png \
   rve.png \
   sabcnews.png \
+  samanyolutv.png \
   shanghaidragontv.png \
   shenzhen_tv.png \
   skynews.png \
@@ -246,14 +277,17 @@ channels_DATA = \
   soleil_la_radio.png \
   souvenirfromearth.png \
   sudradio.png \
+  suroyotv.png \
   tele102.png \
   teleblagon.png \
   telegrenoble.png \
   telemelody.png \
   telenantes.png \
   telenight.png \
+  telenova.png \
   teleplaisance.png \
   telessonne.png \
+  telesur.png \
   telif.png \
   tempomix.png \
   teva.png \
@@ -263,31 +297,43 @@ channels_DATA = \
   tlm-lyon.png \
   tlt-toulouse.png \
   tmc.png \
+  tna.png \
   topmusic.png \
   tracetropical.png \
   tracetv.png \
+  trt1.png \
+  trtcocuk.png \
   trtint.png \
   tsfjazz.png \
+  tv3cat-extvci.png \
   turnerclassicmovies.png \
   tv5.png \
   tv7bordeaux.png \
   tv7tunisia.png \
   tv8montblanc.png \
   tvaquebec.png \
+  tvbiznes.png \
   tveint.png \
+  tvmeurope-exrtm1-rtmmaroc.png \
   tvpi.png \
   tvpolonia-tvp.png \
+  tvromania.png \
+  tvt.png \
   tvtours.png \
+  tvvi.png \
   vesti.png \
   vh1.png \
   vh1classic.png \
   vibration.png \
   videoclick.png \
+  vietnam-vtv4.png \
   virgin17.png \
   virginradio.png \
   voltage.png \
+  voxafrica.png \
   worldfashion.png \
   xiamenstartv.png \
+  yementv.png \
   zdf_de.png \
 	zhejiangstartv.png
 EXTRA_DIST   = $(channels_DATA)
