@@ -5,6 +5,7 @@ FreetuxTV 0.4.0 (2009-)
   - Ajout des préférences pour transcoder les enregistrements dans des formats prédéfinis
   - Ajout d'un menu pour voir les préférences d'un groupe
   - Ajout d'un onglet dans la fenêtre d'ajout d'un groupe de chaînes, pour facilement ajouter les groupes prédéfinis.
+
   - Ajout de playlists : 
     FAI : Orange, Bouygues, Alice
     WebRadio : Web Radio Anglaise, Web Radio Arabe, Web Radio Catalane, Web Radio Espagnole, Web Radio Française 
@@ -12,6 +13,7 @@ FreetuxTV 0.4.0 (2009-)
     WebTV Espagnole, Web TV Grec Moderne, Web TV Hongroise, WebTV Italienne, Web TV Japonaise, Web TV Latine, 
     Web TV Néerlandaise, Web TV Norvégienne, Web TV Persane, Web TV Polonaise, Web TV Portugaise, 
     Web TV Roumaine, Web TV Russe, Web TV Slovaque, Web TV Suédoise, Web TV Tchèque, Web TV Turque
+
   - Mise à jour de logos : Game One, SABC News, Telessonne, SkyNews International
   - Ajout de logos : 
     WebTV :  Beijing TV, CCTV 4, CCTV 9, CCTV Divertissement, CCTV F, Guangdong Southern TV,
@@ -25,6 +27,12 @@ FreetuxTV 0.4.0 (2009-)
       RTP Internacional, RTR Planeta, Russia Today, SZTV (Shenzhen), Sky News International,  
       Souvenirs from Earth, Tele Nantes, TLM Lyon, TLT Toulouse, TRT International, TV7 Bordeaux, TV7 Tunisia, 
       TVE Internacional, TVP Polonia, TV Tours, Vesti, World Fashion, ZDF.
+      Abu Dhabi TV, Antenne Caraïbes International, Al Masriya, Armenia Public TV, Armenia TV, Baraem,
+      Bulgaria TV, Canal Info News, Cash TV, Dubai TV, Equidia, ERT World, ETB Sat, Extra 3 Channel,
+      France Teleachat, God TV, Hilal TV, Inspiration Network, Ishtar TV, Jordan Satellite Channel
+      Kanal 7 INT, Kanal 24, Kanal Avrupa, Kuwait TV, Kuwait TV2, Poker Channel, Powertürk TV, Purescreens
+      Record Internacional, RTCG Sat, Samanyolu TV, Suroyo TV, Telenova, Telesur, TNA, TRT1, TRT Cocuk, TVCi
+      TV Biznes, TVM Europe, TV Romania, TVT, TVVi, Vietnam VTV4, Vox Africa, Yemen TV
     WebRadio : 100 %, 1onAir Connect, Ado FM, Alouette FM, Aup Radio, Beur FM, Canal Académie,  Contact FM, Couleur 3,
       Eko des Garrigues, Espace FM, Espace Musique Radio Canada, Evasion FM, FC RADIO L'essentiel, FIP, FLY FM,
       France Vivace, Fréquence India, Jazz Radio (ex-Fréquence Jazz), Jazz Radio Black Music, Jazz Radio Blues,
