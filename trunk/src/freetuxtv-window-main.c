@@ -424,8 +424,7 @@ windowmain_init(FreetuxTVApp *app)
 						      "dialogaddgroup_treeviewchannelsgroups");
 	GtkTreeSelection *selection;
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(widget));
-	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
-	 
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);	 
 
 	// Initialize signals for dialoggroupproperties
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
@@ -452,11 +451,29 @@ windowmain_init(FreetuxTVApp *app)
 	g_signal_connect(G_OBJECT(widget),
 			 "response",
 			 G_CALLBACK(on_aboutdialog_response),
-			 NULL);	
+			 NULL);
+	g_signal_connect(G_OBJECT(widget),
+			 "delete-event",
+			 G_CALLBACK(gtk_widget_hide_on_delete),
+			 NULL);
+
+
+	// Initialize signals for dialogprogress
+	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
+							"dialogprogress");
+	gtk_dialog_add_buttons (GTK_DIALOG(widget),
+				"gtk-close", GTK_RESPONSE_CLOSE, NULL);
+	
+	g_signal_connect(G_OBJECT(widget),
+			 "response",
+			 G_CALLBACK(gtk_widget_hide_on_delete),
+			 NULL);
 	g_signal_connect(G_OBJECT(widget),
 			 "delete-event",
 			 G_CALLBACK(gtk_widget_hide_on_delete),
 			 NULL);	
+
+
 }
 
 void
@@ -1067,11 +1084,17 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 	gchar *errmsg = NULL;
 
 	GtkWidget* widget;
+	GtkWidget* dialogprogress;
+	GtkWidget* label;
+	GtkWidget* progressbar;
 	
 	const gchar *sgroupname = NULL;
 	const gchar *sgroupuri = NULL;
 	const gchar *sbregex = NULL;
 	const gchar *seregex = NULL;
+
+	gboolean has_process = FALSE;
+	gchar *tmptext;
 	
 	if(response_id == FREETUXTV_RESPONSE_ADD){
 		DBSync dbsync;
@@ -1079,6 +1102,7 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 		
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogaddgroup_notebook");
+
 		if(error == NULL){
 			int page;
 			page = gtk_notebook_get_current_page (GTK_NOTEBOOK(widget));
@@ -1094,12 +1118,48 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 										 "treestore_channelsgroup");
 				GList *list;
 				list = gtk_tree_selection_get_selected_rows (selection, &model);
+
+				int count;
+				int i = 0;
+				int nb_added = 0;
+				count = gtk_tree_selection_count_selected_rows(selection);
+
 				
 				GList* iterator = NULL;
 				iterator = g_list_first (list);
 				
-				if(iterator == NULL){
+				if(iterator != NULL){
+					has_process = TRUE;
+				}else{
 					errmsg = g_strdup_printf(_("Please select a least one group !"));
+				}
+
+				// Initialize the dialog progress
+				if(has_process){
+					dialogprogress = (GtkWidget *) gtk_builder_get_object (app->gui,
+											       "dialogprogress");
+					
+					gtk_window_set_transient_for (GTK_WINDOW(dialogprogress), GTK_WINDOW(dialog));
+					gtk_window_set_title(GTK_WINDOW(dialogprogress), _("Adding channels groups"));
+					gtk_window_set_position (GTK_WINDOW(dialogprogress), GTK_WIN_POS_CENTER_ON_PARENT);
+					
+					
+					label = (GtkWidget *) gtk_builder_get_object (app->gui,
+										      "dialogprogress_labeltitle");
+
+					gtk_label_set_markup(GTK_LABEL(label), "<span size=\"large\"><b>Adding channels group</b></span>");
+					
+					label = (GtkWidget *) gtk_builder_get_object (app->gui,
+										      "dialogprogress_labeldesc");
+					gtk_label_set_text(GTK_LABEL(label), "");
+					
+					
+					progressbar = (GtkWidget *) gtk_builder_get_object (app->gui,
+											    "dialogprogress_progressbar");
+					gtk_progress_bar_update (GTK_PROGRESS_BAR(progressbar), 0.0);
+					gtk_progress_bar_set_text (GTK_PROGRESS_BAR(progressbar), "0 %");
+
+					gtk_widget_show(dialogprogress);
 				}
 				
 				GtkTreePath* last_ppath = NULL;
@@ -1107,13 +1167,17 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 				
 				while(iterator != NULL && error == NULL){
 					GtkTreePath* path;
-					path = (GtkTreePath*)iterator->data;
 					GtkTreePath* parent_path;
 					
 					GtkTreeIter iter;
 					GtkTreeIter iter_parent;
-					gboolean valid = TRUE;				
+					gboolean valid = TRUE;	
 					
+					// Get the next path
+					path = (GtkTreePath*)iterator->data;
+
+					i++;
+
 					if(gtk_tree_path_get_depth (path) == 1){
 						last_ppath = path;
 						
@@ -1128,7 +1192,15 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 									
 									channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
 									freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
+									
+									// Update progress dialog
+									tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
+												  channels_group_infos->name);
+									gtk_label_set_markup(GTK_LABEL(label), tmptext);
+									g_free(tmptext);
+
 									channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
+									nb_added++;
 									
 								}while (gtk_tree_model_iter_next(model, &iter) && error == NULL);
 								
@@ -1152,16 +1224,40 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 										    MODEL_CHANNELSGROUP_BREGEX, &sbregex,
 										    MODEL_CHANNELSGROUP_EREGEX, &seregex, -1);
 								
-							channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
-							freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
-							channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
-							}						
-						}					
+								channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
+								freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
+								
+								// Update progress dialog
+								tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
+											  channels_group_infos->name);
+								gtk_label_set_markup(GTK_LABEL(label), tmptext);
+								g_free(tmptext);
+								
+								channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
+								nb_added++;
+							}			
+						}	
 					}
 					
+					// Update the progress bar
+					gdouble percent;
+					percent = (gdouble)i/(gdouble)count;
+					gtk_progress_bar_update (GTK_PROGRESS_BAR(progressbar), percent);
+					
+					tmptext = g_strdup_printf(_("%0.0f %%"), percent * 100);
+					gtk_progress_bar_set_text (GTK_PROGRESS_BAR(progressbar), tmptext);
+					g_free(tmptext);
+
 					iterator = g_list_next(iterator);
 				}
 				g_list_free (list);
+
+				if(has_process){
+					tmptext = g_strdup_printf(_("%d channels group have been successfully added."), nb_added);
+					gtk_label_set_text(GTK_LABEL(label), tmptext);
+					g_free(tmptext);
+
+				}
 				
 				break;
 			case 1:
