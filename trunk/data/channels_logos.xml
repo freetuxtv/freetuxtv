@@ -1,5 +1,5 @@
 <channel_logos>
-	<logo filename="100pourcentradio.png" label="100 %"></logo>	
+	<logo filename="100pourcentradio.png" label="100 %"></logo>
 	<logo filename="1onairconnect.png" label="1onAir Connect"></logo>
 	<logo filename="2mmaroc.png" label="2M Maroc"></logo>
 	<logo filename="ab1.png" label="AB 1"></logo>
@@ -76,7 +76,9 @@
 	<logo filename="cctvf.png" label="CCTV F">
 		<logolabel label="CCTV-F"/>
 	</logo>
-	<logo filename="cheriefm.png" label="Chérie FM"></logo>
+	<logo filename="cheriefm.png" label="Chérie FM">
+		<logolabel label="Chérie"/>
+	</logo>
 	<logo filename="channelonerussia-orti.png" label="Channel One Russia (ORTi)">
 		<logolabel label="ORTi"/>
 		<logolabel label="1TV"/>
@@ -287,7 +289,7 @@
 		<logolabel label="NASA TV (Media Channel)"/>
 		<logolabel label="NASA TV (Education Channel)"/>
 	</logo>
-	<logo filename="natgeomusic.png" label="atGeo Music"></logo>
+	<logo filename="natgeomusic.png" label="NatGeo Music"></logo>
 	<logo filename="nationalgeographic.png" label="National Geographic HD"></logo>
 	<logo filename="nhk.png" label="NHK"></logo>
 	<logo filename="nightmagcom.png" label="Night-mag.com"></logo>
@@ -368,7 +370,9 @@
 	</logo>
 	<logo filename="rfm.png" label="RFM"></logo>
 	<logo filename="rireetchansons.png" label="Rire et Chansons"></logo>
-	<logo filename="rmc.png" label="RMC Info"></logo>
+	<logo filename="rmc.png" label="RMC Info">
+		<logolabel label="RMC (ex-RMC Info)"/>
+	</logo>
 	<logo filename="rmn.png" label="RMN FM"></logo>
 	<logo filename="rocfm.png" label="Roc FM"></logo>
 	<logo filename="rocktv.png" label="Rock TV"></logo>
