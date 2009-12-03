@@ -108,7 +108,7 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 
 static void
 channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
-			 gboolean cache, GError** error);
+			 gboolean update, GError** error);
 
 static void
 channels_list_display_channels (FreetuxTVApp *app);
@@ -266,8 +266,8 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 	g_free(text);
 	g_print("FreetuxTV : Getting the file \"%s\"\n", channels_group_infos->uri);
 
-	char *file;
-	channels_group_get_file (channels_group_infos, &file, TRUE, error);		
+	gchar *filename = NULL;
+	channels_group_get_file (channels_group_infos, &filename, TRUE, error);		
 	windowmain_statusbar_pop (app, "UpdateMsg");
 
 	// Delete channels of the channels group in the database 
@@ -284,8 +284,8 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 		pdata.error = error;
 		int res = 0;
 
-		g_print("FreetuxTV : Parsing the file \"%s\"\n", file);
-		res = libm3uparser_parse(file, &on_parsem3u_add_channel, &pdata);
+		g_print("FreetuxTV : Parsing the file \"%s\"\n", filename);
+		res = libm3uparser_parse(filename, &on_parsem3u_add_channel, &pdata);
 		if (res != LIBM3UPARSER_OK){		
 			if (res != LIBM3UPARSER_CALLBACK_RETURN_ERROR){
 				*error = g_error_new (FREETUXTV_LIBM3UPARSE_ERROR,
@@ -321,6 +321,10 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 		gtk_tree_view_expand_row (GTK_TREE_VIEW(treeview), path_group, FALSE);
 	}
 	
+	if(filename){
+		g_free(filename);
+	}
+
 	windowmain_statusbar_pop (app, "UpdateMsg");
 }
 
@@ -354,12 +358,26 @@ channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(error != NULL);
 
+	gchar *filename;
+
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
 	channels_group_infos = channels_list_get_group (app, path_group);
 		
 	// Delete group in the database
 	if(*error == NULL){
 		dbsync_delete_channels_group (dbsync, channels_group_infos, error);
+	}
+
+	// Delete the temporary file
+	if(*error == NULL){
+		channels_group_get_file (channels_group_infos, &filename, TRUE, error);
+	
+		g_print("FreetuxTV : Deleting the file \"%s\"\n", filename);
+		if(g_unlink(filename)){
+			
+		}
+
+		g_free(filename);
 	}
 
 	// Delete group in the treeview
@@ -537,15 +555,17 @@ channels_list_display_channels (FreetuxTVApp *app)
 }
 
 static void
-channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **file,
-			 gboolean cache, GError** error)
+channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
+			 gboolean update, GError** error)
 {
 	gchar *groupfile;
 	groupfile = g_strdup_printf("%s/FreetuxTV/cache/playlist-group-%d.dat",
 				    g_get_user_config_dir(), self->id);
-	freetuxtv_fileutils_get_file (self->uri, groupfile, error);
+	if(update){
+		freetuxtv_fileutils_get_file (self->uri, groupfile, error);
+	}
 
-	*file = groupfile;
+	*filename = groupfile;
 }
 
 static int
