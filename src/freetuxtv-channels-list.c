@@ -51,12 +51,6 @@ typedef struct _CBUserData
 	GtkTreeIter *iter_channel; 
 } CBUserData;
 
-typedef struct _CBGroupData
-{
-	FreetuxTVApp *app;
-	GtkTreePath *path_group;
-} CBGroupData;
-
 enum
 {
 	CHANNELSGROUP_COLUMN,
@@ -93,13 +87,13 @@ static void
 on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
-on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_data);
-
-static void
 on_popupmenu_activated_deletechannels (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
 on_popupmenu_activated_deletegroup (GtkMenuItem *menuitem, gpointer user_data);
+
+static void
+on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_data);
 
 static gboolean
 on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data);
@@ -137,6 +131,7 @@ channels_list_init (FreetuxTVApp *app)
 	GtkCellRenderer *renderer;
 	GtkTreeModel *model;
 	GtkTreeStore *channelslist;
+	GtkTreeSelection *selection;
 	
 	// TODO : free it
 	channelslist = gtk_tree_store_new (N_COLUMNS,
@@ -154,6 +149,9 @@ channels_list_init (FreetuxTVApp *app)
 							"windowmain_treeviewchannelslist");	
 	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(model));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
+
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(treeview));
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
 
 	column = gtk_tree_view_column_new();
 	renderer = freetuxtv_cellrenderer_channelslist_new ();
@@ -328,58 +326,46 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 
 
 void
-channels_list_delete_channels_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
+channels_list_delete_channels_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
+					      DBSync* dbsync, GError** error)
 {
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
+	
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
 	channels_group_infos = channels_list_get_group (app, path_group);
 	
-	GError* error = NULL;
-	
 	// Delete channels in the database
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-	if(error == NULL){
-		dbsync_delete_channels_of_channels_group (&dbsync, channels_group_infos, &error);
+	if(*error == NULL){
+		dbsync_delete_channels_of_channels_group (dbsync, channels_group_infos, error);
 	}
-	dbsync_close_db(&dbsync);
 	
 	// Delete channels in the treeview
-	if(error == NULL){
+	if(*error == NULL){
 		channels_list_delete_rows (app, path_group, TRUE);
 		windowmain_update_statusbar_infos (app);
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
 	}
 }
 
 void
-channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group)
+channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
+				     DBSync* dbsync, GError** error)
 {
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
+
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
 	channels_group_infos = channels_list_get_group (app, path_group);
-	
-	GError* error = NULL;
-	
+		
 	// Delete group in the database
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-	if(error == NULL){
-		dbsync_delete_channels_group (&dbsync, channels_group_infos, &error);
+	if(*error == NULL){
+		dbsync_delete_channels_group (dbsync, channels_group_infos, error);
 	}
-	dbsync_close_db(&dbsync);
 
 	// Delete group in the treeview
-	if(error == NULL){
+	if(*error == NULL){
 		channels_list_delete_rows (app, path_group, FALSE);
 		windowmain_update_statusbar_infos (app);
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
 	}
 }
 
@@ -712,94 +698,123 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	if (event->type == GDK_BUTTON_PRESS  &&  event->button == 3) {
-
+	if (event->type == GDK_BUTTON_PRESS && event->button == 3) {
+		
 		GtkTreeSelection *selection;
+		GtkTreeModel* model_filter;
+		GList *list;
+		gint nb_channels = 0;
+		gint nb_groups = 0;
+		gint nb_selected = 0;
+		GtkTreePath *path;
+		GtkTreePath *path_selected;
+
+		model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
 		
+		// Get the selection
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+		nb_selected = gtk_tree_selection_count_selected_rows(selection);
+
+		// Get the path where user has clicked
+		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(treeview),
+						  (gint) event->x, (gint) event->y,
+						  &path_selected, NULL, NULL, NULL)){
+			if(!gtk_tree_selection_path_is_selected (selection, path_selected)){
+				gtk_tree_selection_unselect_all (selection);
+				gtk_tree_selection_select_path(selection, path_selected);
+			}
+			gtk_tree_path_free(path_selected);			
+		}
 		
-		if (gtk_tree_selection_count_selected_rows(selection)  <= 1) {
-			GtkTreePath *path;
+		nb_selected = gtk_tree_selection_count_selected_rows(selection);
+		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+		
+		GList* iterator = NULL;
+		iterator = g_list_first (list);
+
+		while(iterator != NULL){
+			GtkTreePath *real_path;
+			GtkTreeIter iter;
+
+			// Get the real path
+			path = (GtkTreePath*)iterator->data;
+			real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
 			
-			// Recupère le chemin de la ligne selectionné
-			if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(treeview),
-							  (gint) event->x, 
-							  (gint) event->y,
-							  &path, NULL, NULL, NULL)){
-				gtk_tree_selection_unselect_all(selection);
-				gtk_tree_selection_select_path(selection, path);
-
-				GtkTreeIter iter;
-
-				FreetuxTVChannelsGroupInfos* channels_group_infos;
-				// FreetuxTVChannelInfos* channel_infos;
-
-				gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, path);				
-				gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
-
-				GtkWidget *menu, *menuitem;
-				GtkWidget *image;
-
-				// Si on clic sur un groupe
-				if(channels_group_infos != NULL){
-					
-					
-					CBGroupData *cbgroupdata;
-					cbgroupdata = g_new0(CBGroupData, 1);
-					cbgroupdata->app = app;
-					cbgroupdata->path_group = path;
-					// TODO Function to free cbgroupdata when popup menu close
-
-					menu = gtk_menu_new();
-					
-					menuitem = gtk_image_menu_item_new_from_stock ("gtk-refresh", NULL);
-					gtk_widget_set_tooltip_text (GTK_WIDGET(menuitem), channels_group_infos->uri);
-					gtk_menu_append (GTK_MENU (menu), menuitem);					
-					g_signal_connect(G_OBJECT(menuitem), "activate",
-							 G_CALLBACK(on_popupmenu_activated_refreshgroup), cbgroupdata);
-					gtk_widget_show (menuitem);
-					
-					menuitem = gtk_separator_menu_item_new();
-					gtk_menu_append (GTK_MENU (menu), menuitem);
-					gtk_widget_show (menuitem);
-						
-					menuitem = gtk_image_menu_item_new_with_label(_("Delete group's channels"));
-					image = gtk_image_new_from_stock (GTK_STOCK_DELETE, GTK_ICON_SIZE_MENU);
-					gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
-					gtk_menu_append (GTK_MENU (menu), menuitem);
-					g_signal_connect(G_OBJECT(menuitem), "activate",
-							 G_CALLBACK(on_popupmenu_activated_deletechannels), cbgroupdata);
-					gtk_widget_show (menuitem);
-					
-					menuitem = gtk_image_menu_item_new_from_stock ("gtk-delete", NULL);
-					gtk_menu_append (GTK_MENU (menu), menuitem);
-					g_signal_connect(G_OBJECT(menuitem), "activate",
-							 G_CALLBACK(on_popupmenu_activated_deletegroup), cbgroupdata);
-					gtk_widget_show (menuitem);
-					
-					menuitem = gtk_separator_menu_item_new();
-					gtk_menu_append (GTK_MENU (menu), menuitem);
-					gtk_widget_show (menuitem);
-					
-					menuitem = gtk_image_menu_item_new_from_stock ("gtk-properties", NULL);
-					gtk_menu_append (GTK_MENU (menu), menuitem);
-					g_signal_connect(G_OBJECT(menuitem), "activate",
-							 G_CALLBACK(on_popupmenu_activated_groupproperties), cbgroupdata);
-					gtk_widget_show (menuitem);
-						
-					gtk_widget_show(menu);
-										
-					gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-						       (event != NULL) ? event->button : 0,
-						       gdk_event_get_time((GdkEvent*)event));
-					
-					return TRUE;
-					
+			// Look the type of the data in the path
+			FreetuxTVChannelsGroupInfos* channels_group_infos;
+			FreetuxTVChannelInfos* channel_infos;
+			gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, real_path);
+			gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
+			if(channels_group_infos != NULL){
+				nb_groups++;	
+			}else{
+				gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNEL_COLUMN, &channel_infos, -1);
+				if(channel_infos != NULL){
+					nb_channels++;
 				}
+			}			
+
+			// Iterate next path
+			iterator = g_list_next(iterator);
+			
+		}
+
+		GtkWidget *menu = NULL;
+		GtkWidget *menuitem;
+		GtkWidget *image;
+		
+		if(nb_groups > 0 && nb_channels == 0){
+			menu = gtk_menu_new();
+			
+			// Refresh, delete and delete group channels is only for channels groups
+			menuitem = gtk_image_menu_item_new_from_stock ("gtk-refresh", NULL);
+			gtk_menu_append (GTK_MENU (menu), menuitem);					
+			g_signal_connect(G_OBJECT(menuitem), "activate",
+					 G_CALLBACK(on_popupmenu_activated_refreshgroup), app);
+			gtk_widget_show (menuitem);
+			
+			menuitem = gtk_separator_menu_item_new();
+			gtk_menu_append (GTK_MENU (menu), menuitem);
+			gtk_widget_show (menuitem);
+			
+			menuitem = gtk_image_menu_item_new_with_label(_("Delete group's channels"));
+			image = gtk_image_new_from_stock (GTK_STOCK_DELETE, GTK_ICON_SIZE_MENU);
+			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
+			gtk_menu_append (GTK_MENU (menu), menuitem);
+			g_signal_connect(G_OBJECT(menuitem), "activate",
+					 G_CALLBACK(on_popupmenu_activated_deletechannels), app);
+			gtk_widget_show (menuitem);
+			
+			menuitem = gtk_image_menu_item_new_from_stock ("gtk-delete", NULL);
+			gtk_menu_append (GTK_MENU (menu), menuitem);
+			g_signal_connect(G_OBJECT(menuitem), "activate",
+						 G_CALLBACK(on_popupmenu_activated_deletegroup), app);
+			gtk_widget_show (menuitem);
+						
+			// Group properties is only if one channels groups is selected 
+			if(nb_groups == 1){
+				menuitem = gtk_separator_menu_item_new();
+				gtk_menu_append (GTK_MENU (menu), menuitem);
+				gtk_widget_show (menuitem);
 				
-				gtk_tree_path_free(path);
+				menuitem = gtk_image_menu_item_new_from_stock ("gtk-properties", NULL);
+				gtk_menu_append (GTK_MENU (menu), menuitem);
+				g_signal_connect(G_OBJECT(menuitem), "activate",
+						 G_CALLBACK(on_popupmenu_activated_groupproperties), app);
+				gtk_widget_show (menuitem);
 			}
 		}
+
+		if(menu){
+			gtk_widget_show(menu);
+			
+			gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+				       (event != NULL) ? event->button : 0,
+				       gdk_event_get_time((GdkEvent*)event));
+
+		}
+		
+		return TRUE;
 	}
 
 	return FALSE;
@@ -808,92 +823,237 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 static void
 on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data)
 {
-	CBGroupData *cbgroupdata = (CBGroupData *)user_data;
+	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
 
 	GError* error = NULL;
 
+	GtkWidget* treeview;
+	GtkTreeModel* model_filter;
+	GtkTreeSelection *selection;
+	GList *list;
+	GList* iterator = NULL;
+	GtkTreePath *path;
+	GtkTreePath *real_path;
+	
 	DBSync dbsync;
 	dbsync_open_db (&dbsync, &error);
 
 	if(error == NULL){
-		channels_list_refresh_channels_group(cbgroupdata->app, cbgroupdata->path_group, &dbsync, &error);
+		treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+								"windowmain_treeviewchannelslist");
+		model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+		
+		// Get the selection
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+		
+		iterator = g_list_first (list);
+
+		while(iterator != NULL && error == NULL){			
+
+			// Get the real path
+			path = (GtkTreePath*)iterator->data;
+			real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
+			
+			// Refresh the group corresponding to the path
+			channels_list_refresh_channels_group(app, real_path, &dbsync, &error);
+
+			iterator = g_list_next(iterator);
+		}
 	}
 	
 	dbsync_close_db(&dbsync);
 
 	if(error == NULL){
-		windowmain_update_statusbar_infos (cbgroupdata->app);
+		windowmain_update_statusbar_infos (app);
 	}
 	
 	if(error != NULL){
-		windowmain_show_gerror (cbgroupdata->app, error);
+		windowmain_show_gerror (app, error);
 		g_error_free (error);
 	}	
 }
 
 static void
-on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_data)
-{
-	CBGroupData *cbgroupdata = (CBGroupData *)user_data;
-	FreetuxTVApp *app = cbgroupdata->app;
-
-	FreetuxTVChannelsGroupInfos* group;
-	group = channels_list_get_group(app, cbgroupdata->path_group);
-
-	GtkWidget *widget;
-	
-	// Set the value in the fields
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "dialoggroupproperties_name");
-	gtk_entry_set_text(GTK_ENTRY(widget), group->name);
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "dialoggroupproperties_uri");
-	gtk_entry_set_text(GTK_ENTRY(widget), group->uri);
-
-	if(group->bregex != NULL){
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-							       "dialoggroupproperties_bregex");
-		gtk_entry_set_text(GTK_ENTRY(widget), group->bregex);
-	}
-
-	if(group->eregex != NULL){
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-							       "dialoggroupproperties_eregex");
-		gtk_entry_set_text(GTK_ENTRY(widget), group->eregex);
-	}
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "dialoggroupproperties_nbchannels");
-	gchar* str;
-	str = g_strdup_printf("%d", group->nb_channels);
-	gtk_label_set_text(GTK_LABEL(widget), str);
-	g_free(str);
-	
-	// Display the window
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "dialoggroupproperties");
-	gtk_widget_show (widget);
-
-	g_object_set_data (G_OBJECT(widget), "ChannelsGroup", group);
-	g_object_set_data (G_OBJECT(widget), "PathChannelsGroup", cbgroupdata->path_group);
-
-	
-}
-
-static void
 on_popupmenu_activated_deletechannels (GtkMenuItem *menuitem, gpointer user_data)
 {
-	CBGroupData *cbgroupdata = (CBGroupData *)user_data;
-	channels_list_delete_channels_channels_group(cbgroupdata->app, cbgroupdata->path_group);	
+	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
+
+	GError* error = NULL;
+
+	GtkWidget* treeview;
+	GtkTreeModel* model_filter;
+	GtkTreeSelection *selection;
+	GList *list;
+	GList* iterator = NULL;
+	GtkTreePath *path;
+	GtkTreePath *real_path;
+	
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+								"windowmain_treeviewchannelslist");
+		model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+		
+		// Get the selection
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+		
+		iterator = g_list_first (list);
+
+		while(iterator != NULL && error == NULL){
+			
+			// Get the real path
+			path = (GtkTreePath*)iterator->data;
+			real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
+			
+			// Delete the channels of the channels group corresponding to the path
+			channels_list_delete_channels_channels_group(app, real_path, &dbsync, &error);
+
+			iterator = g_list_next(iterator);
+		}
+	}
+	
+	dbsync_close_db(&dbsync);
+
+	if(error == NULL){
+		windowmain_update_statusbar_infos (app);
+	}
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}	
 }
 
 
 static void
 on_popupmenu_activated_deletegroup (GtkMenuItem *menuitem, gpointer user_data)
 {
-	CBGroupData *cbgroupdata = (CBGroupData *)user_data;
-	channels_list_delete_channels_group(cbgroupdata->app, cbgroupdata->path_group);	
+	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
+
+	GError* error = NULL;
+
+	GtkWidget* treeview;
+	GtkTreeModel* model_filter;
+	GtkTreeSelection *selection;
+	GList *list;
+	GList* iterator = NULL;
+	GtkTreePath *path;
+	GtkTreePath *real_path;
+	
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+								"windowmain_treeviewchannelslist");
+		model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+		
+		// Get the selection
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+		
+		iterator = g_list_last (list);
+
+		while(iterator != NULL && error == NULL){			
+
+			// Get the real path
+			path = (GtkTreePath*)iterator->data;
+			real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
+			
+			// Delete the channels group corresponding to the path
+			channels_list_delete_channels_group(app, real_path, &dbsync, &error);
+
+			iterator = g_list_previous(iterator);
+		}
+	}
+	
+	dbsync_close_db(&dbsync);
+
+	if(error == NULL){
+		windowmain_update_statusbar_infos (app);
+	}
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+}
+
+static void
+on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
+	
+	GtkWidget *widget;
+	GtkWidget* treeview;
+	GtkTreeModel* model_filter;
+	GtkTreeSelection *selection;
+	GList *list;
+	GList* iterator = NULL;
+	GtkTreePath *path;
+	GtkTreePath *real_path;
+	
+	FreetuxTVChannelsGroupInfos* group;
+
+	treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+							  "windowmain_treeviewchannelslist");
+	model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+	
+	// Get the selection
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+	list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+	
+	iterator = g_list_last (list);
+	
+	if(iterator != NULL){			
+		
+		// Get the real path
+		path = (GtkTreePath*)iterator->data;
+		real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
+		
+		// Show properties to the channels group corresponding to the path
+		group = channels_list_get_group(app, real_path);
+
+		// Set the value in the fields
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialoggroupproperties_name");
+		gtk_entry_set_text(GTK_ENTRY(widget), group->name);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialoggroupproperties_uri");
+		gtk_entry_set_text(GTK_ENTRY(widget), group->uri);
+		
+		if(group->bregex != NULL){
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+								       "dialoggroupproperties_bregex");
+			gtk_entry_set_text(GTK_ENTRY(widget), group->bregex);
+		}
+		
+		if(group->eregex != NULL){
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+								       "dialoggroupproperties_eregex");
+			gtk_entry_set_text(GTK_ENTRY(widget), group->eregex);
+		}
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialoggroupproperties_nbchannels");
+		gchar* str;
+		str = g_strdup_printf("%d", group->nb_channels);
+		gtk_label_set_text(GTK_LABEL(widget), str);
+		g_free(str);
+		
+		// Display the window
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialoggroupproperties");
+		gtk_widget_show (widget);
+		
+		g_object_set_data (G_OBJECT(widget), "ChannelsGroup", group);
+		g_object_set_data (G_OBJECT(widget), "PathChannelsGroup", real_path);
+	}
 }
 
 static gboolean
