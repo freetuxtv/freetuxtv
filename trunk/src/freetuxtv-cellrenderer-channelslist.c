@@ -211,11 +211,12 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 	*/
 
 	GdkPixbuf* logo;
-	if(self->type == CELLRENDERER_TYPE_CHANNEL){
 
-		if (flags & GTK_CELL_RENDERER_SELECTED != 0){
-			state = GTK_STATE_SELECTED;
-		}
+	if (flags & GTK_CELL_RENDERER_SELECTED != 0){
+		state = GTK_STATE_SELECTED;
+	}
+
+	if(self->type == CELLRENDERER_TYPE_CHANNEL){
 
 		// Backgroung of the cell
 		if(self->is_playing){
@@ -240,6 +241,7 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 				  cell->xpad * 2 + gdk_pixbuf_get_width(logo) + 5, cell_area->y + 15,
 				  layout);
 	}else{
+
 		gtk_style_set_background (widget->style, window, state);
 		
 		gtk_style_apply_default_background  (widget->style, window, TRUE,
