@@ -150,7 +150,7 @@ static void
 dialogpreferences_update_view(FreetuxTVApp *app);
 
 static void
-dialogprogress_init(FreetuxTVApp *app, gchar *title);
+dialogprogress_init(FreetuxTVApp *app, gchar *title, GtkWindow* parent);
 
 static void
 dialogprogress_update(FreetuxTVApp *app, gchar *text, gboolean setpercent, gdouble percent);
@@ -1141,7 +1141,7 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 
 				// Initialize the dialog progress
 				if(has_process){
-					dialogprogress_init(app, _("Adding channels groups"));
+					dialogprogress_init(app, _("Adding channels groups"), GTK_WINDOW(dialog));
 				}
 				
 				GtkTreePath* last_ppath = NULL;
@@ -1264,7 +1264,7 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 				}
 				
 				if(errmsg == NULL){
-					dialogprogress_init(app, _("Adding channels groups"));
+					dialogprogress_init(app, _("Adding channels groups"), GTK_WINDOW(dialog));
 				
 					if(g_ascii_strcasecmp(sbregex,"") == 0 ){
 						sbregex = NULL;
@@ -1440,7 +1440,7 @@ dialogpreferences_update_view(FreetuxTVApp *app)
 
 
 static void
-dialogprogress_init(FreetuxTVApp *app, gchar *title)
+dialogprogress_init(FreetuxTVApp *app, gchar *title, GtkWindow* parent)
 {
 	GtkWidget* dialog;
 	GtkWidget* label;
@@ -1449,7 +1449,7 @@ dialogprogress_init(FreetuxTVApp *app, gchar *title)
 
 	dialog = (GtkWidget *) gtk_builder_get_object (app->gui, "dialogprogress");
 	
-	gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(dialog));
+	gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(parent));
 	gtk_window_set_title(GTK_WINDOW(dialog), title);
 	gtk_window_set_position (GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
 	
