@@ -293,7 +293,6 @@ increase_progress_timeout (FreetuxTVApp *app)
 	switch(state){
 	case GTK_LIBVLC_STATE_PAUSED :
 	case GTK_LIBVLC_STATE_PLAYING :
-	case GTK_LIBVLC_STATE_ENDED :
 		windowmain_timebar_update (app, gtk_libvlc_media_player_get_time(app->player), 
 					   gtk_libvlc_media_player_get_length(app->player),
 					   gtk_libvlc_media_player_get_position(app->player));
@@ -568,6 +567,8 @@ freetuxtv_play_media (FreetuxTVApp *app, GtkLibVLCMedia* media)
 		g_print("FreetuxTV-debug : freetuxtv_play_media(%s)\n", media->mrl);
 	}
 	
+	windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
+
 	gtk_libvlc_media_player_clear_media_list(app->player);
 	gtk_libvlc_media_player_add_media(app->player, media);
 	g_object_unref(media);

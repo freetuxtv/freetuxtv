@@ -54,6 +54,10 @@ static void
 on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 					    gpointer user_data);
 
+static void
+on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
+						   gpointer user_data);
+
 static gboolean
 on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
 			    gdouble value, gpointer user_data);
@@ -165,8 +169,11 @@ windowmain_init(FreetuxTVApp *app)
 	// Initialize menu bar	
 	menu_bar = gtk_menu_bar_new ();
 	GtkWidget *p_menu = NULL;
+	GtkWidget *p_submenu = NULL;
 	GtkWidget *p_menu_item = NULL;
+	GSList *group;
 	
+	// Menu : FreetuxTV
 	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_FreetuxTV"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
 	p_menu = gtk_menu_new ();
@@ -185,7 +192,9 @@ windowmain_init(FreetuxTVApp *app)
 			 "activate",
 			 G_CALLBACK(on_windowmain_menuitemquit_activate),
 			 app);
+	// End Menu : FreetuxTV
 
+	// Menu : Channels
 	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Channels"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
 	p_menu = gtk_menu_new ();
@@ -202,18 +211,37 @@ windowmain_init(FreetuxTVApp *app)
 			 "activate",
 			 G_CALLBACK(on_windowmain_menuitemupdatelogos_activate),
 			 app);
+	// End Menu : Channels
 
+	/*
+	// Menu : Video
 	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Video"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
 	p_menu = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
+	// SubMenu : Deinterlace
 	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Deinterlace"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
+	p_submenu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_submenu);	
+	p_menu_item = gtk_radio_menu_item_new_with_label (NULL, _("Disable"));
+	group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(p_menu_item));
 	g_signal_connect(G_OBJECT(p_menu_item),
 			 "activate",
-			 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
+			 G_CALLBACK(on_windowmain_menuitemdeinterlacedisable_activate),
 			 app);
-
+	gtk_menu_shell_append (GTK_MENU_SHELL (p_submenu), p_menu_item);	
+	p_menu_item = gtk_radio_menu_item_new_with_label (group, _("Linear"));
+	g_signal_connect(G_OBJECT(p_menu_item),
+			 "activate",
+			 G_CALLBACK(on_windowmain_menuitemdeinterlacedisable_activate),
+			 app);	
+	gtk_menu_shell_append (GTK_MENU_SHELL (p_submenu), p_menu_item);
+	// End SubMenu : Deinterlace
+	// End Menu : Video
+	*/
+	
+	// Menu : Help
 	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Help"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
 	p_menu = gtk_menu_new ();
@@ -224,6 +252,7 @@ windowmain_init(FreetuxTVApp *app)
 			 "activate",
 			 G_CALLBACK(on_windowmain_menuitemaboutdialog_activate),
 			 app);
+	// End Menu : Help
 
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "windowmain_menubox");
@@ -945,6 +974,15 @@ on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
 		windowmain_show_gerror (app, error);
 		g_error_free (error);
 	}
+}
+
+static void
+on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
+						   gpointer user_data)
+{	
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	g_print("test\n");
 }
 
 
