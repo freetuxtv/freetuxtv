@@ -123,7 +123,8 @@ AM_GLIB_GNU_GETTEXT
 
 AC_CONFIG_FILES([Makefile
                  po/Makefile.in
-                 src/libvlc-gtk/Makefile
+                 lib/Makefile
+                 lib/libvlc-gtk/Makefile
                  src/Makefile
                  data/Makefile
                  data/menu/Makefile

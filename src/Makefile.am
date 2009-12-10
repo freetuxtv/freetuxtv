@@ -1,5 +1,3 @@
-SUBDIRS = libvlc-gtk
-
 bin_PROGRAMS = freetuxtv
 
 freetuxtv_SOURCES = \
@@ -35,11 +33,11 @@ freetuxtv_SOURCES = \
 
 freetuxtv_CPPFLAGS = \
   $(DEPS_CFLAGS) \
-	-I$(srcdir)/libvlc-gtk \
+	-I$(srcdir)/../lib/libvlc-gtk \
   -DLOCALE_DIR=\""$(datadir)/locale"\"
 
 # For libglade2 signals
 freetuxtv_LDFLAGS = -export-dynamic
 
 freetuxtv_LDADD = $(DEPS_LIBS) \
-  libvlc-gtk/libvlc-gtk.la
+  ../lib/libvlc-gtk/libvlc-gtk.la

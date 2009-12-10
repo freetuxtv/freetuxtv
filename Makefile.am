@@ -1,3 +1,3 @@
-SUBDIRS = src data po
+SUBDIRS = lib src data po
 
 EXTRA_DIST = autogen.sh
