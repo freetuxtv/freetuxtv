@@ -1,12 +1,17 @@
-FreetuxTV 0.4.0 (2009-)
+FreetuxTV 0.4.1 (2009-12-12)
+  - Fixation d'un bug pour la compilation de libvlc-gtk.
+
+FreetuxTV 0.4.0 (2009-12-11)
   - Migration vers GtkBuilder, déprécation de libglade
   - Ajout d'un panneau pour voir la liste des enregistrements et les lire dans FreetuxTV
   - Préférences pour activer ou non les notifications
   - Ajout des préférences pour transcoder les enregistrements dans des formats prédéfinis
-  - Ajout d'un menu pour voir les préférences d'un groupe
-  - Ajout d'un onglet dans la fenêtre d'ajout d'un groupe de chaînes, pour facilement ajouter les groupes prédéfinis.
-  - Ajout d'un fenetre de sélection des chaines de FAI, WebTV, WebRadio suivant le FAI (Founisseurs d'accès Internet) 
-    ou parmi l'une des vingtaine de langues disponibles 
+  - Ajout d'un menu pour voir et modifier les propriétés d'un groupe
+  - Ajout d'un onglet dans la fenêtre d'ajout d'un groupe de chaînes, pour facilement ajouter 
+    les groupes prédéfinis (WebTV, WebRadio, Webcam (suivant le FAI (Founisseurs d'accès Internet)
+    ou parmi l'une des vingtaine de langues disponibles)
+  - Possibilité de supprimer et rafraichir des groupes en une seul fois
+  - Ajout du nombre de chaînes installés
 
   - Ajout de playlists : 
     FAI : Orange, Bouygues, Alice
