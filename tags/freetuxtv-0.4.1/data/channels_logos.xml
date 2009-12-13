@@ -1,0 +1,480 @@
+<channel_logos>
+	<logo filename="100pourcentradio.png" label="100 %"></logo>
+	<logo filename="1onairconnect.png" label="1onAir Connect"></logo>
+	<logo filename="2mmaroc.png" label="2M Maroc"></logo>
+	<logo filename="ab1.png" label="AB 1"></logo>
+	<logo filename="abmoteurs.png" label="AB Moteurs"></logo>
+	<logo filename="abudhabitv.png" label="Abu Dhabi TV"></logo>
+	<logo filename="accrotv.png" label="AccroTV"></logo>
+	<logo filename="aci.png" label="Antenne Caraïbes International"></logo>
+	<logo filename="action.png" label="Action"></logo>
+	<logo filename="adofm.png" label="Ado FM"></logo>
+	<logo filename="aljazeera.png" label="Al Jazeera">
+		<logolabel label="Aljazeera"/>
+	</logo>
+	<logo filename="aljazeerachildren.png" label="Al Jazeera Children"></logo>
+	<logo filename="aljazeerainternational.png" label="Al Jazeera International"></logo>
+	<logo filename="almasriya.png" label="Al Masriya"></logo>
+	<logo filename="alouettefm.png" label="Alouette FM"></logo>
+	<logo filename="alsatictv.png" label="Alsatic TV"></logo>
+	<logo filename="apsaratv.png" label="Apsara TV"></logo>
+	<logo filename="aptv.png" label="APTV Martinique"></logo>
+	<logo filename="argentquebec.png" label="Canal argent Québec"></logo>
+	<logo filename="armeniapublictv.png" label="Armenia Public TV"></logo>
+	<logo filename="armeniatv.png" label="Armenia TV"></logo>
+	<logo filename="arretsurimages.png" label="Arretsurimages.tv"></logo>
+	<logo filename="artchannel.png" label="Art Channel"></logo>
+	<logo filename="arte.png" label="Arte">
+		<logolabel label="Arte Allemand"/>
+	</logo>
+	<logo filename="artplatv.png" label="Artpla tv"></logo>
+	<logo filename="astrocentertv.png" label="Astro Center TV">
+		<logolabel label="Astrocenter"/>
+	</logo>
+	<logo filename="astv.png" label="ASTV"></logo>
+	<logo filename="aupradio.png" label="Aup Radio"></logo>
+	<logo filename="babylontv.png" label="Babylon tv"></logo>
+	<logo filename="bambochtv.png" label="Bamboch TV"></logo>
+	<logo filename="baraem.png" label="Baraem"></logo>
+	<logo filename="bastilletv.png" label="Bastille TV"></logo>
+	<logo filename="bbcworld.png" label="BBC World"></logo>
+	<logo filename="bbcworldnews.png" label="BBC World News"></logo>
+	<logo filename="beurfm.png" label="Beur FM"></logo>
+	<logo filename="beurtv.png" label="Beur TV"></logo>
+	<logo filename="beijingtv.png" label="Beijing TV"></logo>
+	<logo filename="bestofshopping.png" label="Best of Shopping"></logo>
+	<logo filename="bfmradio.png" label="BFM"></logo>
+	<logo filename="bfmtv.png" label="BFM TV"></logo>
+	<logo filename="biscottetv.png" label="Biscotte TV"></logo>
+	<logo filename="bloombergtv.png" label="Bloomberg TV"></logo>
+	<logo filename="boardriderstv.png" label="Boardriders TV"></logo>
+	<logo filename="bulgariatv.png" label="Bulgaria TV"></logo>
+	<logo filename="c9.png" label="C9"></logo>
+	<logo filename="calaistv.png" label="Calais TV"></logo>
+	<logo filename="canalacademie.png" label="Canal Académie"></logo>
+	<logo filename="canalalgerie.png" label="Canal Algérie">
+		<logolabel label="Canal Algerie"/>
+	</logo>
+	<logo filename="canalinfonews.png" label="Canal Info News"></logo>
+	<logo filename="canalplus.png" label="Canal+"></logo>
+	<logo filename="canalsavoir.png" label="Canal savoir"></logo>
+	<logo filename="canaltv.png" label="CanalTV"></logo>
+	<logo filename="cap24-paris.png" label="CAP 24"></logo>
+	<logo filename="cashtv.png" label="Cash TV"></logo>
+	<logo filename="cctv1.png" label="CCTV 1"></logo>
+	<logo filename="cctv2.png" label="CCTV 2"></logo>
+	<logo filename="cctv4.png" label="CCTV4">
+		<logolabel label="CCTV 4"/>
+	</logo>
+	<logo filename="cctv7.png" label="CCTV 7"></logo>
+	<logo filename="cctv9.png" label="CCTV 9"></logo>
+	<logo filename="cctv10.png" label="CCTV 10"></logo>
+	<logo filename="cctv11.png" label="CCTV 11"></logo>
+	<logo filename="cctv12.png" label="CCTV 12"></logo>
+	<logo filename="cctvdivertissement.png" label="CCTV Divertissement"></logo>
+	<logo filename="cctv_e.png" label="CCTV-E"></logo>
+	<logo filename="cctvf.png" label="CCTV F">
+		<logolabel label="CCTV-F"/>
+	</logo>
+	<logo filename="cheriefm.png" label="Chérie FM">
+		<logolabel label="Chérie"/>
+	</logo>
+	<logo filename="channelonerussia-orti.png" label="Channel One Russia (ORTi)">
+		<logolabel label="ORTi"/>
+		<logolabel label="1TV"/>
+		<logolabel label="1TV Channel 3"/>
+		<logolabel label="1TV Documentary"/>
+	</logo>
+	<logo filename="chongqing_tv.png" label="CCQTV 1 (Chongqing)">
+		<logolabel label="CCQTV 2 (Chongqing)"/>
+		<logolabel label="CCQTV 3 (Chongqing)"/>
+		<logolabel label="CCQTV 4 (Chongqing)"/>
+		<logolabel label="CCQTV 5 (Chongqing)"/>
+		<logolabel label="CCQTV 6 (Chongqing)"/>
+		<logolabel label="CCQTV 7 (Chongqing)"/>
+	</logo>
+	<logo filename="cinefirst.png" label="Ciné First"></logo>
+	<logo filename="cinefx.png" label="Ciné FX"></logo>
+	<logo filename="cinepolar.png" label="Ciné Polar"></logo>
+	<logo filename="clermontpremiere.png" label="Clermont Première"></logo>
+	<logo filename="clubbingtv.png" label="Clubbing TV"></logo>
+	<logo filename="cmusictv.png" label="C Music"></logo>
+	<logo filename="cnbc.png" label="CNBC">
+		<logolabel label="CNBC Europe"/>
+	</logo>
+	<logo filename="contactfm.png" label="Contact FM"></logo>
+	<logo filename="corriland.png" label="Corriland TV"></logo>
+	<logo filename="couleur3-rsr.png" label="Couleur 3"></logo>
+	<logo filename="cpac.png" label="CPAC"></logo>
+	<logo filename="demaintv.png" label="Demain.tv">
+		<logolabel label="Demain"/>
+		<logolabel label="Demain TV"/>
+	</logo>
+	<logo filename="direct8.png" label="Direct 8"></logo>
+	<logo filename="dubaitv.png" label="Dubai TV"></logo>
+	<logo filename="dwtv-deutschewelle.png" label="DW-TV">
+		<logolabel label="Deutsche Welle"/>
+	</logo>
+	<logo filename="ekodesgarrigues.png" label="Eko des Garrigues"></logo>
+	<logo filename="equidia.png" label="Equidia"></logo>
+	<logo filename="ertworld.png" label="ERT World"></logo>
+	<logo filename="espacefm.png" label="Espace FM"></logo>
+	<logo filename="espacemusique.png" label="Espace Musique Radio Canada"></logo>
+	<logo filename="etbsat.png" label="ETB Sat"></logo>
+	<logo filename="euronews.png" label="Euronews">
+		<logolabel label="Euronews Arabe"/>
+		<logolabel label="Euronews English"/>
+		<logolabel label="Euronews Deutsch"/>
+		<logolabel label="Euronews Portugais"/>
+		<logolabel label="Euronews Russe"/>
+		<logolabel label="Euronews Espagnol"/>
+		<logolabel label="Euronews Italien"/>
+		<logolabel label="Euronews (en francais)"/>
+		<logolabel label="Euronews (en anglais)"/>
+	</logo>
+	<logo filename="europe1.png" label="Europe 1"></logo>
+	<logo filename="evasionfm.png" label="Evasion FM"></logo>
+	<logo filename="extra3channel.png" label="Extra 3 Channel"></logo>
+	<logo filename="fashiontv.png" label="Fashion TV">
+		<logolabel label="FTV HD HD"/>
+	</logo>
+	<logo filename="fazzmusic.png" label="Fazz music"></logo>
+	<logo filename="fcradiolessentiel.png" label="FC RADIO L'essentiel"></logo>
+	<logo filename="fip.png" label="FIP"></logo>
+	<logo filename="flyfm.png" label="FLY FM"></logo>
+	<logo filename="fmen.png" label="F Men"></logo>
+	<logo filename="foxlife.png" label="Fox Life"></logo>
+	<logo filename="france2.png" label="France 2"></logo>
+	<logo filename="france24.png" label="France 24">
+		<logolabel label="France 24 FR"/>
+		<logolabel label="France 24 English"/>
+		<logolabel label="France 24 Arab"/>
+	</logo>
+	<logo filename="france3.png" label="France 3">
+		<logolabel label="France 3 national"/>
+		<logolabel label="France 3 National"/>
+		<logolabel label="France 3 Alsace"/>
+		<logolabel label="France 3 Alpes"/>
+		<logolabel label="France 3 Aquitaine"/>
+		<logolabel label="France 3 Auvergne"/>
+		<logolabel label="France 3 Bourgogne"/>
+		<logolabel label="France 3 Bretagne"/>
+		<logolabel label="France 3 Centre"/>
+		<logolabel label="France 3 Champagne-Ardenne"/>
+		<logolabel label="France 3 Corse"/>
+		<logolabel label="France 3 Côte-d'Azur"/>
+		<logolabel label="France 3 Franche-Comté"/>
+		<logolabel label="France 3 Languedoc-Roussillon"/>
+		<logolabel label="France 3 Limousin"/>
+		<logolabel label="France 3 Lorraine"/>
+		<logolabel label="France 3 Midi Pyrénées"/>
+		<logolabel label="France 3 Nord Pas-de-Calais"/>
+		<logolabel label="France 3 Haute-Normandie"/>
+		<logolabel label="France 3 Basse-Normandie"/>
+		<logolabel label="France 3 Paris Ile-de-France"/>
+		<logolabel label="France 3 Pays de Loire"/>
+		<logolabel label="France 3 Picardie"/>
+		<logolabel label="France 3 Poitou-Charentes"/>
+		<logolabel label="France 3 Provence-Alpes"/>
+		<logolabel label="France 3 Rhône-Alpes"/>		
+	</logo>
+	<logo filename="france4.png" label="France 4"></logo>
+	<logo filename="france5.png" label="France 5"></logo>
+	<logo filename="francebleu.png" label="France Bleu">
+		<logolabel label="France BLEU - la CityRadio"/>
+	</logo>
+	<logo filename="franceculture.png" label="France Culture"></logo>
+	<logo filename="franceinfo.png" label="France Info"></logo>
+	<logo filename="franceinter.png" label="France Inter"></logo>
+	<logo filename="francemusique.png" label="France Musiques"></logo>
+	<logo filename="franceo.png" label="France O">
+		<logolabel label="France o"/>
+		<logolabel label="France Ô"/>
+		<logolabel label="France ô"/>
+	</logo>
+	<logo filename="franceteleachat.png" label="France Teleachat">
+		<logolabel label="France Teleachat HD"/>
+	</logo>
+	<logo filename="francevivace.png" label="France Vivace"></logo>
+	<logo filename="freenewstv.png" label="Freenews TV"></logo>
+	<logo filename="frequence3.png" label="Fréquence 3"></logo>
+	<logo filename="frequenceindia.png" label="Fréquence India"></logo>
+	<logo filename="funradio.png" label="Fun Radio"></logo>
+	<logo filename="funtv.png" label="Fun TV"></logo>
+	<logo filename="gameone.png" label="Game One"></logo>
+	<logo filename="gameonemusichd.png" label="Game One Music HD HD"></logo>
+	<logo filename="godtv.png" label="God TV"></logo>
+	<logo filename="grandlille_tv.png" label="Grand Lille TV"></logo>
+	<logo filename="grossecaisse.png" label="Grosse Caisse TV"></logo>
+	<logo filename="guangdongsoutherntv.png" label="Guangdong Southern TV"></logo>
+	<logo filename="gulli.png" label="Gulli"></logo>
+	<logo filename="guysentv.png" label="Guysen TV"></logo>
+	<logo filename="hebei_tv.png" label="HB TV 2 (Hebei)"></logo>
+	<logo filename="heilongjiangtv.png" label="HLJTV HeiLongJiang (Harbin)"></logo>
+	<logo filename="hilaltv.png" label="Hilal TV"></logo>
+	<logo filename="hitwest.png" label="Hit West"></logo>
+	<logo filename="hunansatellitetv.png" label="Hunan Satellite TV"></logo>
+	<logo filename="idf1.png" label="IDF 1"></logo>
+	<logo filename="inraci.png" label="Inraci"></logo>
+	<logo filename="inspirationnetwork.png" label="Inspiration Network"></logo>
+	<logo filename="ishtartv.png" label="Ishtar TV"></logo>
+	<logo filename="itelevision.png" label="i>TELE">
+		<logolabel label="i> TELE"/>
+		<logolabel label="i>Tele"/>
+	</logo>
+	<logo filename="jamzine.png" label="Jamzine TV"></logo>
+	<logo filename="jazzradio-exfrequencejazz.png" label="Fréquence Jazz">
+	      <logolabel label="Jazz Radio (ex-Fréquence Jazz)"/>	
+	</logo>
+	<logo filename="jazzradioblack.png" label="Jazz Radio Black Music"></logo>
+	<logo filename="jazzradioblues.png" label="Jazz Radio Blues"></logo>
+	<logo filename="jazzradioladies.png" label="Jazz Radio Ladies and Crooners"></logo>
+	<logo filename="jazzradiolounge.png" label="Jazz Radio Lounge"></logo>
+	<logo filename="jazzradioreprises.png" label="Jazz Radio Reprises"></logo>
+	<logo filename="jet.png" label="JET"></logo>
+	<logo filename="jordansatellitechannel.png" label="Jordan Satellite Channel"></logo>
+	<logo filename="jukebox.png" label="Jukebox"></logo>
+	<logo filename="kanal7int.png" label="Kanal 7 INT"></logo>
+	<logo filename="kanal24.png" label="Kanal 24"></logo>
+	<logo filename="kanalavrupa.png" label="Kanal Avrupa"></logo>
+	<logo filename="kto.png" label="KTO"></logo>
+	<logo filename="kuwaittv1.png" label="Kuwait TV"></logo>
+	<logo filename="kuwaittv2.png" label="Kuwait TV2"></logo>
+	<logo filename="labelletv.png" label="LabelleTV"></logo>
+	<logo filename="lachainechinoise.png" label="La chaîne chinoise"></logo>
+	<logo filename="lachainedejiangsu.png" label="La chaîne internationale de Jiangsu"></logo>
+	<logo filename="lachaineparlementaire.png" label="La Chaîne Parlementaire">
+		<logolabel label="La chaine parlementaire"/>
+		<logolabel label="LCP - Assemblée Nationale 24h/24"/>
+		<logolabel label="LCP/PS"/>
+	</logo>
+	<logo filename="lalocale.png" label="La Locale"></logo>
+	<logo filename="laradiodelamer.png" label="La radio de la mer"></logo>
+	<logo filename="lcm-marseille.png" label="La Chaîne Marseille"></logo>
+	<logo filename="lcnquebec.png" label="LCN Québec"></logo>
+	<logo filename="lemouv.png" label="Le Mouv'"></logo>
+	<logo filename="lequipetv.png" label="L'équipe TV"></logo>
+	<logo filename="libertytv.png" label="Liberty TV"></logo>
+	<logo filename="localesidf.png" label="Locales Ile de France"></logo>
+	<logo filename="luxetv.png" label="Luxe.TV">
+		<logolabel label="Luxe TV"/>
+	</logo>
+	<logo filename="m6boutique.png" label="M6 Boutique"></logo>
+	<logo filename="m6musicblack.png" label="M6 Music Black"></logo>
+	<logo filename="m6musicclub.png" label="M6 Music Club"></logo>
+	<logo filename="m6musichits.png" label="M6 Music Hits"></logo>
+	<logo filename="m6musicrock.png" label="M6 Music Rock"></logo>
+	<logo filename="mangas.png" label="Mangas"></logo>
+	<logo filename="mcm.png" label="MCM"></logo>
+	<logo filename="mcmpop.png" label="MCM POP"></logo>
+	<logo filename="mcmtop.png" label="MCM TOP"></logo>
+	<logo filename="medi1sat.png" label="Medi 1 sat">
+		<logolabel label="Medi 1 Sat"/>
+	</logo>
+	<logo filename="mezzo.png" label="Mezzo"></logo>
+	<logo filename="mfm.png" label="MFM"></logo>
+	<logo filename="mfmflashback.png" label="MFM Flashback"></logo>
+	<logo filename="mfmserenite.png" label="MFM Sérénité"></logo>
+	<logo filename="mfmsexy.png" label="MFM Sexy"></logo>
+	<logo filename="miziktropical.png" label="Mizik Tropical"></logo>
+	<logo filename="mjcapt.png" label="MJC Apt TV"></logo>
+	<logo filename="montecarlodoualiya.png" label="Monte-Carlo Doualiya"></logo>
+	<logo filename="mosaiquefm.png" label="Mosaique FM"></logo>
+	<logo filename="mplusm.png" label="MplusM"></logo>
+	<logo filename="mtv.png" label="MTV"></logo>
+	<logo filename="mtv2.png" label="MTV 2"></logo>
+	<logo filename="mtvdance.png" label="MTV Dance"></logo>
+	<logo filename="mtvhits.png" label="MTV Hits"></logo>
+	<logo filename="nasatv.png" label="NASA TV (Public Channel)">
+		<logolabel label="NASA TV (Media Channel)"/>
+		<logolabel label="NASA TV (Education Channel)"/>
+	</logo>
+	<logo filename="natgeomusic.png" label="NatGeo Music"></logo>
+	<logo filename="nationalgeographic.png" label="National Geographic HD"></logo>
+	<logo filename="nhk.png" label="NHK"></logo>
+	<logo filename="nightmagcom.png" label="Night-mag.com"></logo>
+	<logo filename="nolife.png" label="Nolife"></logo>
+	<logo filename="normandietv.png" label="Normandie TV"></logo>
+	<logo filename="nostalgie.png" label="Nostalgie"></logo>
+	<logo filename="nrj.png" label="NRJ"></logo>
+	<logo filename="nrj12.png" label="NRJ 12"></logo>
+	<logo filename="nrjhits.png" label="NRJ Hits"></logo>
+	<logo filename="nrjnouveautes.png" label="NRJ Nouveautés">
+		<logolabel label="NRJ Fresh (ex-Nouveautés)"/>
+	</logo>
+	<logo filename="nrjparis.png" label="NRJ Paris"></logo>
+	<logo filename="nt1.png" label="NT1">
+		<logolabel label="NT 1"/>
+	</logo>
+	<logo filename="nti.png" label="NTI">
+		<logolabel label="Radio NTI"/>
+	</logo>
+	<logo filename="orleanstv.png" label="Orleans tv"></logo>
+	<logo filename="ouesttv.png" label="Ouest tv"></logo>
+	<logo filename="ouifm.png" label="Ouï FM">
+		<logolabel label="Ouï FM Alternative Rock"/>
+		<logolabel label="Ouï FM Classic Rock"/>
+	</logo>
+	<logo filename="ozradio.png" label="OZ Radio"></logo>
+	<logo filename="parentheseradio.png" label="Parenthèse Radio"></logo>
+	<logo filename="parispremiere.png" label="Paris Première"></logo>
+	<logo filename="phoenixchinesenewsandentertainment.png" label="Phoenix Chinese News and Entertainment"></logo>
+	<logo filename="phoenixinfonews.png" label="Phoenix Infonews"></logo>
+	<logo filename="pokerchannel.png" label="Poker Channel"></logo>
+	<logo filename="powerturktv.png" label="Powertürk TV"></logo>
+	<logo filename="publicsenat.png" label="Public Sénat"></logo>
+	<logo filename="purescreens.png" label="Purescreens HD NATURE HD"></logo>
+	<logo filename="radio8.png" label="Radio 8"></logo>
+	<logo filename="radioclapas.png" label="Radio Clapas"></logo>
+	<logo filename="radioclassique.png" label="Radio Classique">
+		<logolabel label="Radio Classique Cinéma"/>
+	</logo>
+	<logo filename="radioethic.png" label="Radio Ethic"></logo>
+	<logo filename="radiofg.png" label="Radio FG"></logo>
+	<logo filename="radiofgamerica.png" label="Radio FG America"></logo>
+	<logo filename="radiofgchic.png" label="Radio FG Chic"></logo>
+	<logo filename="radiofgclassics.png" label="Radio FG Classics"></logo>
+	<logo filename="radiofgdance.png" label="Radio FG Dance"></logo>
+	<logo filename="radiofgunderground.png" label="Radio FG Underground"></logo>
+	<logo filename="radioicietmaintenant.png" label="Radio Ici et Maintenant"></logo>
+	<logo filename="radiojunior.png" label="Radio Junior"></logo>
+	<logo filename="radiolatina.png" label="Radio Latina">
+		<logolabel label="Latina (ex-Radio Latina)"/>
+	</logo>
+	<logo filename="radiolibertaire.png" label="Radio libertaire"></logo>
+	<logo filename="radiomelodie.png" label="Radio Mélodie"></logo>
+	<logo filename="radioneo.png" label="Radio Néo"></logo>
+	<logo filename="radionotredame.png" label="Radio Notre-Dame"></logo>
+	<logo filename="radionova.png" label="Nova"></logo>
+	<logo filename="radiocean.png" label="Radio Ocean"></logo>
+	<logo filename="radiopublicsante.png" label="Radio Public Santé"></logo>
+	<logo filename="radioscoop.png" label="Radio Scoop"></logo>
+	<logo filename="radioscoop80s.png" label="Radio Scoop Années 80"></logo>
+	<logo filename="radioscoopmusicpod.png" label="Radio Scoop Music Pod"></logo>
+	<logo filename="radioscoopboxvintage.png" label="Radio Scoop Box Vintage"></logo>
+	<logo filename="radiostar.png" label="Radio Star"></logo>
+	<logo filename="radiosun.png" label="SUN"></logo>
+	<logo filename="railtv.png" label="Railtv"></logo>
+	<logo filename="raiuno.png" label="Rai Uno"></logo>
+	<logo filename="raidue.png" label="Rai Due"></logo>
+	<logo filename="raitre.png" label="Rai Tre"></logo>
+	<logo filename="rbg.png" label="Radio Bro Gwened"></logo>
+	<logo filename="rdicanada.png" label="RDI CANADA"></logo>
+	<logo filename="recordinternacional.png" label="Record Internacional"></logo>
+	<logo filename="relaxtv.png" label="Relax TV"></logo>
+	<logo filename="rfi.png" label="RFI">
+		<logolabel label="RFI Afrique"/>
+		<logolabel label="RFI Monde"/>
+		<logolabel label="RFI Multilingues"/>
+		<logolabel label="RFI Musique"/>
+	</logo>
+	<logo filename="rfm.png" label="RFM"></logo>
+	<logo filename="rireetchansons.png" label="Rire et Chansons"></logo>
+	<logo filename="rmc.png" label="RMC Info">
+		<logolabel label="RMC (ex-RMC Info)"/>
+	</logo>
+	<logo filename="rmn.png" label="RMN FM"></logo>
+	<logo filename="rocfm.png" label="Roc FM"></logo>
+	<logo filename="rocktv.png" label="Rock TV"></logo>
+	<logo filename="rtcgsat.png" label="RTCG Sat"></logo>
+	<logo filename="rtl.png" label="RTL"></logo>
+	<logo filename="rtl2.png" label="RTL 2"></logo>
+	<logo filename="rtl9.png" label="RTL9"></logo>
+	<logo filename="rtpi.png" label="RTPi">
+		<logolabel label="RTP Internacional"/>
+		<logolabel label="RTP"/>
+	</logo>
+	<logo filename="rtrplaneta.png" label="RTR Planeta"></logo>
+	<logo filename="rtsfm.png" label="Rts FM"></logo>
+	<logo filename="russiatoday.png" label="Russia Today"></logo>
+	<logo filename="rve.png" label="RVE"></logo>
+	<logo filename="sabcnews.png" label="SABC news"></logo>
+	<logo filename="samanyolutv.png" label="Samanyolu TV"></logo>
+	<logo filename="shanghaidragontv.png" label="Shanghai Dragon TV"></logo>
+	<logo filename="shenzhen_tv.png" label="SZTV (Shenzhen)"></logo>
+	<logo filename="skynews.png" label="Sky News">
+		<logolabel label="Skynews"/>
+	</logo>
+	<logo filename="skynewsinternational.png" label="Sky News International"></logo>
+	<logo filename="skyrock.png" label="Skyrock"></logo>
+	<logo filename="soleil_la_radio.png" label="Soleil La Radio"></logo>
+	<logo filename="souvenirfromearth.png" label="Souvenirs from Earth"></logo>
+	<logo filename="sudradio.png" label="Sud Radio"></logo>
+	<logo filename="suroyotv.png" label="Suroyo TV"></logo>
+	<logo filename="tele102.png" label="Tele 102"></logo>
+	<logo filename="teleblagon.png" label="Teleblagon"></logo>
+	<logo filename="telegrenoble.png" label="téléGrenoble">
+		<logolabel label="TéléGrenoble"/>
+		<logolabel label="TV Grenoble"/>
+	</logo>
+	<logo filename="telemelody.png" label="Télé Mélody"></logo>
+	<logo filename="telenantes.png" label="Télénantes Nantes 7"></logo>
+	<logo filename="telenight.png" label="Tele night"></logo>
+	<logo filename="telenova.png" label="Telenova"></logo>
+	<logo filename="teleplaisance.png" label="Teleplaisance"></logo>
+	<logo filename="telessonne.png" label="Telessonne"></logo>
+	<logo filename="telesur.png" label="Telesur"></logo>
+	<logo filename="telif.png" label="Telif"></logo>
+	<logo filename="tempomix.png" label="TEMPOMIX"></logo>
+	<logo filename="teva.png" label="TEVA"></logo>
+	<logo filename="tfou.png" label="TFou"></logo>
+	<logo filename="tfouwebtv.png" label="TFOU WebTV"></logo>
+	<logo filename="tllteleloire.png" label="TLL Tele Loire"></logo>
+	<logo filename="tlm-lyon.png" label="TLM">
+		<logolabel label="TLM Television Lyon Metropole"/>
+	</logo>
+	<logo filename="tlt-toulouse.png" label="TLT - Toulouse"></logo>
+	<logo filename="turnerclassicmovies.png" label="TCM"></logo>
+	<logo filename="tmc.png" label="TMC">
+		<logolabel label="TMC (bas débit)"/>
+	</logo>
+	<logo filename="tna.png" label="TNA"></logo>
+	<logo filename="topmusic.png" label="Top Music"></logo>
+	<logo filename="tracetropical.png" label="Trace Tropical"></logo>
+	<logo filename="tracetv.png" label="Trace TV"></logo>
+	<logo filename="trt1.png" label="TRT1"></logo>
+	<logo filename="trtcocuk.png" label="TRT Cocuk"></logo>
+	<logo filename="trtint.png" label="TRT INT">
+		<logolabel label="TRT International"/>
+	</logo>
+	<logo filename="tsfjazz.png" label="TSF Jazz"></logo>
+	<logo filename="tv3cat-extvci.png" label="TVCi"></logo>
+	<logo filename="tv5.png" label="TV5">
+		<logolabel label="TV 5 Monde"/>
+	</logo>
+	<logo filename="tv7bordeaux.png" label="TV7 Bordeaux"></logo>
+	<logo filename="tv7tunisia.png" label="TV7 Tunisia"></logo>
+	<logo filename="tv8montblanc.png" label="TV8 Mont-Blanc">
+		<logolabel label="TV8 Mont Blanc"/>
+	</logo>
+	<logo filename="tvaquebec.png" label="TVA Québec"></logo>
+	<logo filename="tvbiznes.png" label="TV Biznes"></logo>
+	<logo filename="tveint.png" label="TVE I">
+		<logolabel label="TVE Internacional"/>
+		<logolabel label="TVE"/>
+	</logo>
+	<logo filename="tvmeurope-exrtm1-rtmmaroc.png" label="TVM Europe"></logo>
+	<logo filename="tvpi.png" label="Tvpi"></logo>
+	<logo filename="tvpolonia-tvp.png" label="TV Polonia">
+		<logolabel label="TVP Polonia"/>
+	</logo>
+	<logo filename="tvromania.png" label="TV Romania"></logo>
+	<logo filename="tvt.png" label="TVT"></logo>
+	<logo filename="tvtours.png" label="TV Tours"></logo>
+	<logo filename="tvvi.png" label="TVVi"></logo>
+	<logo filename="vesti.png" label="Vesti"></logo>
+	<logo filename="vh1.png" label="VH1"></logo>
+	<logo filename="vh1classic.png" label="VH1 Classic"></logo>
+	<logo filename="vibration.png" label="Vibration"></logo>
+	<logo filename="videoclick.png" label="Video Click"></logo>
+	<logo filename="vietnam-vtv4.png" label="Vietnam VTV4"></logo>
+	<logo filename="virgin17.png" label="Virgin 17"></logo>
+	<logo filename="virginradio.png" label="Virgin Radio"></logo>
+	<logo filename="voltage.png" label="Voltage"></logo>
+	<logo filename="voxafrica.png" label="Vox Africa"></logo>
+	<logo filename="worldfashion.png" label="World Fashion"></logo>
+	<logo filename="xiamenstartv.png" label="Xiamen Star TV"></logo>
+	<logo filename="yementv.png" label="Yemen TV"></logo>
+	<logo filename="zdf_de.png" label="ZDF"></logo>
+	<logo filename="zhejiangstartv.png" label="Zhejiang Star TV"></logo>
+</channel_logos>

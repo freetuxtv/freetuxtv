@@ -1,0 +1,109 @@
+FreetuxTV 0.4.1 (2009-12-12)
+  - Fixation d'un bug pour la compilation de libvlc-gtk.
+
+FreetuxTV 0.4.0 (2009-12-11)
+  - Migration vers GtkBuilder, déprécation de libglade
+  - Ajout d'un panneau pour voir la liste des enregistrements et les lire dans FreetuxTV
+  - Préférences pour activer ou non les notifications
+  - Ajout des préférences pour transcoder les enregistrements dans des formats prédéfinis
+  - Ajout d'un menu pour voir et modifier les propriétés d'un groupe
+  - Ajout d'un onglet dans la fenêtre d'ajout d'un groupe de chaînes, pour facilement ajouter 
+    les groupes prédéfinis (WebTV, WebRadio, Webcam (suivant le FAI (Founisseurs d'accès Internet)
+    ou parmi l'une des vingtaine de langues disponibles)
+  - Possibilité de supprimer et rafraichir des groupes en une seul fois
+  - Ajout du nombre de chaînes installés
+
+  - Ajout de playlists : 
+    FAI : Orange, Bouygues, Alice
+    Webcam : webcams de différents lieux dans le monde entier
+    Emissions : Emissions en Français, Emissions en Anglais 
+    Il s'agit d'émissions particulières en direct ou archive de la dernière émission sur Internet
+    WebRadio : Web Radio Anglaise, Web Radio Arabe, Web Radio Catalane, Web Radio Espagnole, Web Radio Française 
+    WebTV : WebTV Arabe, WebTV Allemande, WebTV Anglaise, Web TV Catalane, WebTV Chinoise, Web TV Coréenne, 
+    WebTV Espagnole, Web TV Grec Moderne, Web TV Hongroise, WebTV Italienne, Web TV Japonaise, Web TV Latine, 
+    Web TV Néerlandaise, Web TV Norvégienne, Web TV Persane, Web TV Polonaise, Web TV Portugaise, 
+    Web TV Roumaine, Web TV Russe, Web TV Slovaque, Web TV Suédoise, Web TV Tchèque, Web TV Turque
+
+  - Mise à jour de logos : Game One, SABC News, Telessonne, SkyNews International
+  - Ajout de logos : 
+    WebTV :  Beijing TV, CCTV 4, CCTV 9, CCTV Divertissement, CCTV F, Guangdong Southern TV,
+      Hunan Satellite TV, La chaîne chinoise, Phoenix Chinese News and Entertainment, Phoenix Infonews,
+      Shanghai Dragon TV, Xiamen Star TV, Zhejiang Star TV
+      2M Maroc, Apsara TV, Alsatic TV, Best of Shopping, BFM, Canal Algérie, Cap 24 Paris, CCTV 1, CCTV 2, CCTV 7, 
+      CCTV 10, CCTV 11, CCTV 12, CCTV-E, Channel One Russia (ORTi), CCQTV (Chongqing), Clermont Première, 
+      DW-TV (Deutsche Welle), Game One Music HD HD, Grand Lille TV, HB TV 2 (Hebei), HLJTV HeiLongJiang (Harbin), 
+      La chaîne internationale de Jiangsu, LCM - La Chaine Marseille, Locales IDF, Luxe.TV, 
+      Medi 1 sat, Nasa TV, NHK, Public Sénat, Rai Uno, Rai Due, Rai Tre,  
+      RTP Internacional, RTR Planeta, Russia Today, SZTV (Shenzhen), Sky News International,  
+      Souvenirs from Earth, Tele Nantes, TLM Lyon, TLT Toulouse, TRT International, TV7 Bordeaux, TV7 Tunisia, 
+      TVE Internacional, TVP Polonia, TV Tours, Vesti, World Fashion, ZDF.
+      Abu Dhabi TV, Antenne Caraïbes International, Al Masriya, Armenia Public TV, Armenia TV, Baraem,
+      Bulgaria TV, Canal Info News, Cash TV, Dubai TV, Equidia, ERT World, ETB Sat, Extra 3 Channel,
+      France Teleachat, God TV, Hilal TV, Inspiration Network, Ishtar TV, Jordan Satellite Channel
+      Kanal 7 INT, Kanal 24, Kanal Avrupa, Kuwait TV, Kuwait TV2, Poker Channel, Powertürk TV, Purescreens
+      Record Internacional, RTCG Sat, Samanyolu TV, Suroyo TV, Telenova, Telesur, TNA, TRT1, TRT Cocuk, TVCi
+      TV Biznes, TVM Europe, TV Romania, TVT, TVVi, Vietnam VTV4, Vox Africa, Yemen TV
+    WebRadio : 100 %, 1onAir Connect, Ado FM, Alouette FM, Aup Radio, Beur FM, Canal Académie,  Contact FM, Couleur 3,
+      Eko des Garrigues, Espace FM, Espace Musique Radio Canada, Evasion FM, FC RADIO L'essentiel, FIP, FLY FM,
+      France Vivace, Fréquence India, Jazz Radio (ex-Fréquence Jazz), Jazz Radio Black Music, Jazz Radio Blues,
+      Hit West, Jazz Radio Ladies and Crooners, Jazz Radio Lounge, Jazz Radio Reprises, La Radio de la Mer, MFM Flashback, 
+      MFM Sérénité, MFM Sexy, Monte-Carlo Doualiya, Mosaique FM, MplusM, NRJ Fresh (ex-Nouveautés), Radio NTI, 
+      Ouï FM Alternative Rock, Ouï FM Classic Rock, OZ Radio, Parenthèse Radio, Radio 8, Radio Bro Gwened, Radio Clapas, 
+      Radio Classique, Radio Ethic, Radio FG America, Radio FG Chic, Radio FG Classics, Radio FG Dance, 
+      Radio FG Underground, Radio Ici et Maintenant, Radio Junior, Radio Latina, Radio Mélodie, Radio Néo, 
+      Radio Notre-Dame, Radio Ocean, Radio Public Santé, Radio Scoop, Radio Scoop Années 80, Radio Scoop Music Pod, 
+      Radio Scoop Box Vintage, Radio Star, RFI, RMN, RTL, Soleil La Radio, SUN, Roc FM, Rts FM, Sud Radio, 
+      TEMPOMIX, Top Music, TSF Jazz, Vibration,  
+
+FreetuxTV 0.3.0 (2009-08-25)
+  - Ajout de logos : AccroTV, Argent Quebec, Arretsurimages.tv, Bamboch TV, Bastille TV,
+    BBC World News, Biscotte TV, Boardriders TV, C9, Calais tv, Canal savoir, CanalTV, Chérie FM,
+    Ciné First, Clubbing TV, Corriland TV, CPAC, Europe 1, Fazz Music, Fox Life, France Bleu,
+    France Culture, France Info, France Inter, France Musique, Frequence 3, Fun Radio,
+    Grosse Caisse, IDF 1, Inraci, Jamzine, Jukebox, LabelleTV, LCN Québec, Le Mouv', M6 Boutique,
+    M6 Music Club, MFM, MJC Apt, NatGeo Music, Night-mag.com, Normandie TV, Nostalgie, NRJ, Orleans tv,
+    Ouest tv, Oui FM, Radio FG, Radio libertaire, Radio nova, Railtv, RDI CANADA, Relax TV, RFM, 
+    Rire et Chansons, Rock TV, RTL 2, RVE, SABC news, Skyrock, Tele 102, Teleblagon, téléGrenoble, 
+    Tele night, Telessonne, TFOU WebTV, TLL Tele Loire, Trace Tropical, TVA Québec, Tvpi, Virgin Radio
+  - Mise à jour de logos : M6 Music Black, M6 Music Hits, RMC
+  - Migration vers un GtkTreeView pour la liste des chaines
+  - Synchronisation automatique de la liste des logos
+  - Correction erreur X11 à la fermeture de l'application
+  - Création d'un objet pour stocker les informations d'une chaîne et d'un groupe
+  - Support de VLC 0.8.6 avec la migration vers libvlc-gtk
+  - Enregistrement d'une chaîne en direct
+  - Notification lors du chargement et de l'enregistrement d'une chaîne (avec libnotify)
+
+FreetuxTV 0.2.1 (2009-01-17)
+  - Support de la redirection d'une URL dans une playlist
+  - Meilleure intégration du thème GTK dans la liste des chaînes
+  - Ajout d'une couleur pour distinguer la chaînes en cours de lecture
+
+FreetuxTV 0.2.0 (2008-11-08)
+  - Migration vers libVLC 0.9.4.
+  - Utilisation d'un fichier de configuration de VLC alternatif
+
+FreetuxTV 0.1.2 (2008-10-25)
+  - Ajout de logos : AB Moteurs, APTV, Artpla TV, Astro Center TV, ASTV, Babylon TV, La Locale, RMC
+  - Ajout d'un bouton lecture pour relancer la chaîne en cours si elle a été stoppé
+  - Support des touches multimédia sur les claviers
+  - Gestion des redirections HTTP 302 pour le téléchargement des playlists pour Free
+  - Sauvergarde des paramètres de l'application
+  - Ajout d'un menu "Préférences"
+  - Chargement de la dernière chaîne au chargement de l'application
+
+FreetuxTV 0.1.1 (2008-07-20)
+  - Fix du bug de segmentation fault sur Mandriva/Debian
+  - Retrait des onglets "En cours" et "Enregistrements" vide
+  - Message quand la liste des chaînes est vide pour indiquer comment charger la liste des chaînes
+  - Numéro de la version dans la fenêtre à propos
+
+FreetuxTV 0.1.0 (2008-07-06)
+  - Première version
+  - Lecture des chaînes
+  - Mode plein écran
+  - Groupes de chaînes
+  - Actualisation via téléchargement de la playlist d'un groupe
+  - Association automatique avec le logo
+  - Recherche dynamique des chaînes
+  - Mode miniature
