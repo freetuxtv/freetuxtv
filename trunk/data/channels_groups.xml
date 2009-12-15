@@ -15,7 +15,7 @@
 		<channels_group uri="http://vlc-media-player.org/m3u/orangetv.m3u" required_isp="Orange" name="Orange TV" bregex="[0-9]*\. "/>
 	</language>
 	<language lang="SFR" id="sfr">	
-		<channels_group uri="http://televisionsurpc.sfr.fr/televisionsurpc.m3u" required_isp="SFR" name="SFR TV"/>
+		<channels_group uri="http://www.n9ws.com/tools/tvsurpc.m3u" required_isp="SFR" name="SFR TV"/>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_sfrtv_unofficial.m3u" required_isp="SFR" name="SFR TV (Unofficial)"></channels_group>
 	</language>
 	<language id="ar" lang="Arabic Web TV and Radio">
