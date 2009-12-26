@@ -6,7 +6,7 @@ test -z "$srcdir" && srcdir=.
 
 DIE=0
 
-CONFIGURE="configure.in"
+CONFIGURE="configure.ac"
 
 # Check for configure.in file in the current directory
 (test -f $srcdir/$CONFIGURE) || {
@@ -36,7 +36,7 @@ CONFIGURE="configure.in"
 }
 
 # Check for libtool if used
-(grep "^AM_PROG_LIBTOOL" $srcdir/$CONFIGURE >/dev/null) && {
+(grep "^AC_PROG_LIBTOOL" $srcdir/$CONFIGURE >/dev/null) && {
   (libtool --version) < /dev/null > /dev/null 2>&1 || {
     echo
     echo "**Error**: You must have \`libtool' installed."

@@ -1,5 +1,6 @@
-FreetuxTV 0.4.2 (2009-)
+FreetuxTV 0.4.2 (2010-)
   - Ajout de la traduction portugaise.
+  - Correction du configure.ac pour mieux gérer les dépendances.
 
 FreetuxTV 0.4.1 (2009-12-12)
   - Fixation d'un bug pour la compilation de libvlc-gtk.
