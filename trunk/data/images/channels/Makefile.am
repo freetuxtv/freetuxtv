@@ -122,6 +122,7 @@ channels_DATA = \
   gameone.png \
   gameonemusichd.png \
   godtv.png \
+  gong.png \
   grandlille_tv.png \
   grossecaisse.png \
   guangdongsoutherntv.png \
@@ -259,6 +260,7 @@ channels_DATA = \
   rocfm.png \
   rocktv.png \
   rtcgsat.png \
+  rtcteleliege.png \
   rtl.png \
   rtl2.png \
   rtl9.png \
