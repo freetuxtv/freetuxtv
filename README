@@ -18,7 +18,6 @@
     - gtk+ (>= 2.12.0)
     - glib (>= 2.16.0)
     - dbus-glib-1 (>= 0.74)
-    - Hal (>= 0.50)
     - libsqlite3 (>= 3.4.0)
     - libvlc (>= 0.8.6)
     - libcurl (>= 7.16.4)
