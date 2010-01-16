@@ -147,6 +147,7 @@ channels_DATA = \
   jazzradioreprises.png \
   jet.png \
   jordansatellitechannel.png \
+  jpopsukitv.png \
   jukebox.png \
   kanal7int.png \
   kanal24.png \
@@ -185,6 +186,7 @@ channels_DATA = \
   miziktropical.png \
   mjcapt.png \
   montecarlodoualiya.png \
+  montereybayaquarium.png \
   mosaiquefm.png \
   mplusm.png \
   mtv.png \
@@ -271,6 +273,7 @@ channels_DATA = \
   rve.png \
   sabcnews.png \
   samanyolutv.png \
+  seebittv.png \
   shanghaidragontv.png \
   shenzhen_tv.png \
   skynews.png \
