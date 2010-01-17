@@ -8,7 +8,7 @@ DIE=0
 
 CONFIGURE="configure.ac"
 
-# Check for configure.in file in the current directory
+# Check for configure.ac file in the current directory
 (test -f $srcdir/$CONFIGURE) || {
   echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
   echo " top-level package directory"
@@ -29,8 +29,7 @@ CONFIGURE="configure.ac"
   (intltoolize --version) < /dev/null > /dev/null 2>&1 || {
     echo
     echo "**Error**: You must have \`intltool' installed."
-    echo "You can get it from:"
-    echo "  ftp://ftp.gnome.org/pub/GNOME/"
+    echo "You can get it from: ftp://ftp.gnome.org/pub/GNOME/"
     DIE=1
   }
 }
@@ -101,7 +100,7 @@ do
         echo "Running intltoolize..."
         intltoolize --copy --force --automake
       fi
-      if grep "^AM_PROG_LIBTOOL" $CONFIGURE >/dev/null; then
+      if grep "^AC_PROG_LIBTOOL" $CONFIGURE >/dev/null; then
         if test -z "$NO_LIBTOOLIZE" ; then
           echo "Running libtoolize..."
           libtoolize --force --copy
