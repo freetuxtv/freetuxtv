@@ -51,7 +51,7 @@
     <property name="window_position">center</property>
     <property name="default_width">1024</property>
     <property name="default_height">600</property>
-    <property name="icon_name">video-display</property>
+    <property name="icon_name">freetuxtv</property>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -596,7 +596,7 @@
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_height">450</property>
-    <property name="icon_name">video-display</property>
+    <property name="icon_name">freetuxtv</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">windowmain</property>
     <property name="has_separator">False</property>
@@ -943,7 +943,7 @@
     <property name="window_position">center</property>
     <property name="default_width">320</property>
     <property name="default_height">240</property>
-    <property name="icon_name">video-display</property>
+    <property name="icon_name">freetuxtv</property>
     <property name="transient_for">windowmain</property>
     <child>
       <object class="GtkVBox" id="vbox9">
@@ -1067,7 +1067,7 @@
     <property name="title" translatable="yes">Preferences</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
-    <property name="icon_name">video-display</property>
+    <property name="icon_name">freetuxtv</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">windowmain</property>
     <property name="has_separator">False</property>
@@ -1371,7 +1371,7 @@
     <property name="border_width">5</property>
     <property name="modal">True</property>
     <property name="window_position">center</property>
-    <property name="icon_name">video-display</property>
+    <property name="icon_name">freetuxtv</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">windowmain</property>
     <property name="program_name">FreetuxTV</property>
@@ -1387,7 +1387,7 @@ You should have received a copy of the GNU General Public License along with Gla
     <property name="authors">Eric Beuque &lt;eric.beuque@gmail.com&gt;</property>
     <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
     <property name="artists">Yannick Le Ny &lt;yleny@laposte.net&gt;</property>
-    <property name="logo_icon_name">video-display</property>
+    <property name="logo_icon_name">freetuxtv</property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="aboutdialog-vbox">
@@ -1442,7 +1442,7 @@ You should have received a copy of the GNU General Public License along with Gla
               <object class="GtkImage" id="image7">
                 <property name="visible">True</property>
                 <property name="pixel_size">50</property>
-                <property name="icon_name">video-display</property>
+                <property name="icon_name">freetuxtv</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1578,7 +1578,7 @@ You should have received a copy of the GNU General Public License along with Gla
     <property name="title" translatable="yes">Group properties</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
-    <property name="icon_name">video-display</property>
+    <property name="icon_name">freetuxtv</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">windowmain</property>
     <property name="has_separator">False</property>
@@ -1865,7 +1865,7 @@ You should have received a copy of the GNU General Public License along with Gla
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_width">480</property>
-    <property name="icon_name">video-display</property>
+    <property name="icon_name">freetuxtv</property>
     <property name="type_hint">normal</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
