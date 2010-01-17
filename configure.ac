@@ -127,6 +127,7 @@ AC_CONFIG_FILES([Makefile
                  src/Makefile
                  data/Makefile
                  data/menu/Makefile
+                 data/icons/Makefile
                  data/images/Makefile
                  data/images/channels/Makefile])
 

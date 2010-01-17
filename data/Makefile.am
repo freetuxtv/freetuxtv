@@ -1,4 +1,4 @@
-SUBDIRS = images menu
+SUBDIRS = icons images menu
 
 xml_in_files = channels_groups.xml.in
 xmldir = $(datadir)/freetuxtv
