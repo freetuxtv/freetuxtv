@@ -3,6 +3,7 @@ FreetuxTV 0.4.2 (2010-)
   - Correction du configure.ac pour mieux gérer les dépendances.
   - Ajout de logos : GONG, RTC Télé Liège, jPopsuki TV, Seebit TV, Monterey Bay Aquarium
   - Mise à jour de logos : Nolife
+  - Mise à jour lien SFR TV
 
 FreetuxTV 0.4.1 (2009-12-12)
   - Fixation d'un bug pour la compilation de libvlc-gtk.
