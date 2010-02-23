@@ -209,9 +209,10 @@ channels_DATA = \
   nt1.png \
   nti.png \
   orleanstv.png \
-  ozradio.png \
   ouesttv.png \
   ouifm.png \
+  oxyradio.png \
+  ozradio.png \
   parispremiere.png \
   parentheseradio.png \
   phoenixchinesenewsandentertainment.png \
