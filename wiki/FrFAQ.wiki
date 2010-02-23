@@ -29,3 +29,7 @@ Pour mettre à jour la liste des chaînes, effectuer un clic droit sur le nom du
 === Comment rajouter un groupe supprimé ? ===
 
 Pour ajouter un groupe, cliquez sur le menu "Chaînes" puis "Ajouter un groupe". Saisissez alors le nom sur groupe et l'URI du fichier M3U. Vous pouvez aussi supprimer une partie du nom des chaînes dans la playlist en utilisant les expressions régulières.
+
+=== Je n'ai pas de son ni d'image ===
+
+Si vous n'arrivez pas à obtenir l'image avec FreetuxTV, la première chose à faire est de voir si vous arrivez à lire la chaîne dans VLC. Pour récupérer le lien de la chaîne, ouvrez FreetuxTV en mode console et regarder dans les logs pour extraire le lien (en attendant une solution plus pratique).
