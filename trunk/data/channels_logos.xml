@@ -318,6 +318,7 @@
 		<logolabel label="Ouï FM Alternative Rock"/>
 		<logolabel label="Ouï FM Classic Rock"/>
 	</logo>
+	<logo filename="oxyradio.png" label="Oxyradio"></logo>
 	<logo filename="ozradio.png" label="OZ Radio"></logo>
 	<logo filename="parentheseradio.png" label="Parenthèse Radio"></logo>
 	<logo filename="parispremiere.png" label="Paris Première"></logo>
