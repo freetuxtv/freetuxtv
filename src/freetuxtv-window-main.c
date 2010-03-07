@@ -801,7 +801,21 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 				    gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_record (app);
+
+	
+	GtkWidget *widget;
+	
+	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
+							"dialogrecording");
+
+	windowrecording_updateinfos(app);
+
+	if(gtk_dialog_run(GTK_DIALOG(widget)) == GTK_RESPONSE_OK){
+
+		g_get_current_time (&(app->current.recording.time_begin));
+
+		freetuxtv_action_record (app);
+	}
 }
 
 static void
@@ -1318,7 +1332,7 @@ on_dialogaddgroup_response (GtkDialog *dialog,
 					// Update progress dialog
 					tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
 								  channels_group_infos->name);
-					dialogprogress_update(app, tmptext, FALSE, 0.0);
+					dialogprogress_update(app, tmptext, TRUE, 0.0);
 					g_free(tmptext);
 
 					channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
@@ -1487,10 +1501,9 @@ dialogprogress_init(FreetuxTVApp *app, gchar *title, GtkWindow* parent)
 
 	dialog = (GtkWidget *) gtk_builder_get_object (app->gui, "dialogprogress");
 	
-	gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(parent));
 	gtk_window_set_title(GTK_WINDOW(dialog), title);
+	gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(parent));
 	gtk_window_set_position (GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
-	
 	
 	label = (GtkWidget *) gtk_builder_get_object (app->gui,
 						      "dialogprogress_labeltitle");
@@ -1501,14 +1514,19 @@ dialogprogress_init(FreetuxTVApp *app, gchar *title, GtkWindow* parent)
 	label = (GtkWidget *) gtk_builder_get_object (app->gui,
 						      "dialogprogress_labeldesc");
 	gtk_label_set_text(GTK_LABEL(label), "");
-	
-	
+
+	// Set the progress bar to 0%
 	progressbar = (GtkWidget *) gtk_builder_get_object (app->gui,
 							    "dialogprogress_progressbar");
-	gtk_progress_bar_update (GTK_PROGRESS_BAR(progressbar), 0.0);
+	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progressbar), 0.0);
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(progressbar), "0 %");
 	
 	gtk_widget_show(dialog);
+	
+	/*
+	while(gtk_events_pending()){
+		gtk_main_iteration();
+		}	*/
 }
 
 static void
@@ -1517,20 +1535,19 @@ dialogprogress_update(FreetuxTVApp *app, gchar *text, gboolean setpercent, gdoub
 	GtkWidget* dialog;
 	GtkWidget* widget;
 	gchar *tmptext;
-	
-	dialog = (GtkWidget *) gtk_builder_get_object (app->gui, "dialogprogress");
 
+	dialog = (GtkWidget *) gtk_builder_get_object (app->gui, "dialogprogress"); 
+	
 	if(text){
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogprogress_labeldesc");
-		gtk_label_set_markup(GTK_LABEL(widget), text);
-		
+		gtk_label_set_markup(GTK_LABEL(widget), text);		
 	}
 
 	if(setpercent){
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogprogress_progressbar");
-		gtk_progress_bar_update (GTK_PROGRESS_BAR(widget), percent);
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(widget), percent);
 					
 		tmptext = g_strdup_printf(_("%0.0f %%"), percent * 100);
 		gtk_progress_bar_set_text (GTK_PROGRESS_BAR(widget), tmptext);

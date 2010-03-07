@@ -16,36 +16,17 @@
  *
  */
 
-#ifndef FREETUXTV_UTILS_H
-#define FREETUXTV_UTILS_H
+#ifndef FREETUXTV_WINDOW_RECORDING_H
+#define FREETUXTV_WINDOW_RECORDING_H
 
 #include <gtk/gtk.h>
 
 #include "freetuxtv-app.h"
 
-gchar*
-format_time(gint seconds);
-
-gchar*
-format_time2(gint seconds);
-
-gchar*
-format_size(glong size);
-
-gchar*
-get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_preview, gchar **out_filename);
-
-gchar*
-g_time_val_add_seconds (GTimeVal *timeval, glong seconds);
-
-gint
-g_time_val_compare (GTimeVal *timeval1, GTimeVal *timeval2);
+void
+windowrecording_init(FreetuxTVApp *app);
 
 void
-g_time_val_copy (GTimeVal *timeval_src, GTimeVal *timeval_dest);
+windowrecording_updateinfos(FreetuxTVApp *app);
 
-gchar*
-g_time_val_to_string(GTimeVal *timeval, const gchar* format);
-
-
-#endif /* FREETUXTV_UTILS_H */
+#endif /* FREETUXTV_WINDOW_RECORDING_H */
