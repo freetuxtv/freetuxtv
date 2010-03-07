@@ -31,6 +31,7 @@
 #include "freetuxtv-utils.h"
 #include "freetuxtv-i18n.h"
 #include "freetuxtv-window-main.h"
+#include "freetuxtv-window-recording.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-recordings-list.h"
 #include "freetuxtv-logos-list.h"
@@ -287,6 +288,24 @@ increase_progress_timeout (FreetuxTVApp *app)
 			windowmain_statusbar_push (app, "RecordChannelMsg", text);
 			g_free(text);
 		}
+
+		if(app->current.recording.max_duration > 0){
+			GTimeVal max_time;
+			GTimeVal now_time;
+		       
+			g_get_current_time (&now_time);
+			
+
+			g_time_val_copy(&(app->current.recording.time_begin), &max_time);
+			
+			g_time_val_add_seconds(&max_time, app->current.recording.max_duration * 60);
+			
+			if(g_time_val_compare(&now_time, &max_time) > 0){
+				g_print("FreetuxTV : Stopping recording\n");
+				freetuxtv_action_stop(app);
+			}
+			
+		}
 	}
 
 	GtkLibVLCState state = gtk_libvlc_media_player_get_state(app->player);
@@ -484,6 +503,7 @@ freetuxtv_app_create_app ()
 	// Initialize UI
 	g_print("FreetuxTV : Initializing user interface\n");
 	windowmain_init(app);
+	windowrecording_init(app);
 	channels_list_init(app);
 	recordings_list_init(app);
 

@@ -73,6 +73,8 @@ struct _FreetuxTVApp {
 		gboolean is_recording;
 		struct {
 			gchar* dst_file;
+			GTimeVal time_begin;
+			gint max_duration;
 			GTimer *duration;
 		} recording;
 
