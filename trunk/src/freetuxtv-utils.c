@@ -17,6 +17,7 @@
  */
 
 #include <gtk/gtk.h>
+#include <time.h>
 
 #include "freetuxtv-utils.h"
 
@@ -144,4 +145,49 @@ get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_pre
 	g_free(mux);
 	
 	return text;
+}
+
+gchar*
+g_time_val_add_seconds (GTimeVal *timeval, glong seconds)
+{
+	timeval->tv_sec += seconds;
+}
+
+gint
+g_time_val_compare (GTimeVal *timeval1, GTimeVal *timeval2)
+{
+	if(timeval1->tv_sec > timeval2->tv_sec){
+		return 1;
+	}else if(timeval1->tv_sec < timeval2->tv_sec){
+		return -1;
+	}else if(timeval1->tv_usec > timeval2->tv_usec){
+		return 1;
+	}else if(timeval1->tv_usec < timeval2->tv_usec){
+		return -1;
+	}else{
+		return 0;
+	}
+}
+
+void
+g_time_val_copy (GTimeVal *timeval_src, GTimeVal *timeval_dest)
+{
+	timeval_dest->tv_sec = timeval_src->tv_sec;
+	timeval_dest->tv_usec = timeval_src->tv_usec;
+}
+
+gchar*
+g_time_val_to_string(GTimeVal *timeval, const gchar* format)
+{
+	time_t tmp_time_t;
+	struct tm* tmp_tm;
+	size_t tmp_size_t;
+	gchar buf[1000];
+
+	tmp_time_t = timeval->tv_sec;
+
+	tmp_tm = localtime (&tmp_time_t);
+	tmp_size_t = strftime (buf, 1000, format, tmp_tm);
+
+	return g_strdup(buf);
 }
