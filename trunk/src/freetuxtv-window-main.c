@@ -1005,7 +1005,7 @@ on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
 			    gdouble value, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	g_print("change %f\n", value); // TODO
+	//g_print("change %f\n", value); // TODO
 	if(!gtk_libvlc_media_player_is_playing(app->player)){
 		gtk_libvlc_media_player_play(app->player, NULL);
 	}
