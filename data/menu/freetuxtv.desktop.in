@@ -2,7 +2,7 @@
 _Name=FreetuxTV Television Channels Player
 _GenericName=Television Channels Player
 _Comment=Watch television channels from internet
-Categories=GNOME;AudioVideo;
+Categories=AudioVideo;TV;
 Encoding=UTF-8
 Exec=freetuxtv
 Icon=freetuxtv
