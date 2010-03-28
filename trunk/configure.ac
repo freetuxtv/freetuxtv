@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(freetuxtv, 0.4.2, http://code.google.com/p/freetuxtv/)
+AC_INIT(freetuxtv, 0.5.0, http://code.google.com/p/freetuxtv/)
 
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AM_CONFIG_HEADER(config.h)

@@ -1,3 +1,6 @@
+FreetuxTV 0.5.0 (2010-)
+  - Restructuration de la base de donnée
+
 FreetuxTV 0.4.2 (2010-03-14)
   - Ajout de la traduction portugaise.
   - Correction du configure.ac pour mieux gérer les dépendances.
