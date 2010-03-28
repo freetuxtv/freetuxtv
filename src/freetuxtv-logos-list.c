@@ -54,7 +54,7 @@ logos_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 	g_print("FreetuxTV : Synchronizing the logo list\n");
 
 	// Efface les anciens logos	
-	dbsync_delete_channels_logos (dbsync, error);
+	dbsync_delete_tvchannels (dbsync, error);
 
 	if(*error == NULL){
 		// Ajout de la liste des logos dans la base de donnée
@@ -127,16 +127,16 @@ xml_start_cb(GMarkupParseContext *context,
 	if(g_ascii_strcasecmp(element_name, "logo") == 0){
 		label = g_strdup(attribute_values[1]);
 		filename = g_strdup(attribute_values[0]);
-		dbsync_add_channel_logo (cbxmldata->dbsync, label, filename, 
-					 &(cbxmldata->current_logo), error);
+		dbsync_add_tvchannel (cbxmldata->dbsync, label, filename, 
+				      &(cbxmldata->current_logo), error);
 		g_free(filename);
 		
 	}
 	
 	if(g_ascii_strcasecmp(element_name, "logolabel") == 0){
 		label = g_strdup(attribute_values[0]);
-		dbsync_add_label_channel_logo (cbxmldata->dbsync, label, 
-					       cbxmldata->current_logo, error);
+		dbsync_add_label_tvchannel (cbxmldata->dbsync, label, 
+					    cbxmldata->current_logo, error);
 	}
 
 	if(label != NULL){

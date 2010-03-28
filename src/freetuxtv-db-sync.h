@@ -97,14 +97,14 @@ dbsync_delete_channels_of_channels_group (DBSync *dbsync,
 					  GError** error);
 
 void
-dbsync_delete_channels_logos (DBSync *dbsync, GError** error);
+dbsync_delete_tvchannels (DBSync *dbsync, GError** error);
 
 void
-dbsync_add_channel_logo (DBSync *dbsync, gchar* label, gchar* filename, 
-			 glong *id, GError** error);
+dbsync_add_tvchannel (DBSync *dbsync, gchar* label, gchar* filename, 
+		      glong *id, GError** error);
 
 void
-dbsync_add_label_channel_logo (DBSync *dbsync, gchar* label, glong id_logo, 
-			       GError** error);
+dbsync_add_label_tvchannel (DBSync *dbsync, gchar* label, glong id_tvchannel, 
+			    GError** error);
 
 #endif /* FREETUXTV_DB_SYNC_H */
