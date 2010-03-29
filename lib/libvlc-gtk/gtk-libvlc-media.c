@@ -44,6 +44,57 @@ gtk_libvlc_media_new (gchar* mrl)
 	return self;
 }
 
+/**
+ * gtk_libvlc_set_options:
+ * @media: a pointer to the media.
+ * @options: the VLC options to add to the media 
+ *
+ * Set an array of options to the media.
+ *
+ * Since: 0.1
+ */
+void
+gtk_libvlc_media_set_options (GtkLibVLCMedia* media, gchar** options)
+{
+	g_return_if_fail(media != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA(media));	 
+	
+	if(media->options){
+		g_strfreev(media->options);
+		media->options = NULL;
+	}
+	media->options = g_strdupv(options);
+}
+
+/**
+ * gtk_libvlc_get_options:
+ * @media: a pointer to the media.
+ *
+ * Get the list of options options to the media.
+ *
+ * Returns: an array of the options attached to the media.
+ *          Return NULL if no options attached to the media.
+ *
+ * Since: 0.1
+ */
+const gchar**
+gtk_libvlc_media_get_options (GtkLibVLCMedia* media)
+{
+	g_return_if_fail(media != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA(media));
+
+	gchar** options = NULL;
+
+	options = media->options;
+	/*
+	  if(media->options){
+	  options = g_strdupv(media->options);
+	  }
+	*/
+	
+	return options;
+}
+
 static void
 gtk_libvlc_media_class_init (GtkLibVLCMediaClass *klass)
 {
@@ -74,6 +125,13 @@ gtk_libvlc_media_dispose(GObject *object)
 		 g_free(self->mrl);
 		 self->mrl = NULL;
 	 }
+
+	 if(self->options != NULL){
+		 g_strfreev(self->options);
+		 self->options = NULL;
+	 }
+
+
 	 
 	 G_OBJECT_CLASS (gtk_libvlc_media_parent_class)->dispose (object);
 }

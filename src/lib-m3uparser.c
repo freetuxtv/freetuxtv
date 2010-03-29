@@ -120,56 +120,122 @@ libm3uparser_parse(char *file,
 
 int
 libm3uparser_get_extinfo (char argc, char **argv,
-			  char **time, char **title){
+			  char **time, char **title)
+{
+	int res;
+	
+	char** extdata = NULL;
+	int nb;
+
 	int i;
-	for(i=0; i<argc; i++){
+	
+	if(time != NULL)
+		*time = NULL;
+	if(title != NULL)
+		*title = NULL;
+	
+	res = libm3uparser_get_extdata (argc, argv, "#EXTINF", &extdata, &nb);
+	
+	if(nb>0){
+		i = nb -1;
 
 		char *begin;
 		char *end;
-		char *optname;
 		char *tmp;
 		
 		int cars;
 		
-		if(time != NULL)
-			*time = NULL;
-		if(title != NULL)
-			*title = NULL;
-		
-		/* Recupere le nom de l'option */
-		begin = argv[i];
-		end = strchr(argv[i], ':');
-		cars = end - begin;
-		optname = (char *) malloc ((cars + 1) * sizeof(char));
-		strncpy(optname, begin, cars);
-		optname[cars] = '\0';
-		
-		/* Si l'option est EXTINF on recupere le titre */
-       		if(strcmp(optname, "#EXTINF") == 0){
-			if(time != NULL){
-				begin = strchr(argv[i], ':') + 1;
-				end = strchr(argv[i], ',');
-				cars = end - begin;
-				tmp = (char *) malloc ((cars + 1) * sizeof(char));
-				strncpy(tmp, begin, cars);
-				tmp[cars] = '\0';
-				*time = tmp;
-			}
-			if(title != NULL){
-				begin = strchr(argv[i], ',') + 1;
-				end = begin + strlen(begin);
-				cars = end - begin;
-				tmp = (char *) malloc ((cars + 1) * sizeof(char));
-				strncpy(tmp, begin, cars);
-				tmp[cars] = '\0';
-				*title = tmp;
-			}   
-			free (optname);
-			return LIBM3UPARSER_OK;
+		if(time != NULL){
+			begin = strchr(extdata[i], ':') + 1;
+			end = strchr(extdata[i], ',');
+			cars = end - begin;
+			tmp = (char *) malloc ((cars + 1) * sizeof(char));
+			strncpy(tmp, begin, cars);
+			tmp[cars] = '\0';
+			*time = tmp;
 		}
-		free (optname);
+		if(title != NULL){
+			begin = strchr(extdata[i], ',') + 1;
+			end = begin + strlen(begin);
+			cars = end - begin;
+			tmp = (char *) malloc ((cars + 1) * sizeof(char));
+			strncpy(tmp, begin, cars);
+			tmp[cars] = '\0';
+			*title = tmp;
+		}   
 	}
-	return LIBM3UPARSER_EXTINFO_NOT_FOUND;
+
+	// Free the tab
+	for(i=0; i<nb; i++){
+		free(extdata[i]);
+	}
+	free(extdata);
+	
+	if(res == LIBM3UPARSER_EXTDATA_NOT_FOUND){
+		res = LIBM3UPARSER_EXTINFO_NOT_FOUND;
+	}
+	
+	return res;
+}
+
+int
+libm3uparser_get_extdata (char argc, char **argv, char *ext_name,
+			  char ***ext_data, int *ext_count)
+{
+	int i;
+	int nb = 0;
+	
+	int res = LIBM3UPARSER_OK;
+
+	char *begin;
+	char *end;
+	char *optname;
+	char *tmp;
+	
+	int cars;
+	
+	if(!ext_data && !ext_count){
+		res = LIBM3UPARSER_INVALID_PARAM;
+	}
+	
+	if(res == LIBM3UPARSER_OK){
+
+		res = LIBM3UPARSER_EXTINFO_NOT_FOUND;
+		
+		for(i=0; i<argc; i++){
+			
+			/* Get ext name */
+			begin = argv[i];
+			end = strchr(argv[i], ':');
+			cars = end - begin;
+			optname = (char *) malloc ((cars + 1) * sizeof(char));
+			strncpy(optname, begin, cars);
+			optname[cars] = '\0';
+			
+			/* Compare the name found with the given ext_name */
+			if(strcmp(optname, ext_name) == 0){
+				nb++;
+
+				*ext_data = (char **) realloc(*ext_data, nb * sizeof(char*));
+
+				// Get current ext data
+				begin = end + 1;
+				end = argv[i] + strlen(argv[i]);
+				cars = end - begin;
+	
+				(*ext_data)[nb-1] = (char *) malloc ((cars + 1) * sizeof(char));			
+				strncpy((*ext_data)[nb-1], begin, cars);
+				(*ext_data)[nb-1][cars] = '\0';
+
+				res = LIBM3UPARSER_OK;
+
+			}
+			free (optname);
+		}
+		*ext_count = nb;
+	}
+	
+	return res;
 }
 
 const char*
@@ -183,8 +249,12 @@ libm3uparser_errmsg(int err){
 		return "file not found";
 	case LIBM3UPARSER_EXTINFO_NOT_FOUND :
 		return "M3U EXTINFO option not found in the list";
+	case LIBM3UPARSER_EXTDATA_NOT_FOUND :
+		return "M3U EXTNAME option not found in the list";		
 	case LIBM3UPARSER_CALLBACK_RETURN_ERROR :
 		return "the callback function has returned an error";
+	case LIBM3UPARSER_INVALID_PARAM :
+		return "the function params are not valid";	
 	default:
 		return "bad error number";
 	}

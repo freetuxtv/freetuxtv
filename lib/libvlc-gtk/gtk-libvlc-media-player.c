@@ -1058,9 +1058,16 @@ gtk_libvlc_media_player_play_media(GtkLibVLCMediaPlayer *self, GtkLibVLCMedia *m
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 
+	int nb_options;
+	int nb_m_options = 0; // Number of media options
+	int nb_mp_options = 0; // Number of media player options
+	gchar** list_options = NULL;
+	int i;
+
 	gtk_libvlc_media_player_stop (self);
 
 	// g_print("\n\nPlaying : %s\n\n", media->mrl);
+	// Delete options attached to the media player
 	if(priv->current_options != options){
 		if(priv->current_options != NULL){
 			g_strfreev (priv->current_options);
@@ -1073,6 +1080,30 @@ gtk_libvlc_media_player_play_media(GtkLibVLCMediaPlayer *self, GtkLibVLCMedia *m
 		}
 	}
 
+	// Merge options in only one tab
+	if(media->options != NULL){
+		nb_m_options += g_strv_length(media->options);
+	}
+	if(priv->current_options != NULL){
+		nb_mp_options += g_strv_length(priv->current_options);
+	}
+	nb_options = nb_m_options + nb_mp_options;
+	if(nb_options > 0){
+		list_options = (gchar**)g_malloc((nb_options+1) * sizeof(gchar*));
+		list_options[nb_options] = NULL;
+		int step = 0;
+		// We put first the media option
+		for(i=0; i<nb_m_options; i++){
+			list_options[step+i] = g_strdup(media->options[i]);
+		}
+		step += nb_m_options;
+		// After we put the media player option
+		for(i=0; i<nb_mp_options; i++){
+			list_options[step+i] = g_strdup(priv->current_options[i]);
+		}
+	}
+
+
 	// Play the media
 #if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
 	if(libvlc_playlist_items_count (libvlc_instance, &_vlcexcep) > 0){
@@ -1081,13 +1112,15 @@ gtk_libvlc_media_player_play_media(GtkLibVLCMediaPlayer *self, GtkLibVLCMedia *m
 		libvlc_playlist_clear(libvlc_instance, &_vlcexcep);
 		on_vlc_exception (self, &_vlcexcep);
 	}
-	if(priv->current_options != NULL){
+	if(list_options != NULL){
+		/*
 		int i;
-		for(i=0; i<g_strv_length(priv->current_options); i++){
-			// g_print("option[%d] = %s\n", i, priv->current_options[i]);
+		for(i=0; i<nb_options; i++){
+			g_print("option[%d] = %s\n", i, list_options[i]);
 		}
+		*/
 		libvlc_playlist_add_extended(libvlc_instance, media->mrl, NULL,
-					     g_strv_length(priv->current_options), (const char**)priv->current_options, &_vlcexcep);
+					     nb_options, (const char**)list_options, &_vlcexcep);
 	}else{
 		libvlc_playlist_add (libvlc_instance, media->mrl, NULL, &_vlcexcep);		
 	}
@@ -1104,12 +1137,12 @@ gtk_libvlc_media_player_play_media(GtkLibVLCMediaPlayer *self, GtkLibVLCMedia *m
 	m = libvlc_media_new (libvlc_instance, media->mrl, &_vlcexcep);
 	on_vlc_exception(self, &_vlcexcep);
 
-	if(priv->current_options != NULL){
+	if(list_options != NULL){
 		int i=0;
-		for(i=0; i<g_strv_length(priv->current_options); i++){
-			libvlc_media_add_option(m, g_strdup(priv->current_options[i]), &_vlcexcep);
+		for(i=0; i<nb_options; i++){
+			libvlc_media_add_option(m, g_strdup(list_options[i]), &_vlcexcep);
 			on_vlc_exception (self, &_vlcexcep);
-			// g_print("option_copy[%d] = %s\n", i, priv->current_options[i]);
+			//g_print("option_copy[%d] = %s\n", i, list_options[i]);
 		}
 	}	
 		
@@ -1128,7 +1161,13 @@ gtk_libvlc_media_player_play_media(GtkLibVLCMediaPlayer *self, GtkLibVLCMedia *m
 	
 	libvlc_media_player_play (self->libvlc_mediaplayer, &_vlcexcep);
 	on_vlc_exception(self, &_vlcexcep);
-#endif	
+#endif
+
+	// Free the options tab
+	if(list_options){
+		g_strfreev(list_options);
+		list_options=NULL;
+	}
 }
 
 static void

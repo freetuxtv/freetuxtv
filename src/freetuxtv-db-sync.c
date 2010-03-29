@@ -62,6 +62,7 @@ typedef struct {
 #define DB_CHANNEL_NAME                "name"
 #define DB_CHANNEL_RANK                "rank"
 #define DB_CHANNEL_URI                 "uri"
+#define DB_CHANNEL_VLCOPTIONS          "vlc_options"
 #define DB_CHANNEL_CHANNELGROUPID      "channelsgroup_id"
 #define DB_CHANNEL_TVCHANNELID         "tvchannel_id"
 
@@ -250,13 +251,14 @@ dbsync_select_channels_of_channels_group (DBSync *dbsync,
 	cb_data.error = error;
 	cb_data.cb_data1 = channels_group_infos;
 
-	query = sqlite3_mprintf("SELECT %s.%s, %s.%s, %s.%s, %s.%s \
+	query = sqlite3_mprintf("SELECT %s.%s, %s.%s, %s.%s, %s.%s, %s.%s \
                                  FROM %s LEFT JOIN %s ON %s.%s=%s.%s \
                                  WHERE %s.%s=%d \
                                  ORDER BY %s.%s",
 				// SELECT
 				DB_CHANNEL, DB_CHANNEL_ID, DB_CHANNEL, DB_CHANNEL_NAME,
 				DB_TVCHANNEL, DB_TVCHANNEL_LOGOFILENAME, DB_CHANNEL, DB_CHANNEL_URI,
+				DB_CHANNEL, DB_CHANNEL_VLCOPTIONS,
 				// FROM
 				DB_CHANNEL, DB_TVCHANNEL,
 				// ON
@@ -292,10 +294,16 @@ dbsync_add_channel (DBSync *dbsync,
 	gchar *query;
 	gchar *db_err = NULL;
 	int res;
-	
+
+	gchar* vlc_options = NULL;
+
+	if(channel_infos->vlc_options){
+		vlc_options = g_strjoinv ("\n", channel_infos->vlc_options);
+	}
+
 	// Add the channel
-	query = sqlite3_mprintf("INSERT INTO %s (%s, %s, %s, %s, %s) \
-                                 VALUES ('%q',%d,'%q', \
+	query = sqlite3_mprintf("INSERT INTO %s (%s, %s, %s, %s, %s, %s) \
+                                 VALUES ('%q',%d,'%q', %Q, \
                                    (SELECT %s.%s FROM %s \
                                     WHERE ('%q' LIKE %s.%s||'%%') OR %s.%s = \
                                       (SELECT %s.%s FROM %s \
@@ -308,9 +316,9 @@ dbsync_add_channel (DBSync *dbsync,
 				DB_CHANNEL,
 				// (
 				DB_CHANNEL_NAME, DB_CHANNEL_RANK, DB_CHANNEL_URI,
-				DB_CHANNEL_TVCHANNELID, DB_CHANNEL_CHANNELGROUPID,
+				DB_CHANNEL_VLCOPTIONS, DB_CHANNEL_TVCHANNELID, DB_CHANNEL_CHANNELGROUPID,
 				// ) VALUES (
-				channel_infos->name, channel_infos->order, channel_infos->url,
+				channel_infos->name, channel_infos->order, channel_infos->url, vlc_options,
 				// (SELECT
 				DB_TVCHANNEL, DB_TVCHANNEL_ID,
 				// FROM
@@ -331,6 +339,10 @@ dbsync_add_channel (DBSync *dbsync,
 	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
 	//g_print("%s\n", query);
 	sqlite3_free(query);
+
+	if(vlc_options){
+		g_free(vlc_options);
+	}
 	
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
@@ -628,6 +640,8 @@ on_exec_channel (void *data, int argc, char **argv, char **colsname)
 	FreetuxTVChannelsGroupInfos* channels_group_infos = (FreetuxTVChannelsGroupInfos*)cb_data->cb_data1;
 
 	FreetuxTVChannelInfos* channel_infos;
+	gchar** vlc_options;
+		
 	int id = g_ascii_strtoll (argv[0], NULL, 10);
 	channel_infos = freetuxtv_channel_infos_new (argv[1], argv[3]);
 	freetuxtv_channel_infos_set_id (channel_infos, id);
@@ -636,6 +650,12 @@ on_exec_channel (void *data, int argc, char **argv, char **colsname)
 		freetuxtv_channel_infos_set_logo(channel_infos, argv[2]);
 	}
 	
+	if(argv[4]){
+		vlc_options = g_strsplit(argv[4], "\n", 0);
+		freetuxtv_channel_infos_set_vlcoptions(channel_infos, vlc_options);
+		g_strfreev(vlc_options);
+	}
+
 	freetuxtv_channel_infos_set_channels_group(channel_infos, channels_group_infos);
 	channels_group_infos->nb_channels++;
 
