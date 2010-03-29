@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS channel (
    name VARCHAR(50) NOT NULL,
    rank INTEGER NOT NULL,
    uri VARCHAR(255) NOT NULL,
+   vlc_options TEXT NULL,
    channelsgroup_id INTEGER NOT NULL
      CONSTRAINT fk_channel_channelsgroupid REFERENCES channels_group(id) ON DELETE CASCADE,
    tvchannel_id INTEGER NULL

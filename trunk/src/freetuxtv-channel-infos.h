@@ -39,10 +39,12 @@ struct _FreetuxTVChannelInfos
 
 	int id;
 	int order;
-	char *name;
-	char *url;
+	gchar *name;
+	gchar *url;
 
-	char *logo_name;
+	gchar *logo_name;
+
+	gchar **vlc_options;
 
 	FreetuxTVChannelsGroupInfos *channels_group;
 };
@@ -54,7 +56,7 @@ struct _FreetuxTVChannelInfosClass
 };
 
 FreetuxTVChannelInfos*
-freetuxtv_channel_infos_new(char *name, char *url);
+freetuxtv_channel_infos_new(gchar *name, gchar *url);
 
 void
 freetuxtv_channel_infos_set_id(FreetuxTVChannelInfos* self, int id);
@@ -64,7 +66,11 @@ freetuxtv_channel_infos_set_order(FreetuxTVChannelInfos* self, int order);
 
 void
 freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,
-				 char *logo_name);
+				 gchar *logo_name);
+
+void
+freetuxtv_channel_infos_set_vlcoptions(FreetuxTVChannelInfos* self,
+				       gchar **options);
 
 void
 freetuxtv_channel_infos_set_channels_group(FreetuxTVChannelInfos* self,

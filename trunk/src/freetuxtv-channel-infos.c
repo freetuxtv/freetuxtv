@@ -21,7 +21,7 @@
 G_DEFINE_TYPE (FreetuxTVChannelInfos, freetuxtv_channel_infos, G_TYPE_OBJECT);
 
 FreetuxTVChannelInfos*
-freetuxtv_channel_infos_new(char *name, char *url)
+freetuxtv_channel_infos_new(gchar *name, gchar *url)
 {
 	FreetuxTVChannelInfos *channel_infos;
 	channel_infos = g_object_new (FREETUXTV_TYPE_CHANNEL_INFOS, NULL);
@@ -30,6 +30,8 @@ freetuxtv_channel_infos_new(char *name, char *url)
 	channel_infos->url = g_strdup(url);	
 
 	channel_infos->logo_name = NULL;
+	
+	channel_infos->vlc_options = NULL;
 
 	return channel_infos;
 }
@@ -48,7 +50,7 @@ freetuxtv_channel_infos_set_order(FreetuxTVChannelInfos* self, int order)
 
 void
 freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,
-				 char *logo_name)
+				 gchar *logo_name)
 {
 	if(self->logo_name != NULL){
 		g_free(self->logo_name);
@@ -56,6 +58,15 @@ freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,
 	self->logo_name = g_strdup(logo_name);
 }
 
+void
+freetuxtv_channel_infos_set_vlcoptions(FreetuxTVChannelInfos* self,
+				       gchar **options)
+{
+	if(self->vlc_options){
+		g_strfreev (self->vlc_options);
+	} 
+	self->vlc_options = g_strdupv(options);
+}
 
 void
 freetuxtv_channel_infos_set_channels_group(FreetuxTVChannelInfos* self,
@@ -108,6 +119,11 @@ freetuxtv_channel_infos_dispose (GObject *object)
 		self->channels_group = NULL;
 	}
 
+	if(self->vlc_options != NULL){
+		g_strfreev(self->vlc_options);
+		self->vlc_options = NULL;
+	}
+
 	G_OBJECT_CLASS (freetuxtv_channel_infos_parent_class)->dispose (object);
 	
 }
@@ -128,5 +144,7 @@ freetuxtv_channel_infos_init (FreetuxTVChannelInfos *self)
 	self->url=NULL;
 
 	self->logo_name = NULL;
+	self->vlc_options = NULL;
+	
 	self->channels_group = NULL;
 }

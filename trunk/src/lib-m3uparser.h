@@ -24,7 +24,9 @@ enum libm3uparser_error {
 	LIBM3UPARSER_INVALID_CALLBACK = -1,
 	LIBM3UPARSER_FILE_NOT_FOUND = -2,
 	LIBM3UPARSER_EXTINFO_NOT_FOUND = -3,
-	LIBM3UPARSER_CALLBACK_RETURN_ERROR = -4
+	LIBM3UPARSER_EXTDATA_NOT_FOUND = -4,
+	LIBM3UPARSER_CALLBACK_RETURN_ERROR = -5,
+	LIBM3UPARSER_INVALID_PARAM = -6
 };
 
 int 
@@ -36,6 +38,10 @@ libm3uparser_parse(char *file,
 int
 libm3uparser_get_extinfo (char argc, char **argv, 
 			  char **time, char **title);
+
+int
+libm3uparser_get_extdata (char argc, char **argv, char *ext_name,
+			  char ***ext_data, int *ext_count);
 
 const char *
 libm3uparser_errmsg(int err);
