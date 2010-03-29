@@ -22,6 +22,8 @@ struct _GtkLibVLCMedia
 	GObject parent;
 	
 	gchar *mrl;
+
+	gchar** options;
 };
 
 struct _GtkLibVLCMediaClass
@@ -34,6 +36,12 @@ gtk_libvlc_media_get_type (void);
 
 GtkLibVLCMedia*
 gtk_libvlc_media_new (gchar* mrl);
+
+void
+gtk_libvlc_media_set_options (GtkLibVLCMedia* media, gchar** options);
+
+const gchar**
+gtk_libvlc_media_get_options (GtkLibVLCMedia* media);
 
 G_END_DECLS
 

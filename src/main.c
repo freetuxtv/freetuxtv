@@ -563,6 +563,8 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 		
 		GtkLibVLCMedia *media;
 		media = gtk_libvlc_media_new(channel_infos->url);
+		gtk_libvlc_media_set_options(media, channel_infos->vlc_options);
+		
 		gtk_libvlc_media_player_clear_media_list(app->player);
 		gtk_libvlc_media_player_add_media(app->player, media);
 		g_object_unref(media);

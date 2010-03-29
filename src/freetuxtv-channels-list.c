@@ -1138,7 +1138,8 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	gchar* query;
 	int res;
 	char *err=0;
-	gchar *name;	
+	gchar *name;
+	gchar **vlc_options = NULL;
 
 	res = libm3uparser_get_extinfo (argc, argv, NULL, &name);
 	if(res == LIBM3UPARSER_EXTINFO_NOT_FOUND){
@@ -1148,6 +1149,7 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 		gchar *tmp;
 		gchar *regex;
 		
+		// Correct channel name with regex defined
 		if(channels_group_infos->bregex != NULL){
 			regex = g_strdup_printf("^%s", channels_group_infos->bregex);
 			gregex = g_regex_new (regex, 0, 0, NULL);
@@ -1169,6 +1171,23 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 			name = g_strdup(tmp);
 		}
 		g_free(tmp);
+
+		// Get the VLC options for the channel
+		char** ext_data = NULL;
+		int ext_count;
+		int i;
+		libm3uparser_get_extdata (argc, argv, "#EXTVLCOPT", &ext_data, &ext_count);
+		if(ext_count>0){
+			vlc_options = (gchar**)g_malloc((ext_count+1) * sizeof(gchar*));
+			vlc_options[ext_count] = NULL;
+			for(i=0; i<ext_count; i++){
+				vlc_options[i] = g_strdup_printf(":%s", ext_data[i]);
+				g_free(ext_data[i]);
+				ext_data[i] = NULL;
+			}
+			g_free(ext_data);
+			ext_data = NULL;
+		}
 	}
 	
 	g_strstrip(name);	
@@ -1181,6 +1200,10 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	channel_infos = freetuxtv_channel_infos_new(name, url);
 	freetuxtv_channel_infos_set_order(channel_infos, num);
 	freetuxtv_channel_infos_set_channels_group(channel_infos, channels_group_infos);
+	if(vlc_options){
+		freetuxtv_channel_infos_set_vlcoptions(channel_infos, vlc_options);
+		g_strfreev(vlc_options);
+	}
 
 	dbsync_add_channel (data->dbsync, channel_infos, data->error);
 
