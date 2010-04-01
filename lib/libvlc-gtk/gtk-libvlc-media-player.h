@@ -1,8 +1,26 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/*
+ * freetuxtv
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
+ * 
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#ifndef GTK_LIBVLC_MEDIA_PLAYER_H
-#define GTK_LIBVLC_MEDIA_PLAYER_H
+#ifndef _GTK_LIBVLC_MEDIA_PLAYER_H_
+#define _GTK_LIBVLC_MEDIA_PLAYER_H_
 
+#include <glib-object.h>
 #include <gtk/gtk.h>
 
 #include <gtk-libvlc-include.h>
@@ -11,21 +29,26 @@
 
 G_BEGIN_DECLS
 
-#define GTK_TYPE_LIBVLC_MEDIA_PLAYER            (gtk_libvlc_media_player_get_type ())
-#define GTK_LIBVLC_MEDIA_PLAYER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_LIBVLC_MEDIA_PLAYER, GtkLibVLCMediaPlayer))
-#define GTK_LIBVLC_MEDIA_PLAYER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GTK_TYPE_LIBVLC_MEDIA_PLAYER, GtkLibVLCMediaPlayerClass))
-#define GTK_IS_LIBVLC_MEDIA_PLAYER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GTK_TYPE_LIBVLC_MEDIA_PLAYER))
-#define GTK_IS_LIBVLC_MEDIA_PLAYER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GTK_TYPE_LIBVLC_MEDIA_PLAYER))
-#define GTK_LIBVLC_MEDIA_PLAYER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GTK_TYPE_LIBVLC_MEDIA_PLAYER, GtkLibVLCMediaPlayerClass))
+#define GTK_TYPE_LIBVLC_MEDIA_PLAYER             (gtk_libvlc_media_player_get_type ())
+#define GTK_LIBVLC_MEDIA_PLAYER(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_LIBVLC_MEDIA_PLAYER, GtkLibvlcMediaPlayer))
+#define GTK_LIBVLC_MEDIA_PLAYER_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), GTK_TYPE_LIBVLC_MEDIA_PLAYER, GtkLibvlcMediaPlayerClass))
+#define GTK_IS_LIBVLC_MEDIA_PLAYER(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GTK_TYPE_LIBVLC_MEDIA_PLAYER))
+#define GTK_IS_LIBVLC_MEDIA_PLAYER_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), GTK_TYPE_LIBVLC_MEDIA_PLAYER))
+#define GTK_LIBVLC_MEDIA_PLAYER_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GTK_TYPE_LIBVLC_MEDIA_PLAYER, GtkLibvlcMediaPlayerClass))
 
-typedef struct _GtkLibVLCMediaPlayer GtkLibVLCMediaPlayer;
-typedef struct _GtkLibVLCMediaPlayerClass GtkLibVLCMediaPlayerClass;
+typedef struct _GtkLibvlcMediaPlayerClass GtkLibvlcMediaPlayerClass;
+typedef struct _GtkLibvlcMediaPlayer GtkLibvlcMediaPlayer;
 
-struct _GtkLibVLCMediaPlayer
+struct _GtkLibvlcMediaPlayerClass
 {
-	GtkWidget parent;
+	GtkWidgetClass parent_class;
+};
 
-	GtkLibVLCInstance* libvlc_instance;
+struct _GtkLibvlcMediaPlayer
+{
+	GtkWidget parent_instance;
+
+	GtkLibvlcInstance* libvlc_instance;
 	
 #if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
 #else
@@ -35,13 +58,7 @@ struct _GtkLibVLCMediaPlayer
 	GtkTreeStore *media_list;
 };
 
-struct _GtkLibVLCMediaPlayerClass
-{
-	GtkWidgetClass parent_class;
-};
-
-#define GTK_LIBVLC_STATE_TYPE (gtk_libvlc_state_type_get_type())
-
+// States of the media player
 typedef enum {
 	GTK_LIBVLC_STATE_NOTHING_SPECIAL,
 	GTK_LIBVLC_STATE_OPENING,
@@ -51,94 +68,93 @@ typedef enum {
 	GTK_LIBVLC_STATE_STOPPED,
 	GTK_LIBVLC_STATE_ENDED,
 	GTK_LIBVLC_STATE_ERROR
-} GtkLibVLCState;
+} GtkLibvlcState;
 
 enum {
 	GTK_LIBVLC_MODEL_MEDIA_COLUMN,
 	GTK_LIBVLC_MODEL_NB_COLUMN
 };
 
-GType
-gtk_libvlc_media_player_get_type (void);
+GType gtk_libvlc_media_player_get_type (void) G_GNUC_CONST;
 
-GtkWidget *
-gtk_libvlc_media_player_new (GtkLibVLCInstance* libvlc_instance);
-
-void
-gtk_libvlc_media_player_add_media (GtkLibVLCMediaPlayer *self, GtkLibVLCMedia *media);
-
-GtkLibVLCMedia*
-gtk_libvlc_media_player_get_current_media (GtkLibVLCMediaPlayer *self);
-
-GtkLibVLCMedia*
-gtk_libvlc_media_player_get_media_from_path (GtkLibVLCMediaPlayer *self, GtkTreePath *path);
+GtkWidget*
+gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance);
 
 void
-gtk_libvlc_media_player_clear_media_list(GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_add_media (GtkLibvlcMediaPlayer *self, GtkLibvlcMedia *media);
+
+GtkLibvlcMedia*
+gtk_libvlc_media_player_get_current_media (GtkLibvlcMediaPlayer *self);
+
+GtkLibvlcMedia*
+gtk_libvlc_media_player_get_media_from_path (GtkLibvlcMediaPlayer *self, GtkTreePath *path);
 
 void
-gtk_libvlc_media_player_play (GtkLibVLCMediaPlayer *self, gchar **options);
+gtk_libvlc_media_player_clear_media_list(GtkLibvlcMediaPlayer *self);
 
 void
-gtk_libvlc_media_player_play_media_at_path (GtkLibVLCMediaPlayer *self, GtkTreePath *path, gchar **options);
+gtk_libvlc_media_player_play (GtkLibvlcMediaPlayer *self, gchar **options);
 
 void
-gtk_libvlc_media_player_play_next (GtkLibVLCMediaPlayer *self, gchar **options);
+gtk_libvlc_media_player_play_media_at_path (GtkLibvlcMediaPlayer *self, GtkTreePath *path, gchar **options);
 
 void
-gtk_libvlc_media_player_pause (GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_play_next (GtkLibvlcMediaPlayer *self, gchar **options);
+
+void
+gtk_libvlc_media_player_pause (GtkLibvlcMediaPlayer *self);
 
 gboolean
-gtk_libvlc_media_player_can_pause (GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_can_pause (GtkLibvlcMediaPlayer *self);
 
 void
-gtk_libvlc_media_player_stop (GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_stop (GtkLibvlcMediaPlayer *self);
 
 void
-gtk_libvlc_media_player_set_volume (GtkLibVLCMediaPlayer *self, gdouble volume);
+gtk_libvlc_media_player_set_volume (GtkLibvlcMediaPlayer *self, gdouble volume);
 
 gdouble
-gtk_libvlc_media_player_get_volume (GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_get_volume (GtkLibvlcMediaPlayer *self);
 
 void
-gtk_libvlc_media_player_set_fullscreen (GtkLibVLCMediaPlayer *self, gboolean fullscreen);
+gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean fullscreen);
 
 gboolean
-gtk_libvlc_media_player_is_playing (GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_is_playing (GtkLibvlcMediaPlayer *self);
 
-GtkLibVLCState
-gtk_libvlc_media_player_get_state (GtkLibVLCMediaPlayer *self);
-
-glong
-gtk_libvlc_media_player_get_length(GtkLibVLCMediaPlayer *self);
+GtkLibvlcState
+gtk_libvlc_media_player_get_state (GtkLibvlcMediaPlayer *self);
 
 glong
-gtk_libvlc_media_player_get_time(GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_get_length(GtkLibvlcMediaPlayer *self);
+
+glong
+gtk_libvlc_media_player_get_time(GtkLibvlcMediaPlayer *self);
 
 void
-gtk_libvlc_media_player_set_time(GtkLibVLCMediaPlayer *self, glong time);
+gtk_libvlc_media_player_set_time(GtkLibvlcMediaPlayer *self, glong time);
 
 gfloat
-gtk_libvlc_media_player_get_position(GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_get_position(GtkLibvlcMediaPlayer *self);
 
 void
-gtk_libvlc_media_player_set_position(GtkLibVLCMediaPlayer *self, gfloat position);
+gtk_libvlc_media_player_set_position(GtkLibvlcMediaPlayer *self, gfloat position);
 
 gboolean
-gtk_libvlc_media_player_is_seekable (GtkLibVLCMediaPlayer *self);
+gtk_libvlc_media_player_is_seekable (GtkLibvlcMediaPlayer *self);
 
 const gchar*
-gtk_libvlc_media_player_state_tostring (GtkLibVLCState state);
+gtk_libvlc_media_player_state_tostring (GtkLibvlcState state);
 
 void
-gtk_libvlc_media_player_set_play_next_at_end (GtkLibVLCMediaPlayer *self, gboolean b);
+gtk_libvlc_media_player_set_play_next_at_end (GtkLibvlcMediaPlayer *self, gboolean b);
 
 void
-gtk_libvlc_media_player_set_loop (GtkLibVLCMediaPlayer *self, gboolean b);
+gtk_libvlc_media_player_set_loop (GtkLibvlcMediaPlayer *self, gboolean b);
 
-GtkLibVLCInstance*
-gtk_libvlc_media_player_get_instance (GtkLibVLCMediaPlayer *self);
+GtkLibvlcInstance*
+gtk_libvlc_media_player_get_instance (GtkLibvlcMediaPlayer *self);
 
 G_END_DECLS
 
-#endif /* GTK_LIBVLC_MEDIA_PLAYER_H */
+#endif /* _GTK_LIBVLC_MEDIA_PLAYER_H_ */
