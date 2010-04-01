@@ -40,7 +40,7 @@ struct _FreetuxTVApp {
 
 	GtkBuilder* gui;
 
-	GtkLibVLCMediaPlayer *player;
+	GtkLibvlcMediaPlayer *player;
 	GtkTreeModel *channelslist;
 
 	struct {		
@@ -89,7 +89,7 @@ void
 freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel);
 
 void
-freetuxtv_play_media (FreetuxTVApp *app, GtkLibVLCMedia* media);
+freetuxtv_play_media (FreetuxTVApp *app, GtkLibvlcMedia* media);
 
 void
 freetuxtv_action_playpause (FreetuxTVApp *app);

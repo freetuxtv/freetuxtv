@@ -86,7 +86,7 @@ on_row_activated_recordings_list (GtkTreeView        *view, GtkTreePath *path,
 	gchar *filename, *mrl;
 	gtk_tree_model_get (model, &iter, FILENAME_COLUMN, &filename, MRL_COLUMN, &mrl, -1);
 
-	GtkLibVLCMedia *media;
+	GtkLibvlcMedia *media;
 	media = gtk_libvlc_media_new (mrl);
 
 	freetuxtv_play_media (app, media);

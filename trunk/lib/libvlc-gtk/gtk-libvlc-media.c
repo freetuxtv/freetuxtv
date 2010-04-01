@@ -1,25 +1,79 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * freetuxtv
- * Copyright (C) FreetuxTV Team's 2008
- * Project homepage : http://code.google.com/p/freetuxtv/
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
  * 
- * freetuxtv is free software.
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk-libvlc-media.h>
+#include "gtk-libvlc-media.h"
+
+typedef struct _GtkLibvlcMediaPrivate GtkLibvlcMediaPrivate;
+struct _GtkLibvlcMediaPrivate
+{
+	gchar** options;
+};
+
+#define GTK_LIBVLC_MEDIA_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), GTK_TYPE_LIBVLC_MEDIA, GtkLibvlcMediaPrivate))
+
+
+
+G_DEFINE_TYPE (GtkLibvlcMedia, gtk_libvlc_media, G_TYPE_OBJECT);
 
 static void
-gtk_libvlc_media_class_init(GtkLibVLCMediaClass *klass);
-static void
-gtk_libvlc_media_init(GtkLibVLCMedia *object);
-static void
-gtk_libvlc_media_dispose(GObject *object);
-static void
-gtk_libvlc_media_finalize(GObject *object);
+gtk_libvlc_media_init (GtkLibvlcMedia *object)
+{
+	GtkLibvlcMediaPrivate* priv;
+	priv = GTK_LIBVLC_MEDIA_PRIVATE(object);
+	
+	object->mrl = NULL;
+	
+	priv->options = NULL;
+}
 
-G_DEFINE_TYPE (GtkLibVLCMedia, gtk_libvlc_media, G_TYPE_OBJECT);
+static void
+gtk_libvlc_media_finalize (GObject *object)
+{
+	GtkLibvlcMedia *self;
+	GtkLibvlcMediaPrivate* priv;
+	
+	self = GTK_LIBVLC_MEDIA(object);
+	priv = GTK_LIBVLC_MEDIA_PRIVATE(self);
+	
+	if(self->mrl != NULL){
+		g_free(self->mrl);
+		self->mrl = NULL;
+	}
+
+	if(priv->options != NULL){
+		g_strfreev(priv->options);
+		priv->options = NULL;
+	}
+
+	G_OBJECT_CLASS (gtk_libvlc_media_parent_class)->finalize (object);
+}
+
+static void
+gtk_libvlc_media_class_init (GtkLibvlcMediaClass *klass)
+{
+	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	GObjectClass* parent_class = G_OBJECT_CLASS (klass);
+
+	g_type_class_add_private (klass, sizeof (GtkLibvlcMediaPrivate));
+
+	object_class->finalize = gtk_libvlc_media_finalize;
+}
 
 /**
  * gtk_libvlc_media_new:
@@ -31,12 +85,12 @@ G_DEFINE_TYPE (GtkLibVLCMedia, gtk_libvlc_media, G_TYPE_OBJECT);
  *
  * Since: 0.1
  */
-GtkLibVLCMedia*
+GtkLibvlcMedia*
 gtk_libvlc_media_new (gchar* mrl)
 {
 	g_return_if_fail(mrl != NULL);
 
-	GtkLibVLCMedia *self = NULL;
+	GtkLibvlcMedia *self = NULL;
 	self = g_object_new (GTK_TYPE_LIBVLC_MEDIA, NULL);
 
 	self->mrl = g_strdup(mrl);
@@ -54,16 +108,20 @@ gtk_libvlc_media_new (gchar* mrl)
  * Since: 0.1
  */
 void
-gtk_libvlc_media_set_options (GtkLibVLCMedia* media, gchar** options)
+gtk_libvlc_media_set_options (GtkLibvlcMedia* media, gchar** options)
 {
 	g_return_if_fail(media != NULL);
-	g_return_if_fail(GTK_IS_LIBVLC_MEDIA(media));	 
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA(media));
 	
-	if(media->options){
-		g_strfreev(media->options);
-		media->options = NULL;
+	GtkLibvlcMediaPrivate* priv;
+	
+	priv = GTK_LIBVLC_MEDIA_PRIVATE(media);
+	
+	if(priv->options){
+		g_strfreev(priv->options);
+		priv->options = NULL;
 	}
-	media->options = g_strdupv(options);
+	priv->options = g_strdupv(options);
 }
 
 /**
@@ -78,72 +136,22 @@ gtk_libvlc_media_set_options (GtkLibVLCMedia* media, gchar** options)
  * Since: 0.1
  */
 const gchar**
-gtk_libvlc_media_get_options (GtkLibVLCMedia* media)
+gtk_libvlc_media_get_options (GtkLibvlcMedia* media)
 {
 	g_return_if_fail(media != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA(media));
-
+	
+	GtkLibvlcMediaPrivate* priv;
 	gchar** options = NULL;
+	
+	priv = GTK_LIBVLC_MEDIA_PRIVATE(media);
 
-	options = media->options;
+	options = priv->options;
 	/*
 	  if(media->options){
 	  options = g_strdupv(media->options);
 	  }
 	*/
 	
-	return options;
-}
-
-static void
-gtk_libvlc_media_class_init (GtkLibVLCMediaClass *klass)
-{
-	GObjectClass *object_class;
-	
-	object_class = G_OBJECT_CLASS (klass);
-	
-	object_class->dispose = gtk_libvlc_media_dispose;
-	object_class->finalize = gtk_libvlc_media_finalize;
-}
-
-static void
-gtk_libvlc_media_init (GtkLibVLCMedia *object)
-{
-	object->mrl = NULL;
-}
-
-static void
-gtk_libvlc_media_dispose(GObject *object)
-{
-	 GtkLibVLCMedia *self;
-	 g_return_if_fail(object != NULL);
-	 g_return_if_fail(GTK_IS_LIBVLC_MEDIA(object));	 
-	 
-	 self = GTK_LIBVLC_MEDIA(object);
-
-	 if(self->mrl != NULL){
-		 g_free(self->mrl);
-		 self->mrl = NULL;
-	 }
-
-	 if(self->options != NULL){
-		 g_strfreev(self->options);
-		 self->options = NULL;
-	 }
-
-
-	 
-	 G_OBJECT_CLASS (gtk_libvlc_media_parent_class)->dispose (object);
-}
-
-static void
-gtk_libvlc_media_finalize(GObject *object)
-{
-	 GtkLibVLCMedia *self;
-	 g_return_if_fail(object != NULL);
-	 g_return_if_fail(GTK_IS_LIBVLC_MEDIA(object));	 
-	 
-	 self = GTK_LIBVLC_MEDIA(object);
-
-	 G_OBJECT_CLASS (gtk_libvlc_media_parent_class)->finalize (object);
+	return (const gchar**)options;
 }
