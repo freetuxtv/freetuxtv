@@ -308,7 +308,7 @@ increase_progress_timeout (FreetuxTVApp *app)
 		}
 	}
 
-	GtkLibVLCState state = gtk_libvlc_media_player_get_state(app->player);
+	GtkLibvlcState state = gtk_libvlc_media_player_get_state(app->player);
 	switch(state){
 	case GTK_LIBVLC_STATE_PAUSED :
 	case GTK_LIBVLC_STATE_PLAYING :
@@ -511,7 +511,7 @@ freetuxtv_app_create_app ()
 	g_print("FreetuxTV : Creating media player widget\n");
 	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
 							      "windowmain_eventboxplayer");
-	GtkLibVLCInstance* instance;
+	GtkLibvlcInstance* instance;
 	const gchar *options[] = {"--no-video-title-show"};
 
 	instance = gtk_libvlc_instance_new(options);
@@ -561,7 +561,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 		
 		windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
 		
-		GtkLibVLCMedia *media;
+		GtkLibvlcMedia *media;
 		media = gtk_libvlc_media_new(channel_infos->url);
 		gtk_libvlc_media_set_options(media, channel_infos->vlc_options);
 		
@@ -582,7 +582,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 }
 
 void
-freetuxtv_play_media (FreetuxTVApp *app, GtkLibVLCMedia* media)
+freetuxtv_play_media (FreetuxTVApp *app, GtkLibvlcMedia* media)
 {
 	
 	if(app->debug){
@@ -611,7 +611,7 @@ freetuxtv_action_playpause (FreetuxTVApp *app)
 
 		FreetuxTVChannelInfos* channel_infos;
 
-		GtkLibVLCState state = gtk_libvlc_media_player_get_state(app->player);
+		GtkLibvlcState state = gtk_libvlc_media_player_get_state(app->player);
 		switch(state){
 		case GTK_LIBVLC_STATE_PAUSED :
 			gtk_libvlc_media_player_pause(app->player);
@@ -627,7 +627,7 @@ freetuxtv_action_playpause (FreetuxTVApp *app)
 			channel_infos = channels_list_get_channel (app, app->current.path_channel);
 			
 			g_print("FreetuxTV-debug : current channel %s\n", channel_infos->name);
-			GtkLibVLCMedia *media;
+			GtkLibvlcMedia *media;
 			media = gtk_libvlc_media_new(channel_infos->url);
 			gtk_libvlc_media_player_clear_media_list(app->player);
 			gtk_libvlc_media_player_add_media(app->player, media);

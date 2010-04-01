@@ -1,31 +1,91 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * freetuxtv
- * Copyright (C) FreetuxTV Team's 2008
- * Project homepage : http://code.google.com/p/freetuxtv/
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
  * 
- * freetuxtv is free software.
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk-libvlc-instance.h>
+#include "gtk-libvlc-instance.h"
 
+typedef struct _GtkLibvlcInstancePrivate GtkLibvlcInstancePrivate;
+struct _GtkLibvlcInstancePrivate
+{
+	gchar* test;
+};
+
+#define GTK_LIBVLC_INSTANCE_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), GTK_TYPE_LIBVLC_INSTANCE, GtkLibvlcInstancePrivate))
+
+// Macro to display the LIBVLC_VERSION
 #define LIBVLC_VERSION(major, minor, revision) str(major) "." str(minor) "." str(revision)
 #define str(s) #s
 
-static void
-gtk_libvlc_instance_class_init(GtkLibVLCInstanceClass *klass);
-static void
-gtk_libvlc_instance_init(GtkLibVLCInstance *object);
-static void
-gtk_libvlc_instance_dispose(GObject *object);
-static void
-gtk_libvlc_instance_finalize(GObject *object);
+G_DEFINE_TYPE (GtkLibvlcInstance, gtk_libvlc_instance, G_TYPE_OBJECT);
 
 static void
-on_vlc_exception(GtkLibVLCInstance *self, libvlc_exception_t * ex);
+gtk_libvlc_instance_init (GtkLibvlcInstance *object)
+{
+	object->libvlc_instance = NULL;
+}
 
-G_DEFINE_TYPE (GtkLibVLCInstance, gtk_libvlc_instance, G_TYPE_OBJECT);
+static void
+gtk_libvlc_instance_finalize (GObject *object)
+{
+	GtkLibvlcInstance *self;
+	 g_return_if_fail(object != NULL);
+	 g_return_if_fail(GTK_IS_LIBVLC_INSTANCE(object));	 
+	 
+	 self = GTK_LIBVLC_INSTANCE(object);
+
+	 if(self->libvlc_instance != NULL){
+#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
+		 libvlc_destroy (self->libvlc_instance);
+#else
+		 libvlc_release (self->libvlc_instance);
+#endif
+		 self->libvlc_instance = NULL;
+	 }
+
+	G_OBJECT_CLASS (gtk_libvlc_instance_parent_class)->finalize (object);
+}
+
+static void
+gtk_libvlc_instance_class_init (GtkLibvlcInstanceClass *klass)
+{
+	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	GObjectClass* parent_class = G_OBJECT_CLASS (klass);
+
+	g_type_class_add_private (klass, sizeof (GtkLibvlcInstancePrivate));
+
+	object_class->finalize = gtk_libvlc_instance_finalize;
+}
+
+static void
+on_vlc_exception(GtkLibvlcInstance *self, libvlc_exception_t * ex)
+{
+	if (libvlc_exception_raised (ex)){
+		/*
+#if LIBVLC_VERSION_MAJOR == 1 && ((LIBVLC_VERSION_MINOR == 0 && LIBVLC_VERSION_REVISION >= 2) || LIBVLC_VERSION_MINOR > 0)
+		g_printerr("libvlc-gtk error: %s\n", libvlc_errmsg());
+#else
+		*/
+		g_printerr("libvlc-gtk error: %s\n", libvlc_exception_get_message(ex));
+		/*
+#endif
+		*/
+	}
+}
 
 /**
  * gtk_libvlc_instance_new:
@@ -38,10 +98,10 @@ G_DEFINE_TYPE (GtkLibVLCInstance, gtk_libvlc_instance, G_TYPE_OBJECT);
  *
  * Since: 0.1
  */
-GtkLibVLCInstance*
+GtkLibvlcInstance*
 gtk_libvlc_instance_new (const gchar* vlc_args[])
 {
-	GtkLibVLCInstance *self = NULL;
+	GtkLibvlcInstance *self = NULL;
 	self = g_object_new (GTK_TYPE_LIBVLC_INSTANCE, NULL);
 	
 	libvlc_exception_t _vlcexcep;
@@ -66,7 +126,7 @@ gtk_libvlc_instance_new (const gchar* vlc_args[])
 }
 
 const gchar*
-gtk_libvlc_get_libvlc_version (gint *major, gint *minor, gint *revision)
+gtk_libvlc_get_libvlc_version (gint* major, gint *minor, gint *revision)
 {
 	if(major != NULL){
 		*major = LIBVLC_VERSION_MAJOR;
@@ -79,70 +139,4 @@ gtk_libvlc_get_libvlc_version (gint *major, gint *minor, gint *revision)
 	}
 		
 	return LIBVLC_VERSION(LIBVLC_VERSION_MAJOR, LIBVLC_VERSION_MINOR, LIBVLC_VERSION_REVISION);
-}
-
-static void
-gtk_libvlc_instance_class_init (GtkLibVLCInstanceClass *klass)
-{
-	GObjectClass *object_class;
-	
-	object_class = G_OBJECT_CLASS (klass);
-	
-	object_class->dispose = gtk_libvlc_instance_dispose;
-	object_class->finalize = gtk_libvlc_instance_finalize;
-}
-
-static void
-gtk_libvlc_instance_init (GtkLibVLCInstance *object)
-{
-	object->libvlc_instance = NULL;
-}
-
-static void
-gtk_libvlc_instance_dispose(GObject *object)
-{
-	 GtkLibVLCInstance *self;
-	 g_return_if_fail(object != NULL);
-	 g_return_if_fail(GTK_IS_LIBVLC_INSTANCE(object));	 
-	 
-	 self = GTK_LIBVLC_INSTANCE(object);
-
-	 if(self->libvlc_instance != NULL){
-#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
-		 libvlc_destroy (self->libvlc_instance);
-#else
-		 libvlc_release (self->libvlc_instance);
-#endif
-		 self->libvlc_instance = NULL;
-	 }
-
-	 G_OBJECT_CLASS (gtk_libvlc_instance_parent_class)->dispose (object);
-}
-
-static void
-gtk_libvlc_instance_finalize(GObject *object)
-{
-	 GtkLibVLCInstance *self;
-	 g_return_if_fail(object != NULL);
-	 g_return_if_fail(GTK_IS_LIBVLC_INSTANCE(object));	 
-	 
-	 self = GTK_LIBVLC_INSTANCE(object);
-
-	 G_OBJECT_CLASS (gtk_libvlc_instance_parent_class)->finalize (object);
-}
-
-static void
-on_vlc_exception(GtkLibVLCInstance *self, libvlc_exception_t * ex)
-{
-	if (libvlc_exception_raised (ex)){
-		/*
-#if LIBVLC_VERSION_MAJOR == 1 && ((LIBVLC_VERSION_MINOR == 0 && LIBVLC_VERSION_REVISION >= 2) || LIBVLC_VERSION_MINOR > 0)
-		g_printerr("libvlc-gtk error: %s\n", libvlc_errmsg());
-#else
-		*/
-		g_printerr("libvlc-gtk error: %s\n", libvlc_exception_get_message(ex));
-		/*
-#endif
-		*/
-	}
 }
