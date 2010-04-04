@@ -6,7 +6,21 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
-* 26/01/2010
+* 04/04/2040  - Liste Web Radio (Français)
+
+- Renommage de Roc FM en Radio Metropolys suite à changement de nom <BR>
+  site web http://www.metropolys.com <BR>
+- Renommage de Radio Scoop Box Vintage en Radio Scoop Power Dance suite à changement de
+  type de musique pour cette URL <BR>
+  site web : http://www.radioscoop.com <BR>
+- Ajout Kiss FM et Kiss Web Coast - France <BR>
+  site web http://www.kissfm.cc <BR>
+- Ajout Corsica Radio.com - France <BR>
+  site web http://www.corsicaradio.com
+- Ajout Radio Tropicale <BR>
+  site web : http://www.radiotropicale.fr/
+
+* 26/01/2010 - Liste Web Radio (Français)
 
  Modem Radio - France <BR>
  -Ajout Modem Radio France <BR>
@@ -14,7 +28,7 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
  -Ajout Modem Radio Crystal <BR>
  site web : http://www.modemradio.fr/ <BR>
 
-* 16/12/2009 
+* 16/12/2009 - Liste Web Radio (Français)
 
  Ajout CKIA FM - Canada <BR>
  site web : http://www.meduse.org/ckiafm/ <BR> 
