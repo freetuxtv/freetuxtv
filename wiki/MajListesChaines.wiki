@@ -7,12 +7,14 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 = Liste des modifications =
 
 * 26/01/2010
-Modem Radio - France
--Ajout Modem Radio France
--Ajout Modem Radio Pop-Rock
--Ajout Modem Radio Crystal
-site web : http://www.modemradio.fr/
+
+ Modem Radio - France <BR>
+ -Ajout Modem Radio France <BR>
+ -Ajout Modem Radio Pop-Rock <BR>
+ -Ajout Modem Radio Crystal <BR>
+ site web : http://www.modemradio.fr/ <BR>
 
 * 16/12/2009 
-Ajout CKIA FM - Canada
-site web : http://www.meduse.org/ckiafm/ 
+
+ Ajout CKIA FM - Canada <BR>
+ site web : http://www.meduse.org/ckiafm/ <BR> 
