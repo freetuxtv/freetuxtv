@@ -35,11 +35,6 @@
 #include "freetuxtv-models.h"
 #include <gtk-libvlc-media-player.h>
 
-/* For testing propose use the local (not installed) ui file */
-/* #define UI_FILE PACKAGE_DATA_DIR"/freetuxtv/ui/freetuxtv.ui" */
-#define UI_FILE "src/freetuxtv.ui"
-	
-
 int
 init_user_configuration(GError **error)
 {
