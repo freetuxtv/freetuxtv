@@ -20,9 +20,11 @@
 #include <sqlite3.h>
 
 #include "freetuxtv-window-main.h"
+#include "freetuxtv-window-recording.h"
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
+#include "freetuxtv-fileutils.h"
 #include "freetuxtv-utils.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group-infos.h"
@@ -54,9 +56,11 @@ static void
 on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 					    gpointer user_data);
 
+/*
 static void
 on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
 						   gpointer user_data);
+*/
 
 static gboolean
 on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
@@ -169,9 +173,7 @@ windowmain_init(FreetuxTVApp *app)
 	// Initialize menu bar	
 	menu_bar = gtk_menu_bar_new ();
 	GtkWidget *p_menu = NULL;
-	GtkWidget *p_submenu = NULL;
 	GtkWidget *p_menu_item = NULL;
-	GSList *group;
 	
 	// Menu : FreetuxTV
 	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_FreetuxTV"));
@@ -534,6 +536,8 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 	case WINDOW_MODE_PLAYING :
 		sensitive = TRUE;
 		break;
+	default:
+		break;
 	}
 	gtk_widget_set_sensitive(widget, sensitive);
 	
@@ -553,6 +557,8 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 		break;
 	case WINDOW_MODE_PLAYING :
 		sensitive = TRUE;		
+		break;
+	default:
 		break;
 	}
 	gtk_widget_set_sensitive(widget, sensitive);
@@ -593,6 +599,8 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 	case WINDOW_MODE_RECORDING :
 		sensitive = TRUE;		
 		break;
+	default:
+		break;
 	}
 	gtk_widget_set_sensitive(widget, sensitive);
 
@@ -606,6 +614,8 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 		break;
 	case WINDOW_MODE_PLAYING :
 		sensitive = TRUE;		
+		break;
+	default:
 		break;
 	}
 	gtk_widget_set_sensitive(widget, sensitive);
@@ -989,7 +999,7 @@ on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
 		g_error_free (error);
 	}
 }
-
+/*
 static void
 on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
 						   gpointer user_data)
@@ -998,7 +1008,7 @@ on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
 
 	g_print("test\n");
 }
-
+*/
 
 static gboolean
 on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
@@ -1020,8 +1030,6 @@ on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
 					    gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GtkWidget *windowminimode;
 	
 	GtkWidget *widget;
 	

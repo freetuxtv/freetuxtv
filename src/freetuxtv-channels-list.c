@@ -17,11 +17,14 @@
  */
 
 #include <gtk/gtk.h>
+#include <glib/gstdio.h>
 
 #include "freetuxtv-channels-list.h"
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
+#include "freetuxtv-window-main.h"
+#include "freetuxtv-fileutils.h"
 #include "freetuxtv-channel-infos.h"
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-cellrenderer-channelslist.h"
@@ -98,10 +101,6 @@ on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_dat
 static gboolean
 on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data);
 
-
-static int 
-on_exec_get_group_infos (void *data, int argc, char **argv, char **colsname);
-
 static int 
 on_parsem3u_add_channel (char *url, int num, int argc, 
 			 char **argv, void *user_data);
@@ -110,8 +109,10 @@ static void
 channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
 			 gboolean update, GError** error);
 
+/*
 static void
 channels_list_display_channels (FreetuxTVApp *app);
+ */
 
 GQuark freetuxtv_libm3uparse_error = 0;
 
@@ -506,7 +507,7 @@ channels_list_get_channel(FreetuxTVApp *app, GtkTreePath* path_channel)
 {
 	FreetuxTVChannelInfos* channel_infos;
 	GtkTreeIter iter;
-	g_return_if_fail(gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, path_channel) == TRUE);
+	g_return_val_if_fail(gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, path_channel) == TRUE, NULL);
 	gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNEL_COLUMN, &channel_infos, -1);
 	return channel_infos;
 }
@@ -517,7 +518,7 @@ channels_list_get_group(FreetuxTVApp *app, GtkTreePath* path_group)
 {
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
 	GtkTreeIter iter;
-	g_return_if_fail(gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, path_group) == TRUE);
+	g_return_val_if_fail(gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, path_group) == TRUE, NULL);
 	gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
 	return channels_group_infos;	
 }
@@ -545,6 +546,7 @@ channels_list_delete_rows (FreetuxTVApp *app, GtkTreePath* path_group,
 	
 }
 
+/*
 static void
 channels_list_display_channels (FreetuxTVApp *app)
 {
@@ -553,6 +555,7 @@ channels_list_display_channels (FreetuxTVApp *app)
 							"windowmain_treeviewchannelslist");
 	gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 }
+*/
 
 static void
 channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
@@ -648,7 +651,7 @@ on_row_activated_channels_list(GtkTreeView *view, GtkTreePath *path,
 	gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, path);
 
 	FreetuxTVChannelsGroupInfos* channels_group_infos;
-	FreetuxTVChannelInfos* channel_infos;
+	// FreetuxTVChannelInfos* channel_infos;
 
 	GtkTreeModel *model;
 	GtkTreePath* model_path;
@@ -678,8 +681,8 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 	FreetuxTVChannelsGroupInfos* channels_group_infos = NULL;
 	FreetuxTVChannelInfos* channel_infos = NULL;
 	
-	GdkPixbuf* logo;
-	GdkColor color;	
+	// GdkPixbuf* logo;
+	// GdkColor color;	
 
 	// Si on veut afficher un groupe
 	gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
@@ -1121,7 +1124,7 @@ on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 			
 		}		
 	}else{	
-		channels_group_infos->nb_channels_visible == 0;
+		channels_group_infos->nb_channels_visible = 0;
 		return TRUE;
 		
 	}
@@ -1135,9 +1138,7 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	Parsem3uData *data = (Parsem3uData *) user_data;
 	FreetuxTVChannelsGroupInfos* channels_group_infos = data->channels_group_infos;
 
-	gchar* query;
 	int res;
-	char *err=0;
 	gchar *name;
 	gchar **vlc_options = NULL;
 

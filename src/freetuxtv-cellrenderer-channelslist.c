@@ -259,10 +259,7 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 
 static void
 freetuxtv_cellrenderer_channelslist_finalize (GObject *object)
-{
-
-	FreetuxTVCellRendererChannelsList *self = (FreetuxTVCellRendererChannelsList*)object;
-	
+{	
 	GObjectClass *parent_class;  
 	parent_class = G_OBJECT_CLASS (freetuxtv_cellrenderer_channelslist_parent_class);
 	(* G_OBJECT_CLASS (parent_class)->finalize) (object);
@@ -275,7 +272,6 @@ freetuxtv_cellrenderer_channelslist_class_init (FreetuxTVCellRendererChannelsLis
 	GtkCellRendererClass *cell_class   = GTK_CELL_RENDERER_CLASS(klass);
 	GObjectClass         *object_class = G_OBJECT_CLASS(klass);
 	
-	GObjectClass *parent_class         = g_type_class_peek_parent (klass);
 	object_class->finalize = freetuxtv_cellrenderer_channelslist_finalize;
 	
 	object_class->get_property = freetuxtv_cellrenderer_channelslist_get_property;
