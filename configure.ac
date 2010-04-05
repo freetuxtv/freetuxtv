@@ -133,15 +133,16 @@ AC_CHECK_FUNCS([strncpy])
 AC_CHECK_FUNCS([strcmp])
 
 AC_OUTPUT([
-	Makefile
-	po/Makefile.in
-	src/Makefile
-	data/Makefile
-	data/icons/Makefile
-	data/images/Makefile
-	data/images/channels/Makefile
-	data/images/groups/Makefile
-	data/menu/Makefile
-	lib/Makefile
-	lib/libvlc-gtk/Makefile
+        Makefile
+        po/Makefile.in
+        src/Makefile
+        data/Makefile
+        data/icons/Makefile
+        data/images/Makefile
+        data/images/channels/Makefile
+        data/images/groups/Makefile
+        data/menu/Makefile
+        data/ui/Makefile
+        lib/Makefile
+        lib/libvlc-gtk/Makefile
 ])

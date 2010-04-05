@@ -3,7 +3,7 @@
 
 SUBDIRS = lib po data src
 
-freetuxtvdocdir = ${prefix}/doc/freetuxtv
+freetuxtvdocdir = ${pkgdatadir}/doc
 freetuxtvdoc_DATA = \
 	README\
 	COPYING\
