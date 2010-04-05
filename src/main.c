@@ -21,7 +21,7 @@
 
 #include <stdlib.h>
 #include <gtk/gtk.h>
-#include <libnotify/notification.h>
+#include <libnotify/notify.h>
 
 #include "lib-gmmkeys.h"
 #include "freetuxtv-app.h"
@@ -317,6 +317,9 @@ increase_progress_timeout (FreetuxTVApp *app)
 		windowmain_timebar_update (app, gtk_libvlc_media_player_get_time(app->player), 
 					   gtk_libvlc_media_player_get_length(app->player),
 					   gtk_libvlc_media_player_get_position(app->player));
+		break;
+	default:
+		break;	
 	}
 	
 	return TRUE;
@@ -459,17 +462,16 @@ splashscreen_app_init(gpointer data)
 	if(error != NULL){
 		g_print("FreetuxTV Error : %s\n", error->message);
 		g_error_free(error);
+		return FALSE;
 	}
+
+	return TRUE;
 }
 
 static FreetuxTVApp *
 freetuxtv_app_create_app ()
 {
 	FreetuxTVApp *app;
-
-	GtkWidget *widget;
-
-	GtkWidget *scrolledwindowchannels;	
 
 	GtkWidget *eventboxplayer;
 

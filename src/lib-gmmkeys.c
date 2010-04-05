@@ -23,6 +23,7 @@
 #endif
 
 #include "lib-gmmkeys.h"
+#include "string.h"
 
 #define g_marshal_value_peek_boolean(v)  (v)->data[0].v_int
 #define g_marshal_value_peek_char(v)     (v)->data[0].v_int

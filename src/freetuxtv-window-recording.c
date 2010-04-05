@@ -21,10 +21,12 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <stdlib.h>
 
 #include "freetuxtv-window-recording.h"
 
 #include "freetuxtv-app.h"
+#include "freetuxtv-utils.h"
 
 static void
 on_windowrecording_response(GtkDialog *dialog,
@@ -75,7 +77,6 @@ windowrecording_updateinfos(FreetuxTVApp *app)
 	int duration;
 	gchar* begin_text;
 	gchar* end_text;
-	int add_time;
 
 	// Get current hour
 	g_get_current_time (&time_now);

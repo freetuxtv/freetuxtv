@@ -190,7 +190,6 @@ libm3uparser_get_extdata (char argc, char **argv, char *ext_name,
 	char *begin;
 	char *end;
 	char *optname;
-	char *tmp;
 	
 	int cars;
 	

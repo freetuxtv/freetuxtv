@@ -23,7 +23,7 @@ G_DEFINE_TYPE (FreetuxTVChannelsGroupInfos, freetuxtv_channels_group_infos, G_TY
 FreetuxTVChannelsGroupInfos*
 freetuxtv_channels_group_infos_new(gchar *name, gchar *uri)
 {
-	g_return_if_fail(name != NULL);
+	g_return_val_if_fail(name != NULL, NULL);
 
 	FreetuxTVChannelsGroupInfos *channels_group_infos;
 	channels_group_infos = g_object_new (FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, NULL);
@@ -102,7 +102,6 @@ freetuxtv_channels_group_infos_constructor (GType gtype,
 					    GObjectConstructParam *properties)
 {
 	GObject *obj;
-	FreetuxTVChannelsGroupInfosClass *klass;
 	GObjectClass *parent_class;  
 	parent_class = G_OBJECT_CLASS (freetuxtv_channels_group_infos_parent_class);
 	obj = parent_class->constructor (gtype, n_properties, properties);
