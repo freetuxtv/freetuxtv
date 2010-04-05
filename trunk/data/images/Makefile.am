@@ -1,1 +1,4 @@
-SUBDIRS = channels
+
+SUBDIRS = \
+	channels\
+	groups

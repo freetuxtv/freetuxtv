@@ -1,1 +1,3 @@
-SUBDIRS = libvlc-gtk
+
+SUBDIRS = \
+	libvlc-gtk

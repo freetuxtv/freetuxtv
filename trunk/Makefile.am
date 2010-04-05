@@ -1,3 +1,30 @@
-SUBDIRS = lib src data po
+## Process this file with automake to produce Makefile.in
+## Created by Anjuta
 
-EXTRA_DIST = autogen.sh
+SUBDIRS = lib po data src
+
+freetuxtvdocdir = ${prefix}/doc/freetuxtv
+freetuxtvdoc_DATA = \
+	README\
+	COPYING\
+	AUTHORS\
+	ChangeLog\
+	INSTALL\
+	NEWS
+
+INTLTOOL_FILES = intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in
+
+EXTRA_DIST = $(freetuxtvdoc_DATA) \
+	$(INTLTOOL_FILES) \
+	autogen.sh
+
+DISTCLEANFILES = intltool-extract \
+	intltool-merge \
+	intltool-update \
+	po/.intltool-merge-cache
+
+# Remove doc directory on uninstall
+uninstall-local:
+	-rm -r $(freetuxtvdocdir)
