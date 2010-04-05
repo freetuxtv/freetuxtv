@@ -2,9 +2,6 @@
 
 ## Created by Anjuta
 
-#uidir = $(datadir)/freetuxtv/ui
-#ui_DATA = freetuxtv.ui
-
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
@@ -56,10 +53,3 @@ freetuxtv_LDFLAGS = \
 
 freetuxtv_LDADD = $(FREETUXTV_LIBS) \
 	../lib/libvlc-gtk/libvlc-gtk.la
-
-#EXTRA_DIST = $(ui_DATA)
-
-# Remove ui directory on uninstall
-#-rm -r $(uidir)
-uninstall-local:
-	-rm -r $(datadir)/freetuxtv
