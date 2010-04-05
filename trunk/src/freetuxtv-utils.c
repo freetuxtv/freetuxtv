@@ -147,7 +147,7 @@ get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_pre
 	return text;
 }
 
-gchar*
+void
 g_time_val_add_seconds (GTimeVal *timeval, glong seconds)
 {
 	timeval->tv_sec += seconds;

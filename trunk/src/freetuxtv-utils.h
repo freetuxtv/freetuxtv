@@ -35,7 +35,7 @@ format_size(glong size);
 gchar*
 get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_preview, gchar **out_filename);
 
-gchar*
+void
 g_time_val_add_seconds (GTimeVal *timeval, glong seconds);
 
 gint

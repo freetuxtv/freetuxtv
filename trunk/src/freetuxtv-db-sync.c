@@ -123,13 +123,13 @@ dbsync_close_db (DBSync *dbsync)
 
 	g_print("DBSync : Close database\n");
 	sqlite3_close(dbsync->db_link);
-	dbsync->db_link == NULL;
+	dbsync->db_link = NULL;
 }
 
 gboolean
 dbsync_db_exists(DBSync *dbsync)
 {
-	g_return_if_fail(dbsync != NULL);
+	g_return_val_if_fail(dbsync != NULL, FALSE);
 
 	gchar *user_db;
 	gboolean res = FALSE;
@@ -677,7 +677,6 @@ dbsync_link_tvchannel_to_channels (DBSync *dbsync, gchar *label, glong id_tvchan
 	gchar *query;
 	gchar *db_err = NULL;
 	int res;
-	glong id;
 
 	// Link logo to channels 
 	query = sqlite3_mprintf("UPDATE %s SET %s=%ld WHERE %s LIKE '%q%%';",

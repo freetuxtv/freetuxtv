@@ -87,7 +87,6 @@ freetuxtv_channel_infos_constructor (GType                  gtype,
 				     GObjectConstructParam *properties)
 {
 	GObject *obj;
-	FreetuxTVChannelInfosClass *klass;
 	GObjectClass *parent_class;  
 	parent_class = G_OBJECT_CLASS (freetuxtv_channel_infos_parent_class);
 	obj = parent_class->constructor (gtype, n_properties, properties);

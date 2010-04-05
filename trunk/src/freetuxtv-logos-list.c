@@ -22,6 +22,7 @@
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
+#include "freetuxtv-window-main.h"
 
 
 typedef struct _CBXMLData
