@@ -1,16 +1,24 @@
-SUBDIRS = icons images menu
-
 xml_in_files = channels_groups.xml.in
-xmldir = $(datadir)/freetuxtv
+xmldir = $(pkgdatadir)
 xml_DATA = $(xml_in_files:.xml.in=.xml)
 @INTLTOOL_XML_NOMERGE_RULE@
 
-freetuxtvdatadir = $(datadir)/freetuxtv
-freetuxtvdata_DATA = sqlite3-create-tables.sql channels_logos.xml freetuxtv.glade
+freetuxtvdata_DATA = \
+	sqlite3-create-tables.sql\
+	channels_logos.xml\
+	freetuxtv.glade
+
+freetuxtvdatadir = \
+	$(pkgdatadir)
 
 EXTRA_DIST = \
-        $(freetuxtvdata_DATA) \
-        $(xml_in_files)
+	$(freetuxtvdata_DATA) \
+	$(xml_in_files)
 
 DISTCLEANFILES = \
-        $(xml_DATA)
+    $(xml_DATA)
+
+SUBDIRS = \
+	icons\
+	menu \
+	images

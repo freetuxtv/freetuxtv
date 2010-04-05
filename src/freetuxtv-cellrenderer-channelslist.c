@@ -212,7 +212,7 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 
 	GdkPixbuf* logo;
 
-	if (flags & GTK_CELL_RENDERER_SELECTED != 0){
+	if ((flags & GTK_CELL_RENDERER_SELECTED) != 0){
 		state = GTK_STATE_SELECTED;
 	}
 
