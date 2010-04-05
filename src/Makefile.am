@@ -1,45 +1,65 @@
+## Process this file with automake to produce Makefile.in
+
+## Created by Anjuta
+
+#uidir = $(datadir)/freetuxtv/ui
+#ui_DATA = freetuxtv.ui
+
+AM_CPPFLAGS = \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
+	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
+	$(FREETUXTV_CFLAGS) \
+	-I$(top_srcdir)/lib/libvlc-gtk/
+
+AM_CFLAGS =\
+	 -Wall\
+	 -g
+
 bin_PROGRAMS = freetuxtv
 
 freetuxtv_SOURCES = \
-  freetuxtv-app.h \
-  freetuxtv-cellrenderer-channelslist.c \
-  freetuxtv-cellrenderer-channelslist.h \
-  freetuxtv-channel-infos.c \
-  freetuxtv-channel-infos.h \
-  freetuxtv-channels-group-infos.c \
-  freetuxtv-channels-group-infos.h \
-  freetuxtv-channels-list.c \
-  freetuxtv-channels-list.h \
-  freetuxtv-db-sync.c \
-  freetuxtv-db-sync.h \
-  freetuxtv-fileutils.c \
-  freetuxtv-fileutils.h \
-  freetuxtv-i18n.h \
-  freetuxtv-logos-list.c \
-  freetuxtv-logos-list.h \
-  freetuxtv-models.c \
-  freetuxtv-models.h \
-  freetuxtv-recordings-list.c \
-  freetuxtv-recordings-list.h \
-  freetuxtv-utils.c \
-  freetuxtv-utils.h \
-  freetuxtv-window-main.c \
-  freetuxtv-window-main.h \
-  freetuxtv-window-recording.c \
-  freetuxtv-window-recording.h \
-  lib-gmmkeys.c \
-  lib-gmmkeys.h \
-  lib-m3uparser.c \
-  lib-m3uparser.h \
-  main.c
+	freetuxtv-app.h \
+	freetuxtv-cellrenderer-channelslist.c \
+	freetuxtv-cellrenderer-channelslist.h \
+	freetuxtv-channel-infos.c \
+	freetuxtv-channel-infos.h \
+	freetuxtv-channels-group-infos.c \
+	freetuxtv-channels-group-infos.h \
+	freetuxtv-channels-list.c \
+	freetuxtv-channels-list.h \
+	freetuxtv-db-sync.c \
+	freetuxtv-db-sync.h \
+	freetuxtv-fileutils.c \
+	freetuxtv-fileutils.h \
+	freetuxtv-i18n.h \
+	freetuxtv-logos-list.c \
+	freetuxtv-logos-list.h \
+	freetuxtv-models.c \
+	freetuxtv-models.h \
+	freetuxtv-recordings-list.c \
+	freetuxtv-recordings-list.h \
+	freetuxtv-utils.c \
+	freetuxtv-utils.h \
+	freetuxtv-window-main.c \
+	freetuxtv-window-main.h \
+	freetuxtv-window-recording.c \
+	freetuxtv-window-recording.h \
+	lib-gmmkeys.c \
+	lib-gmmkeys.h \
+	lib-m3uparser.c \
+	lib-m3uparser.h \
+	main.c
 
-freetuxtv_CPPFLAGS = \
-  $(DEPS_CFLAGS) \
-	-I$(srcdir)/../lib/libvlc-gtk \
-  -DLOCALE_DIR=\""$(datadir)/locale"\"
+freetuxtv_LDFLAGS = \
+	-Wl, --export-dynamic
 
-# For libglade2 signals
-freetuxtv_LDFLAGS = -export-dynamic
+freetuxtv_LDADD = $(FREETUXTV_LIBS) \
+	../lib/libvlc-gtk/libvlc-gtk.la
 
-freetuxtv_LDADD = $(DEPS_LIBS) \
-  ../lib/libvlc-gtk/libvlc-gtk.la
+#EXTRA_DIST = $(ui_DATA)
+
+# Remove ui directory on uninstall
+#-rm -r $(uidir)
+uninstall-local:
+	-rm -r $(datadir)/freetuxtv

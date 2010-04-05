@@ -1,24 +1,21 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * FreetuxTV is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or 
+ * main.c
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
+ * 
+ * FreetuxTV is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * FreetuxTV is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Glade; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
+ * 
+ * FreetuxTV is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
 
 #include <glib/gstdio.h>
 
@@ -36,7 +33,12 @@
 #include "freetuxtv-recordings-list.h"
 #include "freetuxtv-logos-list.h"
 #include "freetuxtv-models.h"
-#include "gtk-libvlc-media-player.h"
+#include <gtk-libvlc-media-player.h>
+
+/* For testing propose use the local (not installed) ui file */
+/* #define UI_FILE PACKAGE_DATA_DIR"/freetuxtv/ui/freetuxtv.ui" */
+#define UI_FILE "src/freetuxtv.ui"
+	
 
 int
 init_user_configuration(GError **error)
@@ -168,7 +170,7 @@ load_user_configuration(FreetuxTVApp *app)
 			g_error_free (err);
 			err = NULL;
 		}else{
-			if(i>0 & i<2){
+			if(i>0 && i<2){
 				app->prefs.transcoding_mode = i;
 			}
 		}
@@ -272,7 +274,7 @@ increase_progress_timeout (FreetuxTVApp *app)
 			second = (gint)g_timer_elapsed (app->current.recording.duration, NULL);
 			
 			// gtk_libvlc_media_player_set_time (app->player, second*1000);
-			
+
 			struct stat buf;
 			long file_size = 0;
 			if(g_stat(app->current.recording.dst_file, &buf) == 0){
@@ -881,31 +883,31 @@ on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp
 	}
 }
 
-int main (int argc, char *argv[])
+int
+main (int argc, char *argv[])
 {
+ 	FreetuxTVApp *app;
 	
-	FreetuxTVApp *app;
-
 	GMMKeys* mmkeys;
 
 	int p;
 
 #ifdef ENABLE_NLS
-	setlocale (LC_ALL, "");
-	bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
+	bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 #endif
 
-	g_print("FreetuxTV : Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));	
-
-	gtk_init(&argc, &argv);
+	g_print("FreetuxTV : Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+	
+	gtk_set_locale ();
+	gtk_init (&argc, &argv);
 
 	g_print("FreetuxTV : Loading FreetuxTV %s\n", VERSION);
 	app = freetuxtv_app_create_app ();
 	if (app == NULL)
 		return 1;
-	// Traitement des arguments du programme
+	// Process programs args
 	for(p=1; p<argc; p++){
 		if(g_ascii_strcasecmp("-v",argv[p]) == 0){
 			g_print("FreetuxTV : Enable debug mode\n");
@@ -927,11 +929,11 @@ int main (int argc, char *argv[])
 	
 	gtk_init_add (splashscreen_app_init, app);
 
-	gtk_main();
+	gtk_main ();
 
 	g_mmkeys_deactivate (mmkeys);
 	g_object_unref(G_OBJECT(app->current.notification));
-	notify_uninit();  
+	notify_uninit();
 
 	return 0;
 }

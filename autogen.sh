@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 # Run this to generate all the initial makefiles, etc.
 
 srcdir=`dirname $0`
@@ -7,6 +7,14 @@ test -z "$srcdir" && srcdir=.
 DIE=0
 
 CONFIGURE="configure.ac"
+
+if [ -n "$GNOME2_DIR" ]; then
+	ACLOCAL_FLAGS="-I $GNOME2_DIR/share/aclocal $ACLOCAL_FLAGS"
+	LD_LIBRARY_PATH="$GNOME2_DIR/lib:$LD_LIBRARY_PATH"
+	PATH="$GNOME2_DIR/bin:$PATH"
+	export PATH
+	export LD_LIBRARY_PATH
+fi
 
 # Check for configure.ac file in the current directory
 (test -f $srcdir/$CONFIGURE) || {
@@ -30,6 +38,16 @@ CONFIGURE="configure.ac"
     echo
     echo "**Error**: You must have \`intltool' installed."
     echo "You can get it from: ftp://ftp.gnome.org/pub/GNOME/"
+    DIE=1
+  }
+}
+
+(grep "^AM_PROG_XML_I18N_TOOLS" $srcdir/$CONFIGURE >/dev/null) && {
+  (xml-i18n-toolize --version) < /dev/null > /dev/null 2>&1 || {
+    echo
+    echo "**Error**: You must have \`xml-i18n-toolize' installed."
+    echo "You can get it from:"
+    echo "  ftp://ftp.gnome.org/pub/GNOME/"
     DIE=1
   }
 }
@@ -77,6 +95,18 @@ if test "$DIE" -eq 1; then
   exit 1
 fi
 
+if test -z "$*"; then
+  echo "**Warning**: I am going to run \`configure' with no arguments."
+  echo "If you wish to pass any to it, please specify them on the"
+  echo \`$0\'" command line."
+  echo
+fi
+
+case $CC in
+xlc )
+  am_opt=--include-deps;;
+esac
+
 for coin in `find $srcdir -path $srcdir/CVS -prune -o -name $CONFIGURE -print`
 do 
   dr=`dirname $coin`
@@ -100,6 +130,10 @@ do
         echo "Running intltoolize..."
         intltoolize --copy --force --automake
       fi
+      if grep "^AM_PROG_XML_I18N_TOOLS" $CONFIGURE >/dev/null; then
+        echo "Running xml-i18n-toolize..."
+		xml-i18n-toolize --copy --force --automake
+      fi
       if grep "^AC_PROG_LIBTOOL" $CONFIGURE >/dev/null; then
         if test -z "$NO_LIBTOOLIZE" ; then
           echo "Running libtoolize..."
@@ -108,7 +142,7 @@ do
       fi
       echo "Running aclocal $aclocalinclude..."
       aclocal $aclocalinclude
-      if grep "^AM_CONFIG_HEADER" $CONFIGURE >/dev/null; then
+      if grep "^A[CM]_CONFIG_HEADER" $CONFIGURE >/dev/null; then
         echo "Running autoheader..."
         autoheader
       fi
@@ -119,8 +153,8 @@ do
     )
   fi
 done
- 	
-conf_flags="--prefix=/usr --enable-maintainer-mode"
+
+conf_flags="--enable-maintainer-mode"
 
 if test x$NOCONFIGURE = x; then
   echo Running $srcdir/configure $conf_flags "$@" ...

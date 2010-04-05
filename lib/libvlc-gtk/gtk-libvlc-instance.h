@@ -49,8 +49,12 @@ struct _GtkLibvlcInstance
 };
 
 GType gtk_libvlc_instance_get_type (void) G_GNUC_CONST;
-GtkLibvlcInstance* gtk_libvlc_instance_new (const gchar* vlc_args[]);
-const gchar* gtk_libvlc_get_libvlc_version (gint* major, gint *minor, gint *revision);
+
+GtkLibvlcInstance*
+gtk_libvlc_instance_new (const gchar* vlc_args[]);
+
+const gchar*
+gtk_libvlc_get_libvlc_version (gint* major, gint *minor, gint *revision);
 
 G_END_DECLS
 

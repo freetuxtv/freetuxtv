@@ -20,7 +20,7 @@
     - dbus-glib-1 (>= 0.74)
     - libsqlite3 (>= 3.4.0)
     - libvlc (>= 0.8.6)
-    - libcurl (>= 7.16.4)
+    - libcurl (>= 7.18.0)
     - libnotify (>= 0.4)
 
     Report bugs at
@@ -81,4 +81,3 @@
         $> sudo make install
     4) Watch TV
         $> freetuxtv
-

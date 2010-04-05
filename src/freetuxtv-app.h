@@ -32,6 +32,7 @@
 
 G_BEGIN_DECLS
 
+#define FREETUXTV_DIR PACKAGE_DATA_DIR "/" PACKAGE
 #define FREETUXTV_GLADEXML FREETUXTV_DIR "/freetuxtv.glade"
 
 struct _FreetuxTVApp {
