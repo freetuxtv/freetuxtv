@@ -28,7 +28,7 @@
 #include "freetuxtv-channel-infos.h"
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-cellrenderer-channelslist.h"
-#include "freetuxtv-logos-list.h"
+#include "freetuxtv-tv-channels-list.h"
 #include "freetuxtv-db-sync.h"
 #include "lib-m3uparser.h"
 
@@ -692,7 +692,7 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 		gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channel_infos, -1);  
 
 		gchar *imgfile;
-		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
+		imgfile = tvchannels_list_get_tvchannel_logo_path(app, channel_infos, TRUE);
 
 		gboolean is_playing = FALSE;
 		if(app->current.path_channel != NULL){
