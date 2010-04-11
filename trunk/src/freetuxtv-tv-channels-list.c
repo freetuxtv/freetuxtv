@@ -1,24 +1,25 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * FreetuxTV is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or 
+ * freetuxtv
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
+ * 
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * FreetuxTV is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Glade; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
+ * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <gtk/gtk.h>
 
-#include "freetuxtv-logos-list.h"
+#include "freetuxtv-tv-channels-list.h"
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
@@ -54,7 +55,7 @@ xml_text_cb(GMarkupParseContext *context,
     GError **error);
 
 void
-logos_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
+tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
     GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
@@ -95,7 +96,7 @@ logos_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 }
 
 gchar*
-logos_list_get_channel_logo_filename(FreetuxTVApp *app, 
+tvchannels_list_get_tvchannel_logo_path(FreetuxTVApp *app, 
     FreetuxTVChannelInfos* channel_infos,
     gboolean none_icon)
 {

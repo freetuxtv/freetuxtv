@@ -31,7 +31,7 @@
 #include "freetuxtv-window-recording.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-recordings-list.h"
-#include "freetuxtv-logos-list.h"
+#include "freetuxtv-tv-channels-list.h"
 #include "freetuxtv-models.h"
 #include <gtk-libvlc-media-player.h>
 
@@ -387,7 +387,7 @@ splashscreen_app_init(gpointer data)
 		struct stat file_stat;
 		if(g_stat (FREETUXTV_DIR "/channels_logos.xml", &file_stat) == 0){
 			if(app->config.logosfiledate < (gint)file_stat.st_mtime){
-				logos_list_synchronize(app, &dbsync, &error);
+				tvchannels_list_synchronize(app, &dbsync, &error);
 				if(error == NULL){
 					app->config.logosfiledate = (gint)file_stat.st_mtime;	
 				}
@@ -546,7 +546,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel)
 		
 		// Send notification to desktop
 		gchar *imgfile;
-		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
+		imgfile = tvchannels_list_get_tvchannel_logo_path(app, channel_infos, TRUE);
 		
 		if(app->prefs.enable_notifications){
 			notify_notification_update (app->current.notification, channel_infos->name,
@@ -692,7 +692,7 @@ freetuxtv_action_record (FreetuxTVApp *app)
 
 		// Send notification to desktop
 		gchar *imgfile;
-		imgfile = logos_list_get_channel_logo_filename(app, channel_infos, TRUE);
+		imgfile = tvchannels_list_get_tvchannel_logo_path(app, channel_infos, TRUE);
 		
 		if(app->prefs.enable_notifications){
 			notify_notification_update (app->current.notification, channel_infos->name,
