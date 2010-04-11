@@ -197,8 +197,8 @@ freetuxtv_tv_channel_infos_get_logo_filename(FreetuxTVTvChannelInfos* tv_channel
 void
 freetuxtv_tv_channel_infos_add_label(FreetuxTVTvChannelInfos* tv_channel_infos, gchar *label)
 {
-	g_return_val_if_fail(tv_channel_infos != NULL, NULL);
-	g_return_val_if_fail(FREETUXTV_IS_TV_CHANNEL_INFOS(tv_channel_infos), NULL);
+	g_return_if_fail(tv_channel_infos != NULL);
+	g_return_if_fail(FREETUXTV_IS_TV_CHANNEL_INFOS(tv_channel_infos));
 	
 	FreetuxTVTvChannelInfosPrivate* priv;
 	gchar* text;
