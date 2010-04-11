@@ -206,30 +206,31 @@ libm3uparser_get_extdata (char argc, char **argv, char *ext_name,
 			/* Get ext name */
 			begin = argv[i];
 			end = strchr(argv[i], ':');
-			cars = end - begin;
-			optname = (char *) malloc ((cars + 1) * sizeof(char));
-			strncpy(optname, begin, cars);
-			optname[cars] = '\0';
-			
-			/* Compare the name found with the given ext_name */
-			if(strcmp(optname, ext_name) == 0){
-				nb++;
-
-				*ext_data = (char **) realloc(*ext_data, nb * sizeof(char*));
-
-				// Get current ext data
-				begin = end + 1;
-				end = argv[i] + strlen(argv[i]);
+			if(end){
 				cars = end - begin;
+				optname = (char *) malloc ((cars + 1) * sizeof(char));
+				strncpy(optname, begin, cars);
+				optname[cars] = '\0';
+			
+				/* Compare the name found with the given ext_name */
+				if(strcmp(optname, ext_name) == 0){
+					nb++;
+
+					*ext_data = (char **) realloc(*ext_data, nb * sizeof(char*));
+
+					// Get current ext data
+					begin = end + 1;
+					end = argv[i] + strlen(argv[i]);
+					cars = end - begin;
 	
-				(*ext_data)[nb-1] = (char *) malloc ((cars + 1) * sizeof(char));			
-				strncpy((*ext_data)[nb-1], begin, cars);
-				(*ext_data)[nb-1][cars] = '\0';
+					(*ext_data)[nb-1] = (char *) malloc ((cars + 1) * sizeof(char));			
+					strncpy((*ext_data)[nb-1], begin, cars);
+					(*ext_data)[nb-1][cars] = '\0';
 
-				res = LIBM3UPARSER_OK;
-
+					res = LIBM3UPARSER_OK;
+				}
+				free (optname);
 			}
-			free (optname);
 		}
 		*ext_count = nb;
 	}
