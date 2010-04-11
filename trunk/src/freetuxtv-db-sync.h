@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
 /*
  * FreetuxTV is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
 #include "freetuxtv-i18n.h"
 #include "freetuxtv-channel-infos.h"
 #include "freetuxtv-channels-group-infos.h"
+#include "freetuxtv-tv-channel-infos.h"
 
 typedef struct _DBSync DBSync;
 struct _DBSync
@@ -57,54 +58,50 @@ dbsync_create_db (DBSync *dbsync, GError** error);
 
 void
 dbsync_select_channels_groups (DBSync *dbsync,
-			       FreetuxTVApp *app,
-			       int (*callback)(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* channels_group_infos,
-					       DBSync *dbsync, gpointer user_data, GError** error),
-			       gpointer user_data, GError** error);
+    FreetuxTVApp *app,
+    int (*callback)(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* channels_group_infos,
+	    DBSync *dbsync, gpointer user_data, GError** error),
+    gpointer user_data, GError** error);
 
 void
 dbsync_select_channels_of_channels_group (DBSync *dbsync,
-					  FreetuxTVChannelsGroupInfos* channels_group_infos,
-					  FreetuxTVApp *app,
-					  int (*callback)(FreetuxTVApp *app, 
-							  FreetuxTVChannelInfos* channel_infos,
-							  DBSync *dbsync, gpointer user_data, GError** error),
-					  gpointer user_data, GError** error);
+    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    FreetuxTVApp *app,
+    int (*callback)(FreetuxTVApp *app, 
+	    FreetuxTVChannelInfos* channel_infos,
+	    DBSync *dbsync, gpointer user_data, GError** error),
+    gpointer user_data, GError** error);
 
 void
 dbsync_add_channel (DBSync *dbsync,
-		    FreetuxTVChannelInfos* channel_infos,
-		    GError** error);
+    FreetuxTVChannelInfos* channel_infos,
+    GError** error);
 
 void
 dbsync_add_channels_group (DBSync *dbsync,
-			   FreetuxTVChannelsGroupInfos* channels_group_infos,
-			   GError** error);
+    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    GError** error);
 
 void
 dbsync_update_channels_group (DBSync *dbsync,
-			      FreetuxTVChannelsGroupInfos* channels_group_infos,
-			      GError** error);
+    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    GError** error);
 
 void
 dbsync_delete_channels_group (DBSync *dbsync,
-			      FreetuxTVChannelsGroupInfos* channels_group_infos,
-			      GError** error);
+    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    GError** error);
 
 void
 dbsync_delete_channels_of_channels_group (DBSync *dbsync,
-					  FreetuxTVChannelsGroupInfos* channels_group_infos,
-					  GError** error);
+    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    GError** error);
 
 void
 dbsync_delete_tvchannels (DBSync *dbsync, GError** error);
 
 void
-dbsync_add_tvchannel (DBSync *dbsync, gchar* label, gchar* filename, 
-		      glong *id, GError** error);
-
-void
-dbsync_add_label_tvchannel (DBSync *dbsync, gchar* label, glong id_tvchannel, 
-			    GError** error);
+dbsync_add_tvchannel (DBSync *dbsync, FreetuxTVTvChannelInfos* tv_channel_infos,
+    GError** error);
 
 #endif /* FREETUXTV_DB_SYNC_H */

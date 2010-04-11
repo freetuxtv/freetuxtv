@@ -31,7 +31,6 @@
 #include "freetuxtv-logos-list.h"
 #include "freetuxtv-db-sync.h"
 #include "freetuxtv-models.h"
-#include "gtk-libvlc-media-player.h"
 
 static gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data);
@@ -45,8 +44,8 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 					  gpointer user_data);
 
 static void
-on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
-					    gpointer user_data);
+on_windowmain_menuitemupdatetvchannels_activate (GtkMenuItem *menuitem,
+    gpointer user_data);
 
 static void
 on_windowmain_menuitemquit_activate (GtkMenuItem *menuitem,
@@ -207,11 +206,11 @@ windowmain_init(FreetuxTVApp *app)
 			 "activate",
 			 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
 			 app);
-	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Update logos list"));
+	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Update TV channels list"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
 	g_signal_connect(G_OBJECT(p_menu_item),
 			 "activate",
-			 G_CALLBACK(on_windowmain_menuitemupdatelogos_activate),
+			 G_CALLBACK(on_windowmain_menuitemupdatetvchannels_activate),
 			 app);
 	// End Menu : Channels
 
@@ -974,8 +973,8 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 }
 
 static void
-on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
-					    gpointer user_data)
+on_windowmain_menuitemupdatetvchannels_activate (GtkMenuItem *menuitem,
+    gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
@@ -983,7 +982,7 @@ on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
 
 	DBSync dbsync;
 	dbsync_open_db (&dbsync, &error);
-	
+
 	if(error == NULL){
 		logos_list_synchronize (app, &dbsync, &error);			
 	}
@@ -993,7 +992,7 @@ on_windowmain_menuitemupdatelogos_activate (GtkMenuItem *menuitem,
 	}
 
 	dbsync_close_db(&dbsync);
-	
+
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
 		g_error_free (error);

@@ -36,6 +36,8 @@ freetuxtv_SOURCES = \
 	freetuxtv-models.h \
 	freetuxtv-recordings-list.c \
 	freetuxtv-recordings-list.h \
+	freetuxtv-tv-channel-infos.h \
+	freetuxtv-tv-channel-infos.c\
 	freetuxtv-utils.c \
 	freetuxtv-utils.h \
 	freetuxtv-window-main.c \
