@@ -30,14 +30,14 @@ freetuxtv_SOURCES = \
 	freetuxtv-fileutils.c \
 	freetuxtv-fileutils.h \
 	freetuxtv-i18n.h \
-	freetuxtv-logos-list.c \
-	freetuxtv-logos-list.h \
 	freetuxtv-models.c \
 	freetuxtv-models.h \
 	freetuxtv-recordings-list.c \
 	freetuxtv-recordings-list.h \
 	freetuxtv-tv-channel-infos.h \
 	freetuxtv-tv-channel-infos.c\
+	freetuxtv-tv-channels-list.c \
+	freetuxtv-tv-channels-list.h \
 	freetuxtv-utils.c \
 	freetuxtv-utils.h \
 	freetuxtv-window-main.c \

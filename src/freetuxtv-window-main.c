@@ -28,7 +28,7 @@
 #include "freetuxtv-utils.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group-infos.h"
-#include "freetuxtv-logos-list.h"
+#include "freetuxtv-tv-channels-list.h"
 #include "freetuxtv-db-sync.h"
 #include "freetuxtv-models.h"
 
@@ -984,7 +984,7 @@ on_windowmain_menuitemupdatetvchannels_activate (GtkMenuItem *menuitem,
 	dbsync_open_db (&dbsync, &error);
 
 	if(error == NULL){
-		logos_list_synchronize (app, &dbsync, &error);			
+		tvchannels_list_synchronize (app, &dbsync, &error);			
 	}
 
 	if(error == NULL){
