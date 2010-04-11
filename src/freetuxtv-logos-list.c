@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
 /*
  * FreetuxTV is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,73 +23,86 @@
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
 #include "freetuxtv-window-main.h"
-
+#include "freetuxtv-tv-channel-infos.h"
 
 typedef struct _CBXMLData
 {
 	FreetuxTVApp *app;
 	DBSync *dbsync;
-	long current_logo;	
+	FreetuxTVTvChannelInfos *tv_channels_infos;
 } CBXMLData;
 
 static void 
 xml_start_cb(GMarkupParseContext *context,
-	     const gchar *element_name,
-	     const gchar **attribute_names,
-	     const gchar **attribute_values,
-	     gpointer data,
-	     GError **error);
+    const gchar *element_name,
+    const gchar **attribute_names,
+    const gchar **attribute_values,
+    gpointer data,
+    GError **error);
+
+static void 
+xml_end_cb(GMarkupParseContext *context,
+    const gchar *element_name,
+    gpointer user_data,
+    GError **error);
+
+static void 
+xml_text_cb(GMarkupParseContext *context,
+    const gchar *text,
+    gsize text_len,  
+    gpointer user_data,
+    GError **error);
 
 void
 logos_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
-			GError** error)
+    GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(error != NULL);
-	
-	// Mise à jour de la barre de statut
+
+	// Update the status bar to the the process
 	gchar *text;
 	text = g_strdup_printf(_("Synchronizing the logo list"));
 	windowmain_statusbar_push (app, "UpdateMsg", text);
 	g_free(text);
 	g_print("FreetuxTV : Synchronizing the logo list\n");
 
-	// Efface les anciens logos	
+	// Delete the TV channel in the database
 	dbsync_delete_tvchannels (dbsync, error);
 
 	if(*error == NULL){
-		// Ajout de la liste des logos dans la base de donnée
+		// Add the list of TV channel in the data base for the XML file
 		CBXMLData cbxmldata;
 		cbxmldata.app = app;
 		cbxmldata.dbsync = dbsync;
-		cbxmldata.current_logo = -1;
-		
+		cbxmldata.tv_channels_infos = NULL;
+
 		gsize filelen;
-		static GMarkupParser parser = { xml_start_cb, NULL, NULL, 
-						NULL, NULL };
+		static GMarkupParser parser = { xml_start_cb, xml_end_cb, xml_text_cb, 
+			NULL, NULL };
 		GMarkupParseContext *context;
-		
+
 		context = g_markup_parse_context_new (&parser, 
-						      G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
-						      &cbxmldata, NULL);
+		    G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
+		    &cbxmldata, NULL);
 		gchar *xml_data;
-		g_file_get_contents (FREETUXTV_DIR "/channels_logos.xml", 
-				     &xml_data, &filelen, NULL);
+		g_file_get_contents (FREETUXTV_DIR "/tv_channels.xml", 
+		    &xml_data, &filelen, NULL);
 		g_markup_parse_context_parse (context, xml_data, -1, error);
 	}
-		
+
 	windowmain_statusbar_pop (app, "UpdateMsg");
 }
 
 gchar*
 logos_list_get_channel_logo_filename(FreetuxTVApp *app, 
-				     FreetuxTVChannelInfos* channel_infos,
-				     gboolean none_icon)
+    FreetuxTVChannelInfos* channel_infos,
+    gboolean none_icon)
 {
 	gchar *imgfile = NULL;
 	gchar *user_img_channels_dir;
 	user_img_channels_dir = g_strconcat(g_get_user_config_dir(), 
-					    "/FreetuxTV/images/channels", NULL);
+	    "/FreetuxTV/images/channels", NULL);
 	if(channel_infos->logo_name == NULL){
 		if(none_icon){
 			imgfile = g_strconcat(user_img_channels_dir, "/_none.png", NULL);	
@@ -105,48 +118,79 @@ logos_list_get_channel_logo_filename(FreetuxTVApp *app,
 			imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/", channel_infos->logo_name, NULL);	
 		}
 	}
-	
+
 	g_free(user_img_channels_dir);
-	
+
 	return imgfile;
 }
 
 static void 
 xml_start_cb(GMarkupParseContext *context,
-	     const gchar *element_name,
-	     const gchar **attribute_names,
-	     const gchar **attribute_values,
-	     gpointer data,
-	     GError **error)
+    const gchar *element_name,
+    const gchar **attribute_names,
+    const gchar **attribute_values,
+    gpointer data,
+    GError **error)
 {
-
 	CBXMLData* cbxmldata = (CBXMLData*)data;
-	
-	gchar *label = NULL;
-	gchar *filename = NULL;
 
-	if(g_ascii_strcasecmp(element_name, "logo") == 0){
-		label = g_strdup(attribute_values[1]);
-		filename = g_strdup(attribute_values[0]);
-		dbsync_add_tvchannel (cbxmldata->dbsync, label, filename, 
-				      &(cbxmldata->current_logo), error);
-		g_free(filename);
-		
+	gchar *name = NULL;
+
+	if(g_ascii_strcasecmp(element_name, "tvchannel") == 0){
+		name = (gchar*)attribute_values[0];
+		cbxmldata->tv_channels_infos = freetuxtv_tv_channel_infos_new(name);
 	}
 	
-	if(g_ascii_strcasecmp(element_name, "logolabel") == 0){
-		label = g_strdup(attribute_values[0]);
-		dbsync_add_label_tvchannel (cbxmldata->dbsync, label, 
-					    cbxmldata->current_logo, error);
-	}
-
-	if(label != NULL){
+	if(name != NULL){
 		if(cbxmldata->app->debug == TRUE){
 			g_print("FreetuxTV-debug : Add channel logos '%s' in database\n",
-				label);
+			    name);
 		}
+	}	
+}
 
-		g_free(label);
-		label = NULL;
+static void 
+xml_end_cb(GMarkupParseContext *context,
+    const gchar *element_name,
+    gpointer user_data,
+    GError **error)
+{
+	CBXMLData* cbxmldata = (CBXMLData*)user_data;
+
+	FreetuxTVTvChannelInfos *tv_channels_infos = NULL;
+
+	if(g_ascii_strcasecmp(element_name, "tvchannel") == 0){
+		tv_channels_infos = cbxmldata->tv_channels_infos;
+		if(tv_channels_infos){
+			// We have a channel pending, we add it in database
+			dbsync_add_tvchannel (cbxmldata->dbsync, tv_channels_infos, error);
+
+			g_object_unref(cbxmldata->tv_channels_infos);
+			cbxmldata->tv_channels_infos = NULL;
+		}
 	}
+}
+
+static void 
+xml_text_cb(GMarkupParseContext *context,
+    const gchar *text,
+    gsize text_len,  
+    gpointer user_data,
+    GError **error)
+{
+	CBXMLData* cbxmldata = (CBXMLData*)user_data;
+	
+	const gchar *element_name;
+	element_name = g_markup_parse_context_get_element(context);
+
+	// Add the logo filename
+	if(g_ascii_strcasecmp(element_name, "logo_filename") == 0){
+		freetuxtv_tv_channel_infos_set_logo_filename(cbxmldata->tv_channels_infos, (gchar*) text);
+	}
+	
+	// Add a label for the channel
+	if(g_ascii_strcasecmp(element_name, "label") == 0){
+		freetuxtv_tv_channel_infos_add_label(cbxmldata->tv_channels_infos, (gchar*) text);
+	}
+	
 }
