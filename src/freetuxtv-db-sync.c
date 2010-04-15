@@ -1,19 +1,20 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * FreetuxTV is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or 
+ * freetuxtv
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
+ * 
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * FreetuxTV is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Glade; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
+ * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <glib.h>
@@ -22,6 +23,7 @@
 #include "freetuxtv-db-sync.h"
 #include "freetuxtv-tv-channel-infos.h"
 
+/*
 typedef struct {
 	FreetuxTVApp *app;
 	DBSync *dbsync;
@@ -32,6 +34,7 @@ typedef struct {
 	gpointer cb_data1;
 
 }CBDBSync;
+*/
 
 // Define constant for the list of field in the database
 
@@ -50,28 +53,23 @@ typedef struct {
 // Table channels_group
 #define DB_CHANNELSGROUP                "channels_group"
 #define DB_CHANNELSGROUP_ID             "id"
-#define DB_CHANNELSGROUP_RANK           "rank"
+#define DB_CHANNELSGROUP_POSITION       "position"
 #define DB_CHANNELSGROUP_NAME           "name"
 #define DB_CHANNELSGROUP_TYPE           "type"
 #define DB_CHANNELSGROUP_URI            "uri"
 #define DB_CHANNELSGROUP_BREGEX         "bregex"
 #define DB_CHANNELSGROUP_EREGEX         "eregex"
+#define DB_CHANNELSGROUP_LASTUPDATE     "last_update"
 
 // Table channel
 #define DB_CHANNEL                     "channel"
 #define DB_CHANNEL_ID                  "id"
 #define DB_CHANNEL_NAME                "name"
-#define DB_CHANNEL_RANK                "rank"
+#define DB_CHANNEL_POSITION            "position"
 #define DB_CHANNEL_URI                 "uri"
 #define DB_CHANNEL_VLCOPTIONS          "vlc_options"
 #define DB_CHANNEL_CHANNELGROUPID      "channelsgroup_id"
 #define DB_CHANNEL_TVCHANNELID         "tvchannel_id"
-
-static int 
-on_exec_channels_group (void *data, int argc, char **argv, char **colsname);
-
-static int 
-on_exec_channel (void *data, int argc, char **argv, char **colsname);
 
 static void
 dbsync_add_label_tvchannel (DBSync *dbsync, gchar* label, glong id_tvchannel, 
@@ -186,7 +184,7 @@ dbsync_create_db (DBSync *dbsync, GError** error)
 
 void
 dbsync_select_channels_groups (DBSync *dbsync, FreetuxTVApp *app,
-    int (*callback)(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* channels_group_infos,
+    int (*callback)(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
 	    DBSync *dbsync, gpointer user_data, GError** error),
     gpointer user_data, GError** error)
 {
@@ -196,46 +194,72 @@ dbsync_select_channels_groups (DBSync *dbsync, FreetuxTVApp *app,
 	g_return_if_fail(*error == NULL);
 	g_return_if_fail(app != NULL);
 
-	gchar *query;
-	gchar *db_err = NULL;
+	gchar *zQuery;
 	int res;
-	CBDBSync cb_data;
 
-	cb_data.app = app;
-	cb_data.dbsync = dbsync;
-	cb_data.callback = callback;
-	cb_data.user_data = user_data;
-	cb_data.error = error;
-
-	query = sqlite3_mprintf("\
+	zQuery = sqlite3_mprintf("\
 	    SELECT %s, %s, %s, %s, %s, %s, %s \
 	    FROM %s \
 	    ORDER BY %s",
 	    // SELECT
-	    DB_CHANNELSGROUP_ID, DB_CHANNELSGROUP_RANK, DB_CHANNELSGROUP_NAME,
+	    DB_CHANNELSGROUP_ID, DB_CHANNELSGROUP_POSITION, DB_CHANNELSGROUP_NAME,
 	    DB_CHANNELSGROUP_TYPE, DB_CHANNELSGROUP_URI, DB_CHANNELSGROUP_BREGEX, DB_CHANNELSGROUP_EREGEX,
 	    // FROM
 	    DB_CHANNELSGROUP,
 	    // ORDER BY
-	    DB_CHANNELSGROUP_RANK);
-	res = sqlite3_exec(dbsync->db_link, query, on_exec_channels_group, &cb_data, &db_err);
-	sqlite3_free(query);
-	if(res != SQLITE_OK){
+	    DB_CHANNELSGROUP_POSITION);
+
+	sqlite3_stmt *pStmt;
+	FreetuxTVChannelsGroupInfos* pChannelsGroupInfos;
+	gchar *zName, *zURI;
+	gchar *zBregex, *zEregex;
+	gint id, position;
+	
+	res = sqlite3_prepare_v2(dbsync->db_link, zQuery, -1, &pStmt, NULL);
+	sqlite3_free(zQuery);
+	if(res == SQLITE_OK) {
+		while(sqlite3_step(pStmt) == SQLITE_ROW) {
+			// Create new channels group
+			zName = (gchar*)sqlite3_column_text(pStmt, 2);
+			zURI = (gchar*)sqlite3_column_text(pStmt, 4);
+			pChannelsGroupInfos = freetuxtv_channels_group_infos_new (zName, zURI);
+
+			// Set channels group id
+			id = sqlite3_column_int(pStmt, 0);
+			freetuxtv_channels_group_infos_set_id (pChannelsGroupInfos, id);
+			
+			// Set channels group position
+			position = sqlite3_column_int(pStmt, 1);
+			freetuxtv_channels_group_infos_set_position (pChannelsGroupInfos, position);
+
+			// Set the channels group regex option
+			zBregex = (gchar*)sqlite3_column_text(pStmt, 5);
+			zEregex = (gchar*)sqlite3_column_text(pStmt, 6);
+			freetuxtv_channels_group_infos_set_regex (pChannelsGroupInfos, zBregex, zEregex);
+
+			// Call the callback
+			if(callback){
+				callback(app, pChannelsGroupInfos, dbsync, user_data, error);
+			}
+
+			// Unref the channels group
+			g_object_unref(pChannelsGroupInfos);
+		}
+	}else{
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
 		    _("Error when displaying the channels.\n\nSQLite has returned error :\n%s."),
 		    sqlite3_errmsg(dbsync->db_link));
-		sqlite3_free(db_err);
-
 	}
+	sqlite3_finalize(pStmt);
 }
 
 void
 dbsync_select_channels_of_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     FreetuxTVApp *app,
     int (*callback)(FreetuxTVApp *app, 
-	    FreetuxTVChannelInfos* channel_infos,
+	    FreetuxTVChannelInfos* pChannelInfos,
 	    DBSync *dbsync, gpointer user_data, GError** error),
     gpointer user_data, GError** error)
 {
@@ -245,19 +269,10 @@ dbsync_select_channels_of_channels_group (DBSync *dbsync,
 	g_return_if_fail(*error == NULL);
 	g_return_if_fail(app != NULL);
 
-	gchar *query;
-	gchar *db_err = NULL;
+	gchar *zQuery;
 	int res;
-	CBDBSync cb_data;
 
-	cb_data.app = app;
-	cb_data.dbsync = dbsync;
-	cb_data.callback = callback;
-	cb_data.user_data = user_data;
-	cb_data.error = error;
-	cb_data.cb_data1 = channels_group_infos;
-
-	query = sqlite3_mprintf("\
+	zQuery = sqlite3_mprintf("\
 	    SELECT %s.%s, %s.%s, %s.%s, %s.%s, %s.%s \
 	    FROM %s LEFT JOIN %s ON %s.%s=%s.%s \
 	    WHERE %s.%s=%d \
@@ -271,19 +286,65 @@ dbsync_select_channels_of_channels_group (DBSync *dbsync,
 	    // ON
 	    DB_CHANNEL, DB_CHANNEL_TVCHANNELID, DB_TVCHANNEL, DB_TVCHANNEL_ID,
 	    // WHERE
-	    DB_CHANNEL, DB_CHANNEL_CHANNELGROUPID, channels_group_infos->id,
+	    DB_CHANNEL, DB_CHANNEL_CHANNELGROUPID, pChannelsGroupInfos->id,
 	    // ORDER BY
-	    DB_CHANNEL, DB_CHANNEL_RANK);
-	res = sqlite3_exec(dbsync->db_link, query, on_exec_channel, &cb_data, &db_err);
-	sqlite3_free(query);
+	    DB_CHANNEL, DB_CHANNEL_POSITION);
 
-	if(res != SQLITE_OK){
+	sqlite3_stmt *pStmt;
+	FreetuxTVChannelInfos* pChannelInfos;
+	gchar *zName, *zURI;
+	gchar *zLogo;
+	gchar *zVlcOptions;
+	gchar** dazVlcOptions;
+	gint id;
+	
+	res = sqlite3_prepare_v2(dbsync->db_link, zQuery, -1, &pStmt, NULL);
+	sqlite3_free(zQuery);
+	if(res == SQLITE_OK) {
+		while(sqlite3_step(pStmt) == SQLITE_ROW) {
+			// Create new channel
+			zName = (gchar*)sqlite3_column_text(pStmt, 1);
+			zURI = (gchar*)sqlite3_column_text(pStmt, 3);
+			
+			pChannelInfos = freetuxtv_channel_infos_new (zName, zURI);
+
+			// Set channel id
+			id = sqlite3_column_int(pStmt, 0);
+			freetuxtv_channel_infos_set_id (pChannelInfos, id);
+			
+			// Set channel logo
+			zLogo = (gchar*)sqlite3_column_text(pStmt, 2);
+			if(zLogo != NULL){
+				freetuxtv_channel_infos_set_logo(pChannelInfos, zLogo);
+			}
+
+			// Set channel VLC options
+			zVlcOptions = (gchar*)sqlite3_column_text(pStmt, 4);
+			if(zVlcOptions){
+				dazVlcOptions = g_strsplit(zVlcOptions, "\n", 0);
+				freetuxtv_channel_infos_set_vlcoptions(pChannelInfos, dazVlcOptions);
+				g_strfreev(dazVlcOptions);
+			}
+
+			// Set the group of the channel
+			freetuxtv_channel_infos_set_channels_group(pChannelInfos, pChannelsGroupInfos);
+			pChannelsGroupInfos->nb_channels++;
+			
+			// Call the callback
+			if(callback){
+				callback(app, pChannelInfos, dbsync, user_data, error);
+			}
+
+			// Unref the channel
+			g_object_unref(pChannelInfos);
+		}
+	}else{
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
 		    _("Error when displaying the channels.\n\nSQLite has returned error :\n%s."),
 		    sqlite3_errmsg(dbsync->db_link));
-		sqlite3_free(db_err);
 	}
+	sqlite3_finalize(pStmt);
 }
 
 void
@@ -324,10 +385,10 @@ dbsync_add_channel (DBSync *dbsync,
 	    // INSERT INTO
 	    DB_CHANNEL,
 	    // (
-	    DB_CHANNEL_NAME, DB_CHANNEL_RANK, DB_CHANNEL_URI,
+	    DB_CHANNEL_NAME, DB_CHANNEL_POSITION, DB_CHANNEL_URI,
 	    DB_CHANNEL_VLCOPTIONS, DB_CHANNEL_TVCHANNELID, DB_CHANNEL_CHANNELGROUPID,
 	    // ) VALUES (
-	    channel_infos->name, channel_infos->order, channel_infos->url, vlc_options,
+	    channel_infos->name, channel_infos->position, channel_infos->url, vlc_options,
 	    //  (SELECT
 	    DB_TVCHANNEL, DB_TVCHANNEL_ID,
 	    //   FROM
@@ -372,19 +433,20 @@ dbsync_add_channel (DBSync *dbsync,
 
 void
 dbsync_add_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(dbsync->db_link != NULL);
 	g_return_if_fail(error != NULL);
 	g_return_if_fail(*error == NULL);
-	g_return_if_fail(channels_group_infos != NULL);
-	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(channels_group_infos));
+	g_return_if_fail(pChannelsGroupInfos != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(pChannelsGroupInfos));
 
 	gchar *query;
 	gchar *db_err = NULL;
 	int res;
+	int id_group = -1;
 
 	// Add the group
 	query = sqlite3_mprintf("INSERT INTO %s (%s, %s, %s, %s, %s, %s) \
@@ -392,19 +454,19 @@ dbsync_add_channels_group (DBSync *dbsync,
 	    // INSERT INTO
 	    DB_CHANNELSGROUP,
 	    // (
-	    DB_CHANNELSGROUP_RANK,
+	    DB_CHANNELSGROUP_POSITION,
 	    DB_CHANNELSGROUP_NAME,
 	    DB_CHANNELSGROUP_TYPE,
 	    DB_CHANNELSGROUP_URI,
 	    DB_CHANNELSGROUP_BREGEX,
 	    DB_CHANNELSGROUP_EREGEX,
 	    // ) VALUES (
-	    DB_CHANNELSGROUP_RANK, DB_CHANNELSGROUP, // rank
-	    channels_group_infos->name,
+	    DB_CHANNELSGROUP_POSITION, DB_CHANNELSGROUP, // rank
+	    pChannelsGroupInfos->name,
 	    0,
-	    channels_group_infos->uri,
-	    channels_group_infos->bregex,
-	    channels_group_infos->eregex
+	    pChannelsGroupInfos->uri,
+	    pChannelsGroupInfos->bregex,
+	    pChannelsGroupInfos->eregex
 	    // )
 	    );
 
@@ -414,13 +476,47 @@ dbsync_add_channels_group (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Cannot add the group \"%s\" in database.\n\nSQLite has returned error :\n%s."),
-		    channels_group_infos->name,
+		    _("Error when adding the group \"%s\" in database.\n\nSQLite has returned error :\n%s."),
+		    pChannelsGroupInfos->name,
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}else{
-		freetuxtv_channels_group_infos_set_id (channels_group_infos,
-		    (int)sqlite3_last_insert_rowid(dbsync->db_link));
+		id_group = sqlite3_last_insert_rowid(dbsync->db_link);
+		freetuxtv_channels_group_infos_set_id (pChannelsGroupInfos, id_group);
+	}
+
+	// Get the position of the group added
+	if(*error == NULL && id_group>=0){
+		query = sqlite3_mprintf("\
+		    SELECT %s FROM %s \
+		    WHERE %s=%d;",
+		    // SELECT
+		    DB_CHANNELSGROUP_POSITION,
+		    // FROM
+		    DB_CHANNELSGROUP,
+		    // WHERE
+		    DB_CHANNELSGROUP_ID, id_group
+		    );
+
+		sqlite3_stmt *pStmt;
+		int new_position = -1;
+
+		res = sqlite3_prepare_v2(dbsync->db_link, query, -1, &pStmt, NULL);
+		if(res == SQLITE_OK) {
+			if(sqlite3_step(pStmt) == SQLITE_ROW) {
+				new_position = sqlite3_column_int(pStmt, 0);
+				freetuxtv_channels_group_infos_set_position (pChannelsGroupInfos, new_position);
+			}
+		}else{
+			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+				_("Error when adding the group \"%s\" in database.\n\nSQLite has returned error :\n%s."),
+				pChannelsGroupInfos->name,
+				sqlite3_errmsg(dbsync->db_link));
+		}
+		sqlite3_finalize(pStmt);
+
+		sqlite3_free(query);
 	}
 }
 
@@ -464,6 +560,43 @@ dbsync_update_channels_group (DBSync *dbsync,
 	}	
 }
 
+void
+dbsync_update_channels_group_last_update (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	g_return_if_fail(channels_group_infos != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(channels_group_infos));
+
+	gchar *query;
+	gchar *db_err = NULL;
+	int res;
+
+	// Update the group
+	query = sqlite3_mprintf("\
+	    UPDATE %s SET %s=DATETIME('NOW', 'localtime')\
+	    WHERE %s=%d",
+	    // UPDATE
+	    DB_CHANNELSGROUP,
+	    // SET
+	    DB_CHANNELSGROUP_LASTUPDATE,
+	    // WHERE
+	    DB_CHANNELSGROUP_ID, channels_group_infos->id);
+	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+	sqlite3_free(query);
+
+	if(res != SQLITE_OK){
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+		    _("Error when updating the last update date of the group \"%s\".\n\nSQLite has returned error :\n%s."),
+		    channels_group_infos->name, sqlite3_errmsg(dbsync->db_link));
+		sqlite3_free(db_err);
+	}
+}
 
 void
 dbsync_delete_channels_group (DBSync *dbsync,
@@ -497,6 +630,27 @@ dbsync_delete_channels_group (DBSync *dbsync,
 		    channels_group_infos->name,
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
+	}
+
+	if(*error == NULL){
+		// Update the position of the channels group after
+		query = sqlite3_mprintf("UPDATE %s SET %s=%s-1 WHERE %s>%d",
+			// DELETE FROM
+			DB_CHANNELSGROUP,
+		    DB_CHANNELSGROUP_POSITION, DB_CHANNELSGROUP_POSITION,
+			// WHERE
+			DB_CHANNELSGROUP_POSITION, channels_group_infos->position);
+		res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+		sqlite3_free(query);
+
+		if(res != SQLITE_OK){
+			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+				_("Error when updating the position of the group \"%s\".\n\nSQLite has returned error :\n%s."),
+				channels_group_infos->name,
+				sqlite3_errmsg(dbsync->db_link));
+			sqlite3_free(db_err);
+		}
 	}
 }
 
@@ -655,56 +809,6 @@ dbsync_add_label_tvchannel (DBSync *dbsync, gchar* label, glong id_tvchannel,
 	}else{
 		dbsync_link_tvchannel_to_channels_from_label (dbsync, label, id_tvchannel, error);	
 	}
-}
-
-
-static int 
-on_exec_channels_group (void *data, int argc, char **argv, char **colsname)
-{
-	CBDBSync *cb_data = (CBDBSync *)data;
-
-	FreetuxTVChannelsGroupInfos* channels_group_infos;
-	int id = g_ascii_strtoll (argv[0], NULL, 10);
-	channels_group_infos = freetuxtv_channels_group_infos_new (argv[2], argv[4]);
-	freetuxtv_channels_group_infos_set_id (channels_group_infos, id);
-	freetuxtv_channels_group_infos_set_regex (channels_group_infos, argv[5], argv[6]);
-
-	int res = 0;
-	res = cb_data->callback(cb_data->app, channels_group_infos, cb_data->dbsync, cb_data->user_data, cb_data->error);
-
-	return res;
-}
-
-static int 
-on_exec_channel (void *data, int argc, char **argv, char **colsname)
-{
-	CBDBSync *cb_data = (CBDBSync *)data;
-	FreetuxTVChannelsGroupInfos* channels_group_infos = (FreetuxTVChannelsGroupInfos*)cb_data->cb_data1;
-
-	FreetuxTVChannelInfos* channel_infos;
-	gchar** vlc_options;
-
-	int id = g_ascii_strtoll (argv[0], NULL, 10);
-	channel_infos = freetuxtv_channel_infos_new (argv[1], argv[3]);
-	freetuxtv_channel_infos_set_id (channel_infos, id);
-
-	if(argv[2] != NULL){
-		freetuxtv_channel_infos_set_logo(channel_infos, argv[2]);
-	}
-
-	if(argv[4]){
-		vlc_options = g_strsplit(argv[4], "\n", 0);
-		freetuxtv_channel_infos_set_vlcoptions(channel_infos, vlc_options);
-		g_strfreev(vlc_options);
-	}
-
-	freetuxtv_channel_infos_set_channels_group(channel_infos, channels_group_infos);
-	channels_group_infos->nb_channels++;
-
-	int res = 0;
-	res = cb_data->callback(cb_data->app, channel_infos, cb_data->dbsync, cb_data->user_data, cb_data->error);
-
-	return res;
 }
 
 static void

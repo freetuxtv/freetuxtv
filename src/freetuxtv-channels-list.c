@@ -1,19 +1,20 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * FreetuxTV is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or 
+ * freetuxtv
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
+ * 
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * FreetuxTV is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Glade; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
+ * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <gtk/gtk.h>
@@ -299,6 +300,12 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 	}
 
 	if(*error == NULL){
+		// Update the last update date of the group
+		dbsync_update_channels_group_last_update (dbsync,
+		    channels_group_infos, error);
+	}
+
+	if(*error == NULL){
 		// Delete channels of the channels group in the treeview
 		channels_list_delete_rows (app, path_group, TRUE);
 
@@ -528,22 +535,40 @@ channels_list_delete_rows (FreetuxTVApp *app, GtkTreePath* path_group,
 			   gboolean justchannels)
 {
 	GtkTreeIter iter_channelsgroup;
+
+	FreetuxTVChannelsGroupInfos* channels_group_infos = NULL;
 	
-	// Selectionne le groupe
+	// Get the group from the selected path
 	gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter_channelsgroup, path_group);
 	
-	// Supprime les chaine du modele si il y en a
+	GtkTreeIter* iter_current;
+	iter_current = gtk_tree_iter_copy (&iter_channelsgroup);
+	
+	// Delete the channels of the group
 	if(gtk_tree_model_iter_has_child (GTK_TREE_MODEL(app->channelslist), &iter_channelsgroup)){
 		GtkTreeIter iter_tmp;
 		gtk_tree_model_iter_children (GTK_TREE_MODEL(app->channelslist), &iter_tmp, &iter_channelsgroup);
 		while(gtk_tree_store_remove (GTK_TREE_STORE(app->channelslist), &iter_tmp)){};
 	}
 
-	// Supprime tout le groupe
+	// Delete the group from the treeview
 	if(!justchannels){
+		// Update the position of the group after
+		if(iter_current){
+			do{
+				gtk_tree_model_get (GTK_TREE_MODEL(app->channelslist), iter_current, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
+				if(channels_group_infos){
+					channels_group_infos->position--;
+				}
+			}while(gtk_tree_model_iter_next (GTK_TREE_MODEL(app->channelslist), iter_current));
+		}
+		
 		gtk_tree_store_remove (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup);
 	}
-	
+
+	if(iter_current){
+		gtk_tree_iter_free (iter_current);
+	}
 }
 
 /*
@@ -1199,7 +1224,7 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 
 	FreetuxTVChannelInfos* channel_infos;
 	channel_infos = freetuxtv_channel_infos_new(name, url);
-	freetuxtv_channel_infos_set_order(channel_infos, num);
+	freetuxtv_channel_infos_set_position(channel_infos, num);
 	freetuxtv_channel_infos_set_channels_group(channel_infos, channels_group_infos);
 	if(vlc_options){
 		freetuxtv_channel_infos_set_vlcoptions(channel_infos, vlc_options);
