@@ -43,9 +43,9 @@ freetuxtv_channel_infos_set_id(FreetuxTVChannelInfos* self, int id)
 }
 
 void
-freetuxtv_channel_infos_set_order(FreetuxTVChannelInfos* self, int order)
+freetuxtv_channel_infos_set_position(FreetuxTVChannelInfos* self, int position)
 {
-	self->order = order;
+	self->position = position;
 }
 
 void
