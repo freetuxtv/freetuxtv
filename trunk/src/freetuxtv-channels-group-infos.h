@@ -36,7 +36,7 @@ struct _FreetuxTVChannelsGroupInfos
 	GObject parent_instance;
 
 	int id;
-	int rank;
+	int position;
 	gchar *name;
 	gchar *uri;
 
@@ -59,7 +59,7 @@ void
 freetuxtv_channels_group_infos_set_id (FreetuxTVChannelsGroupInfos *self, int id);
 
 void
-freetuxtv_channels_group_infos_set_rank (FreetuxTVChannelsGroupInfos *self, int rank);
+freetuxtv_channels_group_infos_set_position (FreetuxTVChannelsGroupInfos *self, int position);
 
 void
 freetuxtv_channels_group_infos_set_name (FreetuxTVChannelsGroupInfos *self, gchar *name);

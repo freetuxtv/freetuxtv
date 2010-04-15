@@ -38,7 +38,7 @@ struct _FreetuxTVChannelInfos
 	GObject parent_instance;
 
 	int id;
-	int order;
+	int position;
 	gchar *name;
 	gchar *url;
 
@@ -62,7 +62,7 @@ void
 freetuxtv_channel_infos_set_id(FreetuxTVChannelInfos* self, int id);
 
 void
-freetuxtv_channel_infos_set_order(FreetuxTVChannelInfos* self, int order);
+freetuxtv_channel_infos_set_position(FreetuxTVChannelInfos* self, int position);
 
 void
 freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,

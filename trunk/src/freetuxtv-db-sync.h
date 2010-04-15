@@ -1,19 +1,20 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * FreetuxTV is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or 
+ * freetuxtv
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
+ * 
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * FreetuxTV is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Glade; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
+ * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef FREETUXTV_DB_SYNC_H
@@ -59,49 +60,54 @@ dbsync_create_db (DBSync *dbsync, GError** error);
 void
 dbsync_select_channels_groups (DBSync *dbsync,
     FreetuxTVApp *app,
-    int (*callback)(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* channels_group_infos,
+    int (*callback)(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
 	    DBSync *dbsync, gpointer user_data, GError** error),
     gpointer user_data, GError** error);
 
 void
 dbsync_select_channels_of_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     FreetuxTVApp *app,
     int (*callback)(FreetuxTVApp *app, 
-	    FreetuxTVChannelInfos* channel_infos,
+	    FreetuxTVChannelInfos* pChannelInfos,
 	    DBSync *dbsync, gpointer user_data, GError** error),
     gpointer user_data, GError** error);
 
 void
 dbsync_add_channel (DBSync *dbsync,
-    FreetuxTVChannelInfos* channel_infos,
+    FreetuxTVChannelInfos* pChannelInfos,
     GError** error);
 
 void
 dbsync_add_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     GError** error);
 
 void
 dbsync_update_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error);
+
+void
+dbsync_update_channels_group_last_update (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     GError** error);
 
 void
 dbsync_delete_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     GError** error);
 
 void
 dbsync_delete_channels_of_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* channels_group_infos,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     GError** error);
 
 void
 dbsync_delete_tvchannels (DBSync *dbsync, GError** error);
 
 void
-dbsync_add_tvchannel (DBSync *dbsync, FreetuxTVTvChannelInfos* tv_channel_infos,
+dbsync_add_tvchannel (DBSync *dbsync, FreetuxTVTvChannelInfos* pTvChannelInfos,
     GError** error);
 
 #endif /* FREETUXTV_DB_SYNC_H */

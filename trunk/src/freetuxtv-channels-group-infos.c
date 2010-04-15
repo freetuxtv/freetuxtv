@@ -45,9 +45,9 @@ freetuxtv_channels_group_infos_set_id (FreetuxTVChannelsGroupInfos *self, int id
 }
 
 void
-freetuxtv_channels_group_infos_set_rank (FreetuxTVChannelsGroupInfos *self, int rank)
+freetuxtv_channels_group_infos_set_position (FreetuxTVChannelsGroupInfos *self, int position)
 {
-	self->rank=rank;
+	self->position=position;
 }
 
 void
