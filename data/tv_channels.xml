@@ -48,6 +48,12 @@
 	<tvchannel name="Alsatic TV">
 		<logo_filename>alsatictv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Alsace 20">
+		<logo_filename>alsace20.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="AmericaFree TV">
+		<logo_filename>america-free-tv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Apsara TV">
 		<logo_filename>apsaratv.png</logo_filename>
 	</tvchannel>
@@ -228,6 +234,9 @@
 	</tvchannel>
 	<tvchannel name="Ciné Polar">
 		<logo_filename>cinepolar.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CKIA FM">
+		<logo_filename>ckiafm.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Clermont Première">
 		<logo_filename>clermontpremiere.png</logo_filename>
@@ -520,6 +529,11 @@
 	<tvchannel name="Kanal Avrupa">
 		<logo_filename>kanalavrupa.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="KISS FM">
+		<logo_filename>kiss-fm.png</logo_filename>
+		<label>Kiss FM</label>
+		<label>Kiss West Coast</label>
+	</tvchannel>
 	<tvchannel name="KTO">
 		<logo_filename>kto.png</logo_filename>
 	</tvchannel>
@@ -603,6 +617,10 @@
 		<logo_filename>medi1sat.png</logo_filename>
 		<label>Medi 1 Sat</label>
 	</tvchannel>
+	<tvchannel name="Metropolys">
+		<logo_filename>metropolys.png</logo_filename>
+		<label>Radio Metropolys</label>
+	</tvchannel>
 	<tvchannel name="Mezzo">
 		<logo_filename>mezzo.png</logo_filename>
 	</tvchannel>
@@ -623,6 +641,9 @@
 	</tvchannel>
 	<tvchannel name="MJC Apt TV">
 		<logo_filename>mjcapt.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Modem Radio">
+		<logo_filename>modem-radio.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Monte-Carlo Doualiya">
 		<logo_filename>montecarlodoualiya.png</logo_filename>
@@ -749,6 +770,9 @@
 		<logo_filename>radioclassique.png</logo_filename>
 		<label>Radio Classique Cinéma</label>
 	</tvchannel>
+	<tvchannel name="Corsica Radio">
+		<logo_filename>radio-corsica.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Radio Ethic">
 		<logo_filename>radioethic.png</logo_filename>
 	</tvchannel>
@@ -810,11 +834,14 @@
 	<tvchannel name="Radio Scoop Music Pod">
 		<logo_filename>radioscoopmusicpod.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="Radio Scoop Box Vintage">
-		<logo_filename>radioscoopboxvintage.png</logo_filename>
+	<tvchannel name="Radio Scoop Power Dance">
+		<logo_filename>radio-scoop-powerdance.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Radio Star">
 		<logo_filename>radiostar.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Tropicale">
+		<logo_filename>radio-tropicale.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="SUN">
 		<logo_filename>radiosun.png</logo_filename>
@@ -862,9 +889,6 @@
 	</tvchannel>
 	<tvchannel name="RMN FM">
 		<logo_filename>rmn.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Roc FM">
-		<logo_filename>rocfm.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Rock TV">
 		<logo_filename>rocktv.png</logo_filename>
@@ -1106,6 +1130,9 @@
 	</tvchannel>
 	<tvchannel name="Vox Africa">
 		<logo_filename>voxafrica.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Wéo">
+		<logo_filename>weo.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="World Fashion">
 		<logo_filename>worldfashion.png</logo_filename>
