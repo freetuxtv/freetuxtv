@@ -17,6 +17,8 @@
 	<logo filename="almasriya.png" label="Al Masriya"></logo>
 	<logo filename="alouettefm.png" label="Alouette FM"></logo>
 	<logo filename="alsatictv.png" label="Alsatic TV"></logo>
+	<logo filename="alsace20.png" label="Alsace 20"></logo>
+	<logo filename="america-free-tv.png" label="AmericaFree TV"></logo>
 	<logo filename="apsaratv.png" label="Apsara TV"></logo>
 	<logo filename="aptv.png" label="APTV Martinique"></logo>
 	<logo filename="argentquebec.png" label="Canal argent Québec"></logo>
@@ -96,6 +98,7 @@
 	<logo filename="cinefirst.png" label="Ciné First"></logo>
 	<logo filename="cinefx.png" label="Ciné FX"></logo>
 	<logo filename="cinepolar.png" label="Ciné Polar"></logo>
+	<logo filename="ckiafm.png" label="CKIA FM"></logo>
 	<logo filename="clermontpremiere.png" label="Clermont Première"></logo>
 	<logo filename="clubbingtv.png" label="Clubbing TV"></logo>
 	<logo filename="cmusictv.png" label="C Music"></logo>
@@ -239,6 +242,10 @@
 	<logo filename="kanal7int.png" label="Kanal 7 INT"></logo>
 	<logo filename="kanal24.png" label="Kanal 24"></logo>
 	<logo filename="kanalavrupa.png" label="Kanal Avrupa"></logo>
+	<logo filename="kiss-fm.png" label="KISS FM">
+		<logolabel label="Kiss FM"/>
+		<logolabel label="Kiss West Coast"/>
+	</logo>
 	<logo filename="kto.png" label="KTO"></logo>
 	<logo filename="kuwaittv1.png" label="Kuwait TV"></logo>
 	<logo filename="kuwaittv2.png" label="Kuwait TV2"></logo>
@@ -273,6 +280,9 @@
 	<logo filename="medi1sat.png" label="Medi 1 sat">
 		<logolabel label="Medi 1 Sat"/>
 	</logo>
+	<logo filename="metropolys.png" label="Metropolys">
+		<logolabel label="Radio Metropolys"/>
+	</logo>
 	<logo filename="mezzo.png" label="Mezzo"></logo>
 	<logo filename="mfm.png" label="MFM"></logo>
 	<logo filename="mfmflashback.png" label="MFM Flashback"></logo>
@@ -280,6 +290,7 @@
 	<logo filename="mfmsexy.png" label="MFM Sexy"></logo>
 	<logo filename="miziktropical.png" label="Mizik Tropical"></logo>
 	<logo filename="mjcapt.png" label="MJC Apt TV"></logo>
+	<logo filename="modem-radio.png" label="Modem Radio"></logo>
 	<logo filename="montecarlodoualiya.png" label="Monte-Carlo Doualiya"></logo>
 	<logo filename="mosaiquefm.png" label="Mosaique FM"></logo>
 	<logo filename="montereybayaquarium.png" label="Monterey Bay Aquarium"></logo>
@@ -333,6 +344,7 @@
 	<logo filename="radioclassique.png" label="Radio Classique">
 		<logolabel label="Radio Classique Cinéma"/>
 	</logo>
+	<logo filename="radio-corsica.png" label="Corsica Radio"></logo>
 	<logo filename="radioethic.png" label="Radio Ethic"></logo>
 	<logo filename="radiofg.png" label="Radio FG"></logo>
 	<logo filename="radiofgamerica.png" label="Radio FG America"></logo>
@@ -355,9 +367,10 @@
 	<logo filename="radioscoop.png" label="Radio Scoop"></logo>
 	<logo filename="radioscoop80s.png" label="Radio Scoop Années 80"></logo>
 	<logo filename="radioscoopmusicpod.png" label="Radio Scoop Music Pod"></logo>
-	<logo filename="radioscoopboxvintage.png" label="Radio Scoop Box Vintage"></logo>
+	<logo filename="radio-scoop-powerdance.png" label="Radio Scoop Power Dance"></logo>
 	<logo filename="radiostar.png" label="Radio Star"></logo>
 	<logo filename="radiosun.png" label="SUN"></logo>
+	<logo filename="radio-tropicale.png" label="Radio Tropicale"></logo>
 	<logo filename="railtv.png" label="Railtv"></logo>
 	<logo filename="raiuno.png" label="Rai Uno"></logo>
 	<logo filename="raidue.png" label="Rai Due"></logo>
@@ -378,7 +391,6 @@
 		<logolabel label="RMC (ex-RMC Info)"/>
 	</logo>
 	<logo filename="rmn.png" label="RMN FM"></logo>
-	<logo filename="rocfm.png" label="Roc FM"></logo>
 	<logo filename="rocktv.png" label="Rock TV"></logo>
 	<logo filename="rtcgsat.png" label="RTCG Sat"></logo>
 	<logo filename="rtcteleliege.png" label="Journal RTC TV Liège"></logo>
@@ -478,6 +490,7 @@
 	<logo filename="virginradio.png" label="Virgin Radio"></logo>
 	<logo filename="voltage.png" label="Voltage"></logo>
 	<logo filename="voxafrica.png" label="Vox Africa"></logo>
+	<logo filename="weo.png" label="Wéo"></logo>
 	<logo filename="worldfashion.png" label="World Fashion"></logo>
 	<logo filename="xiamenstartv.png" label="Xiamen Star TV"></logo>
 	<logo filename="yementv.png" label="Yemen TV"></logo>
