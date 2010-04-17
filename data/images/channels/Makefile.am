@@ -17,6 +17,8 @@ channels_DATA = \
   almasriya.png \
   alouettefm.png \
   alsatictv.png \
+  alsace20.png \
+  america-free-tv.png \
   apsaratv.png \
   aptv.png \
   argentquebec.png \
@@ -72,6 +74,7 @@ channels_DATA = \
   cinefirst.png \
   cinefx.png \
   cinepolar.png \
+  ckiafm.png \
   clermontpremiere.png \
   clubbingtv.png \
   cmusictv.png \
@@ -152,6 +155,7 @@ channels_DATA = \
   kanal7int.png \
   kanal24.png \
   kanalavrupa.png \
+  kiss-fm.png \
   kto.png \
   kuwaittv1.png \
   kuwaittv2.png \
@@ -178,6 +182,7 @@ channels_DATA = \
   mcmpop.png \
   mcmtop.png \
   medi1sat.png \
+  metropolys.png \
   mezzo.png \
   mfm.png \
   mfmflashback.png \
@@ -185,6 +190,7 @@ channels_DATA = \
   mfmsexy.png \
   miziktropical.png \
   mjcapt.png \
+  modem-radio.png \
   montecarlodoualiya.png \
   montereybayaquarium.png \
   mosaiquefm.png \
@@ -225,6 +231,7 @@ channels_DATA = \
   radiocean.png \
   radioclapas.png \
   radioclassique.png \
+  radio-corsica.png \
   radioethic.png \
   radiofg.png \
   radiofgamerica.png \
@@ -242,11 +249,12 @@ channels_DATA = \
   radionova.png \
   radiopublicsante.png \
   radioscoop80s.png \
-  radioscoopboxvintage.png \
+  radio-scoop-powerdance.png \
   radioscoopmusicpod.png \
   radioscoop.png \
   radiostar.png \
   radiosun.png \
+  radio-tropicale.png \
   raidue.png \
   railtv.png \
   raitre.png \
@@ -260,7 +268,6 @@ channels_DATA = \
   rireetchansons.png \
   rmc.png \
   rmn.png \
-  rocfm.png \
   rocktv.png \
   rtcgsat.png \
   rtcteleliege.png \
@@ -337,6 +344,7 @@ channels_DATA = \
   virginradio.png \
   voltage.png \
   voxafrica.png \
+  weo.png \
   worldfashion.png \
   xiamenstartv.png \
   yementv.png \

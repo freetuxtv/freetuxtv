@@ -1,6 +1,16 @@
 FreetuxTV 0.5.0 (2010-)
   - Restructuration de la base de donnée
 
+- Mise à jour de logos : 
+    WebRadio :
+    Remplacement du logo Roc FM par Metropolys suite au changement de nom de cette radio
+    Remplacement du logo Radio Scoop Box Vintage par Radio Scoop Power Dance suite au changement de type de musique sur le canal
+  - Ajout de logos : 
+    WebRadio :
+    CKIA FM, Corsica Radio, Kiss FM (pour aussi Kiss West Coast), Modem Radio (Crystal, France, Pop-Rock), Radio Tropicale
+    WebTV :
+    Alsace 20, AmericaFree TV, Weo 
+
 FreetuxTV 0.4.2 (2010-03-14)
   - Ajout de la traduction portugaise.
   - Correction du configure.ac pour mieux gérer les dépendances.
