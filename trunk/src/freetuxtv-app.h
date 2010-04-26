@@ -36,8 +36,8 @@ G_BEGIN_DECLS
 #define FREETUXTV_DIR      PACKAGE_DATA_DIR "/" PACKAGE
 //#define FREETUXTV_DIR     "data"
 
-#define FREETUXTV_UI_DIR   FREETUXTV_DIR "/ui"
-#define FREETUXTV_GLADEXML FREETUXTV_UI_DIR "/freetuxtv.ui"
+#define FREETUXTV_UI_DIR			FREETUXTV_DIR "/ui"
+#define FREETUXTV_GLADEXML			FREETUXTV_UI_DIR "/freetuxtv.ui"
 
 struct _FreetuxTVApp {
 	
