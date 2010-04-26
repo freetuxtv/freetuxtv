@@ -21,10 +21,10 @@
 
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-window-recording.h"
+#include "freetuxtv-window-add-channels-group.h"
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
-#include "freetuxtv-fileutils.h"
 #include "freetuxtv-utils.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group-infos.h"
@@ -135,15 +135,6 @@ on_dialogpreferences_response (GtkDialog *dialog,
 			       gpointer   user_data);
 
 static void
-on_dialogaddgroup_response (GtkDialog *dialog,
-			    gint response_id,
-			    gpointer user_data);
-
-static void
-on_dialogaddgroup_buttonrefresh_clicked (GtkButton *button,
-					 gpointer user_data);
-
-static void
 on_dialoggroupproperties_response (GtkDialog *dialog,
 				   gint response_id,
 				   gpointer user_data);
@@ -156,17 +147,11 @@ on_aboutdialog_response (GtkDialog *dialog,
 static void
 dialogpreferences_update_view(FreetuxTVApp *app);
 
-static void
-dialogprogress_init(FreetuxTVApp *app, gchar *title, GtkWindow* parent);
-
-static void
-dialogprogress_update(FreetuxTVApp *app, gchar *text, gboolean setpercent, gdouble percent);
-
 void
 windowmain_init(FreetuxTVApp *app)
 {
 	GtkWidget *widget;
-	GtkWidget *button;
+	//GtkWidget *button;
 	GtkWidget *menu_bar = NULL;
 	
 	// Initialize menu bar	
@@ -428,47 +413,13 @@ windowmain_init(FreetuxTVApp *app)
 	g_signal_connect(G_OBJECT(widget),
 			 "changed",
 			 G_CALLBACK(on_dialogpreferences_transcodingformats_changed),
-			 app);
-
-	// Initialize signals for dialogaddgroup
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-						      "dialogaddgroup");
-	gtk_dialog_add_buttons (GTK_DIALOG(widget),
-				"gtk-close", GTK_RESPONSE_CLOSE, NULL);
-	button = gtk_button_new_from_stock ("gtk-add");
-	gtk_dialog_add_action_widget (GTK_DIALOG(widget),
-				      button, FREETUXTV_RESPONSE_ADD);
-	gtk_widget_show(button);
-	
-	g_signal_connect(G_OBJECT(widget),
-			 "response",
-			 G_CALLBACK(on_dialogaddgroup_response),
-			 app);
-	g_signal_connect(G_OBJECT(widget),
-			 "delete-event",
-			 G_CALLBACK(gtk_widget_hide_on_delete),
-			 NULL);
-	
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-						      "dialogaddgroup_buttonrefresh");
-	g_signal_connect(G_OBJECT(widget),
-			 "clicked",
-			 G_CALLBACK(on_dialogaddgroup_buttonrefresh_clicked),
-			 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-						      "dialogaddgroup_treeviewchannelsgroups");
-	GtkTreeSelection *selection;
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(widget));
-	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);	 
+			 app);	 
 
 	// Initialize signals for dialoggroupproperties
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "dialoggroupproperties");
 	gtk_dialog_add_buttons (GTK_DIALOG(widget),
-				"gtk-cancel", GTK_RESPONSE_CANCEL, "gtk-apply", GTK_RESPONSE_APPLY, NULL);
-	gtk_widget_show(button);
-	
+				"gtk-cancel", GTK_RESPONSE_CANCEL, "gtk-apply", GTK_RESPONSE_APPLY, NULL);	
 	g_signal_connect(G_OBJECT(widget),
 			 "response",
 			 G_CALLBACK(on_dialoggroupproperties_response),
@@ -492,24 +443,6 @@ windowmain_init(FreetuxTVApp *app)
 			 "delete-event",
 			 G_CALLBACK(gtk_widget_hide_on_delete),
 			 NULL);
-
-
-	// Initialize signals for dialogprogress
-	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
-							"dialogprogress");
-	gtk_dialog_add_buttons (GTK_DIALOG(widget),
-				"gtk-close", GTK_RESPONSE_CLOSE, NULL);
-	
-	g_signal_connect(G_OBJECT(widget),
-			 "response",
-			 G_CALLBACK(gtk_widget_hide_on_delete),
-			 NULL);
-	g_signal_connect(G_OBJECT(widget),
-			 "delete-event",
-			 G_CALLBACK(gtk_widget_hide_on_delete),
-			 NULL);	
-
-
 }
 
 void
@@ -966,10 +899,14 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	
-	GtkWidget *widget;
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "dialogaddgroup");
-	gtk_widget_show(widget);
+	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
+	gint res;
+	
+	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (app);
+	res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
+
+	g_object_unref(pWindowAddChannelsGroups);
+	pWindowAddChannelsGroups = NULL;
 }
 
 static void
@@ -1140,266 +1077,6 @@ on_dialogpreferences_response (GtkDialog *dialog,
 }
 
 static void
-on_dialogaddgroup_response (GtkDialog *dialog,
-			    gint response_id,
-			    gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	GError* error = NULL;
-	gchar *errmsg = NULL;
-
-	GtkWidget* widget;
-	
-	const gchar *sgroupname = NULL;
-	const gchar *sgroupuri = NULL;
-	const gchar *sbregex = NULL;
-	const gchar *seregex = NULL;
-
-	gboolean has_process = FALSE;
-
-	gchar *tmptext;
-	
-	if(response_id == FREETUXTV_RESPONSE_ADD){
-		DBSync dbsync;
-		dbsync_open_db (&dbsync, &error);
-		
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-							       "dialogaddgroup_notebook");
-
-		if(error == NULL){
-			int page;
-			page = gtk_notebook_get_current_page (GTK_NOTEBOOK(widget));
-			switch(page){
-			case 0:
-				// Add one or many groups in the list
-				widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-									      "dialogaddgroup_treeviewchannelsgroups");
-				GtkTreeSelection *selection;
-				selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(widget));
-				
-				GtkTreeModel* model;
-				model = (GtkTreeModel *) gtk_builder_get_object (app->gui,
-										 "treestore_channelsgroup");
-				GList *list;
-				list = gtk_tree_selection_get_selected_rows (selection, &model);
-
-				int count;
-				int i = 0;
-				int nb_added = 0;
-				count = gtk_tree_selection_count_selected_rows(selection);
-
-				
-				GList* iterator = NULL;
-				iterator = g_list_first (list);
-				
-				if(iterator != NULL){
-					has_process = TRUE;
-				}else{
-					errmsg = g_strdup_printf(_("Please select a least one group !"));
-				}
-
-				// Initialize the dialog progress
-				if(has_process){
-					dialogprogress_init(app, _("Adding channels groups"), GTK_WINDOW(dialog));
-				}
-				
-				GtkTreePath* last_ppath = NULL;
-				FreetuxTVChannelsGroupInfos *channels_group_infos;
-				
-				while(iterator != NULL && error == NULL){
-					GtkTreePath* path;
-					GtkTreePath* parent_path;
-					
-					GtkTreeIter iter;
-					GtkTreeIter iter_parent;
-					gboolean valid = TRUE;	
-					
-					// Get the next path
-					path = (GtkTreePath*)iterator->data;
-
-					i++;
-
-					if(gtk_tree_path_get_depth (path) == 1){
-						last_ppath = path;
-						
-						if(gtk_tree_model_get_iter (model, &iter_parent, path)){
-							if(gtk_tree_model_iter_children (model, &iter, &iter_parent)){
-								
-								do {
-									gtk_tree_model_get (model, &iter, MODEL_CHANNELSGROUP_NAME, &sgroupname,
-											    MODEL_CHANNELSGROUP_URI, &sgroupuri,
-											    MODEL_CHANNELSGROUP_BREGEX, &sbregex,
-											    MODEL_CHANNELSGROUP_EREGEX, &seregex, -1);
-									
-									channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
-									freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
-									
-									// Update progress dialog
-									tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
-												  channels_group_infos->name);
-									dialogprogress_update(app, tmptext, FALSE, 0.0);
-									g_free(tmptext);
-
-									channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
-									nb_added++;
-									
-								}while (gtk_tree_model_iter_next(model, &iter) && error == NULL);
-								
-							}
-						}
-					}else{
-						parent_path = gtk_tree_path_copy (path);
-						gtk_tree_path_up(parent_path);
-						
-						if(last_ppath != NULL){
-							if(gtk_tree_path_compare (parent_path, last_ppath) == 0){
-								valid = FALSE;
-							}
-						}
-						gtk_tree_path_free (parent_path);
-						
-						if(valid){
-							if(gtk_tree_model_get_iter (model, &iter, path)){
-								gtk_tree_model_get (model, &iter, MODEL_CHANNELSGROUP_NAME, &sgroupname,
-										    MODEL_CHANNELSGROUP_URI, &sgroupuri,
-										    MODEL_CHANNELSGROUP_BREGEX, &sbregex,
-										    MODEL_CHANNELSGROUP_EREGEX, &seregex, -1);
-								
-								channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
-								freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
-								
-								// Update progress dialog
-								tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
-											  channels_group_infos->name);
-								dialogprogress_update(app, tmptext, FALSE, 0.0);
-								g_free(tmptext);
-								
-								channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
-								nb_added++;
-							}			
-						}	
-					}
-					
-					// Update the progress bar
-					gdouble percent;
-					percent = (gdouble)i/(gdouble)count;
-					dialogprogress_update(app, NULL, TRUE, percent);
-
-					iterator = g_list_next(iterator);
-				}
-				g_list_free (list);
-
-				if(has_process){
-					tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), nb_added);
-					dialogprogress_update(app, tmptext, FALSE, 0.0);
-					g_free(tmptext);
-				}
-				
-				break;
-			case 1:
-				// Add custom group
-				widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-								       "dialogaddgroup_name");
-				sgroupname = gtk_entry_get_text(GTK_ENTRY(widget));
-				
-				widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-									       "dialogaddgroup_uri");
-				sgroupuri = gtk_entry_get_text(GTK_ENTRY(widget));
-				
-				widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-									       "dialogaddgroup_bregex");
-				sbregex = gtk_entry_get_text(GTK_ENTRY(widget));
-				
-				widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-									       "dialogaddgroup_eregex");
-				seregex = gtk_entry_get_text(GTK_ENTRY(widget));			
-				
-				/* Check the field */
-				if(g_ascii_strcasecmp(sgroupname,"") == 0 && errmsg == NULL){
-					errmsg = g_strdup_printf(_("Please enter the group's name !"));
-				}
-				if(g_ascii_strcasecmp(sgroupuri,"") == 0 && errmsg == NULL){
-					errmsg = g_strdup_printf(_("Please enter the group's URI !"));
-				}
-				
-				if(errmsg == NULL){
-					dialogprogress_init(app, _("Adding channels groups"), GTK_WINDOW(dialog));
-				
-					if(g_ascii_strcasecmp(sbregex,"") == 0 ){
-						sbregex = NULL;
-					}
-					if(g_ascii_strcasecmp(seregex,"") == 0 ){
-						seregex = NULL;
-					}
-					
-					FreetuxTVChannelsGroupInfos *channels_group_infos;		
-					channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
-					freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
-					
-					// Update progress dialog
-					tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
-								  channels_group_infos->name);
-					dialogprogress_update(app, tmptext, TRUE, 0.0);
-					g_free(tmptext);
-
-					channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
-
-					tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), 1);
-					dialogprogress_update(app, tmptext, TRUE, 1.0);
-					g_free(tmptext);
-				}
-				
-				break;
-			}
-		}
-		dbsync_close_db(&dbsync);
-
-		if(errmsg != NULL){
-			windowmain_show_error (app, errmsg);
-			g_free(errmsg);
-		}
-		if(error != NULL){
-			windowmain_show_gerror (app, error);
-			g_error_free (error);
-		}
-
-	}
-	if (response_id == GTK_RESPONSE_CLOSE){
-		gtk_widget_hide(GTK_WIDGET(dialog));
-	}
-}
-
-static void
-on_dialogaddgroup_buttonrefresh_clicked (GtkButton *button,
-					 gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-
-	GtkWidget* widget;
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-						       "dialogaddgroup_entrychannelsgroupfile");
-	gchar *url;
-	gchar *dst_file;
-	url = (gchar*)gtk_entry_get_text (GTK_ENTRY(widget));
-	dst_file = g_strdup_printf("%s/FreetuxTV/cache/channels_groups.dat",
-				   g_get_user_config_dir());
-	freetuxtv_fileutils_get_file (url, dst_file, &error);
-	
-	if(error == NULL){
-		load_model_channels_group_from_file(app, &error);
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-
-	g_free(dst_file);
-}
-
-static void
 on_dialoggroupproperties_response (GtkDialog *dialog,
 				   gint response_id,
 				   gpointer user_data)
@@ -1495,69 +1172,4 @@ dialogpreferences_update_view(FreetuxTVApp *app)
 	text = get_recording_options(app, "%filename%", TRUE, NULL);
 	gtk_text_buffer_set_text (GTK_TEXT_BUFFER(textbuffer), text, -1);
 	g_free(text);
-}
-
-
-static void
-dialogprogress_init(FreetuxTVApp *app, gchar *title, GtkWindow* parent)
-{
-	GtkWidget* dialog;
-	GtkWidget* label;
-	GtkWidget* progressbar;
-	gchar* text;
-
-	dialog = (GtkWidget *) gtk_builder_get_object (app->gui, "dialogprogress");
-	
-	gtk_window_set_title(GTK_WINDOW(dialog), title);
-	gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(parent));
-	gtk_window_set_position (GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
-	
-	label = (GtkWidget *) gtk_builder_get_object (app->gui,
-						      "dialogprogress_labeltitle");
-	text = g_strdup_printf("<span size=\"large\"><b>%s</b></span>", title);
-	gtk_label_set_markup(GTK_LABEL(label), text);
-	g_free(text);
-	
-	label = (GtkWidget *) gtk_builder_get_object (app->gui,
-						      "dialogprogress_labeldesc");
-	gtk_label_set_text(GTK_LABEL(label), "");
-
-	// Set the progress bar to 0%
-	progressbar = (GtkWidget *) gtk_builder_get_object (app->gui,
-							    "dialogprogress_progressbar");
-	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progressbar), 0.0);
-	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(progressbar), "0 %");
-	
-	gtk_widget_show(dialog);
-	
-	/*
-	while(gtk_events_pending()){
-		gtk_main_iteration();
-		}	*/
-}
-
-static void
-dialogprogress_update(FreetuxTVApp *app, gchar *text, gboolean setpercent, gdouble percent)
-{
-	GtkWidget* dialog;
-	GtkWidget* widget;
-	gchar *tmptext;
-
-	dialog = (GtkWidget *) gtk_builder_get_object (app->gui, "dialogprogress"); 
-	
-	if(text){
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-							       "dialogprogress_labeldesc");
-		gtk_label_set_markup(GTK_LABEL(widget), text);		
-	}
-
-	if(setpercent){
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-							       "dialogprogress_progressbar");
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(widget), percent);
-					
-		tmptext = g_strdup_printf(_("%0.0f %%"), percent * 100);
-		gtk_progress_bar_set_text (GTK_PROGRESS_BAR(widget), tmptext);
-		g_free(tmptext);
-	}
 }

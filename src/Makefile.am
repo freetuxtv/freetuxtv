@@ -16,6 +16,8 @@ AM_CFLAGS =\
 bin_PROGRAMS = freetuxtv
 
 freetuxtv_SOURCES = \
+	gtk-progress-dialog.h \
+	gtk-progress-dialog.c \
 	freetuxtv-app.h \
 	freetuxtv-cellrenderer-channelslist.c \
 	freetuxtv-cellrenderer-channelslist.h \
@@ -40,6 +42,8 @@ freetuxtv_SOURCES = \
 	freetuxtv-tv-channels-list.h \
 	freetuxtv-utils.c \
 	freetuxtv-utils.h \
+	freetuxtv-window-add-channels-group.h \
+	freetuxtv-window-add-channels-group.c \
 	freetuxtv-window-main.c \
 	freetuxtv-window-main.h \
 	freetuxtv-window-recording.c \
