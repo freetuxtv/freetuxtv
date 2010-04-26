@@ -99,6 +99,9 @@ on_popupmenu_activated_deletegroup (GtkMenuItem *menuitem, gpointer user_data);
 static void
 on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_data);
 
+static void
+on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data);
+
 static gboolean
 on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data);
 
@@ -109,6 +112,9 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 static void
 channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
 			 gboolean update, GError** error);
+
+static GtkTreePath*
+get_favourites_channels_group_path(FreetuxTVApp *app);
 
 /*
 static void
@@ -853,6 +859,19 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			}
 		}
 
+		if(nb_groups == 0 && nb_channels > 0){
+			menu = gtk_menu_new();
+
+			// Add to favourite is only for channels
+			menuitem = gtk_image_menu_item_new_with_label(_("Add to favourites"));
+			image = gtk_image_new_from_stock (GTK_STOCK_ADD, GTK_ICON_SIZE_MENU);
+			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), image);
+			gtk_menu_append (GTK_MENU (menu), menuitem);
+			g_signal_connect(G_OBJECT(menuitem), "activate",
+					 G_CALLBACK(on_popupmenu_activated_addfavourites), app);
+			gtk_widget_show (menuitem);
+		}
+
 		if(menu){
 			gtk_widget_show(menu);
 			
@@ -1101,6 +1120,61 @@ on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_dat
 		
 		g_object_set_data (G_OBJECT(widget), "ChannelsGroup", group);
 		g_object_set_data (G_OBJECT(widget), "PathChannelsGroup", real_path);
+	}
+}
+
+static void
+on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
+
+	GError* error = NULL;
+
+	GtkWidget* treeview;
+	GtkTreeModel* model_filter;
+	GtkTreeSelection *selection;
+	GList *list;
+	GList* iterator = NULL;
+	GtkTreePath *path;
+	GtkTreePath *real_path;
+
+	FreetuxTVChannelsGroupInfos* pFavouritesChannelsGroupInfos = NULL;
+	
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+							"windowmain_treeviewchannelslist");
+	model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+	
+	// Get the selection
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+	list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+	
+	iterator = g_list_last (list);
+
+	// Get the favourites group where add channels
+	if(iterator != NULL){
+		pFavouritesChannelsGroupInfos = NULL;
+	}
+
+	while(iterator != NULL && error == NULL){			
+
+		// Get the real path
+		path = (GtkTreePath*)iterator->data;
+		real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
+		
+		// Delete the channels group corresponding to the path
+		//channels_list_delete_channels_group(app, real_path, &dbsync, &error);
+
+		iterator = g_list_previous(iterator);
+	}
+	
+	dbsync_close_db(&dbsync);
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
 	}
 }
 

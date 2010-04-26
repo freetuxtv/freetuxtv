@@ -33,6 +33,7 @@
 #include "freetuxtv-recordings-list.h"
 #include "freetuxtv-tv-channels-list.h"
 #include "freetuxtv-models.h"
+#include "freetuxtv-window-add-channels-group.h"
 #include <gtk-libvlc-media-player.h>
 
 int
@@ -439,10 +440,15 @@ splashscreen_app_init(gpointer data)
 	// Display add group window if no channels group installed
 	int nb_channelsgroup;
 	nb_channelsgroup = gtk_tree_model_iter_n_children (app->channelslist, NULL);
-	if(nb_channelsgroup == 0){
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-							       "dialogaddgroup");
-		gtk_widget_show(widget);
+	if(nb_channelsgroup == 0){	
+		FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
+		gint res;
+	
+		pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (app);
+		res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
+
+		g_object_unref(pWindowAddChannelsGroups);
+		pWindowAddChannelsGroups = NULL;
 	}
 
 	// Update statut bar

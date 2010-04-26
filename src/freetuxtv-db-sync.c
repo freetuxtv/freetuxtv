@@ -463,7 +463,7 @@ dbsync_add_channels_group (DBSync *dbsync,
 	    // ) VALUES (
 	    DB_CHANNELSGROUP_POSITION, DB_CHANNELSGROUP, // rank
 	    pChannelsGroupInfos->name,
-	    0,
+	    FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST,
 	    pChannelsGroupInfos->uri,
 	    pChannelsGroupInfos->bregex,
 	    pChannelsGroupInfos->eregex
@@ -761,7 +761,7 @@ dbsync_add_tvchannel (DBSync *dbsync, FreetuxTVTvChannelInfos* tv_channel_infos,
 		// Get the insert id of the TV channel
 		id = sqlite3_last_insert_rowid(dbsync->db_link);
 		freetuxtv_tv_channel_infos_set_id(tv_channel_infos, id);
-		// Link channels who has close label
+		// Link channels which have a near label
 		dbsync_link_tvchannel_to_channels_from_label (dbsync, name, id, error);
 	}
 	

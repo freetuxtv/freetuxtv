@@ -40,6 +40,8 @@ struct _FreetuxTVChannelsGroupInfos
 	gchar *name;
 	gchar *uri;
 
+	// FREETUXTV_CHANNELSGROUP_TYPEGROUP type;
+
 	gchar *bregex;
 	gchar *eregex;
 
@@ -50,6 +52,11 @@ struct _FreetuxTVChannelsGroupInfos
 struct _FreetuxTVChannelsGroupInfosClass
 {
 	GObjectClass parent_class;
+};
+
+enum FREETUXTV_CHANNELSGROUP_TYPEGROUP {
+	FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST = 0,
+	FREETUXTV_CHANNELSGROUP_TYPEGROUP_FAVORITES
 };
 
 FreetuxTVChannelsGroupInfos*

@@ -28,11 +28,6 @@ typedef enum {
 	WINDOW_MODE_RECORDING
 } FreetuxTVWindowMode;
 
-
-enum {
-	FREETUXTV_RESPONSE_ADD = 1
-} FreetuxTVResponseDialog;
-
 void
 windowmain_init(FreetuxTVApp *app);
 
