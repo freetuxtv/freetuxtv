@@ -32,6 +32,11 @@ struct _FreetuxTVWindowAddChannelsGroupPrivate
 	FreetuxTVApp* app;
 
 	GtkWidget* add_button;
+
+	int allowedType;
+
+	FreetuxTVChannelsGroupInfos* pLastAddedChannelsGroupInfos;
+    GtkTreePath* pLastAddedChannelsGroupPath;
 };
 
 #define FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), FREETUXTV_TYPE_WINDOW_ADD_CHANNELS_GROUP, FreetuxTVWindowAddChannelsGroupPrivate))
@@ -57,6 +62,9 @@ static gboolean
 on_dialog_close (GtkWidget *widget, GdkEvent  *event, gpointer user_data);
 
 static void
+gtk_notebook_set_page_visible(GtkNotebook* notebook, int page_num, gboolean visible);
+
+static void
 freetuxtv_window_add_channels_group_init (FreetuxTVWindowAddChannelsGroup *object)
 {
 	FreetuxTVWindowAddChannelsGroupPrivate* priv;
@@ -65,6 +73,10 @@ freetuxtv_window_add_channels_group_init (FreetuxTVWindowAddChannelsGroup *objec
 	priv->app = NULL;
 
 	priv->add_button = NULL;
+	priv->allowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_ALL;
+
+	priv->pLastAddedChannelsGroupInfos = NULL;
+    priv->pLastAddedChannelsGroupPath = NULL;
 }
 
 static void
@@ -133,6 +145,20 @@ freetuxtv_window_add_channels_group_new (FreetuxTVApp* app)
 	return pWindowAddChannelsGroups;
 }
 
+void
+freetuxtv_window_add_channels_group_set_allowed_type (
+	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup,
+    int allowedType)
+{
+	g_return_if_fail(pWindowAddChannelsGroup != NULL);
+	g_return_if_fail(FREETUXTV_IS_WINDOW_ADD_CHANNELS_GROUP(pWindowAddChannelsGroup));
+	
+	FreetuxTVWindowAddChannelsGroupPrivate* priv;
+	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);
+
+	priv->allowedType = allowedType;
+}
+
 gint
 freetuxtv_window_add_channels_group_run (
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup)
@@ -149,11 +175,63 @@ freetuxtv_window_add_channels_group_run (
 	gint res;
 
 	GtkDialog *dialog;
-	dialog = (GtkDialog *) gtk_builder_get_object (builder, "dialogaddgroup");	
+	dialog = (GtkDialog *) gtk_builder_get_object (builder, "dialogaddgroup");
+
+	// Show the group allowed
+	GtkNotebook *notebook;
+	notebook = (GtkNotebook *) gtk_builder_get_object (priv->app->gui,
+	    "dialogaddgroup_notebook");
+	if((priv->allowedType & FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING) 
+	    == FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING){
+		gtk_notebook_set_page_visible(notebook, 0, TRUE);
+	}else{
+		gtk_notebook_set_page_visible(notebook, 0, FALSE);
+	}
+	if((priv->allowedType & FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM) 
+	    == FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM){
+		gtk_notebook_set_page_visible(notebook, 1, TRUE);
+	}else{
+		gtk_notebook_set_page_visible(notebook, 1, FALSE);
+	}
+	if((priv->allowedType & FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES) 
+	    == FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES){
+		gtk_notebook_set_page_visible(notebook, 2, TRUE);
+	}else{
+		gtk_notebook_set_page_visible(notebook, 2, FALSE);
+	}
 
 	// Display the dialog
 	res = gtk_dialog_run(dialog);
 
+	return res;
+}
+
+gboolean
+freetuxtv_window_add_channels_group_get_last_added(
+    FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup,
+	FreetuxTVChannelsGroupInfos** ppChannelsGroupInfos,
+    GtkTreePath** ppTreePath
+    )
+{
+	g_return_val_if_fail(pWindowAddChannelsGroup != NULL, GTK_RESPONSE_NONE);
+	g_return_val_if_fail(FREETUXTV_IS_WINDOW_ADD_CHANNELS_GROUP(pWindowAddChannelsGroup), GTK_RESPONSE_NONE);
+
+	FreetuxTVWindowAddChannelsGroupPrivate* priv;
+	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);	
+	
+	gboolean res = FALSE;
+
+	res = priv->pLastAddedChannelsGroupInfos != NULL
+		&& priv->pLastAddedChannelsGroupPath != NULL;
+
+	if(ppChannelsGroupInfos){
+		*ppChannelsGroupInfos = priv->pLastAddedChannelsGroupInfos;
+	}
+
+	if(ppTreePath){
+		*ppTreePath = priv->pLastAddedChannelsGroupPath;
+	}
+	
 	return res;
 }
 
@@ -219,6 +297,21 @@ dialog_init (FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup)
 }
 
 static void
+gtk_notebook_set_page_visible(GtkNotebook* notebook, int page_num, gboolean visible)
+{
+	GtkWidget* widget;
+	widget = gtk_notebook_get_nth_page (notebook, page_num);
+
+	if(widget){
+		if(visible){
+			gtk_widget_show(widget);
+		}else{
+			gtk_widget_hide(widget);
+		}
+	}
+}
+
+static void
 on_buttonrefresh_clicked (GtkButton *button, gpointer user_data)
 {
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
@@ -281,6 +374,8 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 	gboolean has_process = FALSE;
 
 	gchar *tmptext;
+
+	GtkTreePath* pTreePathTmp;
 	
 	DBSync dbsync;
 	dbsync_open_db (&dbsync, &error);
@@ -331,7 +426,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 			}
 			
 			GtkTreePath* last_ppath = NULL;
-			FreetuxTVChannelsGroupInfos *channels_group_infos;
+			FreetuxTVChannelsGroupInfos *pChannelsGroupInfos;
 			
 			while(iterator != NULL && error == NULL){
 				GtkTreePath* path;
@@ -358,16 +453,20 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 										    MODEL_CHANNELSGROUP_BREGEX, &sbregex,
 										    MODEL_CHANNELSGROUP_EREGEX, &seregex, -1);
 								
-								channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
-								freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
+								pChannelsGroupInfos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname,
+									FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST);
+								freetuxtv_channels_group_infos_set_uri (pChannelsGroupInfos,
+									(gchar*)sgroupuri);
+								freetuxtv_channels_group_infos_set_regex (pChannelsGroupInfos,
+									(gchar*)sbregex, (gchar*)seregex);
 								
 								// Update progress dialog
 								tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
-											  channels_group_infos->name);
+									pChannelsGroupInfos->name);
 								gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 								g_free(tmptext);
 
-								channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
+								channels_list_add_channels_group (app, pChannelsGroupInfos, NULL, &dbsync, &error);
 								nb_added++;
 								
 							}while (gtk_tree_model_iter_next(model, &iter) && error == NULL);
@@ -392,16 +491,19 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 									    MODEL_CHANNELSGROUP_BREGEX, &sbregex,
 									    MODEL_CHANNELSGROUP_EREGEX, &seregex, -1);
 							
-							channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
-							freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
+							pChannelsGroupInfos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname,
+								FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST);
+							freetuxtv_channels_group_infos_set_uri (pChannelsGroupInfos,
+								(gchar*)sgroupuri);
+							freetuxtv_channels_group_infos_set_regex (pChannelsGroupInfos, (gchar*)sbregex, (gchar*)seregex);
 							
 							// Update progress dialog
 							tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
-										  channels_group_infos->name);
+								pChannelsGroupInfos->name);
 							gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 							g_free(tmptext);
 							
-							channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
+							channels_list_add_channels_group (app, pChannelsGroupInfos, NULL, &dbsync, &error);
 							nb_added++;
 						}			
 					}	
@@ -461,18 +563,21 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 					seregex = NULL;
 				}
 				
-				FreetuxTVChannelsGroupInfos *channels_group_infos;		
-				channels_group_infos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname, (gchar*)sgroupuri);
-				freetuxtv_channels_group_infos_set_regex (channels_group_infos, (gchar*)sbregex, (gchar*)seregex);
+				FreetuxTVChannelsGroupInfos *pChannelsGroupInfos;		
+				pChannelsGroupInfos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname,
+					FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST);
+				freetuxtv_channels_group_infos_set_uri (pChannelsGroupInfos,
+					(gchar*)sgroupuri);
+				freetuxtv_channels_group_infos_set_regex (pChannelsGroupInfos, (gchar*)sbregex, (gchar*)seregex);
 				
 				// Update progress dialog
 				tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
-							  channels_group_infos->name);
+					pChannelsGroupInfos->name);
 				gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 				gtk_progress_dialog_set_percent(pProgressDialog, 0.0);
 				g_free(tmptext);
 
-				channels_list_add_channels_group (app, channels_group_infos, &dbsync, &error);
+				channels_list_add_channels_group (app, pChannelsGroupInfos, NULL, &dbsync, &error);
 
 				tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), 1);
 				gtk_progress_dialog_set_text(pProgressDialog, tmptext);
@@ -481,6 +586,48 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 				g_free(tmptext);
 			}
 			
+			break;
+		case 2:
+			// Add custom group
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+							       "dialogaddgroup_specialgroupname");
+			sgroupname = gtk_entry_get_text(GTK_ENTRY(widget));
+			
+			/* Check the field */
+			if(g_ascii_strcasecmp(sgroupname,"") == 0 && errmsg == NULL){
+				errmsg = g_strdup_printf(_("Please enter the group's name !"));
+			}
+			
+			if(errmsg == NULL){
+				pProgressDialog = gtk_progress_dialog_new (GTK_WINDOW(dialog));
+				gtk_progress_dialog_set_title(pProgressDialog, _("Adding channels groups"));
+				gtk_widget_show(GTK_WIDGET(pProgressDialog));
+
+				FreetuxTVChannelsGroupInfos *pChannelsGroupInfos;		
+				pChannelsGroupInfos = freetuxtv_channels_group_infos_new ((gchar*)sgroupname,
+					FREETUXTV_CHANNELSGROUP_TYPEGROUP_FAVORITES);
+				
+				// Update progress dialog
+				tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
+					pChannelsGroupInfos->name);
+				gtk_progress_dialog_set_text(pProgressDialog, tmptext);
+				gtk_progress_dialog_set_percent(pProgressDialog, 0.0);
+				g_free(tmptext);
+
+				channels_list_add_channels_group (app, pChannelsGroupInfos, &pTreePathTmp, &dbsync, &error);
+				priv->pLastAddedChannelsGroupInfos = pChannelsGroupInfos;
+				if(priv->pLastAddedChannelsGroupPath){
+					gtk_tree_path_free(priv->pLastAddedChannelsGroupPath);
+				}
+				priv->pLastAddedChannelsGroupPath = pTreePathTmp;
+				g_print("added %s\n", gtk_tree_path_to_string (pTreePathTmp));
+
+				tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), 1);
+				gtk_progress_dialog_set_text(pProgressDialog, tmptext);
+				gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
+				
+				g_free(tmptext);
+			}
 			break;
 		}
 	}
