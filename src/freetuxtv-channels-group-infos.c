@@ -1,27 +1,27 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * FreetuxTV is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or 
+ * freetuxtv
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
+ * 
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * FreetuxTV is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Glade; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
+ * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "freetuxtv-channels-group-infos.h"
 
 G_DEFINE_TYPE (FreetuxTVChannelsGroupInfos, freetuxtv_channels_group_infos, G_TYPE_OBJECT);
 
 FreetuxTVChannelsGroupInfos*
-freetuxtv_channels_group_infos_new(gchar *name, gchar *uri)
+freetuxtv_channels_group_infos_new(gchar *name, FREETUXTV_CHANNELSGROUP_TYPEGROUP type)
 {
 	g_return_val_if_fail(name != NULL, NULL);
 
@@ -31,7 +31,8 @@ freetuxtv_channels_group_infos_new(gchar *name, gchar *uri)
 	freetuxtv_channels_group_infos_set_name (channels_group_infos, name);
 	
 	channels_group_infos->name=g_strdup(name);
-	channels_group_infos->uri=g_strdup(uri);
+	channels_group_infos->uri = NULL;
+	channels_group_infos->type = type;
 	channels_group_infos->nb_channels = 0;	
 	channels_group_infos->nb_channels_visible = 0;
 

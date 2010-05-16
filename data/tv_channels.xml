@@ -1,4 +1,14 @@
 <tvchannels>
+	<!--
+	<tvchannel name="NT1">
+        <lang>fr</lang> <= ID from ISO_639-1 : http://fr.wikipedia.org/wiki/Liste_des_codes_ISO_639-2
+        <country>fr</country> <= ID from ISO_3166-1 : http://fr.wikipedia.org/wiki/ISO_3166-1
+        <label>NT 1</label> 
+        <logo_filename>nt1.jpg</logo_filename>
+        <website>http://www.nt1.tv/ </website>
+        <guide_url>http://www.nt1.tv/programmes.aspx </guide_url>
+    </tvchannel>
+    -->
 	<tvchannel name="100 %">
 		<logo_filename>100pourcentradio.png</logo_filename>
 	</tvchannel>

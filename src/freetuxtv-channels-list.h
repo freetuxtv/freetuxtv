@@ -2,12 +2,12 @@
 /*
  * freetuxtv
  * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
- * 
+	 * 
  * freetuxtv is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+	 * 
  * freetuxtv is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -42,32 +42,32 @@ void
 channels_list_load_channels (FreetuxTVApp *app, DBSync* dbsync, GError** error);
 
 void
-channels_list_add_channels_group (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* channels_group_infos,
-				  DBSync* dbsync, GError** error);
+channels_list_add_channels_group (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+                                  GtkTreePath** ppChannelsGroupTreePath, DBSync* dbsync, GError** error);
 
 void
 channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
-				     FreetuxTVChannelsGroupInfos* channels_group_infos);
+                                     FreetuxTVChannelsGroupInfos* channels_group_infos);
 
 void
 channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
-				      DBSync* dbsync, GError** error);
+                                      DBSync* dbsync, GError** error);
 
 void
 channels_list_delete_channels_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
-					      DBSync* dbsync, GError** error);
+                                              DBSync* dbsync, GError** error);
 
 void
 channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
-				     DBSync* dbsync, GError** error);
+                                     DBSync* dbsync, GError** error);
 
 gboolean
 channels_list_get_prev_channel (FreetuxTVApp *app,
-				GtkTreePath **path_prev_channel);
+                                GtkTreePath **path_prev_channel);
 
 gboolean
 channels_list_get_next_channel (FreetuxTVApp *app,
-				GtkTreePath ** path_next_channel);
+                                GtkTreePath ** path_next_channel);
 
 gint
 channels_list_get_channels_count (FreetuxTVApp *app);

@@ -54,14 +54,37 @@ struct _FreetuxTVWindowAddChannelsGroup
 	GObject parent_instance;
 };
 
+enum FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW {
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING		= 1 << 0,
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM		= 1 << 1,
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES	= 1 << 2,
+	
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_ALL			=
+		FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING |
+		FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM |
+		FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES
+};
+
 GType freetuxtv_window_add_channels_group_get_type (void) G_GNUC_CONST;
 
 FreetuxTVWindowAddChannelsGroup*
 freetuxtv_window_add_channels_group_new (FreetuxTVApp* app);
 
+void
+freetuxtv_window_add_channels_group_set_allowed_type (
+	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup,
+    int allowedType);
+
 gint
 freetuxtv_window_add_channels_group_run (
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup);
+
+gboolean
+freetuxtv_window_add_channels_group_get_last_added(
+    FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup,
+	FreetuxTVChannelsGroupInfos** ppChannelsGroupInfos,
+    GtkTreePath** ppTreePath
+    );
 
 G_END_DECLS
 
