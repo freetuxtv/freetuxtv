@@ -1,19 +1,20 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * FreetuxTV is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or 
+ * freetuxtv
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
+ * 
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * FreetuxTV is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Glade; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
+ * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef FREETUXTV_CHANNELS_GROUP_INFOS_H
@@ -28,6 +29,11 @@
 #define FREETUXTV_IS_CHANNELS_GROUP_INFOS_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS))
 #define FREETUXTV_CHANNELS_GROUP_INFOS_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, FreetuxTVChannelGroupsInfosClass))
 
+typedef enum {
+	FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST = 0,
+	FREETUXTV_CHANNELSGROUP_TYPEGROUP_FAVORITES
+} FREETUXTV_CHANNELSGROUP_TYPEGROUP;
+
 typedef struct _FreetuxTVChannelsGroupInfos        FreetuxTVChannelsGroupInfos;
 typedef struct _FreetuxTVChannelsGroupInfosClass   FreetuxTVChannelsGroupInfosClass;
 
@@ -40,7 +46,7 @@ struct _FreetuxTVChannelsGroupInfos
 	gchar *name;
 	gchar *uri;
 
-	// FREETUXTV_CHANNELSGROUP_TYPEGROUP type;
+	FREETUXTV_CHANNELSGROUP_TYPEGROUP type;
 
 	gchar *bregex;
 	gchar *eregex;
@@ -54,13 +60,8 @@ struct _FreetuxTVChannelsGroupInfosClass
 	GObjectClass parent_class;
 };
 
-enum FREETUXTV_CHANNELSGROUP_TYPEGROUP {
-	FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST = 0,
-	FREETUXTV_CHANNELSGROUP_TYPEGROUP_FAVORITES
-};
-
 FreetuxTVChannelsGroupInfos*
-freetuxtv_channels_group_infos_new(gchar *name, gchar *uri);
+freetuxtv_channels_group_infos_new(gchar *name, FREETUXTV_CHANNELSGROUP_TYPEGROUP type);
 
 void
 freetuxtv_channels_group_infos_set_id (FreetuxTVChannelsGroupInfos *self, int id);

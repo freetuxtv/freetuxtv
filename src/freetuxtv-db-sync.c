@@ -213,7 +213,7 @@ dbsync_select_channels_groups (DBSync *dbsync, FreetuxTVApp *app,
 	FreetuxTVChannelsGroupInfos* pChannelsGroupInfos;
 	gchar *zName, *zURI;
 	gchar *zBregex, *zEregex;
-	gint id, position;
+	gint id, position, type;
 	
 	res = sqlite3_prepare_v2(dbsync->db_link, zQuery, -1, &pStmt, NULL);
 	sqlite3_free(zQuery);
@@ -221,8 +221,11 @@ dbsync_select_channels_groups (DBSync *dbsync, FreetuxTVApp *app,
 		while(sqlite3_step(pStmt) == SQLITE_ROW) {
 			// Create new channels group
 			zName = (gchar*)sqlite3_column_text(pStmt, 2);
+			type = sqlite3_column_int(pStmt, 3);
 			zURI = (gchar*)sqlite3_column_text(pStmt, 4);
-			pChannelsGroupInfos = freetuxtv_channels_group_infos_new (zName, zURI);
+			pChannelsGroupInfos = freetuxtv_channels_group_infos_new (zName,
+				type);
+			freetuxtv_channels_group_infos_set_uri (pChannelsGroupInfos, zURI);
 
 			// Set channels group id
 			id = sqlite3_column_int(pStmt, 0);
@@ -463,7 +466,7 @@ dbsync_add_channels_group (DBSync *dbsync,
 	    // ) VALUES (
 	    DB_CHANNELSGROUP_POSITION, DB_CHANNELSGROUP, // rank
 	    pChannelsGroupInfos->name,
-	    FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST,
+	    pChannelsGroupInfos->type,
 	    pChannelsGroupInfos->uri,
 	    pChannelsGroupInfos->bregex,
 	    pChannelsGroupInfos->eregex
