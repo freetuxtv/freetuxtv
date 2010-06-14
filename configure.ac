@@ -11,6 +11,10 @@ dnl Set a version for libvlc-gtk
 LIBVLCGTK_LT_VERSION=0:1:0
 AC_SUBST(LIBVLCGTK_LT_VERSION)
 
+dnl Set a version for libdbevolution
+LIBDBEVOLUTION_LT_VERSION=0:1:0
+AC_SUBST(LIBDBEVOLUTION_LT_VERSION)
+
 dnl ***************************************************************************
 dnl Checks for programs
 dnl ***************************************************************************
@@ -92,9 +96,6 @@ else
 fi
 
 dnl Use "pkg-config --modversion module" to find version.
-PKG_CHECK_MODULES(LIBVLCGTK, gtk+-2.0 >= 2.12
-                             $LIBVLC_PKGCONFIG)
-
 PKG_CHECK_MODULES(FREETUXTV, gtk+-2.0 >= 2.12 
                              glib-2.0 >= 2.16.0
                              gio-2.0 >= 2.16.0
@@ -102,6 +103,11 @@ PKG_CHECK_MODULES(FREETUXTV, gtk+-2.0 >= 2.12
                              libnotify >= 0.4
                              sqlite3 >= 3.4
                              libcurl >= 7.18)
+
+PKG_CHECK_MODULES(LIBVLCGTK, gtk+-2.0 >= 2.12
+                             $LIBVLC_PKGCONFIG)
+                             
+PKG_CHECK_MODULES(LIBDBEVOLUTION, glib-2.0 >= 2.16.0)
 
 AC_CHECK_LIB(vlc, libvlc_new)
 AC_CHECK_LIB(gthread-2.0, g_thread_init)
@@ -145,4 +151,5 @@ AC_OUTPUT([
         data/ui/Makefile
         lib/Makefile
         lib/libvlc-gtk/Makefile
+        lib/libdbevolution/Makefile
 ])

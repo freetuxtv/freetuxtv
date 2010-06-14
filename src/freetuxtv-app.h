@@ -26,7 +26,7 @@
 #include <gtk/gtk.h>
 #include <libnotify/notification.h>
 
-#include <gtk-libvlc-media-player.h>
+#include <libvlc-gtk/gtk-libvlc-media-player.h>
 
 #include "freetuxtv-channel-infos.h"
 
