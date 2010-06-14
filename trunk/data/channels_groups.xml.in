@@ -3,18 +3,19 @@
 		<channels_group name="Alice" uri="http://vlc-media-player.org/m3u/alicetv.m3u" required_isp="Alice" />
 		<channels_group _name="Alice (Unofficial)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_alicetv_unofficial.m3u" required_isp="Alice" />
 	</language>
-	<language id="bouygues" lang="Bouygues">	
+	<language id="bouygues" lang="Bouygues">
 		<channels_group name="Bouygues TV" uri="http://bbox-news.com/documents/tv_sur_pc_bbox.m3u" required_isp="Bouygues" />
 	</language>
-	<language id="free" lang="Free (FreeBox)">	
+	<language id="free" lang="Free (FreeBox)">
 		<channels_group name="FreeboxTV" uri="http://mafreebox.freebox.fr/freeboxtv/playlist.m3u" bregex="[0-9]* - " required_isp="Free"/>
 		<channels_group name="FreeboxTV (non dégroupé)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_freeboxtv_nd.m3u" required_isp="Free" />
 		<channels_group name="FreeboxTV (miroir)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_freeboxtv_mirror.m3u" bregex="[0-9]* - " required_isp="Free" />
 	</language>
-	<language id="orange" lang="Orange">	
+	<language id="orange" lang="Orange">
+		<channels_group name="Orange TV (porciello)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_orange_porciello.m3u" bregex="[0-9]*\. " required_isp="Orange" />
 		<channels_group name="Orange TV" uri="http://vlc-media-player.org/m3u/orangetv.m3u" bregex="[0-9]*\. " required_isp="Orange" />
 	</language>
-	<language id="sfr" lang="SFR">	
+	<language id="sfr" lang="SFR">
 		<channels_group name="SFR TV" uri="http://tv.sfr.fr/tv-pc/televisionsurpc.m3u" required_isp="SFR" />
 		<channels_group _name="SFR TV (Unofficial)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_sfrtv_unofficial.m3u" required_isp="SFR" />
 	</language>
@@ -99,7 +100,7 @@
 	<language id="tr" _lang="Turkish Web TV and Radio">
 		<channels_group _name="Web TV (Turkish)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_tr.m3u" />
 	</language>
-	<language id="webcam" _lang="WebCam">	
+	<language id="webcam" _lang="WebCam">
 		<channels_group _name="WebCam" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webcam.m3u" />
 	</language>
 </channels_groups>
