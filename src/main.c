@@ -34,7 +34,7 @@
 #include "freetuxtv-tv-channels-list.h"
 #include "freetuxtv-models.h"
 #include "freetuxtv-window-add-channels-group.h"
-#include <gtk-libvlc-media-player.h>
+#include <libvlc-gtk/gtk-libvlc-media-player.h>
 
 int
 init_user_configuration(GError **error)
@@ -91,7 +91,8 @@ init_user_configuration(GError **error)
 		return -1;
 	}
 	
-	/* Creation de la BDD si inexistante */
+	/* Create the database if doesn't exist,
+	 else try to update the database */
 	DBSync dbsync;
 	if (!dbsync_db_exists(&dbsync)){
 		dbsync_open_db (&dbsync, error);
@@ -99,8 +100,18 @@ init_user_configuration(GError **error)
 			dbsync_create_db (&dbsync, error);
 		}
 		dbsync_close_db (&dbsync);
+	}else{
+		dbsync_open_db (&dbsync, error);
+		if(*error == NULL){
+			dbsync_update_db(&dbsync, error);
+		}
+		dbsync_close_db (&dbsync);
 	}
 
+	if(*error != NULL){
+		g_print("FreetuxTV : Error %s\n", (*error)->message);
+	}
+	
 	g_free(user_cache_dir);
 	g_free(user_img_channels_dir);
 

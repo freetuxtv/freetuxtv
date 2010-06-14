@@ -19,6 +19,7 @@
 
 #include <glib.h>
 #include <sqlite3.h>
+#include <libdbevolution/db-evolution-instance.h>
 
 #include "freetuxtv-db-sync.h"
 #include "freetuxtv-tv-channel-infos.h"
@@ -88,6 +89,23 @@ freetuxtv_dbsync_error_quark () {
 	}
 	return freetuxtv_dbsync_error;
 }
+
+#define FIRST_DB_VERSION		"0.1.0.1"
+
+static gchar*
+dbsync_get_current_db_version (gpointer user_data, GError** error);
+
+static void
+dbsync_set_current_db_version (gchar* szVersion, gpointer user_data,
+                               GError** error);
+
+static int
+dbsync_compare_db_version (gchar* szVersion1, gchar* szVersion2,
+                           gpointer user_data, GError** error);
+
+static gboolean
+dbsync_exec_query(const gchar* szQuery, gpointer user_data,
+                  GError** error);
 
 void
 dbsync_open_db(DBSync *dbsync, GError** error)
@@ -159,7 +177,7 @@ dbsync_create_db (DBSync *dbsync, GError** error)
 	int res;
 
 	// Load file containing the database creation queries
-	gchar* filename;
+	const gchar* filename;
 	gsize filelen;
 	filename = FREETUXTV_DIR "/sqlite3-create-tables.sql";	
 
@@ -180,6 +198,34 @@ dbsync_create_db (DBSync *dbsync, GError** error)
 	}
 
 	g_free(query);	
+}
+
+void
+dbsync_update_db (DBSync *dbsync, GError** error)
+{	
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+
+	const gchar* szScriptFilename;
+	szScriptFilename = FREETUXTV_DIR "/sqlite3-create-tables.sql";
+	
+	DbEvolutionInstance* pDbEvolutionInstance;	
+	pDbEvolutionInstance = db_evolution_instance_new(szScriptFilename);
+
+	if(pDbEvolutionInstance){
+
+		pDbEvolutionInstance->get_current_db_version_func = dbsync_get_current_db_version;
+		pDbEvolutionInstance->set_current_db_version_func = dbsync_set_current_db_version;
+		pDbEvolutionInstance->compare_db_version_func = dbsync_compare_db_version;
+		pDbEvolutionInstance->exec_query_func = dbsync_exec_query;
+		
+		db_evolution_instance_do_evolution (pDbEvolutionInstance,
+		                                    dbsync, error);
+	}
+	
+	g_object_unref (pDbEvolutionInstance);
 }
 
 void
@@ -843,5 +889,143 @@ dbsync_link_tvchannel_to_channels_from_label (DBSync *dbsync, gchar *label,
 		    _("Error when linking the TV channel '%s' to channel.\n\nSQLite has returned error :\n%s."),
 		    label, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
-	}	
+	}
+}
+
+
+static gchar*
+dbsync_get_current_db_version (gpointer user_data, GError** error)
+{
+	DBSync *dbsync = (DBSync*)user_data;
+	
+	g_return_val_if_fail(dbsync != NULL, NULL);
+	g_return_val_if_fail(dbsync->db_link != NULL, NULL);
+	g_return_val_if_fail(error != NULL, NULL);
+	g_return_val_if_fail(*error == NULL, NULL);
+
+	gchar *query;
+	int res;
+
+	gchar* szVersion = NULL;
+
+	// Get the current version of the database
+	sqlite3_stmt *pStmt;
+	query = sqlite3_mprintf("SELECT dbversion FROM config WHERE id=1");
+	res = sqlite3_prepare_v2(dbsync->db_link, query, -1, &pStmt, NULL);
+	sqlite3_free(query);
+	
+	if(res == SQLITE_OK){
+		if(sqlite3_step(pStmt) == SQLITE_ROW) {
+			szVersion = g_strdup((gchar*)sqlite3_column_text(pStmt, 0));
+		}else{
+			szVersion = g_strdup(FIRST_DB_VERSION);
+		}
+		sqlite3_finalize(pStmt);
+	}else if(res == SQLITE_ERROR){
+		szVersion = g_strdup(FIRST_DB_VERSION);
+	}else{
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+			_("Error when getting the database version.\n\nSQLite has returned error :\n%s."),
+		    sqlite3_errmsg(dbsync->db_link));
+	}
+	
+	return szVersion;
+}
+
+static void
+dbsync_set_current_db_version (gchar* szVersion, gpointer user_data,
+                               GError** error)
+{
+	DBSync *dbsync = (DBSync*)user_data;
+	
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+
+	gchar *query;
+	gchar *db_err = NULL;
+	int res;
+
+	// Update the database version
+	query = sqlite3_mprintf("REPLACE INTO config (id, dbversion) VALUES (1, '%q');",
+	                        szVersion);
+	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+	sqlite3_free(query);	
+	if(res != SQLITE_OK){
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+		    _("Error when updating the database version.\n\nSQLite has returned error :\n%s."),
+		    sqlite3_errmsg(dbsync->db_link));
+		sqlite3_free(db_err);
+	}
+}
+
+int
+dbsync_compare_db_version (gchar* szVersion1, gchar* szVersion2, 
+                           gpointer user_data, GError** error)
+{
+	int M1, m1, r1, b1;
+	int M2, m2, r2, b2;
+
+	sscanf(szVersion1, "%d.%d.%d.%d", &M1, &m1, &r1, &b1);
+	sscanf(szVersion2, "%d.%d.%d.%d", &M2, &m2, &r2, &b2);
+
+	if(M1 > M2){
+		return 1;
+	}
+	if(M1 < M2){
+		return -1;
+	}
+	if(m1 > m2){
+		return 1;
+	}
+	if(m1 < m2){
+		return -1;
+	}
+	if(r1 > r2){
+		return 1;
+	}
+	if(r1 < r2){
+		return -1;
+	}
+	if(b1 > b2){
+		return 1;
+	}
+	if(b1 < b2){
+		return -1;
+	}
+	return 0;
+}
+
+
+static gboolean
+dbsync_exec_query(const gchar* szQuery, gpointer user_data,
+                  GError** error)
+{
+	DBSync *dbsync = (DBSync*)user_data;
+	
+	g_return_val_if_fail(dbsync != NULL, FALSE);
+	g_return_val_if_fail(dbsync->db_link != NULL, FALSE);
+	g_return_val_if_fail(error != NULL, FALSE);
+	g_return_val_if_fail(*error == NULL, FALSE);
+
+	gboolean bRes = FALSE;
+
+	gchar *db_err = NULL;
+	int res;
+
+	res = sqlite3_exec(dbsync->db_link, szQuery, NULL, NULL, &db_err);	
+	if(res != SQLITE_OK){
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+		    _("Error when migrating the database.\n\nSQLite has returned error :\n%s."),
+		    sqlite3_errmsg(dbsync->db_link));
+		sqlite3_free(db_err);
+	}else{
+		bRes = TRUE;
+	}
+
+	return bRes;
 }
