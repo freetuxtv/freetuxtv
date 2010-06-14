@@ -23,9 +23,9 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#include <gtk-libvlc-include.h>
-#include <gtk-libvlc-instance.h>
-#include <gtk-libvlc-media.h>
+#include <libvlc-gtk/gtk-libvlc-include.h>
+#include <libvlc-gtk/gtk-libvlc-instance.h>
+#include <libvlc-gtk/gtk-libvlc-media.h>
 
 G_BEGIN_DECLS
 

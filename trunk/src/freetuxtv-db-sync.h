@@ -52,10 +52,13 @@ void
 dbsync_close_db (DBSync *dbsync);
 
 gboolean
-dbsync_db_exists(DBSync *dbsync);
+dbsync_db_exists (DBSync *dbsync);
 
 void
 dbsync_create_db (DBSync *dbsync, GError** error);
+
+void
+dbsync_update_db (DBSync *dbsync, GError** error);
 
 void
 dbsync_select_channels_groups (DBSync *dbsync,

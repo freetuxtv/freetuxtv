@@ -7,7 +7,7 @@ AM_CPPFLAGS = \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	$(FREETUXTV_CFLAGS) \
-	-I$(top_srcdir)/lib/libvlc-gtk/
+	-I$(top_srcdir)/lib/
 
 AM_CFLAGS =\
 	 -Wall\
@@ -58,4 +58,5 @@ freetuxtv_LDFLAGS = \
 	-Wl, --export-dynamic
 
 freetuxtv_LDADD = $(FREETUXTV_LIBS) \
-	../lib/libvlc-gtk/libvlc-gtk.la
+	../lib/libvlc-gtk/libvlc-gtk.la \
+	../lib/libdbevolution/libdbevolution.la
