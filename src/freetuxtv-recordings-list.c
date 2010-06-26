@@ -77,6 +77,8 @@ on_row_activated_recordings_list (GtkTreeView        *view, GtkTreePath *path,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
+	GError* error = NULL;
+
 	GtkTreeModel *model;
 	model = gtk_tree_view_get_model (view);
 	
@@ -89,11 +91,15 @@ on_row_activated_recordings_list (GtkTreeView        *view, GtkTreePath *path,
 	GtkLibvlcMedia *media;
 	media = gtk_libvlc_media_new (mrl);
 
-	freetuxtv_play_media (app, media);
+	freetuxtv_play_media (app, media, &error);
 	
 	g_object_unref(media);
 	
 	g_free(filename);
 	g_free(mrl);
 
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }

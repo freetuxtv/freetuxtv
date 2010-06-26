@@ -9,7 +9,8 @@ libvlc_gtk_la_SOURCES = \
 	gtk-libvlc-media.h\
 	gtk-libvlc-media.c \
 	gtk-libvlc-media-player.h \
-	gtk-libvlc-media-player.c
+	gtk-libvlc-media-player.c \
+	gtk-libvlc-private.h
 
 libvlc_gtk_la_LDFLAGS = \
 	-version-info $(LIBVLCGTK_LT_VERSION) \

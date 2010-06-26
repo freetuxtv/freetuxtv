@@ -26,26 +26,32 @@
 
 // Set default value for LIBVLC_VERSION_MAJOR
 #ifndef LIBVLC_VERSION_MAJOR
-#define LIBVLC_VERSION_MAJOR 0
+#error "LIBVLC_VERSION_MAJOR must be defined."
 #endif
 
 // Set default value for LIBVLC_VERSION_MINOR
 #ifndef LIBVLC_VERSION_MINOR
-#define LIBVLC_VERSION_MINOR 9
+#error "LIBVLC_VERSION_MINOR must be defined."
 #endif
 
 // Set default value for LIBVLC_VERSION_REVISION
 #ifndef LIBVLC_VERSION_REVISION
-#define LIBVLC_VERSION_REVISION 0
+#error "LIBVLC_VERSION_REVISION must be defined."
 #endif
 
 // Max volume power for VLC
 #define LIBVLC_MAX_VOLUME_POWER 2.0 // Represent a percentage (2.0 = 200%)
 
-#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
-#include <vlc/libvlc.h> // LibVLC header for 0.8.x
-#else
-#include <vlc/vlc.h> // LibVLC header for >= 0.9.x
-#endif
+// Define handle to de
+typedef gpointer LIBVLC_INSTANCE_HANDLE;
+
+#define GTK_LIBVLC_ERROR gtk_libvlc_error_quark ()
+typedef enum
+{
+	GTK_LIBVLC_ERROR_LIBVLC
+} GtkLibvlcError;
+
+GQuark
+gtk_libvlc_error_quark ();
 
 #endif /* _GTK_LIBVLC_INCLUDE_H_ */
