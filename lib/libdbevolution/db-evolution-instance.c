@@ -28,8 +28,6 @@ struct _DbEvolutionInstancePrivate
 
 #define DB_EVOLUTION_INSTANCE_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), DB_EVOLUTION_TYPE_INSTANCE, DbEvolutionInstancePrivate))
 
-
-
 G_DEFINE_TYPE (DbEvolutionInstance, db_evolution_instance, G_TYPE_OBJECT);
 
 static void
@@ -178,7 +176,9 @@ db_evolution_instance_do_creation(DbEvolutionInstance* pDbEvolutionInstance,
 		if(query){
 			g_string_free(query, TRUE);
 			query = NULL;
-		}	
+		}
+	}
+	
 	if(pIOChannelIn){
        g_io_channel_shutdown(pIOChannelIn, TRUE, error);
 	}
