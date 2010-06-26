@@ -681,6 +681,8 @@ on_row_activated_channels_list(GtkTreeView *view, GtkTreePath *path,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	
+	GError* error = NULL;
+	
 	GtkTreeIter iter;
 	gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, path);
 
@@ -700,9 +702,14 @@ on_row_activated_channels_list(GtkTreeView *view, GtkTreePath *path,
 			gtk_tree_view_expand_row (view, model_path, TRUE);
 		}	
 	}else{
-		freetuxtv_play_channel (app, model_path);		
+		freetuxtv_play_channel (app, model_path, &error);		
 	}
 	gtk_tree_path_free(model_path);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 static void 

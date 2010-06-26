@@ -44,14 +44,15 @@ struct _GtkLibvlcInstanceClass
 struct _GtkLibvlcInstance
 {
 	GObject parent_instance;
-
-	libvlc_instance_t *libvlc_instance;
 };
 
 GType gtk_libvlc_instance_get_type (void) G_GNUC_CONST;
 
 GtkLibvlcInstance*
-gtk_libvlc_instance_new (const gchar* vlc_args[]);
+gtk_libvlc_instance_new (const gchar* vlc_args[], GError** error);
+
+LIBVLC_INSTANCE_HANDLE
+gtk_libvlc_instance_get_libvlc_instance(GtkLibvlcInstance* pLibvlcInstance, GError** error);
 
 const gchar*
 gtk_libvlc_get_libvlc_version (gint* major, gint *minor, gint *revision);

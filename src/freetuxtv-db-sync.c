@@ -172,32 +172,24 @@ dbsync_create_db (DBSync *dbsync, GError** error)
 	g_return_if_fail(error != NULL);
 	g_return_if_fail(*error == NULL);
 
-	gchar *query;
-	gchar *db_err = NULL;
-	int res;
+	const gchar* szScriptFilename;
+	szScriptFilename = FREETUXTV_DIR "/sqlite3-create-tables.sql";
+	
+	DbEvolutionInstance* pDbEvolutionInstance;	
+	pDbEvolutionInstance = db_evolution_instance_new(szScriptFilename);
 
-	// Load file containing the database creation queries
-	const gchar* filename;
-	gsize filelen;
-	filename = FREETUXTV_DIR "/sqlite3-create-tables.sql";	
+	if(pDbEvolutionInstance){
 
-	res = g_file_get_contents (filename, &query, &filelen, error);
-	if (res){		
-		res = sqlite3_exec(dbsync->db_link, query, NULL, 0, &db_err);
-		if(res != SQLITE_OK){
-			g_printerr("Sqlite3 : %s\n",
-			    sqlite3_errmsg(dbsync->db_link));
-			g_printerr("FreetuxTV : Cannot create tables\n");
-
-			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
-			    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-			    _("Error when creating the database.\n\nSQLite has returned error :\n%s."),
-			    sqlite3_errmsg(dbsync->db_link));
-			sqlite3_free(db_err);
-		}
+		pDbEvolutionInstance->get_current_db_version_func = NULL;
+		pDbEvolutionInstance->set_current_db_version_func = dbsync_set_current_db_version;
+		pDbEvolutionInstance->compare_db_version_func = NULL;
+		pDbEvolutionInstance->exec_query_func = dbsync_exec_query;
+		
+		db_evolution_instance_do_creation (pDbEvolutionInstance,
+		                                    dbsync, error);
 	}
-
-	g_free(query);	
+	
+	g_object_unref (pDbEvolutionInstance);
 }
 
 void
@@ -949,16 +941,19 @@ dbsync_set_current_db_version (gchar* szVersion, gpointer user_data,
 	int res;
 
 	// Update the database version
-	query = sqlite3_mprintf("REPLACE INTO config (id, dbversion) VALUES (1, '%q');",
-	                        szVersion);
-	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
-	sqlite3_free(query);	
-	if(res != SQLITE_OK){
-		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
-		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when updating the database version.\n\nSQLite has returned error :\n%s."),
-		    sqlite3_errmsg(dbsync->db_link));
-		sqlite3_free(db_err);
+	res = dbsync_compare_db_version(szVersion, FIRST_DB_VERSION, NULL, error);
+	if(*error == NULL && res != 0){
+		query = sqlite3_mprintf("REPLACE INTO config (id, dbversion) VALUES (1, '%q');",
+				                szVersion);
+		res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+		sqlite3_free(query);	
+		if(res != SQLITE_OK){
+			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+				_("Error when updating the database version.\n\nSQLite has returned error :\n%s."),
+				sqlite3_errmsg(dbsync->db_link));
+			sqlite3_free(db_err);
+		}
 	}
 }
 

@@ -62,6 +62,10 @@ DbEvolutionInstance*
 db_evolution_instance_new(const gchar* szScriptFilename);
 
 gboolean
+db_evolution_instance_do_creation(DbEvolutionInstance* pDbEvolutionInstance,
+                                  gpointer user_data, GError** error);
+
+gboolean
 db_evolution_instance_do_evolution(DbEvolutionInstance* pDbEvolutionInstance,
                                    gpointer user_data, GError** error);
 

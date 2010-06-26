@@ -50,11 +50,6 @@ struct _GtkLibvlcMediaPlayer
 
 	GtkLibvlcInstance* libvlc_instance;
 	
-#if LIBVLC_VERSION_MAJOR == 0 && LIBVLC_VERSION_MINOR == 8
-#else
-	libvlc_media_player_t *libvlc_mediaplayer;
-#endif
-	
 	GtkTreeStore *media_list;
 };
 
@@ -78,7 +73,7 @@ enum {
 GType gtk_libvlc_media_player_get_type (void) G_GNUC_CONST;
 
 GtkWidget*
-gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance);
+gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance, GError** error);
 
 void
 gtk_libvlc_media_player_add_media (GtkLibvlcMediaPlayer *self, GtkLibvlcMedia *media);
@@ -93,55 +88,55 @@ void
 gtk_libvlc_media_player_clear_media_list(GtkLibvlcMediaPlayer *self);
 
 void
-gtk_libvlc_media_player_play (GtkLibvlcMediaPlayer *self, gchar **options);
+gtk_libvlc_media_player_play (GtkLibvlcMediaPlayer *self, gchar **options, GError** error);
 
 void
-gtk_libvlc_media_player_play_media_at_path (GtkLibvlcMediaPlayer *self, GtkTreePath *path, gchar **options);
+gtk_libvlc_media_player_play_media_at_path (GtkLibvlcMediaPlayer *self, GtkTreePath *path, gchar **options, GError** error);
 
 void
-gtk_libvlc_media_player_play_next (GtkLibvlcMediaPlayer *self, gchar **options);
+gtk_libvlc_media_player_play_next (GtkLibvlcMediaPlayer *self, gchar **options, GError** error);
 
 void
-gtk_libvlc_media_player_pause (GtkLibvlcMediaPlayer *self);
+gtk_libvlc_media_player_pause (GtkLibvlcMediaPlayer *self, GError** error);
 
 gboolean
-gtk_libvlc_media_player_can_pause (GtkLibvlcMediaPlayer *self);
+gtk_libvlc_media_player_can_pause (GtkLibvlcMediaPlayer *self, GError** error);
 
 void
-gtk_libvlc_media_player_stop (GtkLibvlcMediaPlayer *self);
+gtk_libvlc_media_player_stop (GtkLibvlcMediaPlayer *self, GError** error);
 
 void
-gtk_libvlc_media_player_set_volume (GtkLibvlcMediaPlayer *self, gdouble volume);
+gtk_libvlc_media_player_set_volume (GtkLibvlcMediaPlayer *self, gdouble volume, GError** error);
 
 gdouble
-gtk_libvlc_media_player_get_volume (GtkLibvlcMediaPlayer *self);
+gtk_libvlc_media_player_get_volume (GtkLibvlcMediaPlayer *self, GError** error);
 
 void
-gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean fullscreen);
+gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean fullscreen, GError** error);
 
 gboolean
-gtk_libvlc_media_player_is_playing (GtkLibvlcMediaPlayer *self);
+gtk_libvlc_media_player_is_playing (GtkLibvlcMediaPlayer *self, GError** error);
 
 GtkLibvlcState
-gtk_libvlc_media_player_get_state (GtkLibvlcMediaPlayer *self);
+gtk_libvlc_media_player_get_state (GtkLibvlcMediaPlayer *self, GError** error);
 
 glong
-gtk_libvlc_media_player_get_length(GtkLibvlcMediaPlayer *self);
+gtk_libvlc_media_player_get_length(GtkLibvlcMediaPlayer *self, GError** error);
 
 glong
-gtk_libvlc_media_player_get_time(GtkLibvlcMediaPlayer *self);
+gtk_libvlc_media_player_get_time(GtkLibvlcMediaPlayer *self, GError** error);
 
 void
-gtk_libvlc_media_player_set_time(GtkLibvlcMediaPlayer *self, glong time);
+gtk_libvlc_media_player_set_time(GtkLibvlcMediaPlayer *self, glong time, GError** error);
 
 gfloat
-gtk_libvlc_media_player_get_position(GtkLibvlcMediaPlayer *self);
+gtk_libvlc_media_player_get_position(GtkLibvlcMediaPlayer *self, GError** error);
 
 void
-gtk_libvlc_media_player_set_position(GtkLibvlcMediaPlayer *self, gfloat position);
+gtk_libvlc_media_player_set_position(GtkLibvlcMediaPlayer *self, gfloat position, GError** error);
 
 gboolean
-gtk_libvlc_media_player_is_seekable (GtkLibvlcMediaPlayer *self);
+gtk_libvlc_media_player_is_seekable (GtkLibvlcMediaPlayer *self, GError** error);
 
 const gchar*
 gtk_libvlc_media_player_state_tostring (GtkLibvlcState state);
