@@ -870,8 +870,16 @@ static void
 on_windowmain_volumecontrol_value_changed (GtkRange *range, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+	
 	app->config.volume = gtk_range_get_value (range);
-	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, NULL);
+	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 static void
