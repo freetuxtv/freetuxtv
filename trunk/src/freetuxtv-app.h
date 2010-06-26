@@ -91,25 +91,25 @@ struct _FreetuxTVApp {
 typedef struct _FreetuxTVApp FreetuxTVApp;
 
 void
-freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel);
+freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** error);
 
 void
-freetuxtv_play_media (FreetuxTVApp *app, GtkLibvlcMedia* media);
+freetuxtv_play_media (FreetuxTVApp *app, GtkLibvlcMedia* media, GError** error);
 
 void
-freetuxtv_action_playpause (FreetuxTVApp *app);
+freetuxtv_action_playpause (FreetuxTVApp *app, GError** error);
 
 void
-freetuxtv_action_stop (FreetuxTVApp *app);
+freetuxtv_action_stop (FreetuxTVApp *app, GError** error);
 
 void
-freetuxtv_action_record (FreetuxTVApp *app);
+freetuxtv_action_record (FreetuxTVApp *app, GError** error);
 
 void
-freetuxtv_action_prev (FreetuxTVApp *app);
+freetuxtv_action_prev (FreetuxTVApp *app, GError** error);
 
 void
-freetuxtv_action_next (FreetuxTVApp *app);
+freetuxtv_action_next (FreetuxTVApp *app, GError** error);
 
 void
 freetuxtv_quit (FreetuxTVApp *app);

@@ -1,4 +1,5 @@
 FreetuxTV 0.5.0 (2010-)
+  - Gestion de LibVLC 1.1.0
   - Création d'une librairie libdbevolution pour gérer l'évolution de la base de donnée
   - Gestion des groupes de chaînes favorites
   - Restructuration de la base de donnée

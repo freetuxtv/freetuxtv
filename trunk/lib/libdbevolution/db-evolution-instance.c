@@ -87,6 +87,106 @@ db_evolution_instance_new(const gchar* szScriptFilename)
 }
 
 gboolean
+db_evolution_instance_do_creation(DbEvolutionInstance* pDbEvolutionInstance,
+                                  gpointer user_data, GError** error)
+{
+	g_return_val_if_fail(pDbEvolutionInstance != NULL, FALSE);
+	g_return_val_if_fail(DB_EVOLUTION_IS_INSTANCE(pDbEvolutionInstance), FALSE);
+	g_return_val_if_fail(error != NULL, FALSE);
+	g_return_val_if_fail(*error == NULL, FALSE);
+
+	g_return_val_if_fail(pDbEvolutionInstance->set_current_db_version_func != NULL, FALSE);
+	g_return_val_if_fail(pDbEvolutionInstance->exec_query_func != NULL, FALSE);
+
+	gboolean bRes = FALSE;
+
+	DbEvolutionInstancePrivate* priv;
+	priv = DB_EVOLUTION_INSTANCE_PRIVATE(pDbEvolutionInstance);
+
+	gchar* szTmpVersion = NULL;
+	gchar* szNextVersion = NULL;
+	g_print("DbEvolution : Starting database creation\n");
+
+	GIOChannel *pIOChannelIn = NULL;
+	gchar *szScriptFilename;
+	if(*error == NULL){
+		pIOChannelIn = g_io_channel_new_file(priv->szScriptFilename,
+		                                     "r", error);	
+	}
+
+	if(*error == NULL){
+		GIOStatus iostatus;
+		gchar* line;
+		gsize  linelenght;
+		GString *query;
+		gsize tagslen;
+		gboolean foundVersion;
+		gboolean installVersion;
+
+		tagslen = strlen(DBEVOLUTION_DBVERSION_TAGS);
+		
+		query = g_string_new ("");
+
+		// Parse the file, line by line, to check the database version
+		do {
+			installVersion = FALSE;
+			foundVersion = FALSE;
+			szNextVersion = NULL;
+			iostatus = g_io_channel_read_line (pIOChannelIn, &line, &linelenght,
+				                               NULL, error);
+			if(iostatus == G_IO_STATUS_NORMAL && *error == NULL){
+				// Check if we detect a new version if the file
+				if(g_ascii_strncasecmp (line, DBEVOLUTION_DBVERSION_TAGS, tagslen) == 0){
+					foundVersion = TRUE;
+					// If we have already a version, we run the update script
+					if(szTmpVersion){
+						installVersion = TRUE;
+					}
+					szNextVersion = g_strndup(line+tagslen, linelenght-tagslen-1); // -1 remove the \n
+				}else{
+					g_string_append(query, line);
+				}
+			}
+
+			if(iostatus == G_IO_STATUS_EOF && *error == NULL){
+				if(szTmpVersion){
+					installVersion = TRUE;
+				}
+			}
+
+			if(installVersion && *error == NULL){
+				if(*error == NULL){
+					g_print("DbEvolution : Installing database version %s\n", szTmpVersion);
+					// We run the script to migrate the database
+					pDbEvolutionInstance->exec_query_func(query->str, user_data, error);
+				}
+				if(*error == NULL){
+					pDbEvolutionInstance->set_current_db_version_func(szTmpVersion, user_data, error);
+				}
+						
+				g_string_erase (query, 0, -1);
+				g_free(szTmpVersion);
+				szTmpVersion = NULL;
+			}
+
+			if(foundVersion){
+				szTmpVersion = szNextVersion;
+			}
+			
+		}while(iostatus == G_IO_STATUS_NORMAL && *error == NULL);		
+
+		if(query){
+			g_string_free(query, TRUE);
+			query = NULL;
+		}	
+	if(pIOChannelIn){
+       g_io_channel_shutdown(pIOChannelIn, TRUE, error);
+	}
+	
+	return bRes;
+}
+
+gboolean
 db_evolution_instance_do_evolution(DbEvolutionInstance* pDbEvolutionInstance,
                                    gpointer user_data, GError** error)
 {
@@ -106,7 +206,7 @@ db_evolution_instance_do_evolution(DbEvolutionInstance* pDbEvolutionInstance,
 	priv = DB_EVOLUTION_INSTANCE_PRIVATE(pDbEvolutionInstance);
 
 	gchar* szInitialeVersion;
-	gchar* szCurrentVersion;
+	gchar* szCurrentVersion = NULL;
 	gchar* szTmpVersion = NULL;
 	gchar* szNextVersion = NULL;
 	g_print("DbEvolution : Starting database evolution\n");
@@ -146,7 +246,7 @@ db_evolution_instance_do_evolution(DbEvolutionInstance* pDbEvolutionInstance,
 			iostatus = g_io_channel_read_line (pIOChannelIn, &line, &linelenght,
 				                               NULL, error);
 			if(iostatus == G_IO_STATUS_NORMAL && *error == NULL){
-				// Check if we detect a new version if the file
+				// Check if we detect a new version in the file
 				if(g_ascii_strncasecmp (line, DBEVOLUTION_DBVERSION_TAGS, tagslen) == 0){
 					foundVersion = TRUE;
 					// If we have already a version, we run the update script

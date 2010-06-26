@@ -649,7 +649,7 @@ windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms, gf
 
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowmain_hboxtimebar");
-	if(gtk_libvlc_media_player_is_seekable(app->player)){
+	if(gtk_libvlc_media_player_is_seekable(app->player, NULL)){
 		gtk_widget_set_sensitive(widget, TRUE);
 	}else{
 		gtk_widget_set_sensitive(widget, FALSE);
@@ -718,24 +718,45 @@ static void
 on_windowmain_buttonprevious_clicked (GtkButton *button,
 				    gpointer user_data)
 {
+	GError* error = NULL;
+
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_prev (app);	
+	freetuxtv_action_prev (app, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 static void
 on_windowmain_buttonnext_clicked (GtkButton *button,
 				       gpointer user_data)
 {
+	GError* error = NULL;
+	
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_next (app);	
+	freetuxtv_action_next (app, &error);
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 static void
 on_windowmain_buttonstop_clicked (GtkButton *button,
 				  gpointer user_data)
 {
+	GError* error = NULL;
+	
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_stop (app);
+	freetuxtv_action_stop (app, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 static void
@@ -743,9 +764,9 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 				    gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
 	
 	GtkWidget *widget;
+	GError* error = NULL;
 	
 	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
 							"dialogrecording");
@@ -756,7 +777,12 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 
 		g_get_current_time (&(app->current.recording.time_begin));
 
-		freetuxtv_action_record (app);
+		freetuxtv_action_record (app, &error);
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
 	}
 }
 
@@ -764,8 +790,15 @@ static void
 on_windowmain_buttonplaypause_clicked (GtkButton *button,
 				       gpointer user_data)
 {
+	GError* error = NULL;
+	
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_playpause (app);
+	freetuxtv_action_playpause (app, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 static void
@@ -773,7 +806,7 @@ on_windowmain_buttonfullscreen_clicked (GtkButton *button,
 					gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	gtk_libvlc_media_player_set_fullscreen (app->player, TRUE);
+	gtk_libvlc_media_player_set_fullscreen (app->player, TRUE, NULL);
 }
 
 static void
@@ -838,7 +871,7 @@ on_windowmain_volumecontrol_value_changed (GtkRange *range, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	app->config.volume = gtk_range_get_value (range);
-	gtk_libvlc_media_player_set_volume (app->player, app->config.volume);
+	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, NULL);
 }
 
 static void
@@ -952,11 +985,11 @@ on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	//g_print("change %f\n", value); // TODO
-	if(!gtk_libvlc_media_player_is_playing(app->player)){
-		gtk_libvlc_media_player_play(app->player, NULL);
+	if(!gtk_libvlc_media_player_is_playing(app->player, NULL)){
+		gtk_libvlc_media_player_play(app->player, NULL, NULL);
 	}
 	if(value >= 0.0 && value <= 1.0){
-		gtk_libvlc_media_player_set_position(app->player, value);
+		gtk_libvlc_media_player_set_position(app->player, value, NULL);
 	}
 	return FALSE;
 }
