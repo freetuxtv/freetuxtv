@@ -233,7 +233,7 @@ load_user_configuration(FreetuxTVApp *app)
 			app->config.volume = d;
 			widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 								      "windowmain_volumecontrol");
-			//gtk_range_set_value (range, app->config.volume);
+			//gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
 			//gtk_libvlc_media_player_set_volume (app->player, app->config.volume, NULL);
 		}
 		

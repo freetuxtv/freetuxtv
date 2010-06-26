@@ -29,10 +29,11 @@
 // Define the option for each branche
 #if LIBVLC_VERSION_MAJOR >= 1
 
-#if LIBVLC_VERSION_MAJOR >= 1
 
-#elif LIBVLC_VERSION_MAJOR == 0
+#if LIBVLC_VERSION_MINOR >= 1
+// Current branche
 
+#elif LIBVLC_VERSION_MINOR == 0
 // Branche 1.0.x
 #define LIBVLC_OLD_VLCEXCEPTION
 
@@ -41,14 +42,12 @@
 #elif LIBVLC_VERSION_MAJOR == 0
 
 #if LIBVLC_VERSION_MINOR == 9
-
 // Branche 0.9.x
 #define LIBVLC_OLD_VLCEXCEPTION
 #define LIBVLC_OLD_SET_DRAWABLE
 #define LIBVLC_DONT_HAVE_ISPLAYING
 
 #elif LIBVLC_VERSION_MINOR == 8
-
 // Branche 0.8.x
 #define LIBVLC_OLD_INSTANCE
 #define LIBVLC_OLD_VLCEXCEPTION

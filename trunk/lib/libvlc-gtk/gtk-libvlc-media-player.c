@@ -216,7 +216,7 @@ gtk_libvlc_media_player_finalize (GObject *object)
 		raise_error(self, &error, &_vlcexcep);
 
 		// Stop the current media
-		libvlc_media_player_stop (self->libvlc_mediaplayer, &_vlcexcep);
+		libvlc_media_player_stop (priv->libvlc_mediaplayer, &_vlcexcep);
 		raise_error(self, &error, &_vlcexcep);
 #else
 		em = libvlc_media_player_event_manager (priv->libvlc_mediaplayer);
@@ -317,17 +317,17 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self)
 		raise_error(self, &error, &_vlcexcep);
 
 #ifdef LIBVLC_OLD_SET_DRAWABLE
-		libvlc_media_player_set_drawable (self->libvlc_mediaplayer, xid,
+		libvlc_media_player_set_drawable (priv->libvlc_mediaplayer, xid,
 		                                  &_vlcexcep);
 #else
-		libvlc_media_player_set_xwindow (self->libvlc_mediaplayer, xid,
+		libvlc_media_player_set_xwindow (priv->libvlc_mediaplayer, xid,
 		                                 &_vlcexcep);
 #endif // LIBVLC_OLD_SET_DRAWABLE
 		raise_error(self, &error, &_vlcexcep);
 
 		// Attach events on the media player
 		libvlc_event_manager_t *em;
-		em = libvlc_media_player_event_manager (self->libvlc_mediaplayer, &_vlcexcep);
+		em = libvlc_media_player_event_manager (priv->libvlc_mediaplayer, &_vlcexcep);
 		raise_error(self, &error, &_vlcexcep);
 		libvlc_event_attach (em, libvlc_MediaPlayerNothingSpecial, on_vlc_event, self, &_vlcexcep);
 		raise_error(self, &error, &_vlcexcep);
@@ -487,7 +487,7 @@ gtk_libvlc_media_player_play_media(GtkLibvlcMediaPlayer *self, GtkLibvlcMedia *m
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	libvlc_media_t *m;
 	m = libvlc_media_new (libvlc_instance, media->mrl, &_vlcexcep);
-	on_vlc_exception(self, &_vlcexcep);
+	raise_error(self, error, &_vlcexcep);
 
 	if(list_options != NULL){
 		int i=0;
@@ -498,20 +498,20 @@ gtk_libvlc_media_player_play_media(GtkLibvlcMediaPlayer *self, GtkLibvlcMedia *m
 		}
 	}	
 
-	libvlc_media_player_set_media (self->libvlc_mediaplayer, m, &_vlcexcep);
-	on_vlc_exception(self, &_vlcexcep);
+	libvlc_media_player_set_media (priv->libvlc_mediaplayer, m, &_vlcexcep);
+	raise_error(self, error, &_vlcexcep);
 	libvlc_media_release (m);
 
 	// Event on the media
 	libvlc_event_manager_t *em;
-	m = libvlc_media_player_get_media(self->libvlc_mediaplayer, &_vlcexcep);
+	m = libvlc_media_player_get_media(priv->libvlc_mediaplayer, &_vlcexcep);
 	raise_error(self, error, &_vlcexcep);
 	em = libvlc_media_event_manager (m, &_vlcexcep);
 	raise_error(self, error, &_vlcexcep);
 	libvlc_event_attach (em, libvlc_MediaSubItemAdded, on_vlc_event, self, &_vlcexcep);
 	raise_error(self, error, &_vlcexcep);
 
-	libvlc_media_player_play (self->libvlc_mediaplayer, &_vlcexcep);
+	libvlc_media_player_play (priv->libvlc_mediaplayer, &_vlcexcep);
 	raise_error(self, error, &_vlcexcep);
 #else 
 	libvlc_media_t *m;
@@ -1340,10 +1340,10 @@ gtk_libvlc_media_player_get_time(GtkLibvlcMediaPlayer *self, GError** error)
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	libvlc_media_t* media;
 	media = libvlc_media_player_get_media (priv->libvlc_mediaplayer, &_vlcexcep);
-	raise_error(self, error, NULL);
+	raise_error(self, error, &_vlcexcep);
 	if(media != NULL){
 		time = libvlc_media_player_get_time (priv->libvlc_mediaplayer, &_vlcexcep);
-		raise_error(self, error, NULL);
+		raise_error(self, error, &_vlcexcep);
 	}
 #else
 	libvlc_media_t* media;
@@ -1430,10 +1430,10 @@ gtk_libvlc_media_player_get_position(GtkLibvlcMediaPlayer *self, GError** error)
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	libvlc_media_t* media;
-	media = libvlc_media_player_get_media (self->libvlc_mediaplayer, &_vlcexcep);
+	media = libvlc_media_player_get_media (priv->libvlc_mediaplayer, &_vlcexcep);
 	raise_error(self, error, &_vlcexcep);
 	if(media != NULL){
-		pos = libvlc_media_player_get_position (self->libvlc_mediaplayer, &_vlcexcep);
+		pos = libvlc_media_player_get_position (priv->libvlc_mediaplayer, &_vlcexcep);
 		raise_error(self, error, &_vlcexcep);
 	}
 #else
