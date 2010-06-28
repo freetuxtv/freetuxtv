@@ -28,4 +28,5 @@ libvlcgtkinclude_HEADERS = \
 	gtk-libvlc-media-player.h
 
 AM_CPPFLAGS = \
+	-I$(top_srcdir)/lib/ \
 	$(LIBVLCGTK_CFLAGS)
