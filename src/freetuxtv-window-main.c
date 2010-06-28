@@ -805,8 +805,15 @@ static void
 on_windowmain_buttonfullscreen_clicked (GtkButton *button,
 					gpointer user_data)
 {
+	GError* error = NULL;
+	
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	gtk_libvlc_media_player_set_fullscreen (app->player, TRUE, NULL);
+	gtk_libvlc_media_player_set_fullscreen (app->player, TRUE, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 static void
