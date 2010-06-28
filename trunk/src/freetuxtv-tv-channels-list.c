@@ -63,10 +63,10 @@ tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 
 	// Update the status bar to the the process
 	gchar *text;
-	text = g_strdup_printf(_("Synchronizing the logo list"));
+	text = g_strdup_printf(_("Synchronizing the tv channels list"));
 	windowmain_statusbar_push (app, "UpdateMsg", text);
 	g_free(text);
-	g_print("FreetuxTV : Synchronizing the logo list\n");
+	g_print("FreetuxTV : Synchronizing the tv channels list\n");
 
 	// Delete the TV channel in the database
 	dbsync_delete_tvchannels (dbsync, error);
