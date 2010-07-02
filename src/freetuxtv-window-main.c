@@ -450,7 +450,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 {
 	GtkWidget *widget;
 	gboolean sensitive;
-	GtkWidget *image;
+	GtkWidget *image = NULL;
 	// Button previous
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "windowmain_buttonprevious");
@@ -518,7 +518,9 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 		break;
 	}
 	gtk_widget_set_sensitive(widget, sensitive);
-	gtk_button_set_image (GTK_BUTTON(widget), image);
+	if(image){
+		gtk_button_set_image (GTK_BUTTON(widget), image);
+	}
 	
 	// Button stop
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
