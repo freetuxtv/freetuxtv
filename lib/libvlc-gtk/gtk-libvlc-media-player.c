@@ -587,7 +587,7 @@ idle_play_next_function(gpointer ptrdata){
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
 
-	GError* error;
+	GError* error = NULL;
 
 	gtk_libvlc_media_player_play_next (self, priv->current_options, &error);
 
