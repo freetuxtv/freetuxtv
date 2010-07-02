@@ -17,6 +17,9 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef _GTK_LIBVLC_PRIVATE_H_
+#define _GTK_LIBVLC_PRIVATE_H_
+
 #include "gtk-libvlc-include.h"
 
 // List of options avaliable for each branche
@@ -37,7 +40,7 @@
 // Branche 1.0.x
 #define LIBVLC_OLD_VLCEXCEPTION
 
-#endif
+#endif // LIBVLC_VERSION_MINOR >= 1
 
 #elif LIBVLC_VERSION_MAJOR == 0
 
@@ -57,11 +60,16 @@
 // LIBVLC must be at least 0.8.6
 #error "LIBVLC version is not supported"
 
-#endif
-#endif
+#endif // LIBVLC_VERSION_MINOR == 9
+
+#endif // LIBVLC_VERSION_MAJOR >= 1
 
 #ifdef LIBVLC_OLD_INSTANCE
-#include <vlc/libvlc.h> // LibVLC header for 0.8.x
+// LibVLC header for 0.8.x
+#include <vlc/libvlc.h>
 #else
-#include <vlc/vlc.h> // LibVLC header for >= 0.9.x
+// LibVLC header for >= 0.9.x
+#include <vlc/vlc.h>
 #endif
+
+#endif // _GTK_LIBVLC_PRIVATE_H_
