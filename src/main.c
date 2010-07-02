@@ -318,13 +318,13 @@ increase_progress_timeout (FreetuxTVApp *app)
 		}
 	}
 
-	GtkLibvlcState state = gtk_libvlc_media_player_get_state(app->player, NULL);
+	GtkLibvlcState state = gtk_libvlc_media_player_get_state(app->player, &error);
 	switch(state){
 	case GTK_LIBVLC_STATE_PAUSED :
 	case GTK_LIBVLC_STATE_PLAYING :
-		windowmain_timebar_update (app, gtk_libvlc_media_player_get_time(app->player, NULL), 
-					   gtk_libvlc_media_player_get_length(app->player, NULL),
-					   gtk_libvlc_media_player_get_position(app->player, NULL));
+		windowmain_timebar_update (app, gtk_libvlc_media_player_get_time(app->player, &error), 
+					   gtk_libvlc_media_player_get_length(app->player, &error),
+					   gtk_libvlc_media_player_get_position(app->player, &error));
 		break;
 	default:
 		break;	
@@ -710,7 +710,7 @@ freetuxtv_action_record (FreetuxTVApp *app, GError** error)
 	}
 	gchar *text;
 
-	if(gtk_libvlc_media_player_is_playing(app->player, NULL)
+	if(gtk_libvlc_media_player_is_playing(app->player, error)
 	   && !app->current.is_recording){
 		
 		FreetuxTVChannelInfos* channel_infos;

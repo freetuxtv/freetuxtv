@@ -999,12 +999,20 @@ on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
 			    gdouble value, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+	
 	//g_print("change %f\n", value); // TODO
-	if(!gtk_libvlc_media_player_is_playing(app->player, NULL)){
-		gtk_libvlc_media_player_play(app->player, NULL, NULL);
+	if(!gtk_libvlc_media_player_is_playing(app->player, &error)){
+		gtk_libvlc_media_player_play(app->player, NULL, &error);
 	}
 	if(value >= 0.0 && value <= 1.0){
-		gtk_libvlc_media_player_set_position(app->player, value, NULL);
+		gtk_libvlc_media_player_set_position(app->player, value, &error);
+	}
+	
+	if(error != NULL){
+		g_error_free (error);
+		error = NULL;
 	}
 	return FALSE;
 }

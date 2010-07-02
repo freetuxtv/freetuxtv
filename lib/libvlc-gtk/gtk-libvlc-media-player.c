@@ -1273,7 +1273,8 @@ gtk_libvlc_media_player_get_length(GtkLibvlcMediaPlayer *self, GError** error)
 
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
 	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = self->libvlc_instance->libvlc_instance;
+	libvlc_instance = (libvlc_instance_t *)
+		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
 	g_return_if_fail(libvlc_instance != NULL);
 
 	libvlc_input_t *input_t;
@@ -1325,7 +1326,8 @@ gtk_libvlc_media_player_get_time(GtkLibvlcMediaPlayer *self, GError** error)
 
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
 	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = self->libvlc_instance->libvlc_instance;
+	libvlc_instance = (libvlc_instance_t *)
+		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
 	g_return_if_fail(libvlc_instance != NULL);
 
 	libvlc_input_t *input_t;
@@ -1375,7 +1377,8 @@ gtk_libvlc_media_player_set_time(GtkLibvlcMediaPlayer *self, glong time, GError*
 
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
 	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = self->libvlc_instance->libvlc_instance;
+	libvlc_instance = (libvlc_instance_t *)
+		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
 	g_return_if_fail(libvlc_instance != NULL);
 
 	libvlc_input_t *input_t;
@@ -1416,7 +1419,8 @@ gtk_libvlc_media_player_get_position(GtkLibvlcMediaPlayer *self, GError** error)
 
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
 	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = self->libvlc_instance->libvlc_instance;
+	libvlc_instance = (libvlc_instance_t *)
+		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
 	g_return_if_fail(libvlc_instance != NULL);
 
 	libvlc_input_t *input_t;
@@ -1469,7 +1473,8 @@ gtk_libvlc_media_player_set_position(GtkLibvlcMediaPlayer *self, gfloat position
 
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
 	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = self->libvlc_instance->libvlc_instance;
+	libvlc_instance = (libvlc_instance_t *)
+		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
 	g_return_if_fail(libvlc_instance != NULL);
 
 	libvlc_input_t *input_t;
