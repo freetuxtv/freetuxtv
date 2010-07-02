@@ -155,9 +155,9 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GError** error)
 
 #ifdef LIBVLC_OLD_INSTANCE
 	if(vlc_args == NULL){
-		self->libvlc_instance = libvlc_new(0, NULL, &_vlcexcep);
+		priv->libvlc_instance = libvlc_new(0, NULL, &_vlcexcep);
 	}else{
-		self->libvlc_instance = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), (gchar**)vlc_args, &_vlcexcep);
+		priv->libvlc_instance = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), (gchar**)vlc_args, &_vlcexcep);
 	}	
 #else
 #ifdef LIBVLC_OLD_VLCEXCEPTION
