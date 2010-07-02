@@ -67,13 +67,13 @@ get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_pre
 
 	gchar *dir;
 	gchar *mux;
-	gchar *transcode_options;
+	gchar *transcode_options = NULL;
 	gchar *transcode;
 	
 	GtkWidget* widget;
 
 	gint transcoding_mode;
-	gchar *transcoding_format;
+	gchar *transcoding_format = NULL;
 
 
 	GtkTreeModel *model;
@@ -130,9 +130,16 @@ get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_pre
 		gtk_tree_model_get (model, &iter, 1, &transcode_options, 2, &mux, -1);
 		
 		transcode = g_strdup_printf("transcode{%s}:", transcode_options);
-		g_free(transcode_options);
-		g_free(transcoding_format);
 		break;
+	}
+	
+	if(transcode_options) {
+		g_free(transcode_options);
+		transcode_options = NULL;
+	}
+	if(transcoding_format) {
+		g_free(transcoding_format);
+		transcoding_format = NULL;
 	}
 
 	if(out_filename != NULL){
