@@ -76,6 +76,7 @@ raise_error(GtkLibvlcMediaPlayer *self, GError** error, gpointer user_data)
 			                      GTK_LIBVLC_ERROR_LIBVLC,
 			                      "%s", szErrMsg);
 		}
+		libvlc_clearerr();
 	}
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
@@ -281,17 +282,15 @@ gtk_libvlc_media_player_class_init (GtkLibvlcMediaPlayerClass *klass)
 }
 
 static void
-gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self)
+gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self, GError **error)
 {
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
 	g_return_if_fail(self->libvlc_instance != NULL);
-	
-	GError *error = NULL;
 
 	libvlc_instance_t *libvlc_instance;
 	libvlc_instance = (libvlc_instance_t *)
-		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, &error);
+		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
 	g_return_if_fail(libvlc_instance != NULL);	
 
 
@@ -303,18 +302,19 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self)
 	libvlc_exception_init (&_vlcexcep);
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
-	if(priv->initialized == FALSE){
+	if(priv->initialized == FALSE &&
+	   gtk_widget_get_realized(GTK_WIDGET(self))){
 
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
 		XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
 		libvlc_video_set_parent(libvlc_instance, xid, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 #else
 		XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 		priv->libvlc_mediaplayer = libvlc_media_player_new (libvlc_instance, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 
 #ifdef LIBVLC_OLD_SET_DRAWABLE
 		libvlc_media_player_set_drawable (priv->libvlc_mediaplayer, xid,
@@ -323,58 +323,58 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self)
 		libvlc_media_player_set_xwindow (priv->libvlc_mediaplayer, xid,
 		                                 &_vlcexcep);
 #endif // LIBVLC_OLD_SET_DRAWABLE
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 
 		// Attach events on the media player
 		libvlc_event_manager_t *em;
 		em = libvlc_media_player_event_manager (priv->libvlc_mediaplayer, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 		libvlc_event_attach (em, libvlc_MediaPlayerNothingSpecial, on_vlc_event, self, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 		libvlc_event_attach (em, libvlc_MediaPlayerOpening, on_vlc_event, self, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 		libvlc_event_attach (em, libvlc_MediaPlayerBuffering, on_vlc_event, self, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 		libvlc_event_attach (em, libvlc_MediaPlayerPlaying, on_vlc_event, self, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 		libvlc_event_attach (em, libvlc_MediaPlayerPaused, on_vlc_event, self, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 		libvlc_event_attach (em, libvlc_MediaPlayerStopped, on_vlc_event, self, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 		libvlc_event_attach (em, libvlc_MediaPlayerEndReached, on_vlc_event, self, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 		libvlc_event_attach (em, libvlc_MediaPlayerEncounteredError, on_vlc_event, self, &_vlcexcep);
-		raise_error(self, &error, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
 		//libvlc_event_attach (em, libvlc_MediaPlayerPositionChanged, on_vlc_event, self, &_vlcexcep);
 		//raise_error(self, error, &_vlcexcep);
 
 #else
 		priv->libvlc_mediaplayer = libvlc_media_player_new (libvlc_instance);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 
 		libvlc_media_player_set_xwindow (priv->libvlc_mediaplayer, xid);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 
 		// Attach events on the media player
 		libvlc_event_manager_t *em;
 		em = libvlc_media_player_event_manager (priv->libvlc_mediaplayer);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 		libvlc_event_attach (em, libvlc_MediaPlayerNothingSpecial, on_vlc_event, self);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 		libvlc_event_attach (em, libvlc_MediaPlayerOpening, on_vlc_event, self);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 		libvlc_event_attach (em, libvlc_MediaPlayerBuffering, on_vlc_event, self);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 		libvlc_event_attach (em, libvlc_MediaPlayerPlaying, on_vlc_event, self);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 		libvlc_event_attach (em, libvlc_MediaPlayerPaused, on_vlc_event, self);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 		libvlc_event_attach (em, libvlc_MediaPlayerStopped, on_vlc_event, self);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 		libvlc_event_attach (em, libvlc_MediaPlayerEndReached, on_vlc_event, self);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 		libvlc_event_attach (em, libvlc_MediaPlayerEncounteredError, on_vlc_event, self);
-		raise_error(self, &error, NULL);
+		raise_error(self, error, NULL);
 		//libvlc_event_attach (em, libvlc_MediaPlayerPositionChanged, on_vlc_event, self, &_vlcexcep);
 		//raise_error(self, error, &_vlcexcep);
 
@@ -383,11 +383,6 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self)
 #endif // LIBVLC_DEPRECATED_PLAYLIST
 
 		priv->initialized = TRUE;	
-	}
-
-	if(error != NULL){
-		g_error_free (error);
-		error = NULL;
 	}
 }
 
@@ -738,22 +733,38 @@ gtk_libvlc_media_player_play (GtkLibvlcMediaPlayer *self, gchar **options, GErro
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
 	g_return_if_fail(self->libvlc_instance != NULL);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
 
 	// Create the media player if not initialized
-	gtk_libvlc_media_player_initialize (self);
+	gtk_libvlc_media_player_initialize (self, &pError);
 	g_return_if_fail(priv->initialized == TRUE);
 
-	// Play the current media or the first if no current media
-	GtkTreePath *path = priv->current_media;
-	if(path == NULL){
-		path = gtk_tree_path_new_first();
-		gtk_libvlc_media_player_set_current_path(self, path);
-		gtk_tree_path_free(path);
+	if(pError == NULL){
+		// Play the current media or the first if no current media
+		GtkTreePath *path = priv->current_media;
+		if(path == NULL){
+			path = gtk_tree_path_new_first();
+			gtk_libvlc_media_player_set_current_path(self, path);
+			gtk_tree_path_free(path);
+		}
+		gtk_libvlc_media_player_play_media_at_path(self, priv->current_media, options, &pError);
 	}
-	gtk_libvlc_media_player_play_media_at_path(self, priv->current_media, options, error);
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
 }
 
 void
@@ -763,29 +774,45 @@ gtk_libvlc_media_player_play_media_at_path (GtkLibvlcMediaPlayer *self, GtkTreeP
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
 	g_return_if_fail(self->libvlc_instance != NULL);
 	g_return_if_fail(path != NULL);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
 
 	// Create the media player if not initialized
-	gtk_libvlc_media_player_initialize (self);
+	gtk_libvlc_media_player_initialize (self, &pError);
 	g_return_if_fail(priv->initialized == TRUE);
 
-	gtk_libvlc_media_player_set_current_path(self, path);
+	if(pError == NULL){
+		gtk_libvlc_media_player_set_current_path(self, path);
 
-	GtkLibvlcMedia *media;
-	media = gtk_libvlc_media_player_get_media_from_path (self, priv->current_media);
+		GtkLibvlcMedia *media;
+		media = gtk_libvlc_media_player_get_media_from_path (self, priv->current_media);
 
-	GtkTreeIter iter;
-	g_return_if_fail(gtk_tree_model_get_iter (GTK_TREE_MODEL(self->media_list), &iter, priv->current_media) == TRUE);
-	if(gtk_tree_model_iter_has_child(GTK_TREE_MODEL(self->media_list), &iter)){
-		priv->is_media_parsed = TRUE;
-	}else{
-		priv->is_media_parsed = FALSE;
+		GtkTreeIter iter;
+		g_return_if_fail(gtk_tree_model_get_iter (GTK_TREE_MODEL(self->media_list), &iter, priv->current_media) == TRUE);
+		if(gtk_tree_model_iter_has_child(GTK_TREE_MODEL(self->media_list), &iter)){
+			priv->is_media_parsed = TRUE;
+		}else{
+			priv->is_media_parsed = FALSE;
+		}
+
+		// Play the media
+		gtk_libvlc_media_player_play_media (self, media, options, &pError);
 	}
 
-	// Play the media
-	gtk_libvlc_media_player_play_media (self, media, options, error);
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
 }
 
 void
@@ -794,56 +821,72 @@ gtk_libvlc_media_player_play_next (GtkLibvlcMediaPlayer *self, gchar **options, 
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
 	g_return_if_fail(self->libvlc_instance != NULL);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
 
 	// Create the media player if not initialized
-	gtk_libvlc_media_player_initialize (self);
+	gtk_libvlc_media_player_initialize (self, &pError);
 	g_return_if_fail(priv->initialized == TRUE);
 
-	GtkTreePath* path = NULL;
-	if(priv->current_media != NULL){
+	if(pError == NULL){
+		GtkTreePath* path = NULL;
+		if(priv->current_media != NULL){
 
-		GtkTreeIter iter1;
-		GtkTreeIter iter2;
-		g_return_if_fail(gtk_tree_model_get_iter (GTK_TREE_MODEL(self->media_list), &iter1, priv->current_media) == TRUE);
-		if(gtk_tree_model_iter_has_child(GTK_TREE_MODEL(self->media_list), &iter1)){
-			gtk_tree_model_iter_children(GTK_TREE_MODEL(self->media_list), &iter2, &iter1);
-			path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter2);
-		}else{
-			if(gtk_tree_model_iter_next (GTK_TREE_MODEL(self->media_list), &iter1)){
-				path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter1);
+			GtkTreeIter iter1;
+			GtkTreeIter iter2;
+			g_return_if_fail(gtk_tree_model_get_iter (GTK_TREE_MODEL(self->media_list), &iter1, priv->current_media) == TRUE);
+			if(gtk_tree_model_iter_has_child(GTK_TREE_MODEL(self->media_list), &iter1)){
+				gtk_tree_model_iter_children(GTK_TREE_MODEL(self->media_list), &iter2, &iter1);
+				path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter2);
 			}else{
-				gtk_tree_model_get_iter (GTK_TREE_MODEL(self->media_list), &iter1, priv->current_media);
-				if(gtk_tree_model_iter_parent (GTK_TREE_MODEL(self->media_list), &iter2, &iter1)){
-					if(gtk_tree_model_iter_next (GTK_TREE_MODEL(self->media_list), &iter2)){
-						path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter2);
+				if(gtk_tree_model_iter_next (GTK_TREE_MODEL(self->media_list), &iter1)){
+					path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter1);
+				}else{
+					gtk_tree_model_get_iter (GTK_TREE_MODEL(self->media_list), &iter1, priv->current_media);
+					if(gtk_tree_model_iter_parent (GTK_TREE_MODEL(self->media_list), &iter2, &iter1)){
+						if(gtk_tree_model_iter_next (GTK_TREE_MODEL(self->media_list), &iter2)){
+							path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter2);
+						}else{
+							if(priv->loop){
+								gtk_tree_model_get_iter_first(GTK_TREE_MODEL(self->media_list), &iter1);
+								path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter1);
+							}
+						}
 					}else{
 						if(priv->loop){
 							gtk_tree_model_get_iter_first(GTK_TREE_MODEL(self->media_list), &iter1);
 							path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter1);
 						}
 					}
-				}else{
-					if(priv->loop){
-						gtk_tree_model_get_iter_first(GTK_TREE_MODEL(self->media_list), &iter1);
-						path = gtk_tree_model_get_path(GTK_TREE_MODEL(self->media_list), &iter1);
-					}
 				}
 			}
-		}
 
-		// Play the next media
-		if(path != NULL){
-			gtk_libvlc_media_player_play_media_at_path(self, path, options, error);
+			// Play the next media
+			if(path != NULL){
+				gtk_libvlc_media_player_play_media_at_path(self, path, options, &pError);
+			}
+		}else{
+			// Play the first media
+			if(priv->loop){
+				gtk_libvlc_media_player_play(self, options, &pError);
+			}
 		}
-	}else{
-		// Play the first media
-		if(priv->loop){
-			gtk_libvlc_media_player_play(self, options, error);
+	}
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
 		}
-	}	
+	}
 }
 
 void
@@ -851,37 +894,53 @@ gtk_libvlc_media_player_pause (GtkLibvlcMediaPlayer *self, GError **error)
 {
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+	g_return_if_fail(self->libvlc_instance != NULL);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
+
+	// Create the media player if not initialized
+	gtk_libvlc_media_player_initialize (self, &pError);
+	g_return_if_fail(priv->initialized == TRUE);
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
-	// Create the media player if not initialized
-	gtk_libvlc_media_player_initialize (self);
-	g_return_if_fail(priv->initialized == TRUE);
-
+	if(pError == NULL){
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
-	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = (libvlc_instance_t *)
-		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
-	g_return_if_fail(libvlc_instance != NULL);
-	
-	libvlc_playlist_pause (libvlc_instance, &_vlcexcep);
-	raise_error(self, error, &_vlcexcep);
+		libvlc_instance_t *libvlc_instance;
+		libvlc_instance = (libvlc_instance_t *)
+			gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, &pError);
+		g_return_if_fail(libvlc_instance != NULL);
+
+		libvlc_playlist_pause (libvlc_instance, &_vlcexcep);
+		raise_error(self, &pError, &_vlcexcep);
 #else
 #ifdef LIBVLC_OLD_VLCEXCEPTION
-	libvlc_media_player_pause (priv->libvlc_mediaplayer, &_vlcexcep);
-	raise_error(self, error, &_vlcexcep);
+		libvlc_media_player_pause (priv->libvlc_mediaplayer, &_vlcexcep);
+		raise_error(self, &pError, &_vlcexcep);
 #else
-	libvlc_media_player_pause (priv->libvlc_mediaplayer);
-	raise_error(self, error, NULL);
+		libvlc_media_player_pause (priv->libvlc_mediaplayer);
+		raise_error(self, &pError, NULL);
 #endif // LIBVLC_OLD_VLCEXCEPTION
 #endif // LIBVLC_DEPRECATED_PLAYLIST
+	}
 
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
 }
 
 gboolean
@@ -889,35 +948,53 @@ gtk_libvlc_media_player_can_pause (GtkLibvlcMediaPlayer *self, GError** error)
 {
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+	g_return_if_fail(self->libvlc_instance != NULL);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
+
+	// Create the media player if not initialized
+	gtk_libvlc_media_player_initialize (self, &pError);
+	g_return_if_fail(priv->initialized == TRUE);
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
-	// Create the media player if not initialized
-	gtk_libvlc_media_player_initialize (self);
-	g_return_if_fail(priv->initialized == TRUE);
-
 	gboolean ret = FALSE;
 
+	if(pError == NULL){
+
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
-	ret = TRUE;
+		ret = TRUE;
 #else
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
-	ret = libvlc_media_player_can_pause (priv->libvlc_mediaplayer, &_vlcexcep);
-	raise_error(self, error, &_vlcexcep);
+		ret = libvlc_media_player_can_pause (priv->libvlc_mediaplayer, &_vlcexcep);
+		raise_error(self, &pError, &_vlcexcep);
 #else
-	ret = libvlc_media_player_can_pause (priv->libvlc_mediaplayer);
-	raise_error(self, error, NULL);
+		ret = libvlc_media_player_can_pause (priv->libvlc_mediaplayer);
+		raise_error(self, &pError, NULL);
 
 #endif // LIBVLC_OLD_VLCEXCEPTION	
 
 #endif // LIBVLC_DEPRECATED_PLAYLIST
+	}
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
 
 	return ret;
 
@@ -928,42 +1005,59 @@ gtk_libvlc_media_player_stop (GtkLibvlcMediaPlayer *self, GError** error)
 {
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+	g_return_if_fail(self->libvlc_instance != NULL);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
+
+	// Create the media player if not initialized
+	gtk_libvlc_media_player_initialize (self, &pError);
+	g_return_if_fail(priv->initialized == TRUE);
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
-	// Create the media player if not initialized
-	gtk_libvlc_media_player_initialize (self);
-	g_return_if_fail(priv->initialized == TRUE);
-
-	// Stop the current playing
+	if(pError == NULL){
+		// Stop the current playing
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
-	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = (libvlc_instance_t *)
-		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
-	g_return_if_fail(libvlc_instance != NULL);
+		libvlc_instance_t *libvlc_instance;
+		libvlc_instance = (libvlc_instance_t *)
+			gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, &pError);
+		g_return_if_fail(libvlc_instance != NULL);
 
-	if (libvlc_playlist_isplaying (libvlc_instance, &_vlcexcep)) {
-		raise_error(self, error, &_vlcexcep);
-		libvlc_playlist_stop (libvlc_instance, &_vlcexcep);
-		raise_error(self, error, &_vlcexcep);
-	}
+		if (libvlc_playlist_isplaying (libvlc_instance, &_vlcexcep)) {
+			raise_error(self, &pError, &_vlcexcep);
+			libvlc_playlist_stop (libvlc_instance, &_vlcexcep);
+			raise_error(self, &pError, &_vlcexcep);
+		}
 #else
-	if(priv->libvlc_mediaplayer != NULL){
+		if(priv->libvlc_mediaplayer != NULL){
 #ifdef LIBVLC_OLD_VLCEXCEPTION
-		libvlc_media_player_stop (priv->libvlc_mediaplayer, &_vlcexcep);
-		raise_error(self, error, &_vlcexcep);
+			libvlc_media_player_stop (priv->libvlc_mediaplayer, &_vlcexcep);
+			raise_error(self, &pError, &_vlcexcep);
 #else
-		libvlc_media_player_stop (priv->libvlc_mediaplayer);
-		raise_error(self, error, NULL);
+			libvlc_media_player_stop (priv->libvlc_mediaplayer);
+			raise_error(self, &pError, NULL);
 #endif // LIBVLC_OLD_VLCEXCEPTION
-	}
+		}
 #endif // LIBVLC_DEPRECATED_PLAYLIST
+	}
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
 }
 
 void
@@ -973,58 +1067,99 @@ gtk_libvlc_media_player_set_volume (GtkLibvlcMediaPlayer *self, gdouble volume, 
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
 	g_return_if_fail(volume >= 0 && volume <= LIBVLC_MAX_VOLUME_POWER);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
 
+	// Create the media player if not initialized
+	gtk_libvlc_media_player_initialize (self, &pError);
+	g_return_if_fail(priv->initialized == TRUE);
+
+	if(pError == NULL){
+
 #ifdef LIBVLC_OLD_VLCEXCEPTION
-	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = (libvlc_instance_t *)
-		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
-	g_return_if_fail(libvlc_instance != NULL);
+		libvlc_instance_t *libvlc_instance;
+		libvlc_instance = (libvlc_instance_t *)
+			gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, &pError);
+		g_return_if_fail(libvlc_instance != NULL);
 
-	libvlc_exception_t _vlcexcep;
-	libvlc_exception_init (&_vlcexcep);
+		libvlc_exception_t _vlcexcep;
+		libvlc_exception_init (&_vlcexcep);
 
-	libvlc_audio_set_volume (libvlc_instance, 
-	                         (gint)(volume*100), &_vlcexcep);    
-	raise_error(self, error, &_vlcexcep);
+		libvlc_audio_set_volume (libvlc_instance, 
+		                         (gint)(volume*100), &_vlcexcep);    
+		raise_error(self, error, &_vlcexcep);
 #else
-	libvlc_audio_set_volume (priv->libvlc_mediaplayer, 
-	                         (gint)(volume*100));    
-	raise_error(self, error, NULL);
+		libvlc_audio_set_volume (priv->libvlc_mediaplayer, 
+		                         (gint)(volume*100));    
+		raise_error(self, error, NULL);
 
 #endif // LIBVLC_OLD_VLCEXCEPTION
+	}
 
-
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
+	
 }
 
 gdouble
 gtk_libvlc_media_player_get_volume (GtkLibvlcMediaPlayer *self, GError** error)
 {
-	g_return_if_fail(self != NULL);
-	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+	g_return_val_if_fail(self != NULL, 0.0);
+	g_return_val_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self), 0.0);
+	g_return_val_if_fail(self->libvlc_instance != NULL, 0.0);
+	if(error != NULL){
+		g_return_val_if_fail(*error == NULL, 0.0);
+	}
+
+	GError* pError = NULL;
+	gint volume = 0.0;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
 
+	// Create the media player if not initialized
+	gtk_libvlc_media_player_initialize (self, &pError);
+	g_return_val_if_fail(priv->initialized == TRUE, 0.0);
+
+	if(pError == NULL){
 #ifdef LIBVLC_OLD_VLCEXCEPTION
-	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = (libvlc_instance_t *)
-		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
-	g_return_if_fail(libvlc_instance != NULL);
+		libvlc_instance_t *libvlc_instance;
+		libvlc_instance = (libvlc_instance_t *)
+			gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, &pError);
+		g_return_val_if_fail(libvlc_instance != NULL, 0.0);
 
-	libvlc_exception_t _vlcexcep;
-	libvlc_exception_init (&_vlcexcep);
+		libvlc_exception_t _vlcexcep;
+		libvlc_exception_init (&_vlcexcep);
 
-	gint volume;
-	volume = libvlc_audio_get_volume (libvlc_instance, &_vlcexcep);
-	raise_error(self, error, &_vlcexcep);
+		volume = libvlc_audio_get_volume (libvlc_instance, &_vlcexcep);
+		raise_error(self, &pError, &_vlcexcep);
 #else
-	gint volume;
-	volume = libvlc_audio_get_volume (priv->libvlc_mediaplayer);
-	raise_error(self, error, NULL);
+		gint volume;
+		volume = libvlc_audio_get_volume (priv->libvlc_mediaplayer);
+		raise_error(self, &pError, NULL);
 #endif // LIBVLC_OLD_VLCEXCEPTION
+	}
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
 
 	return (gdouble)volume/100;
 }
@@ -1034,50 +1169,68 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean ful
 {
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+	g_return_if_fail(self->libvlc_instance != NULL);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
 
-#ifdef LIBVLC_OLD_VLCEXCEPTION
-	libvlc_exception_t _vlcexcep;
-	libvlc_exception_init (&_vlcexcep);
-#endif // LIBVLC_OLD_VLCEXCEPTION
+	GError* pError = NULL;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
 
-	// Create the media player if not initialized
-	gtk_libvlc_media_player_initialize (self);
-	g_return_if_fail(priv->initialized == TRUE);
+	if(pError == NULL){
+#ifdef LIBVLC_OLD_VLCEXCEPTION
+		libvlc_exception_t _vlcexcep;
+		libvlc_exception_init (&_vlcexcep);
+#endif // LIBVLC_OLD_VLCEXCEPTION
+
+		// Create the media player if not initialized
+		gtk_libvlc_media_player_initialize (self, &pError);
+		g_return_if_fail(priv->initialized == TRUE);
 
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
-	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = (libvlc_instance_t *)
-		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
-	g_return_if_fail(libvlc_instance != NULL);
+		libvlc_instance_t *libvlc_instance;
+		libvlc_instance = (libvlc_instance_t *)
+			gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, &pError);
+		g_return_if_fail(libvlc_instance != NULL);
 
-	libvlc_input_t *input_t;
-	if (libvlc_playlist_isplaying (libvlc_instance, &_vlcexcep)) {
-		input_t = libvlc_playlist_get_input(libvlc_instance,
-		                                    &_vlcexcep);
-		raise_error(self, error, &_vlcexcep);
-		libvlc_set_fullscreen(input_t, fullscreen, &_vlcexcep);
-		raise_error(self, error, &_vlcexcep);
-		libvlc_input_free(input_t);
-	}
+		libvlc_input_t *input_t;
+		if (libvlc_playlist_isplaying (libvlc_instance, &_vlcexcep)) {
+			input_t = libvlc_playlist_get_input(libvlc_instance,
+			                                    &_vlcexcep);
+			raise_error(self, &pError, &_vlcexcep);
+			libvlc_set_fullscreen(input_t, fullscreen, &_vlcexcep);
+			raise_error(self, &pError, &_vlcexcep);
+			libvlc_input_free(input_t);
+		}
 #else
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
-	if(priv->libvlc_mediaplayer != NULL){
-		libvlc_set_fullscreen (priv->libvlc_mediaplayer, fullscreen, &_vlcexcep);
-		raise_error(self, error, &_vlcexcep);
-	}
+		if(priv->libvlc_mediaplayer != NULL){
+			libvlc_set_fullscreen (priv->libvlc_mediaplayer, fullscreen, &_vlcexcep);
+			raise_error(self, &pError, &_vlcexcep);
+		}
 #else
-	if(priv->libvlc_mediaplayer != NULL){
-		libvlc_set_fullscreen (priv->libvlc_mediaplayer, fullscreen);
-		raise_error(self, error, NULL);
-	}
+		if(priv->libvlc_mediaplayer != NULL){
+			libvlc_set_fullscreen (priv->libvlc_mediaplayer, fullscreen);
+			raise_error(self, &pError, NULL);
+		}
 
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
 #endif // LIBVLC_DEPRECATED_PLAYLIST
+	}
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
+	
 }
 
 gboolean
@@ -1085,10 +1238,18 @@ gtk_libvlc_media_player_is_playing (GtkLibvlcMediaPlayer *self, GError** error)
 {
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+	g_return_if_fail(self->libvlc_instance != NULL);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
 
+	gboolean bRes = FALSE; 
+	
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
@@ -1096,33 +1257,46 @@ gtk_libvlc_media_player_is_playing (GtkLibvlcMediaPlayer *self, GError** error)
 
 	int res;
 
+	if(pError == NULL){
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
-	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = (libvlc_instance_t *)
-		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
-	g_return_if_fail(libvlc_instance != NULL);
+		libvlc_instance_t *libvlc_instance;
+		libvlc_instance = (libvlc_instance_t *)
+			gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, &pError);
+		g_return_if_fail(libvlc_instance != NULL);
 
-	res = libvlc_playlist_isplaying(libvlc_instance, &_vlcexcep);
-	raise_error(self, error, &_vlcexcep);
-	return (res == 1);
+		res = libvlc_playlist_isplaying(libvlc_instance, &_vlcexcep);
+		raise_error(self, &pError, &_vlcexcep);
+		bRes = (res == 1 ? TRUE : FALSE);
 #else
 #ifdef LIBVLC_DONT_HAVE_ISPLAYING
-	return (gtk_libvlc_media_player_get_state(self)==GTK_LIBVLC_STATE_PLAYING);
+		bRes = (gtk_libvlc_media_player_get_state(self, &pError)==GTK_LIBVLC_STATE_PLAYING ? TRUE : FALSE);
 #else
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
-	res = libvlc_media_player_is_playing (priv->libvlc_mediaplayer, &_vlcexcep);
-	raise_error(self, error, &_vlcexcep);
-	return (res == 1);
+		res = libvlc_media_player_is_playing (priv->libvlc_mediaplayer, &_vlcexcep);
+		raise_error(self, &pError, &_vlcexcep);
+		bRes = (res == 1 ? TRUE : FALSE);
 #else
-	res = libvlc_media_player_is_playing (priv->libvlc_mediaplayer);
-	raise_error(self, error, NULL);
-	return (res == 1);
+		res = libvlc_media_player_is_playing (priv->libvlc_mediaplayer);
+		raise_error(self, &pError, NULL);
+		bRes = (res == 1 ? TRUE : FALSE);
 #endif
 
 #endif // LIBVLC_DONT_HAVE_ISPLAYING
 
 #endif // LIBVLC_DEPRECATED_PLAYLIST
+	}
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
+
+	return bRes;
 }
 
 GtkLibvlcState
@@ -1130,104 +1304,124 @@ gtk_libvlc_media_player_get_state (GtkLibvlcMediaPlayer *self, GError** error)
 {
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+	g_return_if_fail(self->libvlc_instance != NULL);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
 
 	// Create the media player if not initialized
-	gtk_libvlc_media_player_initialize (self);
+	gtk_libvlc_media_player_initialize (self, &pError);
 	g_return_if_fail(priv->initialized == TRUE);
-
-#ifdef LIBVLC_OLD_VLCEXCEPTION
-	libvlc_exception_t _vlcexcep;
-	libvlc_exception_init (&_vlcexcep);
-#endif // LIBVLC_OLD_VLCEXCEPTION
 
 	GtkLibvlcState gtkstate = GTK_LIBVLC_STATE_NOTHING_SPECIAL;
 
-#ifdef LIBVLC_DEPRECATED_PLAYLIST
-	libvlc_instance_t *libvlc_instance;
-	libvlc_instance = (libvlc_instance_t *)
-		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
-	g_return_if_fail(libvlc_instance != NULL);
-
-	libvlc_input_t *input_t;
-	if(libvlc_instance != NULL){
-		if (libvlc_playlist_isplaying (libvlc_instance, &_vlcexcep)) {
-			input_t = libvlc_playlist_get_input(libvlc_instance,
-			                                    &_vlcexcep);
-			raise_error(self, error, &_vlcexcep);
-			int state = libvlc_input_get_state(input_t, &_vlcexcep);
-			raise_error(self, error, &_vlcexcep);
-			switch(state){
-				case 0 :
-					gtkstate = GTK_LIBVLC_STATE_NOTHING_SPECIAL;
-					break;
-				case 1 :
-					gtkstate = GTK_LIBVLC_STATE_OPENING;
-					break;
-				case 2 :
-					gtkstate = GTK_LIBVLC_STATE_BUFFERING;	
-					break;
-				case 3 :
-					gtkstate = GTK_LIBVLC_STATE_PLAYING;
-					break;
-				case 4 :
-					gtkstate = GTK_LIBVLC_STATE_PAUSED;
-					break;
-				case 5 :
-					gtkstate = GTK_LIBVLC_STATE_STOPPED;
-					break;
-				case 6 :
-					gtkstate = GTK_LIBVLC_STATE_ENDED;
-					break;
-				case 7 :
-					gtkstate = GTK_LIBVLC_STATE_ERROR;
-					break;
-			}
-			libvlc_input_free(input_t);
-		}
-	}
-#else
-	g_return_if_fail(priv->libvlc_mediaplayer != NULL);
-
-	libvlc_state_t state;
+	if(pError == NULL){
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
-	state = libvlc_media_player_get_state (priv->libvlc_mediaplayer, &_vlcexcep);
-	raise_error(self, error, &_vlcexcep);
+		libvlc_exception_t _vlcexcep;
+		libvlc_exception_init (&_vlcexcep);
+#endif // LIBVLC_OLD_VLCEXCEPTION
+
+#ifdef LIBVLC_DEPRECATED_PLAYLIST
+		libvlc_instance_t *libvlc_instance;
+		libvlc_instance = (libvlc_instance_t *)
+			gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, &pError);
+		g_return_if_fail(libvlc_instance != NULL);
+
+		libvlc_input_t *input_t;
+		if(libvlc_instance != NULL){
+			if (libvlc_playlist_isplaying (libvlc_instance, &_vlcexcep)) {
+				input_t = libvlc_playlist_get_input(libvlc_instance,
+				                                    &_vlcexcep);
+				raise_error(self, &pError, &_vlcexcep);
+				int state = libvlc_input_get_state(input_t, &_vlcexcep);
+				raise_error(self, &pError, &_vlcexcep);
+				switch(state){
+					case 0 :
+						gtkstate = GTK_LIBVLC_STATE_NOTHING_SPECIAL;
+						break;
+					case 1 :
+						gtkstate = GTK_LIBVLC_STATE_OPENING;
+						break;
+					case 2 :
+						gtkstate = GTK_LIBVLC_STATE_BUFFERING;	
+						break;
+					case 3 :
+						gtkstate = GTK_LIBVLC_STATE_PLAYING;
+						break;
+					case 4 :
+						gtkstate = GTK_LIBVLC_STATE_PAUSED;
+						break;
+					case 5 :
+						gtkstate = GTK_LIBVLC_STATE_STOPPED;
+						break;
+					case 6 :
+						gtkstate = GTK_LIBVLC_STATE_ENDED;
+						break;
+					case 7 :
+						gtkstate = GTK_LIBVLC_STATE_ERROR;
+						break;
+				}
+				libvlc_input_free(input_t);
+			}
+		}
 #else
-	state = libvlc_media_player_get_state (priv->libvlc_mediaplayer);
-	raise_error(self, error, NULL);
+		g_return_if_fail(priv->libvlc_mediaplayer != NULL);
+
+		libvlc_state_t state;
+
+#ifdef LIBVLC_OLD_VLCEXCEPTION
+		state = libvlc_media_player_get_state (priv->libvlc_mediaplayer, &_vlcexcep);
+		raise_error(self, &pError, &_vlcexcep);
+#else
+		state = libvlc_media_player_get_state (priv->libvlc_mediaplayer);
+		raise_error(self, &pError, NULL);
 #endif // LIBVLC_OLD_VLCEXCEPTION	
 
-	switch(state){
-		case libvlc_NothingSpecial :
-			gtkstate = GTK_LIBVLC_STATE_NOTHING_SPECIAL;
-			break;
-		case libvlc_Opening :
-			gtkstate = GTK_LIBVLC_STATE_OPENING;
-			break;
-		case libvlc_Buffering :
-			gtkstate = GTK_LIBVLC_STATE_BUFFERING;	
-			break;
-		case libvlc_Playing :
-			gtkstate = GTK_LIBVLC_STATE_PLAYING;
-			break;
-		case libvlc_Paused :
-			gtkstate = GTK_LIBVLC_STATE_PAUSED;
-			break;
-		case libvlc_Stopped :
-			gtkstate = GTK_LIBVLC_STATE_STOPPED;
-			break;
-		case libvlc_Ended :
-			gtkstate = GTK_LIBVLC_STATE_ENDED;
-			break;
-		case libvlc_Error:
-			gtkstate = GTK_LIBVLC_STATE_ERROR;
-			break;
-	}
+		switch(state){
+			case libvlc_NothingSpecial :
+				gtkstate = GTK_LIBVLC_STATE_NOTHING_SPECIAL;
+				break;
+			case libvlc_Opening :
+				gtkstate = GTK_LIBVLC_STATE_OPENING;
+				break;
+			case libvlc_Buffering :
+				gtkstate = GTK_LIBVLC_STATE_BUFFERING;	
+				break;
+			case libvlc_Playing :
+				gtkstate = GTK_LIBVLC_STATE_PLAYING;
+				break;
+			case libvlc_Paused :
+				gtkstate = GTK_LIBVLC_STATE_PAUSED;
+				break;
+			case libvlc_Stopped :
+				gtkstate = GTK_LIBVLC_STATE_STOPPED;
+				break;
+			case libvlc_Ended :
+				gtkstate = GTK_LIBVLC_STATE_ENDED;
+				break;
+			case libvlc_Error:
+				gtkstate = GTK_LIBVLC_STATE_ERROR;
+				break;
+		}
 #endif // LIBVLC_DEPRECATED_PLAYLIST
+
+	}
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
+	
 	return gtkstate;
 
 }

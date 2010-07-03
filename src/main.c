@@ -120,7 +120,6 @@ init_user_configuration(GError **error)
 void
 load_user_configuration(FreetuxTVApp *app)
 {
-	GtkWidget *widget;
 
 	GKeyFile *keyfile;
 	int i;
@@ -231,10 +230,6 @@ load_user_configuration(FreetuxTVApp *app)
 			err = NULL;
 		}else{
 			app->config.volume = d;
-			widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-								      "windowmain_volumecontrol");
-			//gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
-			//gtk_libvlc_media_player_set_volume (app->player, app->config.volume, NULL);
 		}
 		
 		i = g_key_file_get_integer (keyfile, "general",
@@ -448,6 +443,12 @@ splashscreen_app_init(gpointer data)
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "windowmain");
 	gtk_widget_show(widget);
+
+	// Set the sound level of the media player
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+						      "windowmain_volumecontrol");
+	gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
+	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, NULL);
 	
 	// Play the last channel if needed
 	if(app->current.path_channel != NULL){
@@ -689,7 +690,7 @@ freetuxtv_action_stop (FreetuxTVApp *app, GError** error)
 			g_free(text);
 	
 			windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
-			gtk_libvlc_media_player_stop (app->player, NULL);			
+			gtk_libvlc_media_player_stop (app->player, error);			
 
 			if(app->current.is_recording){
 				app->current.is_recording = FALSE;
@@ -814,7 +815,7 @@ freetuxtv_quit (FreetuxTVApp *app)
 
 
 	gboolean is_playing;
-	is_playing = (gtk_libvlc_media_player_get_state(app->player, NULL) == GTK_LIBVLC_STATE_PLAYING);
+	is_playing = (gtk_libvlc_media_player_get_state(app->player, &error) == GTK_LIBVLC_STATE_PLAYING);
 
 	// Stop the current channel
 	freetuxtv_action_stop(app, &error);	
