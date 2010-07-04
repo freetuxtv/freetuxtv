@@ -291,19 +291,23 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self, GError **error)
 	libvlc_instance_t *libvlc_instance;
 	libvlc_instance = (libvlc_instance_t *)
 		gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, error);
-	g_return_if_fail(libvlc_instance != NULL);	
-
+	g_return_if_fail(libvlc_instance != NULL);
 
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
+
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
-	if(priv->initialized == FALSE &&
-	   gtk_widget_get_realized(GTK_WIDGET(self))){
+	gboolean bIsRealized = FALSE;
+	bIsRealized = (GTK_WIDGET_FLAGS (self) & GTK_REALIZED) ? TRUE : FALSE;
+	// TODO : Only since 2.20
+	// bIsRealized = gtk_widget_get_realized(GTK_WIDGET(self);
+
+	if(priv->initialized == FALSE && bIsRealized){
 
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
 		XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
