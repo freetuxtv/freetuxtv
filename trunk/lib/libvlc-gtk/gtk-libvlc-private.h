@@ -28,6 +28,7 @@
 // LIBVLC_DEPRECATED_PLAYLIST : The branche use the old playlist system
 // LIBVLC_OLD_SET_DRAWABLE : The branche use the libvlc_media_player_set_drawable function
 // LIBVLC_DONT_HAVE_ISPLAYING : The branche don't support libvlc_media_player_is_playing function
+// LIBVLC_OLD_FULLSCREEN_MODE : The branche don't need a top level window for fullscreen mode
 
 // Define the option for each branche
 #if LIBVLC_VERSION_MAJOR >= 1
@@ -39,6 +40,7 @@
 #elif LIBVLC_VERSION_MINOR == 0
 // Branche 1.0.x
 #define LIBVLC_OLD_VLCEXCEPTION
+#define LIBVLC_OLD_FULLSCREEN_MODE
 
 #endif // LIBVLC_VERSION_MINOR >= 1
 
@@ -49,12 +51,14 @@
 #define LIBVLC_OLD_VLCEXCEPTION
 #define LIBVLC_OLD_SET_DRAWABLE
 #define LIBVLC_DONT_HAVE_ISPLAYING
+#define LIBVLC_OLD_FULLSCREEN_MODE
 
 #elif LIBVLC_VERSION_MINOR == 8
 // Branche 0.8.x
 #define LIBVLC_OLD_INSTANCE
 #define LIBVLC_OLD_VLCEXCEPTION
 #define LIBVLC_DEPRECATED_PLAYLIST
+#define LIBVLC_OLD_FULLSCREEN_MODE
 
 #else
 // LIBVLC must be at least 0.8.6
