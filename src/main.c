@@ -394,9 +394,9 @@ splashscreen_app_init(gpointer data)
 	DBSync dbsync;
 	dbsync_open_db (&dbsync, &error);
 
-	// Synchronizing the list of logos if file modified
+	// Synchronizing the list of tv channels if file modified
 	if(error == NULL){
-		splashscreen_statusbar_push (app, _("Synchronizing the list of logos..."));
+		splashscreen_statusbar_push (app, _("Synchronizing the list of tv channels..."));
 		struct stat file_stat;
 		if(g_stat (FREETUXTV_DIR "/tv_channels.xml", &file_stat) == 0){
 			if(app->config.logosfiledate < (gint)file_stat.st_mtime){

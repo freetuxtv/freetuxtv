@@ -37,6 +37,11 @@ struct _GtkLibvlcMediaPlayerPrivate
 #ifndef LIBVLC_DEPRECATED_PLAYLIST
 	libvlc_media_player_t *libvlc_mediaplayer;
 #endif // LIBVLC_DEPRECATED_PLAYLIST
+
+	GtkWidget* pWigdetOriginalParent;
+	GtkWidget* pWindowFullscreen;
+
+	gboolean isModeFullscreen;
 };
 
 #define GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), GTK_TYPE_LIBVLC_MEDIA_PLAYER, GtkLibvlcMediaPlayerPrivate))
@@ -47,6 +52,11 @@ G_DEFINE_TYPE (GtkLibvlcMediaPlayer, gtk_libvlc_media_player, GTK_TYPE_WIDGET);
 static void 
 on_vlc_event(const libvlc_event_t *event, void *user_data);
 #endif // LIBVLC_DEPRECATED_PLAYLIST
+
+#ifndef LIBVLC_OLD_FULLSCREEN_MODE
+static gboolean
+on_buttonpress_event (GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+#endif // LIBVLC_OLD_FULLSCREEN_MODE
 
 static gboolean
 raise_error(GtkLibvlcMediaPlayer *self, GError** error, gpointer user_data)
@@ -103,6 +113,13 @@ gtk_libvlc_media_player_init (GtkLibvlcMediaPlayer *object)
 	priv->loop = FALSE;
 
 	priv->current_options = NULL;
+	
+#ifndef LIBVLC_OLD_FULLSCREEN_MODE
+	priv->pWigdetOriginalParent = NULL;
+	priv->pWindowFullscreen = NULL;
+#endif // LIBVLC_OLD_FULLSCREEN_MODE
+	
+	priv->isModeFullscreen = FALSE;
 }
 
 static void
@@ -165,7 +182,7 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 		gdk_window_set_user_data(widget->window, libvlcmp);
 
 		widget->style = gtk_style_attach(widget->style, widget->window);
-		gtk_style_set_background(widget->style, widget->window, GTK_STATE_ACTIVE);
+		// gtk_style_set_background(widget->style, widget->window, GTK_STATE_ACTIVE);
 	}
 }
 
@@ -258,6 +275,14 @@ gtk_libvlc_media_player_finalize (GObject *object)
 	// Free the media list
 	gtk_libvlc_media_player_clear_media_list (self);
 
+#ifndef LIBVLC_OLD_FULLSCREEN_MODE
+	priv->pWigdetOriginalParent = NULL;
+	if(priv->pWindowFullscreen){
+		g_object_unref(priv->pWindowFullscreen);
+		priv->pWindowFullscreen = NULL;
+	}
+#endif // LIBVLC_OLD_FULLSCREEN_MODE
+
 	G_OBJECT_CLASS (gtk_libvlc_media_player_parent_class)->finalize (object);
 
 	if(error != NULL){
@@ -308,6 +333,11 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self, GError **error)
 	// bIsRealized = gtk_widget_get_realized(GTK_WIDGET(self);
 
 	if(priv->initialized == FALSE && bIsRealized){
+
+#ifndef LIBVLC_OLD_FULLSCREEN_MODE
+		gtk_widget_add_events (GTK_WIDGET(self), GDK_BUTTON_PRESS_MASK);
+		g_signal_connect(self, "button-press-event", G_CALLBACK(on_buttonpress_event), NULL);
+#endif // LIBVLC_OLD_FULLSCREEN_MODE
 
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
 		XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
@@ -655,6 +685,29 @@ on_vlc_event(const libvlc_event_t *event, void *user_data)
 }
 
 #endif // LIBVLC_DEPRECATED_PLAYLIST
+
+#ifndef LIBVLC_OLD_FULLSCREEN_MODE
+static gboolean
+on_buttonpress_event (GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+{
+	GtkLibvlcMediaPlayer* self = (GtkLibvlcMediaPlayer*) widget;
+
+	GError* error = NULL;
+
+	// If doulbe click, toggle fullscreen mode
+	if (event->type==GDK_2BUTTON_PRESS && event->button == 1) {
+		gtk_libvlc_media_player_toggle_fullscreen (self, &error);
+	}
+
+	if(error){
+		g_print("error: %s", error->message);
+		g_error_free (error);
+		error = NULL;
+	}
+	
+	return TRUE;
+}
+#endif // LIBVLC_OLD_FULLSCREEN_MODE
 
 GtkWidget *
 gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance, GError** error)
@@ -1216,10 +1269,43 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean ful
 			raise_error(self, &pError, &_vlcexcep);
 		}
 #else
-		if(priv->libvlc_mediaplayer != NULL){
-			libvlc_set_fullscreen (priv->libvlc_mediaplayer, fullscreen);
-			raise_error(self, &pError, NULL);
+
+		if(fullscreen){
+			if(!priv->isModeFullscreen && gtk_libvlc_media_player_is_playing(self, &pError)){
+#ifndef LIBVLC_OLD_FULLSCREEN_MODE
+				if(priv->pWindowFullscreen == NULL){
+					priv->pWindowFullscreen = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+				}
+				priv->pWigdetOriginalParent = gtk_widget_get_parent (GTK_WIDGET(self));
+				gtk_widget_show (priv->pWindowFullscreen);
+
+				gtk_widget_reparent (GTK_WIDGET(self), priv->pWindowFullscreen);
+				gtk_window_fullscreen(GTK_WINDOW(priv->pWindowFullscreen));
+
+#endif // LIBVLC_OLD_FULLSCREEN_MODE
+				
+				priv->isModeFullscreen = TRUE;
+			}
+		}else{
+			if(priv->isModeFullscreen){
+#ifndef LIBVLC_OLD_FULLSCREEN_MODE
+				gtk_window_unfullscreen(GTK_WINDOW(priv->pWindowFullscreen));
+				gtk_widget_reparent (GTK_WIDGET(self), priv->pWigdetOriginalParent);
+				
+				gtk_widget_hide (priv->pWindowFullscreen);
+#endif // LIBVLC_OLD_FULLSCREEN_MODE
+				
+				priv->isModeFullscreen = FALSE;
+			}
 		}
+
+		/*
+		priv->pWigdetOriginalParent = NULL;
+		if(priv->pWindowFullscreen){
+			g_object_unref(pWindowFullscreen);
+			priv->pWindowFullscreen = NULL;
+		}
+		*/
 
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
@@ -1235,6 +1321,31 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean ful
 		}
 	}
 	
+}
+
+gboolean
+gtk_libvlc_media_player_get_fullscreen (GtkLibvlcMediaPlayer *self)
+{
+	g_return_if_fail(self != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+
+	GtkLibvlcMediaPlayerPrivate* priv;
+	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
+
+	return priv->isModeFullscreen;
+}
+
+void
+gtk_libvlc_media_player_toggle_fullscreen (GtkLibvlcMediaPlayer *self, GError** error)
+{
+	g_return_if_fail(self != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+	
+	if(gtk_libvlc_media_player_get_fullscreen(self)){
+		gtk_libvlc_media_player_set_fullscreen (self, FALSE, error);
+	}else{
+		gtk_libvlc_media_player_set_fullscreen (self, TRUE, error);
+	}
 }
 
 gboolean
