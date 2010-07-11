@@ -3,6 +3,9 @@
 	<language lang="Alice" id="alice">
 		<channels_group uri="http://vlc-media-player.org/m3u/alicetv.m3u" required_isp="Alice" name="Alice"/>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_alicetv_unofficial.m3u" required_isp="Alice" name="Alice (Unofficial)"></channels_group>
+		<channels_group xml:lang="rabbitvcs-1-r262-fr" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_alicetv_unofficial.m3u" required_isp="Alice" name="Alice (Non Officiel)"></channels_group>
+		<channels_group xml:lang="rabbitvcs-1-r275-fr" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_alicetv_unofficial.m3u" required_isp="Alice" name="Alice (Non Officiel)"></channels_group>
+		<channels_group xml:lang="rabbitvcs-2-r276-fr" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_alicetv_unofficial.m3u" required_isp="Alice" name="Alice (Non Officiel)"></channels_group>
 	</language>
 	<language lang="Bouygues" id="bouygues">
 		<channels_group uri="http://bbox-news.com/documents/tv_sur_pc_bbox.m3u" required_isp="Bouygues" name="Bouygues TV"/>
@@ -19,89 +22,344 @@
 	<language lang="SFR" id="sfr">
 		<channels_group uri="http://tv.sfr.fr/tv-pc/televisionsurpc.m3u" required_isp="SFR" name="SFR TV"/>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_sfrtv_unofficial.m3u" required_isp="SFR" name="SFR TV (Unofficial)"></channels_group>
+		<channels_group xml:lang="rabbitvcs-1-r262-fr" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_sfrtv_unofficial.m3u" required_isp="SFR" name="SFR TV (Non Officiel)"></channels_group>
+		<channels_group xml:lang="rabbitvcs-1-r275-fr" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_sfrtv_unofficial.m3u" required_isp="SFR" name="SFR TV (Non Officiel)"></channels_group>
+		<channels_group xml:lang="rabbitvcs-2-r276-fr" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_sfrtv_unofficial.m3u" required_isp="SFR" name="SFR TV (Non Officiel)"></channels_group>
 	</language>
 	<language id="ar" lang="Arabic Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_ar.m3u" name="Web Radio (Arabic)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ar.m3u" name="Web TV (Arabic)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="ar" lang="Arabe : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_ar.m3u" name="Web Radio (Arabe)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ar.m3u" name="Web TV (Arabe)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="ar" lang="Arabe : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_ar.m3u" name="Web Radio (Arabe)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ar.m3u" name="Web TV (Arabe)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="ar" lang="Arabe : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_ar.m3u" name="Web Radio (Arabe)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ar.m3u" name="Web TV (Arabe)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="ca" lang="Catalan Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_ca.m3u" name="Web Radio (Catalan)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ca.m3u" name="Web TV (Catalan)"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="ca" lang="Catalan : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_ca.m3u" name="Web Radio (Catalan)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ca.m3u" name="Web TV (Catalan)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="ca" lang="Catalan : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_ca.m3u" name="Web Radio (Catalan)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ca.m3u" name="Web TV (Catalan)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="ca" lang="Catalan : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_ca.m3u" name="Web Radio (Catalan)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ca.m3u" name="Web TV (Catalan)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 	<language id="zh" lang="Chinese Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_zh.m3u" name="Web Radio (Chinese)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_zh.m3u" name="Web TV (Chinese)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="zh" lang="Chinois : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_zh.m3u" name="Web Radio (Chinois)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_zh.m3u" name="Web TV (Chinois)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="zh" lang="Chinois : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_zh.m3u" name="Web Radio (Chinois)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_zh.m3u" name="Web TV (Chinois)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="zh" lang="Chinois : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_zh.m3u" name="Web Radio (Chinois)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_zh.m3u" name="Web TV (Chinois)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="cs" lang="Czech Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_cs.m3u" name="Web TV (Czech)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="cs" lang="Tchèque : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_cs.m3u" name="Web TV (Tchèque)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="cs" lang="Tchèque : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_cs.m3u" name="Web TV (Tchèque)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="cs" lang="Tchèque : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_cs.m3u" name="Web TV (Tchèque)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="nl" lang="Dutch Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_nl.m3u" name="Web TV (Dutch)"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="nl" lang="Néerlandais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_nl.m3u" name="Web TV (Néerlandais)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="nl" lang="Néerlandais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_nl.m3u" name="Web TV (Néerlandais)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="nl" lang="Néerlandais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_nl.m3u" name="Web TV (Néerlandais)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 	<language id="en" lang="English Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_programmes_en.m3u" name="Web Programmes (English)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_en.m3u" name="Web Radio (English)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_en.m3u" name="Web TV (English)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="en" lang="Anglais : WebTV et WebRadio, WebEmissions">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_programmes_en.m3u" name="Emissions TV/Radio sur le Web (Anglais)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_en.m3u" name="Web Radio (Anglais)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_en.m3u" name="Web TV (Anglais)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="en" lang="Anglais : WebTV et WebRadio, WebEmissions">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_programmes_en.m3u" name="Emissions TV/Radio sur le Web (Anglais)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_en.m3u" name="Web Radio (Anglais)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_en.m3u" name="Web TV (Anglais)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="en" lang="Anglais : WebTV et WebRadio, WebEmissions">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_programmes_en.m3u" name="Emissions TV/Radio sur le Web (Anglais)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_en.m3u" name="Web Radio (Anglais)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_en.m3u" name="Web TV (Anglais)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="fr" lang="French Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_programmes_fr.m3u" name="Web Programmes (French)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_fr.m3u" name="Web Radio (French)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fr.m3u" name="Web TV (French)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="fr" lang="Français : WebTV et WebRadio, WebEmissions">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_programmes_fr.m3u" name="Emissions TV/Radio sur le Web (Français)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_fr.m3u" name="Web Radio (Français)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fr.m3u" name="Web TV (Français)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="fr" lang="Français : WebTV et WebRadio, WebEmissions">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_programmes_fr.m3u" name="Emissions TV/Radio sur le Web (Français)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_fr.m3u" name="Web Radio (Français)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fr.m3u" name="Web TV (Français)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="fr" lang="Français : WebTV et WebRadio, WebEmissions">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_programmes_fr.m3u" name="Emissions TV/Radio sur le Web (Français)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_fr.m3u" name="Web Radio (Français)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fr.m3u" name="Web TV (Français)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="de" lang="German Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_de.m3u" name="Web Radio (German)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_de.m3u" name="Web TV (German)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="de" lang="Allemand : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_de.m3u" name="Web Radio (Allemand)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_de.m3u" name="Web TV (Allemand)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="de" lang="Allemand : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_de.m3u" name="Web Radio (Allemand)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_de.m3u" name="Web TV (Allemand)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="de" lang="Allemand : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_de.m3u" name="Web Radio (Allemand)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_de.m3u" name="Web TV (Allemand)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="hu" lang="Hungarian Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_hu.m3u" name="Web TV (Hungarian)"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="hu" lang="Hongrois : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_hu.m3u" name="Web TV (Hongrois)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="hu" lang="Hongrois : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_hu.m3u" name="Web TV (Hongrois)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="hu" lang="Hongrois : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_hu.m3u" name="Web TV (Hongrois)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 	<language id="it" lang="Italian Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_it.m3u" name="Web TV (Italian)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="it" lang="Italien : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_it.m3u" name="Web TV (Italien)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="it" lang="Italien : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_it.m3u" name="Web TV (Italien)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="it" lang="Italien : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_it.m3u" name="Web TV (Italien)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="ja" lang="Japanese Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ja.m3u" name="Web TV (Japanese)"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="ja" lang="Japonais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ja.m3u" name="Web TV (Japonais)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="ja" lang="Japonais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ja.m3u" name="Web TV (Japonais)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="ja" lang="Japonais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ja.m3u" name="Web TV (Japonais)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 	<language id="ko" lang="Korean Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ko.m3u" name="Web TV (Korean)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="ko" lang="Coréen : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ko.m3u" name="Web TV (Coréen)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="ko" lang="Coréen : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ko.m3u" name="Web TV (Coréen)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="ko" lang="Coréen : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ko.m3u" name="Web TV (Coréen)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="la" lang="Latin Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_la.m3u" name="Web TV (Latin)"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="la" lang="Latin : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_la.m3u" name="Web TV (Latin)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="la" lang="Latin : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_la.m3u" name="Web TV (Latin)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="la" lang="Latin : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_la.m3u" name="Web TV (Latin)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 	<language id="el" lang="Modern Greek Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_el.m3u" name="Web TV (Modern Greek)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="el" lang="Grec : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_el.m3u" name="Web TV (Grec)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="el" lang="Grec : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_el.m3u" name="Web TV (Grec)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="el" lang="Grec : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_el.m3u" name="Web TV (Grec)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="no" lang="Norwegian Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_no.m3u" name="Web TV (Norwegian)"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="no" lang="Norvégien : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_no.m3u" name="Web TV (Norvégien)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="no" lang="Norvégien : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_no.m3u" name="Web TV (Norvégien)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="no" lang="Norvégien : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_no.m3u" name="Web TV (Norvégien)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 	<language id="fa" lang="Persian Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fa.m3u" name="Web TV (Persian)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="fa" lang="Persan : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fa.m3u" name="Web TV (Persan)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="fa" lang="Persan : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fa.m3u" name="Web TV (Persan)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="fa" lang="Persan : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_fa.m3u" name="Web TV (Persan)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="pl" lang="Polish Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_pl.m3u" name="Web TV (Polish)"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="pl" lang="Polonais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_pl.m3u" name="Web TV (Polonais)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="pl" lang="Polonais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_pl.m3u" name="Web TV (Polonais)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="pl" lang="Polonais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_pl.m3u" name="Web TV (Polonais)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 	<language id="pt" lang="Portuguese Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_pt.m3u" name="Web TV (Portuguese)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="pt" lang="Portugais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_pt.m3u" name="Web TV (Portugais)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="pt" lang="Portugais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_pt.m3u" name="Web TV (Portugais)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="pt" lang="Portugais : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_pt.m3u" name="Web TV (Portugais)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="ro" lang="Romanian Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ro.m3u" name="Web TV (Romanian)"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="ro" lang="Roumain : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ro.m3u" name="Web TV (Roumain)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="ro" lang="Roumain : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ro.m3u" name="Web TV (Roumain)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="ro" lang="Roumain : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ro.m3u" name="Web TV (Roumain)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 	<language id="ru" lang="Russian Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ru.m3u" name="Web TV (Russian)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="ru" lang="Russe : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ru.m3u" name="Web TV (Russe)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="ru" lang="Russe : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ru.m3u" name="Web TV (Russe)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="ru" lang="Russe : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ru.m3u" name="Web TV (Russe)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="sk" lang="Slovak Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_sk.m3u" name="Web TV (Slovak)"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="sk" lang="Slovaque : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_sk.m3u" name="Web TV (Slovaque)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="sk" lang="Slovaque : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_sk.m3u" name="Web TV (Slovaque)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="sk" lang="Slovaque : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_sk.m3u" name="Web TV (Slovaque)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 	<language id="es" lang="Spanish Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_es.m3u" name="Web Radio (Spanish)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_es.m3u" name="Web TV (Spanish)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="es" lang="Espagnol : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_es.m3u" name="Web Radio (Espagnol)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_es.m3u" name="Web TV (Espagnol)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="es" lang="Espagnol : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_es.m3u" name="Web Radio (Espagnol)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_es.m3u" name="Web TV (Espagnol)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="es" lang="Espagnol : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_es.m3u" name="Web Radio (Espagnol)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_es.m3u" name="Web TV (Espagnol)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="sv" lang="Swedish Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_sv.m3u" name="Web TV (Swedish)"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="sv" lang="Suédois : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_sv.m3u" name="Web TV (Suédois)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="sv" lang="Suédois : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_sv.m3u" name="Web TV (Suédois)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="sv" lang="Suédois : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_sv.m3u" name="Web TV (Suédois)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 	<language id="tr" lang="Turkish Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_tr.m3u" name="Web TV (Turkish)"></channels_group>
 	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="tr" lang="Turc : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_tr.m3u" name="Web TV (Turc)" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="tr" lang="Turc : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_tr.m3u" name="Web TV (Turc)" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="tr" lang="Turc : WebTV et WebRadio">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_tr.m3u" name="Web TV (Turc)" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
+	</language>
 	<language id="webcam" lang="WebCam">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webcam.m3u" name="WebCam"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r262-fr" id="webcam" lang="WebCam">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webcam.m3u" name="WebCam" xml:lang="rabbitvcs-1-r262-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-1-r275-fr" id="webcam" lang="WebCam">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webcam.m3u" name="WebCam" xml:lang="rabbitvcs-1-r275-fr"></channels_group>
+	</language>
+	<language xml:lang="rabbitvcs-2-r276-fr" id="webcam" lang="WebCam">
+		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webcam.m3u" name="WebCam" xml:lang="rabbitvcs-2-r276-fr"></channels_group>
 	</language>
 </channels_groups>
