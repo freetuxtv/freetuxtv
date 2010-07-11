@@ -1124,7 +1124,7 @@ on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_dat
 	GtkTreePath *path;
 	GtkTreePath *real_path;
 	
-	FreetuxTVChannelsGroupInfos* group;
+	FreetuxTVChannelsGroupInfos* pChannelsGroupInfos;
 
 	treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
 							  "windowmain_treeviewchannelslist");
@@ -1143,33 +1143,57 @@ on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_dat
 		real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
 		
 		// Show properties to the channels group corresponding to the path
-		group = channels_list_get_group(app, real_path);
+		pChannelsGroupInfos = channels_list_get_group(app, real_path);
 
 		// Set the value in the fields
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialoggroupproperties_name");
-		gtk_entry_set_text(GTK_ENTRY(widget), group->name);
-		
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-							       "dialoggroupproperties_uri");
-		gtk_entry_set_text(GTK_ENTRY(widget), group->uri);
-		
-		if(group->bregex != NULL){
+		gtk_entry_set_text(GTK_ENTRY(widget), pChannelsGroupInfos->name);
+
+		if(pChannelsGroupInfos->type == FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST){
 			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-								       "dialoggroupproperties_bregex");
-			gtk_entry_set_text(GTK_ENTRY(widget), group->bregex);
+									   "dialoggroupproperties_uri");
+			gtk_entry_set_text(GTK_ENTRY(widget), pChannelsGroupInfos->uri);
+		
+			if(pChannelsGroupInfos->bregex != NULL){
+				widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+										   "dialoggroupproperties_bregex");
+				gtk_entry_set_text(GTK_ENTRY(widget), pChannelsGroupInfos->bregex);
+			}
+		
+			if(pChannelsGroupInfos->eregex != NULL){
+				widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+										   "dialoggroupproperties_eregex");
+				gtk_entry_set_text(GTK_ENTRY(widget), pChannelsGroupInfos->eregex);
+			}
+			
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+									   "label34");
+			gtk_widget_show (widget);
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+									   "dialoggroupproperties_uri");
+			gtk_widget_show (widget);
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+									   "frame6");
+			gtk_widget_show (widget);
 		}
-		
-		if(group->eregex != NULL){
+
+		if(pChannelsGroupInfos->type == FREETUXTV_CHANNELSGROUP_TYPEGROUP_FAVORITES){
 			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-								       "dialoggroupproperties_eregex");
-			gtk_entry_set_text(GTK_ENTRY(widget), group->eregex);
+									   "label34");
+			gtk_widget_hide (widget);
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+									   "dialoggroupproperties_uri");
+			gtk_widget_hide (widget);
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+									   "frame6");
+			gtk_widget_hide (widget);
 		}
 		
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialoggroupproperties_nbchannels");
 		gchar* str;
-		str = g_strdup_printf("%d", group->nb_channels);
+		str = g_strdup_printf("%d", pChannelsGroupInfos->nb_channels);
 		gtk_label_set_text(GTK_LABEL(widget), str);
 		g_free(str);
 		
@@ -1178,7 +1202,7 @@ on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_dat
 							       "dialoggroupproperties");
 		gtk_widget_show (widget);
 		
-		g_object_set_data (G_OBJECT(widget), "ChannelsGroup", group);
+		g_object_set_data (G_OBJECT(widget), "ChannelsGroup", pChannelsGroupInfos);
 		g_object_set_data (G_OBJECT(widget), "PathChannelsGroup", real_path);
 	}
 }
