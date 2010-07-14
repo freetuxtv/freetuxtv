@@ -526,6 +526,7 @@
 	</tvchannel>
 	<tvchannel name="Jordan Satellite Channel">
 		<logo_filename>jordansatellitechannel.png</logo_filename>
+		<label>Jordan TV</label>
 	</tvchannel>
 	<tvchannel name="jPopsuki TV">
 		<logo_filename>jpopsukitv.png</logo_filename>
