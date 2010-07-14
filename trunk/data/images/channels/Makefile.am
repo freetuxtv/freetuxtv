@@ -137,6 +137,7 @@ channels_DATA = \
   hitwest.png \
   hunansatellitetv.png \
   idf1.png \
+  imedtv.png \
   inraci.png \
   inspirationnetwork.png \
   ishtartv.png \
@@ -178,6 +179,8 @@ channels_DATA = \
   m6musichits.png \
   m6musicrock.png \
   mangas.png \
+  mboatv.png \
+  mce-ma_chaine_etudiante.png \
   mcm.png \
   mcmpop.png \
   mcmtop.png \
@@ -223,8 +226,10 @@ channels_DATA = \
   parentheseradio.png \
   phoenixchinesenewsandentertainment.png \
   phoenixinfonews.png \
+  physiquetv.png \
   pokerchannel.png \
   powerturktv.png \
+  presstv.png \
   publicsenat.png \
   purescreens.png \
   radio8.png \
@@ -318,6 +323,7 @@ channels_DATA = \
   trtcocuk.png \
   trtint.png \
   tsfjazz.png \
+  tv34.png \
   tv3cat-extvci.png \
   turnerclassicmovies.png \
   tv5.png \
@@ -327,6 +333,7 @@ channels_DATA = \
   tvaquebec.png \
   tvbiznes.png \
   tveint.png \
+  tvfil78.png \
   tvmeurope-exrtm1-rtmmaroc.png \
   tvpi.png \
   tvpolonia-tvp.png \
