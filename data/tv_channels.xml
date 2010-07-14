@@ -482,6 +482,9 @@
 	<tvchannel name="IDF 1">
 		<logo_filename>idf1.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="IMED TV">
+		<logo_filename>imedtv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Inraci">
 		<logo_filename>inraci.png</logo_filename>
 	</tvchannel>
@@ -613,6 +616,13 @@
 	</tvchannel>
 	<tvchannel name="Mangas">
 		<logo_filename>mangas.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MBOA TV">
+		<logo_filename>mboatv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Ma Chaîne Etudiante">
+		<logo_filename>mce-ma_chaine_etudiante.png</logo_filename>
+		<label>Ma Chaine Etudiante</label>
 	</tvchannel>
 	<tvchannel name="MCM">
 		<logo_filename>mcm.png</logo_filename>
@@ -758,11 +768,17 @@
 	<tvchannel name="Phoenix Infonews">
 		<logo_filename>phoenixinfonews.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Physique TV">
+		<logo_filename>physiquetv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Poker Channel">
 		<logo_filename>pokerchannel.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Powertürk TV">
 		<logo_filename>powerturktv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Press TV">
+		<logo_filename>presstv.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Public Sénat">
 		<logo_filename>publicsenat.png</logo_filename>
@@ -1061,6 +1077,9 @@
 	<tvchannel name="TSF Jazz">
 		<logo_filename>tsfjazz.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="TV34">
+		<logo_filename>tv34.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="TVCi">
 		<logo_filename>tv3cat-extvci.png</logo_filename>
 	</tvchannel>
@@ -1088,6 +1107,9 @@
 		<logo_filename>tveint.png</logo_filename>
 		<label>TVE Internacional</label>
 		<label>TVE</label>
+	</tvchannel>
+	<tvchannel name="TV Fil 78">
+		<logo_filename>tvfil78.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="TVM Europe">
 		<logo_filename>tvmeurope-exrtm1-rtmmaroc.png</logo_filename>
