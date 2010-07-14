@@ -191,6 +191,7 @@ channels_DATA = \
   mfmflashback.png \
   mfmserenite.png \
   mfmsexy.png \
+  mixxradio.png \
   miziktropical.png \
   mjcapt.png \
   modem-radio.png \
@@ -202,6 +203,7 @@ channels_DATA = \
   mtv2.png \
   mtvdance.png \
   mtvhits.png \
+  myzentv.png \
   nasatv.png \
   natgeomusic.png \
   nationalgeographic.png \
@@ -230,6 +232,7 @@ channels_DATA = \
   pokerchannel.png \
   powerturktv.png \
   presstv.png \
+  publicsante.png \
   publicsenat.png \
   purescreens.png \
   radio8.png \
@@ -249,6 +252,7 @@ channels_DATA = \
   radiolatina.png \
   radiolibertaire.png \
   radiomelodie.png \
+  radiomontblanc.png \ 
   radioneo.png \
   radionotredame.png \
   radionova.png \
@@ -257,6 +261,7 @@ channels_DATA = \
   radio-scoop-powerdance.png \
   radioscoopmusicpod.png \
   radioscoop.png \
+  radiosingsing.png \
   radiostar.png \
   radiosun.png \
   radio-tropicale.png \
@@ -268,8 +273,10 @@ channels_DATA = \
   rdicanada.png \
   recordinternacional.png \
   relaxtv.png \
+  renaulttv.png \
   rfi.png \
   rfm.png \
+  rfo.png \
   rireetchansons.png \
   rmc.png \
   rmn.png \
@@ -294,6 +301,7 @@ channels_DATA = \
   skyrock.png \
   soleil_la_radio.png \
   souvenirfromearth.png \
+  stlfm.png \
   sudradio.png \
   suroyotv.png \
   tele102.png \
@@ -319,6 +327,7 @@ channels_DATA = \
   topmusic.png \
   tracetropical.png \
   tracetv.png \
+  tropiquesfm.png \
   trt1.png \
   trtcocuk.png \
   trtint.png \
