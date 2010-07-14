@@ -1092,13 +1092,16 @@
 	</tvchannel>
 	<tvchannel name="TRT1">
 		<logo_filename>trt1.png</logo_filename>
+		<label>TRT 1</label>	
 	</tvchannel>
 	<tvchannel name="TRT Cocuk">
 		<logo_filename>trtcocuk.png</logo_filename>
+		<label>TRT 4 (Çocuk)</label>	
 	</tvchannel>
 	<tvchannel name="TRT INT">
 		<logo_filename>trtint.png</logo_filename>
 		<label>TRT International</label>
+		<label>TRT İnt</label>
 	</tvchannel>
 	<tvchannel name="TSF Jazz">
 		<logo_filename>tsfjazz.png</logo_filename>
