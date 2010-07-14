@@ -657,8 +657,11 @@
 	<tvchannel name="MFM Sexy">
 		<logo_filename>mfmsexy.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="Mizik Tropical">
-		<logo_filename>miziktropical.png</logo_filename>
+	<tvchannel name="MFM Sexy">
+		<logo_filename>mfmsexy.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MIXXRADIO">
+		<logo_filename>mixxradio.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="MJC Apt TV">
 		<logo_filename>mjcapt.png</logo_filename>
@@ -689,6 +692,9 @@
 	</tvchannel>
 	<tvchannel name="MTV Hits">
 		<logo_filename>mtvhits.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MyZen.tv">
+		<logo_filename>myzentv.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="NASA TV (Public Channel)">
 		<logo_filename>nasatv.png</logo_filename>
@@ -781,6 +787,9 @@
 	<tvchannel name="Press TV">
 		<logo_filename>presstv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Public Sante">
+		<logo_filename>publicsante.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Public Sénat">
 		<logo_filename>publicsenat.png</logo_filename>
 	</tvchannel>
@@ -821,6 +830,9 @@
 	<tvchannel name="Radio FG Underground">
 		<logo_filename>radiofgunderground.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="RFO">
+		<logo_filename>rfo.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Radio Ici et Maintenant">
 		<logo_filename>radioicietmaintenant.png</logo_filename>
 	</tvchannel>
@@ -836,6 +848,9 @@
 	</tvchannel>
 	<tvchannel name="Radio Mélodie">
 		<logo_filename>radiomelodie.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Mont Blanc">
+		<logo_filename>radiomontblanc.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Radio Néo">
 		<logo_filename>radioneo.png</logo_filename>
@@ -863,6 +878,9 @@
 	</tvchannel>
 	<tvchannel name="Radio Scoop Power Dance">
 		<logo_filename>radio-scoop-powerdance.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Scoop Power Dance">
+		<logo_filename>radiosingsing.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Radio Star">
 		<logo_filename>radiostar.png</logo_filename>
@@ -896,6 +914,9 @@
 	</tvchannel>
 	<tvchannel name="Relax TV">
 		<logo_filename>relaxtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Renault TV">
+		<logo_filename>renaulttv.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="RFI">
 		<logo_filename>rfi.png</logo_filename>
@@ -983,6 +1004,9 @@
 	<tvchannel name="Souvenirs from Earth">
 		<logo_filename>souvenirfromearth.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="STL FM">
+		<logo_filename>stlfm.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Sud Radio">
 		<logo_filename>sudradio.png</logo_filename>
 	</tvchannel>
@@ -1064,6 +1088,9 @@
 	</tvchannel>
 	<tvchannel name="Trace TV">
 		<logo_filename>tracetv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Tropiques FM">
+		<logo_filename>tropiquesfm.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="TRT1">
 		<logo_filename>trt1.png</logo_filename>
