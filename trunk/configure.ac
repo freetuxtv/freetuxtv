@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(freetuxtv, 0.5.0, http://code.google.com/p/freetuxtv/)
+AC_INIT(freetuxtv, 0.5.1, http://code.google.com/p/freetuxtv/)
 
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AC_CONFIG_HEADERS([config.h])
@@ -96,7 +96,7 @@ else
 fi
 
 dnl Use "pkg-config --modversion module" to find version.
-PKG_CHECK_MODULES(FREETUXTV, gtk+-2.0 >= 2.12 
+PKG_CHECK_MODULES(FREETUXTV, gtk+-2.0 >= 2.12
                              glib-2.0 >= 2.16.0
                              gio-2.0 >= 2.16.0
                              dbus-glib-1 >= 0.74
@@ -106,8 +106,9 @@ PKG_CHECK_MODULES(FREETUXTV, gtk+-2.0 >= 2.12
 
 PKG_CHECK_MODULES(LIBVLCGTK, gtk+-2.0 >= 2.12
                              $LIBVLC_PKGCONFIG)
-                             
-PKG_CHECK_MODULES(LIBDBEVOLUTION, glib-2.0 >= 2.16.0)
+
+PKG_CHECK_MODULES(LIBDBEVOLUTION, glib-2.0 >= 2.16.0
+                             gobject-2.0 >= 2.16.0)
 
 AC_CHECK_LIB(vlc, libvlc_new)
 AC_CHECK_LIB(gthread-2.0, g_thread_init)
