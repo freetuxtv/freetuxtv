@@ -232,7 +232,6 @@ channels_DATA = \
   pokerchannel.png \
   powerturktv.png \
   presstv.png \
-  publicsante.png \
   publicsenat.png \
   purescreens.png \
   radio8.png \

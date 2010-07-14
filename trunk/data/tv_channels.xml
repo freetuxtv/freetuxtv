@@ -787,9 +787,6 @@
 	<tvchannel name="Press TV">
 		<logo_filename>presstv.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="Public Sante">
-		<logo_filename>publicsante.png</logo_filename>
-	</tvchannel>
 	<tvchannel name="Public Sénat">
 		<logo_filename>publicsenat.png</logo_filename>
 	</tvchannel>
@@ -866,6 +863,7 @@
 	</tvchannel>
 	<tvchannel name="Radio Public Santé">
 		<logo_filename>radiopublicsante.png</logo_filename>
+		<label>Public Sante</label>
 	</tvchannel>
 	<tvchannel name="Radio Scoop">
 		<logo_filename>radioscoop.png</logo_filename>
