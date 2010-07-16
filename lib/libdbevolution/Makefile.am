@@ -14,6 +14,10 @@ libdbevolution_la_LDFLAGS = \
 libdbevolution_la_LIBADD = \
 	$(LIBDBEVOLUTION_LIBS)
 
+libdbevolutionincludedir = $(includedir)/libdbevolution
+libdbevolutioninclude_HEADERS = \
+	db-evolution-instance.h
+
 AM_CPPFLAGS = \
 	$(LIBDBEVOLUTION_CFLAGS)
 
