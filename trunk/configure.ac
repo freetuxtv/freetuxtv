@@ -104,11 +104,11 @@ PKG_CHECK_MODULES(FREETUXTV, gtk+-2.0 >= 2.12
                              sqlite3 >= 3.4
                              libcurl >= 7.18)
 
-PKG_CHECK_MODULES(LIBVLCGTK, gtk+-2.0 >= 2.12
-                             $LIBVLC_PKGCONFIG)
-
 PKG_CHECK_MODULES(LIBDBEVOLUTION, glib-2.0 >= 2.16.0
                              gobject-2.0 >= 2.16.0)
+
+PKG_CHECK_MODULES(LIBVLCGTK, gtk+-2.0 >= 2.12
+                             $LIBVLC_PKGCONFIG)
 
 AC_CHECK_LIB(vlc, libvlc_new)
 AC_CHECK_LIB(gthread-2.0, g_thread_init)
@@ -151,6 +151,6 @@ AC_OUTPUT([
         data/menu/Makefile
         data/ui/Makefile
         lib/Makefile
-        lib/libvlc-gtk/Makefile
         lib/libdbevolution/Makefile
+        lib/libvlc-gtk/Makefile
 ])
