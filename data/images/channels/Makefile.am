@@ -252,7 +252,7 @@ channels_DATA = \
   radiolatina.png \
   radiolibertaire.png \
   radiomelodie.png \
-  radiomontblanc.png \ 
+  radiomontblanc.png \
   radioneo.png \
   radionotredame.png \
   radionova.png \
@@ -367,5 +367,5 @@ channels_DATA = \
   xiamenstartv.png \
   yementv.png \
   zdf_de.png \
-	zhejiangstartv.png
+  zhejiangstartv.png
 EXTRA_DIST   = $(channels_DATA)

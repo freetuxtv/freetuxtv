@@ -6,7 +6,7 @@ libvlc_gtk_la_SOURCES = \
 	gtk-libvlc-include.h \
 	gtk-libvlc-instance.h \
 	gtk-libvlc-instance.c \
-	gtk-libvlc-media.h\
+	gtk-libvlc-media.h \
 	gtk-libvlc-media.c \
 	gtk-libvlc-media-player.h \
 	gtk-libvlc-media-player.c \
