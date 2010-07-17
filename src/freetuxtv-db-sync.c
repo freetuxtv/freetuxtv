@@ -121,7 +121,8 @@ dbsync_open_db(DBSync *dbsync, GError** error)
 	    "/FreetuxTV/freetuxtv.db", NULL);
 
 	// Open the database if not open
-	g_print("DBSync : Open database\n");
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "DBSync open database\n");
 	res = sqlite3_open(user_db, &(dbsync->db_link));
 	if(res != SQLITE_OK){
 		if(error != NULL){
@@ -142,7 +143,8 @@ dbsync_close_db (DBSync *dbsync)
 	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(dbsync->db_link != NULL);
 
-	g_print("DBSync : Close database\n");
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "DBSync close database\n");
 	sqlite3_close(dbsync->db_link);
 	dbsync->db_link = NULL;
 }
@@ -156,7 +158,7 @@ dbsync_db_exists(DBSync *dbsync)
 	gboolean res = FALSE;
 
 	user_db = g_strconcat(g_get_user_config_dir(), 
-	    "/FreetuxTV/freetuxtv.db", NULL);
+	                      "/FreetuxTV/freetuxtv.db", NULL);
 
 	if (g_file_test (user_db, G_FILE_TEST_IS_REGULAR)){
 		res = TRUE;
