@@ -267,9 +267,6 @@
 	<tvchannel name="Corriland TV">
 		<logo_filename>corriland.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="Couleur 3">
-		<logo_filename>couleur3-rsr.png</logo_filename>
-	</tvchannel>
 	<tvchannel name="CPAC">
 		<logo_filename>cpac.png</logo_filename>
 	</tvchannel>
@@ -299,9 +296,6 @@
 	</tvchannel>
 	<tvchannel name="Espace FM">
 		<logo_filename>espacefm.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Espace Musique Radio Canada">
-		<logo_filename>espacemusique.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="ETB Sat">
 		<logo_filename>etbsat.png</logo_filename>
@@ -406,8 +400,9 @@
 	<tvchannel name="France Inter">
 		<logo_filename>franceinter.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="France Musiques">
+	<tvchannel name="France Musique">
 		<logo_filename>francemusique.png</logo_filename>
+		<label>France Musiques</label>
 	</tvchannel>
 	<tvchannel name="France O">
 		<logo_filename>franceo.png</logo_filename>
@@ -796,6 +791,16 @@
 	<tvchannel name="Radio 8">
 		<logo_filename>radio8.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Radio Canada">
+		<logo_filename>radiocanada.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Canada - Espace Musique">
+		<logo_filename>espacemusique.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Canada - RDI - (audio)">
+		<logo_filename>rdicanada.png</logo_filename>
+		<label>RDI CANADA</label>
+	</tvchannel>
 	<tvchannel name="Radio Clapas">
 		<logo_filename>radioclapas.png</logo_filename>
 	</tvchannel>
@@ -904,9 +909,6 @@
 	<tvchannel name="Radio Bro Gwened">
 		<logo_filename>rbg.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="RDI CANADA">
-		<logo_filename>rdicanada.png</logo_filename>
-	</tvchannel>
 	<tvchannel name="Record Internacional">
 		<logo_filename>recordinternacional.png</logo_filename>
 	</tvchannel>
@@ -939,11 +941,20 @@
 	<tvchannel name="Rock TV">
 		<logo_filename>rocktv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Rossija 24 (ex Vesti)">
+		<logo_filename>rossija24.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="RTCG Sat">
 		<logo_filename>rtcgsat.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Journal RTC TV Liège">
 		<logo_filename>rtcteleliege.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RSR">
+		<logo_filename>rsr-suisse.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RSR - Couleur 3">
+		<logo_filename>couleur3-rsr.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="RTL">
 		<logo_filename>rtl.png</logo_filename>
@@ -1162,7 +1173,7 @@
 	<tvchannel name="TVVi">
 		<logo_filename>tvvi.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="Vesti">
+	<tvchannel name="Vesti FM">
 		<logo_filename>vesti.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="VH1">
