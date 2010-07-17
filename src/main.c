@@ -824,16 +824,7 @@ freetuxtv_action_deinterlace (FreetuxTVApp *app, const gchar* mode,
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
 	      "freetuxtv_action_deinterlace()\n");
 
-	gboolean ret;
-	GtkTreePath* path_next_channel;
-	if (app->current.path_channel != NULL) {
-		if(!app->current.is_recording){
-			ret = channels_list_get_next_channel (app, &path_next_channel);
-			if(ret){
-				freetuxtv_play_channel (app, path_next_channel, error);
-			}
-		}
-	}
+	 gtk_libvlc_media_player_set_deinterlace (app->player, mode, error);
 }
 
 void

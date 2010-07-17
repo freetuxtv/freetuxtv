@@ -1864,27 +1864,46 @@ gtk_libvlc_media_player_set_deinterlace (GtkLibvlcMediaPlayer *self, const gchar
 	GtkLibvlcMediaPlayerPrivate* priv;
 	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
 
+	// Create the media player if not initialized
+	gtk_libvlc_media_player_initialize (self, &pError);
+	g_return_if_fail(priv->initialized == TRUE);
+
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
-	gboolean ret = FALSE;
-
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
-	
+	pError = g_error_new (GTK_LIBVLC_ERROR,
+	                      GTK_LIBVLC_ERROR_LIBVLC,
+	                      "Deinsterlace is not supported for your LibVLC version");
 #else
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
-	libvlc_video_set_deinterlace  (priv->libvlc_mediaplayer, mode, &_vlcexcep);
-	raise_error(self, error, &_vlcexcep);
+	pError = g_error_new (GTK_LIBVLC_ERROR,
+	                      GTK_LIBVLC_ERROR_LIBVLC,
+	                      "Deinsterlace is not supported for your LibVLC version");
+	// libvlc_video_set_deinterlace  (priv->libvlc_mediaplayer, mode, &_vlcexcep);
+	// raise_error(self, error, &_vlcexcep);
 #else
-	libvlc_video_set_deinterlace  (priv->libvlc_mediaplayer, mode);
-	raise_error(self, error, NULL);
+	if(gtk_libvlc_media_player_is_playing (self, &pError)){
+
+		g_print("deinter %s\n", mode);
+		libvlc_video_set_deinterlace (priv->libvlc_mediaplayer, mode);
+		raise_error(self, error, NULL);
+	}
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
 #endif // LIBVLC_DEPRECATED_PLAYLIST
-	
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
 }
 
 void
