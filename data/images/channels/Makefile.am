@@ -236,6 +236,7 @@ channels_DATA = \
   purescreens.png \
   radio8.png \
   radiocean.png \
+  radiocanada.png \
   radioclapas.png \
   radioclassique.png \
   radio-corsica.png \
@@ -280,6 +281,8 @@ channels_DATA = \
   rmc.png \
   rmn.png \
   rocktv.png \
+  rossija24.png \
+  rsr-suisse.png \
   rtcgsat.png \
   rtcteleliege.png \
   rtl.png \
