@@ -58,11 +58,31 @@ on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
 
 static void
 on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
-                                                    gpointer user_data);
+                                                   gpointer user_data);
+
+static void
+on_windowmain_menuitemdeinterlaceblend_activate (GtkMenuItem *menuitem,
+                                                 gpointer user_data);
+
+static void
+on_windowmain_menuitemdeinterlacebob_activate (GtkMenuItem *menuitem,
+                                               gpointer user_data);
+
+static void
+on_windowmain_menuitemdeinterlacediscard_activate (GtkMenuItem *menuitem,
+                                                   gpointer user_data);
 
 static void
 on_windowmain_menuitemdeinterlacelinear_activate (GtkMenuItem *menuitem,
-                                                    gpointer user_data);
+                                                  gpointer user_data);
+
+static void
+on_windowmain_menuitemdeinterlacemean_activate (GtkMenuItem *menuitem,
+                                                gpointer user_data);
+
+static void
+on_windowmain_menuitemdeinterlacex_activate (GtkMenuItem *menuitem,
+                                             gpointer user_data);
 
 static gboolean
 on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
@@ -155,90 +175,136 @@ windowmain_init(FreetuxTVApp *app)
 {
 	GtkWidget *widget;
 	//GtkWidget *button;
-	GtkWidget *menu_bar = NULL;
+	GtkWidget *pMenuBar = NULL;
 
 	// Initialize menu bar	
-	menu_bar = gtk_menu_bar_new ();
-	GtkWidget *p_menu = NULL;
-	GtkWidget *p_menu_item = NULL;
-	GtkWidget *p_submenu = NULL;
+	pMenuBar = gtk_menu_bar_new ();
+	GtkWidget *pMenu = NULL;
+	GtkWidget *pMenuItem = NULL;
+	GtkWidget *pSubmenu = NULL;
 
-	GSList* radiogroup;
+	GSList* pRadioGroup = NULL;
 
 	// Menu : FreetuxTV
-	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_FreetuxTV"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
-	p_menu = gtk_menu_new ();
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
-	p_menu_item = gtk_image_menu_item_new_from_stock(GTK_STOCK_PREFERENCES, NULL);	
-	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
-	g_signal_connect(G_OBJECT(p_menu_item),
+	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_FreetuxTV"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenuBar), pMenuItem);
+	pMenu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pMenu);
+	pMenuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_PREFERENCES, NULL);	
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
 	                 G_CALLBACK(on_windowmain_menuitempreferences_activate),
 	                 app);
-	p_menu_item = gtk_separator_menu_item_new();	
-	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
-	p_menu_item = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);	
-	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
-	g_signal_connect(G_OBJECT(p_menu_item),
+	pMenuItem = gtk_separator_menu_item_new();	
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+	pMenuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);	
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
 	                 G_CALLBACK(on_windowmain_menuitemquit_activate),
 	                 app);
 	// End Menu : FreetuxTV
 
 	// Menu : Channels
-	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Channels"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
-	p_menu = gtk_menu_new ();
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
-	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Add a group"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
-	g_signal_connect(G_OBJECT(p_menu_item),
+	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Channels"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenuBar), pMenuItem);
+	pMenu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pMenu);
+	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Add a group"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
 	                 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
 	                 app);
-	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Update TV channels list"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
-	g_signal_connect(G_OBJECT(p_menu_item),
+	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Update TV channels list"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
 	                 G_CALLBACK(on_windowmain_menuitemupdatetvchannels_activate),
 	                 app);
 	// End Menu : Channels
 
 	// Menu : Video
-	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Video"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
-	p_menu = gtk_menu_new ();
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
+	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Video"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenuBar), pMenuItem);
+	pMenu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pMenu);
 	// SubMenu : Deinterlace
-	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Deinterlace"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
-	p_submenu = gtk_menu_new ();
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_submenu);	
-	p_menu_item = gtk_radio_menu_item_new_with_label (NULL, _("Disable"));
-	radiogroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(p_menu_item));
-	g_signal_connect(G_OBJECT(p_menu_item),
+	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Deinterlace"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+	pSubmenu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pSubmenu);
+	
+	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Disable"));
+	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
 	                 G_CALLBACK(on_windowmain_menuitemdeinterlacedisable_activate),
 	                 app);
-	gtk_menu_shell_append (GTK_MENU_SHELL (p_submenu), p_menu_item);	
-	p_menu_item = gtk_radio_menu_item_new_with_label (radiogroup, _("Linear"));
-	g_signal_connect(G_OBJECT(p_menu_item),
+	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+
+	pMenuItem = gtk_separator_menu_item_new();
+	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+ 
+	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Blend"));
+	g_signal_connect(G_OBJECT(pMenuItem),
+	                 "activate",
+	                 G_CALLBACK(on_windowmain_menuitemdeinterlaceblend_activate),
+	                 app);
+	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	
+	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Bob"));
+	g_signal_connect(G_OBJECT(pMenuItem),
+	                 "activate",
+	                 G_CALLBACK(on_windowmain_menuitemdeinterlacebob_activate),
+	                 app);
+	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	
+	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Discard"));
+	g_signal_connect(G_OBJECT(pMenuItem),
+	                 "activate",
+	                 G_CALLBACK(on_windowmain_menuitemdeinterlacediscard_activate),
+	                 app);
+	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	
+	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Linear"));
+	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
 	                 G_CALLBACK(on_windowmain_menuitemdeinterlacelinear_activate),
-	                 app);	
-	gtk_menu_shell_append (GTK_MENU_SHELL (p_submenu), p_menu_item);
+	                 app);
+	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	
+	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Mean"));
+	g_signal_connect(G_OBJECT(pMenuItem),
+	                 "activate",
+	                 G_CALLBACK(on_windowmain_menuitemdeinterlacemean_activate),
+	                 app);
+	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	
+	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("X"));
+	g_signal_connect(G_OBJECT(pMenuItem),
+	                 "activate",
+	                 G_CALLBACK(on_windowmain_menuitemdeinterlacex_activate),
+	                 app);
+	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
 	// End SubMenu : Deinterlace
 	// End Menu : Video
 
 	// Menu : Help
-	p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Help"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
-	p_menu = gtk_menu_new ();
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
-	p_menu_item = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);	
-	gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
-	g_signal_connect(G_OBJECT(p_menu_item),
+	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Help"));
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenuBar), pMenuItem);
+	pMenu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pMenu);
+	pMenuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);	
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
 	                 G_CALLBACK(on_windowmain_menuitemaboutdialog_activate),
 	                 app);
@@ -246,8 +312,8 @@ windowmain_init(FreetuxTVApp *app)
 
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 	                                              "windowmain_menubox");
-	gtk_box_pack_start (GTK_BOX (widget), GTK_WIDGET (menu_bar), TRUE, TRUE, 0);
-	gtk_widget_show_all(menu_bar);
+	gtk_box_pack_start (GTK_BOX (widget), GTK_WIDGET (pMenuBar), TRUE, TRUE, 0);
+	gtk_widget_show_all(pMenuBar);
 
 	// Initialize signals for windowmain
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
@@ -996,9 +1062,131 @@ on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
 {	
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	g_print("disable\n");
+	GError* error = NULL;
+
+	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
+		freetuxtv_action_deinterlace (app, NULL, &error);
+	}
+
+	/*
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		tvchannels_list_synchronize (app, &dbsync, &error);			
+	}
+
+	if(error == NULL){
+		channels_list_load_channels (app, &dbsync, &error);
+	}
+
+	dbsync_close_db(&dbsync);
+	*/
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
+static void
+on_windowmain_menuitemdeinterlacebob_activate (GtkMenuItem *menuitem,
+                                                    gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+	
+	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
+		freetuxtv_action_deinterlace (app, "bob", &error);
+	}
+
+	/*
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		tvchannels_list_synchronize (app, &dbsync, &error);			
+	}
+
+	if(error == NULL){
+		channels_list_load_channels (app, &dbsync, &error);
+	}
+
+	dbsync_close_db(&dbsync);
+	*/
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+}
+
+static void
+on_windowmain_menuitemdeinterlaceblend_activate (GtkMenuItem *menuitem,
+                                                    gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+	
+	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
+		freetuxtv_action_deinterlace (app, "blend", &error);
+	}
+
+	/*
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		tvchannels_list_synchronize (app, &dbsync, &error);			
+	}
+
+	if(error == NULL){
+		channels_list_load_channels (app, &dbsync, &error);
+	}
+
+	dbsync_close_db(&dbsync);
+	*/
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+}
+
+static void
+on_windowmain_menuitemdeinterlacediscard_activate (GtkMenuItem *menuitem,
+                                                   gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+	
+	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
+		freetuxtv_action_deinterlace (app, "discard", &error);
+	}
+
+	/*
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		tvchannels_list_synchronize (app, &dbsync, &error);			
+	}
+
+	if(error == NULL){
+		channels_list_load_channels (app, &dbsync, &error);
+	}
+
+	dbsync_close_db(&dbsync);
+	*/
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+}
 
 static void
 on_windowmain_menuitemdeinterlacelinear_activate (GtkMenuItem *menuitem,
@@ -1006,7 +1194,97 @@ on_windowmain_menuitemdeinterlacelinear_activate (GtkMenuItem *menuitem,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	g_print("linear\n");
+	GError* error = NULL;
+	
+	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
+		freetuxtv_action_deinterlace (app, "linear", &error);
+	}
+
+	/*
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		tvchannels_list_synchronize (app, &dbsync, &error);			
+	}
+
+	if(error == NULL){
+		channels_list_load_channels (app, &dbsync, &error);
+	}
+
+	dbsync_close_db(&dbsync);
+	*/
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+}
+
+static void
+on_windowmain_menuitemdeinterlacemean_activate (GtkMenuItem *menuitem,
+                                                gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+	
+	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
+		freetuxtv_action_deinterlace (app, "mean", &error);
+	}
+
+	/*
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		tvchannels_list_synchronize (app, &dbsync, &error);			
+	}
+
+	if(error == NULL){
+		channels_list_load_channels (app, &dbsync, &error);
+	}
+
+	dbsync_close_db(&dbsync);
+	*/
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+}
+
+static void
+on_windowmain_menuitemdeinterlacex_activate (GtkMenuItem *menuitem,
+                                                  gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+	
+	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
+		freetuxtv_action_deinterlace (app, "x", &error);
+	}
+
+	/*
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		tvchannels_list_synchronize (app, &dbsync, &error);			
+	}
+
+	if(error == NULL){
+		channels_list_load_channels (app, &dbsync, &error);
+	}
+
+	dbsync_close_db(&dbsync);
+	*/
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 static gboolean
