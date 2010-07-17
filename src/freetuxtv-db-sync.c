@@ -455,7 +455,6 @@ dbsync_add_channel (DBSync *dbsync,
 	    );
 
 	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
-	//g_print("%s\n", query);
 	sqlite3_free(query);
 
 	if(vlc_options){

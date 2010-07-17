@@ -1,19 +1,20 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * FreetuxTV is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or 
+ * freetuxtv
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
+	 * 
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * FreetuxTV is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Glade; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
+	 * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* Based on the rb-mmkeys-plugin.c file */
@@ -48,17 +49,17 @@ G_DEFINE_TYPE (GMMKeys, g_mmkeys, G_TYPE_OBJECT);
 
 static void
 g_marshal_VOID__STRING_STRING (GClosure     *closure,
-			       GValue       *return_value,
-			       guint         n_param_values,
-			       const GValue *param_values,
-			       gpointer      invocation_hint,
-			       gpointer      marshal_data);
+                               GValue       *return_value,
+                               guint         n_param_values,
+                               const GValue *param_values,
+                               gpointer      invocation_hint,
+                               gpointer      marshal_data);
 
 static void
 media_player_key_pressed (DBusGProxy *proxy,
-			  const gchar *application,
-			  const gchar *key,
-			  GMMKeys *data);
+                          const gchar *application,
+                          const gchar *key,
+                          GMMKeys *data);
 
 enum {
 	MM_KEY_PRESSED,
@@ -71,16 +72,16 @@ static guint signals[LAST_SIGNAL];
 
 static void
 grab_mmkey (int key_code,
-	    GdkWindow *root);
+            GdkWindow *root);
 
 static void
 ungrab_mmkey (int key_code,
-	      GdkWindow *root);
+              GdkWindow *root);
 
 static GdkFilterReturn
 filter_mmkeys (GdkXEvent *xevent,
-	       GdkEvent *event,
-	       gpointer data);
+               GdkEvent *event,
+               gpointer data);
 
 static void
 mmkeys_grab (GMMKeys *self, gboolean grab);
@@ -88,14 +89,30 @@ mmkeys_grab (GMMKeys *self, gboolean grab);
 #endif // HAVE_MMKEYS
 
 GMMKeys*
-g_mmkeys_new (gchar *application)
+g_mmkeys_new (gchar *application, GLogFunc log_func)
 {
+	int idLogFuncHandler = -1;
+	if(log_func){
+		idLogFuncHandler = g_log_set_handler (GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_MASK,
+                                              log_func, NULL);
+	}
+
+	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+	      "Initialize\n");
+	
 	GMMKeys* self;
 	self = G_MMKEYS (g_object_new (G_TYPE_MMKEYS, NULL));
-	if(application == NULL){
-		self->application = g_strdup("GMMKeys");
+	if(self){
+		if(application == NULL){
+			self->application = g_strdup("GMMKeys");
+		}else{
+			self->application = g_strdup(application);
+		}
+		self->idLogFuncHandler = idLogFuncHandler;
 	}else{
-		self->application = g_strdup(application);
+		if(idLogFuncHandler >= 0){
+			g_log_remove_handler(GMMKEYS_LOG_DOMAIN, idLogFuncHandler);
+		}
 	}
 	return self;
 }
@@ -104,80 +121,87 @@ void
 g_mmkeys_activate (GMMKeys *self)
 {
 	DBusGConnection *bus;
-	
-	g_print("GMMKeys : activating media player keys\n");
-	
+
+	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Activating media player keys\n");
+
 	bus = dbus_g_bus_get (DBUS_BUS_SESSION, NULL);
 	if (self->grab_type == NONE && bus != NULL) {
-		
+
 		GError *error = NULL;
 
 		self->proxy = dbus_g_proxy_new_for_name_owner (bus,
-							       "org.gnome.SettingsDaemon",
-							       "/org/gnome/SettingsDaemon/MediaKeys",
-							       "org.gnome.SettingsDaemon.MediaKeys",
-							       &error);
+		                                               "org.gnome.SettingsDaemon",
+		                                               "/org/gnome/SettingsDaemon/MediaKeys",
+		                                               "org.gnome.SettingsDaemon.MediaKeys",
+		                                               &error);
 		if (self->proxy == NULL) {
-			g_printerr ("GMMKeys : Unable to grab media player keys: %s\n", error->message);
+			g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+			      "Unable to grab media player keys: %s\n", error->message);
 			g_error_free (error);
 		} else {
 			dbus_g_proxy_call (self->proxy,
-					   "GrabMediaPlayerKeys", &error,
-					   G_TYPE_STRING, self->application,
-					   G_TYPE_UINT, 0,
-					   G_TYPE_INVALID,
-					   G_TYPE_INVALID);
+			                   "GrabMediaPlayerKeys", &error,
+			                   G_TYPE_STRING, self->application,
+			                   G_TYPE_UINT, 0,
+			                   G_TYPE_INVALID,
+			                   G_TYPE_INVALID);
 
 			// if the method doesn't exist, try the old interface/path
 			if (error != NULL &&
 			    error->domain == DBUS_GERROR &&
 			    error->code == DBUS_GERROR_UNKNOWN_METHOD) {
-				g_clear_error (&error);
-				g_object_unref (self->proxy);
+					g_clear_error (&error);
+					g_object_unref (self->proxy);
 
-				g_print ("trying old dbus interface/path");
-				self->proxy = dbus_g_proxy_new_for_name_owner (bus,
-									       "org.gnome.SettingsDaemon",
-									       "/org/gnome/SettingsDaemon",
-									       "org.gnome.SettingsDaemon",
-									       &error);
-				if (self->proxy != NULL) {
-					dbus_g_proxy_call (self->proxy,
-							   "GrabMediaPlayerKeys", &error,
-							   G_TYPE_STRING, self->application,
-							   G_TYPE_UINT, 0,
-							   G_TYPE_INVALID,
-							   G_TYPE_INVALID);
+					g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+					      "Trying old dbus interface/path");
+					self->proxy = dbus_g_proxy_new_for_name_owner (bus,
+					                                               "org.gnome.SettingsDaemon",
+					                                               "/org/gnome/SettingsDaemon",
+					                                               "org.gnome.SettingsDaemon",
+					                                               &error);
+					if (self->proxy != NULL) {
+						dbus_g_proxy_call (self->proxy,
+						                   "GrabMediaPlayerKeys", &error,
+						                   G_TYPE_STRING, self->application,
+						                   G_TYPE_UINT, 0,
+						                   G_TYPE_INVALID,
+						                   G_TYPE_INVALID);
+					}
 				}
-			}
-			
+
 			if (error == NULL) {
-				
-				g_print ("GMMKeys : created dbus proxy for org.gnome.SettingsDaemon.MediaKeys; grabbing keys\n");
+
+				g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+				      "Created dbus proxy for org.gnome.SettingsDaemon.MediaKeys; grabbing keys\n");
 				dbus_g_object_register_marshaller (g_marshal_VOID__STRING_STRING,
-								   G_TYPE_NONE, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INVALID);
-				
+				                                   G_TYPE_NONE, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INVALID);
+
 				dbus_g_proxy_add_signal (self->proxy,
-							 "MediaPlayerKeyPressed",
-							 G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INVALID);
-				
+				                         "MediaPlayerKeyPressed",
+				                         G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INVALID);
+
 				dbus_g_proxy_connect_signal (self->proxy,
-							     "MediaPlayerKeyPressed",
-							     G_CALLBACK (media_player_key_pressed),
-							     self, NULL);
-				
+				                             "MediaPlayerKeyPressed",
+				                             G_CALLBACK (media_player_key_pressed),
+				                             self, NULL);
+
 				self->grab_type = SETTINGS_DAEMON;
 			} else {
-				g_printerr ("GMMKeys : Unable to grab media player keys: %s\n", error->message);
+				g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+				      "Unable to grab media player keys: %s\n", error->message);
 				g_error_free (error);
 			}
 		}
 	} else {
-		g_print ("GMMKeys : couldn't get dbus session bus\n");
+		g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_WARNING,
+		      "Couldn't get dbus session bus\n");
 	}
 #ifdef HAVE_MMKEYS
 	if (self->grab_type == NONE) {
-		g_print ("GMMKeys : attempting old-style key grabs\n");
+		g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		      "Attempting old-style key grabs\n");
 		mmkeys_grab (self, TRUE);
 		self->grab_type = X_KEY_GRAB;
 	}
@@ -187,17 +211,19 @@ g_mmkeys_activate (GMMKeys *self)
 void
 g_mmkeys_deactivate (GMMKeys *self)
 {
-	g_print("GMMKeys : deactivating media player keys\n");
+	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Deactivating media player keys\n");
 	if (self->proxy != NULL) {
 		GError *error = NULL;
-		
+
 		if (self->grab_type == SETTINGS_DAEMON) {
 			dbus_g_proxy_call (self->proxy,
-					   "ReleaseMediaPlayerKeys", &error,
-					   G_TYPE_STRING, self->application,
-					   G_TYPE_INVALID, G_TYPE_INVALID);
+			                   "ReleaseMediaPlayerKeys", &error,
+			                   G_TYPE_STRING, self->application,
+			                   G_TYPE_INVALID, G_TYPE_INVALID);
 			if (error != NULL) {
-				g_printerr ("GMMKeys : Could not release media player keys: %s\n", error->message);
+				g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+				      "Could not release media player keys: %s\n", error->message);
 				g_error_free (error);
 			}
 			self->grab_type = NONE;
@@ -208,7 +234,8 @@ g_mmkeys_deactivate (GMMKeys *self)
 	}
 #ifdef HAVE_MMKEYS
 	if (self->grab_type == X_KEY_GRAB) {
-		g_print ("GMMKeys : undoing old-style key grabs\n");
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		      "Undoing old-style key grabs\n");
 		mmkeys_grab (self, FALSE);
 		self->grab_type = NONE;
 	}
@@ -218,41 +245,42 @@ g_mmkeys_deactivate (GMMKeys *self)
 
 static void
 media_player_key_pressed (DBusGProxy *proxy,
-			  const gchar *application,
-			  const gchar *key,
-			  GMMKeys *data)
+                          const gchar *application,
+                          const gchar *key,
+                          GMMKeys *data)
 {
-	g_print ("GMMKeys : got media key '%s' for application '%s'\n",
-		  key, application);
+	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+	      "Got media key '%s' for application '%s'\n",
+	      key, application);
 
 	if (strcmp (application, data->application))
 		return;
-	
+
 	if (strcmp (key, "Play") == 0) {		
 		g_signal_emit (G_OBJECT (data),
-			       signals [MM_KEY_PRESSED],
-			       0, GMMKEYS_BUTTON_PLAY
-			       );
+		               signals [MM_KEY_PRESSED],
+		               0, GMMKEYS_BUTTON_PLAY
+		               );
 	} else if (strcmp (key, "Pause") == 0) {			
 		g_signal_emit (G_OBJECT (data),
-			       signals [MM_KEY_PRESSED],
-			       0, GMMKEYS_BUTTON_PAUSE
-			       );
+		               signals [MM_KEY_PRESSED],
+		               0, GMMKEYS_BUTTON_PAUSE
+		               );
 	} else if (strcmp (key, "Stop") == 0) {	
 		g_signal_emit (G_OBJECT (data),
-			       signals [MM_KEY_PRESSED],
-			       0,GMMKEYS_BUTTON_STOP
-			       );
+		               signals [MM_KEY_PRESSED],
+		               0,GMMKEYS_BUTTON_STOP
+		               );
 	} else if (strcmp (key, "Previous") == 0) {	
 		g_signal_emit (G_OBJECT (data),
-			       signals [MM_KEY_PRESSED],
-			       0,GMMKEYS_BUTTON_PREV
-			       );
+		               signals [MM_KEY_PRESSED],
+		               0,GMMKEYS_BUTTON_PREV
+		               );
 	} else if (strcmp (key, "Next") == 0) {	
 		g_signal_emit (G_OBJECT (data),
-			       signals [MM_KEY_PRESSED],
-			       0,GMMKEYS_BUTTON_NEXT
-			       );
+		               signals [MM_KEY_PRESSED],
+		               0,GMMKEYS_BUTTON_NEXT
+		               );
 	}
 }
 
@@ -260,52 +288,53 @@ media_player_key_pressed (DBusGProxy *proxy,
 
 static void
 grab_mmkey (int key_code,
-	    GdkWindow *root)
+            GdkWindow *root)
 {
 	gdk_error_trap_push ();
 
 	XGrabKey (GDK_DISPLAY (), key_code,
-		  0,
-		  GDK_WINDOW_XID (root), True,
-		  GrabModeAsync, GrabModeAsync);
+	          0,
+	          GDK_WINDOW_XID (root), True,
+	          GrabModeAsync, GrabModeAsync);
 	XGrabKey (GDK_DISPLAY (), key_code,
-		  Mod2Mask,
-		  GDK_WINDOW_XID (root), True,
-		  GrabModeAsync, GrabModeAsync);
+	          Mod2Mask,
+	          GDK_WINDOW_XID (root), True,
+	          GrabModeAsync, GrabModeAsync);
 	XGrabKey (GDK_DISPLAY (), key_code,
-		  Mod5Mask,
-		  GDK_WINDOW_XID (root), True,
-		  GrabModeAsync, GrabModeAsync);
+	          Mod5Mask,
+	          GDK_WINDOW_XID (root), True,
+	          GrabModeAsync, GrabModeAsync);
 	XGrabKey (GDK_DISPLAY (), key_code,
-		  LockMask,
-		  GDK_WINDOW_XID (root), True,
-		  GrabModeAsync, GrabModeAsync);
+	          LockMask,
+	          GDK_WINDOW_XID (root), True,
+	          GrabModeAsync, GrabModeAsync);
 	XGrabKey (GDK_DISPLAY (), key_code,
-		  Mod2Mask | Mod5Mask,
-		  GDK_WINDOW_XID (root), True,
-		  GrabModeAsync, GrabModeAsync);
+	          Mod2Mask | Mod5Mask,
+	          GDK_WINDOW_XID (root), True,
+	          GrabModeAsync, GrabModeAsync);
 	XGrabKey (GDK_DISPLAY (), key_code,
-		  Mod2Mask | LockMask,
-		  GDK_WINDOW_XID (root), True,
-		  GrabModeAsync, GrabModeAsync);
+	          Mod2Mask | LockMask,
+	          GDK_WINDOW_XID (root), True,
+	          GrabModeAsync, GrabModeAsync);
 	XGrabKey (GDK_DISPLAY (), key_code,
-		  Mod5Mask | LockMask,
-		  GDK_WINDOW_XID (root), True,
-		  GrabModeAsync, GrabModeAsync);
+	          Mod5Mask | LockMask,
+	          GDK_WINDOW_XID (root), True,
+	          GrabModeAsync, GrabModeAsync);
 	XGrabKey (GDK_DISPLAY (), key_code,
-		  Mod2Mask | Mod5Mask | LockMask,
-		  GDK_WINDOW_XID (root), True,
-		  GrabModeAsync, GrabModeAsync);
+	          Mod2Mask | Mod5Mask | LockMask,
+	          GDK_WINDOW_XID (root), True,
+	          GrabModeAsync, GrabModeAsync);
 
 	gdk_flush ();
-        if (gdk_error_trap_pop ()) {
-		g_print ("GMMKeys : Error grabbing key\n");
+	if (gdk_error_trap_pop ()) {
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+		      "Error grabbing key\n");
 	}
 }
 
 static void
 ungrab_mmkey (int key_code,
-	      GdkWindow *root)
+              GdkWindow *root)
 {
 	gdk_error_trap_push ();
 
@@ -319,16 +348,17 @@ ungrab_mmkey (int key_code,
 	XUngrabKey (GDK_DISPLAY (), key_code, Mod2Mask | Mod5Mask | LockMask, GDK_WINDOW_XID (root));
 
 	gdk_flush ();
-        if (gdk_error_trap_pop ()) {
-		g_print ("GMMKeys : Error grabbing key\n");
+	if (gdk_error_trap_pop ()) {
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+		      "Error grabbing key\n");
 	}
 }
 
 
 static GdkFilterReturn
 filter_mmkeys (GdkXEvent *xevent,
-	       GdkEvent *event,
-	       gpointer data)
+               GdkEvent *event,
+               gpointer data)
 {
 	XEvent *xev;
 	XKeyEvent *key;
@@ -341,36 +371,36 @@ filter_mmkeys (GdkXEvent *xevent,
 	key = (XKeyEvent *) xevent;
 
 	self = (GMMKeys *)data;
-	
+
 	if (XKeysymToKeycode (GDK_DISPLAY (), XF86XK_AudioPlay) == key->keycode) {	
 		g_signal_emit (G_OBJECT (data),
-			       signals [MM_KEY_PRESSED],
-			       0, GMMKEYS_BUTTON_PLAY
-			       );
+		               signals [MM_KEY_PRESSED],
+		               0, GMMKEYS_BUTTON_PLAY
+		               );
 		return GDK_FILTER_REMOVE;
 	} else if (XKeysymToKeycode (GDK_DISPLAY (), XF86XK_AudioPause) == key->keycode) {	
 		g_signal_emit (G_OBJECT (data),
-			       signals [MM_KEY_PRESSED],
-			       0, GMMKEYS_BUTTON_PAUSE
-			       );
+		               signals [MM_KEY_PRESSED],
+		               0, GMMKEYS_BUTTON_PAUSE
+		               );
 		return GDK_FILTER_REMOVE;
 	} else if (XKeysymToKeycode (GDK_DISPLAY (), XF86XK_AudioStop) == key->keycode) {	
 		g_signal_emit (G_OBJECT (data),
-			       signals [MM_KEY_PRESSED],
-			       0, GMMKEYS_BUTTON_STOP
-			       );
+		               signals [MM_KEY_PRESSED],
+		               0, GMMKEYS_BUTTON_STOP
+		               );
 		return GDK_FILTER_REMOVE;
 	} else if (XKeysymToKeycode (GDK_DISPLAY (), XF86XK_AudioPrev) == key->keycode) {	
 		g_signal_emit (G_OBJECT (data),
-			       signals [MM_KEY_PRESSED],
-			       0, GMMKEYS_BUTTON_PREV
-			       );
+		               signals [MM_KEY_PRESSED],
+		               0, GMMKEYS_BUTTON_PREV
+		               );
 		return GDK_FILTER_REMOVE;
 	} else if (XKeysymToKeycode (GDK_DISPLAY (), XF86XK_AudioNext) == key->keycode) {	
 		g_signal_emit (G_OBJECT (data),
-			       signals [MM_KEY_PRESSED],
-			       0, GMMKEYS_BUTTON_NEXT
-			       );
+		               signals [MM_KEY_PRESSED],
+		               0, GMMKEYS_BUTTON_NEXT
+		               );
 		return GDK_FILTER_REMOVE;
 	} else {
 		return GDK_FILTER_CONTINUE;
@@ -393,7 +423,7 @@ mmkeys_grab (GMMKeys *self, gboolean grab)
 	keycodes[4] = XKeysymToKeycode (GDK_DISPLAY (), XF86XK_AudioPause);
 
 	display = gdk_display_get_default ();
-	
+
 	for (i = 0; i < gdk_display_get_n_screens (display); i++) {
 		screen = gdk_display_get_screen (display, i);
 
@@ -411,10 +441,10 @@ mmkeys_grab (GMMKeys *self, gboolean grab)
 
 			if (grab)
 				gdk_window_add_filter (root, filter_mmkeys,
-						       (gpointer) self);
+				                       (gpointer) self);
 			else
 				gdk_window_remove_filter (root, filter_mmkeys,
-							  (gpointer) self);
+				                          (gpointer) self);
 		}
 	}
 }
@@ -423,22 +453,22 @@ mmkeys_grab (GMMKeys *self, gboolean grab)
 
 static void
 g_marshal_VOID__STRING_STRING (GClosure     *closure,
-			       GValue       *return_value,
-			       guint         n_param_values,
-			       const GValue *param_values,
-			       gpointer      invocation_hint,
-			       gpointer      marshal_data)
+                               GValue       *return_value,
+                               guint         n_param_values,
+                               const GValue *param_values,
+                               gpointer      invocation_hint,
+                               gpointer      marshal_data)
 {
 	typedef void (*GMarshalFunc_VOID__STRING_STRING) (gpointer     data1,
-							  gpointer     arg_1,
-							  gpointer     arg_2,
-							  gpointer     data2);
+	                                                  gpointer     arg_1,
+	                                                  gpointer     arg_2,
+	                                                  gpointer     data2);
 	register GMarshalFunc_VOID__STRING_STRING callback;
 	register GCClosure *cc = (GCClosure*) closure;
 	register gpointer data1, data2;
-	
+
 	g_return_if_fail (n_param_values == 3);
-	
+
 	if (G_CCLOSURE_SWAP_DATA (closure)) {
 		data1 = closure->data;
 		data2 = g_value_peek_pointer (param_values + 0);
@@ -447,40 +477,46 @@ g_marshal_VOID__STRING_STRING (GClosure     *closure,
 		data2 = closure->data;
 	}
 	callback = (GMarshalFunc_VOID__STRING_STRING) (marshal_data ? marshal_data : cc->callback);
-	
+
 	callback (data1,
-		  g_marshal_value_peek_string (param_values + 1),
-		  g_marshal_value_peek_string (param_values + 2),
-		  data2);
+	          g_marshal_value_peek_string (param_values + 1),
+	          g_marshal_value_peek_string (param_values + 2),
+	          data2);
 }
 
 static void
 g_mmkeys_finalize (GObject *object)
 {
-	g_print ("GMMKeys : finalize\n");	
+	GMMKeys *self = G_MMKEYS(object);
+	
+	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+	      "Finalize\n");
+	if(self->idLogFuncHandler >= 0){
+		g_log_remove_handler(GMMKEYS_LOG_DOMAIN, self->idLogFuncHandler);
+	}
 }
 
 static void
 g_mmkeys_init (GMMKeys *object)
 {
-	g_print ("GMMKeys : initialising\n");
+	object->idLogFuncHandler = -1;
 }
 
 static void
 g_mmkeys_class_init (GMMKeysClass *klass)
 {
 	GObjectClass *object_class;
-	
+
 	object_class = (GObjectClass*) klass;
 
 	object_class->finalize = g_mmkeys_finalize;
-	
+
 	signals[MM_KEY_PRESSED] =
 		g_signal_new ("mm_key_pressed",
-			      G_TYPE_FROM_CLASS (klass),
-			      G_SIGNAL_RUN_LAST,
-			      0,
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__INT,
-			      G_TYPE_NONE, 1, G_TYPE_INT);
+		              G_TYPE_FROM_CLASS (klass),
+		              G_SIGNAL_RUN_LAST,
+		              0,
+		              NULL, NULL,
+		              g_cclosure_marshal_VOID__INT,
+		              G_TYPE_NONE, 1, G_TYPE_INT);
 }
