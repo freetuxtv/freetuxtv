@@ -24,6 +24,8 @@ typedef struct _DbEvolutionInstancePrivate DbEvolutionInstancePrivate;
 struct _DbEvolutionInstancePrivate
 {
 	gchar* szScriptFilename;
+
+	int idLogFuncHandler;
 };
 
 #define DB_EVOLUTION_INSTANCE_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), DB_EVOLUTION_TYPE_INSTANCE, DbEvolutionInstancePrivate))
@@ -42,6 +44,7 @@ db_evolution_instance_init (DbEvolutionInstance *object)
 	object->exec_query_func = NULL;
 	
 	priv->szScriptFilename = NULL;
+	priv->idLogFuncHandler = -1;
 }
 
 static void
@@ -52,6 +55,10 @@ db_evolution_instance_finalize (GObject *object)
 
 	if(priv->szScriptFilename){
 		g_free(priv->szScriptFilename);
+	}
+
+	if(priv->idLogFuncHandler >= 0){
+		g_log_remove_handler(DBEVOLUTION_LOG_DOMAIN, priv->idLogFuncHandler);
 	}
 
 	G_OBJECT_CLASS (db_evolution_instance_parent_class)->finalize (object);
@@ -69,17 +76,30 @@ db_evolution_instance_class_init (DbEvolutionInstanceClass *klass)
 }
 
 DbEvolutionInstance*
-db_evolution_instance_new(const gchar* szScriptFilename)
+db_evolution_instance_new(const gchar* szScriptFilename, GLogFunc log_func)
 {
 	g_return_val_if_fail(szScriptFilename != NULL, NULL);
+
+	int idLogFuncHandler = -1;
+	if(log_func){
+		idLogFuncHandler = g_log_set_handler (DBEVOLUTION_LOG_DOMAIN, G_LOG_LEVEL_MASK,
+                                              log_func, NULL);
+	}
 
 	DbEvolutionInstance *pDbEvolutionInstance;
 	pDbEvolutionInstance = g_object_new (DB_EVOLUTION_TYPE_INSTANCE, NULL);
 
-	DbEvolutionInstancePrivate* priv;
-	priv = DB_EVOLUTION_INSTANCE_PRIVATE(pDbEvolutionInstance);
+	if(pDbEvolutionInstance){
+		DbEvolutionInstancePrivate* priv;
+		priv = DB_EVOLUTION_INSTANCE_PRIVATE(pDbEvolutionInstance);
 
-	priv->szScriptFilename=g_strdup(szScriptFilename);	
+		priv->szScriptFilename=g_strdup(szScriptFilename);
+		priv->idLogFuncHandler = idLogFuncHandler;
+	}else{
+		if(idLogFuncHandler >= 0){
+			g_log_remove_handler(DBEVOLUTION_LOG_DOMAIN, idLogFuncHandler);
+		}
+	}
 
 	return pDbEvolutionInstance;
 }
@@ -103,7 +123,8 @@ db_evolution_instance_do_creation(DbEvolutionInstance* pDbEvolutionInstance,
 
 	gchar* szTmpVersion = NULL;
 	gchar* szNextVersion = NULL;
-	g_print("DbEvolution : Starting database creation\n");
+	g_log(DBEVOLUTION_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Starting database creation\n");
 
 	GIOChannel *pIOChannelIn = NULL;
 	gchar *szScriptFilename;
@@ -154,7 +175,8 @@ db_evolution_instance_do_creation(DbEvolutionInstance* pDbEvolutionInstance,
 
 			if(installVersion && *error == NULL){
 				if(*error == NULL){
-					g_print("DbEvolution : Installing database version %s\n", szTmpVersion);
+					g_log(DBEVOLUTION_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+					      "Installing database version %s\n", szTmpVersion);
 					// We run the script to migrate the database
 					pDbEvolutionInstance->exec_query_func(query->str, user_data, error);
 				}
@@ -209,13 +231,15 @@ db_evolution_instance_do_evolution(DbEvolutionInstance* pDbEvolutionInstance,
 	gchar* szCurrentVersion = NULL;
 	gchar* szTmpVersion = NULL;
 	gchar* szNextVersion = NULL;
-	g_print("DbEvolution : Starting database evolution\n");
+	g_log(DBEVOLUTION_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Starting database evolution\n");
 
 	// Get the current version of the database
 	szInitialeVersion = pDbEvolutionInstance->get_current_db_version_func(user_data, error);
 	if(*error == NULL){
 		szCurrentVersion = g_strdup(szInitialeVersion);
-		g_print("DbEvolution : Current database version is %s\n", szCurrentVersion);
+		g_log(DBEVOLUTION_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		      "Current database version is %s\n", szCurrentVersion);
 	}
 
 	GIOChannel *pIOChannelIn = NULL;
@@ -268,7 +292,8 @@ db_evolution_instance_do_evolution(DbEvolutionInstance* pDbEvolutionInstance,
 			if(updateVersion && *error == NULL){
 				if(pDbEvolutionInstance->compare_db_version_func(szCurrentVersion, szTmpVersion, user_data, error) < 0){
 					if(*error == NULL){
-						g_print("DbEvolution : Migrate from database version %s to %s\n", szCurrentVersion, szTmpVersion);
+						g_log(DBEVOLUTION_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+						      "Migrate from database version %s to %s\n", szCurrentVersion, szTmpVersion);
 						// We run the script to migrate the database
 						pDbEvolutionInstance->exec_query_func(query->str, user_data, error);
 					}
