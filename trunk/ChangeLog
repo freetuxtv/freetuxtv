@@ -1,12 +1,19 @@
 FreetuxTV 0.5.1 (2010-xx-xx)
   - Mise à jour de logos :
     TV et WebTV :
-    Cash TV, Direct8, Euronews, GuysenTV, I>Television, LCP - La chaine parlementaire, NRJ12, NT1, Public Sénat, Télé Grenoble, Vesti,
+    Cash TV, Direct8, Euronews, GuysenTV, I>Television, LCP - La chaine parlementaire, NRJ12, NT1, Public Sénat, Télé Grenoble, Rossija 24 (ex Vesti),
   - Ajout de logos :
     TV et WebTV :
     Imed TV, Mboa TV, MCE - Ma Chaine Etudiante, Physique TV, Press TV, TV 34, TV Fil 78, 
     Radio et WebRadio :
-    MIXXRADIO, Public Santé, Radio Mont Blanc, Radio Sing Sing, RFO, STL FM, Tropiques FM, MyZen.tv, Renault TV
+    MIXXRADIO, Public Santé, Radio Mont Blanc, Radio Sing Sing, RFO, STL FM, Tropiques FM, MyZen.tv, Renault TV, Radio Canada, RSR Suisse, Vesti FM
+  - Ajout de playlists :
+    WebRadio Russe 
+    (Voir http://code.google.com/p/freetuxtv/wiki/MajListesChaines) 
+  - Mise à jour de playlists :
+    WebRadio Française 
+    WebTV Russe 
+   ( voir http://code.google.com/p/freetuxtv/wiki/MajListesChaines )
 
 FreetuxTV 0.5.0 (2010-07-11)
   - Gestion de LibVLC 1.1.0
