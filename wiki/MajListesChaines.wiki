@@ -6,7 +6,34 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
-* 04/04/2040  - Liste Web Radio (Français)
+* 17/07/2010  - Liste Web Radio (Français)
+
+- Correction URL flux .mp3 de CKIA FM suite au changement de site web de http://www.meduse.org/ckiafm/ à http://www.ckiafm.org/
+
+- Ajout des 42 locales de France Bleu ( http://sites.radiofrance.fr/chaines/france-bleu/ ) en plus de France Bleu Ile de france déjà présent dans FreetuxTV.
+  L'ensemble des chaines de radio disponibles en ligne du groupe Radio France ( http://fr.wikipedia.org/wiki/Radio_France ) sont
+  désormais dans FreetuxTV.
+
+- Les chaines Espace Musqique et RDI de Radio Canada étaient déjà présentes dans FreetuxTV.
+  Ajout de l'ensemble des chaines radio de Radio Canada ( http://fr.wikipedia.org/wiki/Soci%C3%A9t%C3%A9_Radio-Canada ) dont :
+ Bande à part, Bande à part, Bande à part La métal, Bande à part La rockeuse, Bande à part L'électronique, Bande à part L'enracinée, Bande à part L'urbaine,
+ Espace musique Québec, Première Chaîne, les 16 Locales de Première Chaîne, RCI viva (Multilingue)
+
+- La chaine Couleur 3 de la RSR (Radio Suisse Romande) ( http://fr.wikipedia.org/wiki/Radio_suisse_romande ) était déjà présente dans FreetuxTV mais le lien
+  audio ne fonctionnait plus.
+  Correction du lien du flux audio Couleur 3 de la RSR et ajout de l'ensemble des chaines de radio disponibles en ligne du groupe RSR :
+  Espace 2, La 1ère, Option Musique
+  
+  Note : En espérant que nos amis francophones de Suisse et Canada apprécieront ces ajouts.
+ Pour nos amis francophones belges, le groupe public belge de radio RTBF utilise un format .pls, pour les flux audio des radios, 
+ qui ne peut pas être lu avec le logiciel VLC sur Linux ou MS Windows pour l'instant. 
+
+
+* 23/04/2010  - Liste Web TV (Turc)
+
+- Mise à jour des WebTV en Turc.
+
+* 04/04/2010  - Liste Web Radio (Français)
 
 - Renommage de Roc FM en Radio Metropolys suite à changement de nom <BR>
   site web http://www.metropolys.com <BR>
