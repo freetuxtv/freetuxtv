@@ -274,7 +274,7 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 		text = g_strdup_printf (_("Getting the file : \"%s\""), pChannelsGroupInfos->uri);
 		windowmain_statusbar_push (app, "UpdateMsg", text);
 		g_free(text);
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 		      "Getting the file \"%s\"\n", pChannelsGroupInfos->uri);
 
 		gchar *filename = NULL;
@@ -295,7 +295,7 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 			pdata.error = error;
 			int res = 0;
 
-			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 			      "Parsing the file \"%s\"\n", filename);
 			res = libm3uparser_parse(filename, &on_parsem3u_add_channel, &pdata);
 			if (res != LIBM3UPARSER_OK){		

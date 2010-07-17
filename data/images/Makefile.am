@@ -1,4 +1,4 @@
 
 SUBDIRS = \
-	channels\
+	channels \
 	groups

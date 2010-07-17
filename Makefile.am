@@ -5,11 +5,11 @@ SUBDIRS = lib po data src
 
 freetuxtvdocdir = ${pkgdatadir}/doc
 freetuxtvdoc_DATA = \
-	README\
-	COPYING\
-	AUTHORS\
-	ChangeLog\
-	INSTALL\
+	README \
+	COPYING \
+	AUTHORS \
+	ChangeLog \
+	INSTALL \
 	NEWS
 
 INTLTOOL_FILES = intltool-extract.in \
