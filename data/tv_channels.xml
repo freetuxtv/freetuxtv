@@ -943,6 +943,7 @@
 	</tvchannel>
 	<tvchannel name="Rossija 24 (ex Vesti)">
 		<logo_filename>rossija24.png</logo_filename>
+		<label>Vesti</label>
 	</tvchannel>
 	<tvchannel name="RTCG Sat">
 		<logo_filename>rtcgsat.png</logo_filename>
