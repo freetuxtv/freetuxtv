@@ -97,7 +97,7 @@ g_mmkeys_new (gchar *application, GLogFunc log_func)
                                               log_func, NULL);
 	}
 
-	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "Initialize\n");
 	
 	GMMKeys* self;
@@ -327,7 +327,7 @@ grab_mmkey (int key_code,
 
 	gdk_flush ();
 	if (gdk_error_trap_pop ()) {
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
 		      "Error grabbing key\n");
 	}
 }
@@ -489,7 +489,7 @@ g_mmkeys_finalize (GObject *object)
 {
 	GMMKeys *self = G_MMKEYS(object);
 	
-	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "Finalize\n");
 	if(self->idLogFuncHandler >= 0){
 		g_log_remove_handler(GMMKEYS_LOG_DOMAIN, self->idLogFuncHandler);

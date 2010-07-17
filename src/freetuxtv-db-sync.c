@@ -178,7 +178,7 @@ dbsync_create_db (DBSync *dbsync, GError** error)
 	szScriptFilename = FREETUXTV_DIR "/sqlite3-create-tables.sql";
 	
 	DbEvolutionInstance* pDbEvolutionInstance;	
-	pDbEvolutionInstance = db_evolution_instance_new(szScriptFilename);
+	pDbEvolutionInstance = db_evolution_instance_new(szScriptFilename, freetuxtv_log);
 
 	if(pDbEvolutionInstance){
 
@@ -206,7 +206,7 @@ dbsync_update_db (DBSync *dbsync, GError** error)
 	szScriptFilename = FREETUXTV_DIR "/sqlite3-create-tables.sql";
 	
 	DbEvolutionInstance* pDbEvolutionInstance;	
-	pDbEvolutionInstance = db_evolution_instance_new(szScriptFilename);
+	pDbEvolutionInstance = db_evolution_instance_new(szScriptFilename, freetuxtv_log);
 
 	if(pDbEvolutionInstance){
 

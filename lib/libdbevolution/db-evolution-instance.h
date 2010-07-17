@@ -53,13 +53,15 @@ struct _DbEvolutionInstance
 	                             GError** error);
 };
 
+#define DBEVOLUTION_LOG_DOMAIN			"DBEvolution"
+
 #define DBEVOLUTION_LASTDBVERSION_TAGS  "-- @libdbevolution-lastdbversion="
 #define DBEVOLUTION_DBVERSION_TAGS		"-- @libdbevolution-dbversion="
 
 GType db_evolution_instance_get_type (void) G_GNUC_CONST;
 
 DbEvolutionInstance*
-db_evolution_instance_new(const gchar* szScriptFilename);
+db_evolution_instance_new(const gchar* szScriptFilename, GLogFunc log_func);
 
 gboolean
 db_evolution_instance_do_creation(DbEvolutionInstance* pDbEvolutionInstance,
