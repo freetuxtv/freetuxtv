@@ -39,58 +39,61 @@
 int
 init_user_configuration(GError **error)
 {
-	int res;
+	int res = 0;
+	gboolean bGoOn = TRUE;
 
 	gchar *user_cache_dir;
 	user_cache_dir = g_strconcat(g_get_user_config_dir(), 
-				     "/FreetuxTV/cache", NULL);
+	                             "/FreetuxTV/cache", NULL);
 
 	gchar *user_img_channels_dir;
 	user_img_channels_dir = g_strconcat(g_get_user_config_dir(), 
-					    "/FreetuxTV/images/channels", NULL);
-	
-	// Verifie si le repertoire des images utilisateur existe
-	if (! g_file_test (user_cache_dir, 
-			   G_FILE_TEST_EXISTS)){
+	                                    "/FreetuxTV/images/channels", NULL);
+
+	// Check if user cache directory exists
+	if (!g_file_test (user_cache_dir, G_FILE_TEST_EXISTS)){
 		res = g_mkdir_with_parents (user_cache_dir,
-					    0744);
+		                            0744);
 		if(res == 0){
-			g_printerr ("FreetuxTV : Directory created : %s\n",
-				    user_cache_dir);	
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+			      "Directory created : %s\n", user_cache_dir);	
 		}else{
-			g_printerr ("FreetuxTV : Cannot create directory : %s\n",
-				    user_cache_dir);
-			return -1;
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+			      "Cannot create directory : %s\n", user_cache_dir);
+			bGoOn = FALSE;
 		}
 	}
-	if (! g_file_test (user_cache_dir,
-			   G_FILE_TEST_IS_DIR)){
-		g_printerr ("FreetuxTV : Not a directory : %s\n",
-			    user_cache_dir);
-		return -1;
+	if(bGoOn){
+		if (!g_file_test (user_cache_dir, G_FILE_TEST_IS_DIR)){
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+			      "Not a directory : %s\n", user_cache_dir);
+			bGoOn = FALSE;
+		}
 	}
 
-	// Verifie si le repertoire des images utilisateur existe
-	if (! g_file_test (user_img_channels_dir, 
-			   G_FILE_TEST_EXISTS)){
-		res = g_mkdir_with_parents (user_img_channels_dir,
-					    0744);
-		if(res == 0){
-			g_printerr ("FreetuxTV : Directory created : %s\n",
-				    user_img_channels_dir);	
-		}else{
-			g_printerr ("FreetuxTV : Cannot create directory : %s\n",
-				    user_img_channels_dir);
-			return -1;
+	// Check if user images directory exists
+	if(bGoOn){
+		if (!g_file_test (user_img_channels_dir, G_FILE_TEST_EXISTS)){
+			res = g_mkdir_with_parents (user_img_channels_dir,
+			                            0744);
+			if(res == 0){
+				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+				      "Directory created : %s\n", user_img_channels_dir);	
+			}else{
+				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+				      "Cannot create directory : %s\n", user_img_channels_dir);
+				bGoOn = FALSE;
+			}
 		}
 	}
-	if (! g_file_test (user_img_channels_dir,
-			   G_FILE_TEST_IS_DIR)){
-		g_printerr ("FreetuxTV : Not a directory : %s\n",
-			    user_img_channels_dir);
-		return -1;
+	if(bGoOn){
+		if (!g_file_test (user_img_channels_dir, G_FILE_TEST_IS_DIR)){
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+			      "Not a directory : %s\n", user_img_channels_dir);
+			bGoOn = FALSE;
+		}
 	}
-	
+
 	// Create the database if doesn't exist, else try to update the database
 	DBSync dbsync;
 	if (!dbsync_db_exists(&dbsync)){
@@ -108,19 +111,19 @@ init_user_configuration(GError **error)
 	}
 
 	if(*error != NULL){
-		g_print("FreetuxTV : Error %s\n", (*error)->message);
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_ERROR,
+		      "Error %s\n", (*error)->message);
 	}
-	
+
 	g_free(user_cache_dir);
 	g_free(user_img_channels_dir);
 
-	return 0;
+	return (bGoOn ? 0 : -1);
 }
 
 void
 load_user_configuration(FreetuxTVApp *app)
 {
-
 	GKeyFile *keyfile;
 	int i;
 	gboolean b;
@@ -131,37 +134,40 @@ load_user_configuration(FreetuxTVApp *app)
 
 	// Loading FreetuxTV State
 	filename = g_build_filename (g_get_user_config_dir(),
-				     "FreetuxTV/config.ini", NULL);
-	g_print("FreetuxTV : Loading config file %s\n", filename);
+	                             "FreetuxTV/config.ini", NULL);
+
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Loading config file %s\n", filename);
 	keyfile = g_key_file_new ();
-	if (g_key_file_load_from_file (keyfile, filename,
-				       G_KEY_FILE_NONE, NULL) == FALSE) {
-		g_printerr("FreetuxTV : Error when loading config file\n");
+	if (g_key_file_load_from_file (keyfile, filename, G_KEY_FILE_NONE, NULL) == FALSE)
+	{
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+		      "Error when loading config file\n");
 		g_free (filename);
 	} else {
 		g_free (filename);
 
 		// Load prefs
 		b = g_key_file_get_boolean (keyfile, "general",
-					    "channel_on_startup", &err);
+		                            "channel_on_startup", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
 		}else{
 			app->prefs.channelonstartup = b;		
 		}
-		
+
 		b = g_key_file_get_boolean (keyfile, "general",
-					    "enable_notifications", &err);
+		                            "enable_notifications", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
 		}else{
 			app->prefs.enable_notifications = b;		
 		}
-		
+
 		str = g_key_file_get_string (keyfile, "general",
-					     "directory_record", &err);
+		                             "directory_record", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
@@ -170,7 +176,7 @@ load_user_configuration(FreetuxTVApp *app)
 		}
 
 		i = g_key_file_get_integer (keyfile, "general",
-					    "transcoding_mode", &err);
+		                            "transcoding_mode", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
@@ -181,7 +187,7 @@ load_user_configuration(FreetuxTVApp *app)
 		}
 
 		str = g_key_file_get_string (keyfile, "general",
-					    "transcoding_format", &err);
+		                             "transcoding_format", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
@@ -191,7 +197,7 @@ load_user_configuration(FreetuxTVApp *app)
 
 		// Load current config
 		b = g_key_file_get_boolean (keyfile, "windowminimode",
-					    "stay_on_top", &err);
+		                            "stay_on_top", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
@@ -200,7 +206,7 @@ load_user_configuration(FreetuxTVApp *app)
 		}
 
 		i = g_key_file_get_integer (keyfile, "windowminimode",
-					    "width", &err);
+		                            "width", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
@@ -212,7 +218,7 @@ load_user_configuration(FreetuxTVApp *app)
 
 
 		i = g_key_file_get_integer (keyfile, "windowminimode",
-					    "height", &err);
+		                            "height", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
@@ -222,27 +228,26 @@ load_user_configuration(FreetuxTVApp *app)
 			}
 		}
 
-		
 		d = g_key_file_get_double (keyfile, "general",
-					   "volume", &err);
+		                           "volume", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
 		}else{
 			app->config.volume = d;
 		}
-		
+
 		i = g_key_file_get_integer (keyfile, "general",
-					    "last_channel", &err);
+		                            "last_channel", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
 		}else{
 			app->config.lastchannel = i;		
 		}
-		
+
 		i = g_key_file_get_integer (keyfile, "general",
-					    "logos_file_date", &err);
+		                            "logos_file_date", &err);
 		if (err != NULL) {
 			g_error_free (err);
 			err = NULL;
@@ -256,7 +261,8 @@ load_user_configuration(FreetuxTVApp *app)
 	// Check if needs to load a channel on startup	
 	app->current.lastchannelonstartup = FALSE;
 	if(app->prefs.channelonstartup == TRUE
-	   && app->config.lastchannel != -1){
+	   && app->config.lastchannel != -1)
+	{
 		app->current.lastchannelonstartup = TRUE;
 	}
 
@@ -306,7 +312,8 @@ increase_progress_timeout (FreetuxTVApp *app)
 			g_time_val_add_seconds(&max_time, app->current.recording.max_duration * 60);
 			
 			if(g_time_val_compare(&now_time, &max_time) > 0){
-				g_print("FreetuxTV : Stopping recording\n");
+				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+				      "FreetuxTV : Stopping recording\n");
 				freetuxtv_action_stop(app, &error);
 			}
 			
@@ -373,8 +380,9 @@ splashscreen_app_init(gpointer data)
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 						       "splashscreen_version");
 	gtk_label_set_text(GTK_LABEL(widget), VERSION);
-	
-	g_print("FreetuxTV : Using user configuration dir : %s\n", g_get_user_config_dir());
+
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Using user configuration dir : %s\n", g_get_user_config_dir());
 
 	// Initializing user configuration
 	if(error == NULL){
@@ -414,7 +422,8 @@ splashscreen_app_init(gpointer data)
 	
 	// Loading the models
 	if(error == NULL){
-		g_print("FreetuxTV : Loading models\n");
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		      "Loading models\n");
 		splashscreen_statusbar_push (app, _("Loading models..."));
 		load_all_models (app, &error);
 		splashscreen_statusbar_pop (app);
@@ -422,20 +431,23 @@ splashscreen_app_init(gpointer data)
 
 	// Loading the list of channels
 	if(error == NULL){
-		g_print("FreetuxTV : Loading the list of channels\n");
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		      "Loading the list of channels\n");
 		splashscreen_statusbar_push (app, _("Loading the list of channels..."));
 		channels_list_load_channels (app, &dbsync, &error);
 		splashscreen_statusbar_pop (app);
 	}
 
 	// Loading the list of recordings
-	g_print("FreetuxTV : Loading the list of recordings\n");
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Loading the list of recordings\n");
 	splashscreen_statusbar_push (app, _("Loading the list of recordings..."));
 	recordings_list_load_recordings (app);
 	splashscreen_statusbar_pop (app);
 
 	// Showing the main window
-	g_print("FreetuxTV : Showing the main window, hide splashscreen\n");
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Showing the main window, hide splashscreen\n");
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 						      "splashscreen");
 	gtk_widget_hide(widget);
@@ -479,7 +491,8 @@ splashscreen_app_init(gpointer data)
 	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
 
 	if(error != NULL){
-		g_print("FreetuxTV Error : %s\n", error->message);
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+		      "Error : %s\n", error->message);
 		g_error_free(error);
 		return FALSE;
 	}
@@ -517,22 +530,24 @@ freetuxtv_app_create_app ()
 	app->current.is_recording = FALSE;
 	app->current.recording.dst_file = NULL;
 	app->current.recording.duration = NULL;
-	app->debug = FALSE;	
 
 	// Create UI from file
-	g_print("FreetuxTV : Loading user interface from file %s\n", FREETUXTV_GLADEXML);
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Loading user interface from file %s\n", FREETUXTV_GLADEXML);
 	app->gui = gtk_builder_new ();
 	gtk_builder_add_from_file (app->gui, FREETUXTV_GLADEXML, NULL);
 
 	// Initialize UI
-	g_print("FreetuxTV : Initializing user interface\n");
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "FreetuxTV : Initializing user interface\n");
 	windowmain_init(app);
 	windowrecording_init(app);
 	channels_list_init(app);
 	recordings_list_init(app);
 
 	// Add player to UI	
-	g_print("FreetuxTV : Creating media player widget\n");
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "FreetuxTV : Creating media player widget\n");
 	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
 							      "windowmain_eventboxplayer");
 	GtkLibvlcInstance* instance;
@@ -557,10 +572,10 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 	FreetuxTVChannelInfos *channel_infos;
 
 	channel_infos = channels_list_get_channel(app, path_channel);
-	
-	if(app->debug){
-		g_print("FreetuxTV-debug : freetuxtv_play_channel(%s)\n", channel_infos->name);
-	}
+
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "freetuxtv_play_channel(%s)\n", channel_infos->name);
+
 	gchar *text;
 	if(!app->current.is_recording){
 
@@ -602,18 +617,15 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 
 		gtk_libvlc_media_player_play(app->player, options, error);
 	}
-	if(app->debug){
-		g_print("FreetuxTV-debug : end freetuxtv_play_channel(%s)\n", channel_infos->name);
-	}
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "end freetuxtv_play_channel(%s)\n", channel_infos->name);
 }
 
 void
 freetuxtv_play_media (FreetuxTVApp *app, GtkLibvlcMedia* media, GError** error)
 {
-	
-	if(app->debug){
-		g_print("FreetuxTV-debug : freetuxtv_play_media(%s)\n", media->mrl);
-	}
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "freetuxtv_play_media(%s)\n", media->mrl);
 	
 	windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
 
@@ -622,17 +634,16 @@ freetuxtv_play_media (FreetuxTVApp *app, GtkLibvlcMedia* media, GError** error)
 	g_object_unref(media);
 	gtk_libvlc_media_player_play(app->player, NULL, error);
 
-	if(app->debug){
-		g_print("FreetuxTV-debug : end freetuxtv_play_media(%s)\n", media->mrl);
-	}
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "end freetuxtv_play_media(%s)\n", media->mrl);
 }
 
 void
 freetuxtv_action_playpause (FreetuxTVApp *app, GError** error)
-{	
-	if(app->debug){
-		g_print("FreetuxTV-debug : freetuxtv_action_playpause()\n");
-	}
+{
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "freetuxtv_action_playpause()\n");
+
 	if(app->current.path_channel != NULL){
 
 		FreetuxTVChannelInfos* channel_infos;
@@ -662,18 +673,18 @@ freetuxtv_action_playpause (FreetuxTVApp *app, GError** error)
 			
 			windowmain_display_buttons (app, WINDOW_MODE_PLAYING);	
 		}
-	}	
-	if(app->debug){
-		g_print("FreetuxTV-debug : exit freetuxtv_action_playpause()\n");
 	}
+	
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "end freetuxtv_action_playpause()\n");
 }
 
 void
 freetuxtv_action_stop (FreetuxTVApp *app, GError** error)
 {
-	if(app->debug){
-		g_print("FreetuxTV-debug : freetuxtv_action_stop()\n");
-	}
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "freetuxtv_action_stop()\n");
+	
 	gchar *text;
 	if(app->current.path_channel != NULL){
 		FreetuxTVChannelInfos* channel_infos;
@@ -698,17 +709,17 @@ freetuxtv_action_stop (FreetuxTVApp *app, GError** error)
 			}
 		}
 	}
-	if(app->debug){
-		g_print("FreetuxTV-debug : exit freetuxtv_action_stop()\n");
-	}
+	
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "end freetuxtv_action_stop()\n");
 }
 
 void
 freetuxtv_action_record (FreetuxTVApp *app, GError** error)
 {
-	if(app->debug){
-		g_print("FreetuxTV-debug : freetuxtv_action_record()\n");
-	}
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "freetuxtv_action_record()\n");
+	
 	gchar *text;
 
 	if(gtk_libvlc_media_player_is_playing(app->player, error)
@@ -769,9 +780,9 @@ freetuxtv_action_record (FreetuxTVApp *app, GError** error)
 void
 freetuxtv_action_prev (FreetuxTVApp *app, GError** error)
 {
-	if(app->debug){
-		g_print("FreetuxTV-debug : freetuxtv_action_prev()\n");
-	}
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "freetuxtv_action_prev()\n");
+	
 	gboolean ret;
 	GtkTreePath* path_prev_channel;
 	if (app->current.path_channel != NULL) {
@@ -787,9 +798,28 @@ freetuxtv_action_prev (FreetuxTVApp *app, GError** error)
 void
 freetuxtv_action_next (FreetuxTVApp *app, GError** error)
 {
-	if(app->debug){
-		g_print("FreetuxTV-debug : freetuxtv_action_next()\n");
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "freetuxtv_action_next()\n");
+	
+	gboolean ret;
+	GtkTreePath* path_next_channel;
+	if (app->current.path_channel != NULL) {
+		if(!app->current.is_recording){
+			ret = channels_list_get_next_channel (app, &path_next_channel);
+			if(ret){
+				freetuxtv_play_channel (app, path_next_channel, error);
+			}
+		}
 	}
+}
+
+void
+freetuxtv_action_deinterlace (FreetuxTVApp *app, const gchar* mode,
+                              GError** error)
+{
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "freetuxtv_action_deinterlace()\n");
+	
 	gboolean ret;
 	GtkTreePath* path_next_channel;
 	if (app->current.path_channel != NULL) {
@@ -807,9 +837,9 @@ freetuxtv_quit (FreetuxTVApp *app)
 {
 	GError *error = NULL;
 	
-	if(app->debug){
-		g_print("FreetuxTV-debug : freetuxtv_quit()\n");
-	}
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "freetuxtv_action_quit()\n");
+	
 	GKeyFile *keyfile;
 	char *contents, *filename;
 
@@ -875,9 +905,11 @@ freetuxtv_quit (FreetuxTVApp *app)
 	g_key_file_free (keyfile);
 	filename = g_build_filename (g_get_user_config_dir(),
 				     "FreetuxTV/config.ini", NULL);
-	g_print("FreetuxTV : Writing config file %s\n", filename);
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "FreetuxTV : Writing config file %s\n", filename);
 	if (!g_file_set_contents (filename, contents, -1, NULL)){
-		g_printerr("FreetuxTV : Error when writing config file\n");
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+	      "Error when writing config file\n");
 	}
 
 	g_free (filename);
@@ -896,9 +928,9 @@ on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp
 {
 	GError* error = NULL;
 	
-	if(app->debug){
-		g_print("FreetuxTV-debug : on_freetuxtv_mm_key_pressed()\n");
-	}
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		  "on_freetuxtv_mm_key_pressed()\n");
+	
 	switch(button){
 	case GMMKEYS_BUTTON_PLAY :
 	case GMMKEYS_BUTTON_PAUSE :
@@ -921,57 +953,107 @@ on_freetuxtv_mm_key_pressed (GMMKeys *mmkeys, GMMKeysButton button, FreetuxTVApp
 	}
 }
 
+void
+freetuxtv_log (const gchar *log_domain, GLogLevelFlags log_level,
+               const gchar *message, gpointer user_data)
+{
+	gboolean debug = (gboolean)user_data;
+	const gchar* levelmsg = "";
+
+	gboolean bPrint = TRUE;
+	
+	switch(log_level){
+	case G_LOG_LEVEL_ERROR :
+			levelmsg = "ERROR";
+			break;
+	case G_LOG_LEVEL_CRITICAL :
+			levelmsg = "CRITICAL";
+			break;
+	case G_LOG_LEVEL_WARNING :
+			levelmsg = "WARNING";
+			break;
+	case G_LOG_LEVEL_MESSAGE :
+			levelmsg = "MESSAGE";
+			break;
+	case G_LOG_LEVEL_INFO :
+			levelmsg = "INFO";
+			break;
+	case G_LOG_LEVEL_DEBUG :
+			levelmsg = "DEBUG";
+			if(!debug){
+				bPrint = FALSE;
+			}
+			break;
+	default :
+		break;
+	}
+	if(bPrint){
+		g_print("[%s] %s \t: %s", log_domain, levelmsg, message);
+	}
+}
+
 int
 main (int argc, char *argv[])
 {	
  	FreetuxTVApp *app;
 	
 	GMMKeys* mmkeys;
+	gboolean debug = FALSE;
 
 	int p;
+	int idLogHandler;
 
+	// Process programs args
+	for(p=1; p<argc; p++){
+		if(g_ascii_strcasecmp("-v",argv[p]) == 0){
+			debug = TRUE;
+		}
+	}
+
+	// Initialize log handler
+	idLogHandler = g_log_set_handler (FREETUXTV_LOG_DOMAIN,
+	                                  G_LOG_LEVEL_MASK,
+	                                  freetuxtv_log, (gpointer*)debug);
+	
 #ifdef ENABLE_NLS
 	bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 #endif
 
-	g_print("FreetuxTV : Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
 	
 	gtk_set_locale ();
 	gtk_init (&argc, &argv);
 
-	g_print("FreetuxTV : Loading FreetuxTV %s\n", VERSION);
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Loading FreetuxTV %s\n", VERSION);
 	app = freetuxtv_app_create_app ();
-	if (app == NULL)
-		return 1;
-	// Process programs args
-	for(p=1; p<argc; p++){
-		if(g_ascii_strcasecmp("-v",argv[p]) == 0){
-			g_print("FreetuxTV : Enable debug mode\n");
-			app->debug = TRUE;
-		}
+	if (app != NULL) {
+
+		// Initialize notifications
+		notify_init("FreetuxTV");
+		app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL, NULL);
+
+		mmkeys = g_mmkeys_new ("FreetuxTV");
+		g_mmkeys_activate (mmkeys);
+	
+		g_signal_connect(G_OBJECT(mmkeys),
+				 "mm_key_pressed",
+				 G_CALLBACK(on_freetuxtv_mm_key_pressed),
+				 app);
+	
+		gtk_init_add (splashscreen_app_init, app);
+
+		gtk_main ();
+
+		g_mmkeys_deactivate (mmkeys);
+		g_object_unref(G_OBJECT(app->current.notification));
+		notify_uninit();
 	}
 
-	// Initialize notifications
-	notify_init("FreetuxTV");
-	app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL, NULL);
-
-	mmkeys = g_mmkeys_new ("FreetuxTV");
-	g_mmkeys_activate (mmkeys);
-	
-	g_signal_connect(G_OBJECT(mmkeys),
-			 "mm_key_pressed",
-			 G_CALLBACK(on_freetuxtv_mm_key_pressed),
-			 app);
-	
-	gtk_init_add (splashscreen_app_init, app);
-
-	gtk_main ();
-
-	g_mmkeys_deactivate (mmkeys);
-	g_object_unref(G_OBJECT(app->current.notification));
-	notify_uninit();
+	g_log_remove_handler (FREETUXTV_LOG_DOMAIN, idLogHandler);
 
 	return 0;
 }

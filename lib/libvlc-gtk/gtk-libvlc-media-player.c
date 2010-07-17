@@ -1850,6 +1850,44 @@ gtk_libvlc_media_player_is_seekable (GtkLibvlcMediaPlayer *self, GError** error)
 }
 
 void
+gtk_libvlc_media_player_set_deinterlace (GtkLibvlcMediaPlayer *self, const gchar* mode, GError** error)
+{
+	g_return_if_fail(self != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+	g_return_if_fail(self->libvlc_instance != NULL);
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
+
+	GtkLibvlcMediaPlayerPrivate* priv;
+	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
+
+#ifdef LIBVLC_OLD_VLCEXCEPTION
+	libvlc_exception_t _vlcexcep;
+	libvlc_exception_init (&_vlcexcep);
+#endif // LIBVLC_OLD_VLCEXCEPTION
+
+	gboolean ret = FALSE;
+
+#ifdef LIBVLC_DEPRECATED_PLAYLIST
+	
+#else
+
+#ifdef LIBVLC_OLD_VLCEXCEPTION
+	libvlc_video_set_deinterlace  (priv->libvlc_mediaplayer, mode, &_vlcexcep);
+	raise_error(self, error, &_vlcexcep);
+#else
+	libvlc_video_set_deinterlace  (priv->libvlc_mediaplayer, mode);
+	raise_error(self, error, NULL);
+#endif // LIBVLC_OLD_VLCEXCEPTION
+
+#endif // LIBVLC_DEPRECATED_PLAYLIST
+	
+}
+
+void
 gtk_libvlc_media_player_set_play_next_at_end (GtkLibvlcMediaPlayer *self, gboolean b)
 {
 	g_return_if_fail(self != NULL);

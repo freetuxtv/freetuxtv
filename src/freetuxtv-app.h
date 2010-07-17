@@ -39,6 +39,8 @@ G_BEGIN_DECLS
 #define FREETUXTV_UI_DIR			FREETUXTV_DIR "/ui"
 #define FREETUXTV_GLADEXML			FREETUXTV_UI_DIR "/freetuxtv.glade"
 
+#define FREETUXTV_LOG_DOMAIN			"FreetuxTV"
+
 struct _FreetuxTVApp {
 	
 	gchar *name;
@@ -84,9 +86,6 @@ struct _FreetuxTVApp {
 		} recording;
 
 	} current;
-	
-	gboolean debug;	
-
 };
 typedef struct _FreetuxTVApp FreetuxTVApp;
 
@@ -110,6 +109,10 @@ freetuxtv_action_prev (FreetuxTVApp *app, GError** error);
 
 void
 freetuxtv_action_next (FreetuxTVApp *app, GError** error);
+
+void
+freetuxtv_action_deinterlace (FreetuxTVApp *app, const gchar* mode,
+                              GError** error);
 
 void
 freetuxtv_quit (FreetuxTVApp *app);
