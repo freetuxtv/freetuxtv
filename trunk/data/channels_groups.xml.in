@@ -85,6 +85,7 @@
 		<channels_group _name="Web TV (Romanian)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ro.m3u" />
 	</language>
 	<language id="ru" _lang="Russian Web TV and Radio">
+		<channels_group _name="Web Radio (Russian)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_ru.m3u" />
 		<channels_group _name="Web TV (Russian)" uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_ru.m3u" />
 	</language>
 	<language id="sk" _lang="Slovak Web TV and Radio">
