@@ -266,14 +266,16 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 	text = g_strdup_printf(_("Update \"%s\" channels list"), pChannelsGroupInfos->name);
 	windowmain_statusbar_push (app, "UpdateMsg", text);
 	g_free(text);
-	g_print("FreetuxTV : Start updating \"%s\" channels list\n", pChannelsGroupInfos->name);
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+	      "Start updating \"%s\" channels list\n", pChannelsGroupInfos->name);
 
 	if(pChannelsGroupInfos->type == FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST){
 		// Get the file of the playlist
 		text = g_strdup_printf (_("Getting the file : \"%s\""), pChannelsGroupInfos->uri);
 		windowmain_statusbar_push (app, "UpdateMsg", text);
 		g_free(text);
-		g_print("FreetuxTV : Getting the file \"%s\"\n", pChannelsGroupInfos->uri);
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+		      "Getting the file \"%s\"\n", pChannelsGroupInfos->uri);
 
 		gchar *filename = NULL;
 		channels_group_get_file (pChannelsGroupInfos, &filename, TRUE, error);		
@@ -293,7 +295,8 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 			pdata.error = error;
 			int res = 0;
 
-			g_print("FreetuxTV : Parsing the file \"%s\"\n", filename);
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+			      "Parsing the file \"%s\"\n", filename);
 			res = libm3uparser_parse(filename, &on_parsem3u_add_channel, &pdata);
 			if (res != LIBM3UPARSER_OK){		
 				if (res != LIBM3UPARSER_CALLBACK_RETURN_ERROR){
@@ -388,7 +391,8 @@ channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 		if(*error == NULL){
 			channels_group_get_file (pChannelsGroupInfos, &filename, TRUE, error);
 	
-			g_print("FreetuxTV : Deleting the file \"%s\"\n", filename);
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+			      "Deleting the file \"%s\"\n", filename);
 			if(g_unlink(filename)){
 			
 			}
@@ -1262,7 +1266,8 @@ on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data)
 			gtk_tree_model_get (app->channelslist, &treeiter, CHANNEL_COLUMN, &pOriginalChannelInfos, -1);
 
 			if(pOriginalChannelInfos){
-				g_print("adding '%s' to group '%s'\n", pOriginalChannelInfos->name, pFavouritesChannelsGroupInfos->name);
+				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+				      "Adding '%s' to favourites group '%s'\n", pOriginalChannelInfos->name, pFavouritesChannelsGroupInfos->name);
 
 				// Copy the channel and add it in database
 				pChannelInfos = freetuxtv_channel_infos_new (pOriginalChannelInfos->name, pOriginalChannelInfos->url);

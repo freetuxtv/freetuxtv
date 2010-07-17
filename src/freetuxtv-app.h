@@ -117,6 +117,10 @@ freetuxtv_action_deinterlace (FreetuxTVApp *app, const gchar* mode,
 void
 freetuxtv_quit (FreetuxTVApp *app);
 
+void
+freetuxtv_log (const gchar *log_domain, GLogLevelFlags log_level,
+               const gchar *message, gpointer user_data);
+
 G_END_DECLS
 
 #endif /* FREETUXTV_APP_H */

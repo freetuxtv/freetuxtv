@@ -620,7 +620,6 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 					gtk_tree_path_free(priv->pLastAddedChannelsGroupPath);
 				}
 				priv->pLastAddedChannelsGroupPath = pTreePathTmp;
-				// g_print("added %s\n", gtk_tree_path_to_string (pTreePathTmp));
 
 				tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), 1);
 				gtk_progress_dialog_set_text(pProgressDialog, tmptext);
