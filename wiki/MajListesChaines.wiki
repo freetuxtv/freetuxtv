@@ -8,20 +8,21 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 * 17/07/2010  - Liste Web Radio (Russe)
 
- - Création de la liste des WebRadio en russe et ajout de Vesti FM ( http://www.vesti.ru/)
+- Création de la liste des WebRadio en russe et ajout de Vesti FM ( http://www.vesti.ru/)
 
 * 17/07/2010  - Liste Web TV (Russe)
 
- - Renommage de Vesti en Rossija 24 (Russia 24) (http://en.wikipedia.org/wiki/Vesti_%28TV_channel%29 ) et correction URL du flux video suite 
+- Renommage de Vesti en Rossija 24 (Russia 24) (http://en.wikipedia.org/wiki/Vesti_%28TV_channel%29 ) et correction URL du flux video suite 
  à changement de nom (http://www.vesti.ru/)<BR>
- - Correction URL du flux video de RTR Planeta (http://www.rtr-planeta.com )
+- Correction URL du flux video de RTR Planeta (http://www.rtr-planeta.com )
 
 * 17/07/2010  - Liste Web Radio (Français)
 
 - Correction URL flux .mp3 de CKIA FM suite au changement de site web de http://www.meduse.org/ckiafm/ à http://www.ckiafm.org/
 
 - Ajout des 42 locales de France Bleu ( http://sites.radiofrance.fr/chaines/france-bleu/ ) en plus de France Bleu Ile de france déjà présent dans FreetuxTV.
-  L'ensemble des chaines de radio disponibles en ligne du groupe Radio France ( http://fr.wikipedia.org/wiki/Radio_France ) sont
+ Ajout des 9 locales de RFO (Réseau Fance Outremer) (http://radio.rfo.fr/ ) et Radio O.
+ L'ensemble des chaines de radio disponibles en ligne du groupe Radio France ( http://fr.wikipedia.org/wiki/Radio_France ) sont
   désormais dans FreetuxTV.
 
 - Les chaines Espace Musqique et RDI de Radio Canada étaient déjà présentes dans FreetuxTV.
@@ -34,7 +35,7 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
   Correction du lien du flux audio Couleur 3 de la RSR et ajout de l'ensemble des chaines de radio disponibles en ligne du groupe RSR :
   Espace 2, La 1ère, Option Musique
   
-  Note : En espérant que nos amis francophones de Suisse et Canada apprécieront ces ajouts.
+Note : En espérant que nos amis francophones de Suisse et Canada apprécieront ces ajouts.
  Pour nos amis francophones belges, le groupe public belge de radio RTBF utilise un format .pls, pour les flux audio des radios, 
  qui ne peut pas être lu avec le logiciel VLC sur Linux ou MS Windows pour l'instant. 
 
