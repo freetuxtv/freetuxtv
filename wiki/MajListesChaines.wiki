@@ -6,6 +6,15 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 17/07/2010  - Liste Web Radio (Russe)
+
+ - Création de la liste des WebRadio en russe et ajout de Vesti FM ( http://www.vesti.ru/)
+
+* 17/07/2010  - Liste Web TV (Russe)
+
+ - Renommage de Vesti en Rossija 24 (Russia 24) (http://en.wikipedia.org/wiki/Vesti_%28TV_channel%29 ) et correction URL du flux video suite 
+ à changement de nom (http://www.vesti.ru/)<BR>
+
 * 17/07/2010  - Liste Web Radio (Français)
 
 - Correction URL flux .mp3 de CKIA FM suite au changement de site web de http://www.meduse.org/ckiafm/ à http://www.ckiafm.org/
