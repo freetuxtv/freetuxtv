@@ -144,6 +144,9 @@ gtk_libvlc_media_player_set_position(GtkLibvlcMediaPlayer *self, gfloat position
 gboolean
 gtk_libvlc_media_player_is_seekable (GtkLibvlcMediaPlayer *self, GError** error);
 
+void
+gtk_libvlc_media_player_set_deinterlace (GtkLibvlcMediaPlayer *self, const gchar* mode, GError** error);
+
 const gchar*
 gtk_libvlc_media_player_state_tostring (GtkLibvlcState state);
 
@@ -152,6 +155,7 @@ gtk_libvlc_media_player_set_play_next_at_end (GtkLibvlcMediaPlayer *self, gboole
 
 void
 gtk_libvlc_media_player_set_loop (GtkLibvlcMediaPlayer *self, gboolean b);
+
 
 GtkLibvlcInstance*
 gtk_libvlc_media_player_get_instance (GtkLibvlcMediaPlayer *self);

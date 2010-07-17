@@ -647,11 +647,9 @@ on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* channel_infos,
 		}
 	}
 
-	if(app->debug == TRUE){
-		g_print("FreetuxTV-debug : Add channel %d->'%s' to the model\n",
-			channel_infos->id,
-			channel_infos->name);
-	}
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+	      "Add channel %d->'%s' to the model\n",
+	      channel_infos->id, channel_infos->name);
 	
 	if(no_err){
 		CBIterData *iter_data = (CBIterData *)user_data;
@@ -1465,10 +1463,9 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	}
 	
 	g_strstrip(name);	
-	
-	if(data->app->debug == TRUE){
-		g_print("FreetuxTV-debug : Add channel '%s' in database\n", name);
-	}
+
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+	      "Add channel '%s' in database\n", name);
 
 	FreetuxTVChannelInfos* channel_infos;
 	channel_infos = freetuxtv_channel_infos_new(name, url);

@@ -143,10 +143,8 @@ xml_start_cb(GMarkupParseContext *context,
 	}
 	
 	if(name != NULL){
-		if(cbxmldata->app->debug == TRUE){
-			g_print("FreetuxTV-debug : Add channel logos '%s' in database\n",
-			    name);
-		}
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+			  "Add channel logos '%s' in database\n", name);
 	}	
 }
 
