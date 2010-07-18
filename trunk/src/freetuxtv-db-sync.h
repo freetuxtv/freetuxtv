@@ -79,6 +79,7 @@ dbsync_select_channels_of_channels_group (DBSync *dbsync,
 void
 dbsync_add_channel (DBSync *dbsync,
     FreetuxTVChannelInfos* pChannelInfos,
+    gboolean update,
     GError** error);
 
 void
@@ -109,6 +110,16 @@ dbsync_delete_channels_group (DBSync *dbsync,
 
 void
 dbsync_delete_channels_of_channels_group (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error);
+
+void
+dbsync_start_update_channels_of_channels_group (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error);
+
+void
+dbsync_end_update_channels_of_channels_group (DBSync *dbsync,
     FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     GError** error);
 

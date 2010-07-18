@@ -1016,7 +1016,7 @@ freetuxtv_log (const gchar *log_domain, GLogLevelFlags log_level,
 			break;
 	}
 	if(bPrint){
-		g_print("[%s] \t%s \t: %s", log_domain, levelmsg, message);
+		g_print("[%s] \t%s\t\t: %s", log_domain, levelmsg, message);
 	}
 }
 

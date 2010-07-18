@@ -69,7 +69,7 @@ on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* channel_infos,
 		      DBSync *dbsync, gpointer user_data, GError** error);
 
 static void 
-on_row_activated_channels_list (GtkTreeView        *view, GtkTreePath *path,
+on_row_activated_channels_list (GtkTreeView *view, GtkTreePath *path,
 				GtkTreeViewColumn  *col, gpointer user_data);
 
 static void 
@@ -283,7 +283,7 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 
 		// Delete channels of the channels group in the database 
 		if(*error == NULL){
-			dbsync_delete_channels_of_channels_group (dbsync, pChannelsGroupInfos, error);
+			dbsync_start_update_channels_of_channels_group (dbsync, pChannelsGroupInfos, error);
 		}
 	
 		// Parse the M3U file and add channels in the database
@@ -306,6 +306,10 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 								  libm3uparser_errmsg(res));
 				}
 			}
+		}
+
+		if(*error == NULL){
+			dbsync_end_update_channels_of_channels_group (dbsync, pChannelsGroupInfos, error);
 		}
 	
 		if(filename){
@@ -1284,7 +1288,7 @@ on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data)
 				freetuxtv_channel_infos_set_vlcoptions (pChannelInfos, pOriginalChannelInfos->vlc_options);
 
 				// Add the channels in the groups
-				dbsync_add_channel (&dbsync, pChannelInfos, &error);
+				dbsync_add_channel (&dbsync, pChannelInfos, FALSE, &error);
 
 				// Add the channel in the treeview as the last element
 				GtkTreeIter iterChannelsGroup;
@@ -1489,7 +1493,7 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 		g_strfreev(vlc_options);
 	}
 
-	dbsync_add_channel (data->dbsync, channel_infos, data->error);
+	dbsync_add_channel (data->dbsync, channel_infos, TRUE, data->error);
 
 	g_object_unref(channel_infos);
 
