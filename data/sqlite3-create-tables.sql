@@ -145,4 +145,6 @@ DROP TABLE channel_logo;
 
 ALTER TABLE channel ADD COLUMN deinterlace_mode VARCHAR(15) NULL;
 
--- ALTER TABLE channel ADD COLUMN updated BOOLEAN NULL DEFAULT TRUE;
+-- @libdbevolution-dbversion=0.5.1.2
+
+ALTER TABLE channel ADD COLUMN updated BOOLEAN NULL DEFAULT 1;
