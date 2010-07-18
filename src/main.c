@@ -635,6 +635,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceX), TRUE);
 			}
 		}else{
+			gtk_libvlc_media_add_option(media, ":deinterlace=0");
 			gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceDisable), TRUE);
 		}
 
