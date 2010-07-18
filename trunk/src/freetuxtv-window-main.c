@@ -57,6 +57,11 @@ on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
                                             gpointer user_data);
 
 static void
+on_windowmain_menuitemdeinterlace_change (GtkMenuItem *menuitem,
+                                          const gchar* mode,
+                                          gpointer user_data);
+
+static void
 on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
                                                    gpointer user_data);
 
@@ -243,6 +248,7 @@ windowmain_init(FreetuxTVApp *app)
 	                 app);
 	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	app->widget.pMenuDeinterlaceDisable = pMenuItem;
 
 	pMenuItem = gtk_separator_menu_item_new();
 	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
@@ -254,6 +260,7 @@ windowmain_init(FreetuxTVApp *app)
 	                 app);
 	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	app->widget.pMenuDeinterlaceBlend = pMenuItem;
 	
 	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Bob"));
 	g_signal_connect(G_OBJECT(pMenuItem),
@@ -262,6 +269,7 @@ windowmain_init(FreetuxTVApp *app)
 	                 app);
 	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	app->widget.pMenuDeinterlaceBob = pMenuItem;
 	
 	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Discard"));
 	g_signal_connect(G_OBJECT(pMenuItem),
@@ -270,6 +278,7 @@ windowmain_init(FreetuxTVApp *app)
 	                 app);
 	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	app->widget.pMenuDeinterlaceDiscard = pMenuItem;
 	
 	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Linear"));
 	g_signal_connect(G_OBJECT(pMenuItem),
@@ -278,6 +287,7 @@ windowmain_init(FreetuxTVApp *app)
 	                 app);
 	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	app->widget.pMenuDeinterlaceLinear = pMenuItem;
 	
 	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Mean"));
 	g_signal_connect(G_OBJECT(pMenuItem),
@@ -286,6 +296,7 @@ windowmain_init(FreetuxTVApp *app)
 	                 app);
 	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	app->widget.pMenuDeinterlaceMean = pMenuItem;
 	
 	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("X"));
 	g_signal_connect(G_OBJECT(pMenuItem),
@@ -294,6 +305,7 @@ windowmain_init(FreetuxTVApp *app)
 	                 app);
 	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+	app->widget.pMenuDeinterlaceX = pMenuItem;
 	// End SubMenu : Deinterlace
 	// End Menu : Video
 
@@ -1057,234 +1069,86 @@ on_windowmain_menuitemupdatetvchannels_activate (GtkMenuItem *menuitem,
 }
 
 static void
-on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
-                                                   gpointer user_data)
-{	
+on_windowmain_menuitemdeinterlace_change (GtkMenuItem *menuitem,
+                                          const gchar* mode,
+                                          gpointer user_data)
+{
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
 	GError* error = NULL;
+	DBSync dbsync;
+	FreetuxTVChannelInfos* pChannel;
 
 	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
-		freetuxtv_action_deinterlace (app, NULL, &error);
+		freetuxtv_action_deinterlace (app, mode, &error);
+
+		if(app->current.path_channel){
+			if(error == NULL){
+				dbsync_open_db (&dbsync, &error);
+			}
+
+			if(error == NULL){
+				pChannel = channels_list_get_channel (app, app->current.path_channel);
+				dbsync_update_channel_deinterlace_mode (&dbsync, pChannel, (gchar*)mode, &error);		
+			}
+
+			dbsync_close_db(&dbsync);
+		}
 	}
-
-	/*
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-
-	if(error == NULL){
-		tvchannels_list_synchronize (app, &dbsync, &error);			
-	}
-
-	if(error == NULL){
-		channels_list_load_channels (app, &dbsync, &error);
-	}
-
-	dbsync_close_db(&dbsync);
-	*/
 
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
 		g_error_free (error);
 	}
+}
+
+static void
+on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
+                                                   gpointer user_data)
+{
+	on_windowmain_menuitemdeinterlace_change (menuitem, NULL, user_data);
 }
 
 static void
 on_windowmain_menuitemdeinterlacebob_activate (GtkMenuItem *menuitem,
                                                     gpointer user_data)
 {
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-	
-	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
-		freetuxtv_action_deinterlace (app, "bob", &error);
-	}
-
-	/*
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-
-	if(error == NULL){
-		tvchannels_list_synchronize (app, &dbsync, &error);			
-	}
-
-	if(error == NULL){
-		channels_list_load_channels (app, &dbsync, &error);
-	}
-
-	dbsync_close_db(&dbsync);
-	*/
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
+	on_windowmain_menuitemdeinterlace_change (menuitem, "bob", user_data);
 }
 
 static void
 on_windowmain_menuitemdeinterlaceblend_activate (GtkMenuItem *menuitem,
                                                     gpointer user_data)
 {
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-	
-	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
-		freetuxtv_action_deinterlace (app, "blend", &error);
-	}
-
-	/*
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-
-	if(error == NULL){
-		tvchannels_list_synchronize (app, &dbsync, &error);			
-	}
-
-	if(error == NULL){
-		channels_list_load_channels (app, &dbsync, &error);
-	}
-
-	dbsync_close_db(&dbsync);
-	*/
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
+	on_windowmain_menuitemdeinterlace_change (menuitem, "blend", user_data);
 }
 
 static void
 on_windowmain_menuitemdeinterlacediscard_activate (GtkMenuItem *menuitem,
                                                    gpointer user_data)
 {
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-	
-	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
-		freetuxtv_action_deinterlace (app, "discard", &error);
-	}
-
-	/*
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-
-	if(error == NULL){
-		tvchannels_list_synchronize (app, &dbsync, &error);			
-	}
-
-	if(error == NULL){
-		channels_list_load_channels (app, &dbsync, &error);
-	}
-
-	dbsync_close_db(&dbsync);
-	*/
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
+	on_windowmain_menuitemdeinterlace_change (menuitem, "discard", user_data);
 }
 
 static void
 on_windowmain_menuitemdeinterlacelinear_activate (GtkMenuItem *menuitem,
                                                     gpointer user_data)
 {
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-	
-	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
-		freetuxtv_action_deinterlace (app, "linear", &error);
-	}
-
-	/*
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-
-	if(error == NULL){
-		tvchannels_list_synchronize (app, &dbsync, &error);			
-	}
-
-	if(error == NULL){
-		channels_list_load_channels (app, &dbsync, &error);
-	}
-
-	dbsync_close_db(&dbsync);
-	*/
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
+	on_windowmain_menuitemdeinterlace_change (menuitem, "linear", user_data);
 }
 
 static void
 on_windowmain_menuitemdeinterlacemean_activate (GtkMenuItem *menuitem,
                                                 gpointer user_data)
 {
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-	
-	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
-		freetuxtv_action_deinterlace (app, "mean", &error);
-	}
-
-	/*
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-
-	if(error == NULL){
-		tvchannels_list_synchronize (app, &dbsync, &error);			
-	}
-
-	if(error == NULL){
-		channels_list_load_channels (app, &dbsync, &error);
-	}
-
-	dbsync_close_db(&dbsync);
-	*/
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
+	on_windowmain_menuitemdeinterlace_change (menuitem, "mean", user_data);
 }
 
 static void
 on_windowmain_menuitemdeinterlacex_activate (GtkMenuItem *menuitem,
                                                   gpointer user_data)
 {
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-	
-	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
-		freetuxtv_action_deinterlace (app, "x", &error);
-	}
-
-	/*
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
-
-	if(error == NULL){
-		tvchannels_list_synchronize (app, &dbsync, &error);			
-	}
-
-	if(error == NULL){
-		channels_list_load_channels (app, &dbsync, &error);
-	}
-
-	dbsync_close_db(&dbsync);
-	*/
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
+	on_windowmain_menuitemdeinterlace_change (menuitem, "x", user_data);
 }
 
 static gboolean

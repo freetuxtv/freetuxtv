@@ -484,18 +484,18 @@ channels_list_get_channels_count (FreetuxTVApp *app)
 void
 channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 {
-	GtkWidget *treeview;
+	GtkWidget *treeview = NULL;
 	GtkTreeIter iter;
 
-	GtkTreeModel *model;
-	GtkTreePath* filter_path;
+	GtkTreeModel *model = NULL;
+	GtkTreePath* filter_path;;
 
+	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
+							"windowmain_treeviewchannelslist");
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
+	
 	if(path_channel != NULL){
-		treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
-								"windowmain_treeviewchannelslist");
-		
-		model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
-		
 		if(app->current.path_channel != path_channel){
 			if(app->current.path_channel != NULL){
 				gtk_tree_model_get_iter (model, &iter, app->current.path_channel);		
@@ -518,6 +518,14 @@ channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 			//gtk_tree_view_set_cursor (GTK_TREE_VIEW(treeview), filter_path, NULL, FALSE);	
 			//gtk_widget_grab_focus (treeview);
 			gtk_tree_view_expand_to_path (GTK_TREE_VIEW(treeview), filter_path);
+		}
+	}else{
+		GtkTreePath* pTmpPath = app->current.path_channel;
+		if(pTmpPath != NULL){
+			app->current.path_channel = NULL;
+			gtk_tree_model_get_iter (model, &iter, pTmpPath);		
+			gtk_tree_model_row_changed (model, pTmpPath, &iter);
+			gtk_tree_path_free(pTmpPath);
 		}
 	}
 }

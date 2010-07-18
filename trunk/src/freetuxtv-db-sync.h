@@ -82,6 +82,12 @@ dbsync_add_channel (DBSync *dbsync,
     GError** error);
 
 void
+dbsync_update_channel_deinterlace_mode (DBSync *dbsync,
+    FreetuxTVChannelInfos* pChannelInfos,
+    gchar *mode,
+    GError** error);
+
+void
 dbsync_add_channels_group (DBSync *dbsync,
     FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     GError** error);

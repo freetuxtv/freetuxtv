@@ -441,6 +441,7 @@ gtk_libvlc_media_player_play_media(GtkLibvlcMediaPlayer *self, GtkLibvlcMedia *m
 	int nb_mp_options = 0; // Number of media player options
 	gchar** list_options = NULL;
 	int i;
+	gchar* szListOptions = NULL;
 
 	gtk_libvlc_media_player_stop (self, error);
 
@@ -483,6 +484,15 @@ gtk_libvlc_media_player_play_media(GtkLibvlcMediaPlayer *self, GtkLibvlcMedia *m
 		}
 	}
 
+	szListOptions = g_strjoinv(" ", list_options);
+
+	g_print("[GtkLibVLC] \tINFO \t: Playing %s\n", media->mrl);
+	g_print("[GtkLibVLC] \tINFO \t: Using vlc options [%s]\n", szListOptions);
+
+	if(szListOptions){
+		g_free(szListOptions);
+		szListOptions = NULL;
+	}
 
 	// Play the media
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
@@ -1876,19 +1886,17 @@ gtk_libvlc_media_player_set_deinterlace (GtkLibvlcMediaPlayer *self, const gchar
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
 	pError = g_error_new (GTK_LIBVLC_ERROR,
 	                      GTK_LIBVLC_ERROR_LIBVLC,
-	                      "Deinsterlace is not supported for your LibVLC version");
+	                      "Deinterlace is not supported for your LibVLC version.");
 #else
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	pError = g_error_new (GTK_LIBVLC_ERROR,
 	                      GTK_LIBVLC_ERROR_LIBVLC,
-	                      "Deinsterlace is not supported for your LibVLC version");
+	                      "Deinterlace is not supported for your LibVLC version.");
 	// libvlc_video_set_deinterlace  (priv->libvlc_mediaplayer, mode, &_vlcexcep);
 	// raise_error(self, error, &_vlcexcep);
 #else
 	if(gtk_libvlc_media_player_is_playing (self, &pError)){
-
-		g_print("deinter %s\n", mode);
 		libvlc_video_set_deinterlace (priv->libvlc_mediaplayer, mode);
 		raise_error(self, error, NULL);
 	}

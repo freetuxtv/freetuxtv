@@ -569,30 +569,30 @@ freetuxtv_app_create_app ()
 void
 freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** error)
 {
-	FreetuxTVChannelInfos *channel_infos;
+	FreetuxTVChannelInfos *pChannelInfos;
 
-	channel_infos = channels_list_get_channel(app, path_channel);
+	pChannelInfos = channels_list_get_channel(app, path_channel);
 
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-	      "freetuxtv_play_channel(%s)\n", channel_infos->name);
+	      "freetuxtv_play_channel(%s)\n", pChannelInfos->name);
 
 	gchar *text;
 	if(!app->current.is_recording){
 
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
 		      "Launching channel '%s' at '%s' -> %s\n",
-		      channel_infos->name, gtk_tree_path_to_string(path_channel), channel_infos->url);
+		      pChannelInfos->name, gtk_tree_path_to_string(path_channel), pChannelInfos->url);
 		channels_list_set_playing(app, path_channel);		
 
-		text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
+		text = g_strdup_printf (_("Playing : %s"), pChannelInfos->name);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
 
 		// Send notification to desktop
 		gchar *imgfile;
-		imgfile = tvchannels_list_get_tvchannel_logo_path(app, channel_infos, TRUE);
+		imgfile = tvchannels_list_get_tvchannel_logo_path(app, pChannelInfos, TRUE);
 
 		if(app->prefs.enable_notifications){
-			notify_notification_update (app->current.notification, channel_infos->name,
+			notify_notification_update (app->current.notification, pChannelInfos->name,
 			                            _("is playing"), imgfile);
 			if (!notify_notification_show (app->current.notification, NULL)) {
 				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_WARNING,
@@ -605,8 +605,38 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 		windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
 
 		GtkLibvlcMedia *media;
-		media = gtk_libvlc_media_new(channel_infos->url);
-		gtk_libvlc_media_set_options(media, channel_infos->vlc_options);
+		media = gtk_libvlc_media_new(pChannelInfos->url);
+		gtk_libvlc_media_set_options(media, pChannelInfos->vlc_options);
+
+		if(pChannelInfos->deinterlace_mode){
+			gchar* szMode;
+
+			szMode = g_strdup_printf(":deinterlace-mode=%s", pChannelInfos->deinterlace_mode);
+			
+			gtk_libvlc_media_add_option(media, ":deinterlace=1");
+			gtk_libvlc_media_add_option(media, szMode);
+
+			if(szMode){
+				g_free(szMode);
+				szMode = NULL;
+			}
+
+			if(g_strcasecmp (pChannelInfos->deinterlace_mode, "blend") == 0){
+				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceBlend), TRUE);
+			}else if(g_strcasecmp (pChannelInfos->deinterlace_mode, "bob") == 0){
+				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceBob), TRUE);
+			}else if(g_strcasecmp (pChannelInfos->deinterlace_mode, "discard") == 0){
+				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceDiscard), TRUE);
+			}else if(g_strcasecmp (pChannelInfos->deinterlace_mode, "linear") == 0){
+				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceLinear), TRUE);
+			}else if(g_strcasecmp (pChannelInfos->deinterlace_mode, "mean") == 0){
+				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceMean), TRUE);
+			}else if(g_strcasecmp (pChannelInfos->deinterlace_mode, "x") == 0){
+				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceX), TRUE);
+			}
+		}else{
+			gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceDisable), TRUE);
+		}
 
 		gtk_libvlc_media_player_clear_media_list(app->player);
 		gtk_libvlc_media_player_add_media(app->player, media);
@@ -620,7 +650,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 		gtk_libvlc_media_player_play(app->player, options, error);
 	}
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-	      "end freetuxtv_play_channel(%s)\n", channel_infos->name);
+	      "end freetuxtv_play_channel(%s)\n", pChannelInfos->name);
 }
 
 void
@@ -630,6 +660,8 @@ freetuxtv_play_media (FreetuxTVApp *app, GtkLibvlcMedia* media, GError** error)
 	      "freetuxtv_play_media(%s)\n", media->mrl);
 
 	windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
+
+	channels_list_set_playing(app, NULL);
 
 	gtk_libvlc_media_player_clear_media_list(app->player);
 	gtk_libvlc_media_player_add_media(app->player, media);
