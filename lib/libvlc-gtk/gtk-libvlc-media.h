@@ -54,6 +54,12 @@ gtk_libvlc_media_new (gchar* mrl);
 void
 gtk_libvlc_media_set_options (GtkLibvlcMedia* media, gchar** options);
 
+void
+gtk_libvlc_media_add_option (GtkLibvlcMedia* media, gchar* option);
+
+void
+gtk_libvlc_media_add_options (GtkLibvlcMedia* media, gchar** options);
+
 const gchar**
 gtk_libvlc_media_get_options (GtkLibvlcMedia* media);
 

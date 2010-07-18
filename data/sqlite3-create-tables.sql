@@ -140,3 +140,9 @@ DROP TABLE channel_tmp;
 DROP TABLE channels_group_tmp;
 DROP TABLE label_channellogo;
 DROP TABLE channel_logo;
+
+-- @libdbevolution-dbversion=0.5.1.1
+
+ALTER TABLE channel ADD COLUMN deinterlace_mode VARCHAR(15) NULL;
+
+-- ALTER TABLE channel ADD COLUMN updated BOOLEAN NULL DEFAULT TRUE;

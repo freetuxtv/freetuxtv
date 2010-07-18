@@ -1,19 +1,20 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * FreetuxTV is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or 
+ * freetuxtv
+ * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
+ * 
+ * freetuxtv is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * FreetuxTV is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Glade; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
+ * 
+ * freetuxtv is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along
+ * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "freetuxtv-channel-infos.h"
@@ -30,7 +31,7 @@ freetuxtv_channel_infos_new(gchar *name, gchar *url)
 	channel_infos->url = g_strdup(url);	
 
 	channel_infos->logo_name = NULL;
-	
+
 	channel_infos->vlc_options = NULL;
 
 	return channel_infos;
@@ -50,7 +51,7 @@ freetuxtv_channel_infos_set_position(FreetuxTVChannelInfos* self, int position)
 
 void
 freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,
-				 gchar *logo_name)
+                                 gchar *logo_name)
 {
 	if(self->logo_name != NULL){
 		g_free(self->logo_name);
@@ -60,7 +61,7 @@ freetuxtv_channel_infos_set_logo(FreetuxTVChannelInfos* self,
 
 void
 freetuxtv_channel_infos_set_vlcoptions(FreetuxTVChannelInfos* self,
-				       gchar **options)
+                                       gchar **options)
 {
 	if(self->vlc_options){
 		g_strfreev (self->vlc_options);
@@ -69,8 +70,18 @@ freetuxtv_channel_infos_set_vlcoptions(FreetuxTVChannelInfos* self,
 }
 
 void
+freetuxtv_channel_infos_set_deinterlace_mode(FreetuxTVChannelInfos* self,
+                                             gchar *mode)
+{
+	if(self->deinterlace_mode){
+		g_free(self->deinterlace_mode);
+	} 
+	self->deinterlace_mode = g_strdup(mode);
+}
+
+void
 freetuxtv_channel_infos_set_channels_group(FreetuxTVChannelInfos* self,
-					   FreetuxTVChannelsGroupInfos *channels_group)
+                                           FreetuxTVChannelsGroupInfos *channels_group)
 {
 	if(self->channels_group != channels_group){
 		if(self->channels_group != NULL){
@@ -83,8 +94,8 @@ freetuxtv_channel_infos_set_channels_group(FreetuxTVChannelInfos* self,
 
 static GObject *
 freetuxtv_channel_infos_constructor (GType                  gtype,
-				     guint                  n_properties,
-				     GObjectConstructParam *properties)
+                                     guint                  n_properties,
+                                     GObjectConstructParam *properties)
 {
 	GObject *obj;
 	GObjectClass *parent_class;  
@@ -97,10 +108,10 @@ static void
 freetuxtv_channel_infos_dispose (GObject *object)
 {
 	FreetuxTVChannelInfos *self;
-	
+
 	g_return_if_fail(object != NULL);
 	g_return_if_fail(FREETUXTV_IS_CHANNEL_INFOS(object));
-	 
+
 	self = FREETUXTV_CHANNEL_INFOS(object);
 
 	if(self->name != NULL){
@@ -124,7 +135,7 @@ freetuxtv_channel_infos_dispose (GObject *object)
 	}
 
 	G_OBJECT_CLASS (freetuxtv_channel_infos_parent_class)->dispose (object);
-	
+
 }
 
 static void
@@ -144,6 +155,7 @@ freetuxtv_channel_infos_init (FreetuxTVChannelInfos *self)
 
 	self->logo_name = NULL;
 	self->vlc_options = NULL;
-	
+	self->deinterlace_mode = NULL;
+
 	self->channels_group = NULL;
 }
