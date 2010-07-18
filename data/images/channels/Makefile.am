@@ -283,6 +283,7 @@ channels_DATA = \
   rocktv.png \
   rossija24.png \
   rsr-suisse.png \
+  rtbf.png \
   rtcgsat.png \
   rtcteleliege.png \
   rtl.png \
