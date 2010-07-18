@@ -399,67 +399,119 @@ dbsync_select_channels_of_channels_group (DBSync *dbsync,
 
 void
 dbsync_add_channel (DBSync *dbsync,
-    FreetuxTVChannelInfos* channel_infos,
+    FreetuxTVChannelInfos* pChannelInfos,
+    gboolean update,
     GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(dbsync->db_link != NULL);
 	g_return_if_fail(error != NULL);
 	g_return_if_fail(*error == NULL);
-	g_return_if_fail(channel_infos != NULL);
-	g_return_if_fail(FREETUXTV_IS_CHANNEL_INFOS(channel_infos));
+	g_return_if_fail(pChannelInfos != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNEL_INFOS(pChannelInfos));
 
 	gchar *query;
 	gchar *db_err = NULL;
 	int res;
+	sqlite3_stmt *pStmt;
 
 	gchar* vlc_options = NULL;
+	gint id_channel = -1;
 
-	if(channel_infos->vlc_options){
-		vlc_options = g_strjoinv ("\n", channel_infos->vlc_options);
+	if(pChannelInfos->vlc_options){
+		vlc_options = g_strjoinv ("\n", pChannelInfos->vlc_options);
 	}
 
-	// Add the channel
-	query = sqlite3_mprintf("\
-	    INSERT INTO %s (%s, %s, %s, %s, %s, %s) \
-	    VALUES \
-	    ('%q',%d,'%q', %Q, (\
-		    SELECT %s.%s FROM %s \
-		    WHERE ('%q' LIKE %s.%s||'%%') \
-		    OR %s.%s = ( \
-			    SELECT %s.%s FROM %s \
-			    WHERE ('%q' LIKE %s.%s||'%%') \
-			    ORDER BY %s.%s DESC ) \
-		    ORDER BY %s.%s DESC ) \
-		    ,'%d');",
-	    // INSERT INTO
-	    DB_CHANNEL,
-	    // (
-	    DB_CHANNEL_NAME, DB_CHANNEL_POSITION, DB_CHANNEL_URI,
-	    DB_CHANNEL_VLCOPTIONS, DB_CHANNEL_TVCHANNELID, DB_CHANNEL_CHANNELGROUPID,
-	    // ) VALUES (
-	    channel_infos->name, channel_infos->position, channel_infos->url, vlc_options,
-	    //  (SELECT
-	    DB_TVCHANNEL, DB_TVCHANNEL_ID,
-	    //   FROM
-	    DB_TVCHANNEL,
-	    //   WHERE
-	    channel_infos->name, DB_TVCHANNEL, DB_TVCHANNEL_NAME,
-	    //   OR
-	    DB_TVCHANNEL, DB_TVCHANNEL_ID,
-	    //     (SELECT
-	    DB_LABELTVCHANNEL, DB_LABELTVCHANNEL_TVCHANNELID, DB_LABELTVCHANNEL,
-	    //      WHERE
-	    channel_infos->name, DB_LABELTVCHANNEL, DB_LABELTVCHANNEL_LABEL,
-	    //      ORDER BY
-	    DB_LABELTVCHANNEL, DB_LABELTVCHANNEL_LABEL,
-	    //     ) 
-	    //   ORDER BY
-	    DB_TVCHANNEL, DB_TVCHANNEL_NAME, 
-	    //   )
-	    channel_infos->channels_group->id
-	    // )
-	    );
+	if(update){
+		// We look if we have a channel in the group with the same URI
+		query = sqlite3_mprintf("\
+			SELECT %s FROM %s WHERE %s='%q' AND %s=%d AND %s=0 \
+			ORDER BY %s.%s;",
+			// SELECT
+			DB_CHANNEL_ID,
+			// FROM
+			DB_CHANNEL,
+			// WHERE
+			DB_CHANNEL_URI, pChannelInfos->url,
+			// AND
+			DB_CHANNEL_CHANNELGROUPID, pChannelInfos->channels_group->id,
+			// AND
+			DB_CHANNEL_UPDATED,
+			// ORDER BY
+			DB_CHANNEL, DB_CHANNEL_POSITION
+			);
+		res = sqlite3_prepare_v2(dbsync->db_link, query, -1, &pStmt, NULL);
+		sqlite3_free(query);
+		if(res == SQLITE_OK) {
+			while(sqlite3_step(pStmt) == SQLITE_ROW && id_channel==-1) {
+				id_channel = (gint)sqlite3_column_int(pStmt, 0);
+			}
+		}else{
+			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+				_("Error when getting the channel.\n\nSQLite has returned error :\n%s."),
+				sqlite3_errmsg(dbsync->db_link));
+		}
+		sqlite3_finalize(pStmt);
+	}
+	
+	if(id_channel == -1){
+		// If not found we just add the channel
+		query = sqlite3_mprintf("\
+			INSERT INTO %s (%s, %s, %s, %s, %s, %s) \
+			VALUES \
+			('%q',%d,'%q', %Q, (\
+				SELECT %s.%s FROM %s \
+				WHERE ('%q' LIKE %s.%s||'%%') \
+				OR %s.%s = ( \
+					SELECT %s.%s FROM %s \
+					WHERE ('%q' LIKE %s.%s||'%%') \
+					ORDER BY %s.%s DESC ) \
+				ORDER BY %s.%s DESC ) \
+				,'%d');",
+			// INSERT INTO
+			DB_CHANNEL,
+			// (
+			DB_CHANNEL_NAME, DB_CHANNEL_POSITION, DB_CHANNEL_URI,
+			DB_CHANNEL_VLCOPTIONS, DB_CHANNEL_TVCHANNELID, DB_CHANNEL_CHANNELGROUPID,
+			// ) VALUES (
+			pChannelInfos->name, pChannelInfos->position, pChannelInfos->url, vlc_options,
+			//  (SELECT
+			DB_TVCHANNEL, DB_TVCHANNEL_ID,
+			//   FROM
+			DB_TVCHANNEL,
+			//   WHERE
+			pChannelInfos->name, DB_TVCHANNEL, DB_TVCHANNEL_NAME,
+			//   OR
+			DB_TVCHANNEL, DB_TVCHANNEL_ID,
+			//     (SELECT
+			DB_LABELTVCHANNEL, DB_LABELTVCHANNEL_TVCHANNELID, DB_LABELTVCHANNEL,
+			//      WHERE
+			pChannelInfos->name, DB_LABELTVCHANNEL, DB_LABELTVCHANNEL_LABEL,
+			//      ORDER BY
+			DB_LABELTVCHANNEL, DB_LABELTVCHANNEL_LABEL,
+			//     ) 
+			//   ORDER BY
+			DB_TVCHANNEL, DB_TVCHANNEL_NAME, 
+			//   )
+			pChannelInfos->channels_group->id
+			// )
+			);
+	}else{
+		query = sqlite3_mprintf("\
+			UPDATE %s SET %s='%q', %s=%d, %s=%Q, %s=1 \
+			WHERE %s=%d",
+			// UPDATE
+			DB_CHANNEL,
+			// SET
+			DB_CHANNEL_NAME, pChannelInfos->name,
+		    DB_CHANNEL_POSITION, pChannelInfos->position,
+			DB_CHANNEL_VLCOPTIONS, vlc_options,
+		    DB_CHANNEL_UPDATED,
+		    // WHERE
+			DB_CHANNEL_ID, id_channel
+			);
+	}
 
 	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
 	sqlite3_free(query);
@@ -472,11 +524,15 @@ dbsync_add_channel (DBSync *dbsync,
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
 		    _("Error when adding the channel \"%s\".\n\nSQLite has returned error :\n%s."),
-		    channel_infos->name, sqlite3_errmsg(dbsync->db_link));
+		    pChannelInfos->name, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}else{
-		freetuxtv_channel_infos_set_id (channel_infos,
-		    (int)sqlite3_last_insert_rowid(dbsync->db_link));
+		if(id_channel != -1){
+			freetuxtv_channel_infos_set_id (pChannelInfos,
+				(int)sqlite3_last_insert_rowid(dbsync->db_link));
+		}else{
+			freetuxtv_channel_infos_set_id (pChannelInfos, id_channel);
+		}
 	}	
 }
 
@@ -725,8 +781,9 @@ dbsync_delete_channels_group (DBSync *dbsync,
 	if(*error == NULL){
 		// Update the position of the channels group after
 		query = sqlite3_mprintf("UPDATE %s SET %s=%s-1 WHERE %s>%d",
-			// DELETE FROM
+			// UPDATE
 			DB_CHANNELSGROUP,
+		    // SET
 		    DB_CHANNELSGROUP_POSITION, DB_CHANNELSGROUP_POSITION,
 			// WHERE
 			DB_CHANNELSGROUP_POSITION, channels_group_infos->position);
@@ -774,6 +831,79 @@ dbsync_delete_channels_of_channels_group (DBSync *dbsync,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
 		    _("Error when deleting the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
 		    channels_group_infos->name,
+		    sqlite3_errmsg(dbsync->db_link));
+		sqlite3_free(db_err);
+	}
+}
+
+void
+dbsync_start_update_channels_of_channels_group (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	g_return_if_fail(pChannelsGroupInfos != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(pChannelsGroupInfos));
+
+	gchar *query;
+	gchar *db_err = NULL;
+	int res;
+
+	// Delete the channels of the channels group
+	query = sqlite3_mprintf("UPDATE %s SET %s=0 WHERE %s=%d",
+	    // UPDATE
+	    DB_CHANNEL,
+	    // SET
+	    DB_CHANNEL_UPDATED,
+	    // WHERE
+	    DB_CHANNEL_CHANNELGROUPID, pChannelsGroupInfos->id);
+	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+	sqlite3_free(query);
+
+	if(res != SQLITE_OK){
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+		    _("Error when updating the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
+		    pChannelsGroupInfos->name,
+		    sqlite3_errmsg(dbsync->db_link));
+		sqlite3_free(db_err);
+	}
+}
+
+void
+dbsync_end_update_channels_of_channels_group (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	g_return_if_fail(pChannelsGroupInfos != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(pChannelsGroupInfos));
+
+	gchar *query;
+	gchar *db_err = NULL;
+	int res;
+
+	// Delete the channels of the channels group
+	query = sqlite3_mprintf("DELETE FROM %s WHERE %s=%d AND %s=0",
+	    // DELETE FROM
+	    DB_CHANNEL,
+	    // WHERE
+	    DB_CHANNEL_CHANNELGROUPID, pChannelsGroupInfos->id,
+	    DB_CHANNEL_UPDATED);
+	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+	sqlite3_free(query);
+
+	if(res != SQLITE_OK){
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+		    _("Error when updating the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
+		    pChannelsGroupInfos->name,
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}

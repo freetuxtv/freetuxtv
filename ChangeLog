@@ -1,4 +1,7 @@
-FreetuxTV 0.5.1 (2010-xx-xx)
+FreetuxTV 0.5.1 (2010-07-xx)
+  - Mise à jour intelligente de la liste des chaînes d'un groupe (sauvergarde des données sur les chaînes)
+  - Ajout d'un menu pour gérer le dé-entrelacement
+  - Mémorisation du dé-entrelacement pour chaque chaîne
   - Gestion des logs avec g_lib
   - Mise à jour de logos :
     TV et WebTV :
