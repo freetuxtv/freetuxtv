@@ -957,6 +957,9 @@
 	<tvchannel name="RSR - Couleur 3">
 		<logo_filename>couleur3-rsr.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="RTBF">
+		<logo_filename>rtbf.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="RTL">
 		<logo_filename>rtl.png</logo_filename>
 	</tvchannel>
