@@ -604,6 +604,9 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 
 		windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
 
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		      "Creating the media to play\n");
+
 		GtkLibvlcMedia *media;
 		media = gtk_libvlc_media_new(pChannelInfos->url);
 		gtk_libvlc_media_set_options(media, pChannelInfos->vlc_options);
