@@ -6,38 +6,40 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 19/07/2010 - Liste FreeboxTV (miroir)
+
+- Synchronisation de la liste FreeboxTV (miroir) avec la liste à jour de FreeboxTV. 
+
 * 17/07/2010  - Liste Web Radio (Russe)
 
 - Création de la liste des WebRadio en russe et ajout de Vesti FM ( http://www.vesti.ru/)
 
 * 17/07/2010  - Liste Web TV (Russe)
 
-- Renommage de Vesti en Rossija 24 (Russia 24) (http://en.wikipedia.org/wiki/Vesti_%28TV_channel%29 ) et correction URL du flux video suite 
- à changement de nom (http://www.vesti.ru/)<BR>
+- Renommage de Vesti en Rossija 24 (Russia 24) (http://en.wikipedia.org/wiki/Vesti_%28TV_channel%29 ) et correction URL du flux video suite à changement de nom (http://www.vesti.ru/)<BR>
 - Correction URL du flux video de RTR Planeta (http://www.rtr-planeta.com )
 
 * 17/07/2010  - Liste Web Radio (Français)
 
 - Correction URL flux .mp3 de CKIA FM suite au changement de site web de http://www.meduse.org/ckiafm/ à http://www.ckiafm.org/
 
-- Ajout des 42 locales de France Bleu ( http://sites.radiofrance.fr/chaines/france-bleu/ ) en plus de France Bleu Ile de france déjà présent dans FreetuxTV.
- Ajout des 9 locales de RFO (Réseau Fance Outremer) (http://radio.rfo.fr/ ) et Radio O.
- L'ensemble des chaines de radio disponibles en ligne du groupe Radio France ( http://fr.wikipedia.org/wiki/Radio_France ) sont
-  désormais dans FreetuxTV.
+- Ajout des 42 locales de France Bleu ( http://sites.radiofrance.fr/chaines/france-bleu/ ) en plus de France Bleu Ile de france déjà présent dans FreetuxTV.<BR>
+Ajout des 9 locales de RFO (Réseau Fance Outremer) (http://radio.rfo.fr/ ) et Radio O.<BR>
+L'ensemble des chaines de radio disponibles en ligne du groupe Radio France ( http://fr.wikipedia.org/wiki/Radio_France ) sont désormais dans FreetuxTV.
 
-- Les chaines Espace Musqique et RDI de Radio Canada étaient déjà présentes dans FreetuxTV.
-  Ajout de l'ensemble des chaines radio de Radio Canada ( http://fr.wikipedia.org/wiki/Soci%C3%A9t%C3%A9_Radio-Canada ) dont :
- Bande à part, Bande à part, Bande à part La métal, Bande à part La rockeuse, Bande à part L'électronique, Bande à part L'enracinée, Bande à part L'urbaine,
- Espace musique Québec, Première Chaîne, les 16 Locales de Première Chaîne, RCI viva (Multilingue)
 
-- La chaine Couleur 3 de la RSR (Radio Suisse Romande) ( http://fr.wikipedia.org/wiki/Radio_suisse_romande ) était déjà présente dans FreetuxTV mais le lien
-  audio ne fonctionnait plus.
-  Correction du lien du flux audio Couleur 3 de la RSR et ajout de l'ensemble des chaines de radio disponibles en ligne du groupe RSR :
-  Espace 2, La 1ère, Option Musique
-  
-Note : En espérant que nos amis francophones de Suisse et Canada apprécieront ces ajouts.
- Pour nos amis francophones belges, le groupe public belge de radio RTBF utilise un format .pls, pour les flux audio des radios, 
- qui ne peut pas être lu avec le logiciel VLC sur Linux ou MS Windows pour l'instant. 
+
+- Les chaines Espace Musqique et RDI de Radio Canada étaient déjà présentes dans FreetuxTV.<BR>
+Ajout de l'ensemble des chaines radio de Radio Canada ( http://fr.wikipedia.org/wiki/Soci%C3%A9t%C3%A9_Radio-Canada ) dont : <BR>
+Bande à part, Bande à part, Bande à part La métal, Bande à part La rockeuse, Bande à part L'électronique, Bande à part L'enracinée, Bande à part L'urbaine,
+Espace musique Québec, Première Chaîne, les 16 Locales de Première Chaîne, RCI viva (Multilingue)
+
+- La chaine Couleur 3 de la RSR (Radio Suisse Romande) ( http://fr.wikipedia.org/wiki/Radio_suisse_romande ) était déjà présente dans FreetuxTV mais le lien audio ne fonctionnait plus.<BR>
+Correction du lien du flux audio Couleur 3 de la RSR et ajout de l'ensemble des chaines de radio disponibles en ligne du groupe RSR : <BR>
+Espace 2, La 1ère, Option Musique<BR>
+<BR>  
+Note : En espérant que nos amis francophones de Suisse et Canada apprécieront ces ajouts.<BR>
+Pour nos amis francophones belges, le groupe public belge de radio RTBF utilise un format .pls, pour les flux audio des radios, qui ne peut pas être lu avec le logiciel VLC sur Linux ou MS Windows pour l'instant. 
 
 
 * 23/04/2010  - Liste Web TV (Turc)
