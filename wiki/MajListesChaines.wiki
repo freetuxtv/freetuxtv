@@ -6,6 +6,10 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 19/07/2010 - Emissions TV/Radio sur le Web (Anglais)
+
+- Suppressions des émissions TV : des locales de CBC News NewsAtSix, News Compass, News Hourly dont les URLs ne fonctionnent plus ou ne sont plus à jour.
+
 * 19/07/2010 - Liste FreeboxTV (miroir)
 
 - Synchronisation de la liste FreeboxTV (miroir) avec la liste à jour de FreeboxTV. 
