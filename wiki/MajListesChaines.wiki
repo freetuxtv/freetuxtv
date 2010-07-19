@@ -6,6 +6,10 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 19/07/2010 - Liste Web Radio (Anglais)
+
+Ajout des chaines de radios nationales (BBC Radio 1 à 7) et des différentes entités (Cornouailles, Ecosse, Galles, Ulster) du Royaume-Uni de la BBC ( http://fr.wikipedia.org/wiki/British_Broadcasting_Corporation )
+
 * 19/07/2010 - Emissions TV/Radio sur le Web (Anglais)
 
 - Suppressions des émissions TV : des locales de CBC News NewsAtSix, News Compass, News Hourly dont les URLs ne fonctionnent plus ou ne sont plus à jour.
