@@ -1480,15 +1480,15 @@
     <property name="type_hint">normal</property>
     <property name="transient_for">windowmain</property>
     <property name="program_name">FreetuxTV</property>
-    <property name="copyright" translatable="yes">GNU General Public License v2</property>
+    <property name="copyright" translatable="yes">GNU General Public License v3</property>
     <property name="comments" translatable="yes">Web TV channels player</property>
     <property name="website">http://code.google.com/p/freetuxtv/</property>
     <property name="website_label" translatable="yes">Project's Web Site</property>
-    <property name="license">FreetuxTV is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+    <property name="license">FreetuxTV is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+    
+FreetuxTV is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-FreetuxTV is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with Glade; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</property>
+You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.</property>
     <property name="authors">Eric Beuque &lt;eric.beuque@gmail.com&gt;</property>
     <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
     <property name="artists">Yannick Le Ny &lt;yleny@laposte.net&gt;</property>

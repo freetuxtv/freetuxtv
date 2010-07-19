@@ -2,12 +2,12 @@
 /*
  * freetuxtv
  * Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>
-	 * 
+ * 
  * freetuxtv is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-	 * 
+ * 
  * freetuxtv is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -482,14 +482,13 @@ gtk_libvlc_media_player_play_media(GtkLibvlcMediaPlayer *self, GtkLibvlcMedia *m
 		for(i=0; i<nb_mp_options; i++){
 			list_options[step+i] = g_strdup(priv->current_options[i]);
 		}
+		szListOptions = g_strjoinv(" ", list_options);
 	}
 
-	szListOptions = g_strjoinv(" ", list_options);
-
 	g_print("[GtkLibVLC] \tINFO \t: Playing %s\n", media->mrl);
-	g_print("[GtkLibVLC] \tINFO \t: Using vlc options [%s]\n", szListOptions);
 
 	if(szListOptions){
+		g_print("[GtkLibVLC] \tINFO \t: Using vlc options [%s]\n", szListOptions);
 		g_free(szListOptions);
 		szListOptions = NULL;
 	}
