@@ -485,10 +485,10 @@ gtk_libvlc_media_player_play_media(GtkLibvlcMediaPlayer *self, GtkLibvlcMedia *m
 		szListOptions = g_strjoinv(" ", list_options);
 	}
 
-	g_print("[GtkLibVLC] \tINFO \t: Playing %s\n", media->mrl);
+	g_print("[GtkLibVLC]    INFO       : Playing %s\n", media->mrl);
 
 	if(szListOptions){
-		g_print("[GtkLibVLC] \tINFO \t: Using vlc options [%s]\n", szListOptions);
+		g_print("[GtkLibVLC]    INFO       : Using vlc options [%s]\n", szListOptions);
 		g_free(szListOptions);
 		szListOptions = NULL;
 	}
