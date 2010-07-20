@@ -1,3 +1,5 @@
+#summary Page d'accueil de FreeuxTV en anglais
+
 _*Warning :* A new blog is now avaliable. The channel playlists can be found in the download section and packages are also avaliable from my web site. Eric._
 
 The goal of this project is to create a WebTV player, working on the Linux platform. It can be used by french people to watch ADSL TV on the PC with ISPs Free and SFR. The GUI is developed in GTK2+ and is using the VLC engine to display the channels.
