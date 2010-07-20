@@ -1,0 +1,39 @@
+_*Warning :* A new blog is now avaliable. The channel playlists can be found in the download section and packages are also avaliable from my web site. Eric._
+
+The goal of this project is to create a WebTV player, working on the Linux platform. It can be used by french people to watch ADSL TV on the PC with ISPs Free and SFR. The GUI is developed in GTK2+ and is using the VLC engine to display the channels.
+
+Features :
+  * Play TV :
+    * French ISP : Free, SFR, Orange, Alice, Bouygues... 
+    * Web TV : Arabic, Chinese, English, French, German, Italian, Japanese, Portuguese, Russian, Spain
+    * Web Radio : English, French, German [http://www.fsf.org/resources/formats/playogg/ http://static.fsf.org/playogg/Play_ogg_80x15.png]
+  * Play in full screen mode and miniature mode
+  * More than 150 logos of TV channels
+  * Support for multimedia keys
+  * Add new groups of channels from M3U playlists
+  * Recording live channels
+
+Features in future releases :
+  * Programming Record
+  * Time shifting
+  * Program Management TV 
+  * Multi platform support
+
+To follow the progress of the project, subscribe to the RSS feed blog (in french) :
+[http://freetuxtv.blogspot.com/feeds/posts/default?alt=rss http://www.cnes.fr/img/logo_rss.gif]
+
+FreetuxTV is now available in stable version. Go to the Downloads section to get it. The latest stable version 0.5.0 is available since the July 11th 2010. You can also read the [http://code.google.com/p/freetuxtv/source/browse/trunk/ChangeLog ChangeLog] for a list of new features.
+
+There are three ways to install it:
+    * Download and compile the source package: http://code.google.com/p/freetuxtv/downloads/list
+    * Download the packages for your distribution: http://freetuxtv.eric-beuque.com/packages/
+    * Use the official Ubuntu repository : https://launchpad.net/~freetuxtv/+archive/freetuxtv
+At this moment, only the Ubuntu, Mandriva and openSUSE packages are available. We are looking for people to manage packages for other distributions.
+
+FreetuxTV is also available in development version. You can install and use it with no problem for watching television with latest features. See the [http://code.google.com/p/freetuxtv/source/browse/trunk/README README] file to know how to install it.
+
+You can also contribute to the project. [http://code.google.com/p/freetuxtv/wiki/Contribuez Have a look at the Wiki].
+
+Here is an overview of the project: (Last Updated: December 11th 2009)
+
+http://freetuxtv.eric-beuque.com/freetuxtv.png
