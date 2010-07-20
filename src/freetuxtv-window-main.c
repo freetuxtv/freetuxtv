@@ -551,6 +551,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 			sensitive = TRUE;
 			break;
 		default:
+			sensitive = FALSE;
 			break;
 	}
 	gtk_widget_set_sensitive(widget, sensitive);

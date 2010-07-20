@@ -990,6 +990,7 @@ freetuxtv_log (const gchar *log_domain, GLogLevelFlags log_level,
 {
 	gboolean debug = (gboolean)user_data;
 	const gchar* levelmsg = "";
+	gchar* szDomain;
 
 	gboolean bPrint = TRUE;
 
@@ -1019,7 +1020,16 @@ freetuxtv_log (const gchar *log_domain, GLogLevelFlags log_level,
 			break;
 	}
 	if(bPrint){
-		g_print("[%s] \t%s\t\t: %s", log_domain, levelmsg, message);
+		if(log_domain){
+			szDomain = g_strconcat("[", log_domain, "]", NULL);
+		}else{
+			szDomain = g_strdup("");
+		}
+		g_print("%-15s%-10s : %s", szDomain, levelmsg, message);
+		if(szDomain){
+			g_free(szDomain);
+			szDomain = NULL;
+		}
 	}
 }
 
