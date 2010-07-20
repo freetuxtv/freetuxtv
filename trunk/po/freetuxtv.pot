@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-11 17:12+0200\n"
+"POT-Creation-Date: 2010-07-20 18:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,7 +174,7 @@ msgid "Fullscreen mode"
 msgstr ""
 
 #: ../data/ui/freetuxtv.glade.h:43
-msgid "GNU General Public License v2"
+msgid "GNU General Public License v3"
 msgstr ""
 
 #: ../data/ui/freetuxtv.glade.h:44
@@ -509,106 +509,110 @@ msgid "Web Radio (German)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:35
-msgid "Web Radio (Spanish)"
+msgid "Web Radio (Russian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:36
-msgid "Web TV (Arabic)"
+msgid "Web Radio (Spanish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:37
-msgid "Web TV (Catalan)"
+msgid "Web TV (Arabic)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:38
-msgid "Web TV (Chinese)"
+msgid "Web TV (Catalan)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:39
-msgid "Web TV (Czech)"
+msgid "Web TV (Chinese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:40
-msgid "Web TV (Dutch)"
+msgid "Web TV (Czech)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:41
-msgid "Web TV (English)"
+msgid "Web TV (Dutch)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:42
-msgid "Web TV (French)"
+msgid "Web TV (English)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:43
-msgid "Web TV (German)"
+msgid "Web TV (French)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:44
-msgid "Web TV (Hungarian)"
+msgid "Web TV (German)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:45
-msgid "Web TV (Italian)"
+msgid "Web TV (Hungarian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:46
-msgid "Web TV (Japanese)"
+msgid "Web TV (Italian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:47
-msgid "Web TV (Korean)"
+msgid "Web TV (Japanese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:48
-msgid "Web TV (Latin)"
+msgid "Web TV (Korean)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:49
-msgid "Web TV (Modern Greek)"
+msgid "Web TV (Latin)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:50
-msgid "Web TV (Norwegian)"
+msgid "Web TV (Modern Greek)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:51
-msgid "Web TV (Persian)"
+msgid "Web TV (Norwegian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:52
-msgid "Web TV (Polish)"
+msgid "Web TV (Persian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:53
-msgid "Web TV (Portuguese)"
+msgid "Web TV (Polish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:54
-msgid "Web TV (Romanian)"
+msgid "Web TV (Portuguese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:55
-msgid "Web TV (Russian)"
+msgid "Web TV (Romanian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:56
-msgid "Web TV (Slovak)"
+msgid "Web TV (Russian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:57
-msgid "Web TV (Spanish)"
+msgid "Web TV (Slovak)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:58
-msgid "Web TV (Swedish)"
+msgid "Web TV (Spanish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:59
-msgid "Web TV (Turkish)"
+msgid "Web TV (Swedish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:60
+msgid "Web TV (Turkish)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:61
 msgid "WebCam"
 msgstr ""
 
@@ -631,12 +635,12 @@ msgid "Update \"%s\" channels list"
 msgstr ""
 
 #. Get the file of the playlist
-#: ../src/freetuxtv-channels-list.c:273
+#: ../src/freetuxtv-channels-list.c:274
 #, c-format
 msgid "Getting the file : \"%s\""
 msgstr ""
 
-#: ../src/freetuxtv-channels-list.c:302
+#: ../src/freetuxtv-channels-list.c:305
 #, c-format
 msgid ""
 "Error when adding the channels.\n"
@@ -645,21 +649,21 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-channels-list.c:846
+#: ../src/freetuxtv-channels-list.c:860
 msgid "Delete group's channels"
 msgstr ""
 
 #. Add to favourite is only for channels
-#: ../src/freetuxtv-channels-list.c:878
+#: ../src/freetuxtv-channels-list.c:892
 msgid "Add to favourites"
 msgstr ""
 
 #. Add favourites to a new group
-#: ../src/freetuxtv-channels-list.c:890
+#: ../src/freetuxtv-channels-list.c:904
 msgid "New group"
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:131
+#: ../src/freetuxtv-db-sync.c:134
 #, c-format
 msgid ""
 "Cannot open database.\n"
@@ -668,7 +672,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:292 ../src/freetuxtv-db-sync.c:385
+#: ../src/freetuxtv-db-sync.c:296 ../src/freetuxtv-db-sync.c:394
 #, c-format
 msgid ""
 "Error when displaying the channels.\n"
@@ -677,7 +681,16 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:466
+#: ../src/freetuxtv-db-sync.c:452
+#, c-format
+msgid ""
+"Error when getting the channel.\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+
+#: ../src/freetuxtv-db-sync.c:526
 #, c-format
 msgid ""
 "Error when adding the channel \"%s\".\n"
@@ -686,7 +699,16 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:520 ../src/freetuxtv-db-sync.c:554
+#: ../src/freetuxtv-db-sync.c:570
+#, c-format
+msgid ""
+"Error when updating the channel \"%s\".\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+
+#: ../src/freetuxtv-db-sync.c:625 ../src/freetuxtv-db-sync.c:659
 #, c-format
 msgid ""
 "Error when adding the group \"%s\" in database.\n"
@@ -695,7 +717,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:598
+#: ../src/freetuxtv-db-sync.c:703
 #, c-format
 msgid ""
 "Error when updating the group \"%s\".\n"
@@ -704,7 +726,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:636
+#: ../src/freetuxtv-db-sync.c:741
 #, c-format
 msgid ""
 "Error when updating the last update date of the group \"%s\".\n"
@@ -713,7 +735,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:670
+#: ../src/freetuxtv-db-sync.c:775
 #, c-format
 msgid ""
 "Error when deleting the group \"%s\".\n"
@@ -722,7 +744,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:690
+#: ../src/freetuxtv-db-sync.c:796
 #, c-format
 msgid ""
 "Error when updating the position of the group \"%s\".\n"
@@ -731,7 +753,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:726
+#: ../src/freetuxtv-db-sync.c:832
 #, c-format
 msgid ""
 "Error when deleting the channels of the group \"%s\".\n"
@@ -740,7 +762,16 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:752
+#: ../src/freetuxtv-db-sync.c:869 ../src/freetuxtv-db-sync.c:905
+#, c-format
+msgid ""
+"Error when updating the channels of the group \"%s\".\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+
+#: ../src/freetuxtv-db-sync.c:931
 #, c-format
 msgid ""
 "Error when deleting the tv channels list.\n"
@@ -749,7 +780,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:796
+#: ../src/freetuxtv-db-sync.c:975
 #, c-format
 msgid ""
 "Error when adding the tv channel '%s'.\n"
@@ -758,7 +789,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:847
+#: ../src/freetuxtv-db-sync.c:1026
 #, c-format
 msgid ""
 "Error when adding the label of channel logo '%s'.\n"
@@ -767,7 +798,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:881
+#: ../src/freetuxtv-db-sync.c:1060
 #, c-format
 msgid ""
 "Error when linking the TV channel '%s' to channel.\n"
@@ -776,7 +807,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:921
+#: ../src/freetuxtv-db-sync.c:1100
 #, c-format
 msgid ""
 "Error when getting the database version.\n"
@@ -785,7 +816,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:953
+#: ../src/freetuxtv-db-sync.c:1132
 #, c-format
 msgid ""
 "Error when updating the database version.\n"
@@ -794,7 +825,7 @@ msgid ""
 "%s."
 msgstr ""
 
-#: ../src/freetuxtv-db-sync.c:1018
+#: ../src/freetuxtv-db-sync.c:1197
 #, c-format
 msgid ""
 "Error when migrating the database.\n"
@@ -872,127 +903,139 @@ msgstr ""
 msgid "Adding channels group : <i>%s</i>"
 msgstr ""
 
-#. g_print("added %s\n", gtk_tree_path_to_string (pTreePathTmp));
 #: ../src/freetuxtv-window-add-channels-group.c:522
 #: ../src/freetuxtv-window-add-channels-group.c:582
-#: ../src/freetuxtv-window-add-channels-group.c:625
+#: ../src/freetuxtv-window-add-channels-group.c:624
 #, c-format
 msgid "%d channels group(s) have been successfully added."
 msgstr ""
 
 #: ../src/freetuxtv-window-add-channels-group.c:548
 #: ../src/freetuxtv-window-add-channels-group.c:598
-#: ../src/freetuxtv-window-main.c:1177
+#: ../src/freetuxtv-window-main.c:1332
 #, c-format
 msgid "Please enter the group's name !"
 msgstr ""
 
 #: ../src/freetuxtv-window-add-channels-group.c:551
-#: ../src/freetuxtv-window-main.c:1182
+#: ../src/freetuxtv-window-main.c:1337
 #, c-format
 msgid "Please enter the group's URI !"
 msgstr ""
 
 #. Menu : FreetuxTV
-#: ../src/freetuxtv-window-main.c:164
+#: ../src/freetuxtv-window-main.c:194
 msgid "_FreetuxTV"
 msgstr ""
 
 #. End Menu : FreetuxTV
 #. Menu : Channels
-#: ../src/freetuxtv-window-main.c:185
+#: ../src/freetuxtv-window-main.c:215
 msgid "_Channels"
 msgstr ""
 
-#: ../src/freetuxtv-window-main.c:189
+#: ../src/freetuxtv-window-main.c:219
 msgid "_Add a group"
 msgstr ""
 
-#: ../src/freetuxtv-window-main.c:195
+#: ../src/freetuxtv-window-main.c:225
 msgid "_Update TV channels list"
 msgstr ""
 
 #. End Menu : Channels
-#.
-#. // Menu : Video
-#. p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Video"));
-#. gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), p_menu_item);
-#. p_menu = gtk_menu_new ();
-#. gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_menu);
-#. // SubMenu : Deinterlace
-#. p_menu_item = gtk_menu_item_new_with_mnemonic (_("_Deinterlace"));
-#. gtk_menu_shell_append (GTK_MENU_SHELL (p_menu), p_menu_item);
-#. p_submenu = gtk_menu_new ();
-#. gtk_menu_item_set_submenu (GTK_MENU_ITEM (p_menu_item), p_submenu);
-#. p_menu_item = gtk_radio_menu_item_new_with_label (NULL, _("Disable"));
-#. group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(p_menu_item));
-#. g_signal_connect(G_OBJECT(p_menu_item),
-#. "activate",
-#. G_CALLBACK(on_windowmain_menuitemdeinterlacedisable_activate),
-#. app);
-#. gtk_menu_shell_append (GTK_MENU_SHELL (p_submenu), p_menu_item);
-#. p_menu_item = gtk_radio_menu_item_new_with_label (group, _("Linear"));
-#. g_signal_connect(G_OBJECT(p_menu_item),
-#. "activate",
-#. G_CALLBACK(on_windowmain_menuitemdeinterlacedisable_activate),
-#. app);
-#. gtk_menu_shell_append (GTK_MENU_SHELL (p_submenu), p_menu_item);
-#. // End SubMenu : Deinterlace
-#. // End Menu : Video
-#.
+#. Menu : Video
+#: ../src/freetuxtv-window-main.c:234
+msgid "_Video"
+msgstr ""
+
+#. SubMenu : Deinterlace
+#: ../src/freetuxtv-window-main.c:239
+msgid "_Deinterlace"
+msgstr ""
+
+#: ../src/freetuxtv-window-main.c:244
+msgid "Disable"
+msgstr ""
+
+#: ../src/freetuxtv-window-main.c:256
+msgid "Blend"
+msgstr ""
+
+#: ../src/freetuxtv-window-main.c:265
+msgid "Bob"
+msgstr ""
+
+#: ../src/freetuxtv-window-main.c:274
+msgid "Discard"
+msgstr ""
+
+#: ../src/freetuxtv-window-main.c:283
+msgid "Linear"
+msgstr ""
+
+#: ../src/freetuxtv-window-main.c:292
+msgid "Mean"
+msgstr ""
+
+#: ../src/freetuxtv-window-main.c:301
+msgid "X"
+msgstr ""
+
+#. End SubMenu : Deinterlace
+#. End Menu : Video
 #. Menu : Help
-#: ../src/freetuxtv-window-main.c:232
+#: ../src/freetuxtv-window-main.c:313
 msgid "_Help"
 msgstr ""
 
-#: ../src/main.c:290
+#: ../src/main.c:296
 #, c-format
 msgid "Recording : %s (%s) -> %s (%s)"
 msgstr ""
 
-#: ../src/main.c:381
+#: ../src/main.c:389
 msgid "Initializing user configuration..."
 msgstr ""
 
-#: ../src/main.c:388
+#: ../src/main.c:396
 msgid "Loading user configuration..."
 msgstr ""
 
-#: ../src/main.c:399
+#: ../src/main.c:407
 msgid "Synchronizing the list of tv channels..."
 msgstr ""
 
-#: ../src/main.c:418
+#: ../src/main.c:427
 msgid "Loading models..."
 msgstr ""
 
-#: ../src/main.c:426
+#: ../src/main.c:436
 msgid "Loading the list of channels..."
 msgstr ""
 
-#: ../src/main.c:433
+#: ../src/main.c:444
 msgid "Loading the list of recordings..."
 msgstr ""
 
-#: ../src/main.c:571 ../src/main.c:685
+#: ../src/main.c:587 ../src/main.c:735
 #, c-format
 msgid "Playing : %s"
 msgstr ""
 
-#: ../src/main.c:580
+#: ../src/main.c:596
 msgid "is playing"
 msgstr ""
 
-#: ../src/main.c:687
+#: ../src/main.c:737
 #, c-format
 msgid "Stopping channel : %s"
 msgstr ""
 
-#: ../src/main.c:726
+#: ../src/main.c:776
 msgid "is recording"
 msgstr ""
 
-#: ../src/main.c:763
+#: ../src/main.c:814
 #, c-format
 msgid "Recording : %s"
 msgstr ""
