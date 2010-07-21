@@ -18,7 +18,7 @@ Rendez-vous sur le wiki de votre distribution :
 
 === Peut-on enregistrer les chaînes de télévision ? ===
 
-Depuis FreetuxTV 0.4.0 (2009-12-11), il est possible d'enregistrer des chaînes qui sont regardées en direct. Et à partir de FreetuxTV 0.4.2 (2010-03-14), l'utilisateur peut en plus programmer la durée de l'enregistrement des chaines regardées en direct.
+Depuis FreetuxTV 0.3.0 (2009-08-25), il est possible d'enregistrer des chaînes qui sont regardées en direct. Et à partir de FreetuxTV 0.4.2 (2010-03-14), l'utilisateur peut en plus programmer la durée de l'enregistrement des chaines regardées en direct.
 Voir [http://freetuxtv.blogspot.com/2009/08/screenshot-du-26082009.html capture écran avec enregistrement en fonctionnement] et [http://freetuxtv.blogspot.com/2010/03/commit-specifier-la-duree-de.html capture écran Spécifier la durée de l'enregistrement]
 
 == Problèmes fréquents ==
