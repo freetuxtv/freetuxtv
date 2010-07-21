@@ -57,6 +57,8 @@ Pour les autres dépendances, les contraintes sont moindres. Vous devez juste re
 
  * gtk+ (>= 2.12.0)
  * glib (>= 2.16.0)
+ * gio (>= 2.16.0)
+ * gobject (>= 2.16.0)
  * dbus-glib-1 (>= 0.74)
  * libsqlite3 (>= 3.4.0)
  * libcurl (>= 7.18)
