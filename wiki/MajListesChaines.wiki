@@ -6,6 +6,10 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 21/07/2010  - Liste Web Radio (Français)
+
+- Désactivation chaines 100% , Beur FM : Kabyle, Oriental, Maroc, Rai suite à flux audio hors-service.
+
 * 21/07/2010 - Liste Web Radio (Arabe)
 
 - Ajout de BBC Arabic ( http://fr.wikipedia.org/wiki/British_Broadcasting_Corporation )
