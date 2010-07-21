@@ -43,8 +43,8 @@ De plus, il faut que la machine cible possède la même version de FreetuxTV que
 C'est pourquoi dans la mesure du possible, il serait judicieux de faire respecter les règles par votre gestionnaire de paquets.
 
  * Si vous compiler avec *libvlc 0.8.x*, le paquet doit pouvoir s'installer uniquement si la machine de destination possède *libvlc >= 0.8* et *libvlc < 0.9*.
- * Si vous compiler avec *libvlc 0.9.x*, le paquet doit pouvoir s'installer uniquement si la machine de destination possède *libvlc >= 0.9*.
- * Si vous compiler avec *libvlc 1.0.x*, le paquet doit pouvoir s'installer uniquement si la machine de destination possède *libvlc >= 1.0*.
+ * Si vous compiler avec *libvlc 0.9.x*, le paquet doit pouvoir s'installer uniquement si la machine de destination possède *libvlc >= 0.9 et libvlc < 1.1*.
+ * Si vous compiler avec *libvlc 1.0.x*, le paquet doit pouvoir s'installer uniquement si la machine de destination possède *libvlc >= 1.0 et libvlc < 1.1*.
  * Si vous compiler avec *libvlc 1.1.x*, le paquet doit pouvoir s'installer uniquement si la machine de destination possède *libvlc >= 1.1*.
 
 Par ailleurs, pour des raisons historique dut à la conception du paquet VLC, il est indispensable d'installer le paquet *vlc* qui contient les librairies permettant d'affichage de la vidéo dans une fenêtre graphique.
