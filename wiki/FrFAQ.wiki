@@ -34,3 +34,7 @@ Pour ajouter un groupe, cliquez sur le menu "Chaînes" puis "Ajouter un groupe".
 === Je n'ai pas de son ni d'image ===
 
 Si vous n'arrivez pas à obtenir l'image avec FreetuxTV, la première chose à faire est de voir si vous arrivez à lire la chaîne dans VLC. Pour récupérer le lien de la chaîne, ouvrez FreetuxTV en mode console et regarder dans les logs pour extraire le lien (en attendant une solution plus pratique).
+
+=== Les chaines de télévision fournies par le FAI Orange ne fonctionnent pas ===
+
+Comme nous n'avons pas Orange comme FAI mais Free, nous vous conseillons de consulter le fil suivant [http://forum.macbidouille.com/index.php?showtopic=299703 "La TV d'Orange sur Mac ?, en tous cas ça marche sur Ubuntu"] du Forum macbidouille.com qui indique les opérations à réaliser pour que celà fonctionne.
