@@ -41,3 +41,5 @@ Voir le [http://code.google.com/p/freetuxtv/issues/detail?id=42 ticket "pas de s
 === Les chaines de télévision fournies par le FAI Orange ne fonctionnent pas ===
 
 Comme nous n'avons pas Orange comme FAI mais Free, nous vous conseillons de consulter le fil suivant [http://forum.macbidouille.com/index.php?showtopic=299703 "La TV d'Orange sur Mac ?, en tous cas ça marche sur Ubuntu"] du Forum macbidouille.com qui indique les opérations à réaliser pour que celà fonctionne.
+
+Cette page indique aussi comment configurer Orange avec VLC, ce qui devrait marché aussi avec FreetuxTV : [http://www.porciello.com/inventel/tv_vlc.htm]
