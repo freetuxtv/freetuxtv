@@ -6,6 +6,14 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 21/07/2010 - Liste Web Radio (Arabe)
+
+- Ajout de BBC Arabic ( http://fr.wikipedia.org/wiki/British_Broadcasting_Corporation )
+
+* 21/07/2010 - Liste Web Radio (Russe)
+
+- Ajout de BBC Russian ( http://fr.wikipedia.org/wiki/British_Broadcasting_Corporation )
+
 * 21/07/2010 - Liste Web Radio (Anglais)
 
 Ajout des 40 chaines de radios locales de la BBC ( http://fr.wikipedia.org/wiki/British_Broadcasting_Corporation )
