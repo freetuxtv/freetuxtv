@@ -6,6 +6,10 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 21/07/2010 - Liste Web Radio (Anglais)
+
+Ajout des 40 chaines de radios locales de la BBC ( http://fr.wikipedia.org/wiki/British_Broadcasting_Corporation )
+
 * 19/07/2010 - Liste Web Radio (Anglais)
 
 Ajout des chaines de radios nationales (BBC Radio 1 à 7) et des différentes entités (Cornouailles, Ecosse, Galles, Ulster) du Royaume-Uni de la BBC ( http://fr.wikipedia.org/wiki/British_Broadcasting_Corporation )
