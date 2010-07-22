@@ -10,20 +10,35 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 * 22/07/2010  - Liste Web Radio (Français)
 
 - Réactivation chaines : 100% fonctionne de nouveau, et pour Beur FM : Kabyle, Oriental, Maroc, Rai le problème des flux audio hors-service est en cours de résolution.
+
 - Suppression Fazz Music parce qu'il n'y a plus de webradio sur le site web.
+
 - Correction URL du flux audio de La radio de la mer
+
 - Remplacement Ouï FM Alternative Rock par Ouï FM Alternatif
+
 - Suppression Ouï FM Classic Rock et ajout de Ouï FM Blues, Ouï FM Collector, Ouï FM Indé
+
 - Suppression de Radio Classique Cinéma qui n'existe plus.
+
 - Correction URL du flux audio de la Radio Ici et Maintenant
+
 - Correction URL du flux audio de la Radio Néo
+
 - Correction URL du flux audio de Rts FM et ajout Rts FM 80s et Rts FM Dance
+
 - Suppression Soleil La Radio suite à site web fermé.
+
 - Correction URL du flux audio de Tempomix
+
 - Renommage de la chaine Virgin Radio Hard rock en Virgin Radio Bruno Guillon
+
 - Renommage de la chaine Virgin Radio Rock alternative en Europe 2 Rock Alternative
+
 - Renommage de la chaine Virgin Radio Rock classics 70 en Virgin Radio Festival
+
 - Renommage de la chaine Virgin Radio Rock UK 80 en Virgin Radio PopRock 90
+
 - Renommage de la chaine Virgin Radio Rock US 80 en Virgin Radio Ca Part En Live
 
 * 21/07/2010  - Liste Web Radio (Français)
