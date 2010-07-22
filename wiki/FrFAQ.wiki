@@ -21,6 +21,13 @@ Rendez-vous sur le wiki de votre distribution :
 Depuis FreetuxTV 0.3.0 (2009-08-25), il est possible d'enregistrer des chaînes qui sont regardées en direct. Et à partir de FreetuxTV 0.4.2 (2010-03-14), l'utilisateur peut en plus programmer la durée de l'enregistrement des chaines regardées en direct.
 Voir [http://freetuxtv.blogspot.com/2009/08/screenshot-du-26082009.html capture écran avec enregistrement en fonctionnement] et [http://freetuxtv.blogspot.com/2010/03/commit-specifier-la-duree-de.html capture écran Spécifier la durée de l'enregistrement]
 
+=== Faut-il être forcément abonné à Free, SFR, Bouygues, Alice et Orange pour avoir accès aux chaines? ===
+
+Non, tous les utilisateurs de FreetuxTV peuvent utiliser les chaines de WebTV et WebRadio partout dans le monde, abonné ou pas à un des FAI (Free, SFR, Bouygues, Alice et Orange).
+Par contre la liste des chaines Free ne sera accesible/utilisable que par les abonnés au FAI Free en France et de même pour la liste des chaines d'Orange aux abonnés d'Orange, et c'est la meme chose pour SFR, Bouygues, Alice.
+L'objectif est que le maximum de personnes puissent utiliser FreetuxTV gràce aux listes de chaines de WebTV ou WebRadios en plusieurs langues qui sont fournies dans FreeTuxTV mais s'ils ne sont pas chez un FAI français.
+Presque la totalité des radios disponibles chez Free dans sa liste de chaines radios se retrouve dans les listes des WebRadios avec leur logos.
+
 == Problèmes fréquents ==
 
 === Mes groupes de chaînes ne contiennent aucunes chaînes ===
