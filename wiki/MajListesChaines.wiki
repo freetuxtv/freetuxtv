@@ -7,6 +7,10 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 = Liste des modifications =
 
 
+* 25/07/2010  - Liste Web Radio (Français)
+
+- Ajout des chaines de radios locales et nationales de la RTBF belge ( http://fr.wikipedia.org/wiki/RTBF.be )
+
 * 22/07/2010  - Liste Web Radio (Français)
 
 - Réactivation chaines : 100% fonctionne de nouveau, et pour Beur FM : Kabyle, Oriental, Maroc, Rai le problème des flux audio hors-service est en cours de résolution.
