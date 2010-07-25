@@ -6,6 +6,13 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 25/07/2010  - Liste Web Radio (Catalan)
+
+- Ajout de la chaine Radio 4 de radio nationale de la RNE espagnole ( http://fr.wikipedia.org/wiki/Radio_Nacional_de_Espa%C3%B1a )
+
+* 25/07/2010  - Liste Web Radio (Espagnol)
+
+- Ajout des chaines de radios nationales de la RNE espagnole ( http://fr.wikipedia.org/wiki/Radio_Nacional_de_Espa%C3%B1a )
 
 * 25/07/2010  - Liste Web Radio (Français)
 
