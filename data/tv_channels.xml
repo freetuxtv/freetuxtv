@@ -114,6 +114,9 @@
 	<tvchannel name="Bastille TV">
 		<logo_filename>bastilletv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="BBC">
+		<logo_filename>bbc.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="BBC World">
 		<logo_filename>bbcworld.png</logo_filename>
 	</tvchannel>
@@ -937,6 +940,9 @@
 	</tvchannel>
 	<tvchannel name="RMN FM">
 		<logo_filename>rmn.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RNE">
+		<logo_filename>rne.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Rock TV">
 		<logo_filename>rocktv.png</logo_filename>

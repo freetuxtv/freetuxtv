@@ -35,6 +35,7 @@ channels_DATA = \
   bambochtv.png \
   baraem.png \
   bastilletv.png \
+  bbc.png \
   bbcworld.png \
   bbcworldnews.png \
   beijingtv.png \
@@ -280,6 +281,7 @@ channels_DATA = \
   rireetchansons.png \
   rmc.png \
   rmn.png \
+  rne.png \
   rocktv.png \
   rossija24.png \
   rsr-suisse.png \
