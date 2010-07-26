@@ -14,6 +14,8 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 - Ajout de RFM Music France et RFM Nouveautés
 
+- Ajout de Radio Public Santé Détente, Radio Public Santé Génération Seniors, Radio Public Santé Loisirs et Sports, Radio Public Santé Famille, 
+
 * 26/07/2010  - Liste Web Radio (Italien)
 
 - Création de la liste des WebRadio en italien et ajout de 8 chaines de radios nationales de la RAI italienne ( http://en.wikipedia.org/wiki/RAI )
