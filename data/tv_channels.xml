@@ -897,6 +897,9 @@
 	<tvchannel name="SUN">
 		<logo_filename>radiosun.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="RAI">
+		<logo_filename>rai.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Railtv">
 		<logo_filename>railtv.png</logo_filename>
 	</tvchannel>

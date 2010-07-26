@@ -56,6 +56,7 @@
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_hu.m3u" name="Web TV (Hungarian)"></channels_group>
 	</language>
 	<language id="it" lang="Italian Web TV and Radio">
+	        <channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webradio_it.m3u" name="Web Radio (Italian)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_webtv_it.m3u" name="Web TV (Italian)"></channels_group>
 	</language>
 	<language id="ja" lang="Japanese Web TV and Radio">
