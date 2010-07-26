@@ -266,6 +266,7 @@ channels_DATA = \
   radiostar.png \
   radiosun.png \
   radio-tropicale.png \
+  rai.png \
   raidue.png \
   railtv.png \
   raitre.png \
