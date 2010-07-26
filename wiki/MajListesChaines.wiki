@@ -6,6 +6,18 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 26/07/2010  - Liste Web Radio (Français)
+
+- Suppression des chaines RFM Love 80 et RFM Party 80 qui n'existent plus.
+
+- Correction URL du flux audio de RFM Night Fever
+
+- Ajout de RFM Music France et RFM Nouveautés
+
+* 26/07/2010  - Liste Web Radio (Italien)
+
+- Création de la liste des WebRadio en italien et ajout de 8 chaines de radios nationales de la RAI italienne ( http://en.wikipedia.org/wiki/RAI )
+
 * 25/07/2010  - Liste Web Radio (Catalan)
 
 - Ajout de la chaine Radio 4 de radio nationale de la RNE espagnole ( http://fr.wikipedia.org/wiki/Radio_Nacional_de_Espa%C3%B1a )
