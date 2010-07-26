@@ -14,7 +14,7 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 - Ajout de RFM Music France et RFM Nouveautés
 
-- Ajout de Radio Public Santé Détente, Radio Public Santé Génération Seniors, Radio Public Santé Loisirs et Sports, Radio Public Santé Famille, 
+- Ajout de Radio Public Santé Détente, Radio Public Santé Génération Seniors, Radio Public Santé Loisirs et Sports, Radio Public Santé Famille, MIXXRADIO, Radio Mont Blanc, Radio Mont Blanc Infos, Radio Sing Sing, STL FM
 
 * 26/07/2010  - Liste Web Radio (Italien)
 
