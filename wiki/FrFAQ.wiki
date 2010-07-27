@@ -37,7 +37,7 @@ Presque la totalité des radios disponibles chez Free dans sa liste de chaines r
 
 Il est possible de rajouter votre chaine de TV ou radio favorite dans FreetuxTV sous réserve de compatibilité technique avec FreetuxTV.
 Pour proposer votre chaine, veuillez nous fournir l'adresse/URL du site web de votre chaine et l'adresse/URL de la page du site web où se trouve le lien ou le lecteur video (TV) ou audio (radio).
-Dans la mesure du possible, veuillez nous indiquer le pays et langue principale utilisée par la chaine. Toutes ces informations sont à nous transmettre en créant un ticket sur [ http://code.google.com/p/freetuxtv/issues/entry cette page (Issues)] ou en créant un article sur le forum de FreetuxTV sur [http://groups.google.com/group/freetuxtv cette autre page (Forums)]. 
+Dans la mesure du possible, veuillez nous indiquer le pays et langue principale utilisée par la chaine. Toutes ces informations sont à nous transmettre en créant un ticket sur [http://code.google.com/p/freetuxtv/issues/entry cette page (Issues)] ou en créant un article sur le forum de FreetuxTV sur [http://groups.google.com/group/freetuxtv cette autre page (Forums)]. 
 
 == Problèmes fréquents ==
 
