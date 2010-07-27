@@ -21,6 +21,11 @@ Rendez-vous sur le wiki de votre distribution :
 Depuis FreetuxTV 0.3.0 (2009-08-25), il est possible d'enregistrer des chaînes qui sont regardées en direct. Et à partir de FreetuxTV 0.4.2 (2010-03-14), l'utilisateur peut en plus programmer la durée de l'enregistrement des chaines regardées en direct.
 Voir [http://freetuxtv.blogspot.com/2009/08/screenshot-du-26082009.html capture écran avec enregistrement en fonctionnement] et [http://freetuxtv.blogspot.com/2010/03/commit-specifier-la-duree-de.html capture écran Spécifier la durée de l'enregistrement]
 
+=== Peut-on programmer l'enregistrement de chaînes de télévision ? ===
+
+Pour l'instant avec FreetuxTV 0.5.1, il n'est pas possible de programmer l'enregistrement de chaines de télévision ou de radio. Vous pouvez suivre l'état de réalisation de cette fonction [http://code.google.com/p/freetuxtv/wiki/RoadMap sur cette page].
+Par contre, en attendant, vous pouvez programmer l'enregistrement de chaines de télévision ou de radio avec des logiciels comme [http://code.google.com/p/qmagneto/ Qmagneto], [http://manatlan.online.fr/fricorder.php Fricorder].    
+
 === Faut-il être forcément abonné à Free, SFR, Bouygues, Alice et Orange pour avoir accès aux chaines? ===
 
 Non, tous les utilisateurs de FreetuxTV peuvent utiliser les chaines de WebTV et WebRadio partout dans le monde, abonné ou pas à un des FAI (Free, SFR, Bouygues, Alice et Orange).
