@@ -44,7 +44,12 @@ Dans la mesure du possible, veuillez nous indiquer le pays et langue principale 
 Il est possible d'ajouter une nouvelle fonctionnalité dans FreetuxTV sous réserve de compatibilité technique avec FreetuxTV.
 Pour proposer nouvelle fonctionnalité, d'abord veuillez vérifier qu'elle n'est pas prise en compte déjà dans la page [http://code.google.com/p/freetuxtv/wiki/RoadMap Feuille de route] ou dans la liste des tickets ouverts dans [http://code.google.com/p/freetuxtv/issues/list Issues].
 Si ce n'est pas le cas, alors créez un ticket sur [http://code.google.com/p/freetuxtv/issues/entry cette page (Issues)] ou si vous ne savez pas comment remplir ce dernier alors créez un article sur le forum de FreetuxTV sur [http://groups.google.com/group/freetuxtv cette autre page (Forums)]. 
-Et vraiement, et faute de mieux, en faisant un commentaire dans un article traitant de la sortie d'une nouvelle version de FreetuxTV sur le Blog d'Eric le développeur [http://freetuxtv.blogspot.com/ sur son site web].  
+Et vraiement, et faute de mieux, en faisant un commentaire dans un article traitant de la sortie d'une nouvelle version de FreetuxTV sur le Blog d'Eric le développeur [http://freetuxtv.blogspot.com/ sur son site web].
+
+=== Où faut-il déclarer les bogues (bugs) ou problèmes rencontrés avec FreetuxTV ? ===  
+
+Pour déclarer les bogues (bugs) ou problèmes rencontrés avec FreetuxTV, vérifiez d'abord qu'il n'y a pas de ticket créé sur [http://code.google.com/p/freetuxtv/issues/entry cette page (Issues)] et alors créez-en un nouveau directement [http://code.google.com/p/freetuxtv/issues/entry sur cette page] ou si vous ne savez pas comment remplir ce dernier alors créez un article sur le forum de FreetuxTV sur [http://groups.google.com/group/freetuxtv cette autre page (Forums)]. 
+Et vraiement, et faute de mieux, en faisant un commentaire dans un article traitant de la sortie d'une nouvelle version de FreetuxTV sur le Blog d'Eric le développeur [http://freetuxtv.blogspot.com/ sur son site web].
 
 == Problèmes fréquents ==
 
