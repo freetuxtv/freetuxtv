@@ -6,6 +6,16 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 26/07/2010  - Liste Web Radio (Anglais)
+
+- Ajout DW-Radio 
+
+* 26/07/2010  - Liste Web Radio (Allemand)
+
+- Correction URL DW-Radio de audio en anglais vers allemand
+
+- Ajout des 2 radios nationales allemandes : Deutschlandfunk, Deutschlandradio Kultur et des WebRadios : Dokumente und Debatten  et DRadio Wissen ( http://www.dradio.de/ )
+
 * 26/07/2010  - Liste Web Radio (Français)
 
 - Suppression des chaines RFM Love 80 et RFM Party 80 qui n'existent plus.
