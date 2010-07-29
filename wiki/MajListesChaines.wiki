@@ -6,11 +6,11 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
-* 26/07/2010  - Liste Web Radio (Anglais)
+* 29/07/2010  - Liste Web Radio (Anglais)
 
 - Ajout DW-Radio 
 
-* 26/07/2010  - Liste Web Radio (Allemand)
+* 29/07/2010  - Liste Web Radio (Allemand)
 
 - Correction URL DW-Radio de audio en anglais vers allemand
 
