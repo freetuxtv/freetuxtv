@@ -14,7 +14,7 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 - Correction URL du flux audio/video de : Art Channel, Biscotte TV, Equipe TV (en audio uniquement, video uniquement pour les abonnés), France Teleachat, TLM (Lyon)
 
-- Ajout de Astro Center TV 
+- Ajout de Astro Center TV, Archeo TV 
 
 * 31/07/2010  - Liste Web Radio (Français)
 
