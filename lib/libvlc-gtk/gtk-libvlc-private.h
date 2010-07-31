@@ -22,6 +22,8 @@
 
 #include "gtk-libvlc-include.h"
 
+#define GTK_LIBVLC_LOG_DOMAIN			"LibVLC-Gtk"
+
 // List of options avaliable for each branche
 // LIBVLC_OLD_INSTANCE : The branche use the old libvlc_instance_t interface
 // LIBVLC_OLD_VLCEXCEPTION : The branche use the deprecated libvlc_exception_t object

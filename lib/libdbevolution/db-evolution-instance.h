@@ -53,8 +53,6 @@ struct _DbEvolutionInstance
 	                             GError** error);
 };
 
-#define DBEVOLUTION_LOG_DOMAIN			"DBEvolution"
-
 #define DBEVOLUTION_LASTDBVERSION_TAGS  "-- @libdbevolution-lastdbversion="
 #define DBEVOLUTION_DBVERSION_TAGS		"-- @libdbevolution-dbversion="
 

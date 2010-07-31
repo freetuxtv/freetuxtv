@@ -24,6 +24,8 @@ typedef struct _GtkLibvlcInstancePrivate GtkLibvlcInstancePrivate;
 struct _GtkLibvlcInstancePrivate
 {
 	libvlc_instance_t *libvlc_instance;
+
+	int idLogFuncHandler;
 };
 
 #define GTK_LIBVLC_INSTANCE_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), GTK_TYPE_LIBVLC_INSTANCE, GtkLibvlcInstancePrivate))
@@ -52,6 +54,7 @@ gtk_libvlc_instance_init (GtkLibvlcInstance *object)
 	priv = GTK_LIBVLC_INSTANCE_PRIVATE(object);
 
 	priv->libvlc_instance = NULL;
+	priv->idLogFuncHandler = -1;
 }
 
 static void
@@ -73,6 +76,10 @@ gtk_libvlc_instance_finalize (GObject *object)
 		libvlc_release (priv->libvlc_instance);
 #endif // LIBVLC_OLD_INSTANCE
 		priv->libvlc_instance = NULL;
+	}
+
+	if(priv->idLogFuncHandler >= 0){
+		g_log_remove_handler(GTK_LIBVLC_LOG_DOMAIN, priv->idLogFuncHandler);
 	}
 
 	G_OBJECT_CLASS (gtk_libvlc_instance_parent_class)->finalize (object);
@@ -127,6 +134,7 @@ raise_error(GtkLibvlcInstance *self, GError** error, gpointer user_data)
 /**
  * gtk_libvlc_instance_new:
  * @vlc_args: a string array containing the vlc command line arguments. Can be NULL.
+ * @log_func: pointer to a Glib log function to send internal libvlc-gtk message.
  * @error: a pointer to an error object that will be initialized if an error happend.
  * Should be freed when it is no longer needed with g_error_free(). Can be NULL.
  *
@@ -138,13 +146,19 @@ raise_error(GtkLibvlcInstance *self, GError** error, gpointer user_data)
  * Since: 0.1
  */
 GtkLibvlcInstance*
-gtk_libvlc_instance_new (const gchar* vlc_args[], GError** error)
+gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** error)
 {
 	if(error != NULL){
 		g_return_if_fail(*error == NULL);
 	}
 
 	GError* pError = NULL;
+
+	int idLogFuncHandler = -1;
+	if(log_func){
+		idLogFuncHandler = g_log_set_handler (GTK_LIBVLC_LOG_DOMAIN, G_LOG_LEVEL_MASK,
+                                              log_func, NULL);
+	}
 	
 	GtkLibvlcInstance *self = NULL;
 	self = g_object_new (GTK_TYPE_LIBVLC_INSTANCE, NULL);
@@ -152,6 +166,8 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GError** error)
 	GtkLibvlcInstancePrivate *priv;
 	priv = GTK_LIBVLC_INSTANCE_PRIVATE(self);
 
+	priv->idLogFuncHandler = idLogFuncHandler;
+	
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
