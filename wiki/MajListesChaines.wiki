@@ -6,6 +6,10 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 31/07/2010  - Liste Web Radio (Français)
+
+- Desactivation des chaines suivantes à cause de liens hors service : 100 %, Aup Radio, Beur FM : Kabyle, Maroc, Oriental, Raï, Fly FM, Parenthèse Radio, Radio Bro Gwened (OGG), Radio Canada - RCI viva (Multilingue), Radio libertaire (OGG), Radio Tropicale, STL FM  
+
 * 29/07/2010  - Liste Web Radio (Anglais)
 
 - Ajout DW-Radio 
