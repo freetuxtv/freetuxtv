@@ -49,7 +49,7 @@ struct _GtkLibvlcInstance
 GType gtk_libvlc_instance_get_type (void) G_GNUC_CONST;
 
 GtkLibvlcInstance*
-gtk_libvlc_instance_new (const gchar* vlc_args[], GError** error);
+gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** error);
 
 LIBVLC_INSTANCE_HANDLE
 gtk_libvlc_instance_get_libvlc_instance(GtkLibvlcInstance* pLibvlcInstance, GError** error);

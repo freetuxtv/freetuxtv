@@ -32,6 +32,8 @@ struct _DbEvolutionInstancePrivate
 
 G_DEFINE_TYPE (DbEvolutionInstance, db_evolution_instance, G_TYPE_OBJECT);
 
+#define DBEVOLUTION_LOG_DOMAIN			"DBEvolution"
+
 static void
 db_evolution_instance_init (DbEvolutionInstance *object)
 {	

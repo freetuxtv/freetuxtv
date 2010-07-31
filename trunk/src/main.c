@@ -553,7 +553,7 @@ freetuxtv_app_create_app ()
 	GtkLibvlcInstance* instance;
 	const gchar *options[] = {"--no-video-title-show"};
 
-	instance = gtk_libvlc_instance_new(options, &error);
+	instance = gtk_libvlc_instance_new(options, freetuxtv_log, &error);
 	if(error == NULL){
 		app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance, NULL));
 	}
