@@ -6,9 +6,18 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 31/07/2010  - Liste Web TV (Français)
+- Desactivation des chaines suivantes à cause de liens hors service pour l'instant avant suppression : Best of shopping, CAP 24, Corrèze TV, Demain TV, Direct 8, DisneyWeb MediaTunes TV, France 3 Auvergne, Grosse Caisse TV, Judo TV, KTO, LCI Express, LCN 2 et LCN Québec, La Chaîne Parlementaire, MBOA TV, MCM TOP, Mini Prod TV, Normandie TV, Orleans tv, Ouest tv, Rock Swing tv, SABC news, Tele miroir, Tele night, Telessonne, TFOU WebTV (17h-20h), TSR Info, TV Grenoble, TV8 Mont-Blanc, TVA Québec, Tvpi, Video Click
+
+- Suppression : C9 Television qui n'existe plus depuis 04/2009 et remplacé par Weo /  Bloomberg TV en français fermé en Fevrier 2009 / AnimeStreaming 1 et AnimeStreaming 2 pour cause d'aucun site sur internet / Bastille TV et  Chouett TV pour cause de site web disparu / toutes les webTV de Seven TV , RVE, Savoye, Mulivan tv, Sport en direct, Sunvibz TV, Tele 102 et MJC Apt TV pour cause de pas de site web / OLTV  parce que plus de WebTV gratuite / Boardriders TV, Citevents Bordeaux, LaTV.fr Why Tivi et Shopping TVA parce que plus de WebTV
+
+- Correction URL du flux audio/video de : Art Channel, Biscotte TV, Equipe TV (en audio uniquement, video uniquement pour les abonnés), France Teleachat, TLM (Lyon)
+
+- Ajout de Astro Center TV 
+
 * 31/07/2010  - Liste Web Radio (Français)
 
-- Desactivation des chaines suivantes à cause de liens hors service : 100 %, Aup Radio, Beur FM : Kabyle, Maroc, Oriental, Raï, Fly FM, Parenthèse Radio, Radio Bro Gwened (OGG), Radio Canada - RCI viva (Multilingue), Radio libertaire (OGG), Radio Tropicale, STL FM  
+- Desactivation des chaines suivantes à cause de liens hors service pour l'instant avant suppression : 100 %, Aup Radio, Beur FM : Kabyle, Maroc, Oriental, Raï, Fly FM, Parenthèse Radio, Radio Bro Gwened (OGG), Radio Canada - RCI viva (Multilingue), Radio libertaire (OGG), Radio Tropicale, STL FM  
 
 * 29/07/2010  - Liste Web Radio (Anglais)
 
