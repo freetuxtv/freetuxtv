@@ -6,6 +6,10 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 01/08/2010  - Liste Web TV (Français)
+
+- Ajout de Canalmoza, HiScore TV
+
 * 31/07/2010  - Liste Web TV (Français)
 
 - Desactivation des chaines suivantes à cause de liens hors service pour l'instant avant suppression : Best of shopping, CAP 24, Corrèze TV, Demain TV, Direct 8, DisneyWeb MediaTunes TV, France 3 Auvergne, Grosse Caisse TV, Judo TV, KTO, LCI Express, LCN 2 et LCN Québec, La Chaîne Parlementaire, MBOA TV, MCM TOP, Mini Prod TV, Normandie TV, Orleans tv, Ouest tv, Rock Swing tv, SABC news, Tele miroir, Tele night, Telessonne, TFOU WebTV (17h-20h), TSR Info, TV Grenoble, TV8 Mont-Blanc, TVA Québec, Tvpi, Video Click
