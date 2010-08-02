@@ -60,6 +60,15 @@ struct _FreetuxTVApp {
 		gchar* directoryrecordings;
 		gint transcoding_mode;
 		gchar* transcoding_format;
+
+		// Prefs network
+		gint proxy_mode;
+		gchar* proxy_server;
+		gchar* proxy_port;
+		gchar* proxy_type;
+		gboolean proxy_use_auth;
+		gchar* proxy_username;
+		gchar* proxy_password;
 		
 	} prefs;
 
