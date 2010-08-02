@@ -195,6 +195,71 @@ load_user_configuration(FreetuxTVApp *app)
 			app->prefs.transcoding_format = str;				
 		}
 
+		i = g_key_file_get_integer (keyfile, "network",
+		                            "proxy_mode", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			if(i>0 && i<2){
+				app->prefs.proxy_mode = i;
+			}
+		}
+		
+		str = g_key_file_get_string (keyfile, "network",
+		                             "proxy_server", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.proxy_server = str;				
+		}
+		
+		str = g_key_file_get_string (keyfile, "network",
+		                             "proxy_port", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.proxy_port = str;				
+		}
+		
+		str = g_key_file_get_string (keyfile, "network",
+		                             "proxy_type", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.proxy_type = str;				
+		}
+
+		b = g_key_file_get_boolean (keyfile, "network",
+		                            "proxy_use_auth", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.proxy_use_auth = b;		
+		}
+		
+		str = g_key_file_get_string (keyfile, "network",
+		                             "proxy_username", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.proxy_username = str;				
+		}
+		
+		str = g_key_file_get_string (keyfile, "network",
+		                             "proxy_password", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.proxy_password = str;				
+		}
+
 		// Load current config
 		b = g_key_file_get_boolean (keyfile, "windowminimode",
 		                            "stay_on_top", &err);
@@ -517,7 +582,14 @@ freetuxtv_app_create_app ()
 	app->prefs.enable_notifications = TRUE;
 	app->prefs.directoryrecordings = g_strdup(g_get_home_dir());
 	app->prefs.transcoding_mode = 0;
-	app->prefs.transcoding_format = "0";
+	app->prefs.transcoding_format = g_strdup("0");
+	app->prefs.proxy_mode = 0;
+	app->prefs.proxy_server = g_strdup("");
+	app->prefs.proxy_port = g_strdup("");
+	app->prefs.proxy_type = g_strdup("0");
+	app->prefs.proxy_use_auth = FALSE;
+	app->prefs.proxy_username = g_strdup("");
+	app->prefs.proxy_password = g_strdup("");
 
 	app->config.windowminimode_stayontop = FALSE;
 	app->config.windowminimode_width = 320;
@@ -564,6 +636,117 @@ freetuxtv_app_create_app ()
 
 	return app;
 
+}
+
+static void
+freetuxtv_app_destroy_app (FreetuxTVApp** pApp)
+{
+	g_return_if_fail(pApp != NULL);
+
+	FreetuxTVApp* app = *pApp;
+
+	if(app->prefs.directoryrecordings){
+		g_free(app->prefs.directoryrecordings);
+		app->prefs.directoryrecordings = NULL;
+	}
+
+	if(app->prefs.transcoding_format){
+		g_free(app->prefs.transcoding_format);
+		app->prefs.transcoding_format = NULL;
+	}
+
+	if(app->prefs.proxy_server){
+		g_free(app->prefs.proxy_server);
+		app->prefs.proxy_server = NULL;
+	}
+
+	if(app->prefs.proxy_port){
+		g_free(app->prefs.proxy_port);
+		app->prefs.proxy_port = NULL;
+	}
+
+	if(app->prefs.proxy_type){
+		g_free(app->prefs.proxy_type);
+		app->prefs.proxy_type = NULL;
+	}
+
+	if(app->prefs.proxy_username){
+		g_free(app->prefs.proxy_username);
+		app->prefs.proxy_username = NULL;
+	}
+
+	if(app->prefs.proxy_password){
+		g_free(app->prefs.proxy_password);
+		app->prefs.proxy_password = NULL;
+	}
+
+	if(app->gui){
+		g_object_unref(app->gui);
+		app->gui = NULL;
+	}
+
+	g_free(app);
+	app = NULL;
+}
+
+static void
+list_options_add_options (gchar*** pOptions, gchar** options)
+{
+	if(pOptions){
+		gchar* szOriginalOptions = NULL;
+		gchar* szNewOptions = NULL;
+		gchar* szFinalOptions = NULL;
+
+		if(*pOptions){
+			szOriginalOptions = g_strjoinv("\t", *pOptions);
+		}
+		if(options){
+			szNewOptions = g_strjoinv("\t", options);
+		}
+		if(szOriginalOptions && szNewOptions){
+			szFinalOptions = g_strconcat(szOriginalOptions, "\t", szNewOptions, NULL);
+		}else{
+			if(szOriginalOptions){
+				szFinalOptions = g_strdup(szOriginalOptions);
+			}
+			if(szNewOptions){
+				szFinalOptions = g_strdup(szNewOptions);
+			}
+		}
+
+		if(*pOptions){
+			g_strfreev(*pOptions);
+			*pOptions = NULL;
+		}
+		if(szFinalOptions){
+			*pOptions = g_strsplit(szFinalOptions, "\t", 0);
+		}
+
+		if(szOriginalOptions){
+			g_free(szOriginalOptions);
+			szOriginalOptions = NULL;
+		}
+
+		if(szNewOptions){
+			g_free(szNewOptions);
+			szNewOptions = NULL;
+		}
+
+		if(szFinalOptions){
+			g_free(szFinalOptions);
+			szFinalOptions = NULL;
+		}
+	}
+}
+
+static void
+list_options_add_option (gchar*** pOptions, gchar* option)
+{
+	gchar *options[2];
+	options[0] = option;
+	options[1] = NULL;
+
+	list_options_add_options (pOptions, options);
 }
 
 void
@@ -646,10 +829,55 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 		gtk_libvlc_media_player_add_media(app->player, media);
 		g_object_unref(media);
 
-		gchar *options[3];
-		options[0] = ":access=timeshift";
-		options[1] = ":input-timeshift-granularity=50";
-		options[2] = NULL;
+		gchar **options = NULL;
+		list_options_add_option (&options, ":access=timeshift");
+		list_options_add_option (&options, ":input-timeshift-granularity=50");
+
+		// Manual mode for proxy
+		if(app->prefs.proxy_mode == 1){
+			gchar* szUser = NULL;
+
+			if(g_strcasecmp ("0", app->prefs.proxy_type) == 0){
+				// Mode HTTP
+				if(app->prefs.proxy_use_auth){
+					szUser = g_strconcat(app->prefs.proxy_username, "@", NULL);
+				}else{
+					szUser = g_strdup("");
+				}
+				text = g_strdup_printf(":http-proxy=http://%s%s:%s/", szUser,
+				                       app->prefs.proxy_server, app->prefs.proxy_port);
+				list_options_add_option(&options, text);
+				g_free(text);
+				text = NULL;
+				if(szUser){
+					g_free(szUser);
+					szUser = NULL;
+				}
+				if(app->prefs.proxy_use_auth){
+					text = g_strdup_printf(":http-proxy-pwd=%s", app->prefs.proxy_password);
+					list_options_add_option(&options, text);
+					g_free(text);
+					text = NULL;
+				}	
+			}else if(g_strcasecmp ("1", app->prefs.proxy_type) == 0){
+				// Mode SOCK
+				text = g_strdup_printf(":socks=%s:%s", app->prefs.proxy_server, app->prefs.proxy_port);
+				list_options_add_option(&options, text);
+				g_free(text);
+				
+				if(app->prefs.proxy_use_auth){
+					text = g_strdup_printf(":socks-user=%s", app->prefs.proxy_username);
+					list_options_add_option(&options, text);
+					g_free(text);
+					text = NULL;
+
+					text = g_strdup_printf(":socks-pwd=%s", app->prefs.proxy_password);
+					list_options_add_option(&options, text);
+					g_free(text);
+					text = NULL;
+				}
+			}
+		}
 
 		gtk_libvlc_media_player_play(app->player, options, error);
 	}
@@ -894,7 +1122,6 @@ freetuxtv_quit (FreetuxTVApp *app)
 	g_key_file_set_string (keyfile, "general",
 	                       "directory_record",
 	                       app->prefs.directoryrecordings);
-	g_free(app->prefs.directoryrecordings);
 
 	g_key_file_set_integer (keyfile, "general",
 	                        "transcoding_mode",
@@ -903,6 +1130,28 @@ freetuxtv_quit (FreetuxTVApp *app)
 	g_key_file_set_string (keyfile, "general",
 	                       "transcoding_format",
 	                       app->prefs.transcoding_format);
+
+	g_key_file_set_integer (keyfile, "network",
+	                        "proxy_mode",
+	                        app->prefs.proxy_mode);
+	g_key_file_set_string (keyfile, "network",
+	                       "proxy_server",
+	                       app->prefs.proxy_server);
+	g_key_file_set_string (keyfile, "network",
+	                       "proxy_port",
+	                       app->prefs.proxy_port);
+	g_key_file_set_string (keyfile, "network",
+	                       "proxy_type",
+	                       app->prefs.proxy_type);
+	g_key_file_set_boolean (keyfile, "network",
+	                        "proxy_use_auth",
+	                        app->prefs.proxy_use_auth);
+	g_key_file_set_string (keyfile, "network",
+	                       "proxy_username",
+	                       app->prefs.proxy_username);
+	g_key_file_set_string (keyfile, "network",
+	                       "proxy_password",
+	                       app->prefs.proxy_password);
 
 	// Save current config
 	g_key_file_set_double (keyfile, "general",
@@ -1092,6 +1341,9 @@ main (int argc, char *argv[])
 		g_mmkeys_deactivate (mmkeys);
 		g_object_unref(G_OBJECT(app->current.notification));
 		notify_uninit();
+
+		freetuxtv_app_destroy_app (&app);
+		app = NULL;
 	}
 
 	g_log_remove_handler (FREETUXTV_LOG_DOMAIN, idLogHandler);

@@ -145,7 +145,7 @@ xml_start_cb(GMarkupParseContext *context,
 	
 	if(name != NULL){
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-			  "Add channel logos '%s' in database\n", name);
+			  "Add TV channel '%s' in database\n", name);
 	}	
 }
 

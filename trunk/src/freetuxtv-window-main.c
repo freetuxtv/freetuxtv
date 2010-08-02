@@ -985,6 +985,10 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	                                               "dialogpreferences");
 	gtk_widget_show(widget);
 
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+
+	// General
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                               "dialogpreferences_channelonstartup");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.channelonstartup);
@@ -993,6 +997,7 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	                                               "dialogpreferences_enablenotifications");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.enable_notifications);
 
+	// Recordings
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                               "dialogpreferences_directoryrecordings");
 	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (widget),
@@ -1013,15 +1018,74 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 			break;
 	}
 
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-
 	model = (GtkTreeModel *) gtk_builder_get_object (app->gui, "liststore_transcodeformat");
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                               "dialogpreferences_transcodingformats");
 	gtk_tree_model_get_iter_from_string (model, &iter, app->prefs.transcoding_format);
 	gtk_combo_box_set_active_iter (GTK_COMBO_BOX(widget), &iter);
 
+	// Network
+	switch(app->prefs.proxy_mode){
+		case 0:
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			                                               "dialogpreferences_radioproxyno");		
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);
+			break;
+		case 1:
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			                                               "dialogpreferences_radioproxymanual");		
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);				
+			break;
+		default:
+			break;
+	}
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_entryproxyserver");
+	gtk_entry_set_text (GTK_ENTRY(widget), app->prefs.proxy_server);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_entryproxyport");
+	gtk_entry_set_text (GTK_ENTRY(widget), app->prefs.proxy_port);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_entryproxyport");
+	gtk_entry_set_text (GTK_ENTRY(widget), app->prefs.proxy_port);
+	
+	switch(app->prefs.proxy_mode){
+		case 0:
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			                                               "dialogpreferences_radioproxyno");		
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);
+			break;
+		case 1:
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			                                               "dialogpreferences_radioproxymanual");		
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);				
+			break;
+		default:
+			break;
+	}
+
+	model = (GtkTreeModel *) gtk_builder_get_object (app->gui, "liststore_proxytype");
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_comboboxproxytype");
+	gtk_tree_model_get_iter_from_string (model, &iter, app->prefs.proxy_type);
+	gtk_combo_box_set_active_iter (GTK_COMBO_BOX(widget), &iter);
+	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_checkuseauth");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.proxy_use_auth);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_entryproxyusername");
+	gtk_entry_set_text (GTK_ENTRY(widget), app->prefs.proxy_username);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_entryproxypassword");
+	gtk_entry_set_text (GTK_ENTRY(widget), app->prefs.proxy_password);
+	
+	
 	dialogpreferences_update_view (app);
 
 }
@@ -1251,7 +1315,15 @@ on_dialogpreferences_response (GtkDialog *dialog,
 {
 	FreetuxTVApp *app = (FreetuxTVApp*)user_data;
 	GtkWidget* widget;
+	gboolean bIsOk = TRUE;
+	const char* text;
+
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+
+	
 	if(response_id == GTK_RESPONSE_APPLY){
+		// Get prefs general
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 		                                               "dialogpreferences_channelonstartup");
 		app->prefs.channelonstartup = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
@@ -1260,6 +1332,7 @@ on_dialogpreferences_response (GtkDialog *dialog,
 		                                               "dialogpreferences_enablenotifications");
 		app->prefs.enable_notifications = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 
+		// Get prefs recording
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 		                                               "dialogpreferences_directoryrecordings");
 		g_free(app->prefs.directoryrecordings);
@@ -1277,17 +1350,75 @@ on_dialogpreferences_response (GtkDialog *dialog,
 			app->prefs.transcoding_mode = 1;	
 		}
 
-		GtkTreeModel *model;
-		GtkTreeIter iter;
-
 		model = (GtkTreeModel *) gtk_builder_get_object (app->gui, "liststore_transcodeformat");
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 		                                               "dialogpreferences_transcodingformats");
 		gtk_combo_box_get_active_iter (GTK_COMBO_BOX(widget), &iter);
 		app->prefs.transcoding_format = gtk_tree_model_get_string_from_iter (model, &iter);
 
+		// Get prefs network
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_radioproxyno");
+		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
+			app->prefs.proxy_mode = 0;	
+		}
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_radioproxymanual");
+		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
+			app->prefs.proxy_mode = 1;
+		}
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxyserver");
+		text = gtk_entry_get_text (GTK_ENTRY(widget));
+		if(app->prefs.proxy_server){
+			g_free(app->prefs.proxy_server);
+			app->prefs.proxy_server = NULL;
+		}
+		app->prefs.proxy_server = g_strdup(text);
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxyport");
+		text = gtk_entry_get_text (GTK_ENTRY(widget));
+		if(app->prefs.proxy_port){
+			g_free(app->prefs.proxy_port);
+			app->prefs.proxy_port = NULL;
+		}
+		app->prefs.proxy_port = g_strdup(text);
+
+		model = (GtkTreeModel *) gtk_builder_get_object (app->gui, "liststore_proxytype");
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_comboboxproxytype");
+		gtk_combo_box_get_active_iter (GTK_COMBO_BOX(widget), &iter);
+		app->prefs.proxy_type = gtk_tree_model_get_string_from_iter (model, &iter);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_checkuseauth");
+		app->prefs.proxy_use_auth = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxyusername");
+		text = gtk_entry_get_text (GTK_ENTRY(widget));
+		if(app->prefs.proxy_username){
+			g_free(app->prefs.proxy_username);
+			app->prefs.proxy_username = NULL;
+		}
+		app->prefs.proxy_username = g_strdup(text);
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxypassword");
+		text = gtk_entry_get_text (GTK_ENTRY(widget));
+		if(app->prefs.proxy_password){
+			g_free(app->prefs.proxy_password);
+			app->prefs.proxy_password = NULL;
+		}
+		app->prefs.proxy_password = g_strdup(text);
 	}
-	gtk_widget_hide(GTK_WIDGET(dialog));
+
+	if(bIsOk){
+		gtk_widget_hide(GTK_WIDGET(dialog));
+	}
 }
 
 static void
