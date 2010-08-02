@@ -1,5 +1,5 @@
 FreetuxTV 0.5.2 (2010-xx-xx)
-
+  - Support de la configuration d'un proxy dans les préférences
   - Ajout de logos :
     Radio et WebRadio :
     BBC britannique, RNE espagnole, RAI italienne
@@ -25,7 +25,7 @@ FreetuxTV 0.5.1 (2010-07-21)
   - Mise à jour de playlists :
     WebRadio Française 
     WebTV Russe 
-   ( voir http://code.google.com/p/freetuxtv/wiki/MajListesChaines )
+    (Voir http://code.google.com/p/freetuxtv/wiki/MajListesChaines)
 
 FreetuxTV 0.5.0 (2010-07-11)
   - Gestion de LibVLC 1.1.0
