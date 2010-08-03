@@ -158,6 +158,14 @@ on_dialogpreferences_transcodingformats_changed (GtkComboBox *widget,
                                                  gpointer user_data);
 
 static void
+on_dialogpreferences_radioproxy_toggled (GtkToggleButton *togglebutton,
+                                         gpointer user_data);
+
+static void
+on_dialogpreferences_checkuseauth_toggled (GtkToggleButton *togglebutton,
+                                     	   gpointer user_data);
+
+static void
 on_dialogpreferences_response (GtkDialog *dialog,
                                gint response_id,
                                gpointer   user_data);
@@ -495,7 +503,28 @@ windowmain_init(FreetuxTVApp *app)
 	g_signal_connect(G_OBJECT(widget),
 	                 "changed",
 	                 G_CALLBACK(on_dialogpreferences_transcodingformats_changed),
-	                 app);	 
+	                 app);
+
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                              "dialogpreferences_radioproxyno");	
+	g_signal_connect(G_OBJECT(widget),
+	                 "toggled",
+	                 G_CALLBACK(on_dialogpreferences_radioproxy_toggled),
+	                 app);
+
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                              "dialogpreferences_radioproxymanual");	
+	g_signal_connect(G_OBJECT(widget),
+	                 "toggled",
+	                 G_CALLBACK(on_dialogpreferences_radioproxy_toggled),
+	                 app);
+
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                              "dialogpreferences_checkuseauth");	
+	g_signal_connect(G_OBJECT(widget),
+	                 "toggled",
+	                 G_CALLBACK(on_dialogpreferences_checkuseauth_toggled),
+	                 app);
 
 	// Initialize signals for dialoggroupproperties
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
@@ -1309,6 +1338,22 @@ on_dialogpreferences_transcodingformats_changed (GtkComboBox *widget,
 }
 
 static void
+on_dialogpreferences_radioproxy_toggled (GtkToggleButton *togglebutton,
+                                         gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp*)user_data;
+	dialogpreferences_update_view(app);
+}
+
+static void
+on_dialogpreferences_checkuseauth_toggled (GtkToggleButton *togglebutton,
+                                     	   gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp*)user_data;
+	dialogpreferences_update_view(app);
+}
+
+static void
 on_dialogpreferences_response (GtkDialog *dialog,
                                gint response_id,
                                gpointer user_data)
@@ -1517,11 +1562,85 @@ on_aboutdialog_response (GtkDialog *dialog,
 static void
 dialogpreferences_update_view(FreetuxTVApp *app)
 {
-	GtkWidget *textbuffer;
-	textbuffer = (GtkWidget *) gtk_builder_get_object (app->gui,
+	GtkWidget* widget;
+	gboolean bIsManualProxy = FALSE;
+	gboolean bUseAuth = FALSE;
+
+	// Refresh recording string
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                                   "textbuffer_previewtranscoding");
 	gchar *text;
 	text = get_recording_options(app, "%filename%", TRUE, NULL);
-	gtk_text_buffer_set_text (GTK_TEXT_BUFFER(textbuffer), text, -1);
+	gtk_text_buffer_set_text (GTK_TEXT_BUFFER(widget), text, -1);
 	g_free(text);
+
+	// Refresh the network view
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_radioproxymanual");
+	if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
+		bIsManualProxy = TRUE;
+	}else{
+		bIsManualProxy = FALSE;
+	}
+		
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_checkuseauth");
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))){
+		bUseAuth = TRUE;
+	}else{
+		bUseAuth = FALSE;
+	}
+
+	if(bIsManualProxy){
+		// Disable all widget
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxyserver");
+		gtk_widget_set_sensitive (widget, TRUE);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxyport");
+		gtk_widget_set_sensitive (widget, TRUE);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_comboboxproxytype");
+		gtk_widget_set_sensitive (widget, TRUE);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_checkuseauth");
+		gtk_widget_set_sensitive (widget, TRUE);
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxyusername");
+		gtk_widget_set_sensitive (widget, bUseAuth);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxypassword");
+		gtk_widget_set_sensitive (widget, bUseAuth);
+
+	}else{
+		// Disable all widget
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxyserver");
+		gtk_widget_set_sensitive (widget, FALSE);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxyport");
+		gtk_widget_set_sensitive (widget, FALSE);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_comboboxproxytype");
+		gtk_widget_set_sensitive (widget, FALSE);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_checkuseauth");
+		gtk_widget_set_sensitive (widget, FALSE);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxyusername");
+		gtk_widget_set_sensitive (widget, FALSE);
+		
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entryproxypassword");
+		gtk_widget_set_sensitive (widget, FALSE);
+	}
 }
