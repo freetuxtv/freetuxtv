@@ -1081,7 +1081,6 @@
         <child>
           <object class="GtkHBox" id="hbox6">
             <property name="visible">True</property>
-            <property name="border_width">3</property>
             <child>
               <object class="GtkHBox" id="hbox7">
                 <property name="visible">True</property>
@@ -1091,6 +1090,8 @@
                     <property name="label" translatable="yes">Vol : </property>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -1100,6 +1101,8 @@
                     <property name="label" translatable="yes">-</property>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -1122,13 +1125,13 @@
                     <property name="label" translatable="yes">+</property>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">3</property>
                   </packing>
                 </child>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
                 <property name="position">0</property>
               </packing>
             </child>
@@ -1298,7 +1301,8 @@
                             <child>
                               <object class="GtkLabel" id="label23">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Directory Record :</property>
+                                <property name="xalign">0</property>
+                                <property name="label" translatable="yes">Directory Record:</property>
                               </object>
                               <packing>
                                 <property name="position">0</property>
@@ -1376,7 +1380,8 @@
                                 <child>
                                   <object class="GtkLabel" id="label25">
                                     <property name="visible">True</property>
-                                    <property name="label" translatable="yes">Format :</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes">Format:</property>
                                   </object>
                                   <packing>
                                     <property name="position">0</property>
