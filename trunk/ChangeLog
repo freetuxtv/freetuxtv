@@ -1,5 +1,7 @@
 FreetuxTV 0.5.2 (2010-xx-xx)
   - Support de la configuration d'un proxy dans les préférences
+  - Ajout de l'option --help pour connaître les options possibles
+  - Création de l'option --open-channel pour lire une chaîne en ligne de commande
   - Ajout de logos :
     Radio et WebRadio :
     BBC britannique, RNE espagnole, RAI italienne

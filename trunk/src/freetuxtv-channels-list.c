@@ -652,7 +652,7 @@ on_dbsync_add_channels_group(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* cha
 }
 
 static int
-on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* channel_infos,
+on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* pChannelInfos,
 		      DBSync *dbsync, gpointer user_data, GError** error)
 {
 	gboolean no_err = TRUE;
@@ -665,7 +665,7 @@ on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* channel_infos,
 
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
 	      "Add channel %d->'%s' to the model\n",
-	      channel_infos->id, channel_infos->name);
+	      pChannelInfos->id, pChannelInfos->name);
 	
 	if(no_err){
 		CBIterData *iter_data = (CBIterData *)user_data;
@@ -673,15 +673,27 @@ on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* channel_infos,
 		gtk_tree_store_append (GTK_TREE_STORE(app->channelslist),
 				       iter_data->iter, iter_data->iter_parent);
 		gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), iter_data->iter,
-				    CHANNEL_COLUMN, channel_infos, -1);
+				    CHANNEL_COLUMN, pChannelInfos, -1);
 
 		// Get the path of the channel to play, if needed
-		if(app->current.lastchannelonstartup == TRUE
-		   && app->config.lastchannel != -1){
-			if(channel_infos->id == app->config.lastchannel){
+		gboolean match = FALSE;
+		if(app->current.path_channel == NULL){
+			// If channel name match with required channel
+			if(app->current.open_channel_id != -1){
+				if(pChannelInfos->id == app->current.open_channel_id){
+					match = TRUE;
+				}
+			}else if(app->prefs.channelonstartup && app->config.lastchannel != -1){
+				// If we want to load a channel on startup and the channel match
+				if(pChannelInfos->id == app->config.lastchannel){
+					match = TRUE;
+				}
+			}
+			if(match){
 				GtkTreePath* path;
 				path = gtk_tree_model_get_path(GTK_TREE_MODEL(app->channelslist), iter_data->iter);
 				app->current.path_channel = path;
+				app->current.autoplay_channel = TRUE;
 			}
 		}
 	}
