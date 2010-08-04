@@ -322,15 +322,6 @@ load_user_configuration(FreetuxTVApp *app)
 
 		g_key_file_free (keyfile);
 	}
-
-	// Check if needs to load a channel on startup	
-	app->current.lastchannelonstartup = FALSE;
-	if(app->prefs.channelonstartup == TRUE
-	   && app->config.lastchannel != -1)
-	{
-		app->current.lastchannelonstartup = TRUE;
-	}
-
 }
 
 gboolean
@@ -483,7 +474,15 @@ splashscreen_app_init(gpointer data)
 	}
 
 	// Initialise l'interface
-	windowmain_display_buttons (app, WINDOW_MODE_STOPPED);	
+	windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
+
+	// Look for a channel to open
+	if(error == NULL){
+		if(app->current.open_channel_name){
+			app->current.open_channel_id = dbsync_get_channel_id_by_name (&dbsync,
+			         app->current.open_channel_name, &error);
+		}
+	}
 
 	// Loading the models
 	if(error == NULL){
@@ -597,8 +596,11 @@ freetuxtv_app_create_app ()
 	app->config.lastchannel = -1;
 	app->config.volume = 0.75;
 	app->config.logosfiledate = 0;
+
+	app->current.open_channel_name = NULL;
+	app->current.open_channel_id = -1;
 	app->current.path_channel = NULL;
-	app->current.lastchannelonstartup = FALSE;
+	app->current.autoplay_channel = FALSE;
 	app->current.is_recording = FALSE;
 	app->current.recording.dst_file = NULL;
 	app->current.recording.duration = NULL;
@@ -1282,71 +1284,155 @@ freetuxtv_log (const gchar *log_domain, GLogLevelFlags log_level,
 	}
 }
 
+static void
+show_help()
+{
+	g_print("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+	g_print("Usage: freetuxtv [option...]\n");
+	g_print("\n");
+	g_print("Options:\n");
+	g_print("-h, --help            show this help message and exit\n");
+	g_print("\n");
+	g_print("Channel:\n");
+	g_print("--open-channel CHANNEL_NAME\n");
+	g_print("                      look for a channel corresponding to the name and \n");
+	g_print("                      play it if found (take first in the channels list)\n");
+	g_print("\n");
+	g_print("Debug options:\n");
+	g_print("-v, --verbose         display a more detailled trace\n");
+}
+
+static void
+show_error(gchar *szErrMsg)
+{
+	g_printerr("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+	g_printerr("freetuxtv: %s\n", szErrMsg);
+	g_printerr("Try `freetuxtv --help' for more information.\n");
+}
+
 int
 main (int argc, char *argv[])
 {	
 	FreetuxTVApp *app;
 
 	GMMKeys* mmkeys;
-	gboolean debug = FALSE;
+
+	gboolean bStopParseArgs = FALSE;
+	gboolean bQuit = FALSE;
+	gchar*   szErrMsg = NULL;
+	
+	gboolean bShowHelp = FALSE;
+	gboolean bTraceDebug = FALSE;
+	gboolean bOpenChannel = FALSE;
+	gchar* szUri;
+	gchar* szChannelName;
 
 	int p;
 	int idLogHandler;
 
 	// Process programs args
-	for(p=1; p<argc; p++){
-		if(g_ascii_strcasecmp("-v",argv[p]) == 0){
-			debug = TRUE;
+	if(argc>1){
+		for(p=1; p<argc && !bStopParseArgs; p++){
+			if(argv[p][0] == '-'){
+				// This should be an option
+				if(g_ascii_strcasecmp("-h", argv[p]) == 0 || g_ascii_strcasecmp("--help", argv[p]) == 0){
+					// Found the show help option
+					bShowHelp = TRUE;
+					bStopParseArgs = TRUE;
+				}else if(g_ascii_strcasecmp("-v", argv[p]) == 0 || g_ascii_strcasecmp("--verbose", argv[p]) == 0){
+					// Found the verbose option
+					bTraceDebug = TRUE;
+				}else if(g_ascii_strcasecmp("--open-channel", argv[p]) == 0){
+					// Found the open channel option
+					if(p+1<argc){
+						bOpenChannel = TRUE;
+						szChannelName = argv[p+1];
+					}else{
+						szErrMsg = g_strdup_printf("missing mandatory argument to '%s", argv[p]);
+						bStopParseArgs = FALSE;
+					}
+
+				}else{
+					szErrMsg = g_strdup_printf("unknown option '%s'", argv[p]);
+					bStopParseArgs = FALSE;
+				}
+			}else{
+				if(p == argc-1){
+					// If the last args isn't an option, it should be an URI 
+					szUri = argv[p];
+				}else{
+					szErrMsg = g_strdup_printf("invalid option '%s'", argv[p]);
+				}
+			}
 		}
 	}
 
-	// Initialize log handler
-	idLogHandler = g_log_set_handler (FREETUXTV_LOG_DOMAIN,
-	                                  G_LOG_LEVEL_MASK,
-	                                  freetuxtv_log, (gpointer*)debug);
-
-#ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-	textdomain (GETTEXT_PACKAGE);
-#endif
-
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
-
-	gtk_set_locale ();
-	gtk_init (&argc, &argv);
-
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Loading FreetuxTV %s\n", VERSION);
-	app = freetuxtv_app_create_app ();
-	if (app != NULL) {
-
-		// Initialize notifications
-		notify_init("FreetuxTV");
-		app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL, NULL);
-
-		mmkeys = g_mmkeys_new ("FreetuxTV", freetuxtv_log);
-		g_mmkeys_activate (mmkeys);
-
-		g_signal_connect(G_OBJECT(mmkeys),
-		                 "mm_key_pressed",
-		                 G_CALLBACK(on_freetuxtv_mm_key_pressed),
-		                 app);
-
-		gtk_init_add (splashscreen_app_init, app);
-
-		gtk_main ();
-
-		g_mmkeys_deactivate (mmkeys);
-		g_object_unref(G_OBJECT(app->current.notification));
-		notify_uninit();
-
-		freetuxtv_app_destroy_app (&app);
-		app = NULL;
+	if(szErrMsg){
+		bQuit = TRUE;
+		show_error (szErrMsg);
+		g_free(szErrMsg);
+		szErrMsg = NULL;
 	}
 
-	g_log_remove_handler (FREETUXTV_LOG_DOMAIN, idLogHandler);
+	if(bShowHelp){
+		show_help();
+		bQuit = TRUE;
+	}
+
+	if(!bQuit){
+		// Initialize log handler
+		idLogHandler = g_log_set_handler (FREETUXTV_LOG_DOMAIN,
+			                              G_LOG_LEVEL_MASK,
+			                              freetuxtv_log, (gpointer*)bTraceDebug);
+
+#ifdef ENABLE_NLS
+		bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+		bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+		textdomain (GETTEXT_PACKAGE);
+#endif
+
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+			  "Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+
+		gtk_set_locale ();
+		gtk_init (&argc, &argv);
+
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+			  "Loading FreetuxTV %s\n", VERSION);
+		app = freetuxtv_app_create_app ();
+		if (app != NULL) {
+
+			// Initialize notifications
+			notify_init("FreetuxTV");
+			app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL, NULL);
+
+			mmkeys = g_mmkeys_new ("FreetuxTV", freetuxtv_log);
+			g_mmkeys_activate (mmkeys);
+
+			g_signal_connect(G_OBJECT(mmkeys),
+				             "mm_key_pressed",
+				             G_CALLBACK(on_freetuxtv_mm_key_pressed),
+				             app);
+
+			// Set the channel name to open
+			if(bOpenChannel){
+				app->current.open_channel_name = szChannelName;
+			}
+
+			gtk_init_add (splashscreen_app_init, app);
+
+			gtk_main ();
+
+			g_mmkeys_deactivate (mmkeys);
+			g_object_unref(G_OBJECT(app->current.notification));
+			notify_uninit();
+
+			freetuxtv_app_destroy_app (&app);
+			app = NULL;
+		}
+
+		g_log_remove_handler (FREETUXTV_LOG_DOMAIN, idLogHandler);
+	}
 
 	return 0;
 }

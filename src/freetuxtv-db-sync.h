@@ -82,6 +82,11 @@ dbsync_add_channel (DBSync *dbsync,
     gboolean update,
     GError** error);
 
+int
+dbsync_get_channel_id_by_name (DBSync *dbsync,
+    const gchar* szChannelName,
+    GError** error);
+
 void
 dbsync_update_channel_deinterlace_mode (DBSync *dbsync,
     FreetuxTVChannelInfos* pChannelInfos,
