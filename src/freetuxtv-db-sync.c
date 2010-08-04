@@ -536,6 +536,99 @@ dbsync_add_channel (DBSync *dbsync,
 	}	
 }
 
+int
+dbsync_get_channel_id_by_name (DBSync *dbsync,
+    const gchar* szChannelName,
+    GError** error)
+{
+	g_return_val_if_fail(dbsync != NULL, -1);
+	g_return_val_if_fail(dbsync->db_link != NULL, -1);
+	g_return_val_if_fail(error != NULL, -1);
+	g_return_val_if_fail(*error == NULL, -1);
+
+	int res;
+	gchar *zQuery;
+	int id = -1;
+	sqlite3_stmt *pStmt;
+
+	// First, we look for a channel with name which match exactly
+	if(id == -1){
+		zQuery = sqlite3_mprintf("\
+			SELECT %s.%s \
+			FROM %s, %s \
+			WHERE %s.%s=%s.%s \
+			AND %s.%s='%q' \
+			ORDER BY %s.%s, %s.%s \
+		    LIMIT 1",
+			// SELECT
+			DB_CHANNEL, DB_CHANNEL_ID,
+			// FROM
+			DB_CHANNELSGROUP, DB_CHANNEL,
+			// WHERE
+			DB_CHANNELSGROUP, DB_CHANNELSGROUP_ID, DB_CHANNEL, DB_CHANNEL_CHANNELGROUPID,
+		    // AND
+            DB_CHANNEL, DB_CHANNEL_NAME, szChannelName,
+			// ORDER BY
+			DB_CHANNELSGROUP, DB_CHANNELSGROUP_POSITION, DB_CHANNEL, DB_CHANNEL_POSITION);
+
+		res = sqlite3_prepare_v2(dbsync->db_link, zQuery, -1, &pStmt, NULL);
+		sqlite3_free(zQuery);
+		if(res == SQLITE_OK) {
+			while(sqlite3_step(pStmt) == SQLITE_ROW) {
+				// Set channels group id
+				id = sqlite3_column_int(pStmt, 0);
+			}
+		}else{
+			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+				_("Error when getting the channel by name.\n\nSQLite has returned error :\n%s."),
+				sqlite3_errmsg(dbsync->db_link));
+		}
+		sqlite3_finalize(pStmt);
+	}
+	
+	// Next, we look for a TV channel with name which match exactly
+	if(id == -1){
+		zQuery = sqlite3_mprintf("\
+			SELECT %s.%s \
+			FROM %s, %s, %s \
+			WHERE %s.%s=%s.%s \
+			AND %s.%s=%s.%s \
+			AND %s.%s='%q' \
+			ORDER BY %s.%s, %s.%s \
+		    LIMIT 1",
+			// SELECT
+			DB_CHANNEL, DB_CHANNEL_ID,
+			// FROM
+			DB_CHANNELSGROUP, DB_CHANNEL, DB_TVCHANNEL,
+			// WHERE
+			DB_CHANNELSGROUP, DB_CHANNELSGROUP_ID, DB_CHANNEL, DB_CHANNEL_CHANNELGROUPID,
+			// AND
+			DB_CHANNEL, DB_CHANNEL_TVCHANNELID, DB_TVCHANNEL, DB_TVCHANNEL_ID,
+		    // AND
+            DB_TVCHANNEL, DB_TVCHANNEL_NAME, szChannelName,
+			// ORDER BY
+			DB_CHANNELSGROUP, DB_CHANNELSGROUP_POSITION, DB_CHANNEL, DB_CHANNEL_POSITION);
+
+		res = sqlite3_prepare_v2(dbsync->db_link, zQuery, -1, &pStmt, NULL);
+		sqlite3_free(zQuery);
+		if(res == SQLITE_OK) {
+			while(sqlite3_step(pStmt) == SQLITE_ROW) {
+				// Set channels group id
+				id = sqlite3_column_int(pStmt, 0);
+			}
+		}else{
+			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+				_("Error when getting the channel by name.\n\nSQLite has returned error :\n%s."),
+				sqlite3_errmsg(dbsync->db_link));
+		}
+		sqlite3_finalize(pStmt);
+	}
+	
+	return id;
+}
+
 void
 dbsync_update_channel_deinterlace_mode (DBSync *dbsync,
     FreetuxTVChannelInfos* pChannelInfos,

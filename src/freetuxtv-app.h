@@ -83,8 +83,10 @@ struct _FreetuxTVApp {
 	} config;
 
 	struct {
+		gchar* open_channel_name;
+		gint open_channel_id;
 		GtkTreePath *path_channel;
-		gboolean lastchannelonstartup;
+		gboolean autoplay_channel;
 		NotifyNotification *notification;
 		
 		gboolean is_recording;
