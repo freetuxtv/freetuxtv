@@ -8,7 +8,7 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 * 07/08/2010  - Liste Web TV (Allemand)
 
-- Ajout de plusieurs chaines de la DW-TV en différentes qualité d'images, 3Sat, Kung Fu TV, Rhein Main TV, NDR Fernsehen ,Bundesligen TV
+- Ajout de plusieurs chaines de la DW-TV en différentes qualité d'images, 3Sat, Kung Fu TV, Rhein Main TV, NDR Fernsehen ,Bundesligen TV, Center.TV, Kiya.TV (ex FashionTV), Auto TV, Massive Mag TV
 
 - Correction URL du flux audio/video de : MLC TV
 
