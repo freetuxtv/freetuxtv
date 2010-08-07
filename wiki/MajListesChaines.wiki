@@ -4,15 +4,15 @@
 
 Cette partie détaille les mises à jour (ajout/suppression) des chaines fournies dans WebTV
 
-* 01/08/2010  - Liste Web TV (Allemand)
+= Liste des modifications =
+
+* 07/08/2010  - Liste Web TV (Allemand)
 
 - Ajout de plusieurs chaines de la DW-TV en différentes qualité d'images, 3Sat, Kung Fu TV, Rhein Main TV, NDR Fernsehen ,Bundesligen TV
 
 - Correction URL du flux audio/video de : MLC TV
 
 - Desactivation des chaines suivantes à cause d'absence de WebTV ou lecteur en Flash uniquement pour l'instant avant suppression : Astro TV, Bahn TV, München TV, RTL Télé Lëtzebuerg, TRP1
-
-= Liste des modifications =
 
 * 01/08/2010  - Liste Web TV (Français)
 
