@@ -19,22 +19,85 @@
 
 #include "freetuxtv-channel-infos.h"
 
+typedef struct _FreetuxTVChannelInfosPrivate FreetuxTVChannelInfosPrivate;
+struct _FreetuxTVChannelInfosPrivate
+{
+	gchar* nil;
+};
+
+#define FREETUXTV_CHANNEL_INFOS_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), FREETUXTV_TYPE_CHANNEL_INFOS, FreetuxTVChannelInfosPrivate))
+
+
+
 G_DEFINE_TYPE (FreetuxTVChannelInfos, freetuxtv_channel_infos, G_TYPE_OBJECT);
+
+static void
+freetuxtv_channel_infos_init (FreetuxTVChannelInfos *object)
+{
+	object->id = -1;
+	object->name=NULL;
+	object->url=NULL;
+
+	object->logo_name = NULL;
+	object->vlc_options = NULL;
+	object->deinterlace_mode = NULL;
+
+	object->channels_group = NULL;
+}
+
+static void
+freetuxtv_channel_infos_finalize (GObject *object)
+{
+	FreetuxTVChannelInfos *self;
+	self = FREETUXTV_CHANNEL_INFOS(object);
+
+	if(self->name != NULL){
+		g_free(self->name);
+		self->name = NULL;
+	}
+
+	if(self->url != NULL){
+		g_free(self->url);
+		self->url = NULL;
+	}
+
+	if(self->channels_group != NULL){
+		g_object_unref(self->channels_group);
+		self->channels_group = NULL;
+	}
+
+	if(self->vlc_options != NULL){
+		g_strfreev(self->vlc_options);
+		self->vlc_options = NULL;
+	}
+
+	G_OBJECT_CLASS (freetuxtv_channel_infos_parent_class)->finalize (object);
+}
+
+static void
+freetuxtv_channel_infos_class_init (FreetuxTVChannelInfosClass *klass)
+{
+	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+
+	g_type_class_add_private (klass, sizeof (FreetuxTVChannelInfosPrivate));
+
+	object_class->finalize = freetuxtv_channel_infos_finalize;
+}
 
 FreetuxTVChannelInfos*
 freetuxtv_channel_infos_new(gchar *name, gchar *url)
 {
-	FreetuxTVChannelInfos *channel_infos;
-	channel_infos = g_object_new (FREETUXTV_TYPE_CHANNEL_INFOS, NULL);
+	FreetuxTVChannelInfos *pChannelInfos;
+	pChannelInfos = g_object_new (FREETUXTV_TYPE_CHANNEL_INFOS, NULL);
 
-	channel_infos->name = g_strdup(name);
-	channel_infos->url = g_strdup(url);	
+	pChannelInfos->name = g_strdup(name);
+	pChannelInfos->url = g_strdup(url);	
 
-	channel_infos->logo_name = NULL;
+	pChannelInfos->logo_name = NULL;
 
-	channel_infos->vlc_options = NULL;
+	pChannelInfos->vlc_options = NULL;
 
-	return channel_infos;
+	return pChannelInfos;
 }
 
 void
@@ -92,70 +155,3 @@ freetuxtv_channel_infos_set_channels_group(FreetuxTVChannelInfos* self,
 	}
 }
 
-static GObject *
-freetuxtv_channel_infos_constructor (GType                  gtype,
-                                     guint                  n_properties,
-                                     GObjectConstructParam *properties)
-{
-	GObject *obj;
-	GObjectClass *parent_class;  
-	parent_class = G_OBJECT_CLASS (freetuxtv_channel_infos_parent_class);
-	obj = parent_class->constructor (gtype, n_properties, properties);
-	return obj;
-}
-
-static void
-freetuxtv_channel_infos_dispose (GObject *object)
-{
-	FreetuxTVChannelInfos *self;
-
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(FREETUXTV_IS_CHANNEL_INFOS(object));
-
-	self = FREETUXTV_CHANNEL_INFOS(object);
-
-	if(self->name != NULL){
-		g_free(self->name);
-		self->name = NULL;
-	}
-
-	if(self->url != NULL){
-		g_free(self->url);
-		self->url = NULL;
-	}
-
-	if(self->channels_group != NULL){
-		g_object_unref(self->channels_group);
-		self->channels_group = NULL;
-	}
-
-	if(self->vlc_options != NULL){
-		g_strfreev(self->vlc_options);
-		self->vlc_options = NULL;
-	}
-
-	G_OBJECT_CLASS (freetuxtv_channel_infos_parent_class)->dispose (object);
-
-}
-
-static void
-freetuxtv_channel_infos_class_init (FreetuxTVChannelInfosClass *klass)
-{
-	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-	gobject_class->constructor = freetuxtv_channel_infos_constructor;
-	gobject_class->dispose = freetuxtv_channel_infos_dispose;
-}
-
-static void
-freetuxtv_channel_infos_init (FreetuxTVChannelInfos *self)
-{
-	self->id = -1;
-	self->name=NULL;
-	self->url=NULL;
-
-	self->logo_name = NULL;
-	self->vlc_options = NULL;
-	self->deinterlace_mode = NULL;
-
-	self->channels_group = NULL;
-}

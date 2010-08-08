@@ -23,7 +23,7 @@
 #include "freetuxtv-models.h"
 #include "freetuxtv-db-sync.h"
 #include "freetuxtv-channels-list.h"
-
+#include "freetuxtv-window-main.h"
 
 
 typedef struct _FreetuxTVWindowAddChannelsGroupPrivate FreetuxTVWindowAddChannelsGroupPrivate;
