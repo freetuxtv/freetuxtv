@@ -22,9 +22,9 @@
 
 #include <gtk/gtk.h>
 
-#include "freetuxtv-recordings-list.h"
-
 #include "freetuxtv-app.h"
+#include "freetuxtv-recordings-list.h"
+#include "freetuxtv-window-main.h"
 
 enum
 {

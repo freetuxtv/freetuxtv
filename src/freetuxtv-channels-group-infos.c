@@ -16,27 +16,91 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "freetuxtv-channels-group-infos.h"
 
+typedef struct _FreetuxTVChannelsGroupInfosPrivate FreetuxTVChannelsGroupInfosPrivate;
+struct _FreetuxTVChannelsGroupInfosPrivate
+{
+	gchar* nil;
+};
+
+#define FREETUXTV_CHANNELS_GROUP_INFOS_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, FreetuxTVChannelsGroupInfosPrivate))
+
+
+
 G_DEFINE_TYPE (FreetuxTVChannelsGroupInfos, freetuxtv_channels_group_infos, G_TYPE_OBJECT);
+
+static void
+freetuxtv_channels_group_infos_init (FreetuxTVChannelsGroupInfos *object)
+{
+	object->id=-1;
+	object->name=NULL;
+	object->uri=NULL;
+	object->bregex=NULL;
+	object->eregex=NULL;
+	object->nb_channels = 0;	
+	object->nb_channels_visible = 0;
+}
+
+static void
+freetuxtv_channels_group_infos_finalize (GObject *object)
+{
+	FreetuxTVChannelsGroupInfos *self;
+	self = FREETUXTV_CHANNELS_GROUP_INFOS(object);
+
+	if(self->name != NULL){
+		g_free(self->name);
+		self->name = NULL;
+	}
+
+	if(self->uri != NULL){
+		g_free(self->uri);
+		self->uri = NULL;
+	}
+
+	if(self->bregex != NULL){
+		g_free(self->bregex);
+		self->bregex = NULL;
+	}
+
+	if(self->eregex != NULL){
+		g_free(self->eregex);
+		self->eregex = NULL;
+	}
+
+	G_OBJECT_CLASS (freetuxtv_channels_group_infos_parent_class)->finalize (object);
+}
+
+static void
+freetuxtv_channels_group_infos_class_init (FreetuxTVChannelsGroupInfosClass *klass)
+{
+	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	// GObjectClass* parent_class = G_OBJECT_CLASS (klass);
+
+	g_type_class_add_private (klass, sizeof (FreetuxTVChannelsGroupInfosPrivate));
+
+	object_class->finalize = freetuxtv_channels_group_infos_finalize;
+}
+
 
 FreetuxTVChannelsGroupInfos*
 freetuxtv_channels_group_infos_new(gchar *name, FREETUXTV_CHANNELSGROUP_TYPEGROUP type)
 {
 	g_return_val_if_fail(name != NULL, NULL);
 
-	FreetuxTVChannelsGroupInfos *channels_group_infos;
-	channels_group_infos = g_object_new (FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, NULL);
+	FreetuxTVChannelsGroupInfos *pChannelsGroupInfos;
+	pChannelsGroupInfos = g_object_new (FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, NULL);
 
-	freetuxtv_channels_group_infos_set_name (channels_group_infos, name);
+	freetuxtv_channels_group_infos_set_name (pChannelsGroupInfos, name);
 	
-	channels_group_infos->name=g_strdup(name);
-	channels_group_infos->uri = NULL;
-	channels_group_infos->type = type;
-	channels_group_infos->nb_channels = 0;	
-	channels_group_infos->nb_channels_visible = 0;
+	pChannelsGroupInfos->name=g_strdup(name);
+	pChannelsGroupInfos->uri = NULL;
+	pChannelsGroupInfos->type = type;
+	pChannelsGroupInfos->nb_channels = 0;	
+	pChannelsGroupInfos->nb_channels_visible = 0;
 
-	return channels_group_infos;
+	return pChannelsGroupInfos;
 }
 
 void
@@ -96,70 +160,3 @@ freetuxtv_channels_group_infos_set_regex (FreetuxTVChannelsGroupInfos *self, gch
 		self->eregex=g_strdup(eregex);
 	}
 }
-
-static GObject *
-freetuxtv_channels_group_infos_constructor (GType gtype,
-					    guint n_properties,
-					    GObjectConstructParam *properties)
-{
-	GObject *obj;
-	GObjectClass *parent_class;  
-	parent_class = G_OBJECT_CLASS (freetuxtv_channels_group_infos_parent_class);
-	obj = parent_class->constructor (gtype, n_properties, properties);
-	return obj;
-}
-
-static void
-freetuxtv_channels_group_infos_dispose (GObject *object)
-{
-	FreetuxTVChannelsGroupInfos *self;
-	
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(object));
-	 
-	self = FREETUXTV_CHANNELS_GROUP_INFOS(object);
-
-	if(self->name != NULL){
-		g_free(self->name);
-		self->name = NULL;
-	}
-
-	if(self->uri != NULL){
-		g_free(self->uri);
-		self->uri = NULL;
-	}
-
-	if(self->bregex != NULL){
-		g_free(self->bregex);
-		self->bregex = NULL;
-	}
-
-	if(self->eregex != NULL){
-		g_free(self->eregex);
-		self->eregex = NULL;
-	}
-
-	G_OBJECT_CLASS (freetuxtv_channels_group_infos_parent_class)->dispose (object);
-	
-}
-
-static void
-freetuxtv_channels_group_infos_class_init (FreetuxTVChannelsGroupInfosClass *klass)
-{
-	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-	gobject_class->constructor = freetuxtv_channels_group_infos_constructor;
-	gobject_class->dispose = freetuxtv_channels_group_infos_dispose;
-}
-
-static void
-freetuxtv_channels_group_infos_init (FreetuxTVChannelsGroupInfos *self)
-{
-	self->id=-1;
-	self->name=NULL;
-	self->uri=NULL;
-	self->bregex=NULL;
-	self->eregex=NULL;
-	self->nb_channels = 0;	
-	self->nb_channels_visible = 0;
-}
-
