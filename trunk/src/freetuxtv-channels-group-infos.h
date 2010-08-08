@@ -17,25 +17,32 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FREETUXTV_CHANNELS_GROUP_INFOS_H
-#define FREETUXTV_CHANNELS_GROUP_INFOS_H
+#ifndef _FREETUXTV_CHANNELS_GROUP_INFOS_H_
+#define _FREETUXTV_CHANNELS_GROUP_INFOS_H_
 
 #include <glib-object.h>
 
-#define FREETUXTV_TYPE_CHANNELS_GROUP_INFOS                  (freetuxtv_channels_group_infos_get_type ())
-#define FREETUXTV_CHANNELS_GROUP_INFOS(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, FreetuxTVChannelsGroupInfos))
-#define FREETUXTV_IS_CHANNELS_GROUP_INFOS(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS))
-#define FREETUXTV_CHANNELS_GROUP_INFOS_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, FreetuxTVChannelGroupsInfosClass))
-#define FREETUXTV_IS_CHANNELS_GROUP_INFOS_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS))
-#define FREETUXTV_CHANNELS_GROUP_INFOS_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, FreetuxTVChannelGroupsInfosClass))
+G_BEGIN_DECLS
 
 typedef enum {
 	FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST = 0,
 	FREETUXTV_CHANNELSGROUP_TYPEGROUP_FAVORITES
 } FREETUXTV_CHANNELSGROUP_TYPEGROUP;
 
-typedef struct _FreetuxTVChannelsGroupInfos        FreetuxTVChannelsGroupInfos;
-typedef struct _FreetuxTVChannelsGroupInfosClass   FreetuxTVChannelsGroupInfosClass;
+#define FREETUXTV_TYPE_CHANNELS_GROUP_INFOS             (freetuxtv_channels_group_infos_get_type ())
+#define FREETUXTV_CHANNELS_GROUP_INFOS(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, FreetuxTVChannelsGroupInfos))
+#define FREETUXTV_CHANNELS_GROUP_INFOS_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, FreetuxTVChannelsGroupInfosClass))
+#define FREETUXTV_IS_CHANNELS_GROUP_INFOS(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS))
+#define FREETUXTV_IS_CHANNELS_GROUP_INFOS_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS))
+#define FREETUXTV_CHANNELS_GROUP_INFOS_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), FREETUXTV_TYPE_CHANNELS_GROUP_INFOS, FreetuxTVChannelsGroupInfosClass))
+
+typedef struct _FreetuxTVChannelsGroupInfosClass FreetuxTVChannelsGroupInfosClass;
+typedef struct _FreetuxTVChannelsGroupInfos FreetuxTVChannelsGroupInfos;
+
+struct _FreetuxTVChannelsGroupInfosClass
+{
+	GObjectClass parent_class;
+};
 
 struct _FreetuxTVChannelsGroupInfos
 {
@@ -55,10 +62,7 @@ struct _FreetuxTVChannelsGroupInfos
 	int nb_channels_visible;
 };
 
-struct _FreetuxTVChannelsGroupInfosClass
-{
-	GObjectClass parent_class;
-};
+GType freetuxtv_channels_group_infos_get_type (void) G_GNUC_CONST;
 
 FreetuxTVChannelsGroupInfos*
 freetuxtv_channels_group_infos_new(gchar *name, FREETUXTV_CHANNELSGROUP_TYPEGROUP type);
@@ -78,5 +82,7 @@ freetuxtv_channels_group_infos_set_uri (FreetuxTVChannelsGroupInfos *self, gchar
 void
 freetuxtv_channels_group_infos_set_regex (FreetuxTVChannelsGroupInfos *self, gchar *bregex, gchar *eregex);
 
-#endif /* FREETUXTV_CHANNELS_GROUP_INFOS_H */
+G_END_DECLS
+
+#endif /* _FREETUXTV_CHANNELS_GROUP_INFOS_H_ */
 
