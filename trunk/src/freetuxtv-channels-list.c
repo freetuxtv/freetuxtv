@@ -55,6 +55,12 @@ enum
 	N_COLUMNS
 };
 
+enum {
+	TYPEGRP_PLAYLIST = 0,
+	TYPEGRP_FAVORITE,
+	TYPEGRP_COUNT
+};
+
 
 static void 
 channels_list_delete_rows (FreetuxTVApp *app, GtkTreePath* path_group,
@@ -95,6 +101,10 @@ on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_dat
 static void
 on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data);
 
+static void
+on_popupmenu_activated_deletechannel (GtkMenuItem *menuitem, gpointer user_data);
+
+
 static gboolean
 on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data);
 
@@ -111,6 +121,9 @@ get_favourites_channels_group_new(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos
 
 static GList*
 get_favourites_channels_groups_paths(FreetuxTVApp *app);
+
+static void
+channels_list_print(FreetuxTVApp *app);
 
 GQuark freetuxtv_libm3uparse_error = 0;
 
@@ -410,6 +423,44 @@ channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 		channels_list_delete_rows (app, path_group, FALSE);
 		windowmain_update_statusbar_infos (app);
 	}
+}
+
+void
+channels_list_delete_channel (FreetuxTVApp *app, GtkTreePath *path_channel,
+				     DBSync* dbsync, GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
+
+	FreetuxTVChannelInfos* pChannelInfos;
+	pChannelInfos = channels_list_get_channel (app, path_channel);
+
+	// Delete the channel in the database
+	if(*error == NULL){
+		dbsync_delete_channel (dbsync, pChannelInfos, error);
+	}
+	
+	// Delete channel in the treeview
+	if(*error == NULL){
+		GtkTreeIter iter;
+		gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, path_channel);
+		if(gtk_tree_store_remove (GTK_TREE_STORE(app->channelslist), &iter)){
+			// Update the position on the channel after
+			do {
+				gtk_tree_model_get (GTK_TREE_MODEL(app->channelslist), &iter, CHANNEL_COLUMN, &pChannelInfos, -1);
+				if(pChannelInfos){
+					pChannelInfos->position--;
+				}
+			} while(gtk_tree_model_iter_next (GTK_TREE_MODEL(app->channelslist), &iter));
+		};
+
+		pChannelInfos->channels_group->nb_channels--;
+
+
+		windowmain_update_statusbar_infos (app);
+	}
+
+	channels_list_print (app);
 }
 
 gboolean
@@ -793,9 +844,10 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 		GtkTreeSelection *selection;
 		GtkTreeModel* model_filter;
 		GList *list;
-		gint nb_channels = 0;
-		gint nb_groups = 0;
 		gint nb_selected = 0;
+		gint nbChannels = 0;
+		gint nbGroupsTab[TYPEGRP_COUNT+1] = {0, 0, 0};
+		gint nbChannelsForGroupTab[TYPEGRP_COUNT] = {0, 0};
 		GtkTreePath *path;
 		GtkTreePath *path_selected;
 
@@ -831,16 +883,34 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
 			
 			// Look the type of the data in the path
-			FreetuxTVChannelsGroupInfos* channels_group_infos;
-			FreetuxTVChannelInfos* channel_infos;
+			FreetuxTVChannelsGroupInfos* pChannelsGroupInfos;
+			FreetuxTVChannelInfos* pChannelInfos;
 			gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, real_path);
-			gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
-			if(channels_group_infos != NULL){
-				nb_groups++;	
+			gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNELSGROUP_COLUMN, &pChannelsGroupInfos, -1);
+			if(pChannelsGroupInfos != NULL){
+				switch(pChannelsGroupInfos->type)
+				{
+					case FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST :
+						nbGroupsTab[TYPEGRP_PLAYLIST]++;
+						break;
+					case FREETUXTV_CHANNELSGROUP_TYPEGROUP_FAVORITES :
+						nbGroupsTab[TYPEGRP_FAVORITE]++;
+						break;
+				}
+				nbGroupsTab[TYPEGRP_COUNT]++;	
 			}else{
-				gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNEL_COLUMN, &channel_infos, -1);
-				if(channel_infos != NULL){
-					nb_channels++;
+				gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNEL_COLUMN, &pChannelInfos, -1);
+				if(pChannelInfos != NULL){
+					switch(pChannelInfos->channels_group->type)
+					{
+						case FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST :
+							nbChannelsForGroupTab[TYPEGRP_PLAYLIST]++;
+							break;
+						case FREETUXTV_CHANNELSGROUP_TYPEGROUP_FAVORITES :
+							nbChannelsForGroupTab[TYPEGRP_FAVORITE]++;
+							break;
+					}
+					nbChannels++;
 				}
 			}			
 
@@ -855,7 +925,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 		GtkWidget *pSubMenuItem;
 		GtkWidget *pImage;
 		
-		if(nb_groups > 0 && nb_channels == 0){
+		if(nbGroupsTab[TYPEGRP_COUNT] > 0 && nbChannels == 0){
 			pMenu = gtk_menu_new();
 			
 			// Refresh, delete and delete group channels is only for channels groups
@@ -863,8 +933,13 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);					
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_refreshgroup), app);
+			// Only for type playlist
+			if(nbGroupsTab[TYPEGRP_COUNT] != nbGroupsTab[TYPEGRP_PLAYLIST]){
+				gtk_widget_set_sensitive (pMenuItem, FALSE);
+			}
 			gtk_widget_show (pMenuItem);
-			
+
+			// Separator
 			pMenuItem = gtk_separator_menu_item_new();
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
 			gtk_widget_show (pMenuItem);
@@ -883,21 +958,22 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 				G_CALLBACK(on_popupmenu_activated_deletegroup), app);
 			gtk_widget_show (pMenuItem);
 						
-			// Group properties is only if one channels groups is selected 
-			if(nb_groups == 1){
-				pMenuItem = gtk_separator_menu_item_new();
-				gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
-				gtk_widget_show (pMenuItem);
-				
-				pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-properties", NULL);
-				gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
-				g_signal_connect(G_OBJECT(pMenuItem), "activate",
-					G_CALLBACK(on_popupmenu_activated_groupproperties), app);
-				gtk_widget_show (pMenuItem);
+			// Group properties is only if one channels groups is selected
+			pMenuItem = gtk_separator_menu_item_new();
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			gtk_widget_show (pMenuItem);
+			
+			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-properties", NULL);
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			g_signal_connect(G_OBJECT(pMenuItem), "activate",
+				G_CALLBACK(on_popupmenu_activated_groupproperties), app);
+			if(nbGroupsTab[TYPEGRP_COUNT] > 1){
+				gtk_widget_set_sensitive (pMenuItem, FALSE);
 			}
+			gtk_widget_show (pMenuItem);
 		}
 
-		if(nb_groups == 0 && nb_channels > 0){
+		if(nbGroupsTab[TYPEGRP_COUNT] == 0 && nbChannels > 0){
 			pMenu = gtk_menu_new();
 
 			// Add to favourite is only for channels
@@ -957,6 +1033,21 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 				
 				iter = iter->next;
 			}
+			
+			// Separator
+			pMenuItem = gtk_separator_menu_item_new();
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			gtk_widget_show (pMenuItem);
+
+			// Delete channels from favourites group
+			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-delete", NULL);
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			g_signal_connect(G_OBJECT(pMenuItem), "activate",
+				G_CALLBACK(on_popupmenu_activated_deletechannel), app);
+			if(nbChannelsForGroupTab[TYPEGRP_FAVORITE] != nbChannels){
+				gtk_widget_set_sensitive (pMenuItem, FALSE);
+			}
+			gtk_widget_show (pMenuItem);
 		}
 
 		if(pMenu){
@@ -1295,6 +1386,7 @@ on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data)
 
 				// Copy the channel and add it in database
 				pChannelInfos = freetuxtv_channel_infos_new (pOriginalChannelInfos->name, pOriginalChannelInfos->url);
+				freetuxtv_channel_infos_set_position (pChannelInfos, pFavouritesChannelsGroupInfos->nb_channels+1);
 				freetuxtv_channel_infos_set_logo (pChannelInfos, pOriginalChannelInfos->logo_name);
 				freetuxtv_channel_infos_set_channels_group (pChannelInfos, pFavouritesChannelsGroupInfos);			
 				freetuxtv_channel_infos_set_vlcoptions (pChannelInfos, pOriginalChannelInfos->vlc_options);
@@ -1302,15 +1394,19 @@ on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data)
 				// Add the channels in the groups
 				dbsync_add_channel (&dbsync, pChannelInfos, FALSE, &error);
 
-				// Add the channel in the treeview as the last element
-				GtkTreeIter iterChannelsGroup;
-				GtkTreeIter iterChannel;
-				gtk_tree_model_get_iter (app->channelslist, &iterChannelsGroup,
-					                     pFavouritesChannelsGroupInfosPath);
+				if(error == NULL){
+					pFavouritesChannelsGroupInfos->nb_channels++;
+
+					// Add the channel in the treeview as the last element
+					GtkTreeIter iterChannelsGroup;
+					GtkTreeIter iterChannel;
+					gtk_tree_model_get_iter (app->channelslist, &iterChannelsGroup,
+							                 pFavouritesChannelsGroupInfosPath);
 			
-				gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iterChannel, &iterChannelsGroup);
-				gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iterChannel,
-						CHANNEL_COLUMN, pChannelInfos, -1);
+					gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iterChannel, &iterChannelsGroup);
+					gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iterChannel,
+							CHANNEL_COLUMN, pChannelInfos, -1);
+				}
 			}
 
 			iterator = g_list_previous(iterator);
@@ -1318,6 +1414,60 @@ on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data)
 	}
 	
 	dbsync_close_db(&dbsync);
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+}
+
+static void
+on_popupmenu_activated_deletechannel (GtkMenuItem *menuitem, gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
+
+	GError* error = NULL;
+
+	GtkWidget* treeview;
+	GtkTreeModel* model_filter;
+	GtkTreeSelection *selection;
+	GList *list;
+	GList* iterator = NULL;
+	GtkTreePath *path;
+	GtkTreePath *real_path;
+	
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+								"windowmain_treeviewchannelslist");
+		model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+		
+		// Get the selection
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+		
+		iterator = g_list_last (list);
+
+		while(iterator != NULL && error == NULL){			
+
+			// Get the real path
+			path = (GtkTreePath*)iterator->data;
+			real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
+			
+			// Delete the channels group corresponding to the path
+			channels_list_delete_channel(app, real_path, &dbsync, &error);
+
+			iterator = g_list_previous(iterator);
+		}
+	}
+	
+	dbsync_close_db(&dbsync);
+
+	if(error == NULL){
+		windowmain_update_statusbar_infos (app);
+	}
 	
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
@@ -1510,4 +1660,38 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	g_object_unref(channel_infos);
 
 	return 0;
+}
+
+
+static void
+channels_list_print(FreetuxTVApp *app)
+{
+	GtkTreeModel* model;
+	GtkTreeIter iter;
+	GtkTreeIter iter2;
+	
+	FreetuxTVChannelsGroupInfos* pChannelsGroupInfos;
+	FreetuxTVChannelInfos*		 pChannelInfos;
+	
+	model = app->channelslist;
+
+	if(gtk_tree_model_get_iter_first (model, &iter)){
+
+		// do {
+			gtk_tree_model_get (model, &iter, CHANNELSGROUP_COLUMN, &pChannelsGroupInfos, -1);
+			if(pChannelsGroupInfos){
+				g_print("%d - %s\n", pChannelsGroupInfos->position, pChannelsGroupInfos->name);
+			}
+			if(gtk_tree_model_iter_has_child(model, &iter)){
+				if(gtk_tree_model_iter_children(model, &iter2, &iter)){
+					do {
+						gtk_tree_model_get (model, &iter2, CHANNEL_COLUMN, &pChannelInfos, -1);
+						if(pChannelInfos){
+							g_print("\t%d - %s\n", pChannelInfos->position, pChannelInfos->name);
+						}
+					}while(gtk_tree_model_iter_next(model, &iter2));
+				}
+			}
+		// }while(gtk_tree_model_iter_next(model, &iter));
+	}
 }
