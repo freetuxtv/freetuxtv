@@ -459,8 +459,6 @@ channels_list_delete_channel (FreetuxTVApp *app, GtkTreePath *path_channel,
 
 		windowmain_update_statusbar_infos (app);
 	}
-
-	channels_list_print (app);
 }
 
 gboolean
