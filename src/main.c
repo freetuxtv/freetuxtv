@@ -37,18 +37,18 @@
 #include <libvlc-gtk/gtk-libvlc-media-player.h>
 
 int
-init_user_configuration(GError **error)
+init_user_configuration(FreetuxTVApp *app, GError **error)
 {
 	int res = 0;
 	gboolean bGoOn = TRUE;
 
 	gchar *user_cache_dir;
-	user_cache_dir = g_strconcat(g_get_user_config_dir(), 
-	                             "/FreetuxTV/cache", NULL);
+	user_cache_dir = g_build_filename(g_get_user_config_dir(),
+	                                  "FreetuxTV", "cache", NULL);
 
 	gchar *user_img_channels_dir;
-	user_img_channels_dir = g_strconcat(g_get_user_config_dir(), 
-	                                    "/FreetuxTV/images/channels", NULL);
+	user_img_channels_dir = g_build_filename(g_get_user_config_dir(),
+	                                         "FreetuxTV", "images", "channels", NULL);
 
 	// Check if user cache directory exists
 	if (!g_file_test (user_cache_dir, G_FILE_TEST_EXISTS)){
@@ -95,19 +95,25 @@ init_user_configuration(GError **error)
 	}
 
 	// Create the database if doesn't exist, else try to update the database
+	gchar* szScriptFilename;
+	szScriptFilename = g_build_filename(app->paths.datadir, "sqlite3-create-tables.sql", NULL);
 	DBSync dbsync;
 	if (!dbsync_db_exists(&dbsync)){
 		dbsync_open_db (&dbsync, error);
 		if(*error == NULL){
-			dbsync_create_db (&dbsync, error);
+			dbsync_create_db (&dbsync, szScriptFilename, error);
 		}
 		dbsync_close_db (&dbsync);
 	}else{
 		dbsync_open_db (&dbsync, error);
 		if(*error == NULL){
-			dbsync_update_db(&dbsync, error);
+			dbsync_update_db(&dbsync, szScriptFilename, error);
 		}
 		dbsync_close_db (&dbsync);
+	}
+	if(szScriptFilename){
+		g_free(szScriptFilename);
+		szScriptFilename = NULL;
 	}
 
 	if(*error != NULL){
@@ -443,7 +449,7 @@ splashscreen_app_init(gpointer data)
 	// Initializing user configuration
 	if(error == NULL){
 		splashscreen_statusbar_push (app, _("Initializing user configuration..."));
-		init_user_configuration(&error);
+		init_user_configuration(app, &error);
 		splashscreen_statusbar_pop (app);
 	}
 
@@ -462,7 +468,9 @@ splashscreen_app_init(gpointer data)
 	if(error == NULL){
 		splashscreen_statusbar_push (app, _("Synchronizing the list of tv channels..."));
 		struct stat file_stat;
-		if(g_stat (FREETUXTV_DIR "/tv_channels.xml", &file_stat) == 0){
+		gchar* filename;
+		filename = g_build_filename(app->paths.datadir, "tv_channels.xml", NULL);
+		if(g_stat (filename, &file_stat) == 0){
 			if(app->config.logosfiledate < (gint)file_stat.st_mtime){
 				tvchannels_list_synchronize(app, &dbsync, &error);
 				if(error == NULL){
@@ -470,6 +478,8 @@ splashscreen_app_init(gpointer data)
 				}
 			}
 		}
+		g_free(filename);
+		filename = NULL;
 		splashscreen_statusbar_pop (app);
 	}
 
@@ -565,7 +575,7 @@ splashscreen_app_init(gpointer data)
 }
 
 static FreetuxTVApp *
-freetuxtv_app_create_app ()
+freetuxtv_app_create_app (const gchar* szDataDir)
 {
 	FreetuxTVApp *app;
 
@@ -576,6 +586,14 @@ freetuxtv_app_create_app ()
 
 	app->name = "FreetuxTV";
 
+	// Set app paths
+	if(szDataDir){
+		app->paths.datadir = g_strdup(szDataDir);
+	}else{
+		app->paths.datadir = g_strdup(FREETUXTV_DIR);
+	}
+	app->paths.gladexmlfile = g_build_filename(app->paths.datadir, "ui", "freetuxtv.glade", NULL);
+	
 	// Loads default configuration
 	app->prefs.channelonstartup = TRUE;
 	app->prefs.enable_notifications = TRUE;
@@ -607,9 +625,9 @@ freetuxtv_app_create_app ()
 
 	// Create UI from file
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Loading user interface from file %s\n", FREETUXTV_GLADEXML);
+	      "Loading user interface from file %s\n", app->paths.gladexmlfile);
 	app->gui = gtk_builder_new ();
-	gtk_builder_add_from_file (app->gui, FREETUXTV_GLADEXML, NULL);
+	gtk_builder_add_from_file (app->gui, app->paths.gladexmlfile, NULL);
 
 	// Initialize UI
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
@@ -646,6 +664,15 @@ freetuxtv_app_destroy_app (FreetuxTVApp** pApp)
 	g_return_if_fail(pApp != NULL);
 
 	FreetuxTVApp* app = *pApp;
+
+	if(app->paths.datadir){
+		g_free(app->paths.datadir);
+		app->paths.datadir = NULL;
+	}
+	if(app->paths.gladexmlfile){
+		g_free(app->paths.gladexmlfile);
+		app->paths.gladexmlfile = NULL;
+	}
 
 	if(app->prefs.directoryrecordings){
 		g_free(app->prefs.directoryrecordings);
@@ -1299,6 +1326,8 @@ show_help()
 	g_print("                      play it if found (take first in the channels list)\n");
 	g_print("\n");
 	g_print("Debug options:\n");
+	g_print("--datadir DATA_DIR\n");
+	g_print("                      Set data directory\n");
 	g_print("-v, --verbose         display a more detailled trace\n");
 }
 
@@ -1326,6 +1355,7 @@ main (int argc, char *argv[])
 	gboolean bOpenChannel = FALSE;
 	gchar* szUri;
 	gchar* szChannelName;
+	gchar* szDataDir = NULL;
 
 	int p;
 	int idLogHandler;
@@ -1351,7 +1381,14 @@ main (int argc, char *argv[])
 						szErrMsg = g_strdup_printf("missing mandatory argument to '%s", argv[p]);
 						bStopParseArgs = FALSE;
 					}
-
+				}else if(g_ascii_strcasecmp("--datadir", argv[p]) == 0){
+					// Found the datadir option
+					if(p+1<argc){
+						szDataDir = argv[p+1];
+					}else{
+						szErrMsg = g_strdup_printf("missing mandatory argument to '%s", argv[p]);
+						bStopParseArgs = FALSE;
+					}
 				}else{
 					szErrMsg = g_strdup_printf("unknown option '%s'", argv[p]);
 					bStopParseArgs = FALSE;
@@ -1399,7 +1436,7 @@ main (int argc, char *argv[])
 
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 			  "Loading FreetuxTV %s\n", VERSION);
-		app = freetuxtv_app_create_app ();
+		app = freetuxtv_app_create_app (szDataDir);
 		if (app != NULL) {
 
 			// Initialize notifications
