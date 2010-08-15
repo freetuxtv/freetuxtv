@@ -57,7 +57,7 @@ load_model_channels_group_from_file(FreetuxTVApp* app, GError** error)
 	struct stat file_stat;
 	if(g_stat (file, &file_stat) != 0){
 		g_free(file);
-		file = g_strdup(FREETUXTV_DIR "/channels_groups.xml");
+		file = g_build_filename(app->paths.datadir, "channels_groups.xml", NULL);
 	}
 
 	// Clear the model

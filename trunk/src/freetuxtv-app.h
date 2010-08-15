@@ -34,11 +34,7 @@
 G_BEGIN_DECLS
 
 /* For testing propose use the local (not installed) ui file */
-#define FREETUXTV_DIR      PACKAGE_DATA_DIR "/" PACKAGE
-//#define FREETUXTV_DIR     "data"
-
-#define FREETUXTV_UI_DIR			FREETUXTV_DIR "/ui"
-#define FREETUXTV_GLADEXML			FREETUXTV_UI_DIR "/freetuxtv.glade"
+#define FREETUXTV_DIR  				PACKAGE_DATA_DIR "/" PACKAGE
 
 #define FREETUXTV_LOG_DOMAIN			"FreetuxTV"
 
@@ -50,6 +46,11 @@ struct _FreetuxTVApp {
 
 	GtkLibvlcMediaPlayer *player;
 	GtkTreeModel *channelslist;
+
+	struct {
+		gchar* datadir;
+		gchar* gladexmlfile;
+	} paths;
 
 	struct {		
 		// Prefs general
@@ -79,7 +80,7 @@ struct _FreetuxTVApp {
 		gboolean windowminimode_stayontop;
 		gint windowminimode_width;
 		gint windowminimode_height;
-		gint logosfiledate;		
+		gint logosfiledate;	
 	} config;
 
 	struct {
