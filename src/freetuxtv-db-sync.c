@@ -169,15 +169,12 @@ dbsync_db_exists(DBSync *dbsync)
 }
 
 void
-dbsync_create_db (DBSync *dbsync, GError** error)
+dbsync_create_db (DBSync *dbsync, gchar* szScriptFilename, GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(dbsync->db_link != NULL);
 	g_return_if_fail(error != NULL);
 	g_return_if_fail(*error == NULL);
-
-	const gchar* szScriptFilename;
-	szScriptFilename = FREETUXTV_DIR "/sqlite3-create-tables.sql";
 	
 	DbEvolutionInstance* pDbEvolutionInstance;	
 	pDbEvolutionInstance = db_evolution_instance_new(szScriptFilename, freetuxtv_log);
@@ -197,15 +194,12 @@ dbsync_create_db (DBSync *dbsync, GError** error)
 }
 
 void
-dbsync_update_db (DBSync *dbsync, GError** error)
+dbsync_update_db (DBSync *dbsync, gchar* szScriptFilename, GError** error)
 {	
 	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(dbsync->db_link != NULL);
 	g_return_if_fail(error != NULL);
 	g_return_if_fail(*error == NULL);
-
-	const gchar* szScriptFilename;
-	szScriptFilename = FREETUXTV_DIR "/sqlite3-create-tables.sql";
 	
 	DbEvolutionInstance* pDbEvolutionInstance;	
 	pDbEvolutionInstance = db_evolution_instance_new(szScriptFilename, freetuxtv_log);

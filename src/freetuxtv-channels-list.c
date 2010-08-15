@@ -1660,7 +1660,7 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 	return 0;
 }
 
-
+/* For debug only
 static void
 channels_list_print(FreetuxTVApp *app)
 {
@@ -1693,3 +1693,4 @@ channels_list_print(FreetuxTVApp *app)
 		// }while(gtk_tree_model_iter_next(model, &iter));
 	}
 }
+*/

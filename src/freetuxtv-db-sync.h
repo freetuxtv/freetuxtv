@@ -55,10 +55,10 @@ gboolean
 dbsync_db_exists (DBSync *dbsync);
 
 void
-dbsync_create_db (DBSync *dbsync, GError** error);
+dbsync_create_db (DBSync *dbsync, gchar* szScriptFilename, GError** error);
 
 void
-dbsync_update_db (DBSync *dbsync, GError** error);
+dbsync_update_db (DBSync *dbsync, gchar* szScriptFilename, GError** error);
 
 void
 dbsync_select_channels_groups (DBSync *dbsync,

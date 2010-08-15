@@ -88,8 +88,11 @@ tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 		    G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
 		    &cbxmldata, NULL);
 		gchar *xml_data;
-		g_file_get_contents (FREETUXTV_DIR "/tv_channels.xml", 
-		    &xml_data, &filelen, NULL);
+		gchar *filename;
+		filename = g_build_filename(app->paths.datadir, "tv_channels.xml", NULL);
+		g_file_get_contents (filename, &xml_data, &filelen, NULL);
+		g_free(filename);
+		filename = NULL;
 		g_markup_parse_context_parse (context, xml_data, -1, error);
 	}
 
@@ -103,21 +106,21 @@ tvchannels_list_get_tvchannel_logo_path(FreetuxTVApp *app,
 {
 	gchar *imgfile = NULL;
 	gchar *user_img_channels_dir;
-	user_img_channels_dir = g_strconcat(g_get_user_config_dir(), 
-	    "/FreetuxTV/images/channels", NULL);
+	user_img_channels_dir = g_build_filename(g_get_user_config_dir(), 
+	    "FreetuxTV", "images", "channels", NULL);
 	if(channel_infos->logo_name == NULL){
 		if(none_icon){
-			imgfile = g_strconcat(user_img_channels_dir, "/_none.png", NULL);	
+			imgfile = g_build_filename(user_img_channels_dir, "_none.png", NULL);	
 			if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
 				g_free(imgfile);
-				imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/_none.png", NULL);	
+				imgfile = g_build_filename(app->paths.datadir, "images", "channels", "_none.png", NULL);
 			}
 		}
 	}else{
-		imgfile = g_strconcat(user_img_channels_dir,"/", channel_infos->logo_name, NULL);
+		imgfile = g_build_filename(user_img_channels_dir, channel_infos->logo_name, NULL);
 		if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
 			g_free(imgfile);
-			imgfile = g_strconcat(FREETUXTV_DIR "/images/channels/", channel_infos->logo_name, NULL);	
+			imgfile = g_build_filename(app->paths.datadir, "images", "channels", channel_infos->logo_name, NULL);
 		}
 	}
 
