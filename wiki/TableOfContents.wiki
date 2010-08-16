@@ -1,10 +1,11 @@
-#summary This is the table of contents.
+#summary Ceci est la table des matières.
 
-  * [Presentation Presentation]
+  * [Presentation Présentation]
   * [RoadMap RoadMap]
-  * [Contribute How to contribute]
-  * User documentation
+  * Documentation utilisateur
     * [FAQ FAQ]
-  * Developer and contributor documentation
-    * [CreatingPackage Package creation]
-    * [DeveloperHelp Help for developer]
+  * Pour les contributeurs
+  	* [Contribute Comment contribuer]
+    * [PackagesCreation Création de paquets]
+  * Pour les développeurs
+    * [DeveloperHelp Aide pour développeurs]
