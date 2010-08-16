@@ -5,7 +5,7 @@
   * User documentation
     * [FAQ FAQ]
   * For contributors
-  	* [Contribute How to contribute]
+    * [Contribute How to contribute]
     * [PackagesCreation Packages creation]
   * For developer
     * [DeveloperHelp Help for developer]
