@@ -1,4 +1,4 @@
-#summary Page d'accueil de FreeuxTV en anglais
+#summary Page de présentation de FreetuxTV
 
 Le but de ce projet est de créer un lecteur de WebTV, fonctionnant sur la plateforme Linux. Il peut être utilisée par les français pour regarder pour regarder la télévision par ADSL sur PC via leur fournisseur d'accès internet ou par d'autres personnes pour regarder des WebTV et des Web Radio dans différentes langues. L'interface graphique est développé avec GTK2+ et en utilisant le moteur du lecteur multimédia VLC pour afficher les chaines.
 
@@ -26,13 +26,7 @@ Vous pouvez suivre la progression du projet en vous inscrivant au flux RSS du bl
 
 FreetuxTV est maintenant disponible en une version stable. Vous pouvez allez dans la section [Downloads http://code.google.com/p/freetuxtv/downloads/list] pour récupérer les sources du logiciel. La dernière version stable est la version 0.5.1 qui est disponible depuis le 21 Juillet 2010. Vous pouvez lire aussi la liste des modifications [http://code.google.com/p/freetuxtv/source/browse/trunk/ChangeLog ChangeLog] pour connaître la liste des nouvelles fonctionnalités.
 
-Il y a 3 manières d'installer FreetuxTV:
-    * Télécharger et compiler les sources de l'archive : http://code.google.com/p/freetuxtv/downloads/list
-    * Télécharger les paquetages pour votre distribution Linux : http://freetuxtv.eric-beuque.com/packages/
-    * Utiliser le dépôt officiel d'Ubuntu : https://launchpad.net/~freetuxtv/+archive/freetuxtv
-Rendez vous sur la page [PackagesAvailable] pour trouvez un paquet pour votre distribution.
-
-FreetuxTV est aussi disponible en version de développement. Vous pouvez l'installer et l'utiliser sans aucun problèmes pour regarder la télévision ou écouter la radio avec les dernières fonctionnalités. Regardez le fichier README pour savoir comment l'installer. 
+Il y a plusieurs manières pour l'installer, rendez vous sur la page [HowToInstall d'installation].
 
 Vous pouvez aussi [Contribute contribuez] au projet.
 

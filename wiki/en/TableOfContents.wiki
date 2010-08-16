@@ -3,6 +3,7 @@
   * [Presentation Presentation]
   * [RoadMap RoadMap]
   * User documentation
+    * [HowToInstall How to install]
     * [FAQ FAQ]
   * For contributors
     * [Contribute How to contribute]

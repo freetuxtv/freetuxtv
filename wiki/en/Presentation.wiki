@@ -26,13 +26,7 @@ You can follow the progress of the project, by subscribing to the RSS feed blog 
 
 FreetuxTV is now available in stable version. Go to the Downloads section to get it. The latest stable version 0.5.1 is available since the July 21th 2010. You can also read the [http://code.google.com/p/freetuxtv/source/browse/trunk/ChangeLog ChangeLog] for a list of new features.
 
-There are three ways to install it:
-    * Download and compile the source package: http://code.google.com/p/freetuxtv/downloads/list
-    * Download the packages for your distribution: http://freetuxtv.eric-beuque.com/packages/
-    * Use the official Ubuntu repository : https://launchpad.net/~freetuxtv/+archive/freetuxtv
-Go to the page [PackagesAvailable] to find a package for yout distribution.
-
-FreetuxTV is also available in development version. You can install and use it with no problem for watching television with latest features. See the [http://code.google.com/p/freetuxtv/source/browse/trunk/README README] file to know how to install it.
+There are many way to install it, go to the [HowToInstall How to install] wiki page.
 
 You can also [Contribute contribute] to the project.
 
