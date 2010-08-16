@@ -1,0 +1,37 @@
+#summary Comment installer FreetuxTV.
+#labels Featured
+
+= Introduction =
+
+Cette page présente les différentes méthode d'installer FreetuxTV.
+
+= Via les dépots =
+
+Le plus simple pour installer FreetuxTV est de l'installer via un dépot de logiciel. De ce fait, vous n'aurez pas à vous préoccuper des dépendances.
+
+== Via les dépots officiels ==
+
+Le plus simple pour installer FreetuxTV est d'utiliser le paquet inclus par défaut dans votre distribution. Cepandant, seule une petite parti des distrutions on inclut FreetuxTV dans leur dépot.
+
+Voici la liste des distributions ayant inclu le paquet dans leur dépot :
+
+|| *Distribution* || *Inclusion* || *Installation* ||
+|| Ubuntu || - || ||
+|| Debian || - || ||
+|| Mandriva || Oui || ||
+|| openSUSE || - || ||
+|| Pardus || Oui || ||
+|| Frugalware || Oui || ||
+
+== Via les dépots non officiels ==
+
+Des dépots non officiel existe pour certaines distributions. Ceci permet aussi d'avoir des versions plus à jour que celle inclu dans les dépots officiel.
+
+=== Ubuntu ===
+
+Vous pouvez utiliser le PPA (Personal Package Archive) de l'équipe de FreetuxTV : https://launchpad.net/~freetuxtv/+archive/freetuxtv
+
+{{{
+sudo add-apt-repository ppa:freetuxtv/freetuxtv
+sudo aptitude update && sudo apt-get install freetuxtv
+}}}
