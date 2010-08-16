@@ -5,7 +5,7 @@
   * Documentation utilisateur
     * [FAQ FAQ]
   * Pour les contributeurs
-  	* [Contribute Comment contribuer]
+    * [Contribute Comment contribuer]
     * [PackagesCreation Création de paquets]
   * Pour les développeurs
     * [DeveloperHelp Aide pour développeurs]
