@@ -30,7 +30,7 @@ There are many way to install it, go to the [HowToInstall How to install] wiki p
 
 === Help and informations ===
 
-A [wiki http://code.google.com/p/freetuxtv/wiki/] is available to help you to use FreetuxTV.
+A [http://code.google.com/p/freetuxtv/wiki/ wiki] is available to help you to use FreetuxTV.
 
 Nevertheless, if you meet unkwnows problems, you can ask for help in the [http://groups.google.com/group/freetuxtv/ forum].
 

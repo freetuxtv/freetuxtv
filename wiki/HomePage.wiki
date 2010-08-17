@@ -30,7 +30,7 @@ Il y a plusieurs manières pour l'installer, rendez vous sur la page [HowToInsta
 
 === Aide et informations ===
 
-Un [wiki http://code.google.com/p/freetuxtv/wiki/] est disponible pour vous guidez dans l'utilisation de FreetuxTV.
+Un [http://code.google.com/p/freetuxtv/wiki/ wiki] est disponible pour vous guidez dans l'utilisation de FreetuxTV.
 
 Néanmois, si vous rencontrez un problème non évoqué, vous pouvez demander de l'aide sur le [http://groups.google.com/group/freetuxtv/ forum].
 
