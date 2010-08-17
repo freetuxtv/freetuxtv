@@ -24,7 +24,7 @@ Fonctionnalités prévues dans les futures versions :
 
 === Téléchargement et installation ===
 
-FreetuxTV est maintenant disponible en une version stable. Vous pouvez allez dans la section [Downloads http://code.google.com/p/freetuxtv/downloads/list] pour récupérer les sources du logiciel. La dernière version stable est la version 0.5.1 qui est disponible depuis le 21 Juillet 2010. Vous pouvez lire aussi la liste des modifications [http://code.google.com/p/freetuxtv/source/browse/trunk/ChangeLog ChangeLog] pour connaître la liste des nouvelles fonctionnalités.
+FreetuxTV est maintenant disponible en une version stable. Vous pouvez allez dans la section [http://code.google.com/p/freetuxtv/downloads/list Downloads] pour récupérer les sources du logiciel. La dernière version stable est la version 0.5.1 qui est disponible depuis le 21 Juillet 2010. Vous pouvez lire aussi la liste des modifications [http://code.google.com/p/freetuxtv/source/browse/trunk/ChangeLog ChangeLog] pour connaître la liste des nouvelles fonctionnalités.
 
 Il y a plusieurs manières pour l'installer, rendez vous sur la page [HowToInstall d'installation].
 

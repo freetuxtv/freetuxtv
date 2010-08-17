@@ -2,7 +2,8 @@
 
 The goal of this project is to create a WebTV player, working on the Linux platform. It can be used by french people to watch ADSL TV on the PC with ISPs or by other people to watch WebTV and Web Radio in many languages. The GUI is developed in GTK2+ and is using the VLC engine to display the channels.
 
-Features:
+=== Features ===
+
   * Play channel TV and radio:
     * French ISP: Free, SFR, Orange, Alice, Bouygues... 
     * Web TV: Arabic, Chinese, English, French, German, Italian, Japanese, Portuguese, Russian, Spain
@@ -21,14 +22,24 @@ Features in future releases:
   * Program Management TV 
   * Multi platform support
 
-You can follow the progress of the project, by subscribing to the RSS feed blog (in french) :
-[http://freetuxtv.blogspot.com/feeds/posts/default?alt=rss http://www.cnes.fr/img/logo_rss.gif]
+=== Download and installation ===
 
-FreetuxTV is now available in stable version. Go to the Downloads section to get it. The latest stable version 0.5.1 is available since the July 21th 2010. You can also read the [http://code.google.com/p/freetuxtv/source/browse/trunk/ChangeLog ChangeLog] for a list of new features.
+FreetuxTV is now available in stable version. Go to the [http://code.google.com/p/freetuxtv/downloads/list Downloads] section to get it. The latest stable version 0.5.1 is available since the July 21th 2010. You can also read the [http://code.google.com/p/freetuxtv/source/browse/trunk/ChangeLog ChangeLog] for a list of new features.
 
 There are many way to install it, go to the [HowToInstall How to install] wiki page.
 
+=== Help and informations ===
+
+A [wiki http://code.google.com/p/freetuxtv/wiki/] is available to help you to use FreetuxTV.
+
+Nevertheless, if you meet unkwnows problems, you can ask for help in the [http://groups.google.com/group/freetuxtv/ forum].
+
+You can follow the progress of the project, by subscribing to the RSS feed blog (in french) :
+[http://freetuxtv.blogspot.com/feeds/posts/default?alt=rss http://www.cnes.fr/img/logo_rss.gif]
+
 You can also [Contribute contribute] to the project.
+
+=== Screenshots ===
 
 Here is an overview of the project: (Last Updated: December 11th 2009)
 
