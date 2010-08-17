@@ -1,0 +1,71 @@
+#summary How to install FreetuxTV.
+#labels Featured
+
+= Introduction =
+
+This page explain the different way to install FreetuxTV.
+
+= From repositories =
+
+The most simple way to install FreetuxTV is to install it from a repository. By this way, you don't have to take take about dependencies.
+
+== From official repositories ==
+
+The most easy is to install FreetuxTV from package included in your distribution. However, only a few part of the distribution have included FreetuxTV in their repository.
+
+Here is the list of the distribution including a package in their repositories :
+
+|| *Distribution* || *Included* || *Installation* ||
+|| Ubuntu || - || ||
+|| Debian || - || ||
+|| Mandriva || Yes || ||
+|| openSUSE || - || ||
+|| Pardus || Yes || ||
+|| Frugalware || Yes || ||
+
+== From non official repositories ==
+
+Some non official repositories exists for some distributions. This allow to get more recents versions than official repository.
+
+=== Ubuntu ===
+
+You can use the PPA (Personal Package Archive) of FreetuxTV team's : https://launchpad.net/~freetuxtv/+archive/freetuxtv
+
+To use the PPA, just use the following commands:
+{{{
+sudo add-apt-repository ppa:freetuxtv/freetuxtv
+sudo aptitude update && sudo apt-get install freetuxtv
+}}}
+
+= From software packages =
+
+You can download directly packages without using repository.
+
+Packages are availiable here : http://freetuxtv.eric-beuque.com/packages/.
+
+For now, FreetuxTV team's provides package for the following distribution and architecture:
+
+|| *Distribution* || *32bits* || *64bits* ||
+|| Ubuntu || Yes || Yes ||
+|| Debian || Yes || Yes ||
+|| Mandriva || Yes || - ||
+|| openSUSE || Yes || Yes ||
+|| Fedora || Yes || - ||
+
+We are looking for people who can create package for the others Linux distributions.
+
+_*Note :*_
+
+FreetuxTV 0.4.0 packages for the Linux distribution "Arch Linux" are availiable here for 32bits: http://repo.x-demon.org/archlinux/os/i686/ and here for 64 bits: http://repo.x-demon.org/archlinux/os/x86_64/
+
+FreetuxTV 0.4.1 packages for the Linux distribution "Pardus" are availiable here for 32bits : http://miroir.pardus-fr.org/2009-depot-fr-test/ and here for 64 bits : http://repo.x-demon.org/archlinux/os/x86_64/
+
+= From sources =
+
+== Stable version ==
+
+Download and compile the sources from the tarball here : http://code.google.com/p/freetuxtv/downloads/list.
+
+== Developement version ==
+
+FreetuxTV is also avaliable in developement version. You can install and use it without any problems to watch TV or listen radio with the last new features. Have a look at the file [http://code.google.com/p/freetuxtv/source/browse/trunk/README README] to know how to install it. 
