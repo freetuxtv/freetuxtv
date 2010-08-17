@@ -1,6 +1,8 @@
 #summary Foire aux questions en Français
 #labels Phase-Support,Featured
 
+<wiki:toc max_depth="3" />
+
 = Introduction =
 
 Vous trouverez sur cette page les réponses aux problèmes et aux questions les plus courants sur FreetuxTV.
