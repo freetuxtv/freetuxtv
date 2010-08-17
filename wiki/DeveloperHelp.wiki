@@ -1,6 +1,8 @@
 #summary Aide et informations pour les développeurs de FreetuxTV.
 #labels Phase-Implementation
 
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 Cette page recense des liens et des informations pour développer certains composant de FreetuxTV. Vous trouverez entre autre des aides et tutoriels pour la programmation en C/C++.
