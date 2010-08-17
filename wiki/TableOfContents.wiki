@@ -1,6 +1,6 @@
 #summary Ceci est la table des matières.
 
-  * [Presentation Présentation]
+  * [HomePage Acceuil]
   * [RoadMap RoadMap]
   * Documentation utilisateur
     * [HowToInstall Installation]

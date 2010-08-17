@@ -1,6 +1,6 @@
 #summary This is the table of contents.
 
-  * [Presentation Presentation]
+  * [HomePage Home page]
   * [RoadMap RoadMap]
   * User documentation
     * [HowToInstall How to install]

@@ -1,4 +1,4 @@
-#summary Page de présentation de FreetuxTV
+#summary Page d'acceuil du wiki
 
 Le but de ce projet est de créer un lecteur de WebTV, fonctionnant sur la plateforme Linux. Il peut être utilisée par les français pour regarder pour regarder la télévision par ADSL sur PC via leur fournisseur d'accès internet ou par d'autres personnes pour regarder des WebTV et des Web Radio dans différentes langues. L'interface graphique est développé avec GTK2+ et en utilisant le moteur du lecteur multimédia VLC pour afficher les chaines.
 
