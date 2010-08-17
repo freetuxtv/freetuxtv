@@ -5,6 +5,7 @@
   * Documentation utilisateur
     * [HowToInstall Installation]
     * [FAQ FAQ]
+    * [UpdatesChannelLists MAJ des listes de chaînes]
   * Pour les contributeurs
     * [Contribute Comment contribuer]
     * [PackagesCreation Création de paquets]

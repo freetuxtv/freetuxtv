@@ -5,6 +5,7 @@
   * User documentation
     * [HowToInstall How to install]
     * [FAQ FAQ]
+    * [UpdatesChannelLists Updates channel lists]
   * For contributors
     * [Contribute How to contribute]
     * [PackagesCreation Packages creation]
