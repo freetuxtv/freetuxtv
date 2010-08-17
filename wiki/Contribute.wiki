@@ -1,6 +1,8 @@
 #summary Comment aider le projet FreetuxTV.
 #labels Phase-Support,Featured
 
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 Beaucoup de boulot pour un tel projet, et seulement un développeur !
