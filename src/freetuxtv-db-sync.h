@@ -109,6 +109,12 @@ dbsync_update_channels_group (DBSync *dbsync,
     GError** error);
 
 void
+dbsync_switch_position_channels_group (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfosA,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfosB,
+    GError** error);
+
+void
 dbsync_update_channels_group_last_update (DBSync *dbsync,
     FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     GError** error);
