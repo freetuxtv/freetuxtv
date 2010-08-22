@@ -90,6 +90,12 @@ static void
 on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
+on_popupmenu_activated_goupgroup (GtkMenuItem *menuitem, gpointer user_data);
+
+static void
+on_popupmenu_activated_godowngroup (GtkMenuItem *menuitem, gpointer user_data);
+
+static void
 on_popupmenu_activated_deletechannels (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
@@ -122,8 +128,10 @@ get_favourites_channels_group_new(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos
 static GList*
 get_favourites_channels_groups_paths(FreetuxTVApp *app);
 
+/*
 static void
 channels_list_print(FreetuxTVApp *app);
+*/
 
 GQuark freetuxtv_libm3uparse_error = 0;
 
@@ -458,6 +466,52 @@ channels_list_delete_channel (FreetuxTVApp *app, GtkTreePath *path_channel,
 
 
 		windowmain_update_statusbar_infos (app);
+	}
+}
+
+void
+channels_list_switch_channels_group (FreetuxTVApp *app,
+                                     GtkTreePath *pPathGroupSrc, GtkTreePath *pPathGroupDest,
+                                     DBSync* dbsync, GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
+	
+	GtkTreePath *pPathSrc;
+	GtkTreePath *pPathDest;
+	GtkTreeIter iterSrc;
+	GtkTreeIter iterDest;
+	
+	FreetuxTVChannelsGroupInfos* pChannelsGroupInfosSrc;
+	FreetuxTVChannelsGroupInfos* pChannelsGroupInfosDest;
+
+	int compare = gtk_tree_path_compare (pPathGroupSrc, pPathGroupDest);
+	g_return_if_fail(compare != 0);
+	
+	if(compare == 1){
+		pPathSrc = pPathGroupDest;
+		pPathDest = pPathGroupSrc;
+	}else{
+		pPathSrc = pPathGroupSrc;
+		pPathDest = pPathGroupDest;
+	}
+
+	pChannelsGroupInfosSrc = channels_list_get_group (app, pPathSrc);
+	pChannelsGroupInfosDest = channels_list_get_group (app, pPathDest);
+
+	if(pChannelsGroupInfosSrc && pChannelsGroupInfosDest){
+		// Switch groups position in the database
+		if(*error == NULL){
+			dbsync_switch_position_channels_group (dbsync, pChannelsGroupInfosSrc, pChannelsGroupInfosDest, error);
+		}
+	
+		// Switch group in the treeview
+		if(*error == NULL){
+			gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iterSrc, pPathSrc);
+			gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iterDest, pPathDest);
+
+			gtk_tree_store_swap (GTK_TREE_STORE(app->channelslist), &iterSrc, &iterDest);
+		}
 	}
 }
 
@@ -846,6 +900,10 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 		gint nbChannels = 0;
 		gint nbGroupsTab[TYPEGRP_COUNT+1] = {0, 0, 0};
 		gint nbChannelsForGroupTab[TYPEGRP_COUNT] = {0, 0};
+		gboolean bIsFirstGroupSelected = FALSE;
+		gboolean bIsLastGroupSelected = FALSE;
+		gint nbTotalGroupsVisible;
+
 		GtkTreePath *path;
 		GtkTreePath *path_selected;
 
@@ -868,9 +926,13 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 		
 		nb_selected = gtk_tree_selection_count_selected_rows(selection);
 		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+
+		nbTotalGroupsVisible = gtk_tree_model_iter_n_children (GTK_TREE_MODEL(model_filter), NULL);
 		
 		GList* iterator = NULL;
 		iterator = g_list_first (list);
+
+		gint *indices;
 
 		while(iterator != NULL){
 			GtkTreePath *real_path;
@@ -895,7 +957,15 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 						nbGroupsTab[TYPEGRP_FAVORITE]++;
 						break;
 				}
-				nbGroupsTab[TYPEGRP_COUNT]++;	
+				nbGroupsTab[TYPEGRP_COUNT]++;
+
+				indices = gtk_tree_path_get_indices (path);
+				if(indices[0] == 0){
+					bIsFirstGroupSelected = TRUE;
+				}
+				if(indices[0] == nbTotalGroupsVisible-1){
+				   bIsLastGroupSelected = TRUE;
+				}
 			}else{
 				gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNEL_COLUMN, &pChannelInfos, -1);
 				if(pChannelInfos != NULL){
@@ -933,6 +1003,29 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 				G_CALLBACK(on_popupmenu_activated_refreshgroup), app);
 			// Only for type playlist
 			if(nbGroupsTab[TYPEGRP_COUNT] != nbGroupsTab[TYPEGRP_PLAYLIST]){
+				gtk_widget_set_sensitive (pMenuItem, FALSE);
+			}
+			gtk_widget_show (pMenuItem);
+
+			// Separator
+			pMenuItem = gtk_separator_menu_item_new();
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			gtk_widget_show (pMenuItem);
+			
+			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-up", NULL);
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			g_signal_connect(G_OBJECT(pMenuItem), "activate",
+				G_CALLBACK(on_popupmenu_activated_goupgroup), app);
+			if(bIsFirstGroupSelected){
+				gtk_widget_set_sensitive (pMenuItem, FALSE);
+			}
+			gtk_widget_show (pMenuItem);
+
+			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-down", NULL);
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			g_signal_connect(G_OBJECT(pMenuItem), "activate",
+				G_CALLBACK(on_popupmenu_activated_godowngroup), app);
+			if(bIsLastGroupSelected){
 				gtk_widget_set_sensitive (pMenuItem, FALSE);
 			}
 			gtk_widget_show (pMenuItem);
@@ -1031,7 +1124,30 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 				
 				iter = iter->next;
 			}
-			
+			/*
+			// Separator
+			pMenuItem = gtk_separator_menu_item_new();
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			gtk_widget_show (pMenuItem);
+
+			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-up", NULL);
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			g_signal_connect(G_OBJECT(pMenuItem), "activate",
+				G_CALLBACK(on_popupmenu_activated_deletegroup), app);
+			if(nbChannelsForGroupTab[TYPEGRP_FAVORITE] != nbChannels){
+				gtk_widget_set_sensitive (pMenuItem, FALSE);
+			}
+			gtk_widget_show (pMenuItem);
+
+			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-down", NULL);
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			g_signal_connect(G_OBJECT(pMenuItem), "activate",
+				G_CALLBACK(on_popupmenu_activated_deletegroup), app);
+			if(nbChannelsForGroupTab[TYPEGRP_FAVORITE] != nbChannels){
+				gtk_widget_set_sensitive (pMenuItem, FALSE);
+			}
+			gtk_widget_show (pMenuItem);
+			*/
 			// Separator
 			pMenuItem = gtk_separator_menu_item_new();
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
@@ -1170,6 +1286,123 @@ on_popupmenu_activated_deletechannels (GtkMenuItem *menuitem, gpointer user_data
 	}	
 }
 
+static void
+on_popupmenu_activated_goupgroup (GtkMenuItem *menuitem, gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
+
+	GError* error = NULL;
+
+	GtkWidget* treeview;
+	GtkTreeModel* model_filter;
+	GtkTreeSelection *selection;
+	GList *list;
+	GList* iterator = NULL;
+	GtkTreePath *pFilterPath;
+	GtkTreePath *pModelPath;
+	GtkTreePath *pModelPathDest;
+	
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+								"windowmain_treeviewchannelslist");
+		model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+		
+		// Get the selection
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+		
+		iterator = g_list_first (list);
+
+		while(iterator != NULL && error == NULL){
+			
+			// Get the real path
+			pFilterPath = (GtkTreePath*)iterator->data;
+			pModelPath = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), pFilterPath);
+
+			pModelPathDest = gtk_tree_path_copy (pModelPath);
+			if(gtk_tree_path_prev(pModelPathDest)){
+				// Switch the group corresponding to the path
+				channels_list_switch_channels_group(app, pModelPath, pModelPathDest, &dbsync, &error);
+			}
+			gtk_tree_path_free (pModelPathDest);
+
+			iterator = g_list_next(iterator);
+		}
+	}
+	
+	dbsync_close_db(&dbsync);
+
+	if(error == NULL){
+		windowmain_update_statusbar_infos (app);
+	}
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+}
+
+static void
+on_popupmenu_activated_godowngroup (GtkMenuItem *menuitem, gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
+
+	GError* error = NULL;
+
+	GtkWidget* treeview;
+	GtkTreeModel* model_filter;
+	GtkTreeSelection *selection;
+	GList *list;
+	GList* iterator = NULL;
+	GtkTreePath *pFilterPath;
+	GtkTreePath *pModelPath;
+	GtkTreePath *pModelPathDest;
+	
+	DBSync dbsync;
+	dbsync_open_db (&dbsync, &error);
+
+	if(error == NULL){
+		treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+								"windowmain_treeviewchannelslist");
+		model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+		
+		// Get the selection
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+		
+		iterator = g_list_last (list);
+
+		while(iterator != NULL && error == NULL){
+			
+			// Get the real path
+			pFilterPath = (GtkTreePath*)iterator->data;
+			pModelPath = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), pFilterPath);
+
+			pModelPathDest = gtk_tree_path_copy (pModelPath);
+			gtk_tree_path_next(pModelPathDest);
+			// Switch the group corresponding to the path
+			channels_list_switch_channels_group(app, pModelPath, pModelPathDest, &dbsync, &error);
+			
+			gtk_tree_path_free (pModelPathDest);
+
+			iterator = g_list_previous(iterator);
+		}
+	}
+	
+	dbsync_close_db(&dbsync);
+
+	if(error == NULL){
+		windowmain_update_statusbar_infos (app);
+	}
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+}
 
 static void
 on_popupmenu_activated_deletegroup (GtkMenuItem *menuitem, gpointer user_data)
