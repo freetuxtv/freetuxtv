@@ -70,6 +70,7 @@ channels_DATA = \
   cctv_e.png \
   cctvf.png \
   channelonerussia-orti.png \
+  chantefrance.png \
   cheriefm.png \
   chongqing_tv.png \
   cinefirst.png \
@@ -220,6 +221,7 @@ channels_DATA = \
   nrjparis.png \
   nt1.png \
   nti.png \
+  orangesportinfos.png \
   orleanstv.png \
   ouesttv.png \
   ouifm.png \
@@ -257,6 +259,7 @@ channels_DATA = \
   radioneo.png \
   radionotredame.png \
   radionova.png \
+  radioo.png \
   radiopublicsante.png \
   radioscoop80s.png \
   radio-scoop-powerdance.png \
@@ -280,6 +283,7 @@ channels_DATA = \
   rfm.png \
   rfo.png \
   rireetchansons.png \
+  rkingtv.png \
   rmc.png \
   rmn.png \
   rne.png \

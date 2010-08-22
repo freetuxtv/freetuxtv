@@ -219,6 +219,9 @@
 		<logo_filename>cctvf.png</logo_filename>
 		<label>CCTV-F</label>
 	</tvchannel>
+	<tvchannel name="Chante France">
+		<logo_filename>chantefrance.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Chérie FM">
 		<logo_filename>cheriefm.png</logo_filename>
 		<label>Chérie</label>
@@ -744,6 +747,9 @@
 		<logo_filename>nti.png</logo_filename>
 		<label>Radio NTI</label>
 	</tvchannel>
+	<tvchannel name="Orange Sport Infos">
+		<logo_filename>orangesportinfos.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Orleans tv">
 		<logo_filename>orleanstv.png</logo_filename>
 	</tvchannel>
@@ -866,6 +872,9 @@
 	<tvchannel name="Nova">
 		<logo_filename>radionova.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Radio O">
+		<logo_filename>radioo.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Radio Ocean">
 		<logo_filename>radiocean.png</logo_filename>
 	</tvchannel>
@@ -936,6 +945,9 @@
 	</tvchannel>
 	<tvchannel name="Rire et Chansons">
 		<logo_filename>rireetchansons.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RKINGTV">
+		<logo_filename>rkingtv.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="RMC Info">
 		<logo_filename>rmc.png</logo_filename>
