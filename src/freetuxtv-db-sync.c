@@ -897,12 +897,12 @@ dbsync_switch_position_channels_group (DBSync *dbsync,
 		sqlite3_free(db_err);
 	}
 
-	if(error == NULL){
+	if(*error == NULL){
 		tmp = pChannelsGroupInfosA->position;
 		pChannelsGroupInfosA->position = pChannelsGroupInfosB->position;
 		
 		// Update the group
-		query = sqlite3_mprintf("UPDATE %s SET %s=%s WHERE %s=%d",
+		query = sqlite3_mprintf("UPDATE %s SET %s=%d WHERE %s=%d",
 			// UPDATE
 			DB_CHANNELSGROUP,
 			// SET
@@ -921,7 +921,7 @@ dbsync_switch_position_channels_group (DBSync *dbsync,
 		}
 	}
 
-	if(error == NULL){
+	if(*error == NULL){
 		pChannelsGroupInfosB->position = tmp;
 	}
 }
