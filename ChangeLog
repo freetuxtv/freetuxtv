@@ -5,7 +5,8 @@ FreetuxTV 0.5.2 (2010-xx-xx)
   - Ability to suppress channel in favorites group.
   - Add FreetuxTV's german translation
   - Added TV channel logos:
-      WebRadio: BBC, RNE, RAI
+      WebTV: Orange Sport Infos, R King TV
+      WebRadio: BBC, RNE, RAI, ChanteFrance, Radio O
   - Updating and adding playlists (See http://code.google.com/p/freetuxtv/wiki/MajListesChaines)
 
 FreetuxTV 0.5.1 (2010-07-21)
