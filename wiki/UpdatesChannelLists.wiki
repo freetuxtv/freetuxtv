@@ -6,6 +6,11 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 22/08/2010  - Liste Web TV (Français)
+
+- Ajout de Info Sport et NRJ12
+- Renommage de NRJ GROOVE en NRJ URBAN
+
 * 08/08/2010  - Liste Web TV (Allemand)
 
 - Ajout de plusieurs chaines : Oberpfalz TV, TV Aktuell, Western TV, Kizuna TV, Medizin TV, Feuer TV, HOPE Channel Deutsch, Phoenix, HOPE Channel Europe, VRF Vogtland, WMZ TV, OK54, OK-TV Mainz, KW-TV (ex Campus TV), Kizuna TV, IT news TV, Channel Zero 
