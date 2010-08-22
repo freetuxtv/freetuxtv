@@ -3,6 +3,7 @@ FreetuxTV 0.5.2 (2010-xx-xx)
   - Ajout de l'option --help pour afficher l'aide de FreetuxTV.
   - Ajout de l'option --open-channel pour lancer une chaine en particulier via la ligne de commande.
   - Ajout de la possibilité de supprimer une chaine dans le groupe Favoris.
+  - Ajout de la possibilité de réorganisé les groupes dans la liste des chaînes.
   - Ajout de la traduction en allemand de FreetuxTV.
   - Ajout de logos :
     Radio et WebRadio :

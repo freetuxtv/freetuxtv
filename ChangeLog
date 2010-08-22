@@ -3,6 +3,7 @@ FreetuxTV 0.5.2 (2010-xx-xx)
   - Created option --help to display FreetuxTV help.
   - Created option --open-channel to launch a channel through the command line.
   - Ability to suppress channel in favorites group.
+  - Ability to reorder the groups in the channels list.
   - Add FreetuxTV's german translation
   - Added TV channel logos:
       WebTV: Orange Sport Infos, R King TV
