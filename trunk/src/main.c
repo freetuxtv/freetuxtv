@@ -1019,59 +1019,67 @@ freetuxtv_action_record (FreetuxTVApp *app, GError** error)
 	gchar *text;
 
 	if(gtk_libvlc_media_player_is_playing(app->player, error)
-	   && !app->current.is_recording){
+	   && !app->current.is_recording)
+	{
+		FreetuxTVChannelInfos* channel_infos;
+		channel_infos = channels_list_get_channel (app, app->current.path_channel);
 
-		   FreetuxTVChannelInfos* channel_infos;
-		   channel_infos = channels_list_get_channel (app, app->current.path_channel);
+		// Send notification to desktop
+		gchar *imgfile;
+		imgfile = tvchannels_list_get_tvchannel_logo_path(app, channel_infos, TRUE);
 
-		   // Send notification to desktop
-		   gchar *imgfile;
-		   imgfile = tvchannels_list_get_tvchannel_logo_path(app, channel_infos, TRUE);
-
-		   if(app->prefs.enable_notifications){
-			   notify_notification_update (app->current.notification, channel_infos->name,
-			                               _("is recording"), imgfile);
-			   if (!notify_notification_show (app->current.notification, NULL)) {
-				   g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_WARNING,
-				         "Failed to send notification\n");
-			   }
+		if(app->prefs.enable_notifications){
+		   notify_notification_update (app->current.notification, channel_infos->name,
+				                       _("is recording"), imgfile);
+		   if (!notify_notification_show (app->current.notification, NULL)) {
+			   g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_WARNING,
+					 "Failed to send notification\n");
 		   }
+		}
 
-		   g_free(imgfile);
-		   windowmain_display_buttons (app, WINDOW_MODE_RECORDING);
+		g_free(imgfile);
+		windowmain_display_buttons (app, WINDOW_MODE_RECORDING);
 
-		   // Timer and file name
-		   if(app->current.recording.duration != NULL){
-			   g_timer_stop (app->current.recording.duration);
-			   g_timer_destroy (app->current.recording.duration);
-		   }
-		   app->current.recording.duration = g_timer_new ();
+		// Timer and file name
+		if(app->current.recording.duration != NULL){
+		   g_timer_stop (app->current.recording.duration);
+		   g_timer_destroy (app->current.recording.duration);
+		}
+		app->current.recording.duration = g_timer_new ();
 
-		   GTimeVal now;
-		   g_get_current_time(&now);
-		   if(app->current.recording.dst_file != NULL){
-			   g_free(app->current.recording.dst_file);
-			   app->current.recording.dst_file = NULL;
-		   }
+		// Get the current date string
+		time_t rawtime;
+		struct tm * timeinfo;
+		char buffer [80];
 
-		   gchar *base_filename;
-		   base_filename = g_strconcat(channel_infos->name, " - ", g_time_val_to_iso8601(&now), NULL);
+		time ( &rawtime );
+		timeinfo = localtime ( &rawtime );
 
-		   gchar *options[2];
-		   options[0] = get_recording_options(app, base_filename, FALSE, &app->current.recording.dst_file);
-		   options[1] = NULL;
+		strftime (buffer, 80, "%a %Y-%m-%d %H:%M:%S", timeinfo);
 
-		   gtk_libvlc_media_player_play (app->player, options, error);
+		if(app->current.recording.dst_file != NULL){
+		   g_free(app->current.recording.dst_file);
+		   app->current.recording.dst_file = NULL;
+		}
 
-		   g_free(base_filename);
-		   g_free(options[0]);
+		gchar *base_filename;
+		base_filename = g_strconcat(channel_infos->name, " - ", buffer, NULL);
 
-		   app->current.is_recording = TRUE;
+		gchar *options[2];
+		options[0] = get_recording_options(app, base_filename, FALSE, &app->current.recording.dst_file);
+		options[1] = NULL;
 
-		   text = g_strdup_printf (_("Recording : %s"), app->current.recording.dst_file);
-		   windowmain_statusbar_push (app, "PlayChannelMsg", text);
-		   g_free(text);
-	   }
+		gtk_libvlc_media_player_play (app->player, options, error);
+
+		g_free(base_filename);
+		g_free(options[0]);
+
+		app->current.is_recording = TRUE;
+
+		text = g_strdup_printf (_("Recording : %s"), app->current.recording.dst_file);
+		windowmain_statusbar_push (app, "PlayChannelMsg", text);
+		g_free(text);
+	}
 }
 
 void
