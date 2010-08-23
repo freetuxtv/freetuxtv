@@ -22,13 +22,18 @@
     <data>
       <row>
         <col id="0" translatable="yes">Video - Theora + Vorbis (OGG)</col>
-        <col id="1" translatable="yes">vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100</col>
+        <col id="1" translatable="yes">vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2</col>
         <col id="2" translatable="yes">ogg</col>
       </row>
       <row>
         <col id="0" translatable="yes">Video - H.264 + MPGA (MP4)</col>
         <col id="1" translatable="yes">vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels=2</col>
         <col id="2" translatable="yes">mp4</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Video - MPEG-2 + MPGA (TS)</col>
+        <col id="1" translatable="yes">vcodec=mp2v,vb=800,scale=1,acodec=mpga,ab=128,channels=2</col>
+        <col id="2" translatable="yes">ts</col>
       </row>
     </data>
   </object>

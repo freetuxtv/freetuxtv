@@ -146,7 +146,7 @@ get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_pre
 		*out_filename = g_strdup_printf("%s.%s", base_filename, mux);	
 	}
 
-	text = g_strdup_printf(":sout=#%sduplicate{dst=std{access=file,mux=%s,dst='%s/%s.%s'},dst=display}", transcode, mux, dir, base_filename, mux);
+	text = g_strdup_printf(":sout=#%sduplicate{dst=std{access=file,mux=%s,dst=\"%s/%s.%s\"},dst=display}", transcode, mux, dir, base_filename, mux);
 
 	g_free(dir);
 	g_free(mux);
