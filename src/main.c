@@ -439,9 +439,13 @@ splashscreen_app_init(gpointer data)
 	GError* error = NULL;
 
 	GtkWidget *widget;
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                               "splashscreen_version");
-	gtk_label_set_text(GTK_LABEL(widget), VERSION);
+
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+		                                          "splashscreen_image");
+	gchar* pImgSplashScreen;
+	pImgSplashScreen = g_build_filename(app->paths.datadir, "splashscreen.png", NULL);
+	gtk_image_set_from_file (GTK_IMAGE(widget), pImgSplashScreen);
+	g_free(pImgSplashScreen);
 
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "Using user configuration dir : %s\n", g_get_user_config_dir());

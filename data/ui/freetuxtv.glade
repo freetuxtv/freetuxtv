@@ -1789,132 +1789,18 @@ You should have received a copy of the GNU General Public License along with thi
     <property name="type_hint">splashscreen</property>
     <property name="transient_for">windowmain</property>
     <child>
-      <object class="GtkAlignment" id="alignment8">
+      <object class="GtkEventBox" id="eventbox_splash">
         <property name="visible">True</property>
-        <property name="top_padding">4</property>
-        <property name="bottom_padding">4</property>
-        <property name="left_padding">4</property>
-        <property name="right_padding">4</property>
         <child>
           <object class="GtkVBox" id="vbox13">
             <property name="visible">True</property>
             <child>
-              <object class="GtkImage" id="image7">
+              <object class="GtkImage" id="splashscreen_image">
                 <property name="visible">True</property>
                 <property name="pixel_size">50</property>
-                <property name="icon_name">freetuxtv</property>
               </object>
               <packing>
-                <property name="expand">False</property>
                 <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label28">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">&lt;span size="xx-large"&gt;&lt;b&gt;FreetuxTV&lt;/b&gt;&lt;/span&gt;
-
-&lt;span size="large"&gt;Web TV channels player&lt;/span&gt;
-
-&lt;span size="large"&gt;Loading...&lt;/span&gt;</property>
-                <property name="use_markup">True</property>
-                <property name="justify">center</property>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkHBox" id="hbox10">
-                <property name="visible">True</property>
-                <child>
-                  <object class="GtkLabel" id="label29">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Version : &lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="splashscreen_version">
-                    <property name="visible">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkHBox" id="hbox11">
-                <property name="visible">True</property>
-                <child>
-                  <object class="GtkLabel" id="label30">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Author : &lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label31">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">Eric Beuque</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkHBox" id="hbox12">
-                <property name="visible">True</property>
-                <child>
-                  <object class="GtkLabel" id="label32">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Project's Web Site : &lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLinkButton" id="linkbutton1">
-                    <property name="label" translatable="yes">http://code.google.com/p/freetuxtv/</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="relief">none</property>
-                    <property name="uri">http://code.google.com/p/freetuxtv/</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -1925,7 +1811,7 @@ You should have received a copy of the GNU General Public License along with thi
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">5</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </object>
