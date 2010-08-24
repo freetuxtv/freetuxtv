@@ -77,6 +77,7 @@ channels_DATA = \
   cinefx.png \
   cinepolar.png \
   ckiafm.png \
+  claptv.png \
   clermontpremiere.png \
   clubbingtv.png \
   cmusictv.png \
@@ -349,6 +350,7 @@ channels_DATA = \
   tv7bordeaux.png \
   tv7tunisia.png \
   tv8montblanc.png \
+  tv8moselleest.png \
   tvaquebec.png \
   tvbiznes.png \
   tveint.png \
@@ -374,6 +376,7 @@ channels_DATA = \
   worldfashion.png \
   xiamenstartv.png \
   yementv.png \
+  zahratv.png \
   zdf_de.png \
   zhejiangstartv.png
 EXTRA_DIST   = $(channels_DATA)

@@ -254,6 +254,9 @@
 	<tvchannel name="CKIA FM">
 		<logo_filename>ckiafm.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Clap TV">
+		<logo_filename>claptv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Clermont Première">
 		<logo_filename>clermontpremiere.png</logo_filename>
 	</tvchannel>
@@ -1162,6 +1165,9 @@
 		<logo_filename>tv8montblanc.png</logo_filename>
 		<label>TV8 Mont Blanc</label>
 	</tvchannel>
+	<tvchannel name="TV8 Moselle Est">
+		<logo_filename>tv8moselleest.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="TVA Québec">
 		<logo_filename>tvaquebec.png</logo_filename>
 	</tvchannel>
@@ -1239,6 +1245,9 @@
 	</tvchannel>
 	<tvchannel name="Yemen TV">
 		<logo_filename>yementv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Zahra TV">
+		<logo_filename>zahratv.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="ZDF">
 		<logo_filename>zdf_de.png</logo_filename>
