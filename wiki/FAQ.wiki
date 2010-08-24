@@ -75,3 +75,9 @@ Voir le [http://code.google.com/p/freetuxtv/issues/detail?id=42 ticket "pas de s
 Comme nous n'avons pas Orange comme FAI mais Free, nous vous conseillons de consulter le fil suivant [http://forum.macbidouille.com/index.php?showtopic=299703 "La TV d'Orange sur Mac ?, en tous cas ça marche sur Ubuntu"] du Forum macbidouille.com qui indique les opérations à réaliser pour que celà fonctionne.
 
 Cette page indique aussi comment configurer Orange avec VLC, ce qui devrait marché aussi avec FreetuxTV : [http://www.porciello.com/inventel/tv_vlc.htm]
+
+=== Problème lors de l'enregistrement avec le transcodage ===
+
+Il peut que certaines chaînes ne s'enregistre pas correctement, si on utilise un transcodage particulier.
+
+C'est le cas de nombreuse chaînes de FreeboxTV. En effet, celles ci utilisent un codec mp4a (AAC) et à l'heure actuelle VLC ne dispose pas d'un filtre de conversion depuis ce format pour le transcoder dans un autre. Du coup, il est impossible de faire une conversion de l'audio des chaînes de FreeboxTV.
