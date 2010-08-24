@@ -1,4 +1,5 @@
 FreetuxTV 0.5.2 (2010-xx-xx)
+  - Added new official icon for FreetuxTV
   - Added proxy support: configuration in preferences window.
   - Created option --help to display FreetuxTV help.
   - Created option --open-channel to launch a channel through the command line.
