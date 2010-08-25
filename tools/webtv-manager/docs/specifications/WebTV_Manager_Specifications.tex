@@ -22,13 +22,21 @@
 
 Dans le cadre du projet FreetuxTV, on souhaite développer une application Web capable de gérer les WebTV. Ce document explique quels sont les objectifs que l'application doit atteindre, les contraintes techniques et les quelques briques fondamentales pour mener à bien ce projet.
 
+\section*{Révisions}
+
+\begin{itemize}
+\item 5 novembre 2009 : Première version.
+\end{itemize}
+
 \section{Objectifs}
 
-Voici une liste non exhaustif des fonctionnalités que l'application se devra de remplir. Bien entendu, toutes nouvelles idées pouvant améliorer les propositions citées ci-dessous sont les bienvenues et peuvent être transmises à l'équipe de FreetuxTV.
+L'objectif principal est de fournir une interface Web pour que les utilitateurs de FreetuxTV puisse facilement transmettre à l'équipe des liens de WebTV ou WebRadio à ajouter dans les playlist. Ces liens seront soumis à une modération. L'interface permettra aussi à un utilisateur de signaler que des liens sont morts. A partir des liens enregistrés dans la base de donnée, on pourra facilement créer des playlists dynamiques suivant certains critères accessible simplement via une URL.
+
+Voici le détail des fonctionnalités non exhaustive que l'application se devra de remplir. Bien entendu, toutes nouvelles idées pouvant améliorer les propositions citées ci-dessous sont les bienvenues et peuvent être transmises à l'équipe de FreetuxTV.
 
 \subsection{Gestion des WebTV}
 
-L'objectif principal est que l'on puisse facilement ajouter des chaînes TV. Une chaîne TV comporte de nombreux attributs : un nom, une langue, un pays d'origine, un logo, un type de chaînes (généraliste, sport, cinéma...), un site web, un lien direct vers le programme tv, une ou plusieurs page wikipedia suivant la langue...
+Une chaîne TV comporte de nombreux attributs : un nom, une langue, un pays d'origine, un logo, un type de chaînes (généraliste, sport, cinéma...), un site web, un lien direct vers le programme tv, une ou plusieurs page wikipedia suivant la langue...
 
 Attention, il faut différencier les chaînes proprement dîtes et les flux des chaînes. En effet, gardons à l'esprit qu'une chaîne possède plusieurs moyens de diffusion et peut donc posséder plusieurs flux vidéos. Par exemple, France 3 reçu avec l'opérateur Free et Neuf sont la même chaîne mais pas le même flux. De ce fait, les informations d'un flux doit être distinct des informations de la chaîne. Un flux possède une URL, éventuellement un nom s'il est différent de celui par défaut de la chaîne. Il peut aussi posseder des options VLC qui seront utilisé pour la lecture de la chaînes. De plus un flux peut dépendre d'un FAI.
 
