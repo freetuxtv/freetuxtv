@@ -6,6 +6,10 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 = Liste des modifications =
 
+* 25/08/2010  - Liste Web Radio (Allemand)
+
+-Ajout radios et Web Radio du groupe Antenne Bayern et du groupe Bayerischer Rundfunk suite à la demande d'un utilisateur dans le [http://code.google.com/p/freetuxtv/issues/detail?id=89 ticket 89]. 
+
 * 22/08/2010  - Liste Web TV (Français)
 
 - Ajout de Info Sport et NRJ12
