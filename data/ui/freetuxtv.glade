@@ -1746,7 +1746,8 @@ FreetuxTV is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.</property>
     <property name="authors">Eric Beuque &lt;eric.beuque@gmail.com&gt;</property>
     <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
-    <property name="artists">Yannick Le Ny &lt;yleny@laposte.net&gt;</property>
+    <property name="artists">Yannick Le Ny &lt;yleny@laposte.net&gt;
+Sébastien Morge &lt;contact@smorge.com&gt;</property>
     <property name="logo_icon_name">freetuxtv</property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">
