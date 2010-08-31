@@ -7,7 +7,8 @@ FreetuxTV 0.5.2 (2010-xx-xx)
   - Ability to reorder the groups in the channels list.
   - Add FreetuxTV's german translation
   - Added TV channel logos:
-      WebTV: Orange Sport Infos, R King TV, Zahra TV, TV8 Moselle Est, Clap TV
+      WebTV: Orange Sport Infos, R King TV, Zahra TV, TV8 Moselle Est, Clap TV, Archeo TV,
+         Canalmoza, CT2E, HiScore TV, Info Sport, Soleil TV, TVSF
       WebRadio: BBC, RNE, RAI, ChanteFrance, Radio O
   - Updating and adding playlists (See http://code.google.com/p/freetuxtv/wiki/MajListesChaines)
 
