@@ -87,28 +87,34 @@ static gboolean
 on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event, gpointer user_data);
 
 static void
-on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data);
+on_popupmenu_activated_grouprefresh (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
-on_popupmenu_activated_goupgroup (GtkMenuItem *menuitem, gpointer user_data);
+on_popupmenu_activated_groupgoup (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
-on_popupmenu_activated_godowngroup (GtkMenuItem *menuitem, gpointer user_data);
+on_popupmenu_activated_groupgodown (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
-on_popupmenu_activated_deletechannels (GtkMenuItem *menuitem, gpointer user_data);
+on_popupmenu_activated_groupdeletechannels (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
-on_popupmenu_activated_deletegroup (GtkMenuItem *menuitem, gpointer user_data);
+on_popupmenu_activated_groupdelete (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
 on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
-on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data);
+on_popupmenu_activated_channeladdfavourites (GtkMenuItem *menuitem, gpointer user_data);
 
 static void
-on_popupmenu_activated_deletechannel (GtkMenuItem *menuitem, gpointer user_data);
+on_popupmenu_activated_channeldelete (GtkMenuItem *menuitem, gpointer user_data);
+
+static void
+on_popupmenu_activated_channelgoup (GtkMenuItem *menuitem, gpointer user_data);
+
+static void
+on_popupmenu_activated_channelgodown (GtkMenuItem *menuitem, gpointer user_data);
 
 
 static gboolean
@@ -225,8 +231,6 @@ channels_list_add_channels_group (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos
 
 		GtkTreePath* path;
 		path = gtk_tree_model_get_path(app->channelslist, &iter_channelsgroup);
-		
-		g_print("added %s\n", gtk_tree_path_to_string (path));
 
 		channels_list_refresh_channels_group(app, path, dbsync, error);
 
@@ -715,8 +719,12 @@ channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
 			 gboolean update, GError** error)
 {
 	gchar *groupfile;
-	groupfile = g_strdup_printf("%s/FreetuxTV/cache/playlist-group-%d.dat",
-				    g_get_user_config_dir(), self->id);
+	gchar *name;
+	name = g_strdup_printf("playlist-group-%d.dat", self->id);
+
+	groupfile = g_build_filename(g_get_user_cache_dir(), "freetuxtv", name, NULL);
+	g_free(name);
+
 	if(update){
 		freetuxtv_fileutils_get_file (self->uri, groupfile, error);
 	}
@@ -1000,7 +1008,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-refresh", NULL);
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);					
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
-				G_CALLBACK(on_popupmenu_activated_refreshgroup), app);
+				G_CALLBACK(on_popupmenu_activated_grouprefresh), app);
 			// Only for type playlist
 			if(nbGroupsTab[TYPEGRP_COUNT] != nbGroupsTab[TYPEGRP_PLAYLIST]){
 				gtk_widget_set_sensitive (pMenuItem, FALSE);
@@ -1015,7 +1023,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-up", NULL);
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
-				G_CALLBACK(on_popupmenu_activated_goupgroup), app);
+				G_CALLBACK(on_popupmenu_activated_groupgoup), app);
 			if(bIsFirstGroupSelected){
 				gtk_widget_set_sensitive (pMenuItem, FALSE);
 			}
@@ -1024,7 +1032,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-down", NULL);
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
-				G_CALLBACK(on_popupmenu_activated_godowngroup), app);
+				G_CALLBACK(on_popupmenu_activated_groupgodown), app);
 			if(bIsLastGroupSelected){
 				gtk_widget_set_sensitive (pMenuItem, FALSE);
 			}
@@ -1040,13 +1048,13 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (pMenuItem), pImage);
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
-				G_CALLBACK(on_popupmenu_activated_deletechannels), app);
+				G_CALLBACK(on_popupmenu_activated_groupdeletechannels), app);
 			gtk_widget_show (pMenuItem);
 			
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-delete", NULL);
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
-				G_CALLBACK(on_popupmenu_activated_deletegroup), app);
+				G_CALLBACK(on_popupmenu_activated_groupdelete), app);
 			gtk_widget_show (pMenuItem);
 						
 			// Group properties is only if one channels groups is selected
@@ -1085,7 +1093,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (pSubMenuItem), pImage);
 			gtk_menu_append (GTK_MENU (pSubMenu), pSubMenuItem);
 			g_signal_connect(G_OBJECT(pSubMenuItem), "activate",
-				G_CALLBACK(on_popupmenu_activated_addfavourites), app);
+				G_CALLBACK(on_popupmenu_activated_channeladdfavourites), app);
 			gtk_widget_show (pSubMenuItem);
 			
 			// Separator
@@ -1117,7 +1125,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 					g_object_set_data (G_OBJECT(pSubMenuItem), "FavouritesChannelsGroup", pChannelsGroupInfos);
 					g_object_set_data (G_OBJECT(pSubMenuItem), "PathFavouritesChannelsGroup", pPath);
 					g_signal_connect(G_OBJECT(pSubMenuItem), "activate",
-						             G_CALLBACK(on_popupmenu_activated_addfavourites), app);
+						             G_CALLBACK(on_popupmenu_activated_channeladdfavourites), app);
 				
 					gtk_widget_show (pSubMenuItem);
 				}
@@ -1133,7 +1141,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-up", NULL);
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
-				G_CALLBACK(on_popupmenu_activated_deletegroup), app);
+				G_CALLBACK(on_popupmenu_activated_channelgoup), app);
 			if(nbChannelsForGroupTab[TYPEGRP_FAVORITE] != nbChannels){
 				gtk_widget_set_sensitive (pMenuItem, FALSE);
 			}
@@ -1142,7 +1150,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-down", NULL);
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
-				G_CALLBACK(on_popupmenu_activated_deletegroup), app);
+				G_CALLBACK(on_popupmenu_activated_channelgodown), app);
 			if(nbChannelsForGroupTab[TYPEGRP_FAVORITE] != nbChannels){
 				gtk_widget_set_sensitive (pMenuItem, FALSE);
 			}
@@ -1157,7 +1165,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-delete", NULL);
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
-				G_CALLBACK(on_popupmenu_activated_deletechannel), app);
+				G_CALLBACK(on_popupmenu_activated_channeldelete), app);
 			if(nbChannelsForGroupTab[TYPEGRP_FAVORITE] != nbChannels){
 				gtk_widget_set_sensitive (pMenuItem, FALSE);
 			}
@@ -1179,7 +1187,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 }
 
 static void
-on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data)
+on_popupmenu_activated_grouprefresh (GtkMenuItem *menuitem, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
 
@@ -1233,7 +1241,7 @@ on_popupmenu_activated_refreshgroup (GtkMenuItem *menuitem, gpointer user_data)
 }
 
 static void
-on_popupmenu_activated_deletechannels (GtkMenuItem *menuitem, gpointer user_data)
+on_popupmenu_activated_groupdeletechannels (GtkMenuItem *menuitem, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
 
@@ -1287,7 +1295,7 @@ on_popupmenu_activated_deletechannels (GtkMenuItem *menuitem, gpointer user_data
 }
 
 static void
-on_popupmenu_activated_goupgroup (GtkMenuItem *menuitem, gpointer user_data)
+on_popupmenu_activated_groupgoup (GtkMenuItem *menuitem, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
 
@@ -1346,7 +1354,7 @@ on_popupmenu_activated_goupgroup (GtkMenuItem *menuitem, gpointer user_data)
 }
 
 static void
-on_popupmenu_activated_godowngroup (GtkMenuItem *menuitem, gpointer user_data)
+on_popupmenu_activated_groupgodown (GtkMenuItem *menuitem, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
 
@@ -1405,7 +1413,7 @@ on_popupmenu_activated_godowngroup (GtkMenuItem *menuitem, gpointer user_data)
 }
 
 static void
-on_popupmenu_activated_deletegroup (GtkMenuItem *menuitem, gpointer user_data)
+on_popupmenu_activated_groupdelete (GtkMenuItem *menuitem, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
 
@@ -1556,7 +1564,7 @@ on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_dat
 }
 
 static void
-on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data)
+on_popupmenu_activated_channeladdfavourites (GtkMenuItem *menuitem, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
 
@@ -1653,7 +1661,7 @@ on_popupmenu_activated_addfavourites (GtkMenuItem *menuitem, gpointer user_data)
 }
 
 static void
-on_popupmenu_activated_deletechannel (GtkMenuItem *menuitem, gpointer user_data)
+on_popupmenu_activated_channeldelete (GtkMenuItem *menuitem, gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
 
@@ -1704,6 +1712,18 @@ on_popupmenu_activated_deletechannel (GtkMenuItem *menuitem, gpointer user_data)
 		windowmain_show_gerror (app, error);
 		g_error_free (error);
 	}
+}
+
+static void
+on_popupmenu_activated_channelgoup (GtkMenuItem *menuitem, gpointer user_data)
+{
+
+}
+
+static void
+on_popupmenu_activated_channelgodown (GtkMenuItem *menuitem, gpointer user_data)
+{
+
 }
 
 static GtkTreePath*

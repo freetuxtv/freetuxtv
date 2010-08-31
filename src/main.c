@@ -43,12 +43,11 @@ init_user_configuration(FreetuxTVApp *app, GError **error)
 	gboolean bGoOn = TRUE;
 
 	gchar *user_cache_dir;
-	user_cache_dir = g_build_filename(g_get_user_config_dir(),
-	                                  "FreetuxTV", "cache", NULL);
+	user_cache_dir = g_build_filename(g_get_user_cache_dir(), "freetuxtv", NULL);
 
 	gchar *user_img_channels_dir;
-	user_img_channels_dir = g_build_filename(g_get_user_config_dir(),
-	                                         "FreetuxTV", "images", "channels", NULL);
+	user_img_channels_dir = g_build_filename(g_get_user_data_dir(),
+	                                         "freetuxtv", "images", "channels", NULL);
 
 	// Check if user cache directory exists
 	if (!g_file_test (user_cache_dir, G_FILE_TEST_EXISTS)){
@@ -140,7 +139,7 @@ load_user_configuration(FreetuxTVApp *app)
 
 	// Loading FreetuxTV State
 	filename = g_build_filename (g_get_user_config_dir(),
-	                             "FreetuxTV/config.ini", NULL);
+	                             "FreetuxTV", "config.ini", NULL);
 
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "Loading config file %s\n", filename);
@@ -447,8 +446,12 @@ splashscreen_app_init(gpointer data)
 	gtk_image_set_from_file (GTK_IMAGE(widget), pImgSplashScreen);
 	g_free(pImgSplashScreen);
 
+	gchar* dir;
+	dir = g_build_filename(g_get_user_config_dir(), "FreetuxTV", NULL);
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Using user configuration dir : %s\n", g_get_user_config_dir());
+	      "Using user configuration dir : %s\n", dir);
+	g_free(dir);
+	dir = NULL;
 
 	// Initializing user configuration
 	if(error == NULL){
@@ -1225,7 +1228,7 @@ freetuxtv_quit (FreetuxTVApp *app)
 	contents = g_key_file_to_data (keyfile, NULL, NULL);
 	g_key_file_free (keyfile);
 	filename = g_build_filename (g_get_user_config_dir(),
-	                             "FreetuxTV/config.ini", NULL);
+	                             "FreetuxTV", "config.ini", NULL);
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "Writing config file %s\n", filename);
 	if (!g_file_set_contents (filename, contents, -1, NULL)){

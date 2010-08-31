@@ -106,8 +106,8 @@ tvchannels_list_get_tvchannel_logo_path(FreetuxTVApp *app,
 {
 	gchar *imgfile = NULL;
 	gchar *user_img_channels_dir;
-	user_img_channels_dir = g_build_filename(g_get_user_config_dir(), 
-	    "FreetuxTV", "images", "channels", NULL);
+	user_img_channels_dir = g_build_filename(g_get_user_data_dir(), 
+	    "freetuxtv", "images", "channels", NULL);
 	if(channel_infos->logo_name == NULL){
 		if(none_icon){
 			imgfile = g_build_filename(user_img_channels_dir, "_none.png", NULL);	
