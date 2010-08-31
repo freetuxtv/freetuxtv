@@ -11,7 +11,7 @@
 \usepackage{url}
 
 \author{Eric Beuque}
-\title{Cahier des charges du projet de développement d'un site Web de gestion de WebTV}
+\title{Spécification du projet de développement d'un site Web de gestion de WebTV}
 \date{\today}
 
 \begin{document}
@@ -25,38 +25,64 @@ Dans le cadre du projet FreetuxTV, on souhaite développer une application Web c
 \section*{Révisions}
 
 \begin{itemize}
+\item 31 aout 2010 : Mise au clair de chaque partie de la spécification.
 \item 5 novembre 2009 : Première version.
 \end{itemize}
 
 \section{Objectifs}
 
-L'objectif principal est de fournir une interface Web pour que les utilitateurs de FreetuxTV puisse facilement transmettre à l'équipe des liens de WebTV ou WebRadio à ajouter dans les playlist. Ces liens seront soumis à une modération. L'interface permettra aussi à un utilisateur de signaler que des liens sont morts. A partir des liens enregistrés dans la base de donnée, on pourra facilement créer des playlists dynamiques suivant certains critères accessible simplement via une URL.
+FreetuxTV possède une base de donnée de WebTV et WebRadio géré statiquement par fichier M3U. L'objectif principal est de fournir une interface Web pour que les utilitateurs de FreetuxTV puisse facilement transmettre à l'équipe des liens de WebTV ou WebRadio à ajouter dans les playlist. Ces liens seront soumis à une modération. L'interface permettra aussi à un utilisateur de signaler que des liens sont morts. A partir des liens enregistrés dans la base de donnée, on pourra facilement créer des playlists dynamiques suivant certains critères accessible simplement via une URL.
 
 Voici le détail des fonctionnalités non exhaustive que l'application se devra de remplir. Bien entendu, toutes nouvelles idées pouvant améliorer les propositions citées ci-dessous sont les bienvenues et peuvent être transmises à l'équipe de FreetuxTV.
 
+\subsection{Gestion des utilisateurs}
+
+L'application devra avoir un système de gestion des utilisateurs. Un utilisateur possède un nom d'utilisateur, un mot de passe et une adresse E-Mail.
+Ceux ci pourront aussi posséder une liste de droits (liste réduites mais pouvant évolué par la suite) :
+
+\begin{itemize}
+\item Droit d'édition de chaîne : Une base de donnée de chaîne et radio sera crée en interne, ce droit permet de pouvoir en ajouter et les modifier.
+\item Droit de modération des flux : Pour des problèmes de droits, les flux proposés devront être modérer afin que l'application ne devienne pas illégal en proposant des contenus abusifs. Ce droit permet à un utilisateur de valider une URL et de la rendre disponible dans les playlists générés dynamiquement.
+\item Droit d'administration : Ce droit permet à un utilisateur d'affecter des droits à d'autres utilisateurs.
+\end{itemize}
+
+Tout les utilisateurs pourront soumettre une URL à inclure dans les playlists. Il pourrons aussi signaler les WebTV dont le lien est mort et proposé des nouveaux flux.
+
 \subsection{Gestion des WebTV}
 
-Une chaîne TV comporte de nombreux attributs : un nom, une langue, un pays d'origine, un logo, un type de chaînes (généraliste, sport, cinéma...), un site web, un lien direct vers le programme tv, une ou plusieurs page wikipedia suivant la langue...
+Il est important de différencier les chaînes proprement dîtes et les flux des chaînes. En effet, gardons à l'esprit qu'une chaîne possède plusieurs moyens de diffusion et peut donc posséder plusieurs flux vidéos. Par exemple, France 3 reçu avec l'opérateur Free et Neuf sont la même chaîne mais pas le même flux. De ce fait, les informations d'un flux doivent être distinct des informations de la chaîne.
 
-Attention, il faut différencier les chaînes proprement dîtes et les flux des chaînes. En effet, gardons à l'esprit qu'une chaîne possède plusieurs moyens de diffusion et peut donc posséder plusieurs flux vidéos. Par exemple, France 3 reçu avec l'opérateur Free et Neuf sont la même chaîne mais pas le même flux. De ce fait, les informations d'un flux doit être distinct des informations de la chaîne. Un flux possède une URL, éventuellement un nom s'il est différent de celui par défaut de la chaîne. Il peut aussi posseder des options VLC qui seront utilisé pour la lecture de la chaînes. De plus un flux peut dépendre d'un FAI.
+\subsubsection{Soumission d'un flux}
 
-Par ailleurs, une chaîne peut aussi avoir des noms alternatifs. Pourquoi? Car il peut arriver que suivant la source pour recevoir un flux, le nom spécifié diffère de celui de la chaîne par défaut, de ce fait on utilise les noms alternatifs pour pouvoir faire des assocations, notament lorsque FreetuxTV analyse un fichier m3u pour retrouver les chaînes.
+Lorsqu'un utilisateur (connecté ou non) veut soumettre un flux, on lui demandera le nom du flux, l'URL et éventuellement les options VLC (stocké dans un champs texte) pouvant faire fonctionner le flux. Un champs permettra aussi de spécifié le FAI requis pour lire le flux. Il sera aussi possible d'ajouter directement une remarque sur le flux (par exemple pour spécifier que le flux n'est disponible que pour un pays ou une plage horaire).
 
-Bien sur un formulaire de recherche permettra de rechercher des chaînes en fonction de leur type, leur langue ou leur pays ou du FAI...
+On doit stocker la date de soumission du flux et l'utilisateur l'ayant soumis. Si un utilisateur n'est pas enregistré on lui demandera de saisir en plus un pseudo et une adresse E-Mail.
+
+Un flux possède aussi un cycle de vie : proposé, validé, invalide, mort.
+
+Seul modérateur aura la possibilité de changer le statut du lien. Il pourra aussi en modifier les informations enregistrées (Nom, URL...).
+
+Il serait une bonne chose de pouvoir gérer l'ajout de commentaire de la part des utilisateurs pour un flux.
+
+\subsubsection{Rattachement à une chaîne connu}
+
+Un flux pourra être rattaché à une chaîne TV. Ces chaînes comportent de nombreux attributs : un nom, une langue, un pays d'origine, un logo, un type de chaînes (généraliste, sport, cinéma...), un site web, un lien direct vers le programme tv, une ou plusieurs page wikipedia suivant la langue... Certains de ces attributs seront utilisé pour rechercher un flux via un formulaire de recherche.
+
+Seul un utilisateur ayant le droit d'édition de chaînes pourra ajouter ou modifier des chaînes dans la base de donnée. Un modérateur pourra au moment de la validation du flux choisir la chaîne à rattaché au flux.
+
+\subsubsection{Recherche de chaîne}
+
+Un formulaire de recherche permettra la recherche des flux ou des chaînes en fonction de leur nom, leur type, leur langue, leur pays ou leur FAI.
 
 \subsection{Génération de playlist}
 
 Le but de s'amuser à faire une base de donnée des WebTV est de pouvoir facilement générer des playlist m3u en fonction de divers paramètres. Par exemple, avoir toutes les chaînes de sport en français. On doit pouvoir générer la playlist uniquement avec des paramètres en URL (ex : \url{http://webtv/playlist/?type=sport&lang=fr}).
 
-\subsection{Gestion des utilisateurs}
-
-L'application devra donc avoir un système de gestion des utilisateurs afin que ceux ci puisse créer leur propre playlist personalisé avec les chaînes existantes. De plus, il pourrons signaler les WebTV dont le lien est mort et proposé des nouveaux flux. Pour des problèmes de droit, les flux proposé devront être modérer afin que l'application ne devienne pas illégal en proposant des contenus abusifs.
-
-Pour le moment, seul les moderateurs doivent pouvoir modifier le contenu du site facilement lorsqu'il sont authentifier. Mais prévoir, qu'il soit possible qu'une personne non modérateur puisse aussi réaliser ces modifications à l'avenir.
+Cette URL sera généré automatiquement à partir du formulaire de recherche et affiché au niveau des résultats. Seul les flux ayant un statut valide seront généré.
 
 \subsection{Web Service}
 
-Cette fonction n'est pas une priorité dans l'immédiat, mais il faut prévoir qu'un jour elle pourrait être indispensable. Un Web Service pourrait permettre à FreetuxTV de plus facilement dialoguer avec la base de donnée. 
+Cette fonction n'est pas une priorité dans l'immédiat, mais il faut prévoir qu'un jour elle pourrait être indispensable. Un Web Service pourrait permettre à FreetuxTV de plus facilement dialoguer avec la base de donnée.
 
 \subsubsection{Détection de lien mort}
 
@@ -70,16 +96,16 @@ On pourrait aussi utiliser le WebService afin d'établir un système de mesure d
 
 Voici un premier jet de l'architecture de la base de donnée.
 
-\subsection{Table Lang}
+\subsection{Table wtvm\_Lang}
 
-Cette table contient les attributs concernant une langue.
+Cette table contient les attributs concernant une langue. Les tables seront toutes préfixées par wtvm\_.
 
 \begin{itemize}
 \item code : code ISO\_639-1 de la langue (\url{http://fr.wikipedia.org/wiki/Liste\_des\_codes\_ISO\_639-2})
 \item label : nom anglais de la langue
 \end{itemize}
 
-\subsection{Table Country}
+\subsection{Table wtvm\_Country}
 
 Cette table contient les attributs concernant un pays.
 
@@ -88,7 +114,7 @@ Cette table contient les attributs concernant un pays.
 \item label : nom anglais du pays
 \end{itemize}
 
-\subsection{Table TVChannelType}
+\subsection{Table wtvm\_TVChannelType}
 
 Cette table contient les attributs concernant le type d'un chaîne.
 
@@ -97,7 +123,7 @@ Cette table contient les attributs concernant le type d'un chaîne.
 \item label : nom anglais du type de chaîne
 \end{itemize}
 
-\subsection{Table TVChannel}
+\subsection{Table wtvm\_TVChannel}
 
 Cette table contient les attributs concernant une chaîne.
 
@@ -112,17 +138,7 @@ Cette table contient les attributs concernant une chaîne.
 \item guideurl : url direct du guide officiel de la chaîne
 \end{itemize}
 
-\subsection{Table TVChannelOtherName}
-
-Cette table contient les attributs concernant le nom alternatif d'une chaîne qu'on peut trouver dans les playlists.
-
-\begin{itemize}
-\item id : identifiant unique
-\item name : nom alternatif de la chaîne
-\item tvchannel\_id : identifiant de la chaîne associé
-\end{itemize}
-
-\subsection{Table TVChannelStream}
+\subsection{Table wtvm\_TVChannelStream}
 
 Cette table contient les attributs concernant le flux d'une chaîne TV.
 
@@ -130,19 +146,12 @@ Cette table contient les attributs concernant le flux d'une chaîne TV.
 \item id : identifiant unique
 \item name : nom donné au flux
 \item url : url du flux
+\item required\_isp : nom du FAI requis
+\item comments : commentaire éventuel sur le flux
 \item tvchannel\_id : identifiant de la chaîne associé
 \end{itemize}
 
-\subsection{Table UserProfil}
-
-Cette table contient les attributs concernant le profil d'un utilisateur (administateur, moderateur, utilisateur).
-
-\begin{itemize}
-\item id : identifiant unique
-\item label : nom anglais du profil
-\end{itemize}
-
-\subsection{Table User}
+\subsection{Table wtvm\_User}
 
 Cette table contient les attributs concernant un utilisateur de l'application.
 
@@ -150,7 +159,8 @@ Cette table contient les attributs concernant un utilisateur de l'application.
 \item id : identifiant unique
 \item login : nom d'utilisateur
 \item password : mot de passe crypté
-\item profil\_id : identifiant du profil
+\item email : e-mail de l'utilisateur
+\item rights : liste des droits de l'utilisateur (flags)
 \end{itemize}
 
 \section{Contraintes techniques}
