@@ -51,8 +51,7 @@ load_model_channels_group_from_file(FreetuxTVApp* app, GError** error)
 	
 	// Get the good file to use
 	gchar* file = NULL;
-	file = g_strdup_printf("%s/FreetuxTV/cache/channels_groups.dat",
-			       g_get_user_config_dir());
+	file = g_build_filename(g_get_user_cache_dir(), "freetuxtv", "channels_groups.dat", NULL);
 	
 	struct stat file_stat;
 	if(g_stat (file, &file_stat) != 0){
