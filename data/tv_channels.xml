@@ -67,6 +67,9 @@
 	<tvchannel name="Apsara TV">
 		<logo_filename>apsaratv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Archeo TV">
+		<logo_filename>archeotv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="APTV Martinique">
 		<logo_filename>aptv.png</logo_filename>
 	</tvchannel>
@@ -168,6 +171,9 @@
 	</tvchannel>
 	<tvchannel name="Canal Info News">
 		<logo_filename>canalinfonews.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canalmoza">
+		<logo_filename>canalmoza.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Canal+">
 		<logo_filename>canalplus.png</logo_filename>
@@ -278,6 +284,9 @@
 	</tvchannel>
 	<tvchannel name="CPAC">
 		<logo_filename>cpac.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CT2E">
+		<logo_filename>ct2e.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Demain.tv">
 		<logo_filename>demaintv.png</logo_filename>
@@ -477,6 +486,9 @@
 	<tvchannel name="Hilal TV">
 		<logo_filename>hilaltv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="HiScore TV">
+		<logo_filename>hiscore.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Hit West">
 		<logo_filename>hitwest.png</logo_filename>
 	</tvchannel>
@@ -488,6 +500,9 @@
 	</tvchannel>
 	<tvchannel name="IMED TV">
 		<logo_filename>imedtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Info Sport">
+		<logo_filename>infosport.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Inraci">
 		<logo_filename>inraci.png</logo_filename>
@@ -1038,6 +1053,10 @@
 	<tvchannel name="Soleil La Radio">
 		<logo_filename>soleil_la_radio.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Soleil TV">
+		<logo_filename>soleiltv.png</logo_filename>
+		<label>Tvcaraibe (Soleil TV)</label>
+	</tvchannel>
 	<tvchannel name="Souvenirs from Earth">
 		<logo_filename>souvenirfromearth.png</logo_filename>
 	</tvchannel>
@@ -1195,6 +1214,9 @@
 	<tvchannel name="TV Romania">
 		<logo_filename>tvromania.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="TVSF">
+		<logo_filename>tvsf.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="TVT">
 		<logo_filename>tvt.png</logo_filename>
 	</tvchannel>
@@ -1236,6 +1258,7 @@
 	</tvchannel>
 	<tvchannel name="Wéo">
 		<logo_filename>weo.png</logo_filename>
+		<label>Weo</label>
 	</tvchannel>
 	<tvchannel name="World Fashion">
 		<logo_filename>worldfashion.png</logo_filename>
