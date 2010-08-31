@@ -119,8 +119,8 @@ dbsync_open_db(DBSync *dbsync, GError** error)
 	gchar *user_db;
 	int res;
 
-	user_db = g_strconcat(g_get_user_config_dir(), 
-	    "/FreetuxTV/freetuxtv.db", NULL);
+	user_db = g_build_filename(g_get_user_config_dir(), 
+	                           "FreetuxTV", "freetuxtv.db", NULL);
 
 	// Open the database if not open
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
@@ -159,8 +159,8 @@ dbsync_db_exists(DBSync *dbsync)
 	gchar *user_db;
 	gboolean res = FALSE;
 
-	user_db = g_strconcat(g_get_user_config_dir(), 
-	                      "/FreetuxTV/freetuxtv.db", NULL);
+	user_db = g_build_filename(g_get_user_config_dir(), 
+	                           "FreetuxTV", "freetuxtv.db", NULL);
 
 	if (g_file_test (user_db, G_FILE_TEST_IS_REGULAR)){
 		res = TRUE;

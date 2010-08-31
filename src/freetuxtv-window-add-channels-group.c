@@ -331,8 +331,7 @@ on_buttonrefresh_clicked (GtkButton *button, gpointer user_data)
 	gchar *url;
 	gchar *dst_file;
 	url = (gchar*)gtk_entry_get_text (GTK_ENTRY(widget));
-	dst_file = g_strdup_printf("%s/FreetuxTV/cache/channels_groups.dat",
-	    g_get_user_config_dir());
+	dst_file = g_build_filename(g_get_user_cache_dir(), "freetuxtv", "channels_groups.dat", NULL);
 	freetuxtv_fileutils_get_file (url, dst_file, &error);
 
 	if(error == NULL){
