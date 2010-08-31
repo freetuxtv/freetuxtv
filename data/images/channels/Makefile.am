@@ -21,6 +21,7 @@ channels_DATA = \
   america-free-tv.png \
   apsaratv.png \
   aptv.png \
+  archeotv.png \
   argentquebec.png \
   armeniapublictv.png \
   armeniatv.png \
@@ -53,6 +54,7 @@ channels_DATA = \
   canalacademie.png \
   canalalgerie.png \
   canalinfonews.png \
+  canalmoza.png \
   canalplus.png \
   canalsavoir.png \
   canaltv.png \
@@ -86,6 +88,7 @@ channels_DATA = \
   corriland.png \
   couleur3-rsr.png \
   cpac.png \
+  ct2e.png \
   demaintv.png \
   direct8.png \
   dubaitv.png \
@@ -137,10 +140,12 @@ channels_DATA = \
   hebei_tv.png \
   heilongjiangtv.png \
   hilaltv.png \
+  hiscore.png \
   hitwest.png \
   hunansatellitetv.png \
   idf1.png \
   imedtv.png \
+  infosport.png \
   inraci.png \
   inspirationnetwork.png \
   ishtartv.png \
@@ -311,6 +316,7 @@ channels_DATA = \
   skynewsinternational.png \
   skyrock.png \
   soleil_la_radio.png \
+  soleiltv.png \
   souvenirfromearth.png \
   stlfm.png \
   sudradio.png \
@@ -359,6 +365,7 @@ channels_DATA = \
   tvpi.png \
   tvpolonia-tvp.png \
   tvromania.png \
+  tvsf.png \
   tvt.png \
   tvtours.png \
   tvvi.png \
