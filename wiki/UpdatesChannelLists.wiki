@@ -9,6 +9,7 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 * 01/09/2010  - Liste Web Radio (Allemand)
 
 -Correction problemes avec webradios du groupe Antenne Bayern. Liste en MP3 et AAC.
+-Ajout radio WDR 2 Radio et WDR 2 Regionalstreams 
 
 * 25/08/2010  - Liste Web Radio (Allemand)
 
