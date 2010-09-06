@@ -927,6 +927,75 @@ dbsync_switch_position_channels_group (DBSync *dbsync,
 }
 
 void
+dbsync_switch_position_channel (DBSync *dbsync,
+    FreetuxTVChannelInfos* pChannelInfosA,
+    FreetuxTVChannelInfos* pChannelInfosB,
+    GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	g_return_if_fail(pChannelInfosA != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNEL_INFOS(pChannelInfosA));
+	g_return_if_fail(pChannelInfosB != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNEL_INFOS(pChannelInfosB));
+
+	gchar *query;
+	gchar *db_err = NULL;
+	int res;
+
+	int tmp;
+
+	// Update the group
+	query = sqlite3_mprintf("UPDATE %s SET %s=%d WHERE %s=%d",
+	    // UPDATE
+	    DB_CHANNEL,
+	    // SET
+	    DB_CHANNEL_POSITION, pChannelInfosB->position,
+	    // WHERE
+	    DB_CHANNEL_ID, pChannelInfosA->id);
+	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+	sqlite3_free(query);
+
+	if(res != SQLITE_OK){
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+		    _("Error when updating the channel \"%s\".\n\nSQLite has returned error :\n%s."),
+		    pChannelInfosA->name, sqlite3_errmsg(dbsync->db_link));
+		sqlite3_free(db_err);
+	}
+
+	if(*error == NULL){
+		tmp = pChannelInfosA->position;
+		pChannelInfosA->position = pChannelInfosB->position;
+		
+		// Update the group
+		query = sqlite3_mprintf("UPDATE %s SET %s=%d WHERE %s=%d",
+			// UPDATE
+			DB_CHANNEL,
+			// SET
+			DB_CHANNEL_POSITION, tmp,
+			// WHERE
+			DB_CHANNEL_ID, pChannelInfosB->id);
+		res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+		sqlite3_free(query);
+
+		if(res != SQLITE_OK){
+			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+				_("Error when updating the channel \"%s\".\n\nSQLite has returned error :\n%s."),
+				pChannelInfosB->name, sqlite3_errmsg(dbsync->db_link));
+			sqlite3_free(db_err);
+		}
+	}
+
+	if(*error == NULL){
+		pChannelInfosB->position = tmp;
+	}
+}
+
+void
 dbsync_update_channels_group_last_update (DBSync *dbsync,
     FreetuxTVChannelsGroupInfos* channels_group_infos,
     GError** error)
