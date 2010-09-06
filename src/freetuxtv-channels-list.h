@@ -66,6 +66,11 @@ channels_list_switch_channels_group (FreetuxTVApp *app,
                                      GtkTreePath *pPathGroupSrc, GtkTreePath *pPathGroupDest,
                                      DBSync* dbsync, GError** error);
 
+void
+channels_list_switch_channel (FreetuxTVApp *app,
+                              GtkTreePath *pPathChannelSrc, GtkTreePath *pPathChannelDest,
+                              DBSync* dbsync, GError** error);
+
 gboolean
 channels_list_get_prev_channel (FreetuxTVApp *app,
                                 GtkTreePath **path_prev_channel);
