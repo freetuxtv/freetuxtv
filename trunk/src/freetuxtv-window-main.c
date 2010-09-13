@@ -33,6 +33,11 @@
 #include "freetuxtv-db-sync.h"
 #include "freetuxtv-models.h"
 
+static void
+windowmain_add_accelerator (GtkAccelGroup *p_accel_group,
+                            const gchar *accelerator, const gchar *accel_path,
+                            GCallback callback, gpointer user_data);
+
 static gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data);
 
@@ -183,12 +188,45 @@ on_aboutdialog_response (GtkDialog *dialog,
 static void
 dialogpreferences_update_view(FreetuxTVApp *app);
 
+static gboolean
+on_accel_playpause (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                    GdkModifierType modifier, gpointer user_data);
+
+static gboolean
+on_accel_fullscreen (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                     GdkModifierType modifier, gpointer user_data);
+
+static gboolean
+on_accel_unfullscreen (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                       GdkModifierType modifier, gpointer user_data);
+
+static gboolean
+on_accel_volumeup (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                   GdkModifierType modifier, gpointer user_data);
+
+static gboolean
+on_accel_volumedown (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                     GdkModifierType modifier, gpointer user_data);
+
 void
 windowmain_init(FreetuxTVApp *app)
 {
 	GtkWidget *widget;
 	//GtkWidget *button;
 	GtkWidget *pMenuBar = NULL;
+
+	// Window accelerators
+	app->widget.pAccelGroup = gtk_accel_group_new ();
+	windowmain_add_accelerator (app->widget.pAccelGroup, "f", "<FreetuxTV>/Fullscreen",
+	                            G_CALLBACK (on_accel_fullscreen), app);
+	windowmain_add_accelerator (app->widget.pAccelGroup, "Escape", "<FreetuxTV>/Unfullscreen",
+	                            G_CALLBACK (on_accel_unfullscreen), app);
+	windowmain_add_accelerator (app->widget.pAccelGroup, "space", "<FreetuxTV>/PlayPause",
+	                            G_CALLBACK (on_accel_playpause), app);
+	windowmain_add_accelerator (app->widget.pAccelGroup, "<Control>Up", "<FreetuxTV>/VolumeUp",
+	                            G_CALLBACK (on_accel_volumeup), app);
+	windowmain_add_accelerator (app->widget.pAccelGroup, "<Control>Down", "<FreetuxTV>/VolumeDown",
+	                            G_CALLBACK (on_accel_volumedown), app);
 
 	// Initialize menu bar	
 	pMenuBar = gtk_menu_bar_new ();
@@ -347,6 +385,8 @@ windowmain_init(FreetuxTVApp *app)
 	                 "delete-event",
 	                 G_CALLBACK(on_windowmain_deleteevent),
 	                 app);
+	
+	gtk_window_add_accel_group(GTK_WINDOW(widget), app->widget.pAccelGroup);
 
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 	                                              "windowmain_buttonclearfilter");
@@ -439,6 +479,8 @@ windowmain_init(FreetuxTVApp *app)
 	                 "delete-event",
 	                 G_CALLBACK(on_windowmain_deleteevent),
 	                 app);
+	
+	gtk_window_add_accel_group(GTK_WINDOW(widget), app->widget.pAccelGroup);
 
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                               "windowminimode_buttonnormalmode");
@@ -554,6 +596,22 @@ windowmain_init(FreetuxTVApp *app)
 	                 "delete-event",
 	                 G_CALLBACK(gtk_widget_hide_on_delete),
 	                 NULL);
+}
+
+void
+windowmain_dispose(FreetuxTVApp *app)
+{
+	GtkWidget *widget;
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                              "windowmain");
+	gtk_window_remove_accel_group (GTK_WINDOW(widget), app->widget.pAccelGroup);
+	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "windowminimode");
+	gtk_window_remove_accel_group (GTK_WINDOW(widget), app->widget.pAccelGroup);
+	
+	gtk_accel_group_unref (app->widget.pAccelGroup);
+	app->widget.pAccelGroup = NULL;
 }
 
 void
@@ -768,6 +826,21 @@ windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms, gf
 	}else{
 		gtk_widget_set_sensitive(widget, FALSE);
 	}
+}
+
+static void
+windowmain_add_accelerator (GtkAccelGroup *p_accel_group,
+                           const gchar *accelerator, const gchar *accel_path,
+                           GCallback callback, gpointer user_data)
+{
+	guint key;
+	GdkModifierType mods;
+	GClosure *closure = NULL;
+
+	gtk_accelerator_parse (accelerator, &key, &mods);
+	closure = g_cclosure_new (callback, user_data, NULL);
+	gtk_accel_group_connect (p_accel_group, key, mods, GTK_ACCEL_VISIBLE, closure);
+	gtk_accel_map_add_entry (accel_path, key, mods);
 }
 
 static gboolean
@@ -1643,4 +1716,104 @@ dialogpreferences_update_view(FreetuxTVApp *app)
 		                                               "dialogpreferences_entryproxypassword");
 		gtk_widget_set_sensitive (widget, FALSE);
 	}
+}
+
+static gboolean
+on_accel_playpause (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                     GdkModifierType modifier, gpointer user_data)
+{
+	GError* error = NULL;
+
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	freetuxtv_action_playpause (app, &error);
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	return TRUE;
+}
+
+static gboolean
+on_accel_fullscreen (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                     GdkModifierType modifier, gpointer user_data)
+{
+	GError* error = NULL;
+
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	gtk_libvlc_media_player_set_fullscreen (app->player, TRUE, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	return TRUE;
+}
+
+static gboolean
+on_accel_unfullscreen (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                       GdkModifierType modifier, gpointer user_data)
+{
+	GError* error = NULL;
+
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	gtk_libvlc_media_player_set_fullscreen (app->player, FALSE, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	return TRUE;
+}
+
+static gboolean
+on_accel_volumeup (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                   GdkModifierType modifier, gpointer user_data)
+{
+	GError* error = NULL;
+	GtkWidget* widget;
+
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                              "windowmain_volumecontrol");
+
+	app->config.volume = app->config.volume + 0.10;
+	if(app->config.volume >= 1.0){
+		app->config.volume = 1.0;
+	}
+	gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
+	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, &error);
+
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	return TRUE;
+}
+
+static gboolean
+on_accel_volumedown (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                     GdkModifierType modifier, gpointer user_data)
+{
+	GError* error = NULL;
+	GtkWidget* widget;
+
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                              "windowmain_volumecontrol");
+
+	app->config.volume = app->config.volume - 0.10; 
+	if(app->config.volume <= 0.0){
+		app->config.volume = 0.0;
+	}
+	gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
+	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, &error);
+
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	return TRUE;
 }

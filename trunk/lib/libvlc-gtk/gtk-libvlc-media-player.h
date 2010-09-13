@@ -120,6 +120,9 @@ gtk_libvlc_media_player_get_fullscreen (GtkLibvlcMediaPlayer *self);
 void
 gtk_libvlc_media_player_toggle_fullscreen (GtkLibvlcMediaPlayer *self, GError** error);
 
+void
+gtk_libvlc_media_player_set_accel_group (GtkLibvlcMediaPlayer *self, GtkAccelGroup *accel_group);
+
 gboolean
 gtk_libvlc_media_player_is_playing (GtkLibvlcMediaPlayer *self, GError** error);
 
