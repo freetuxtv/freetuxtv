@@ -101,6 +101,8 @@ struct _FreetuxTVApp {
 	} current;
 
 	struct {
+		GtkAccelGroup *pAccelGroup;
+		
 		GtkWidget* pMenuDeinterlaceDisable;
 		GtkWidget* pMenuDeinterlaceBlend;
 		GtkWidget* pMenuDeinterlaceBob;

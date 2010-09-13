@@ -661,6 +661,8 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	g_object_unref(G_OBJECT(instance));
 	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
 
+	gtk_libvlc_media_player_set_accel_group (app->player, app->widget.pAccelGroup);
+
 	return app;
 
 }
@@ -1238,6 +1240,9 @@ freetuxtv_quit (FreetuxTVApp *app)
 
 	g_free (filename);
 	g_free (contents);
+
+	// Dispose the app
+	windowmain_dispose (app);
 
 	if(error != NULL){
 		windowmain_show_gerror (app, error);

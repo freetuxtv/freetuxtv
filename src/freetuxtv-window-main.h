@@ -33,6 +33,9 @@ void
 windowmain_init(FreetuxTVApp *app);
 
 void
+windowmain_dispose(FreetuxTVApp *app);
+
+void
 windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode);
 
 void

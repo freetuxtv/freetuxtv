@@ -42,6 +42,8 @@ struct _GtkLibvlcMediaPlayerPrivate
 	GtkWidget* pWindowFullscreen;
 
 	gboolean isModeFullscreen;
+
+	GtkAccelGroup *pAccelGroup;
 };
 
 #define GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), GTK_TYPE_LIBVLC_MEDIA_PLAYER, GtkLibvlcMediaPlayerPrivate))
@@ -120,6 +122,8 @@ gtk_libvlc_media_player_init (GtkLibvlcMediaPlayer *object)
 #endif // LIBVLC_OLD_FULLSCREEN_MODE
 	
 	priv->isModeFullscreen = FALSE;
+
+	priv->pAccelGroup = NULL;
 }
 
 static void
@@ -282,6 +286,11 @@ gtk_libvlc_media_player_finalize (GObject *object)
 		priv->pWindowFullscreen = NULL;
 	}
 #endif // LIBVLC_OLD_FULLSCREEN_MODE
+
+	if(priv->pAccelGroup){
+		gtk_accel_group_unref(priv->pAccelGroup);
+		priv->pAccelGroup = NULL;
+	}
 
 	G_OBJECT_CLASS (gtk_libvlc_media_player_parent_class)->finalize (object);
 
@@ -1277,9 +1286,11 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean ful
 #ifndef LIBVLC_OLD_FULLSCREEN_MODE
 				if(priv->pWindowFullscreen == NULL){
 					priv->pWindowFullscreen = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+					// We attach the accel accel groups
+					gtk_window_add_accel_group (GTK_WINDOW(priv->pWindowFullscreen), priv->pAccelGroup);
 				}
 				priv->pWigdetOriginalParent = gtk_widget_get_parent (GTK_WIDGET(self));
-				gtk_widget_show (priv->pWindowFullscreen);
+       			gtk_widget_show (priv->pWindowFullscreen);
 
 				gtk_widget_reparent (GTK_WIDGET(self), priv->pWindowFullscreen);
 				gtk_window_fullscreen(GTK_WINDOW(priv->pWindowFullscreen));
@@ -1348,6 +1359,32 @@ gtk_libvlc_media_player_toggle_fullscreen (GtkLibvlcMediaPlayer *self, GError** 
 	}else{
 		gtk_libvlc_media_player_set_fullscreen (self, TRUE, error);
 	}
+}
+
+void
+gtk_libvlc_media_player_set_accel_group (GtkLibvlcMediaPlayer *self,
+                                         GtkAccelGroup *accel_group)
+{
+	g_return_if_fail(self != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+
+	GtkLibvlcMediaPlayerPrivate* priv;
+	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
+
+	if(priv->pWindowFullscreen != NULL && priv->pAccelGroup != NULL){
+		gtk_window_remove_accel_group (GTK_WINDOW(priv->pWindowFullscreen), priv->pAccelGroup);
+	}
+	
+	if(priv->pAccelGroup){
+		gtk_accel_group_unref(priv->pAccelGroup);
+		priv->pAccelGroup = NULL;
+	}
+
+	if(priv->pWindowFullscreen != NULL && priv->pAccelGroup != NULL){
+		gtk_window_add_accel_group (GTK_WINDOW(priv->pWindowFullscreen), priv->pAccelGroup);
+	}
+
+	priv->pAccelGroup = accel_group;
 }
 
 gboolean
