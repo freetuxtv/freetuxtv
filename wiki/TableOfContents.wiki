@@ -4,6 +4,7 @@
   * [RoadMap RoadMap]
   * Documentation utilisateur
     * [HowToInstall Installation]
+    * [Manual Manuel utilisateur]
     * [FAQ FAQ]
     * [UpdatesChannelLists MAJ des listes de chaînes]
   * Pour les contributeurs
