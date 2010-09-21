@@ -1,0 +1,128 @@
+# Czech translation of languageicons (6.x-1.0-rc1)
+# Copyright (c) 2008 by the Czech translation team
+# Generated from files:
+#  languageicons.module,v 1.2.2.3 2008/08/16 13:16:24 freso
+#  languageicons.admin.inc,v 1.1.2.2 2008/08/11 17:25:55 freso
+#  languageicons/languageicons.info: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: languageicons (6.x-1.0-rc1)\n"
+"POT-Creation-Date: 2008-11-02 11:26+0100\n"
+"PO-Revision-Date: 2008-11-02 11:26+0100\n"
+"Language-Team: Czech\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((n>=2)&&(n<=4))?(1):2));\n"
+
+#: languageicons.module:51
+msgid "Configure"
+msgstr "Nastavení"
+
+#: languageicons.admin.inc:18
+msgid "Add language icons"
+msgstr "Přidat ikony jazyků"
+
+#: languageicons.admin.inc:19
+msgid "Link types to add language icons."
+msgstr "Typy odkazů pro přidání jazykových ikon."
+
+#: languageicons.admin.inc:23
+msgid "Node links"
+msgstr "Odkazy na uzly"
+
+#: languageicons.admin.inc:28
+msgid "Language switcher block"
+msgstr "Blok s přepínačem jazyků"
+
+#: languageicons.admin.inc:33
+msgid "Icon placement"
+msgstr "Umístění ikony"
+
+#: languageicons.admin.inc:34
+msgid "Before"
+msgstr "Před"
+
+#: languageicons.admin.inc:34
+msgid "After"
+msgstr "Po"
+
+#: languageicons.admin.inc:34
+msgid "Replace"
+msgstr "Nahradit"
+
+#: languageicons.admin.inc:36
+msgid "Where to display the icon, relative to the link title."
+msgstr "Kde zobrazit ikonu, relativně vzhledem k textu odkazu."
+
+#: languageicons.admin.inc:40
+msgid "Icons file path"
+msgstr "Cesta k souboru s ikonami"
+
+#: languageicons.admin.inc:44
+msgid ""
+"Path for language icons, relative to Drupal installation. '*' is a "
+"placeholder for language code."
+msgstr ""
+"Cesta k ikonám jazyků, relativně k instalaci Drupalu. '*' nahrazuje "
+"kód jazyka."
+
+#: languageicons.admin.inc:48
+msgid "Image size"
+msgstr "Velikost obrázku"
+
+#: languageicons.admin.inc:52
+msgid "Image size for language icons, in the form \"width x height\"."
+msgstr ""
+"Velikost obrázku pro jazykové ikony, zadávejte ve tvaru\"šířka x "
+"výška\"."
+
+#: languageicons.module:33
+msgid "This module manages language icons for multilingual sites:"
+msgstr "Tento modul spravuje ikony jazyků pro vícejazyčné stránky:"
+
+#: languageicons.module:35
+msgid "Automatically adds icons to language links"
+msgstr "Automaticky přidává ikony k jazykovým odkazům"
+
+#: languageicons.module:36
+msgid "Provides related theme functions"
+msgstr "Poskytuje funkce související s tématy vzhledu"
+
+#: languageicons.module:38
+msgid ""
+"For more information please read the <a href=\"@i18n\">on-line help "
+"pages</a>."
+msgstr ""
+"Pro více informací si prosím přečtěte <a href=\"@i18n\">on-line "
+"nápovědu</a>."
+
+#: languageicons.module:41
+msgid ""
+"To enable multilingual support for specific content types go to "
+"!configure_content_types."
+msgstr ""
+"Pro zapnutí multijazyčné podpory pro určité typy obsahu jděte na "
+"stránku !configure_content_types."
+
+#: languageicons.module:41
+msgid "configure content types"
+msgstr "konfigurace typů obsahu"
+
+#: languageicons.module:58
+msgid "Icons"
+msgstr "Ikony"
+
+#: languageicons.module:0
+msgid "languageicons"
+msgstr "languageicons"
+
+#: languageicons.info:0
+msgid "Language Icons"
+msgstr "Jazykové ikony"
+
+#: languageicons.info:0
+msgid "Adds icons to language links."
+msgstr "Přidá ikony k odkazům na jazykové verze."
+

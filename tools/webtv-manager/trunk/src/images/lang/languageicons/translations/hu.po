@@ -1,0 +1,121 @@
+# $Id: hu.po,v 1.2 2008/11/11 19:05:59 freso Exp $
+#
+# Hungarian translation of Drupal module languageicons
+# Copyright Balogh Zoltán <zly@bernathegyi.info>
+# Generated from files:
+#  languageicons.admin.inc,v 1.1.2.2 2008/08/11 17:25:55 freso
+#  languageicons.module,v 1.2.2.3 2008/08/16 13:16:24 freso
+#  languageicons.info: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Drupal module languageicons\n"
+"POT-Creation-Date: 2008-10-01 14:45+0200\n"
+"PO-Revision-Date: 2008-10-17 12:17+0100\n"
+"Last-Translator: Balogh Zoltán <zly@bernathegyi.info>\n"
+"Language-Team: Drupal fordítási csapat <forditas@drupal.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: ../languageicons.admin.inc:18
+msgid "Add language icons"
+msgstr "Nyelvi ikonok hozzáadása"
+
+#: ../languageicons.admin.inc:19
+msgid "Link types to add language icons."
+msgstr "Hivatkozás típusok a nyelvi ikonok hozzáadásához"
+
+#: ../languageicons.admin.inc:23
+msgid "Node links"
+msgstr "Tartalmi hivatkozások"
+
+#: ../languageicons.admin.inc:28
+msgid "Language switcher block"
+msgstr "Nyelv kiválasztó blokk"
+
+#: ../languageicons.admin.inc:33
+msgid "Icon placement"
+msgstr "Ikon elhelyezése"
+
+#: ../languageicons.admin.inc:34
+msgid "Before"
+msgstr "Előtte"
+
+#: ../languageicons.admin.inc:34
+msgid "After"
+msgstr "Utána"
+
+#: ../languageicons.admin.inc:34
+msgid "Replace"
+msgstr "Helyette"
+
+#: ../languageicons.admin.inc:36
+msgid "Where to display the icon, relative to the link title."
+msgstr "A hivatkozáshoz képest hol jelenjen meg az ikon."
+
+#: ../languageicons.admin.inc:40
+msgid "Icons file path"
+msgstr "Ikonok elérési útja"
+
+#: ../languageicons.admin.inc:44
+msgid "Path for language icons, relative to Drupal installation. '*' is a placeholder for language code."
+msgstr "A nyelvi ikonok elérési útja a Drupal telepítési könyvtárához képest. A „*” jelöli a nyelv kódját."
+
+#: ../languageicons.admin.inc:48
+msgid "Image size"
+msgstr "Kép mérete"
+
+#: ../languageicons.admin.inc:52
+msgid "Image size for language icons, in the form \"width x height\"."
+msgstr "A nyelvi ikonok képmérete „szélesség x magasság” formátumban."
+
+#: ../languageicons.module:33
+msgid "This module manages language icons for multilingual sites:"
+msgstr "Ez a modul kezeli a nyelvi ikonokat a többnyelvű oldalakon:"
+
+#: ../languageicons.module:35
+msgid "Automatically adds icons to language links"
+msgstr "Automatikusan ikont rendel a nyelvi hivatkozásokhoz"
+
+#: ../languageicons.module:36
+msgid "Provides related theme functions"
+msgstr "Gondoskodik a kapcsolódó smink függvényekről"
+
+#: ../languageicons.module:38
+msgid "For more information please read the <a href=\"@i18n\">on-line help pages</a>."
+msgstr "Bővebb információ a <a href=\"@i18n\">súgó oldalon</a>."
+
+#: ../languageicons.module:41
+msgid "To enable multilingual support for specific content types go to !configure_content_types."
+msgstr "Az egyes tartalom típusok több nyelven történő kezelésének bekapcsolása a !configure_content_types oldalon."
+
+#: ../languageicons.module:41
+msgid "configure content types"
+msgstr "tartalom típusok beállítása"
+
+#: ../languageicons.module:51
+msgid "Configure"
+msgstr "Beállítás"
+
+#: ../languageicons.module:58
+msgid "Icons"
+msgstr "Ikonok"
+
+#: ../languageicons.module:0
+msgid "languageicons"
+msgstr "languageicons"
+
+#: ../languageicons.info:0
+msgid "Language Icons"
+msgstr "Language Icons"
+
+#: ../languageicons.info:0
+msgid "Adds icons to language links."
+msgstr "Ikonokat rendel a nyelvi hivatkozásokhoz."
+
+#: ../languageicons.info:0
+msgid "Multilanguage"
+msgstr "Többnyelvűség"
+
