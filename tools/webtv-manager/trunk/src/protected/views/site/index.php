@@ -18,7 +18,7 @@
 	<div class="row">
 		<?php echo CHtml::label('Language', 'WebStreamLang'); ?>
 		<?php
-			$dropList["all"] = "-- All --";
+			$dropList = array("all" => "-- All --");
 			$dropListTmp = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
 			$dropList = array_merge($dropList, $dropListTmp);
 			echo CHtml::dropDownList('WebStreamLang', 'all', $dropList, array ('key'=>'all'));
@@ -28,9 +28,12 @@
 	<div class="row">
 		<?php echo CHtml::label('Status', 'WebStreamStatus'); ?>
 		<?php
-			$dropList["all"] = "-- All --";
+			$dropList = array("all" => "-- All --");
 			$dropListTmp = CHtml::listData(StreamStatus::model()->findAll('Searchable=TRUE'), 'Code', 'Label');
-			$dropList = array_merge($dropList, $dropListTmp);
+			// array_merge is not good for key with integer
+			foreach($dropListTmp as $key => $value){
+				$dropList[$key]=$value;
+			}
 			echo CHtml::dropDownList('WebStreamStatus', 'all', $dropList, array ('key'=>'all'));
 		?>
 	</div>
