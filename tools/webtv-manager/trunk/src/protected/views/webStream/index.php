@@ -13,12 +13,15 @@ $this->menu=array(
 <h1>Web Streams</h1>
 
 <?php
-	$playlist_link = "./playlist/index.php";
+	$playlist_link = $this->createUrl("Playlist/", $playlist_params);
 ?>
 
-Playlist corresponding to the search : <a href="<?php echo $playlist_link; ?>"><?php echo $playlist_link; ?></a>
+Playlist corresponding to the search : <br/>
+=> <?php echo CHtml::link($playlist_link, $playlist_link); ?><br/><br/>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php
+	
+	$this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
 	'columns'=>array(
         array(
@@ -33,6 +36,12 @@ Playlist corresponding to the search : <a href="<?php echo $playlist_link; ?>"><
             'value'=>'"images/lang/languageicons/flags/".strtolower($data->LangCode).".png"',
         ),
         array(
+            'name'=>'Type',
+			'type'=>'html',
+			'htmlOptions' => array('style'=>'text-align:center'),
+            'value'=>'"<font>".$data->getTypeStreamName()."</font>"',
+        ),
+        array(
             'name'=>'Status',
 			'type'=>'html',
 			'htmlOptions' => array('style'=>'text-align:center'),
@@ -41,6 +50,8 @@ Playlist corresponding to the search : <a href="<?php echo $playlist_link; ?>"><
         array(
 			'class'=>'CButtonColumn',
             'header'=>'Edit',
+			//'deleteButtonOptions' => array('style'=>'display:none'),
+			//'updateButtonOptions' => array('style'=>'display:none'),
         ),
     ),
 )); ?>

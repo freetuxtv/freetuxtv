@@ -102,4 +102,14 @@ class WebStream extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function getTypeStreamName()
+	{
+		switch($this->TypeStream){
+		case 1 : return "WebTV";
+		case 2 : return "WebRadio";
+		case 3 : return "Webcam";
+		}
+		return "";
+	}
 }

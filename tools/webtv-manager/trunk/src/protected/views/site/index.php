@@ -16,6 +16,14 @@
 	</div>
 
 	<div class="row">
+		<?php echo CHtml::label('Type', 'WebStreamType'); ?>
+		<?php
+			$dropList = array("all" => "-- All --", 1=>"WebTV", 2=>"WebRadio", 3=>"Webcam");
+			echo CHtml::dropDownList('WebStreamType', 'all', $dropList, array ('key'=>'all'));
+		?>
+	</div>
+
+	<div class="row">
 		<?php echo CHtml::label('Language', 'WebStreamLang'); ?>
 		<?php
 			$dropList = array("all" => "-- All --");

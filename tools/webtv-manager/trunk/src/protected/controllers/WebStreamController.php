@@ -155,9 +155,23 @@ class WebStreamController extends Controller
 	{
 		$conditions = "";
 		$params = array();
+		$playlist_params = array();
 		if(isset($_GET['WebStreamName'])){
 			$conditions = "Name LIKE :WebStreamName";
 			$params[':WebStreamName'] = '%'.$_GET['WebStreamName'].'%';
+			if($_GET['WebStreamName'] != ""){
+				$playlist_params["name"] = $_GET['WebStreamName'];
+			}
+		}
+		if(isset($_GET['WebStreamType'])){
+			if($_GET['WebStreamType'] != "all" && $_GET['WebStreamType'] != ""){
+				if($conditions != ""){
+					$conditions .= " AND ";
+				}
+				$conditions .= " TypeStream=:WebStreamType";
+				$params[':WebStreamType'] = $_GET['WebStreamType'];
+				$playlist_params["type"] = $_GET['WebStreamType'];
+			}
 		}
 		if(isset($_GET['WebStreamStatus'])){
 			if($_GET['WebStreamStatus'] != "all" && $_GET['WebStreamStatus'] != ""){
@@ -166,6 +180,7 @@ class WebStreamController extends Controller
 				}
 				$conditions .= " StreamStatusCode=:WebStreamStatus";
 				$params[':WebStreamStatus'] = $_GET['WebStreamStatus'];
+				$playlist_params["status"] = $_GET['WebStreamStatus'];
 			}
 		}
 		if(isset($_GET['WebStreamLang'])){
@@ -175,6 +190,7 @@ class WebStreamController extends Controller
 				}
 				$conditions .= " LangCode=:WebStreamLang";
 				$params[':WebStreamLang'] = $_GET['WebStreamLang'];
+				$playlist_params["lng"] = $_GET['WebStreamLang'];
 			}
 		}
 
@@ -191,6 +207,7 @@ class WebStreamController extends Controller
 
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+			'playlist_params'=>$playlist_params,
 		));
 	}
 
