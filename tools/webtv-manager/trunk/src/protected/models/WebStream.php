@@ -32,12 +32,12 @@ class WebStream extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('Name, Url', 'required'),
+            array('Name, Url, TypeStream, StreamStatusCode', 'required'),
 			array('Name', 'length', 'max'=>50),
 			array('Url', 'length', 'max'=>255),
             array('RequiredIsp', 'length', 'max'=>50),
             array('LangCode', 'length', 'max'=>2),
-			array('SubmissionDate', 'type', 'type'=>'date'),
+			array('SubmissionDate', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			//array('', 'safe', 'on'=>'search'),
@@ -63,6 +63,11 @@ class WebStream extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'RequiredIsp'=>'Required ISP',
+			'LangCode'=>'Language',
+			'StreamStatusCode'=>'Status',
+			'TypeStream'=>'Type of stream',
+			'SubmissionDate'=>'Date of submission',
 		);
 	}
 
@@ -72,7 +77,10 @@ class WebStream extends CActiveRecord
 		{
 			//$this->SubmissionDate=time();
 			$time=time();
-			$this->SubmissionDate=date('Y-m-d H:i:s', $time);;
+			if($this->isNewRecord) {
+				//$this->SubmissionDate=date('Y-m-d H:i:s', $time);
+				$this->SubmissionDate=new CDbExpression('NOW()');
+			}
 		   /* if($this->isNewRecord)
 		    {
 		        $this->SubmissionDate=time();
@@ -112,5 +120,10 @@ class WebStream extends CActiveRecord
 		case 4 : return "WebProgramme";
 		}
 		return "";
+	}
+
+	public function getTypeStreamList()
+	{
+		return array(1=>"WebTV", 2=>"WebRadio", 3=>"WebCam", 4=>"WebProgramme");
 	}
 }

@@ -47,6 +47,14 @@ return array(
 			'password' => 'mysql',
 			'charset' => 'utf8',
 		),
+		'authManager'=>array(
+			'class'=>'CDbAuthManager',
+			'connectionID'=>'db',
+			'itemTable'=>'wtvmT_AuthItem',
+			'itemChildTable'=>'wtvmT_AuthItemChild',
+			'assignmentTable'=>'wtvmT_AuthAssignment',
+			'defaultRoles'=>array('guest'),
+        ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',

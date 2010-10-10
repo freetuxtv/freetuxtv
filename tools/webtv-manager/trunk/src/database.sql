@@ -223,3 +223,36 @@ INSERT INTO wtvmT_StreamStatus (Code, Label, Color, Searchable) VALUES
 	(5, 'Invalid', 'gray', TRUE),
 	(6, 'Dead', 'darkred', TRUE),
 	(7, 'Forbidden', 'red', FALSE);
+
+DROP TABLE IF EXISTS wtvmT_AuthAssignment;
+DROP TABLE IF EXISTS wtvmT_AuthItemChild;
+DROP TABLE IF EXISTS wtvmT_AuthItem;
+
+CREATE TABLE wtvmT_AuthItem
+(
+   name                 VARCHAR(64) NOT NULL,
+   type                 INTEGER NOT NULL,
+   description          text,
+   bizrule              text,
+   data                 text,
+   primary key (name)
+);
+
+CREATE TABLE wtvmT_AuthItemChild
+(
+   parent               VARCHAR(64) NOT NULL,
+   child                VARCHAR(64) NOT NULL,
+   primary key (parent,child),
+   foreign key (parent) references AuthItem (name) ON DELETE CASCADE ON UPDATE CASCADE,
+   foreign key (child) references AuthItem (name) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE wtvmT_AuthAssignment
+(
+   itemname             VARCHAR(64) NOT NULL,
+   userid               VARCHAR(64) NOT NULL,
+   bizrule              text,
+   data                 text,
+   primary key (itemname,userid),
+   foreign key (itemname) references AuthItem (name) ON DELETE CASCADE ON UPDATE CASCADE
+);

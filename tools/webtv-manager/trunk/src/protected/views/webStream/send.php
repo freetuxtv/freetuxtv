@@ -1,44 +1,14 @@
 <?php
 $this->breadcrumbs=array(
-	'Web Streams', 'Send a Web Streams'
+	'Web Streams', 'Send a Web Stream'
 );
-
 ?>
 
 <h1>Send a Web Streams</h1>
 
 Before to send a new URL, please check it's not corresding to one stream in the following list :
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'=>$dataProvider,
-	'columns'=>array(
-        array(
-            'name'=>'WebStream',
-			'value'=>'$data->Name',
-        ),
-        array(
-			'class'=>'CLinkColumn',
-            'header'=>'Url',
-			'labelExpression'=>'$data->Url',
-            'urlExpression'=>'$data->Url',
-        ),
-        array(
-            'name'=>'Language',
-			'type'=>'image',
-			'htmlOptions' => array('style'=>'text-align:center'),
-            'value'=>'"images/lang/softclean/".strtoupper($data->LangCode).".png"',
-        ),
-        array(
-            'name'=>'Status',
-			'type'=>'html',
-            'value'=>'"<font color=\"".$data->StreamStatus->Color."\">".$data->StreamStatus->Label."</font>"',
-        ),
-        array(
-			'class'=>'CButtonColumn',
-            'header'=>'Edit',
-        ),
-    ),
-)); ?>
+<?php echo $this->renderPartial('_results', array('dataProvider'=>$dataProvider)); ?>
 
 If not, you can add the new channel :
 
@@ -70,6 +40,15 @@ If not, you can add the new channel :
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'TypeStream'); ?>
+		<?php
+			$dropList = WebStream::getTypeStreamList();
+			echo $form->dropDownList($model, 'TypeStream', $dropList, array ('empty' => '-- Unknown --'));
+			echo $form->error($model,'TypeStream');
+		?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'RequiredIsp'); ?>
 		<?php echo $form->textField($model,'RequiredIsp',array('size'=>20,'maxlength'=>20)); ?>
 		<?php echo $form->error($model,'RequiredIsp'); ?>
@@ -79,7 +58,7 @@ If not, you can add the new channel :
 		<?php echo $form->labelEx($model,'LangCode'); ?>
 		<?php
 			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
-			echo $form->dropDownList($model, 'LangCode', $dropList, array ('key'=>'all', 'empty' => '-- Unknown --'));
+			echo $form->dropDownList($model, 'LangCode', $dropList, array ('empty' => '-- None --'));
 			echo $form->error($model,'LangCode');
 		?>
 	</div>

@@ -6,7 +6,7 @@ class WebStreamController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column1';
+	public $layout='//layouts/column2';
 
 	/**
 	 * @var CActiveRecord the currently loaded data model instance.
@@ -32,16 +32,20 @@ class WebStreamController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','send', 'add'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create'),
-				'users'=>array('@'),
+			array('allow',
+				'actions'=>array('send'),
+				'roles'=>array('sendWebStream'),
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','update'),
-				'users'=>array('admin'),
+			array('allow',
+				'actions'=>array('update'),
+				'roles'=>array('editWebStream'),
+			),
+			array('allow',
+				'actions'=>array('changestatus'),
+				'roles'=>array('changeStatusWebStream'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -60,29 +64,6 @@ class WebStreamController extends Controller
 	}
 
 	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new WebStream;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['WebStream']))
-		{
-			$model->attributes=$_POST['WebStream'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 */
@@ -96,11 +77,33 @@ class WebStreamController extends Controller
 		if(isset($_POST['WebStream']))
 		{
 			$model->attributes=$_POST['WebStream'];
-			if($model->save())
+			if($model->save()){
 				$this->redirect(array('view','id'=>$model->Id));
+			}
 		}
 
 		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionChangeStatus()
+	{
+		$model=$this->loadModel();
+
+		if(isset($_POST['WebStream']))
+		{
+			$model->attributes=$_POST['WebStream'];
+			if($model->save()){
+				$this->redirect(array('view','id'=>$model->Id));
+			}
+		}
+
+		$this->render('changestatus',array(
 			'model'=>$model,
 		));
 	}

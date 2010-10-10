@@ -85,11 +85,12 @@ class SiteController extends Controller
 		{
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
+			if($model->validate() && $model->login()){
 				$this->redirect(Yii::app()->user->returnUrl);
+			}
 		}
 		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->render('login', array('model'=>$model));
 	}
 
 	/**
@@ -119,5 +120,63 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+
+	public function actionSetAuth()
+	{
+		/*
+		$auth=Yii::app()->authManager;
+ 
+		$auth->createOperation('sendWebStream','Send a WebStream');
+		$auth->createOperation('editWebStream','Edit a WebStream');
+		$auth->createOperation('changeStatusWebStream','Change the status of a WebStream');
+		 
+		$role=$auth->createRole('guest');
+		$role->addChild('sendWebStream');
+		$role->addChild('editWebStream');
+		 
+		$role=$auth->createRole('contributor');
+		$role->addChild('guest');
+		 
+		$role=$auth->createRole('moderator');
+		$role->addChild('contributor');
+		$role->addChild('changeStatusWebStream');
+		
+		$this->render('index');
+
+		
+		/*
+		$auth->createOperation('createPost','create a post');
+		$auth->createOperation('readPost','read a post');
+		$auth->createOperation('updatePost','update a post');
+		$auth->createOperation('deletePost','delete a post');
+		 
+		$bizRule='return Yii::app()->user->id==$params["post"]->authID;';
+		$task=$auth->createTask('updateOwnPost','update a post by author himself',$bizRule);
+		$task->addChild('updatePost');
+		 
+		$role=$auth->createRole('reader');
+		$role->addChild('readPost');
+		 
+		$role=$auth->createRole('author');
+		$role->addChild('reader');
+		$role->addChild('createPost');
+		$role->addChild('updateOwnPost');
+		 
+		$role=$auth->createRole('editor');
+		$role->addChild('reader');
+		$role->addChild('updatePost');
+		 
+		$role=$auth->createRole('admin');
+		$role->addChild('editor');
+		$role->addChild('author');
+		$role->addChild('deletePost');
+		 
+		$auth->assign('reader','readerA');
+		$auth->assign('author','authorB');
+		$auth->assign('editor','editorC');
+		$auth->assign('admin','adminD');
+		*/
 	}
 }

@@ -18,8 +18,8 @@
 	<div class="row">
 		<?php echo CHtml::label('Type', 'WebStreamType'); ?>
 		<?php
-			$dropList = array(1=>"WebTV", 2=>"WebRadio", 3=>"Webcam", 4=>"WebProgramme");
-			echo CHtml::dropDownList('WebStreamType', 'all', $dropList, array ('key'=>'all', 'empty' => '-- All --'));
+			$dropList = WebStream::getTypeStreamList();
+			echo CHtml::dropDownList('WebStreamType', '', $dropList, array ('empty' => '-- All --'));
 		?>
 	</div>
 
@@ -27,7 +27,7 @@
 		<?php echo CHtml::label('Language', 'WebStreamLang'); ?>
 		<?php
 			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
-			echo CHtml::dropDownList('WebStreamLang', 'all', $dropList, array ('key'=>'all', 'empty' => '-- All --'));
+			echo CHtml::dropDownList('WebStreamLang', '', $dropList, array ('empty' => '-- All --'));
 		?>
 	</div>
 
@@ -35,7 +35,7 @@
 		<?php echo CHtml::label('Status', 'WebStreamStatus'); ?>
 		<?php
 			$dropList = CHtml::listData(StreamStatus::model()->findAll('Searchable=TRUE'), 'Code', 'Label');
-			echo CHtml::dropDownList('WebStreamStatus', 'all', $dropList, array ('key'=>'all', 'empty' => '-- All --'));
+			echo CHtml::dropDownList('WebStreamStatus', '', $dropList, array ('empty' => '-- All --'));
 		?>
 	</div>
 
@@ -46,6 +46,10 @@
 <?php echo CHtml::endForm(); ?>
 
 </div><!-- search-form -->
+
+<?php
+	if(Yii::app()->user->checkAccess('sendWebStream')) {
+?>
 
 <p>Or you can send to the team a new URL :</p>
 
@@ -72,7 +76,9 @@
 
 <?php $this->endWidget(); ?>
 
-</div><!-- search-form -->
+<?php
+	}
+?>
 
 
 <p>This webstite is part of the FreetuxTV project : <a href="http://code.google.com/p/freetuxtv/">http://code.google.com/p/freetuxtv/</a>.
