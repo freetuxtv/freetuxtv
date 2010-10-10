@@ -14,6 +14,10 @@ $this->menu=array(
 
 <h1>Web Streams</h1>
 
+<?php echo $this->renderPartial('_searchform', array('modelSearchForm'=>$modelSearchForm)); ?>
+
+<br/><br/>
+
 <?php
 	$playlist_link = $this->createUrl("Playlist/", $playlist_params);
 ?>

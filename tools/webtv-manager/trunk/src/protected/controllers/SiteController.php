@@ -27,9 +27,15 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$modelSearchForm = new WebStreamSearchForm;
+		$modelSendForm = new WebStreamSendForm;
+
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$this->render('index', array(
+			'modelSearchForm'=>$modelSearchForm,
+			'modelSendForm'=>$modelSendForm,
+		));
 	}
 
 	/**
@@ -93,24 +99,45 @@ class SiteController extends Controller
 		$this->render('login', array('model'=>$model));
 	}
 
-	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
-	 */
-	public function actionSend()
+
+	public function actionSendWebStream()
 	{
-		$model=new WebStreamSendForm;
+		$modelSearchForm = new WebStreamSearchForm;
+		$modelSendForm = new WebStreamSendForm;
 
 		// collect user input data
 		if(isset($_GET['WebStreamSendForm']))
 		{
-			$model->attributes=$_GET['WebStreamSendForm'];
-			if($model->validate()){
-				$this->redirect(array("WebStream/send", "WebStreamUrl" => $model->Url));
+			$modelSendForm->attributes=$_GET['WebStreamSendForm'];
+			if($modelSendForm->validate()){
+				$this->redirect(array("WebStream/send", "WebStreamUrl" => $modelSendForm->Url));
 			}
 		}
 		
-		$this->render('index', array('model'=>$model));
+		$this->render('index', array(
+			'modelSearchForm'=>$modelSearchForm,
+			'modelSendForm'=>$modelSendForm,
+		));
+	}
+
+	public function actionSearchWebStream()
+	{
+		$modelSearchForm = new WebStreamSearchForm;
+		$modelSendForm = new WebStreamSendForm;
+
+		// collect user input data
+		if(isset($_GET['WebStreamSearchForm']))
+		{
+			$modelSearchForm->attributes=$_GET['WebStreamSearchForm'];
+			if($modelSearchForm->validate()){
+				$this->redirect($this->createUrl("WebStream/index", array('WebStreamSearchForm' => $modelSearchForm->attributes)));
+			}
+		}
+		
+		$this->render('index', array(
+			'modelSearchForm'=>$modelSearchForm,
+			'modelSendForm'=>$modelSendForm,
+		));
 	}
 
 	/**

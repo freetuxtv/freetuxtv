@@ -132,44 +132,52 @@ class WebStreamController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$modelSearchForm = new WebStreamSearchForm;
+
+		// collect user input data
+		if(isset($_GET['WebStreamSearchForm']))
+		{
+			$modelSearchForm->attributes=$_GET['WebStreamSearchForm'];
+		}
+		
 		$conditions = "";
 		$params = array();
 		$playlist_params = array();
-		if(isset($_GET['WebStreamName'])){
+		if(isset($modelSearchForm->Name)){
 			$conditions = "Name LIKE :WebStreamName";
-			$params[':WebStreamName'] = '%'.$_GET['WebStreamName'].'%';
-			if($_GET['WebStreamName'] != ""){
-				$playlist_params["name"] = $_GET['WebStreamName'];
+			$params[':WebStreamName'] = '%'.$modelSearchForm->Name.'%';
+			if($modelSearchForm->Name != ""){
+				$playlist_params["name"] = $modelSearchForm->Name;
 			}
 		}
-		if(isset($_GET['WebStreamType'])){
-			if($_GET['WebStreamType'] != ""){
+		if(isset($modelSearchForm->Type)){
+			if($modelSearchForm->Type != ""){
 				if($conditions != ""){
 					$conditions .= " AND ";
 				}
 				$conditions .= " TypeStream=:WebStreamType";
-				$params[':WebStreamType'] = $_GET['WebStreamType'];
-				$playlist_params["type"] = $_GET['WebStreamType'];
+				$params[':WebStreamType'] = $modelSearchForm->Type;
+				$playlist_params["type"] = $modelSearchForm->Type;
 			}
 		}
-		if(isset($_GET['WebStreamStatus'])){
-			if($_GET['WebStreamStatus'] != ""){
+		if(isset($modelSearchForm->Status)){
+			if($modelSearchForm->Status != ""){
 				if($conditions != ""){
 					$conditions .= " AND ";
 				}
 				$conditions .= " StreamStatusCode=:WebStreamStatus";
-				$params[':WebStreamStatus'] = $_GET['WebStreamStatus'];
-				$playlist_params["status"] = $_GET['WebStreamStatus'];
+				$params[':WebStreamStatus'] = $modelSearchForm->Status;
+				$playlist_params["status"] = $modelSearchForm->Status;
 			}
 		}
-		if(isset($_GET['WebStreamLang'])){
-			if($_GET['WebStreamLang'] != ""){
+		if(isset($modelSearchForm->Language)){
+			if($modelSearchForm->Language != ""){
 				if($conditions != ""){
 					$conditions .= " AND ";
 				}
 				$conditions .= " LangCode=:WebStreamLang";
-				$params[':WebStreamLang'] = $_GET['WebStreamLang'];
-				$playlist_params["lng"] = $_GET['WebStreamLang'];
+				$params[':WebStreamLang'] = $modelSearchForm->Language;
+				$playlist_params["lng"] = $modelSearchForm->Language;
 			}
 		}
 
@@ -185,6 +193,7 @@ class WebStreamController extends Controller
 		));
 
 		$this->render('index',array(
+			'modelSearchForm'=>$modelSearchForm,
 			'dataProvider'=>$dataProvider,
 			'playlist_params'=>$playlist_params,
 		));

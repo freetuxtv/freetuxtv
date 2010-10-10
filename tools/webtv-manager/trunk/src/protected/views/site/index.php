@@ -8,34 +8,47 @@
 
 <div class="wide form">
 
-<?php echo CHtml::form(Yii::app()->createUrl("WebStream"), 'get'); ?>
+<?php
+	$form=$this->beginWidget('CActiveForm', array(
+		'action'=>Yii::app()->createUrl("site/SearchWebStream"),
+		'method'=>'get',
+		'id'=>'web-stream-search-form',
+		'enableAjaxValidation'=>false,
+		));
+?>
 
 	<div class="row">
-		<?php echo CHtml::label('Name', 'WebStreamName'); ?>
-		<?php echo CHtml::textField('WebStreamName', '', array('size'=>20,'maxlength'=>20)); ?>
+		<?php
+			echo $form->labelEx($modelSearchForm,'Name');
+			echo $form->textField($modelSearchForm,'Name',array('size'=>20,'maxlength'=>20));
+			echo $form->error($modelSearchForm,'Name');
+		?>
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::label('Type', 'WebStreamType'); ?>
 		<?php
+			echo $form->labelEx($modelSearchForm, 'Type');
 			$dropList = WebStream::getTypeStreamList();
-			echo CHtml::dropDownList('WebStreamType', '', $dropList, array ('empty' => '-- All --'));
+			echo $form->dropDownList($modelSearchForm, 'Type', $dropList, array ('empty' => '-- All --'));
+			echo $form->error($modelSearchForm, 'Type');
 		?>
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::label('Language', 'WebStreamLang'); ?>
 		<?php
+			echo $form->labelEx($modelSearchForm, 'Language');
 			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
-			echo CHtml::dropDownList('WebStreamLang', '', $dropList, array ('empty' => '-- All --'));
+			echo $form->dropDownList($modelSearchForm, 'Language', $dropList, array ('empty' => '-- All --'));
+			echo $form->error($modelSearchForm, 'Language');
 		?>
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::label('Status', 'WebStreamStatus'); ?>
 		<?php
+			echo $form->labelEx($modelSearchForm, 'Status');
 			$dropList = CHtml::listData(StreamStatus::model()->findAll('Searchable=TRUE'), 'Code', 'Label');
-			echo CHtml::dropDownList('WebStreamStatus', '', $dropList, array ('empty' => '-- All --'));
+			echo $form->dropDownList($modelSearchForm, 'Status', $dropList, array ('empty' => '-- All --'));
+			echo $form->error($modelSearchForm, 'Status');
 		?>
 	</div>
 
@@ -43,7 +56,7 @@
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
 
-<?php echo CHtml::endForm(); ?>
+<?php $this->endWidget(); ?>
 
 </div><!-- search-form -->
 
@@ -56,22 +69,19 @@
 <div class="wide form">
 
 <?php
-	if(!isset($model)){
-		$model = new WebStreamSendForm;
-	}
 	$form=$this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl("site/send"),
+		'action'=>Yii::app()->createUrl("site/SendWebStream"),
 		'method'=>'get',
-		'id'=>'web-stream-send-form',
+		'id'=>'web-stream-search-form',
 		'enableAjaxValidation'=>false,
 		));
 ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'Url'); ?>
-		<?php echo $form->textField($model,'Url',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->labelEx($modelSendForm,'Url'); ?>
+		<?php echo $form->textField($modelSendForm,'Url',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo CHtml::submitButton('Confirm'); ?>
-		<?php echo $form->error($model,'Url'); ?>
+		<?php echo $form->error($modelSendForm,'Url'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
@@ -79,6 +89,8 @@
 <?php
 	}
 ?>
+
+</div><!-- web-stream-send-form -->
 
 
 <p>This webstite is part of the FreetuxTV project : <a href="http://code.google.com/p/freetuxtv/">http://code.google.com/p/freetuxtv/</a>.
