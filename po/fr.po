@@ -1188,7 +1188,7 @@ msgstr "Arrêt de la chaîne : %s"
 
 #: ../src/main.c:1004
 msgid "is recording"
-msgstr "est cours d'enregistrement"
+msgstr "est en cours d'enregistrement"
 
 #: ../src/main.c:1042
 #, c-format
