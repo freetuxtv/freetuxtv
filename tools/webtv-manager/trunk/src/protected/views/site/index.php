@@ -18,31 +18,24 @@
 	<div class="row">
 		<?php echo CHtml::label('Type', 'WebStreamType'); ?>
 		<?php
-			$dropList = array("all" => "-- All --", 1=>"WebTV", 2=>"WebRadio", 3=>"Webcam");
-			echo CHtml::dropDownList('WebStreamType', 'all', $dropList, array ('key'=>'all'));
+			$dropList = array(1=>"WebTV", 2=>"WebRadio", 3=>"Webcam", 4=>"WebProgramme");
+			echo CHtml::dropDownList('WebStreamType', 'all', $dropList, array ('key'=>'all', 'empty' => '-- All --'));
 		?>
 	</div>
 
 	<div class="row">
 		<?php echo CHtml::label('Language', 'WebStreamLang'); ?>
 		<?php
-			$dropList = array("all" => "-- All --");
-			$dropListTmp = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
-			$dropList = array_merge($dropList, $dropListTmp);
-			echo CHtml::dropDownList('WebStreamLang', 'all', $dropList, array ('key'=>'all'));
+			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+			echo CHtml::dropDownList('WebStreamLang', 'all', $dropList, array ('key'=>'all', 'empty' => '-- All --'));
 		?>
 	</div>
 
 	<div class="row">
 		<?php echo CHtml::label('Status', 'WebStreamStatus'); ?>
 		<?php
-			$dropList = array("all" => "-- All --");
-			$dropListTmp = CHtml::listData(StreamStatus::model()->findAll('Searchable=TRUE'), 'Code', 'Label');
-			// array_merge is not good for key with integer
-			foreach($dropListTmp as $key => $value){
-				$dropList[$key]=$value;
-			}
-			echo CHtml::dropDownList('WebStreamStatus', 'all', $dropList, array ('key'=>'all'));
+			$dropList = CHtml::listData(StreamStatus::model()->findAll('Searchable=TRUE'), 'Code', 'Label');
+			echo CHtml::dropDownList('WebStreamStatus', 'all', $dropList, array ('key'=>'all', 'empty' => '-- All --'));
 		?>
 	</div>
 
@@ -58,15 +51,26 @@
 
 <div class="wide form">
 
-<?php echo CHtml::form(Yii::app()->createUrl("WebStream/send"), 'get'); ?>
+<?php
+	if(!isset($model)){
+		$model = new WebStreamSendForm;
+	}
+	$form=$this->beginWidget('CActiveForm', array(
+		'action'=>Yii::app()->createUrl("site/send"),
+		'method'=>'get',
+		'id'=>'web-stream-send-form',
+		'enableAjaxValidation'=>false,
+		));
+?>
 
 	<div class="row">
-		<?php echo CHtml::label('Url', 'WebStreamUrl'); ?>
-		<?php echo CHtml::textField('WebStreamUrl', '', array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->labelEx($model,'Url'); ?>
+		<?php echo $form->textField($model,'Url',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo CHtml::submitButton('Confirm'); ?>
+		<?php echo $form->error($model,'Url'); ?>
 	</div>
 
-<?php echo CHtml::endForm(); ?>
+<?php $this->endWidget(); ?>
 
 </div><!-- search-form -->
 

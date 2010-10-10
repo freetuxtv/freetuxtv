@@ -93,6 +93,26 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * This is the default 'index' action that is invoked
+	 * when an action is not explicitly requested by users.
+	 */
+	public function actionSend()
+	{
+		$model=new WebStreamSendForm;
+
+		// collect user input data
+		if(isset($_GET['WebStreamSendForm']))
+		{
+			$model->attributes=$_GET['WebStreamSendForm'];
+			if($model->validate()){
+				$this->redirect(array("WebStream/send", "WebStreamUrl" => $model->Url));
+			}
+		}
+		
+		$this->render('index', array('model'=>$model));
+	}
+
+	/**
 	 * Logs out the current user and redirect to homepage.
 	 */
 	public function actionLogout()

@@ -63,30 +63,6 @@ class WebStreamController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionAdd()
-	{
-		$model=new WebStream;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['WebStream']))
-		{
-			$model->attributes=$_POST['WebStream'];
-			if($model->LangCode==""){
-				$model->LangCode=null;
-			}
-			if($model->save()){
-				$this->redirect(array('view','id'=>$model->Id));
-			}
-		}
-		
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
 	public function actionCreate()
 	{
 		$model=new WebStream;
@@ -164,7 +140,7 @@ class WebStreamController extends Controller
 			}
 		}
 		if(isset($_GET['WebStreamType'])){
-			if($_GET['WebStreamType'] != "all" && $_GET['WebStreamType'] != ""){
+			if($_GET['WebStreamType'] != ""){
 				if($conditions != ""){
 					$conditions .= " AND ";
 				}
@@ -174,7 +150,7 @@ class WebStreamController extends Controller
 			}
 		}
 		if(isset($_GET['WebStreamStatus'])){
-			if($_GET['WebStreamStatus'] != "all" && $_GET['WebStreamStatus'] != ""){
+			if($_GET['WebStreamStatus'] != ""){
 				if($conditions != ""){
 					$conditions .= " AND ";
 				}
@@ -184,7 +160,7 @@ class WebStreamController extends Controller
 			}
 		}
 		if(isset($_GET['WebStreamLang'])){
-			if($_GET['WebStreamLang'] != "all" && $_GET['WebStreamLang'] != ""){
+			if($_GET['WebStreamLang'] != ""){
 				if($conditions != ""){
 					$conditions .= " AND ";
 				}
@@ -216,10 +192,25 @@ class WebStreamController extends Controller
 	 */
 	public function actionSend()
 	{
+		$model=new WebStream;
+
+		if(isset($_POST['WebStream']))
+		{
+			$model->attributes=$_POST['WebStream'];
+			if($model->LangCode==""){
+				$model->LangCode=null;
+			}
+			if($model->save()){
+				$this->redirect(array('view','id'=>$model->Id));
+			}
+		}else{
+			$model->Url = $_GET['WebStreamUrl'];
+		}
+
 		$conditions = "";
 		$params = array();
+		$params[':WebStreamUrl'] = $model->Url;
 		$conditions = "Url=:WebStreamUrl";
-		$params[':WebStreamUrl'] = $_GET['WebStreamUrl'];
 
 		$dataProvider=new CActiveDataProvider('WebStream',array(
 			'criteria'=>array(
@@ -234,6 +225,7 @@ class WebStreamController extends Controller
 
 		$this->render('send',array(
 			'dataProvider'=>$dataProvider,
+			'model'=>$model
 		));
 	}
 

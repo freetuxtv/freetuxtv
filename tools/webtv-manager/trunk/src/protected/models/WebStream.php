@@ -109,6 +109,7 @@ class WebStream extends CActiveRecord
 		case 1 : return "WebTV";
 		case 2 : return "WebRadio";
 		case 3 : return "Webcam";
+		case 4 : return "WebProgramme";
 		}
 		return "";
 	}

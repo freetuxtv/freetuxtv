@@ -45,9 +45,8 @@ If not, you can add the new channel :
 <div class="form">
 
 <?php
-	 $model=new WebStream;
 	 $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl("WebStream/add"),
+	'action'=>Yii::app()->createUrl("WebStream/send"),
 	'id'=>'web-stream-form',
 	'enableAjaxValidation'=>false,
 )); ?>
@@ -66,7 +65,7 @@ If not, you can add the new channel :
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'Url'); ?>
-		<?php echo $form->textField($model,'Url',array('value'=>CHtml::Encode($_GET['WebStreamUrl']),'size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'Url',array('size'=>60,'maxlength'=>255,'readonly'=>1)); ?>
 		<?php echo $form->error($model,'Url'); ?>
 	</div>
 
@@ -79,10 +78,8 @@ If not, you can add the new channel :
 	<div class="row">
 		<?php echo $form->labelEx($model,'LangCode'); ?>
 		<?php
-			$dropList[""] = "-- Unknown --";
-			$dropListTmp = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
-			$dropList = array_merge($dropList, $dropListTmp);
-			echo $form->dropDownList($model, 'LangCode', $dropList);
+			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+			echo $form->dropDownList($model, 'LangCode', $dropList, array ('key'=>'all', 'empty' => '-- Unknown --'));
 			echo $form->error($model,'LangCode');
 		?>
 	</div>
