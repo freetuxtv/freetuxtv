@@ -38,9 +38,6 @@ class WebStream extends CActiveRecord
             array('RequiredIsp', 'length', 'max'=>50),
             array('LangCode', 'length', 'max'=>2),
 			array('SubmissionDate', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			//array('', 'safe', 'on'=>'search'),
         );
 	}
 
@@ -75,10 +72,8 @@ class WebStream extends CActiveRecord
 	{
 		if(parent::beforeSave())
 		{
-			//$this->SubmissionDate=time();
 			$time=time();
 			if($this->isNewRecord) {
-				//$this->SubmissionDate=date('Y-m-d H:i:s', $time);
 				$this->SubmissionDate=new CDbExpression('NOW()');
 			}
 		   /* if($this->isNewRecord)
@@ -95,25 +90,9 @@ class WebStream extends CActiveRecord
 		    return false;
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
+	public function getTypeStreamNameById($typeStream)
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		return new CActiveDataProvider('WebStream', array(
-			'criteria'=>$criteria,
-		));
-	}
-
-	public function getTypeStreamName()
-	{
-		switch($this->TypeStream){
+		switch($typeStream){
 		case 1 : return "WebTV";
 		case 2 : return "WebRadio";
 		case 3 : return "Webcam";
@@ -122,8 +101,68 @@ class WebStream extends CActiveRecord
 		return "";
 	}
 
+	public function getTypeStreamName()
+	{
+		return $this->getTypeStreamNameById($this->TypeStream);
+	}
+
 	public function getTypeStreamList()
 	{
 		return array(1=>"WebTV", 2=>"WebRadio", 3=>"WebCam", 4=>"WebProgramme");
+	}
+
+	public function getModelDiffMsg($attributes)
+	{
+		$actionsDetails = "";
+		if(isset($attributes["Name"])){
+			if($this->Name != $attributes["Name"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$actionsDetails .= $this->Name.' => '.$attributes["Name"];
+			}
+		}
+		if(isset($attributes["Url"])){
+			if($this->Url != $attributes["Url"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$actionsDetails .= $this->Url.' => '.$attributes["Url"];
+			}
+		}
+		if(isset($attributes["TypeStream"])){
+			if($this->TypeStream != $attributes["TypeStream"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$actionsDetails .= $this->getTypeStreamName().' => '.$this->getTypeStreamNameById($attributes["TypeStream"]);
+			}
+		}
+		if(isset($attributes["LangCode"])){
+			if($this->LangCode != $attributes["LangCode"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$actionsDetails .= $this->LangCode.' => '.$attributes["LangCode"];
+			}
+		}
+		if(isset($attributes["StreamStatusCode"])){
+			if($this->StreamStatusCode != $attributes["StreamStatusCode"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$newStreamStatus=StreamStatus::model()->findbyPk($attributes["StreamStatusCode"]);
+				$actionsDetails .= $this->StreamStatusCode.' => '.$newStreamStatus->Label;
+			}
+		}
+		if(isset($attributes["RequiredIsp"])){
+			if($this->RequiredIsp != $attributes["RequiredIsp"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$actionsDetails .= $this->RequiredIsp.' => '.$attributes["RequiredIsp"];
+			}
+		}
+		return $actionsDetails;
 	}
 }

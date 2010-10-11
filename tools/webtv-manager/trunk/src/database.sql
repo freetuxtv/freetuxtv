@@ -256,3 +256,19 @@ CREATE TABLE wtvmT_AuthAssignment
    primary key (itemname,userid),
    foreign key (itemname) references AuthItem (name) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS wtvmT_History (
+	Id INTEGER NOT NULL AUTO_INCREMENT,
+	Date DATETIME NOT NULL,
+	Username VARCHAR(20) NULL,
+	Email VARCHAR(255) NULL,
+	UserId INTEGER NULL,
+	RemoteAddr VARCHAR(40) NOT NULL,
+	ActionType TINYINT NOT NULL,
+	ActionDetails TEXT NULL,
+	EntityType TINYINT NOT NULL,
+	EntityId INTEGER NOT NULL,
+	CONSTRAINT PK_History PRIMARY KEY(Id),
+	CONSTRAINT FK_History_User FOREIGN KEY (UserId)
+		REFERENCES wtvmT_User(Id)
+) TYPE=InnoDB;

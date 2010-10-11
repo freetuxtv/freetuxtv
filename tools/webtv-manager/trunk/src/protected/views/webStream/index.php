@@ -23,6 +23,6 @@ $this->menu=array(
 ?>
 
 Playlist corresponding to the search : <br/>
-=> <?php echo CHtml::link($playlist_link, $playlist_link); ?><br/><br/>
+=> <?php echo CHtml::link(Yii::app()->getRequest()->getHostInfo().$playlist_link, $playlist_link); ?><br/><br/>
 
 <?php echo $this->renderPartial('_results', array('dataProvider'=>$dataProvider)); ?>

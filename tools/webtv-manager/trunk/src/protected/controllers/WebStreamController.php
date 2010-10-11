@@ -58,8 +58,29 @@ class WebStreamController extends Controller
 	 */
 	public function actionView()
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel(),
+		$model = $this->loadModel();
+
+		$conditions = "";
+		$params = array();	
+		
+		$conditions = "EntityType=:Type AND EntityId=:WebStreamId";
+		$params["Type"] = History::ENTITYTYPE_WEBSTREAM;
+		$params["WebStreamId"] = $model->Id;
+
+		$dataHistory=new CActiveDataProvider('History',array(
+			'criteria'=>array(
+				'condition'=>$conditions,
+				'params'=>$params,
+				'order'=>'Date DESC',
+			),
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
+		));
+
+		$this->render('view', array(
+			'model'=>$model,
+			'dataHistory'=>$dataHistory,
 		));
 	}
 
@@ -71,14 +92,27 @@ class WebStreamController extends Controller
 	{
 		$model=$this->loadModel();
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['WebStream']))
 		{
+			$actionDetails = $model->getModelDiffMsg($_POST['WebStream']);
+
 			$model->attributes=$_POST['WebStream'];
+			if($model->LangCode==""){
+				$model->LangCode=null;
+			}
+			if($model->RequiredIsp==""){
+				$model->RequiredIsp=null;
+			}
+
 			if($model->save()){
-				$this->redirect(array('view','id'=>$model->Id));
+				if($actionDetails != ""){
+					$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_EDIT, $model->Id, $actionDetails);
+					if($history->save()){
+						$this->redirect(array('view','id'=>$model->Id));
+					}
+				}else{
+					$this->redirect(array('view','id'=>$model->Id));
+				}
 			}
 		}
 
@@ -97,8 +131,21 @@ class WebStreamController extends Controller
 
 		if(isset($_POST['WebStream']))
 		{
+			$oldStreamStatusCode = $model->StreamStatusCode;
+			$oldStreamStatusLabel = $model->StreamStatus->Label;
+
 			$model->attributes=$_POST['WebStream'];
-			if($model->save()){
+			if($oldStreamStatusCode != $model->StreamStatusCode){
+				if($model->save()){
+					$newStreamStatus=StreamStatus::model()->findbyPk($model->StreamStatusCode);
+
+					$actionDetails = $oldStreamStatusLabel.' => '.$newStreamStatus->Label;
+					$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_CHANGESTATUS, $model->Id, $actionDetails);
+					if($history->save()){
+						$this->redirect(array('view','id'=>$model->Id));
+					}
+				}
+			}else{
 				$this->redirect(array('view','id'=>$model->Id));
 			}
 		}
@@ -212,8 +259,24 @@ class WebStreamController extends Controller
 			if($model->LangCode==""){
 				$model->LangCode=null;
 			}
+			if($model->RequiredIsp==""){
+				$model->RequiredIsp=null;
+			}
 			if($model->save()){
-				$this->redirect(array('view','id'=>$model->Id));
+				$actionDetails = $model->Name." - ".$model->getTypeStreamName()." - lang:".$model->LangCode."\n".$model->Url;
+				$actionDetails = "name => ".$model->Name;
+				$actionDetails .= ", type => ".$model->getTypeStreamName();
+				if($model->LangCode){
+					$actionDetails .= ", lang => ".$model->LangCode;
+				}
+				if($model->RequiredIsp){
+					$actionDetails .= ", isp => ".$model->RequiredIsp;
+				}
+				$actionDetails .= ", url => ".$model->Url;
+				$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_ADD, $model->Id, $actionDetails);
+				if($history->save()){
+					$this->redirect(array('view','id'=>$model->Id));
+				}
 			}
 		}else{
 			$model->Url = $_GET['WebStreamUrl'];

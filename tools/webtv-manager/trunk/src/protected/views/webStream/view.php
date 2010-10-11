@@ -66,3 +66,5 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 )); ?>
 
 <br><br>
+
+<?php echo $this->renderPartial('_viewhistory', array('dataHistory'=>$dataHistory)); ?>
