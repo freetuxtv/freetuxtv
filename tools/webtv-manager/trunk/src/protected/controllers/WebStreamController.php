@@ -263,6 +263,7 @@ class WebStreamController extends Controller
 				$model->RequiredIsp=null;
 			}
 			if($model->save()){
+				/*
 				$actionDetails = $model->Name." - ".$model->getTypeStreamName()." - lang:".$model->LangCode."\n".$model->Url;
 				$actionDetails = "name => ".$model->Name;
 				$actionDetails .= ", type => ".$model->getTypeStreamName();
@@ -272,8 +273,8 @@ class WebStreamController extends Controller
 				if($model->RequiredIsp){
 					$actionDetails .= ", isp => ".$model->RequiredIsp;
 				}
-				$actionDetails .= ", url => ".$model->Url;
-				$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_ADD, $model->Id, $actionDetails);
+				$actionDetails .= ", url => ".$model->Url;*/
+				$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_ADD, $model->Id);
 				if($history->save()){
 					$this->redirect(array('view','id'=>$model->Id));
 				}

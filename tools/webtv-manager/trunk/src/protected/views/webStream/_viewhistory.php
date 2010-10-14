@@ -11,8 +11,9 @@
 		        'name'=>'Date',
 		    ),
 		    array(
-				'header'=>'Username',
-		        'name'=>'RemoteAddr',
+				'header'=>'User',
+				'type'=>'html',
+		        'value'=>'"<font>".($data->UserId ? $data->User->Username : "Anonyme")."</font>"',
 		    ),
 		    array(
 		        'name'=>'Action',

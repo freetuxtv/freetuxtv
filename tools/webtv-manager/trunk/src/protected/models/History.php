@@ -73,6 +73,7 @@ class History extends CActiveRecord
 		{
 			$time=time();
 			if($this->isNewRecord) {
+				$this->UserId=Yii::app()->user->getId();
 				$this->Date=new CDbExpression('NOW()');
 				$this->RemoteAddr=Yii::app()->getRequest()->getUserHostAddress();
 			}
@@ -99,7 +100,7 @@ class History extends CActiveRecord
 	/**
 	 * @return create an history line
 	 */
-	public static function createNew($entityType, $actionType, $entityId, $actionDetails = "")
+	public static function createNew($entityType, $actionType, $entityId, $actionDetails = null)
 	{
 		$history = new History;
 		
