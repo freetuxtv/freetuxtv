@@ -38,6 +38,9 @@ windowmain_add_accelerator (GtkAccelGroup *p_accel_group,
                             const gchar *accelerator, const gchar *accel_path,
                             GCallback callback, gpointer user_data);
 
+static void
+on_windowmain_trayicon_activate(GtkStatusIcon *status_icon, gpointer user_data);
+
 static gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data);
 
@@ -214,6 +217,16 @@ windowmain_init(FreetuxTVApp *app)
 	GtkWidget *widget;
 	//GtkWidget *button;
 	GtkWidget *pMenuBar = NULL;
+
+	app->widget.pTrayIcon = gtk_status_icon_new_from_icon_name ("freetuxtv");
+	gtk_status_icon_set_visible(app->widget.pTrayIcon, TRUE);
+	g_signal_connect(G_OBJECT(app->widget.pTrayIcon), "activate",
+	                 G_CALLBACK(on_windowmain_trayicon_activate), app);
+						 /*
+        g_signal_connect(G_OBJECT(tray_icon), 
+                         "popup-menu",
+                         G_CALLBACK(tray_icon_on_menu), NULL);
+						 */
 
 	// Window accelerators
 	app->widget.pAccelGroup = gtk_accel_group_new ();
@@ -612,6 +625,11 @@ windowmain_dispose(FreetuxTVApp *app)
 	
 	gtk_accel_group_unref (app->widget.pAccelGroup);
 	app->widget.pAccelGroup = NULL;
+
+	if(app->widget.pTrayIcon){
+		g_object_unref(app->widget.pTrayIcon);
+		app->widget.pTrayIcon = NULL;
+	}
 }
 
 void
@@ -841,6 +859,22 @@ windowmain_add_accelerator (GtkAccelGroup *p_accel_group,
 	closure = g_cclosure_new (callback, user_data, NULL);
 	gtk_accel_group_connect (p_accel_group, key, mods, GTK_ACCEL_VISIBLE, closure);
 	gtk_accel_map_add_entry (accel_path, key, mods);
+}
+
+static void
+on_windowmain_trayicon_activate(GtkStatusIcon *status_icon, gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	
+	GtkWidget *widget;
+	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                                "windowmain");
+
+	if(gtk_widget_get_visible(widget)){
+		gtk_widget_set_visible(widget, FALSE);
+	}else{
+		gtk_widget_set_visible(widget, TRUE);
+	}
 }
 
 static gboolean
