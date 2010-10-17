@@ -1137,8 +1137,8 @@ freetuxtv_action_deinterlace (FreetuxTVApp *app, const gchar* mode,
 	 gtk_libvlc_media_player_set_deinterlace (app->player, mode, error);
 }
 
-void
-freetuxtv_quit (FreetuxTVApp *app)
+gboolean
+freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 {
 	GError *error = NULL;
 
@@ -1148,108 +1148,131 @@ freetuxtv_quit (FreetuxTVApp *app)
 	GKeyFile *keyfile;
 	char *contents, *filename;
 
+	GtkWidget* dialog = NULL;
 
-	gboolean is_playing;
-	is_playing = (gtk_libvlc_media_player_get_state(app->player, &error) == GTK_LIBVLC_STATE_PLAYING);
+	gboolean bQuit = TRUE;
 
-	// Stop the current channel
-	freetuxtv_action_stop(app, &error);	
+	gboolean bIsPlaying;
+	bIsPlaying = (gtk_libvlc_media_player_get_state(app->player, &error) == GTK_LIBVLC_STATE_PLAYING);
 
-	keyfile = g_key_file_new ();
+	if(bIsPlaying){
+		bQuit = FALSE;
 
-	// Save prefs
-	g_key_file_set_boolean (keyfile, "general",
-	                        "channel_on_startup",
-	                        app->prefs.channelonstartup);
-	g_key_file_set_boolean (keyfile, "general",
-	                        "enable_notifications",
-	                        app->prefs.enable_notifications);
+		dialog = gtk_message_dialog_new (parent,
+		                                 GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
+		                                 GTK_BUTTONS_YES_NO,
+		                                 _("Are you sure you want to quit?"));
+		if(gtk_dialog_run (GTK_DIALOG(dialog)) == GTK_RESPONSE_YES){
+			bQuit = TRUE;
+		}
 
-	g_key_file_set_string (keyfile, "general",
-	                       "directory_record",
-	                       app->prefs.directoryrecordings);
+		gtk_widget_destroy(dialog);
+		dialog = NULL;
+		
+	}
 
-	g_key_file_set_integer (keyfile, "general",
-	                        "transcoding_mode",
-	                        app->prefs.transcoding_mode);
+	if(bQuit){
+		// Stop the current channel
+		freetuxtv_action_stop(app, &error);	
 
-	g_key_file_set_string (keyfile, "general",
-	                       "transcoding_format",
-	                       app->prefs.transcoding_format);
+		keyfile = g_key_file_new ();
 
-	g_key_file_set_integer (keyfile, "network",
-	                        "proxy_mode",
-	                        app->prefs.proxy_mode);
-	g_key_file_set_string (keyfile, "network",
-	                       "proxy_server",
-	                       app->prefs.proxy_server);
-	g_key_file_set_string (keyfile, "network",
-	                       "proxy_port",
-	                       app->prefs.proxy_port);
-	g_key_file_set_string (keyfile, "network",
-	                       "proxy_type",
-	                       app->prefs.proxy_type);
-	g_key_file_set_boolean (keyfile, "network",
-	                        "proxy_use_auth",
-	                        app->prefs.proxy_use_auth);
-	g_key_file_set_string (keyfile, "network",
-	                       "proxy_username",
-	                       app->prefs.proxy_username);
-	g_key_file_set_string (keyfile, "network",
-	                       "proxy_password",
-	                       app->prefs.proxy_password);
+		// Save prefs
+		g_key_file_set_boolean (keyfile, "general",
+			                    "channel_on_startup",
+			                    app->prefs.channelonstartup);
+		g_key_file_set_boolean (keyfile, "general",
+			                    "enable_notifications",
+			                    app->prefs.enable_notifications);
 
-	// Save current config
-	g_key_file_set_double (keyfile, "general",
-	                       "volume",
-	                       app->config.volume);
+		g_key_file_set_string (keyfile, "general",
+			                   "directory_record",
+			                   app->prefs.directoryrecordings);
 
-
-	if(app->current.path_channel != NULL && is_playing){
-		FreetuxTVChannelInfos* channel_infos;
-		channel_infos = channels_list_get_channel(app, app->current.path_channel);
 		g_key_file_set_integer (keyfile, "general",
-		                        "last_channel",
-		                        channel_infos->id);
-		gtk_tree_path_free(app->current.path_channel);
+			                    "transcoding_mode",
+			                    app->prefs.transcoding_mode);
+
+		g_key_file_set_string (keyfile, "general",
+			                   "transcoding_format",
+			                   app->prefs.transcoding_format);
+
+		g_key_file_set_integer (keyfile, "network",
+			                    "proxy_mode",
+			                    app->prefs.proxy_mode);
+		g_key_file_set_string (keyfile, "network",
+			                   "proxy_server",
+			                   app->prefs.proxy_server);
+		g_key_file_set_string (keyfile, "network",
+			                   "proxy_port",
+			                   app->prefs.proxy_port);
+		g_key_file_set_string (keyfile, "network",
+			                   "proxy_type",
+			                   app->prefs.proxy_type);
+		g_key_file_set_boolean (keyfile, "network",
+			                    "proxy_use_auth",
+			                    app->prefs.proxy_use_auth);
+		g_key_file_set_string (keyfile, "network",
+			                   "proxy_username",
+			                   app->prefs.proxy_username);
+		g_key_file_set_string (keyfile, "network",
+			                   "proxy_password",
+			                   app->prefs.proxy_password);
+
+		// Save current config
+		g_key_file_set_double (keyfile, "general",
+			                   "volume",
+			                   app->config.volume);
+
+
+		if(app->current.path_channel != NULL && bIsPlaying){
+			FreetuxTVChannelInfos* channel_infos;
+			channel_infos = channels_list_get_channel(app, app->current.path_channel);
+			g_key_file_set_integer (keyfile, "general",
+				                    "last_channel",
+				                    channel_infos->id);
+			gtk_tree_path_free(app->current.path_channel);
+		}
+		g_key_file_set_integer (keyfile, "general",
+			                    "logos_file_date",
+			                    app->config.logosfiledate);
+
+		g_key_file_set_boolean (keyfile, "windowminimode",
+			                    "stay_on_top",
+			                    app->config.windowminimode_stayontop);
+		g_key_file_set_integer (keyfile, "windowminimode",
+			                    "width",
+			                    app->config.windowminimode_width);
+		g_key_file_set_integer (keyfile, "windowminimode",
+			                    "height",
+			                    app->config.windowminimode_height);
+
+		contents = g_key_file_to_data (keyfile, NULL, NULL);
+		g_key_file_free (keyfile);
+		filename = g_build_filename (g_get_user_config_dir(),
+			                         "FreetuxTV", "config.ini", NULL);
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+			  "Writing config file %s\n", filename);
+		if (!g_file_set_contents (filename, contents, -1, NULL)){
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+				  "Error when writing config file\n");
+		}
+
+		g_free (filename);
+		g_free (contents);
+
+		// Dispose the app
+		windowmain_dispose (app);
+
+		if(error != NULL){
+			windowmain_show_gerror (app, error);
+			g_error_free (error);
+		}
+
+		gtk_main_quit();
 	}
-	g_key_file_set_integer (keyfile, "general",
-	                        "logos_file_date",
-	                        app->config.logosfiledate);
 
-	g_key_file_set_boolean (keyfile, "windowminimode",
-	                        "stay_on_top",
-	                        app->config.windowminimode_stayontop);
-	g_key_file_set_integer (keyfile, "windowminimode",
-	                        "width",
-	                        app->config.windowminimode_width);
-	g_key_file_set_integer (keyfile, "windowminimode",
-	                        "height",
-	                        app->config.windowminimode_height);
-
-	contents = g_key_file_to_data (keyfile, NULL, NULL);
-	g_key_file_free (keyfile);
-	filename = g_build_filename (g_get_user_config_dir(),
-	                             "FreetuxTV", "config.ini", NULL);
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Writing config file %s\n", filename);
-	if (!g_file_set_contents (filename, contents, -1, NULL)){
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
-		      "Error when writing config file\n");
-	}
-
-	g_free (filename);
-	g_free (contents);
-
-	// Dispose the app
-	windowmain_dispose (app);
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-
-	gtk_main_quit();
+	return bQuit;
 }
 
 static void

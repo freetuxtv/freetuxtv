@@ -393,11 +393,6 @@ windowmain_init(FreetuxTVApp *app)
 	                 "delete-event",
 	                 G_CALLBACK(on_windowmain_deleteevent),
 	                 app);
-
-	g_signal_connect(G_OBJECT(widget),
-	                 "delete-event",
-	                 G_CALLBACK(on_windowmain_deleteevent),
-	                 app);
 	
 	gtk_window_add_accel_group(GTK_WINDOW(widget), app->widget.pAccelGroup);
 
@@ -869,6 +864,7 @@ on_windowmain_trayicon_activate(GtkStatusIcon *status_icon, gpointer user_data)
 	GtkWidget *widget;
 	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                                "windowmain");
+	widget =  gtk_widget_get_toplevel(GTK_WIDGET(app->player));
 
 	if(gtk_widget_get_visible(widget)){
 		gtk_widget_set_visible(widget, FALSE);
@@ -881,7 +877,7 @@ static gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) data;
-	freetuxtv_quit (app);
+	freetuxtv_quit (app, GTK_WINDOW(widget));
 	return TRUE;
 }
 
@@ -890,7 +886,12 @@ on_windowmain_menuitemquit_activate (GtkMenuItem *menuitem,
                                      gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_quit (app);
+
+	GtkWidget *widget;
+	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                                "windowmain");
+	
+	freetuxtv_quit (app, GTK_WINDOW(widget));
 }
 
 static void
