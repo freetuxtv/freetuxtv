@@ -141,8 +141,8 @@ void
 freetuxtv_action_deinterlace (FreetuxTVApp *app, const gchar* mode,
                               GError** error);
 
-void
-freetuxtv_quit (FreetuxTVApp *app);
+gboolean
+freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent);
 
 void
 freetuxtv_log (const gchar *log_domain, GLogLevelFlags log_level,
