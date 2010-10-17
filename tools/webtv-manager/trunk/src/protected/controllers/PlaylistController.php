@@ -48,34 +48,30 @@ class PlaylistController extends Controller
 	{
 		$conditions = "";
 		$params = array();
+
+		// Security
+		$conditions .= " StreamStatusCode NOT IN (SELECT * FROM wtvmT_StreamStatus WHERE Searchable=0) "; // Remove forbidden link
+		$conditions .= " AND TypeStream NOT IN (5) "; // Remove WebLink
+
 		if(isset($_GET['name'])){
 			$conditions = "Name LIKE :WebStream";
 			$params[':WebStream'] = '%'.$_GET['name'].'%';
 		}
 		if(isset($_GET['type'])){
 			if($_GET['type'] != ""){
-				if($conditions != ""){
-					$conditions .= " AND ";
-				}
-				$conditions .= " TypeStream=:WebStreamType";
+				$conditions .= " AND TypeStream=:WebStreamType";
 				$params[':WebStreamType'] = $_GET['type'];
 			}
 		}
 		if(isset($_GET['status'])){
 			if($_GET['status'] != ""){
-				if($conditions != ""){
-					$conditions .= " AND ";
-				}
-				$conditions .= " StreamStatusCode=:WebStreamStatus";
+				$conditions .= " AND StreamStatusCode=:WebStreamStatus";
 				$params[':WebStreamStatus'] = $_GET['status'];
 			}
 		}
 		if(isset($_GET['lng'])){
 			if($_GET['lng'] != ""){
-				if($conditions != ""){
-					$conditions .= " AND ";
-				}
-				$conditions .= " LangCode=:WebStreamLang";
+				$conditions .= " AND LangCode=:WebStreamLang";
 				$params[':WebStreamLang'] = $_GET['lng'];
 			}
 		}

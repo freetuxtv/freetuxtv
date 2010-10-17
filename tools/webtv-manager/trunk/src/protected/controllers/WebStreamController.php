@@ -190,6 +190,10 @@ class WebStreamController extends Controller
 		$conditions = "";
 		$params = array();
 		$playlist_params = array();
+
+		// Security
+		$conditions .= " StreamStatusCode NOT IN (SELECT * FROM wtvmT_StreamStatus WHERE Searchable=0) "; // Remove forbidden link
+
 		if(isset($modelSearchForm->Name)){
 			$conditions = "Name LIKE :WebStreamName";
 			$params[':WebStreamName'] = '%'.$modelSearchForm->Name.'%';
@@ -199,30 +203,21 @@ class WebStreamController extends Controller
 		}
 		if(isset($modelSearchForm->Type)){
 			if($modelSearchForm->Type != ""){
-				if($conditions != ""){
-					$conditions .= " AND ";
-				}
-				$conditions .= " TypeStream=:WebStreamType";
+				$conditions .= " AND TypeStream=:WebStreamType";
 				$params[':WebStreamType'] = $modelSearchForm->Type;
 				$playlist_params["type"] = $modelSearchForm->Type;
 			}
 		}
 		if(isset($modelSearchForm->Status)){
 			if($modelSearchForm->Status != ""){
-				if($conditions != ""){
-					$conditions .= " AND ";
-				}
-				$conditions .= " StreamStatusCode=:WebStreamStatus";
+				$conditions .= " AND StreamStatusCode=:WebStreamStatus";
 				$params[':WebStreamStatus'] = $modelSearchForm->Status;
 				$playlist_params["status"] = $modelSearchForm->Status;
 			}
 		}
 		if(isset($modelSearchForm->Language)){
 			if($modelSearchForm->Language != ""){
-				if($conditions != ""){
-					$conditions .= " AND ";
-				}
-				$conditions .= " LangCode=:WebStreamLang";
+				$conditions .= " AND LangCode=:WebStreamLang";
 				$params[':WebStreamLang'] = $modelSearchForm->Language;
 				$playlist_params["lng"] = $modelSearchForm->Language;
 			}
