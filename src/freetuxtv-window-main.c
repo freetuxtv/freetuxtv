@@ -196,8 +196,8 @@ on_accel_playpause (GtkAccelGroup *accel_group, GObject *acceleratable, guint ke
                     GdkModifierType modifier, gpointer user_data);
 
 static gboolean
-on_accel_fullscreen (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
-                     GdkModifierType modifier, gpointer user_data);
+on_accel_tooglefullscreen (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                           GdkModifierType modifier, gpointer user_data);
 
 static gboolean
 on_accel_unfullscreen (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
@@ -230,8 +230,8 @@ windowmain_init(FreetuxTVApp *app)
 
 	// Window accelerators
 	app->widget.pAccelGroup = gtk_accel_group_new ();
-	windowmain_add_accelerator (app->widget.pAccelGroup, "f", "<FreetuxTV>/Fullscreen",
-	                            G_CALLBACK (on_accel_fullscreen), app);
+	windowmain_add_accelerator (app->widget.pAccelGroup, "F11", "<FreetuxTV>/Fullscreen",
+	                            G_CALLBACK (on_accel_tooglefullscreen), app);
 	windowmain_add_accelerator (app->widget.pAccelGroup, "Escape", "<FreetuxTV>/Unfullscreen",
 	                            G_CALLBACK (on_accel_unfullscreen), app);
 	windowmain_add_accelerator (app->widget.pAccelGroup, "space", "<FreetuxTV>/PlayPause",
@@ -1769,13 +1769,13 @@ on_accel_playpause (GtkAccelGroup *accel_group, GObject *acceleratable, guint ke
 }
 
 static gboolean
-on_accel_fullscreen (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
-                     GdkModifierType modifier, gpointer user_data)
+on_accel_tooglefullscreen (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
+                           GdkModifierType modifier, gpointer user_data)
 {
 	GError* error = NULL;
 
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	gtk_libvlc_media_player_set_fullscreen (app->player, TRUE, &error);
+	gtk_libvlc_media_player_toggle_fullscreen (app->player, &error);
 
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
