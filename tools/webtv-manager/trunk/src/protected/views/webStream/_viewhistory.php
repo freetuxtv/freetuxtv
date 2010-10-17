@@ -13,7 +13,7 @@
 		    array(
 				'header'=>'User',
 				'type'=>'html',
-		        'value'=>'"<font>".($data->UserId ? $data->User->Username : "Anonyme")."</font>"',
+		        'value'=>'"<font>".($data->UserId ? "<b>".$data->User->Username."</b>" : "Anonyme")."</font>"',
 		    ),
 		    array(
 		        'name'=>'Action',

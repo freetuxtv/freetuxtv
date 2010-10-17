@@ -97,6 +97,7 @@ class WebStream extends CActiveRecord
 		case 2 : return "WebRadio";
 		case 3 : return "Webcam";
 		case 4 : return "WebProgramme";
+		case 4 : return "WebLink";
 		}
 		return "";
 	}
@@ -108,7 +109,7 @@ class WebStream extends CActiveRecord
 
 	public function getTypeStreamList()
 	{
-		return array(1=>"WebTV", 2=>"WebRadio", 3=>"WebCam", 4=>"WebProgramme");
+		return array(1=>"WebTV", 2=>"WebRadio", 3=>"WebCam", 4=>"WebProgramme", 5=>"WebLink");
 	}
 
 	public function getModelDiffMsg($attributes)

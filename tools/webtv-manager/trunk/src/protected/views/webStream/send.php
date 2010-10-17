@@ -10,9 +10,9 @@ Before to send a new URL, please check it's not corresding to one stream in the 
 
 <?php echo $this->renderPartial('_results', array('dataProvider'=>$dataProvider)); ?>
 
-If not, you can add the new channel :
+If not, you can add the new channel (please don't send illegal links) :
 
-<div class="form">
+<div class="wide form">
 
 <?php
 	 $form=$this->beginWidget('CActiveForm', array(
@@ -63,8 +63,18 @@ If not, you can add the new channel :
 		?>
 	</div>
 
+	<?php
+		if(Yii::app()->user->isGuest){
+	?>
+		<p class="hint">
+			This link will be send as user "Anonyme" from IP adress <?php echo Yii::app()->getRequest()->getUserHostAddress(); ?>.
+		</p>
+	<?php
+		}
+	?>
+
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Add'); ?>
+		<?php echo CHtml::submitButton('Send'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
