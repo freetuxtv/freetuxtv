@@ -192,10 +192,10 @@ class WebStreamController extends Controller
 		$playlist_params = array();
 
 		// Security
-		$conditions .= " StreamStatusCode NOT IN (SELECT * FROM wtvmT_StreamStatus WHERE Searchable=0) "; // Remove forbidden link
+		$conditions .= " StreamStatusCode NOT IN (SELECT Code FROM wtvmT_StreamStatus WHERE Searchable=0) "; // Remove forbidden link
 
 		if(isset($modelSearchForm->Name)){
-			$conditions = "Name LIKE :WebStreamName";
+			$conditions .= " AND Name LIKE :WebStreamName";
 			$params[':WebStreamName'] = '%'.$modelSearchForm->Name.'%';
 			if($modelSearchForm->Name != ""){
 				$playlist_params["name"] = $modelSearchForm->Name;

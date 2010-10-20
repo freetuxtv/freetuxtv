@@ -29,7 +29,7 @@ If not, you can add the new channel (please don't send illegal links) :
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'Name'); ?>
-		<?php echo $form->textField($model,'Name',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->textField($model,'Name',array('size'=>60,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'Name'); ?>
 	</div>
 

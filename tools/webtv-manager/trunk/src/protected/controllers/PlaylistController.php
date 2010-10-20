@@ -50,11 +50,11 @@ class PlaylistController extends Controller
 		$params = array();
 
 		// Security
-		$conditions .= " StreamStatusCode NOT IN (SELECT * FROM wtvmT_StreamStatus WHERE Searchable=0) "; // Remove forbidden link
+		$conditions .= " StreamStatusCode NOT IN (SELECT Code FROM wtvmT_StreamStatus WHERE Searchable=0) "; // Remove forbidden link
 		$conditions .= " AND TypeStream NOT IN (5) "; // Remove WebLink
 
 		if(isset($_GET['name'])){
-			$conditions = "Name LIKE :WebStream";
+			$conditions .= " AND Name LIKE :WebStream";
 			$params[':WebStream'] = '%'.$_GET['name'].'%';
 		}
 		if(isset($_GET['type'])){

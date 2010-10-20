@@ -33,7 +33,7 @@ class WebStream extends CActiveRecord
 		// will receive user inputs.
 		return array(
             array('Name, Url, TypeStream, StreamStatusCode', 'required'),
-			array('Name', 'length', 'max'=>50),
+			array('Name', 'length', 'max'=>100),
 			array('Url', 'length', 'max'=>255),
             array('RequiredIsp', 'length', 'max'=>50),
             array('LangCode', 'length', 'max'=>2),
