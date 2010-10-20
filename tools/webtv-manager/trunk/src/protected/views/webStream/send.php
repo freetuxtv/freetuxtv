@@ -4,13 +4,35 @@ $this->breadcrumbs=array(
 );
 ?>
 
+<?php
+	$itemCount = $dataProvider->getTotalItemCount();
+?>
+
 <h1>Send a Web Streams</h1>
 
-Before to send a new URL, please check it's not corresding to one stream in the following list :
+<?php
+	// If we have results, we show them to the user
+	if($itemCount != 0){
+?>
+
+The link you are sending already exists in our database. You are not authorized to send it as duplicate link.
+<br/><br/>
+You can view the details of existing links by choosing one in the following list :
 
 <?php echo $this->renderPartial('_results', array('dataProvider'=>$dataProvider)); ?>
 
-If not, you can add the new channel (please don't send illegal links) :
+<?php
+	}
+?>
+
+<?php
+	// If we don't have any result we can have some result
+	if($itemCount == 0){
+?>
+
+The link you are sending doesn't exits in our database.
+<br/><br/>
+Please complete the following information about the link before sending it :
 
 <div class="wide form">
 
@@ -78,5 +100,9 @@ If not, you can add the new channel (please don't send illegal links) :
 	</div>
 
 <?php $this->endWidget(); ?>
+
+<?php
+	}
+?>
 
 </div><!-- form -->
