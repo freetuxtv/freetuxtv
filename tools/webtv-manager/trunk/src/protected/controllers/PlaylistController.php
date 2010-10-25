@@ -58,9 +58,19 @@ class PlaylistController extends Controller
 			$params[':WebStream'] = '%'.$_GET['name'].'%';
 		}
 		if(isset($_GET['type'])){
+			$typeId = -1;
 			if($_GET['type'] != ""){
+				if(is_numeric($_GET['type'])){
+					$typeId = $_GET['type'];
+				}else{
+					if($_GET['type'] != "all"){
+						$typeId = WebStream::getPlaylistTypeStreamByName($_GET['type']);
+					}
+				}
+			}
+			if($typeId > 0 ){
 				$conditions .= " AND TypeStream=:WebStreamType";
-				$params[':WebStreamType'] = $_GET['type'];
+				$params[':WebStreamType'] = $typeId;
 			}
 		}
 		if(isset($_GET['status'])){
@@ -68,11 +78,16 @@ class PlaylistController extends Controller
 				$conditions .= " AND StreamStatusCode=:WebStreamStatus";
 				$params[':WebStreamStatus'] = $_GET['status'];
 			}
+		}else{
+			$conditions .= " AND StreamStatusCode=:WebStreamStatus";
+			$params[':WebStreamStatus'] = WebStream::WEBSTREAM_STATUS_WORKING;
 		}
 		if(isset($_GET['lng'])){
 			if($_GET['lng'] != ""){
-				$conditions .= " AND LangCode=:WebStreamLang";
-				$params[':WebStreamLang'] = $_GET['lng'];
+				if($_GET['lng'] != "all"){
+					$conditions .= " AND LangCode=:WebStreamLang";
+					$params[':WebStreamLang'] = $_GET['lng'];
+				}
 			}
 		}
 

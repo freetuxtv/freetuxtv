@@ -13,7 +13,7 @@
             'name'=>'Language',
 			'type'=>'image',
 			'htmlOptions' => array('style'=>'text-align:center'),
-            'value'=>'"images/lang/languageicons/flags/".strtolower($data->LangCode).".png"',
+            'value'=>'Yii::app()->createUrl("images/lang/languageicons/flags/".strtolower($data->LangCode).".png")',
         ),
         array(
             'name'=>'Type',

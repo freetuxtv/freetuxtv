@@ -7,6 +7,10 @@
  */
 class WebStream extends CActiveRecord
 {
+
+	const WEBSTREAM_STATUS_SUBMITTED		= 1;
+	const WEBSTREAM_STATUS_WORKING			= 2;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return WebStream the static model class
@@ -90,26 +94,23 @@ class WebStream extends CActiveRecord
 		    return false;
 	}
 
-	public function getTypeStreamNameById($typeStream)
+	public function getTypeStreamList()
 	{
-		switch($typeStream){
-		case 1 : return "WebTV";
-		case 2 : return "WebRadio";
-		case 3 : return "Webcam";
-		case 4 : return "WebProgramme";
-		case 5 : return "WebLink";
-		}
-		return "";
+		return array(1=>"WebTV", 2=>"WebRadio", 3=>"WebCam", 4=>"WebProgramme", 5=>"WebLink");
 	}
 
 	public function getTypeStreamName()
 	{
-		return $this->getTypeStreamNameById($this->TypeStream);
+		return WebStream::getTypeStreamNameById($this->TypeStream);
 	}
 
-	public function getTypeStreamList()
+	public function getTypeStreamNameById($typeStream)
 	{
-		return array(1=>"WebTV", 2=>"WebRadio", 3=>"WebCam", 4=>"WebProgramme", 5=>"WebLink");
+		$tab = WebStream::getTypeStreamList();
+		if(isset($tab[$typeStream])){
+			return $tab[$typeStream];
+		}
+		return "";
 	}
 
 	public function getModelDiffMsg($attributes)
@@ -165,5 +166,30 @@ class WebStream extends CActiveRecord
 			}
 		}
 		return $actionsDetails;
+	}
+
+	public function getPlaylistTypeStreamList()
+	{
+		return array(1=>"webtv", 2=>"webradio", 3=>"webcam", 4=>"programmes", 5=>"weblink");
+	}
+
+	public function getPlaylistTypeStreamNameById($typeStream)
+	{
+		$tab = WebStream::getPlaylistTypeStreamList();
+		if(isset($tab[$typeStream])){
+			return $tab[$typeStream];
+		}
+		return "";
+	}
+
+	public function getPlaylistTypeStreamByName($typeStream)
+	{
+		$tab = WebStream::getPlaylistTypeStreamList();
+		foreach($tab as $key => $val){
+			if($val == $typeStream){
+				return $key;
+			}
+		}
+		return -1;
 	}
 }

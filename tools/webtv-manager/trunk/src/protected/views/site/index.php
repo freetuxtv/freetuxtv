@@ -47,7 +47,10 @@
 		<?php
 			echo $form->labelEx($modelSearchForm, 'Status');
 			$dropList = CHtml::listData(StreamStatus::model()->findAll('Searchable=TRUE'), 'Code', 'Label');
-			echo $form->dropDownList($modelSearchForm, 'Status', $dropList, array ('empty' => '-- All --'));
+			echo $form->dropDownList($modelSearchForm, 'Status', $dropList, array (
+				'empty' => '-- All --',
+				'options' => array(WebStream::WEBSTREAM_STATUS_WORKING => array('selected' => true))
+			));
 			echo $form->error($modelSearchForm, 'Status');
 		?>
 	</div>

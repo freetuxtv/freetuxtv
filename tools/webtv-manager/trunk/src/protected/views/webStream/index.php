@@ -19,7 +19,29 @@ $this->menu=array(
 <br/><br/>
 
 <?php
-	$playlist_link = $this->createUrl("Playlist/", $playlist_params);
+	$querystring="";
+	$lng="all";
+	$type="all";
+	foreach ($playlist_params as $key => $val)
+	{
+		if($key == "lng"){
+			$lng = $val;
+		}else if($key == "type"){
+			$type = WebStream::getPlaylistTypeStreamNameById($val);
+		}else{
+			if($querystring==""){
+				$querystring.="?";
+			}else{
+				$querystring.="&";
+			}
+			$querystring.=$key."=".$val;
+		}
+	}
+	if($lng == "all" && $type == "all"){
+		$playlist_link = $this->createUrl("playlists/playlist.m3u".$querystring);
+	}else{
+		$playlist_link = $this->createUrl("playlists/playlist_".$type."_".$lng.".m3u".$querystring);
+	}
 ?>
 
 Playlist corresponding to the search : <br/>
