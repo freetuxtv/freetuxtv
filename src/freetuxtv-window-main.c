@@ -41,6 +41,10 @@ windowmain_add_accelerator (GtkAccelGroup *p_accel_group,
 static void
 on_windowmain_trayicon_activate(GtkStatusIcon *status_icon, gpointer user_data);
 
+static void
+on_windowmain_trayicon_popupmenu(GtkStatusIcon *status_icon, guint button,
+                                 guint activate_time, gpointer user_data);
+
 static gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data);
 
@@ -215,19 +219,15 @@ void
 windowmain_init(FreetuxTVApp *app)
 {
 	GtkWidget *widget;
-	//GtkWidget *button;
 	GtkWidget *pMenuBar = NULL;
 
 	app->widget.pTrayIcon = gtk_status_icon_new_from_icon_name ("freetuxtv");
 	gtk_status_icon_set_visible(app->widget.pTrayIcon, TRUE);
 	g_signal_connect(G_OBJECT(app->widget.pTrayIcon), "activate",
 	                 G_CALLBACK(on_windowmain_trayicon_activate), app);
-						 /*
-        g_signal_connect(G_OBJECT(tray_icon), 
-                         "popup-menu",
-                         G_CALLBACK(tray_icon_on_menu), NULL);
-						 */
-
+	g_signal_connect(G_OBJECT(app->widget.pTrayIcon), "popup-menu",
+	                 G_CALLBACK(on_windowmain_trayicon_popupmenu), app);
+	
 	// Window accelerators
 	app->widget.pAccelGroup = gtk_accel_group_new ();
 	windowmain_add_accelerator (app->widget.pAccelGroup, "F11", "<FreetuxTV>/Fullscreen",
@@ -872,6 +872,34 @@ on_windowmain_trayicon_activate(GtkStatusIcon *status_icon, gpointer user_data)
 		gtk_widget_set_visible(widget, TRUE);
 	}
 }
+
+static void
+on_windowmain_trayicon_popupmenu (GtkStatusIcon *status_icon, guint button,
+                                  guint activate_time, gpointer user_data)
+{
+	GtkWidget *pMenu;
+	GtkWidget *pMenuItem;
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	
+	g_return_if_fail (status_icon != NULL);
+	g_return_if_fail (GTK_IS_STATUS_ICON (status_icon));
+	
+	pMenu = gtk_menu_new();
+
+	/* Create the menu items */
+	pMenuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);	
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+	g_signal_connect(G_OBJECT(pMenuItem),
+	                 "activate",
+	                 G_CALLBACK(on_windowmain_menuitemquit_activate),
+	                 app);
+	gtk_widget_show(pMenuItem);
+	
+	gtk_widget_show(pMenu);
+		
+	gtk_menu_popup (GTK_MENU(pMenu), NULL, NULL, gtk_status_icon_position_menu, status_icon, button, activate_time);
+}
+
 
 static gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data)
