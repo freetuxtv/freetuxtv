@@ -705,6 +705,8 @@ on_buttonpress_event (GtkWidget *widget, GdkEventButton *event, gpointer user_da
 
 	GError* error = NULL;
 
+	gtk_widget_grab_focus (widget);
+
 	// If doulbe click, toggle fullscreen mode
 	if (event->type==GDK_2BUTTON_PRESS && event->button == 1) {
 		gtk_libvlc_media_player_toggle_fullscreen (self, &error);
@@ -733,6 +735,8 @@ gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance, GError** error)
 	g_object_ref(G_OBJECT(self->libvlc_instance));
 
 	self->media_list = gtk_tree_store_new(GTK_LIBVLC_MODEL_NB_COLUMN, GTK_TYPE_LIBVLC_MEDIA);
+
+	gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
 
 	return GTK_WIDGET(self);
 }
