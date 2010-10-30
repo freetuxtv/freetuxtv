@@ -629,6 +629,7 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	app->current.is_recording = FALSE;
 	app->current.recording.dst_file = NULL;
 	app->current.recording.duration = NULL;
+	app->current.bIsAccelGroupActivated = FALSE;
 
 	// Create UI from file
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
