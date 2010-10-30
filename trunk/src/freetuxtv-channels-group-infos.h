@@ -59,7 +59,6 @@ struct _FreetuxTVChannelsGroupInfos
 	gchar *eregex;
 
 	int nb_channels;
-	int nb_channels_visible;
 };
 
 GType freetuxtv_channels_group_infos_get_type (void) G_GNUC_CONST;
