@@ -145,6 +145,14 @@ static void
 on_windowmain_entryfilter_changed (GtkEntry *entry,
                                    gpointer user_data);
 
+static gboolean
+on_windowmain_entryfilter_focusin (GtkWidget *widget, GdkEventFocus *event,
+                                   gpointer user_data);
+
+static gboolean
+on_windowmain_entryfilter_focusout (GtkWidget *widget, GdkEventFocus *event,
+                                    gpointer user_data);
+
 static void
 on_windowmain_volumecontrol_value_changed (GtkRange *range,
                                            gpointer user_data);
@@ -231,6 +239,8 @@ windowmain_init(FreetuxTVApp *app)
 	// Window accelerators
 	app->widget.pAccelGroup = gtk_accel_group_new ();
 	windowmain_add_accelerator (app->widget.pAccelGroup, "F11", "<FreetuxTV>/Fullscreen",
+	                            G_CALLBACK (on_accel_tooglefullscreen), app);
+	windowmain_add_accelerator (app->widget.pAccelGroup, "f", "<FreetuxTV>/Fullscreen",
 	                            G_CALLBACK (on_accel_tooglefullscreen), app);
 	windowmain_add_accelerator (app->widget.pAccelGroup, "Escape", "<FreetuxTV>/Unfullscreen",
 	                            G_CALLBACK (on_accel_unfullscreen), app);
@@ -393,8 +403,6 @@ windowmain_init(FreetuxTVApp *app)
 	                 "delete-event",
 	                 G_CALLBACK(on_windowmain_deleteevent),
 	                 app);
-	
-	gtk_window_add_accel_group(GTK_WINDOW(widget), app->widget.pAccelGroup);
 
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 	                                              "windowmain_buttonclearfilter");
@@ -408,6 +416,14 @@ windowmain_init(FreetuxTVApp *app)
 	g_signal_connect(G_OBJECT(widget),
 	                 "changed",
 	                 G_CALLBACK(on_windowmain_entryfilter_changed),
+	                 app);
+	g_signal_connect(G_OBJECT(widget),
+	                 "focus-in-event",
+	                 G_CALLBACK(on_windowmain_entryfilter_focusin),
+	                 app);
+	g_signal_connect(G_OBJECT(widget),
+	                 "focus-out-event",
+	                 G_CALLBACK(on_windowmain_entryfilter_focusout),
 	                 app);
 
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
@@ -487,8 +503,6 @@ windowmain_init(FreetuxTVApp *app)
 	                 "delete-event",
 	                 G_CALLBACK(on_windowmain_deleteevent),
 	                 app);
-	
-	gtk_window_add_accel_group(GTK_WINDOW(widget), app->widget.pAccelGroup);
 
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                               "windowminimode_buttonnormalmode");
@@ -604,19 +618,14 @@ windowmain_init(FreetuxTVApp *app)
 	                 "delete-event",
 	                 G_CALLBACK(gtk_widget_hide_on_delete),
 	                 NULL);
+
+	windowmain_enable_accelerators(app, TRUE);
 }
 
 void
 windowmain_dispose(FreetuxTVApp *app)
 {
-	GtkWidget *widget;
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-	                                              "windowmain");
-	gtk_window_remove_accel_group (GTK_WINDOW(widget), app->widget.pAccelGroup);
-	
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                               "windowminimode");
-	gtk_window_remove_accel_group (GTK_WINDOW(widget), app->widget.pAccelGroup);
+	windowmain_enable_accelerators(app, FALSE);
 	
 	gtk_accel_group_unref (app->widget.pAccelGroup);
 	app->widget.pAccelGroup = NULL;
@@ -839,6 +848,40 @@ windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms, gf
 	}else{
 		gtk_widget_set_sensitive(widget, FALSE);
 	}
+}
+
+void
+windowmain_enable_accelerators(FreetuxTVApp *app, gboolean enable)
+{
+	g_return_if_fail(app != NULL);
+	
+	GtkWidget* widget;
+
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                              "windowmain");
+	if(enable){
+		if(!app->current.bIsAccelGroupActivated){
+			gtk_window_add_accel_group(GTK_WINDOW(widget), app->widget.pAccelGroup);
+		}
+	}else{
+		if(app->current.bIsAccelGroupActivated){
+			gtk_window_remove_accel_group(GTK_WINDOW(widget), app->widget.pAccelGroup);
+		}
+	}
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "windowminimode");
+	if(enable){
+		if(!app->current.bIsAccelGroupActivated){
+			gtk_window_add_accel_group(GTK_WINDOW(widget), app->widget.pAccelGroup);
+		}
+	}else{
+		if(app->current.bIsAccelGroupActivated){
+			gtk_window_remove_accel_group(GTK_WINDOW(widget), app->widget.pAccelGroup);
+		}
+	}
+
+	app->current.bIsAccelGroupActivated = enable;
 }
 
 static void
@@ -1121,6 +1164,24 @@ on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 	}else{
 		gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 	}
+}
+
+static gboolean
+on_windowmain_entryfilter_focusin (GtkWidget *widget, GdkEventFocus *event,
+                                   gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	windowmain_enable_accelerators (app, FALSE);
+	return FALSE;
+}
+
+static gboolean
+on_windowmain_entryfilter_focusout (GtkWidget *widget, GdkEventFocus *event,
+                                    gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	windowmain_enable_accelerators (app, TRUE);
+	return FALSE;
 }
 
 static void

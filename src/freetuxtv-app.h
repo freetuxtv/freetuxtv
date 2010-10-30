@@ -89,6 +89,7 @@ struct _FreetuxTVApp {
 		GtkTreePath *path_channel;
 		gboolean autoplay_channel;
 		NotifyNotification *notification;
+		gboolean bIsAccelGroupActivated;
 		
 		gboolean is_recording;
 		struct {
