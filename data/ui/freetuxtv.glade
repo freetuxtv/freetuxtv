@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 2.12 -->
   <!-- interface-naming-policy project-wide -->
@@ -129,7 +129,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="tooltip_text" translatable="yes">Channels' search text area</property>
-                                    <property name="invisible_char">&#x25CF;</property>
                                   </object>
                                   <packing>
                                     <property name="position">1</property>
@@ -628,7 +627,6 @@
     <property name="icon_name">freetuxtv</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">windowmain</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
@@ -660,7 +658,6 @@
                       <object class="GtkEntry" id="dialogaddgroup_entrychannelsgroupfile">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
                         <property name="text" translatable="yes">http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml</property>
                       </object>
                       <packing>
@@ -718,7 +715,7 @@
                         <property name="search_column">0</property>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn2">
-                            <property name="title" translatable="yes">Languages/Channels group</property>
+                            <property name="title">Languages/Channels group</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext2"/>
                               <attributes>
@@ -729,7 +726,7 @@
                         </child>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn3">
-                            <property name="title" translatable="yes">Required ISP</property>
+                            <property name="title">Required ISP</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext3"/>
                               <attributes>
@@ -740,7 +737,7 @@
                         </child>
                         <child>
                           <object class="GtkTreeViewColumn" id="treeviewcolumn4">
-                            <property name="title" translatable="yes">URI</property>
+                            <property name="title">URI</property>
                             <child>
                               <object class="GtkCellRendererText" id="cellrenderertext4"/>
                               <attributes>
@@ -790,7 +787,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="tooltip_text" translatable="yes">Name of the group which will be added</property>
-                        <property name="invisible_char">&#x25CF;</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -813,7 +809,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="tooltip_text" translatable="yes">Playlist's URI of the group which will be added</property>
-                        <property name="invisible_char">&#x25CF;</property>
                         <property name="width_chars">50</property>
                       </object>
                       <packing>
@@ -862,7 +857,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="tooltip_text" translatable="yes">Text or regexp which must be deleted at the end of the channel's name</property>
-                                    <property name="invisible_char">&#x25CF;</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -885,7 +879,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="tooltip_text" translatable="yes">Text or regexp which must be deleted at the beginning of the channel's name</property>
-                                    <property name="invisible_char">&#x25CF;</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -963,7 +956,6 @@
                       <object class="GtkEntry" id="dialogaddgroup_specialgroupname">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -1198,7 +1190,6 @@
     <property name="icon_name">freetuxtv</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">windowmain</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox3">
         <property name="visible">True</property>
@@ -1549,7 +1540,6 @@
                                       <object class="GtkEntry" id="dialogpreferences_entryproxyserver">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="invisible_char">&#x25CF;</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -1560,7 +1550,6 @@
                                       <object class="GtkEntry" id="dialogpreferences_entryproxyport">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="invisible_char">&#x25CF;</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -1633,7 +1622,6 @@
                                       <object class="GtkEntry" id="dialogpreferences_entryproxyusername">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="invisible_char">&#x25CF;</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -1644,7 +1632,6 @@
                                       <object class="GtkEntry" id="dialogpreferences_entryproxypassword">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="invisible_char">&#x25CF;</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -1825,10 +1812,11 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
     <property name="title" translatable="yes">Group properties</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
+    <property name="default_width">480</property>
+    <property name="default_height">320</property>
     <property name="icon_name">freetuxtv</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">windowmain</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox4">
         <property name="visible">True</property>
@@ -1854,6 +1842,9 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">Group's name :</property>
                       </object>
+                      <packing>
+                        <property name="x_options">GTK_FILL</property>
+                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label34">
@@ -1864,6 +1855,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                       <packing>
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
                       </packing>
                     </child>
                     <child>
@@ -1871,7 +1863,6 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="tooltip_text" translatable="yes">Name of the group which will be added</property>
-                        <property name="invisible_char">&#x25CF;</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -1883,7 +1874,6 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="tooltip_text" translatable="yes">Playlist's URI of the group which will be added</property>
-                        <property name="invisible_char">&#x25CF;</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -1926,6 +1916,9 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                                     <property name="xalign">0</property>
                                     <property name="label" translatable="yes">Delete this text before the name :</property>
                                   </object>
+                                  <packing>
+                                    <property name="x_options">GTK_FILL</property>
+                                  </packing>
                                 </child>
                                 <child>
                                   <object class="GtkLabel" id="label36">
@@ -1936,6 +1929,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                                   <packing>
                                     <property name="top_attach">1</property>
                                     <property name="bottom_attach">2</property>
+                                    <property name="x_options">GTK_FILL</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -1943,7 +1937,6 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="tooltip_text" translatable="yes">Text or regexp which must be deleted at the end of the channel's name</property>
-                                    <property name="invisible_char">&#x25CF;</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -1955,7 +1948,6 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="tooltip_text" translatable="yes">Text or regexp which must be deleted at the beginning of the channel's name</property>
-                                    <property name="invisible_char">&#x25CF;</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -2027,10 +2019,14 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">Number of channels :</property>
                       </object>
+                      <packing>
+                        <property name="x_options">GTK_FILL</property>
+                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="dialoggroupproperties_nbchannels">
                         <property name="visible">True</property>
+                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">0</property>
                       </object>
                       <packing>
@@ -2114,7 +2110,6 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
     <property name="default_width">480</property>
     <property name="icon_name">freetuxtv</property>
     <property name="type_hint">normal</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox6">
         <property name="visible">True</property>
@@ -2188,7 +2183,6 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
     <property name="window_position">center</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">windowmain</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox7">
         <property name="visible">True</property>
@@ -2223,7 +2217,6 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="max_length">3</property>
-                        <property name="invisible_char">&#x25CF;</property>
                         <property name="width_chars">5</property>
                         <property name="text" translatable="yes">60</property>
                       </object>
@@ -2294,4 +2287,218 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
       </object>
     </child>
   </object>
+  <object class="GtkDialog" id="dialogchannelproperties">
+    <property name="border_width">5</property>
+    <property name="title" translatable="yes">Channel properties</property>
+    <property name="modal">True</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="default_width">480</property>
+    <property name="default_height">320</property>
+    <property name="icon_name">freetuxtv</property>
+    <property name="type_hint">normal</property>
+    <property name="transient_for">windowmain</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox9">
+        <property name="visible">True</property>
+        <property name="spacing">2</property>
+        <child>
+          <object class="GtkNotebook" id="notebook4">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <child>
+              <object class="GtkVBox" id="vbox25">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkTable" id="table10">
+                    <property name="visible">True</property>
+                    <property name="border_width">3</property>
+                    <property name="n_rows">2</property>
+                    <property name="n_columns">2</property>
+                    <property name="column_spacing">3</property>
+                    <property name="row_spacing">3</property>
+                    <child>
+                      <object class="GtkLabel" id="label28">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">Channel's name :</property>
+                      </object>
+                      <packing>
+                        <property name="x_options">GTK_FILL</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label29">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">Channel's URI :</property>
+                      </object>
+                      <packing>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="dialogchannelproperties_name">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">•</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="dialogchannelproperties_uri">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">•</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFrame" id="frame10">
+                    <property name="visible">True</property>
+                    <property name="border_width">3</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
+                    <child>
+                      <object class="GtkAlignment" id="alignment8">
+                        <property name="visible">True</property>
+                        <property name="left_padding">12</property>
+                        <child>
+                          <object class="GtkVBox" id="vbox26">
+                            <property name="visible">True</property>
+                            <property name="border_width">3</property>
+                            <child>
+                              <object class="GtkTextView" id="textview_channelvlcoptions">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="buffer">textbuffer_channelvlcoptions</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label">
+                      <object class="GtkLabel" id="label57">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Channel VLC options :&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="label58">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">General</property>
+              </object>
+              <packing>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkVBox" id="vbox27">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkTable" id="table11">
+                    <property name="visible">True</property>
+                    <property name="border_width">3</property>
+                    <property name="n_columns">2</property>
+                    <property name="column_spacing">3</property>
+                    <property name="row_spacing">3</property>
+                    <child>
+                      <object class="GtkLabel" id="label31">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">Deinterlacement :</property>
+                      </object>
+                      <packing>
+                        <property name="x_options">GTK_FILL</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="dialogchannelproperties_deinterlace">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">none</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="label30">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Options</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area9">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkTextBuffer" id="textbuffer_channelvlcoptions"/>
 </interface>
