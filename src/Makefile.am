@@ -44,6 +44,8 @@ freetuxtv_SOURCES = \
 	freetuxtv-utils.h \
 	freetuxtv-window-add-channels-group.h \
 	freetuxtv-window-add-channels-group.c \
+	freetuxtv-window-channel-properties.h \
+	freetuxtv-window-channel-properties.c \
 	freetuxtv-window-main.c \
 	freetuxtv-window-main.h \
 	freetuxtv-window-recording.c \
