@@ -36,6 +36,15 @@
 #include "freetuxtv-window-add-channels-group.h"
 #include <libvlc-gtk/gtk-libvlc-media-player.h>
 
+static void
+list_options_add_options (gchar*** pOptions, gchar** options);
+
+static void
+list_options_add_option (gchar*** pOptions, gchar* option);
+
+static void
+list_options_free (gchar** pOptions);
+
 int
 init_user_configuration(FreetuxTVApp *app, GError **error)
 {
@@ -171,6 +180,17 @@ load_user_configuration(FreetuxTVApp *app)
 			app->prefs.enable_notifications = b;		
 		}
 
+		i = g_key_file_get_integer (keyfile, "libvlc",
+		                            "configfile_mode", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			if(i>=0 && i<=2){
+				app->prefs.libvlcconfigfile_mode = i;
+			}
+		}
+
 		str = g_key_file_get_string (keyfile, "general",
 		                             "directory_record", &err);
 		if (err != NULL) {
@@ -186,7 +206,7 @@ load_user_configuration(FreetuxTVApp *app)
 			g_error_free (err);
 			err = NULL;
 		}else{
-			if(i>0 && i<2){
+			if(i>=0 && i<=1){
 				app->prefs.transcoding_mode = i;
 			}
 		}
@@ -438,6 +458,7 @@ splashscreen_app_init(gpointer data)
 	GError* error = NULL;
 
 	GtkWidget *widget;
+	GtkWidget *eventboxplayer;
 
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 		                                          "splashscreen_image");
@@ -446,12 +467,10 @@ splashscreen_app_init(gpointer data)
 	gtk_image_set_from_file (GTK_IMAGE(widget), pImgSplashScreen);
 	g_free(pImgSplashScreen);
 
-	gchar* dir;
-	dir = g_build_filename(g_get_user_config_dir(), "FreetuxTV", NULL);
+	gchar* szConfigDir;
+	szConfigDir = g_build_filename(g_get_user_config_dir(), "FreetuxTV", NULL);
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Using user configuration dir : %s\n", dir);
-	g_free(dir);
-	dir = NULL;
+	      "Using user configuration dir : %s\n", szConfigDir);
 
 	// Initializing user configuration
 	if(error == NULL){
@@ -466,6 +485,43 @@ splashscreen_app_init(gpointer data)
 		load_user_configuration(app);
 		splashscreen_statusbar_pop (app);
 	}
+
+	// Add player to UI	
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Creating media player widget\n");
+	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                                      "windowmain_eventboxplayer");
+	GtkLibvlcInstance* instance;
+	gchar **options = NULL;
+	gchar* newoption;
+	if(app->prefs.libvlcconfigfile_mode == 0){
+		// No config file
+		list_options_add_option(&options, "--ignore-config");
+		list_options_add_option(&options, "--no-video-title-show");
+	}else if(app->prefs.libvlcconfigfile_mode == 1){
+		// Custom config file
+		list_options_add_option(&options, "--no-ignore-config");
+		newoption = g_strdup_printf("--config=%s/vlcrc", szConfigDir);
+		list_options_add_option(&options, newoption);
+		g_free(newoption);
+		newoption = NULL;
+	}else if(app->prefs.libvlcconfigfile_mode == 2){
+		// VLC config file
+		list_options_add_option(&options, "--no-ignore-config");
+	}
+
+	instance = gtk_libvlc_instance_new((const gchar**)options, freetuxtv_log, &error);
+	if(error == NULL){
+		app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance, NULL));
+	}
+
+	list_options_free(options);
+
+	gtk_widget_show(GTK_WIDGET(app->player));
+	g_object_unref(G_OBJECT(instance));
+	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
+
+	gtk_libvlc_media_player_set_accel_group (app->player, app->widget.pAccelGroup);
 
 	// Open database
 	DBSync dbsync;
@@ -571,6 +627,9 @@ splashscreen_app_init(gpointer data)
 	// Start internal timer
 	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
 
+	g_free(szConfigDir);
+	szConfigDir = NULL;
+
 	if(error != NULL){
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
 		      "Error : %s\n", error->message);
@@ -585,9 +644,6 @@ static FreetuxTVApp *
 freetuxtv_app_create_app (const gchar* szDataDir)
 {
 	FreetuxTVApp *app;
-
-	GtkWidget *eventboxplayer;
-	GError* error = NULL;
 
 	app = g_new0 (FreetuxTVApp, 1);
 
@@ -604,6 +660,7 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	// Loads default configuration
 	app->prefs.channelonstartup = TRUE;
 	app->prefs.enable_notifications = TRUE;
+	app->prefs.libvlcconfigfile_mode = 0;
 	app->prefs.directoryrecordings = g_strdup(g_get_home_dir());
 	app->prefs.transcoding_mode = 0;
 	app->prefs.transcoding_format = g_strdup("0");
@@ -644,25 +701,6 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	windowrecording_init(app);
 	channels_list_init(app);
 	recordings_list_init(app);
-
-	// Add player to UI	
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Creating media player widget\n");
-	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
-	                                                      "windowmain_eventboxplayer");
-	GtkLibvlcInstance* instance;
-	const gchar *options[] = {"--no-video-title-show"};
-
-	instance = gtk_libvlc_instance_new(options, freetuxtv_log, &error);
-	if(error == NULL){
-		app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance, NULL));
-	}
-
-	gtk_widget_show(GTK_WIDGET(app->player));
-	g_object_unref(G_OBJECT(instance));
-	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
-
-	gtk_libvlc_media_player_set_accel_group (app->player, app->widget.pAccelGroup);
 
 	return app;
 
@@ -786,6 +824,15 @@ list_options_add_option (gchar*** pOptions, gchar* option)
 	options[1] = NULL;
 
 	list_options_add_options (pOptions, options);
+}
+
+static void
+list_options_free (gchar** pOptions)
+{
+	if(pOptions){
+		g_strfreev (pOptions);
+		pOptions = NULL;
+	}
 }
 
 void
@@ -917,6 +964,8 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 				}
 			}
 		}
+
+		list_options_free(options);
 
 		gtk_libvlc_media_player_play(app->player, options, error);
 	}
@@ -1186,6 +1235,10 @@ freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 			                    "enable_notifications",
 			                    app->prefs.enable_notifications);
 
+		g_key_file_set_integer (keyfile, "libvlc",
+			                    "configfile_mode",
+			                    app->prefs.libvlcconfigfile_mode);
+		
 		g_key_file_set_string (keyfile, "general",
 			                   "directory_record",
 			                   app->prefs.directoryrecordings);

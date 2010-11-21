@@ -154,6 +154,8 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** er
 
 	GError* pError = NULL;
 
+	gchar* szListOptions = NULL;
+
 	int idLogFuncHandler = -1;
 	if(log_func){
 		idLogFuncHandler = g_log_set_handler (GTK_LIBVLC_LOG_DOMAIN, G_LOG_LEVEL_MASK,
@@ -172,6 +174,17 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** er
 	libvlc_exception_t _vlcexcep;
 	libvlc_exception_init (&_vlcexcep);
 #endif // LIBVLC_OLD_VLCEXCEPTION
+
+	if(vlc_args){
+		szListOptions = g_strjoinv(" ", (gchar**)vlc_args);
+	}
+	
+	if(szListOptions){
+		g_log(GTK_LIBVLC_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Using instance vlc options [%s]\n", szListOptions);
+		g_free(szListOptions);
+		szListOptions = NULL;
+	}
 
 #ifdef LIBVLC_OLD_INSTANCE
 	if(vlc_args == NULL){

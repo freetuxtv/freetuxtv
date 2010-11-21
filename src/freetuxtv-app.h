@@ -56,6 +56,9 @@ struct _FreetuxTVApp {
 		// Prefs general
 		gboolean channelonstartup;
 		gboolean enable_notifications;
+
+		// Prefs LibVLC
+		gint libvlcconfigfile_mode;
 		
 		// Prefs recordings
 		gchar* directoryrecordings;
