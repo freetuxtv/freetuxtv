@@ -1223,6 +1223,26 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	                                               "dialogpreferences_enablenotifications");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.enable_notifications);
 
+	// LibVLC
+	switch(app->prefs.libvlcconfigfile_mode){
+		case 0:
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			                                               "dialogpreferences_radioconfigfilenone");		
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);
+			break;
+		case 1:
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			                                               "dialogpreferences_radioconfigfilecustom");		
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);				
+			break;
+		case 2:
+			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			                                               "dialogpreferences_radioconfigfilevlc");		
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), TRUE);	
+		default:
+			break;
+	}
+
 	// Recordings
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                               "dialogpreferences_directoryrecordings");
@@ -1573,6 +1593,26 @@ on_dialogpreferences_response (GtkDialog *dialog,
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 		                                               "dialogpreferences_enablenotifications");
 		app->prefs.enable_notifications = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+
+		// Get prefs libvlc
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_radioconfigfilenone");	
+		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
+			app->prefs.libvlcconfigfile_mode = 0;	
+		}
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_radioconfigfilecustom");		
+		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
+			app->prefs.libvlcconfigfile_mode = 1;	
+		}
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_radioconfigfilevlc");		
+		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
+			app->prefs.libvlcconfigfile_mode = 2;
+		}
+		
 
 		// Get prefs recording
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
