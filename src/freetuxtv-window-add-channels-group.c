@@ -466,7 +466,9 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 								g_free(tmptext);
 
 								channels_list_add_channels_group (app, pChannelsGroupInfos, NULL, &dbsync, &error);
-								nb_added++;
+								if(error == NULL){
+									nb_added++;
+								}
 								
 							}while (gtk_tree_model_iter_next(model, &iter) && error == NULL);
 							
@@ -503,7 +505,9 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 							g_free(tmptext);
 							
 							channels_list_add_channels_group (app, pChannelsGroupInfos, NULL, &dbsync, &error);
-							nb_added++;
+							if(error == NULL){
+								nb_added++;
+							}
 						}			
 					}	
 				}
