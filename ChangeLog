@@ -5,10 +5,11 @@ FreetuxTV 0.5.2 (2010-xx-xx)
   - Created option --open-channel to launch a channel through the command line.
   - Ability to suppress channel in favorites group.
   - Ability to reorder the groups in the channels list.
-  - Add FreetuxTV's german translation.
+  - Add FreetuxTV's german and chinese simplified translation.
   - Added keyboard shorcut for fullscreen, volume control and play pause.
   - Added systray icon to hide/show FreetuxTV.
   - Dialog to show channel's properties.
+  - Preference to allow use of the VLC configuration file for LibVLC.
   - Added TV channel logos:
       WebTV: Orange Sport Infos, R King TV, Zahra TV, TV8 Moselle Est, Clap TV, Archeo TV,
          Canalmoza, CT2E, HiScore TV, Info Sport, Soleil TV, TVSF
