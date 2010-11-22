@@ -5,10 +5,11 @@ FreetuxTV 0.5.2 (2010-xx-xx)
   - Ajout de l'option --open-channel pour lancer une chaine en particulier via la ligne de commande.
   - Ajout de la possibilité de supprimer une chaine dans le groupe Favoris.
   - Ajout de la possibilité de réorganisé les groupes dans la liste des chaînes.
-  - Ajout de la traduction en allemand de FreetuxTV.
+  - Ajout de la traduction en allemand et chinois simplifié de FreetuxTV.
   - Ajout de raccourci clavier pour le plein écran, contrôle du volume et pause/lecture.
   - Ajout d'un icone pour la barre d'état permettant que cacher FreetuxTV.
   - Fenêtre de propriétés pour voir les informations des chaînes.
+  - Préférence pour permettre l'utilisation du fichier de configuration VLC pour LibVLC.
   - Ajout de logos :
       Radio et WebRadio :
          BBC britannique, RNE espagnole, RAI italienne, ChanteFrance, Radio O
