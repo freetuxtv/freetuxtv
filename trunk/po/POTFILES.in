@@ -29,6 +29,8 @@ src/freetuxtv-utils.c
 src/freetuxtv-utils.h
 src/freetuxtv-window-add-channels-group.h
 src/freetuxtv-window-add-channels-group.c
+src/freetuxtv-window-channel-properties.c
+src/freetuxtv-window-channel-properties.h
 src/freetuxtv-window-main.c
 src/freetuxtv-window-main.h
 src/freetuxtv-window-recording.c
