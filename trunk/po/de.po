@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-25 23:06+0100\n"
+"POT-Creation-Date: 2010-11-25 23:42+0100\n"
 "PO-Revision-Date: 2010-08-09 20:00+0200\n"
 "Last-Translator: Benni <bestofbenni@@googlemail.com>\n"
 "Language-Team: DE <DE@li.org>\n"
@@ -755,16 +755,16 @@ msgstr "\"%s\" Senderlisten aktualisieren"
 
 #. Get the file of the playlist
 #: ../src/freetuxtv-channels-list.c:303
-#, c-format
-msgid "Getting the file : \"%s\""
+#, fuzzy, c-format
+msgid "Getting the file: \"%s\""
 msgstr "Hole Datei \"%s\""
 
 #: ../src/freetuxtv-channels-list.c:334
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when adding the channels.\n"
 "\n"
-"M3UParser has returned error :\n"
+"M3UParser has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim hinzufügen der Sender.\n"
@@ -787,11 +787,11 @@ msgid "New group"
 msgstr "Neue Gruppe"
 
 #: ../src/freetuxtv-db-sync.c:134
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Cannot open database.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Konnte Datenbank nicht öffnen.\n"
@@ -800,11 +800,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:290 ../src/freetuxtv-db-sync.c:393
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when displaying the channels.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim Anzeigen der Sender.\n"
@@ -813,11 +813,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:451
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when getting the channel.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim holen des Senders.\n"
@@ -826,11 +826,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:525
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when adding the channel \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim hinzufügen des Senders.\n"
@@ -843,7 +843,7 @@ msgstr ""
 msgid ""
 "Error when deleting the channel \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim aktualisieren des Senders.\n"
@@ -856,7 +856,7 @@ msgstr ""
 msgid ""
 "Error when updating the position of the channels in group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim aktualisieren der Position der Gruppe.\n"
@@ -869,7 +869,7 @@ msgstr ""
 msgid ""
 "Error when getting the channel by name.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim holen des Senders.\n"
@@ -879,11 +879,11 @@ msgstr ""
 
 #: ../src/freetuxtv-db-sync.c:721 ../src/freetuxtv-db-sync.c:964
 #: ../src/freetuxtv-db-sync.c:987
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when updating the channel \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim aktualisieren des Senders.\n"
@@ -892,11 +892,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:776 ../src/freetuxtv-db-sync.c:810
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when adding the group \"%s\" in database.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim hinzufügen der Gruppe \"%s\" in die Datenbank.\n"
@@ -906,11 +906,11 @@ msgstr ""
 
 #: ../src/freetuxtv-db-sync.c:854 ../src/freetuxtv-db-sync.c:895
 #: ../src/freetuxtv-db-sync.c:918
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when updating the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim aktualisieren der Gruppe \"%s\" in die Datenbank.\n"
@@ -919,11 +919,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1030
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when updating the last update date of the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim ändern des Updatedaums der Gruppe \"%s\" in der Datenbank.\n"
@@ -932,11 +932,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1064
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when deleting the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim löschen der Gruppe \"%s\".\n"
@@ -949,7 +949,7 @@ msgstr ""
 msgid ""
 "Error when updating the position of the groups.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim aktualisieren der Position der Gruppe.\n"
@@ -958,11 +958,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1120
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when deleting the channels of the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim löschen der Sender der Gruppe \"%s\".\n"
@@ -971,11 +971,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1157 ../src/freetuxtv-db-sync.c:1193
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when updating the channels of the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim aktualisieren der Sender der Gruppe \"%s\".\n"
@@ -984,11 +984,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1219
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when deleting the tv channels list.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim löschen der TV-Senderliste.\n"
@@ -997,11 +997,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1263
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when adding the tv channel '%s'.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim hinzufügen des TV-Senders.\n"
@@ -1010,11 +1010,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1314
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when adding the label of channel logo '%s'.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim hinzufügen des Labels des Senderlogos.\n"
@@ -1023,11 +1023,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1348
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when linking the TV channel '%s' to channel.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim verbinden des TV Senders '%s' zum Sender.\n"
@@ -1036,11 +1036,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1388
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when getting the database version.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim herausfinden der Datenbankversion.\n"
@@ -1049,11 +1049,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1420
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when updating the database version.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim aktualisieren der Datenbankversion.\n"
@@ -1062,11 +1062,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1485
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when migrating the database.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim migrieren der Datenbank.\n"
@@ -1075,11 +1075,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-fileutils.c:69
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when downloading the file from URL -> %s.\n"
 "\n"
-"CURL has returned error :\n"
+"CURL has returned error:\n"
 "%s."
 msgstr ""
 "Fehler beim Download der Datei von der URL -> %s.\n"
@@ -1143,8 +1143,8 @@ msgstr "Senderliste hinzufügen"
 #: ../src/freetuxtv-window-add-channels-group.c:502
 #: ../src/freetuxtv-window-add-channels-group.c:577
 #: ../src/freetuxtv-window-add-channels-group.c:614
-#, c-format
-msgid "Adding channels group : <i>%s</i>"
+#, fuzzy, c-format
+msgid "Adding channels group: <i>%s</i>"
 msgstr "Senderliste hinzufügen: <i>%s</i>"
 
 #: ../src/freetuxtv-window-add-channels-group.c:525
@@ -1233,8 +1233,8 @@ msgid "_Help"
 msgstr "_Hilfe"
 
 #: ../src/main.c:377
-#, c-format
-msgid "Recording : %s (%s) -> %s (%s)"
+#, fuzzy, c-format
+msgid "Recording: %s (%s) -> %s (%s)"
 msgstr "Aufnahme: %s (%s) -> %s (%s)"
 
 #: ../src/main.c:477
@@ -1262,8 +1262,8 @@ msgid "Loading the list of recordings..."
 msgstr "Lade Aufnahmeliste..."
 
 #: ../src/main.c:856 ../src/main.c:1051
-#, c-format
-msgid "Playing : %s"
+#, fuzzy, c-format
+msgid "Playing: %s"
 msgstr "Wiedergabe: %s"
 
 #: ../src/main.c:865
@@ -1271,8 +1271,8 @@ msgid "is playing"
 msgstr "gibt wieder"
 
 #: ../src/main.c:1053
-#, c-format
-msgid "Stopping channel : %s"
+#, fuzzy, c-format
+msgid "Stopping channel: %s"
 msgstr "Stoppe Sender: %s"
 
 #: ../src/main.c:1092
@@ -1280,8 +1280,8 @@ msgid "is recording"
 msgstr "nimmt auf"
 
 #: ../src/main.c:1138
-#, c-format
-msgid "Recording : %s"
+#, fuzzy, c-format
+msgid "Recording: %s"
 msgstr "Aufnahme: %s"
 
 #: ../src/main.c:1214

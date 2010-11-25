@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-25 23:06+0100\n"
+"POT-Creation-Date: 2010-11-25 23:42+0100\n"
 "PO-Revision-Date: 2010-11-22 17:53+0800\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese Simplified <xslidian+freetuxtv@gmail.com>\n"
@@ -753,16 +753,16 @@ msgstr "更新 \"%s\" 频道列表"
 
 #. Get the file of the playlist
 #: ../src/freetuxtv-channels-list.c:303
-#, c-format
-msgid "Getting the file : \"%s\""
+#, fuzzy, c-format
+msgid "Getting the file: \"%s\""
 msgstr "获取文件: \"%s\""
 
 #: ../src/freetuxtv-channels-list.c:334
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when adding the channels.\n"
 "\n"
-"M3UParser has returned error :\n"
+"M3UParser has returned error:\n"
 "%s."
 msgstr ""
 "添加频道出错。\n"
@@ -785,11 +785,11 @@ msgid "New group"
 msgstr "新建组"
 
 #: ../src/freetuxtv-db-sync.c:134
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Cannot open database.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "无法打开数据库。\n"
@@ -798,11 +798,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:290 ../src/freetuxtv-db-sync.c:393
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when displaying the channels.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "显示频道出错。\n"
@@ -811,11 +811,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:451
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when getting the channel.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "获取频道出错。\n"
@@ -824,11 +824,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:525
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when adding the channel \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "添加频道l \"%s\" 出错。\n"
@@ -841,7 +841,7 @@ msgstr ""
 msgid ""
 "Error when deleting the channel \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "更新频道 \"%s\" 出错。\n"
@@ -854,7 +854,7 @@ msgstr ""
 msgid ""
 "Error when updating the position of the channels in group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "更新组 \"%s\" 的位置出错。\n"
@@ -867,7 +867,7 @@ msgstr ""
 msgid ""
 "Error when getting the channel by name.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "获取频道出错。\n"
@@ -877,11 +877,11 @@ msgstr ""
 
 #: ../src/freetuxtv-db-sync.c:721 ../src/freetuxtv-db-sync.c:964
 #: ../src/freetuxtv-db-sync.c:987
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when updating the channel \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "更新频道 \"%s\" 出错。\n"
@@ -890,11 +890,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:776 ../src/freetuxtv-db-sync.c:810
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when adding the group \"%s\" in database.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "向数据库添加组 \"%s\" 出错。\n"
@@ -904,11 +904,11 @@ msgstr ""
 
 #: ../src/freetuxtv-db-sync.c:854 ../src/freetuxtv-db-sync.c:895
 #: ../src/freetuxtv-db-sync.c:918
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when updating the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "更新组 \"%s\" 出错。\n"
@@ -917,11 +917,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1030
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when updating the last update date of the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "更新组 \"%s\" 上次更新日期出错。\n"
@@ -930,11 +930,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1064
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when deleting the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "删除组 \"%s\" 出错。\n"
@@ -947,7 +947,7 @@ msgstr ""
 msgid ""
 "Error when updating the position of the groups.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "更新组 \"%s\" 的位置出错。\n"
@@ -956,11 +956,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1120
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when deleting the channels of the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "删除组 \"%s\" 内频道出错。\n"
@@ -969,11 +969,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1157 ../src/freetuxtv-db-sync.c:1193
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when updating the channels of the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "更新组 \"%s\" 内频道出错。\n"
@@ -982,11 +982,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1219
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when deleting the tv channels list.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "删除电视频道列表出错。\n"
@@ -995,11 +995,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1263
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when adding the tv channel '%s'.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "添加电视频道 '%s' 出错。\n"
@@ -1008,11 +1008,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1314
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when adding the label of channel logo '%s'.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "添加频道 logo '%s' 的标签出错。\n"
@@ -1021,11 +1021,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1348
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when linking the TV channel '%s' to channel.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "为电视频道 '%s' 建立连接时出错。\n"
@@ -1034,11 +1034,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1388
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when getting the database version.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "获取数据库版本出错。\n"
@@ -1047,11 +1047,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1420
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when updating the database version.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "更新数据库版本出错。\n"
@@ -1060,11 +1060,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1485
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when migrating the database.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 "移植数据库出错。\n"
@@ -1073,11 +1073,11 @@ msgstr ""
 "%s."
 
 #: ../src/freetuxtv-fileutils.c:69
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error when downloading the file from URL -> %s.\n"
 "\n"
-"CURL has returned error :\n"
+"CURL has returned error:\n"
 "%s."
 msgstr ""
 "从该 URL 下载文件时出错 -> %s。\n"
@@ -1141,8 +1141,8 @@ msgstr "正在添加频道组"
 #: ../src/freetuxtv-window-add-channels-group.c:502
 #: ../src/freetuxtv-window-add-channels-group.c:577
 #: ../src/freetuxtv-window-add-channels-group.c:614
-#, c-format
-msgid "Adding channels group : <i>%s</i>"
+#, fuzzy, c-format
+msgid "Adding channels group: <i>%s</i>"
 msgstr "正在添加频道组: <i>%s</i>"
 
 #: ../src/freetuxtv-window-add-channels-group.c:525
@@ -1231,8 +1231,8 @@ msgid "_Help"
 msgstr "帮助(_H)"
 
 #: ../src/main.c:377
-#, c-format
-msgid "Recording : %s (%s) -> %s (%s)"
+#, fuzzy, c-format
+msgid "Recording: %s (%s) -> %s (%s)"
 msgstr "正在录制: %s (%s) -> %s (%s)"
 
 #: ../src/main.c:477
@@ -1260,8 +1260,8 @@ msgid "Loading the list of recordings..."
 msgstr "正在载入录像列表..."
 
 #: ../src/main.c:856 ../src/main.c:1051
-#, c-format
-msgid "Playing : %s"
+#, fuzzy, c-format
+msgid "Playing: %s"
 msgstr "正在播放: %s"
 
 #: ../src/main.c:865
@@ -1269,8 +1269,8 @@ msgid "is playing"
 msgstr "正在播放"
 
 #: ../src/main.c:1053
-#, c-format
-msgid "Stopping channel : %s"
+#, fuzzy, c-format
+msgid "Stopping channel: %s"
 msgstr "正在停止频道: %s"
 
 #: ../src/main.c:1092
@@ -1278,8 +1278,8 @@ msgid "is recording"
 msgstr "正在录制"
 
 #: ../src/main.c:1138
-#, c-format
-msgid "Recording : %s"
+#, fuzzy, c-format
+msgid "Recording: %s"
 msgstr "正在录制: %s"
 
 #: ../src/main.c:1214
