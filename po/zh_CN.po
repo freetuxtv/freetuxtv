@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-03 23:12+0200\n"
+"POT-Creation-Date: 2010-11-25 23:06+0100\n"
 "PO-Revision-Date: 2010-11-22 17:53+0800\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese Simplified <xslidian+freetuxtv@gmail.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,24 +42,25 @@ msgid "60"
 msgstr "60"
 
 #: ../data/ui/freetuxtv.glade.h:7
-msgid "<b>Author : </b>"
-msgstr "<b>作者: </b>"
+#, fuzzy
+msgid "<b>Channel VLC options:</b>"
+msgstr "<b>转码选项</b>"
 
 #: ../data/ui/freetuxtv.glade.h:8
+msgid "<b>Configuration file (vlcrc)</b>"
+msgstr ""
+
+#: ../data/ui/freetuxtv.glade.h:9
 msgid "<b>Destination</b>"
 msgstr "<b>目标</b>"
 
-#: ../data/ui/freetuxtv.glade.h:9
+#: ../data/ui/freetuxtv.glade.h:10
 msgid "<b>Notifications</b>"
 msgstr "<b>通知</b>"
 
-#: ../data/ui/freetuxtv.glade.h:10
+#: ../data/ui/freetuxtv.glade.h:11
 msgid "<b>Processing of channels' name</b>"
 msgstr "<b>正在处理频道名称</b>"
-
-#: ../data/ui/freetuxtv.glade.h:11
-msgid "<b>Project's Web Site : </b>"
-msgstr "<b>项目网站: </b>"
 
 #: ../data/ui/freetuxtv.glade.h:12
 msgid "<b>Proxy</b>"
@@ -69,7 +71,8 @@ msgid "<b>Recording options</b>"
 msgstr "<b>录制选项</b>"
 
 #: ../data/ui/freetuxtv.glade.h:14
-msgid "<b>Special group type :</b>"
+#, fuzzy
+msgid "<b>Special group type:</b>"
 msgstr "<b>特殊组类:</b>"
 
 #: ../data/ui/freetuxtv.glade.h:15
@@ -81,339 +84,406 @@ msgid "<b>Transcoding options</b>"
 msgstr "<b>转码选项</b>"
 
 #: ../data/ui/freetuxtv.glade.h:17
-msgid "<b>Version : </b>"
-msgstr "<b>版本: </b>"
+msgid "<i>Restart the application after changing this option.</i>"
+msgstr ""
 
 #: ../data/ui/freetuxtv.glade.h:18
 msgid "<span size=\"large\"><b>Process in progress</b></span>"
 msgstr "<span size=\"large\"><b>正在处理</b></span>"
 
 #: ../data/ui/freetuxtv.glade.h:19
-msgid ""
-"<span size=\"xx-large\"><b>FreetuxTV</b></span>\n"
-"\n"
-"<span size=\"large\">Web TV channels player</span>\n"
-"\n"
-"<span size=\"large\">Loading...</span>"
-msgstr ""
-"<span size=\"xx-large\"><b>FreetuxTV</b></span>\n"
-"\n"
-"<span size=\"large\">网络电视频道播放器</span>\n"
-"\n"
-"<span size=\"large\">正在载入...</span>"
-
-#: ../data/ui/freetuxtv.glade.h:24
 msgid "Activate/Deactivate the window always on top"
 msgstr "启用/禁用窗口总在最前"
 
-#: ../data/ui/freetuxtv.glade.h:25
+#: ../data/ui/freetuxtv.glade.h:20
 msgid "Add a group"
 msgstr "添加组"
 
-#: ../data/ui/freetuxtv.glade.h:26
-msgid "Approximative end time :"
+#: ../data/ui/freetuxtv.glade.h:21
+#, fuzzy
+msgid "Approximative end time:"
 msgstr "大概终止时间:"
 
-#: ../data/ui/freetuxtv.glade.h:27
+#: ../data/ui/freetuxtv.glade.h:22
+#, fuzzy
+msgid "Channel properties"
+msgstr "频道组文件:"
+
+#: ../data/ui/freetuxtv.glade.h:23
+#, fuzzy
+msgid "Channel's URI:"
+msgstr "频道"
+
+#: ../data/ui/freetuxtv.glade.h:24
+#, fuzzy
+msgid "Channel's name:"
+msgstr "频道"
+
+#: ../data/ui/freetuxtv.glade.h:25
 msgid "Channels"
 msgstr "频道"
 
-#: ../data/ui/freetuxtv.glade.h:28
-msgid "Channels groups file :"
+#: ../data/ui/freetuxtv.glade.h:26
+#, fuzzy
+msgid "Channels groups file:"
 msgstr "频道组文件:"
 
-#: ../data/ui/freetuxtv.glade.h:29
+#: ../data/ui/freetuxtv.glade.h:27
 msgid "Channels' search text area"
 msgstr "频道搜索文本域"
 
-#: ../data/ui/freetuxtv.glade.h:30
+#: ../data/ui/freetuxtv.glade.h:28
 msgid "Custom channels group"
 msgstr "自定义频道组"
 
-#: ../data/ui/freetuxtv.glade.h:31
+#: ../data/ui/freetuxtv.glade.h:29
+#, fuzzy
+msgid "Deinterlacement:"
+msgstr "反交错(_D)"
+
+#: ../data/ui/freetuxtv.glade.h:30
 msgid "Delete the search text area"
 msgstr "删除搜索文本域"
 
-#: ../data/ui/freetuxtv.glade.h:32
-msgid "Delete this text before the name :"
+#: ../data/ui/freetuxtv.glade.h:31
+#, fuzzy
+msgid "Delete this text before the name:"
 msgstr "删除名称前的这些文字:"
 
-#: ../data/ui/freetuxtv.glade.h:33
-msgid "Delete this text behind the name :"
+#: ../data/ui/freetuxtv.glade.h:32
+#, fuzzy
+msgid "Delete this text behind the name:"
 msgstr "删除名称后的这些文字:"
 
-#: ../data/ui/freetuxtv.glade.h:34
+#: ../data/ui/freetuxtv.glade.h:33
 msgid "Details"
 msgstr "详细信息"
 
-#: ../data/ui/freetuxtv.glade.h:35
-msgid "Directory Record :"
+#: ../data/ui/freetuxtv.glade.h:34
+#, fuzzy
+msgid "Directory Record:"
 msgstr "录制目录:"
 
-#: ../data/ui/freetuxtv.glade.h:36
-msgid "Duration (min) :"
+#: ../data/ui/freetuxtv.glade.h:35
+#, fuzzy
+msgid "Duration (min):"
 msgstr "时长 (分钟):"
 
-#: ../data/ui/freetuxtv.glade.h:37
+#: ../data/ui/freetuxtv.glade.h:36
 msgid "Enable desktop notifications"
 msgstr "启用桌面通知"
 
-#: ../data/ui/freetuxtv.glade.h:38
-msgid "Eric Beuque"
-msgstr "Eric Beuque"
-
-#: ../data/ui/freetuxtv.glade.h:39
+#: ../data/ui/freetuxtv.glade.h:37
 msgid "Existing channels group"
 msgstr "现有频道组"
 
-#: ../data/ui/freetuxtv.glade.h:40
+#: ../data/ui/freetuxtv.glade.h:38
 msgid "Favourites"
 msgstr "收藏"
 
-#: ../data/ui/freetuxtv.glade.h:41
-msgid "Format :"
+#: ../data/ui/freetuxtv.glade.h:39
+#, fuzzy
+msgid "Format:"
 msgstr "格式:"
 
-#: ../data/ui/freetuxtv.glade.h:42
+#: ../data/ui/freetuxtv.glade.h:40 ../data/menu/freetuxtv.desktop.in.h:1
 msgid "FreetuxTV"
 msgstr "FreetuxTV"
 
-#: ../data/ui/freetuxtv.glade.h:43
+#: ../data/ui/freetuxtv.glade.h:41
 msgid "Fullscreen mode"
 msgstr "全屏模式"
 
-#: ../data/ui/freetuxtv.glade.h:44
+#: ../data/ui/freetuxtv.glade.h:42
 msgid "GNU General Public License v3"
 msgstr "GNU 通用公共授权许可 第三版"
 
-#: ../data/ui/freetuxtv.glade.h:45
+#: ../data/ui/freetuxtv.glade.h:43
 msgid "General"
 msgstr "常规"
 
-#: ../data/ui/freetuxtv.glade.h:46
+#: ../data/ui/freetuxtv.glade.h:44
 msgid "Go back to the normal mode"
 msgstr "返回常规模式"
 
-#: ../data/ui/freetuxtv.glade.h:47
+#: ../data/ui/freetuxtv.glade.h:45
 msgid "Go to the current channel playing"
 msgstr "转到当前正在播放的频道"
 
-#: ../data/ui/freetuxtv.glade.h:48
+#: ../data/ui/freetuxtv.glade.h:46
 msgid "Group properties"
 msgstr "组属性"
 
-#: ../data/ui/freetuxtv.glade.h:49
-msgid "Group's name :"
+#: ../data/ui/freetuxtv.glade.h:47
+#, fuzzy
+msgid "Group's name:"
 msgstr "组名:"
 
-#: ../data/ui/freetuxtv.glade.h:50
+#: ../data/ui/freetuxtv.glade.h:48
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../data/ui/freetuxtv.glade.h:51
+#: ../data/ui/freetuxtv.glade.h:49
 msgid "Jump to current channel"
 msgstr "跳至当前频道"
 
-#: ../data/ui/freetuxtv.glade.h:52
+#: ../data/ui/freetuxtv.glade.h:50
 msgid "Languages/Channels group"
 msgstr "语言/频道组"
 
-#: ../data/ui/freetuxtv.glade.h:53
+#: ../data/ui/freetuxtv.glade.h:51
+msgid "LibVLC"
+msgstr ""
+
+#: ../data/ui/freetuxtv.glade.h:52
 msgid "Manual proxy configuration"
 msgstr "手动配置代理"
 
-#: ../data/ui/freetuxtv.glade.h:54
+#: ../data/ui/freetuxtv.glade.h:53
 msgid "Name of the group which will be added"
 msgstr "将添加的组名"
 
-#: ../data/ui/freetuxtv.glade.h:55
+#: ../data/ui/freetuxtv.glade.h:54
 msgid "Network"
 msgstr "网络"
 
-#: ../data/ui/freetuxtv.glade.h:56
+#: ../data/ui/freetuxtv.glade.h:55
 msgid "Next channel"
 msgstr "下一频道"
 
-#: ../data/ui/freetuxtv.glade.h:57
+#: ../data/ui/freetuxtv.glade.h:56
 msgid "No proxy"
 msgstr "无代理"
 
-#: ../data/ui/freetuxtv.glade.h:58
+#: ../data/ui/freetuxtv.glade.h:57
 msgid "No transcoding"
 msgstr "无转码"
 
+#: ../data/ui/freetuxtv.glade.h:58
+msgid "None"
+msgstr ""
+
 #: ../data/ui/freetuxtv.glade.h:59
-msgid "Number of channels :"
+#, fuzzy
+msgid "Number of channels:"
 msgstr "频道数:"
 
 #: ../data/ui/freetuxtv.glade.h:60
+msgid "Options"
+msgstr ""
+
+#: ../data/ui/freetuxtv.glade.h:61
 msgid "Password:"
 msgstr "密码:"
 
-#: ../data/ui/freetuxtv.glade.h:61
+#: ../data/ui/freetuxtv.glade.h:62
 msgid "Play last channel on startup"
 msgstr "启动时播放上次播放的频道"
 
-#: ../data/ui/freetuxtv.glade.h:62
+#: ../data/ui/freetuxtv.glade.h:63
 msgid "Play the current channel"
 msgstr "播放当前频道"
-
-#: ../data/ui/freetuxtv.glade.h:63
-msgid "Playlist's URI :"
-msgstr "播放列表 URI:"
 
 #: ../data/ui/freetuxtv.glade.h:64
 msgid "Playlist's URI of the group which will be added"
 msgstr "将添加组的播放列表 URI"
 
 #: ../data/ui/freetuxtv.glade.h:65
+#, fuzzy
+msgid "Playlist's URI:"
+msgstr "播放列表 URI:"
+
+#: ../data/ui/freetuxtv.glade.h:66
 msgid "Predefined transcoding formats"
 msgstr "预定义的转码格式"
 
-#: ../data/ui/freetuxtv.glade.h:66
+#: ../data/ui/freetuxtv.glade.h:67
 msgid "Preferences"
 msgstr "首选项"
 
-#: ../data/ui/freetuxtv.glade.h:67
+#: ../data/ui/freetuxtv.glade.h:68
 msgid "Previous channel"
 msgstr "上一频道"
 
-#: ../data/ui/freetuxtv.glade.h:68
+#: ../data/ui/freetuxtv.glade.h:69
 msgid "Process details"
 msgstr "进度详情"
 
-#: ../data/ui/freetuxtv.glade.h:69
+#: ../data/ui/freetuxtv.glade.h:70
 msgid "Progress dialog"
 msgstr "进度对话框"
 
-#: ../data/ui/freetuxtv.glade.h:70
+#: ../data/ui/freetuxtv.glade.h:71
 msgid "Project's Web Site"
 msgstr "项目网站"
 
-#: ../data/ui/freetuxtv.glade.h:71
+#: ../data/ui/freetuxtv.glade.h:72
 msgid "Proxy port:"
 msgstr "代理端口:"
 
-#: ../data/ui/freetuxtv.glade.h:72
+#: ../data/ui/freetuxtv.glade.h:73
 msgid "Proxy server:"
 msgstr "代理服务器:"
 
-#: ../data/ui/freetuxtv.glade.h:73
+#: ../data/ui/freetuxtv.glade.h:74
 msgid "Proxy type:"
 msgstr "代理类型:"
 
-#: ../data/ui/freetuxtv.glade.h:74
+#: ../data/ui/freetuxtv.glade.h:75
 msgid "Record the current channel"
 msgstr "录制当前频道"
 
-#: ../data/ui/freetuxtv.glade.h:75
+#: ../data/ui/freetuxtv.glade.h:76
 msgid "Recordings"
 msgstr "录像"
 
-#: ../data/ui/freetuxtv.glade.h:76
+#: ../data/ui/freetuxtv.glade.h:77
 msgid "Required ISP"
 msgstr "所需 ISP"
 
-#: ../data/ui/freetuxtv.glade.h:77
+#: ../data/ui/freetuxtv.glade.h:78
 msgid "SOCKS"
 msgstr "SOCKS"
 
-#: ../data/ui/freetuxtv.glade.h:78
-msgid "Search : "
+#: ../data/ui/freetuxtv.glade.h:79
+#, fuzzy
+msgid "Search:"
 msgstr "搜索: "
 
-#: ../data/ui/freetuxtv.glade.h:79
+#: ../data/ui/freetuxtv.glade.h:80
 msgid "Select a directory"
 msgstr "选择目录"
 
-#: ../data/ui/freetuxtv.glade.h:80
-msgid "Select one or several channels group you want to add and click on the add button."
+#: ../data/ui/freetuxtv.glade.h:81
+msgid ""
+"Select one or several channels group you want to add and click on the add "
+"button."
 msgstr "选择希望添加的一个或多个频道组并点击添加按钮。"
 
-#: ../data/ui/freetuxtv.glade.h:81
+#: ../data/ui/freetuxtv.glade.h:82
 msgid "Small mode"
 msgstr "最简模式"
 
-#: ../data/ui/freetuxtv.glade.h:82
+#: ../data/ui/freetuxtv.glade.h:83
 msgid "Special group"
 msgstr "特殊组"
 
-#: ../data/ui/freetuxtv.glade.h:83
+#: ../data/ui/freetuxtv.glade.h:84
 msgid "Stop playing the current channel"
 msgstr "停止播放当前频道"
 
-#: ../data/ui/freetuxtv.glade.h:84
-msgid "Text or regexp which must be deleted at the beginning of the channel's name"
+#: ../data/ui/freetuxtv.glade.h:85
+msgid ""
+"Text or regexp which must be deleted at the beginning of the channel's name"
 msgstr "频道名称开头必须删除的文本或正则表达式"
 
-#: ../data/ui/freetuxtv.glade.h:85
+#: ../data/ui/freetuxtv.glade.h:86
 msgid "Text or regexp which must be deleted at the end of the channel's name"
 msgstr "频道名称末尾必须删除的文本或正则表达式"
 
-#: ../data/ui/freetuxtv.glade.h:86
+#: ../data/ui/freetuxtv.glade.h:87
 msgid "URI"
 msgstr "URI"
 
-#: ../data/ui/freetuxtv.glade.h:87
+#: ../data/ui/freetuxtv.glade.h:88
+#, fuzzy
+msgid "Use a custom configuration file"
+msgstr "正在载入用户配置..."
+
+#: ../data/ui/freetuxtv.glade.h:89
 msgid "Use authentification"
 msgstr "使用身份认证"
 
-#: ../data/ui/freetuxtv.glade.h:88
+#: ../data/ui/freetuxtv.glade.h:90
+#, fuzzy
+msgid "Use the VLC configuration file"
+msgstr "使用身份认证"
+
+#: ../data/ui/freetuxtv.glade.h:91
 msgid "Username:"
 msgstr "用户名:"
 
-#: ../data/ui/freetuxtv.glade.h:89
+#: ../data/ui/freetuxtv.glade.h:92
 msgid "Video - H.264 + MPGA (MP4)"
 msgstr "视频 - H.264 + MPGA (MP4)"
 
-#: ../data/ui/freetuxtv.glade.h:90
+#: ../data/ui/freetuxtv.glade.h:93
+#, fuzzy
+msgid "Video - MPEG-2 + MPGA (TS)"
+msgstr "视频 - H.264 + MPGA (MP4)"
+
+#: ../data/ui/freetuxtv.glade.h:94
 msgid "Video - Theora + Vorbis (OGG)"
 msgstr "视频 - Theora + Vorbis (OGG)"
 
-#: ../data/ui/freetuxtv.glade.h:91
+#: ../data/ui/freetuxtv.glade.h:95
 msgid "View file"
 msgstr "查看文件"
 
-#: ../data/ui/freetuxtv.glade.h:92
-msgid "Vol : "
-msgstr "音量: "
+#: ../data/ui/freetuxtv.glade.h:96
+msgid "Vol:"
+msgstr ""
 
-#: ../data/ui/freetuxtv.glade.h:93
+#: ../data/ui/freetuxtv.glade.h:97
 msgid "Web TV channels player"
 msgstr "网络电视频道播放器"
 
-#: ../data/ui/freetuxtv.glade.h:94
-msgid "You can easily use regular expressions to delete some text in the channel's name of the groupe. For example, if in your playlist, you have a name like \"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV is able to remove the channel's number before the name, by using the regular expression \"[0-9]* - \"."
-msgstr "您可以使用正则表达式删除组中频道名称的部分文字。例如，如果您的播放列表中有类似 \"11 - NT1\" 或 \"12 - NRJ 12\" 的名称，FreetuxTV 可以使用正则表达式 \"[0-9]* - \" 移除名称前的频道号。"
+#: ../data/ui/freetuxtv.glade.h:98
+msgid ""
+"You can easily use regular expressions to delete some text in the channel's "
+"name of the groupe. For example, if in your playlist, you have a name like "
+"\"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV is able to remove the channel's "
+"number before the name, by using the regular expression \"[0-9]* - \"."
+msgstr ""
+"您可以使用正则表达式删除组中频道名称的部分文字。例如，如果您的播放列表中有类"
+"似 \"11 - NT1\" 或 \"12 - NRJ 12\" 的名称，FreetuxTV 可以使用正则表达式 "
+"\"[0-9]* - \" 移除名称前的频道号。"
 
-#: ../data/ui/freetuxtv.glade.h:95
-msgid "http://code.google.com/p/freetuxtv/"
-msgstr "http://code.google.com/p/freetuxtv/"
-
-#: ../data/ui/freetuxtv.glade.h:96
+#: ../data/ui/freetuxtv.glade.h:99
 msgid "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 msgstr "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 
-#: ../data/ui/freetuxtv.glade.h:97
+#: ../data/ui/freetuxtv.glade.h:100
 msgid "mp4"
 msgstr "mp4"
 
-#: ../data/ui/freetuxtv.glade.h:98
+#: ../data/ui/freetuxtv.glade.h:101
+#: ../src/freetuxtv-window-channel-properties.c:170
+msgid "none"
+msgstr ""
+
+#: ../data/ui/freetuxtv.glade.h:102
 msgid "ogg"
 msgstr "ogg"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
-#: ../data/ui/freetuxtv.glade.h:100
+#: ../data/ui/freetuxtv.glade.h:104
 msgid "translator-credits"
 msgstr "Dean Lee <xslidian+freetuxtv@gmail.com>"
 
-#: ../data/ui/freetuxtv.glade.h:101
-msgid "vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels=2"
-msgstr "vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels=2"
+#: ../data/ui/freetuxtv.glade.h:105
+msgid "ts"
+msgstr ""
 
-#: ../data/ui/freetuxtv.glade.h:102
-msgid "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100"
-msgstr "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100"
+#: ../data/ui/freetuxtv.glade.h:106
+msgid ""
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
+"channels=2"
+msgstr ""
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
+"channels=2"
+
+#: ../data/ui/freetuxtv.glade.h:107
+#, fuzzy
+msgid "vcodec=mp2v,vb=800,scale=1,acodec=mpga,ab=128,channels=2"
+msgstr ""
+"vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100"
+
+#: ../data/ui/freetuxtv.glade.h:108
+#, fuzzy
+msgid "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2"
+msgstr ""
+"vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100"
 
 #: ../data/channels_groups.xml.in.h:1
 msgid "Alice (Unofficial)"
@@ -663,31 +733,31 @@ msgstr "网络电视 (土耳其语)"
 msgid "WebCam"
 msgstr "摄像头"
 
-#: ../data/menu/freetuxtv.desktop.in.h:1
+#: ../data/menu/freetuxtv.desktop.in.h:2
 msgid "FreetuxTV Television Channels Player"
 msgstr "FreetuxTV 电视频道播放器"
 
-#: ../data/menu/freetuxtv.desktop.in.h:2
+#: ../data/menu/freetuxtv.desktop.in.h:3
 msgid "Television Channels Player"
 msgstr "电视频道播放器"
 
-#: ../data/menu/freetuxtv.desktop.in.h:3
+#: ../data/menu/freetuxtv.desktop.in.h:4
 msgid "Watch television channels from internet"
 msgstr "在网上观看电视频道"
 
 #. Update status bar
-#: ../src/freetuxtv-channels-list.c:266
+#: ../src/freetuxtv-channels-list.c:295
 #, c-format
 msgid "Update \"%s\" channels list"
 msgstr "更新 \"%s\" 频道列表"
 
 #. Get the file of the playlist
-#: ../src/freetuxtv-channels-list.c:274
+#: ../src/freetuxtv-channels-list.c:303
 #, c-format
 msgid "Getting the file : \"%s\""
 msgstr "获取文件: \"%s\""
 
-#: ../src/freetuxtv-channels-list.c:305
+#: ../src/freetuxtv-channels-list.c:334
 #, c-format
 msgid ""
 "Error when adding the channels.\n"
@@ -700,17 +770,17 @@ msgstr ""
 "M3U 解析器返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-channels-list.c:860
+#: ../src/freetuxtv-channels-list.c:1110
 msgid "Delete group's channels"
 msgstr "删除组内频道"
 
 #. Add to favourite is only for channels
-#: ../src/freetuxtv-channels-list.c:892
+#: ../src/freetuxtv-channels-list.c:1143
 msgid "Add to favourites"
 msgstr "添加到收藏"
 
 #. Add favourites to a new group
-#: ../src/freetuxtv-channels-list.c:904
+#: ../src/freetuxtv-channels-list.c:1155
 msgid "New group"
 msgstr "新建组"
 
@@ -727,8 +797,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:296
-#: ../src/freetuxtv-db-sync.c:394
+#: ../src/freetuxtv-db-sync.c:290 ../src/freetuxtv-db-sync.c:393
 #, c-format
 msgid ""
 "Error when displaying the channels.\n"
@@ -741,7 +810,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:452
+#: ../src/freetuxtv-db-sync.c:451
 #, c-format
 msgid ""
 "Error when getting the channel.\n"
@@ -754,7 +823,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:526
+#: ../src/freetuxtv-db-sync.c:525
 #, c-format
 msgid ""
 "Error when adding the channel \"%s\".\n"
@@ -767,7 +836,47 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:570
+#: ../src/freetuxtv-db-sync.c:566
+#, fuzzy, c-format
+msgid ""
+"Error when deleting the channel \"%s\".\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"更新频道 \"%s\" 出错。\n"
+"\n"
+"SQLite 返回错误:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:589
+#, fuzzy, c-format
+msgid ""
+"Error when updating the position of the channels in group \"%s\".\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"更新组 \"%s\" 的位置出错。\n"
+"\n"
+"SQLite 返回错误:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:642 ../src/freetuxtv-db-sync.c:681
+#, fuzzy, c-format
+msgid ""
+"Error when getting the channel by name.\n"
+"\n"
+"SQLite has returned error :\n"
+"%s."
+msgstr ""
+"获取频道出错。\n"
+"\n"
+"SQLite 返回错误:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:721 ../src/freetuxtv-db-sync.c:964
+#: ../src/freetuxtv-db-sync.c:987
 #, c-format
 msgid ""
 "Error when updating the channel \"%s\".\n"
@@ -780,8 +889,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:625
-#: ../src/freetuxtv-db-sync.c:659
+#: ../src/freetuxtv-db-sync.c:776 ../src/freetuxtv-db-sync.c:810
 #, c-format
 msgid ""
 "Error when adding the group \"%s\" in database.\n"
@@ -794,7 +902,8 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:703
+#: ../src/freetuxtv-db-sync.c:854 ../src/freetuxtv-db-sync.c:895
+#: ../src/freetuxtv-db-sync.c:918
 #, c-format
 msgid ""
 "Error when updating the group \"%s\".\n"
@@ -807,7 +916,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:741
+#: ../src/freetuxtv-db-sync.c:1030
 #, c-format
 msgid ""
 "Error when updating the last update date of the group \"%s\".\n"
@@ -820,7 +929,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:775
+#: ../src/freetuxtv-db-sync.c:1064
 #, c-format
 msgid ""
 "Error when deleting the group \"%s\".\n"
@@ -833,10 +942,10 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:796
-#, c-format
+#: ../src/freetuxtv-db-sync.c:1085
+#, fuzzy, c-format
 msgid ""
-"Error when updating the position of the group \"%s\".\n"
+"Error when updating the position of the groups.\n"
 "\n"
 "SQLite has returned error :\n"
 "%s."
@@ -846,7 +955,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:832
+#: ../src/freetuxtv-db-sync.c:1120
 #, c-format
 msgid ""
 "Error when deleting the channels of the group \"%s\".\n"
@@ -859,8 +968,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:869
-#: ../src/freetuxtv-db-sync.c:905
+#: ../src/freetuxtv-db-sync.c:1157 ../src/freetuxtv-db-sync.c:1193
 #, c-format
 msgid ""
 "Error when updating the channels of the group \"%s\".\n"
@@ -873,7 +981,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:931
+#: ../src/freetuxtv-db-sync.c:1219
 #, c-format
 msgid ""
 "Error when deleting the tv channels list.\n"
@@ -886,7 +994,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:975
+#: ../src/freetuxtv-db-sync.c:1263
 #, c-format
 msgid ""
 "Error when adding the tv channel '%s'.\n"
@@ -899,7 +1007,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:1026
+#: ../src/freetuxtv-db-sync.c:1314
 #, c-format
 msgid ""
 "Error when adding the label of channel logo '%s'.\n"
@@ -912,7 +1020,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:1060
+#: ../src/freetuxtv-db-sync.c:1348
 #, c-format
 msgid ""
 "Error when linking the TV channel '%s' to channel.\n"
@@ -925,7 +1033,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:1100
+#: ../src/freetuxtv-db-sync.c:1388
 #, c-format
 msgid ""
 "Error when getting the database version.\n"
@@ -938,7 +1046,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:1132
+#: ../src/freetuxtv-db-sync.c:1420
 #, c-format
 msgid ""
 "Error when updating the database version.\n"
@@ -951,7 +1059,7 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:1197
+#: ../src/freetuxtv-db-sync.c:1485
 #, c-format
 msgid ""
 "Error when migrating the database.\n"
@@ -1017,161 +1125,194 @@ msgstr "%1.1f MB"
 msgid "%1.1f GB"
 msgstr "%1.1f GB"
 
-#: ../src/freetuxtv-window-add-channels-group.c:418
+#: ../src/freetuxtv-window-add-channels-group.c:417
 #, c-format
 msgid "Please select a least one group !"
 msgstr "请至少选择一个组!"
 
-#: ../src/freetuxtv-window-add-channels-group.c:424
-#: ../src/freetuxtv-window-add-channels-group.c:556
-#: ../src/freetuxtv-window-add-channels-group.c:603
+#: ../src/freetuxtv-window-add-channels-group.c:423
+#: ../src/freetuxtv-window-add-channels-group.c:559
+#: ../src/freetuxtv-window-add-channels-group.c:606
 msgid "Adding channels groups"
 msgstr "正在添加频道组"
 
 #. Update progress dialog
-#: ../src/freetuxtv-window-add-channels-group.c:464
-#: ../src/freetuxtv-window-add-channels-group.c:501
-#: ../src/freetuxtv-window-add-channels-group.c:574
-#: ../src/freetuxtv-window-add-channels-group.c:611
+#: ../src/freetuxtv-window-add-channels-group.c:463
+#: ../src/freetuxtv-window-add-channels-group.c:502
+#: ../src/freetuxtv-window-add-channels-group.c:577
+#: ../src/freetuxtv-window-add-channels-group.c:614
 #, c-format
 msgid "Adding channels group : <i>%s</i>"
 msgstr "正在添加频道组: <i>%s</i>"
 
-#: ../src/freetuxtv-window-add-channels-group.c:522
-#: ../src/freetuxtv-window-add-channels-group.c:582
-#: ../src/freetuxtv-window-add-channels-group.c:624
+#: ../src/freetuxtv-window-add-channels-group.c:525
+#: ../src/freetuxtv-window-add-channels-group.c:585
+#: ../src/freetuxtv-window-add-channels-group.c:627
 #, c-format
 msgid "%d channels group(s) have been successfully added."
 msgstr "%d 频道组已成功添加。"
 
-#: ../src/freetuxtv-window-add-channels-group.c:548
-#: ../src/freetuxtv-window-add-channels-group.c:598
-#: ../src/freetuxtv-window-main.c:1463
+#: ../src/freetuxtv-window-add-channels-group.c:551
+#: ../src/freetuxtv-window-add-channels-group.c:601
+#: ../src/freetuxtv-window-main.c:1745
 #, c-format
 msgid "Please enter the group's name !"
 msgstr "请输入组名!"
 
-#: ../src/freetuxtv-window-add-channels-group.c:551
-#: ../src/freetuxtv-window-main.c:1468
+#: ../src/freetuxtv-window-add-channels-group.c:554
+#: ../src/freetuxtv-window-main.c:1750
 #, c-format
 msgid "Please enter the group's URI !"
 msgstr "请输入组 URI !"
 
 #. Menu : FreetuxTV
-#: ../src/freetuxtv-window-main.c:194
+#: ../src/freetuxtv-window-main.c:263
 msgid "_FreetuxTV"
 msgstr "_FreetuxTV"
 
 #. End Menu : FreetuxTV
 #. Menu : Channels
-#: ../src/freetuxtv-window-main.c:215
+#: ../src/freetuxtv-window-main.c:284
 msgid "_Channels"
 msgstr "频道(_C)"
 
-#: ../src/freetuxtv-window-main.c:219
+#: ../src/freetuxtv-window-main.c:288
 msgid "_Add a group"
 msgstr "添加组(_A)"
 
-#: ../src/freetuxtv-window-main.c:225
+#: ../src/freetuxtv-window-main.c:294
 msgid "_Update TV channels list"
 msgstr "更新电视频道列表(_U)"
 
 #. End Menu : Channels
 #. Menu : Video
-#: ../src/freetuxtv-window-main.c:234
+#: ../src/freetuxtv-window-main.c:303
 msgid "_Video"
 msgstr "视频(_V)"
 
 #. SubMenu : Deinterlace
-#: ../src/freetuxtv-window-main.c:239
+#: ../src/freetuxtv-window-main.c:308
 msgid "_Deinterlace"
 msgstr "反交错(_D)"
 
-#: ../src/freetuxtv-window-main.c:244
+#: ../src/freetuxtv-window-main.c:313
 msgid "Disable"
 msgstr "禁用"
 
-#: ../src/freetuxtv-window-main.c:256
+#: ../src/freetuxtv-window-main.c:325
 msgid "Blend"
 msgstr "混合"
 
-#: ../src/freetuxtv-window-main.c:265
+#: ../src/freetuxtv-window-main.c:334
 msgid "Bob"
 msgstr "摆动"
 
-#: ../src/freetuxtv-window-main.c:274
+#: ../src/freetuxtv-window-main.c:343
 msgid "Discard"
 msgstr "丢弃"
 
-#: ../src/freetuxtv-window-main.c:283
+#: ../src/freetuxtv-window-main.c:352
 msgid "Linear"
 msgstr "线性"
 
-#: ../src/freetuxtv-window-main.c:292
+#: ../src/freetuxtv-window-main.c:361
 msgid "Mean"
 msgstr "平均"
 
-#: ../src/freetuxtv-window-main.c:301
+#: ../src/freetuxtv-window-main.c:370
 msgid "X"
 msgstr "X"
 
 #. End SubMenu : Deinterlace
 #. End Menu : Video
 #. Menu : Help
-#: ../src/freetuxtv-window-main.c:313
+#: ../src/freetuxtv-window-main.c:382
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: ../src/main.c:361
+#: ../src/main.c:377
 #, c-format
 msgid "Recording : %s (%s) -> %s (%s)"
 msgstr "正在录制: %s (%s) -> %s (%s)"
 
-#: ../src/main.c:454
+#: ../src/main.c:477
 msgid "Initializing user configuration..."
 msgstr "正在初始化用户配置..."
 
-#: ../src/main.c:461
+#: ../src/main.c:484
 msgid "Loading user configuration..."
 msgstr "正在载入用户配置..."
 
-#: ../src/main.c:472
+#: ../src/main.c:532
 msgid "Synchronizing the list of tv channels..."
 msgstr "正在同步电视频道列表..."
 
-#: ../src/main.c:492
+#: ../src/main.c:564
 msgid "Loading models..."
 msgstr "正在载入样本..."
 
-#: ../src/main.c:501
+#: ../src/main.c:573
 msgid "Loading the list of channels..."
 msgstr "正在载入频道列表..."
 
-#: ../src/main.c:509
+#: ../src/main.c:581
 msgid "Loading the list of recordings..."
 msgstr "正在载入录像列表..."
 
-#: ../src/main.c:770
-#: ../src/main.c:963
+#: ../src/main.c:856 ../src/main.c:1051
 #, c-format
 msgid "Playing : %s"
 msgstr "正在播放: %s"
 
-#: ../src/main.c:779
+#: ../src/main.c:865
 msgid "is playing"
 msgstr "正在播放"
 
-#: ../src/main.c:965
+#: ../src/main.c:1053
 #, c-format
 msgid "Stopping channel : %s"
 msgstr "正在停止频道: %s"
 
-#: ../src/main.c:1004
+#: ../src/main.c:1092
 msgid "is recording"
 msgstr "正在录制"
 
-#: ../src/main.c:1042
+#: ../src/main.c:1138
 #, c-format
 msgid "Recording : %s"
 msgstr "正在录制: %s"
 
+#: ../src/main.c:1214
+msgid "Are you sure you want to quit?"
+msgstr ""
+
+#~ msgid "Vol : "
+#~ msgstr "音量: "
+
+#~ msgid "<b>Author : </b>"
+#~ msgstr "<b>作者: </b>"
+
+#~ msgid "<b>Project's Web Site : </b>"
+#~ msgstr "<b>项目网站: </b>"
+
+#~ msgid "<b>Version : </b>"
+#~ msgstr "<b>版本: </b>"
+
+#~ msgid ""
+#~ "<span size=\"xx-large\"><b>FreetuxTV</b></span>\n"
+#~ "\n"
+#~ "<span size=\"large\">Web TV channels player</span>\n"
+#~ "\n"
+#~ "<span size=\"large\">Loading...</span>"
+#~ msgstr ""
+#~ "<span size=\"xx-large\"><b>FreetuxTV</b></span>\n"
+#~ "\n"
+#~ "<span size=\"large\">网络电视频道播放器</span>\n"
+#~ "\n"
+#~ "<span size=\"large\">正在载入...</span>"
+
+#~ msgid "Eric Beuque"
+#~ msgstr "Eric Beuque"
+
+#~ msgid "http://code.google.com/p/freetuxtv/"
+#~ msgstr "http://code.google.com/p/freetuxtv/"
