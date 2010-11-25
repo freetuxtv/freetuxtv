@@ -131,7 +131,7 @@ dbsync_open_db(DBSync *dbsync, GError** error)
 			// sqlite3_errmsg return const char*, no need to free it
 			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 			    FREETUXTV_DBSYNC_ERROR_OPEN,
-			    _("Cannot open database.\n\nSQLite has returned error :\n%s."),
+			    _("Cannot open database.\n\nSQLite has returned error:\n%s."),
 			    sqlite3_errmsg(dbsync->db_link));
 		}
 	}
@@ -287,7 +287,7 @@ dbsync_select_channels_groups (DBSync *dbsync, FreetuxTVApp *app,
 	}else{
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when displaying the channels.\n\nSQLite has returned error :\n%s."),
+		    _("Error when displaying the channels.\n\nSQLite has returned error:\n%s."),
 		    sqlite3_errmsg(dbsync->db_link));
 	}
 	sqlite3_finalize(pStmt);
@@ -390,7 +390,7 @@ dbsync_select_channels_of_channels_group (DBSync *dbsync,
 	}else{
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when displaying the channels.\n\nSQLite has returned error :\n%s."),
+		    _("Error when displaying the channels.\n\nSQLite has returned error:\n%s."),
 		    sqlite3_errmsg(dbsync->db_link));
 	}
 	sqlite3_finalize(pStmt);
@@ -448,7 +448,7 @@ dbsync_add_channel (DBSync *dbsync,
 		}else{
 			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-				_("Error when getting the channel.\n\nSQLite has returned error :\n%s."),
+				_("Error when getting the channel.\n\nSQLite has returned error:\n%s."),
 				sqlite3_errmsg(dbsync->db_link));
 		}
 		sqlite3_finalize(pStmt);
@@ -522,7 +522,7 @@ dbsync_add_channel (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when adding the channel \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when adding the channel \"%s\".\n\nSQLite has returned error:\n%s."),
 		    pChannelInfos->name, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}else{
@@ -563,7 +563,7 @@ dbsync_delete_channel (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when deleting the channel \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when deleting the channel \"%s\".\n\nSQLite has returned error:\n%s."),
 		    pChannelInfos->name,
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
@@ -586,7 +586,7 @@ dbsync_delete_channel (DBSync *dbsync,
 		if(res != SQLITE_OK){
 			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-				_("Error when updating the position of the channels in group \"%s\".\n\nSQLite has returned error :\n%s."),
+				_("Error when updating the position of the channels in group \"%s\".\n\nSQLite has returned error:\n%s."),
 				pChannelInfos->channels_group->name,
 				sqlite3_errmsg(dbsync->db_link));
 			sqlite3_free(db_err);
@@ -639,7 +639,7 @@ dbsync_get_channel_id_by_name (DBSync *dbsync,
 		}else{
 			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-				_("Error when getting the channel by name.\n\nSQLite has returned error :\n%s."),
+				_("Error when getting the channel by name.\n\nSQLite has returned error:\n%s."),
 				sqlite3_errmsg(dbsync->db_link));
 		}
 		sqlite3_finalize(pStmt);
@@ -678,7 +678,7 @@ dbsync_get_channel_id_by_name (DBSync *dbsync,
 		}else{
 			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-				_("Error when getting the channel by name.\n\nSQLite has returned error :\n%s."),
+				_("Error when getting the channel by name.\n\nSQLite has returned error:\n%s."),
 				sqlite3_errmsg(dbsync->db_link));
 		}
 		sqlite3_finalize(pStmt);
@@ -718,7 +718,7 @@ dbsync_update_channel_deinterlace_mode (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when updating the channel \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when updating the channel \"%s\".\n\nSQLite has returned error:\n%s."),
 		    pChannelInfos->name, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}
@@ -773,7 +773,7 @@ dbsync_add_channels_group (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when adding the group \"%s\" in database.\n\nSQLite has returned error :\n%s."),
+		    _("Error when adding the group \"%s\" in database.\n\nSQLite has returned error:\n%s."),
 		    pChannelsGroupInfos->name,
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
@@ -807,7 +807,7 @@ dbsync_add_channels_group (DBSync *dbsync,
 		}else{
 			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-				_("Error when adding the group \"%s\" in database.\n\nSQLite has returned error :\n%s."),
+				_("Error when adding the group \"%s\" in database.\n\nSQLite has returned error:\n%s."),
 				pChannelsGroupInfos->name,
 				sqlite3_errmsg(dbsync->db_link));
 		}
@@ -851,7 +851,7 @@ dbsync_update_channels_group (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when updating the group \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when updating the group \"%s\".\n\nSQLite has returned error:\n%s."),
 		    channels_group_infos->name, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}
@@ -892,7 +892,7 @@ dbsync_switch_position_channels_group (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when updating the group \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when updating the group \"%s\".\n\nSQLite has returned error:\n%s."),
 		    pChannelsGroupInfosA->name, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}
@@ -915,7 +915,7 @@ dbsync_switch_position_channels_group (DBSync *dbsync,
 		if(res != SQLITE_OK){
 			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-				_("Error when updating the group \"%s\".\n\nSQLite has returned error :\n%s."),
+				_("Error when updating the group \"%s\".\n\nSQLite has returned error:\n%s."),
 				pChannelsGroupInfosB->name, sqlite3_errmsg(dbsync->db_link));
 			sqlite3_free(db_err);
 		}
@@ -961,7 +961,7 @@ dbsync_switch_position_channel (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when updating the channel \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when updating the channel \"%s\".\n\nSQLite has returned error:\n%s."),
 		    pChannelInfosA->name, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}
@@ -984,7 +984,7 @@ dbsync_switch_position_channel (DBSync *dbsync,
 		if(res != SQLITE_OK){
 			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-				_("Error when updating the channel \"%s\".\n\nSQLite has returned error :\n%s."),
+				_("Error when updating the channel \"%s\".\n\nSQLite has returned error:\n%s."),
 				pChannelInfosB->name, sqlite3_errmsg(dbsync->db_link));
 			sqlite3_free(db_err);
 		}
@@ -1027,7 +1027,7 @@ dbsync_update_channels_group_last_update (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when updating the last update date of the group \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when updating the last update date of the group \"%s\".\n\nSQLite has returned error:\n%s."),
 		    channels_group_infos->name, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}
@@ -1061,7 +1061,7 @@ dbsync_delete_channels_group (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when deleting the group \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when deleting the group \"%s\".\n\nSQLite has returned error:\n%s."),
 		    channels_group_infos->name,
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
@@ -1082,7 +1082,7 @@ dbsync_delete_channels_group (DBSync *dbsync,
 		if(res != SQLITE_OK){
 			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-				_("Error when updating the position of the groups.\n\nSQLite has returned error :\n%s."),
+				_("Error when updating the position of the groups.\n\nSQLite has returned error:\n%s."),
 				sqlite3_errmsg(dbsync->db_link));
 			sqlite3_free(db_err);
 		}
@@ -1117,7 +1117,7 @@ dbsync_delete_channels_of_channels_group (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when deleting the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when deleting the channels of the group \"%s\".\n\nSQLite has returned error:\n%s."),
 		    channels_group_infos->name,
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
@@ -1154,7 +1154,7 @@ dbsync_start_update_channels_of_channels_group (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when updating the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when updating the channels of the group \"%s\".\n\nSQLite has returned error:\n%s."),
 		    pChannelsGroupInfos->name,
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
@@ -1190,7 +1190,7 @@ dbsync_end_update_channels_of_channels_group (DBSync *dbsync,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when updating the channels of the group \"%s\".\n\nSQLite has returned error :\n%s."),
+		    _("Error when updating the channels of the group \"%s\".\n\nSQLite has returned error:\n%s."),
 		    pChannelsGroupInfos->name,
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
@@ -1216,7 +1216,7 @@ dbsync_delete_tvchannels (DBSync *dbsync, GError** error)
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when deleting the tv channels list.\n\nSQLite has returned error :\n%s."),
+		    _("Error when deleting the tv channels list.\n\nSQLite has returned error:\n%s."),
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}	
@@ -1260,7 +1260,7 @@ dbsync_add_tvchannel (DBSync *dbsync, FreetuxTVTvChannelInfos* tv_channel_infos,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when adding the tv channel '%s'.\n\nSQLite has returned error :\n%s."),
+		    _("Error when adding the tv channel '%s'.\n\nSQLite has returned error:\n%s."),
 		    name, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}
@@ -1311,7 +1311,7 @@ dbsync_add_label_tvchannel (DBSync *dbsync, gchar* label, glong id_tvchannel,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when adding the label of channel logo '%s'.\n\nSQLite has returned error :\n%s."),
+		    _("Error when adding the label of channel logo '%s'.\n\nSQLite has returned error:\n%s."),
 		    label, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}else{
@@ -1345,7 +1345,7 @@ dbsync_link_tvchannel_to_channels_from_label (DBSync *dbsync, gchar *label,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when linking the TV channel '%s' to channel.\n\nSQLite has returned error :\n%s."),
+		    _("Error when linking the TV channel '%s' to channel.\n\nSQLite has returned error:\n%s."),
 		    label, sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}
@@ -1385,7 +1385,7 @@ dbsync_get_current_db_version (gpointer user_data, GError** error)
 	}else{
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-			_("Error when getting the database version.\n\nSQLite has returned error :\n%s."),
+			_("Error when getting the database version.\n\nSQLite has returned error:\n%s."),
 		    sqlite3_errmsg(dbsync->db_link));
 	}
 	
@@ -1417,7 +1417,7 @@ dbsync_set_current_db_version (gchar* szVersion, gpointer user_data,
 		if(res != SQLITE_OK){
 			*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 				FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-				_("Error when updating the database version.\n\nSQLite has returned error :\n%s."),
+				_("Error when updating the database version.\n\nSQLite has returned error:\n%s."),
 				sqlite3_errmsg(dbsync->db_link));
 			sqlite3_free(db_err);
 		}
@@ -1482,7 +1482,7 @@ dbsync_exec_query(const gchar* szQuery, gpointer user_data,
 	if(res != SQLITE_OK){
 		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
 		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
-		    _("Error when migrating the database.\n\nSQLite has returned error :\n%s."),
+		    _("Error when migrating the database.\n\nSQLite has returned error:\n%s."),
 		    sqlite3_errmsg(dbsync->db_link));
 		sqlite3_free(db_err);
 	}else{

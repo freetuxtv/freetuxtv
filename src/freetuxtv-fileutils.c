@@ -66,7 +66,7 @@ freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, GError **error)
 		if(curlcode != 0){
 			*error = g_error_new (FREETUXTV_CURL_ERROR,
 					      FREETUXTV_CURL_ERROR_GET,
-					      _("Error when downloading the file from URL -> %s.\n\nCURL has returned error :\n%s."),
+					      _("Error when downloading the file from URL -> %s.\n\nCURL has returned error:\n%s."),
 					      url, curl_easy_strerror(curlcode));
 		}
 		
