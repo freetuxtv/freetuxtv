@@ -64,17 +64,17 @@ init_user_configuration(FreetuxTVApp *app, GError **error)
 		                            0744);
 		if(res == 0){
 			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-			      "Directory created : %s\n", user_cache_dir);	
+			      "Directory created: %s\n", user_cache_dir);	
 		}else{
 			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
-			      "Cannot create directory : %s\n", user_cache_dir);
+			      "Cannot create directory: %s\n", user_cache_dir);
 			bGoOn = FALSE;
 		}
 	}
 	if(bGoOn){
 		if (!g_file_test (user_cache_dir, G_FILE_TEST_IS_DIR)){
 			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
-			      "Not a directory : %s\n", user_cache_dir);
+			      "Not a directory: %s\n", user_cache_dir);
 			bGoOn = FALSE;
 		}
 	}
@@ -86,10 +86,10 @@ init_user_configuration(FreetuxTVApp *app, GError **error)
 			                            0744);
 			if(res == 0){
 				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-				      "Directory created : %s\n", user_img_channels_dir);	
+				      "Directory created: %s\n", user_img_channels_dir);	
 			}else{
 				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
-				      "Cannot create directory : %s\n", user_img_channels_dir);
+				      "Cannot create directory: %s\n", user_img_channels_dir);
 				bGoOn = FALSE;
 			}
 		}
@@ -97,7 +97,7 @@ init_user_configuration(FreetuxTVApp *app, GError **error)
 	if(bGoOn){
 		if (!g_file_test (user_img_channels_dir, G_FILE_TEST_IS_DIR)){
 			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
-			      "Not a directory : %s\n", user_img_channels_dir);
+			      "Not a directory: %s\n", user_img_channels_dir);
 			bGoOn = FALSE;
 		}
 	}
@@ -374,7 +374,7 @@ increase_progress_timeout (FreetuxTVApp *app)
 			gchar *format = format_time(second);
 			gchar *size_text = format_size(file_size);
 			gchar *text;
-			text = g_strdup_printf (_("Recording : %s (%s) -> %s (%s)"), channel->name, 
+			text = g_strdup_printf (_("Recording: %s (%s) -> %s (%s)"), channel->name, 
 			                        format, app->current.recording.dst_file, size_text);
 			windowmain_statusbar_pop (app, "RecordChannelMsg");
 			windowmain_statusbar_push (app, "RecordChannelMsg", text);
@@ -470,7 +470,7 @@ splashscreen_app_init(gpointer data)
 	gchar* szConfigDir;
 	szConfigDir = g_build_filename(g_get_user_config_dir(), "FreetuxTV", NULL);
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Using user configuration dir : %s\n", szConfigDir);
+	      "Using user configuration dir: %s\n", szConfigDir);
 
 	// Initializing user configuration
 	if(error == NULL){
@@ -853,7 +853,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 		      pChannelInfos->name, gtk_tree_path_to_string(path_channel), pChannelInfos->url);
 		channels_list_set_playing(app, path_channel);		
 
-		text = g_strdup_printf (_("Playing : %s"), pChannelInfos->name);
+		text = g_strdup_printf (_("Playing: %s"), pChannelInfos->name);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
 
 		// Send notification to desktop
@@ -1048,9 +1048,9 @@ freetuxtv_action_stop (FreetuxTVApp *app, GError** error)
 		if(gtk_libvlc_media_player_is_playing(app->player, error)){
 
 			if(app->current.is_recording){
-				text = g_strdup_printf (_("Playing : %s"), channel_infos->name);
+				text = g_strdup_printf (_("Playing: %s"), channel_infos->name);
 			}else{
-				text = g_strdup_printf (_("Stopping channel : %s"), channel_infos->name);
+				text = g_strdup_printf (_("Stopping channel: %s"), channel_infos->name);
 			}
 			windowmain_statusbar_push (app, "PlayChannelMsg", text);
 			g_free(text);
@@ -1135,7 +1135,7 @@ freetuxtv_action_record (FreetuxTVApp *app, GError** error)
 
 		app->current.is_recording = TRUE;
 
-		text = g_strdup_printf (_("Recording : %s"), app->current.recording.dst_file);
+		text = g_strdup_printf (_("Recording: %s"), app->current.recording.dst_file);
 		windowmain_statusbar_push (app, "PlayChannelMsg", text);
 		g_free(text);
 	}

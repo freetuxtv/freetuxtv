@@ -300,7 +300,7 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 
 	if(pChannelsGroupInfos->type == FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST){
 		// Get the file of the playlist
-		text = g_strdup_printf (_("Getting the file : \"%s\""), pChannelsGroupInfos->uri);
+		text = g_strdup_printf (_("Getting the file: \"%s\""), pChannelsGroupInfos->uri);
 		windowmain_statusbar_push (app, "UpdateMsg", text);
 		g_free(text);
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
@@ -331,7 +331,7 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 				if (res != LIBM3UPARSER_CALLBACK_RETURN_ERROR){
 					*error = g_error_new (FREETUXTV_LIBM3UPARSE_ERROR,
 								  FREETUXTV_LIBM3UPARSE_ERROR_PARSE,
-								  _("Error when adding the channels.\n\nM3UParser has returned error :\n%s."),
+								  _("Error when adding the channels.\n\nM3UParser has returned error:\n%s."),
 								  libm3uparser_errmsg(res));
 				}
 			}

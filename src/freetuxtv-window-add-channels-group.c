@@ -460,7 +460,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 									(gchar*)sbregex, (gchar*)seregex);
 								
 								// Update progress dialog
-								tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
+								tmptext = g_strdup_printf(_("Adding channels group: <i>%s</i>"),
 									pChannelsGroupInfos->name);
 								gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 								g_free(tmptext);
@@ -499,7 +499,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 							freetuxtv_channels_group_infos_set_regex (pChannelsGroupInfos, (gchar*)sbregex, (gchar*)seregex);
 							
 							// Update progress dialog
-							tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
+							tmptext = g_strdup_printf(_("Adding channels group: <i>%s</i>"),
 								pChannelsGroupInfos->name);
 							gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 							g_free(tmptext);
@@ -574,7 +574,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 				freetuxtv_channels_group_infos_set_regex (pChannelsGroupInfos, (gchar*)sbregex, (gchar*)seregex);
 				
 				// Update progress dialog
-				tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
+				tmptext = g_strdup_printf(_("Adding channels group: <i>%s</i>"),
 					pChannelsGroupInfos->name);
 				gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 				gtk_progress_dialog_set_percent(pProgressDialog, 0.0);
@@ -611,7 +611,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 					FREETUXTV_CHANNELSGROUP_TYPEGROUP_FAVORITES);
 				
 				// Update progress dialog
-				tmptext = g_strdup_printf(_("Adding channels group : <i>%s</i>"),
+				tmptext = g_strdup_printf(_("Adding channels group: <i>%s</i>"),
 					pChannelsGroupInfos->name);
 				gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 				gtk_progress_dialog_set_percent(pProgressDialog, 0.0);
