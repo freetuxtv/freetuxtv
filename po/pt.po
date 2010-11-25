@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-25 23:06+0100\n"
+"POT-Creation-Date: 2010-11-25 23:42+0100\n"
 "PO-Revision-Date: 2009-12-13 22:57+0100\n"
 "Last-Translator: José JORGE <jjorge@free.fr>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
@@ -749,7 +749,7 @@ msgstr "Actualizar a lista de canais \"%s\""
 #. Get the file of the playlist
 #: ../src/freetuxtv-channels-list.c:303
 #, c-format
-msgid "Getting the file : \"%s\""
+msgid "Getting the file: \"%s\""
 msgstr ""
 
 #: ../src/freetuxtv-channels-list.c:334
@@ -757,7 +757,7 @@ msgstr ""
 msgid ""
 "Error when adding the channels.\n"
 "\n"
-"M3UParser has returned error :\n"
+"M3UParser has returned error:\n"
 "%s."
 msgstr ""
 
@@ -781,7 +781,7 @@ msgstr "Adicionar um grupo"
 msgid ""
 "Cannot open database.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -790,7 +790,7 @@ msgstr ""
 msgid ""
 "Error when displaying the channels.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -799,7 +799,7 @@ msgstr ""
 msgid ""
 "Error when getting the channel.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -808,7 +808,7 @@ msgstr ""
 msgid ""
 "Error when adding the channel \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -817,7 +817,7 @@ msgstr ""
 msgid ""
 "Error when deleting the channel \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -826,7 +826,7 @@ msgstr ""
 msgid ""
 "Error when updating the position of the channels in group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -835,7 +835,7 @@ msgstr ""
 msgid ""
 "Error when getting the channel by name.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -845,7 +845,7 @@ msgstr ""
 msgid ""
 "Error when updating the channel \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -854,7 +854,7 @@ msgstr ""
 msgid ""
 "Error when adding the group \"%s\" in database.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -864,7 +864,7 @@ msgstr ""
 msgid ""
 "Error when updating the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -873,7 +873,7 @@ msgstr ""
 msgid ""
 "Error when updating the last update date of the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -882,7 +882,7 @@ msgstr ""
 msgid ""
 "Error when deleting the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -891,7 +891,7 @@ msgstr ""
 msgid ""
 "Error when updating the position of the groups.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -900,7 +900,7 @@ msgstr ""
 msgid ""
 "Error when deleting the channels of the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -909,7 +909,7 @@ msgstr ""
 msgid ""
 "Error when updating the channels of the group \"%s\".\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -918,7 +918,7 @@ msgstr ""
 msgid ""
 "Error when deleting the tv channels list.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -927,7 +927,7 @@ msgstr ""
 msgid ""
 "Error when adding the tv channel '%s'.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -936,7 +936,7 @@ msgstr ""
 msgid ""
 "Error when adding the label of channel logo '%s'.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -945,7 +945,7 @@ msgstr ""
 msgid ""
 "Error when linking the TV channel '%s' to channel.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -954,7 +954,7 @@ msgstr ""
 msgid ""
 "Error when getting the database version.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -963,7 +963,7 @@ msgstr ""
 msgid ""
 "Error when updating the database version.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -972,7 +972,7 @@ msgstr ""
 msgid ""
 "Error when migrating the database.\n"
 "\n"
-"SQLite has returned error :\n"
+"SQLite has returned error:\n"
 "%s."
 msgstr ""
 
@@ -981,7 +981,7 @@ msgstr ""
 msgid ""
 "Error when downloading the file from URL -> %s.\n"
 "\n"
-"CURL has returned error :\n"
+"CURL has returned error:\n"
 "%s."
 msgstr ""
 
@@ -1041,9 +1041,9 @@ msgstr ""
 #: ../src/freetuxtv-window-add-channels-group.c:502
 #: ../src/freetuxtv-window-add-channels-group.c:577
 #: ../src/freetuxtv-window-add-channels-group.c:614
-#, c-format
-msgid "Adding channels group : <i>%s</i>"
-msgstr ""
+#, fuzzy, c-format
+msgid "Adding channels group: <i>%s</i>"
+msgstr "Grupos de canais conhecidos"
 
 #: ../src/freetuxtv-window-add-channels-group.c:525
 #: ../src/freetuxtv-window-add-channels-group.c:585
@@ -1133,7 +1133,7 @@ msgstr "_Ajuda"
 
 #: ../src/main.c:377
 #, c-format
-msgid "Recording : %s (%s) -> %s (%s)"
+msgid "Recording: %s (%s) -> %s (%s)"
 msgstr ""
 
 #: ../src/main.c:477
@@ -1162,7 +1162,7 @@ msgstr ""
 
 #: ../src/main.c:856 ../src/main.c:1051
 #, c-format
-msgid "Playing : %s"
+msgid "Playing: %s"
 msgstr ""
 
 #: ../src/main.c:865
@@ -1170,9 +1170,9 @@ msgid "is playing"
 msgstr ""
 
 #: ../src/main.c:1053
-#, c-format
-msgid "Stopping channel : %s"
-msgstr ""
+#, fuzzy, c-format
+msgid "Stopping channel: %s"
+msgstr "canais"
 
 #: ../src/main.c:1092
 msgid "is recording"
@@ -1180,7 +1180,7 @@ msgstr ""
 
 #: ../src/main.c:1138
 #, c-format
-msgid "Recording : %s"
+msgid "Recording: %s"
 msgstr ""
 
 #: ../src/main.c:1214
