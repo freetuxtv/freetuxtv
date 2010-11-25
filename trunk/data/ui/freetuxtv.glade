@@ -114,10 +114,11 @@
                             <child>
                               <object class="GtkHBox" id="hbox2">
                                 <property name="visible">True</property>
+                                <property name="spacing">2</property>
                                 <child>
                                   <object class="GtkLabel" id="label7">
                                     <property name="visible">True</property>
-                                    <property name="label" translatable="yes">Search : </property>
+                                    <property name="label" translatable="yes">Search:</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -451,10 +452,11 @@
                         <child>
                           <object class="GtkHBox" id="hbox3">
                             <property name="visible">True</property>
+                            <property name="spacing">2</property>
                             <child>
                               <object class="GtkLabel" id="label4">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Vol : </property>
+                                <property name="label" translatable="yes">Vol:</property>
                               </object>
                               <packing>
                                 <property name="position">0</property>
@@ -646,7 +648,7 @@
                     <child>
                       <object class="GtkLabel" id="label2">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Channels groups file :</property>
+                        <property name="label" translatable="yes">Channels groups file:</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -779,7 +781,7 @@
                       <object class="GtkLabel" id="label9">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Group's name :</property>
+                        <property name="label" translatable="yes">Group's name:</property>
                       </object>
                     </child>
                     <child>
@@ -797,7 +799,7 @@
                       <object class="GtkLabel" id="label10">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Playlist's URI :</property>
+                        <property name="label" translatable="yes">Playlist's URI:</property>
                       </object>
                       <packing>
                         <property name="top_attach">1</property>
@@ -849,7 +851,7 @@
                                   <object class="GtkLabel" id="label14">
                                     <property name="visible">True</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Delete this text before the name :</property>
+                                    <property name="label" translatable="yes">Delete this text before the name:</property>
                                   </object>
                                 </child>
                                 <child>
@@ -867,7 +869,7 @@
                                   <object class="GtkLabel" id="label16">
                                     <property name="visible">True</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Delete this text behind the name :</property>
+                                    <property name="label" translatable="yes">Delete this text behind the name:</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -949,7 +951,7 @@
                       <object class="GtkLabel" id="label48">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Group's name :</property>
+                        <property name="label" translatable="yes">Group's name:</property>
                       </object>
                     </child>
                     <child>
@@ -1003,7 +1005,7 @@
                     <child type="label">
                       <object class="GtkLabel" id="label49">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Special group type :&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Special group type:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
                     </child>
@@ -1081,10 +1083,11 @@
             <child>
               <object class="GtkHBox" id="hbox7">
                 <property name="visible">True</property>
+                <property name="spacing">2</property>
                 <child>
                   <object class="GtkLabel" id="label15">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Vol : </property>
+                    <property name="label" translatable="yes">Vol:</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -1937,7 +1940,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                       <object class="GtkLabel" id="label33">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Group's name :</property>
+                        <property name="label" translatable="yes">Group's name:</property>
                       </object>
                       <packing>
                         <property name="x_options">GTK_FILL</property>
@@ -1947,7 +1950,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                       <object class="GtkLabel" id="label34">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Playlist's URI :</property>
+                        <property name="label" translatable="yes">Playlist's URI:</property>
                       </object>
                       <packing>
                         <property name="top_attach">1</property>
@@ -2011,7 +2014,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                                   <object class="GtkLabel" id="label35">
                                     <property name="visible">True</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Delete this text before the name :</property>
+                                    <property name="label" translatable="yes">Delete this text before the name:</property>
                                   </object>
                                   <packing>
                                     <property name="x_options">GTK_FILL</property>
@@ -2021,7 +2024,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                                   <object class="GtkLabel" id="label36">
                                     <property name="visible">True</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Delete this text behind the name :</property>
+                                    <property name="label" translatable="yes">Delete this text behind the name:</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -2114,7 +2117,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                       <object class="GtkLabel" id="label40">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Number of channels :</property>
+                        <property name="label" translatable="yes">Number of channels:</property>
                       </object>
                       <packing>
                         <property name="x_options">GTK_FILL</property>
@@ -2306,7 +2309,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                       <object class="GtkLabel" id="label45">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Duration (min) :</property>
+                        <property name="label" translatable="yes">Duration (min):</property>
                       </object>
                     </child>
                     <child>
@@ -2326,7 +2329,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                       <object class="GtkLabel" id="label46">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Approximative end time :</property>
+                        <property name="label" translatable="yes">Approximative end time:</property>
                       </object>
                       <packing>
                         <property name="top_attach">1</property>
@@ -2417,7 +2420,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                       <object class="GtkLabel" id="label28">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Channel's name :</property>
+                        <property name="label" translatable="yes">Channel's name:</property>
                       </object>
                       <packing>
                         <property name="x_options">GTK_FILL</property>
@@ -2427,7 +2430,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                       <object class="GtkLabel" id="label29">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Channel's URI :</property>
+                        <property name="label" translatable="yes">Channel's URI:</property>
                       </object>
                       <packing>
                         <property name="top_attach">1</property>
@@ -2497,7 +2500,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                     <child type="label">
                       <object class="GtkLabel" id="label57">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Channel VLC options :&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Channel VLC options:&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
                     </child>
@@ -2531,7 +2534,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                       <object class="GtkLabel" id="label31">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Deinterlacement :</property>
+                        <property name="label" translatable="yes">Deinterlacement:</property>
                       </object>
                       <packing>
                         <property name="x_options">GTK_FILL</property>
