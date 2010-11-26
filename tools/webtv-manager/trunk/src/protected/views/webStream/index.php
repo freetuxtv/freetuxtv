@@ -28,6 +28,8 @@ $this->menu=array(
 			$lng = $val;
 		}else if($key == "type"){
 			$type = WebStream::getPlaylistTypeStreamNameById($val);
+		}else if($key == "status" && $val == WebStream::WEBSTREAM_STATUS_WORKING){
+			// We do nothing
 		}else{
 			if($querystring==""){
 				$querystring.="?";

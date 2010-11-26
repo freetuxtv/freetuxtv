@@ -75,6 +75,11 @@ return array(
 				*/
 			),
 		),
+		'mailer' => array(
+      		'class' => 'application.extensions.mailer.EMailer',
+      		'pathViews' => 'application.views.email',
+      		'pathLayouts' => 'application.views.email.layouts',
+   ),
 	),
 
 	// application-level parameters that can be accessed
@@ -82,5 +87,10 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'admin@mail.com',
+		'appAuthor'=>'FreetuxTV WebTV Manager',
+		'appEmail'=>'sender@mail.com',
+		'SMTPHost'=>'smtp.mail.com',
+		'SMTPUsername'=>'sender@mail.com',
+		'SMTPPassword'=>'password',
 	),
 );

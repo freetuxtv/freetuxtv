@@ -258,19 +258,20 @@ class WebStreamController extends Controller
 				$model->RequiredIsp=null;
 			}
 			if($model->save()){
-				/*
-				$actionDetails = $model->Name." - ".$model->getTypeStreamName()." - lang:".$model->LangCode."\n".$model->Url;
-				$actionDetails = "name => ".$model->Name;
-				$actionDetails .= ", type => ".$model->getTypeStreamName();
-				if($model->LangCode){
-					$actionDetails .= ", lang => ".$model->LangCode;
-				}
-				if($model->RequiredIsp){
-					$actionDetails .= ", isp => ".$model->RequiredIsp;
-				}
-				$actionDetails .= ", url => ".$model->Url;*/
 				$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_ADD, $model->Id);
 				if($history->save()){
+
+					// Send a mail to the admin
+					$link = Yii::app()->getRequest()->getHostInfo().Yii::app()->createUrl("WebStream/view", array("id" => $model->Id));
+					$subject = Yii::app()->name.' - New WebStream submitted';
+					$message = 'A new WebStream has been submitted by an user :<br><br>';
+					$message .= '<u>Name :</u> '.$model->Name.'<br>';
+					$message .= '<u>Url :</u> <a href="'.$model->Url.'">'.$model->Url.'</a><br>';
+					$message .= '<br>';
+					$message .= 'Click here to view the details of the WebStream : <a href="'.$link.'">'.$link.'</a><br>';
+
+					$this->sendMailToAdmin($subject, $message);
+
 					$this->redirect(array('view','id'=>$model->Id));
 				}
 			}
@@ -342,5 +343,20 @@ class WebStreamController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	protected function sendMailToAdmin($subject, $message)
+	{
+		Yii::app()->mailer->IsSMTP();
+		Yii::app()->mailer->SMTPAuth = true;
+		Yii::app()->mailer->Host = Yii::app()->params['SMTPHost'];
+		Yii::app()->mailer->Username = Yii::app()->params['SMTPUsername'];
+		Yii::app()->mailer->Password = Yii::app()->params['SMTPPassword'];
+		Yii::app()->mailer->From = Yii::app()->params['appEmail'];
+		Yii::app()->mailer->FromName = Yii::app()->params['appAuthor'];
+		Yii::app()->mailer->AddAddress(Yii::app()->params['adminEmail']);
+		Yii::app()->mailer->Subject = $subject;
+		Yii::app()->mailer->MsgHTML($message);
+		Yii::app()->mailer->Send();
 	}
 }

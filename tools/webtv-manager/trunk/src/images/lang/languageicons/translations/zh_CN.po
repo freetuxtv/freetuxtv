@@ -1,0 +1,110 @@
+# $Id: languageicons.pot,v 1.3 2010/02/02 22:53:15 freso Exp $
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  languageicons.admin.inc,v 1.6 2010/02/02 21:10:46 freso
+#  languageicons.module,v 1.9 2010/02/02 21:10:46 freso
+#  languageicons.info: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: freetuxtv/languageicons\n"
+"POT-Creation-Date: 2010-02-02 23:50+0100\n"
+"PO-Revision-Date: 2010-11-22 17:52+0800\n"
+"Last-Translator: Dean Lee <xslidian@gmail.com>\n"
+"Language-Team: Chinese Simplified <xslidian+freetuxtv@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Chinese\n"
+
+#: languageicons.admin.inc:20
+msgid "Add language icons"
+msgstr "添加语言图标"
+
+#: languageicons.admin.inc:21
+msgid "Link types to add language icons."
+msgstr "添加语言图标的链接类型。"
+
+#: languageicons.admin.inc:25
+msgid "Node links"
+msgstr "节点链接"
+
+#: languageicons.admin.inc:30
+msgid "Language switcher block"
+msgstr "语言切换区块"
+
+#: languageicons.admin.inc:35
+msgid "Icon placement"
+msgstr "图标位置"
+
+#: languageicons.admin.inc:37
+msgid "Before link"
+msgstr "链接之前"
+
+#: languageicons.admin.inc:38
+msgid "After link"
+msgstr "链接之后"
+
+#: languageicons.admin.inc:39
+msgid "Replace link"
+msgstr "替代链接"
+
+#: languageicons.admin.inc:42
+msgid "Where to display the icon, relative to the link title."
+msgstr "在哪里显示图标，相对于链接标题。"
+
+#: languageicons.admin.inc:46
+msgid "Icons file path"
+msgstr "图标文件路径"
+
+#: languageicons.admin.inc:50
+msgid "Path for language icons, relative to Drupal installation. \"*\" is a placeholder for language code."
+msgstr "语言图标路径，相对于 Drupal 安装路径。\"*\" 为语言代码占位符。"
+
+#: languageicons.admin.inc:54
+msgid "Image size"
+msgstr "图像尺寸"
+
+#: languageicons.admin.inc:58
+msgid "Image size for language icons, in the form \"width x height\"."
+msgstr "语言图标图像尺寸，格式为 \"宽度 x 高度\"。"
+
+#: languageicons.module:35
+msgid "This module manages language icons for multilingual sites:"
+msgstr "此模块管理多语言站点的语言图标:"
+
+#: languageicons.module:37
+msgid "Automatically adds icons to language links."
+msgstr "自动为语言链接添加图标。"
+
+#: languageicons.module:38
+msgid "Provides related theme functions."
+msgstr "提供相关主题功能。"
+
+#: languageicons.module:40
+msgid "For more information, please see <a href=\"@handbook\">the online handbook section</a>."
+msgstr "详情请见 <a href=\"@handbook\">在线手册段落</a>。"
+
+#: languageicons.module:43
+msgid "To enable multilingual support for specific content types go to <a href=\"@configure_content_types\">configure content types</a>."
+msgstr "要为指定内容类型启用多语言支持，请访问<a href=\"@configure_content_types\">配置内容类型</a>。"
+
+#: languageicons.module:53
+msgid "Icons"
+msgstr "图标"
+
+#: languageicons.info:0
+msgid "Language icons"
+msgstr "语言图标"
+
+#: languageicons.info:0
+msgid "Adds icons to language links."
+msgstr "为语言链接添加图标。"
+
+#: languageicons.info:0
+msgid "Multilanguage"
+msgstr "多语言"
+
