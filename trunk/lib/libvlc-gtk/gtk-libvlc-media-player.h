@@ -112,6 +112,12 @@ gdouble
 gtk_libvlc_media_player_get_volume (GtkLibvlcMediaPlayer *self, GError** error);
 
 void
+gtk_libvlc_media_player_set_mute (GtkLibvlcMediaPlayer *self, gboolean mute, GError** error);
+
+gboolean
+gtk_libvlc_media_player_get_mute (GtkLibvlcMediaPlayer *self, GError** error);
+
+void
 gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean fullscreen, GError** error);
 
 gboolean

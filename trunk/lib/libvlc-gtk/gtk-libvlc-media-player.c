@@ -1237,6 +1237,104 @@ gtk_libvlc_media_player_get_volume (GtkLibvlcMediaPlayer *self, GError** error)
 }
 
 void
+gtk_libvlc_media_player_set_mute (GtkLibvlcMediaPlayer *self, gboolean mute, GError** error)
+{
+	g_return_if_fail(self != NULL);
+	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self));
+	if(error != NULL){
+		g_return_if_fail(*error == NULL);
+	}
+
+	GError* pError = NULL;
+
+	GtkLibvlcMediaPlayerPrivate* priv;
+	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
+
+	// Create the media player if not initialized
+	gtk_libvlc_media_player_initialize (self, &pError);
+	g_return_if_fail(priv->initialized == TRUE);
+
+	if(pError == NULL){
+
+#ifdef LIBVLC_OLD_VLCEXCEPTION
+		libvlc_instance_t *libvlc_instance;
+		libvlc_instance = (libvlc_instance_t *)
+			gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, &pError);
+		g_return_if_fail(libvlc_instance != NULL);
+
+		libvlc_exception_t _vlcexcep;
+		libvlc_exception_init (&_vlcexcep);
+
+		libvlc_audio_set_mute (libvlc_instance, (mute == TRUE ? 1 : 0), &_vlcexcep);    
+		raise_error(self, error, &_vlcexcep);
+#else
+		libvlc_audio_set_mute (priv->libvlc_mediaplayer, (mute == TRUE ? 1 : 0));    
+		raise_error(self, error, NULL);
+
+#endif // LIBVLC_OLD_VLCEXCEPTION
+	}
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
+}
+
+gboolean
+gtk_libvlc_media_player_get_mute (GtkLibvlcMediaPlayer *self, GError** error)
+{
+	g_return_val_if_fail(self != NULL, FALSE);
+	g_return_val_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(self), FALSE);
+	g_return_val_if_fail(self->libvlc_instance != NULL, FALSE);
+	if(error != NULL){
+		g_return_val_if_fail(*error == NULL, FALSE);
+	}
+
+	GError* pError = NULL;
+	gboolean mute = FALSE;
+
+	GtkLibvlcMediaPlayerPrivate* priv;
+	priv = GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(self);
+
+	// Create the media player if not initialized
+	gtk_libvlc_media_player_initialize (self, &pError);
+	g_return_val_if_fail(priv->initialized == TRUE, FALSE);
+
+	if(pError == NULL){
+#ifdef LIBVLC_OLD_VLCEXCEPTION
+		libvlc_instance_t *libvlc_instance;
+		libvlc_instance = (libvlc_instance_t *)
+			gtk_libvlc_instance_get_libvlc_instance(self->libvlc_instance, &pError);
+		g_return_val_if_fail(libvlc_instance != NULL, FALSE);
+
+		libvlc_exception_t _vlcexcep;
+		libvlc_exception_init (&_vlcexcep);
+
+		mute = (libvlc_audio_get_mute (libvlc_instance, &_vlcexcep) == 1 ? TRUE : FALSE);
+		raise_error(self, &pError, &_vlcexcep);
+#else
+		mute = (libvlc_audio_get_mute (priv->libvlc_mediaplayer) == 1 ? TRUE : FALSE);
+		raise_error(self, &pError, NULL);
+#endif // LIBVLC_OLD_VLCEXCEPTION
+	}
+
+	if(pError){
+		if(error){
+			*error = pError;
+		}else{
+			g_error_free (pError);
+			pError = NULL;
+		}
+	}
+
+	return mute;
+}
+
+void
 gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean fullscreen, GError **error)
 {
 	g_return_if_fail(self != NULL);
