@@ -47,5 +47,8 @@ g_time_val_copy (GTimeVal *timeval_src, GTimeVal *timeval_dest);
 gchar*
 g_time_val_to_string(GTimeVal *timeval, const gchar* format);
 
+gchar*
+g_utf8_removediacritics(const gchar *str, gssize len);
+
 
 #endif /* FREETUXTV_UTILS_H */

@@ -198,3 +198,37 @@ g_time_val_to_string(GTimeVal *timeval, const gchar* format)
 
 	return g_strdup(buf);
 }
+
+gchar*
+g_utf8_removediacritics(const gchar *str, gssize len)
+{
+	gchar *szNormalizedString;
+	GString* szStringBuilder;
+	gchar *szRes = NULL;
+	gunichar c;
+	gchar *szPtr = NULL;
+
+	if(str != NULL){
+		szNormalizedString = g_utf8_normalize (str, len, G_NORMALIZE_NFD);
+
+		szStringBuilder = g_string_new ("");
+
+		szPtr = szNormalizedString;
+		while(szPtr){
+			c = g_utf8_get_char(szPtr);
+			if(c != '\0'){
+				if (!g_unichar_ismark(c)){
+					g_string_append_c(szStringBuilder, c);
+				}
+				szPtr = g_utf8_next_char (szPtr);
+			}else{
+				szPtr = NULL;
+			}
+		}
+
+		szRes = g_string_free (szStringBuilder, FALSE);
+		g_free(szNormalizedString);
+	}
+
+	return szRes;
+}
