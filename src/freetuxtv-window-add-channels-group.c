@@ -325,6 +325,9 @@ on_buttonrefresh_clicked (GtkButton *button, gpointer user_data)
 
 	GError* error = NULL;
 
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Starting update of the channel's groups list\n");
+
 	GtkWidget* widget;
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	    "dialogaddgroup_entrychannelsgroupfile");
@@ -332,9 +335,14 @@ on_buttonrefresh_clicked (GtkButton *button, gpointer user_data)
 	gchar *dst_file;
 	url = (gchar*)gtk_entry_get_text (GTK_ENTRY(widget));
 	dst_file = g_build_filename(g_get_user_cache_dir(), "freetuxtv", "channels_groups.dat", NULL);
+
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Downloading the file '%s'\n", url);
 	freetuxtv_fileutils_get_file (url, dst_file, &error);
 
 	if(error == NULL){
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+			  "Updating the list of channel's groups\n");
 		load_model_channels_group_from_file(app, &error);
 	}
 

@@ -2031,9 +2031,9 @@ is_filter_match(const gchar* szFilter, const gchar* szText)
 	szTmp = g_utf8_casefold (szFilter, -1);
 	szRegex = g_utf8_removediacritics(szTmp, -1);
 	g_free(szTmp);
-	szTmp = g_strdup_printf("^.*%s.*$", szRegex);
+	szTmp = g_regex_escape_string (szRegex, -1);
 	g_free(szRegex);
-	szRegex = szTmp;
+	szRegex = g_strdup_printf("^.*%s.*$", szTmp);
 	
 	pRegex = g_regex_new (szRegex, 0, 0, NULL);
 	if (g_regex_match (pRegex, szNewText, 0, NULL)){
