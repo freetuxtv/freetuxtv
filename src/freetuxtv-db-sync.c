@@ -116,16 +116,29 @@ dbsync_open_db(DBSync *dbsync, GError** error)
 	g_return_if_fail(error != NULL);
 	g_return_if_fail(*error == NULL);
 
-	gchar *user_db;
+	gchar *szPathConfigDir;
+	gchar *szPathDB;
 	int res;
 
-	user_db = g_build_filename(g_get_user_config_dir(), 
-	                           "FreetuxTV", "freetuxtv.db", NULL);
+	szPathConfigDir = g_build_filename(g_get_user_config_dir(), "FreetuxTV", NULL);
+	if (!g_file_test(szPathConfigDir, G_FILE_TEST_EXISTS)) { 
+          res = g_mkdir_with_parents (szPathConfigDir, 0744);
+          if(res == 0){
+              g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+			      "Directory created: %s\n", szPathConfigDir);
+          } else {
+			  g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+			      "Cannot create directory: %s\n", szPathConfigDir);
+          }
+	}
+
+	szPathDB = g_build_filename(g_get_user_config_dir(),
+	    "FreetuxTV", "freetuxtv.db", NULL);
 
 	// Open the database if not open
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "DBSync open database\n");
-	res = sqlite3_open(user_db, &(dbsync->db_link));
+	res = sqlite3_open(szPathDB, &(dbsync->db_link));
 	if(res != SQLITE_OK){
 		if(error != NULL){
 			// sqlite3_errmsg return const char*, no need to free it
@@ -136,7 +149,8 @@ dbsync_open_db(DBSync *dbsync, GError** error)
 		}
 	}
 
-	g_free(user_db);
+	g_free(szPathDB);
+	g_free(szPathConfigDir);
 }
 
 void
