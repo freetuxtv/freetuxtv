@@ -33,6 +33,7 @@
 #include "freetuxtv-db-sync.h"
 #include "freetuxtv-window-add-channels-group.h"
 #include "freetuxtv-window-channel-properties.h"
+#include "freetuxtv-utils.h"
 #include "lib-m3uparser.h"
 
 typedef struct _Parsem3uData
@@ -2012,6 +2013,42 @@ get_favourites_channels_groups_paths(FreetuxTVApp *app)
 }
 
 static gboolean
+is_filter_match(const gchar* szFilter, const gchar* szText)
+{
+	gboolean bRes = FALSE;
+	GRegex *pRegex;
+	gchar *szNewText;
+	gchar *szRegex;
+	gchar *szTmp;
+
+	// We remove diacritics and case from the channel name
+	szNewText = g_utf8_casefold (szText, -1);
+	szTmp = g_utf8_removediacritics(szNewText, -1);
+	g_free(szNewText);
+	szNewText = szTmp;
+
+	// We set the filter
+	szTmp = g_utf8_casefold (szFilter, -1);
+	szRegex = g_utf8_removediacritics(szTmp, -1);
+	g_free(szTmp);
+	szTmp = g_strdup_printf("^.*%s.*$", szRegex);
+	g_free(szRegex);
+	szRegex = szTmp;
+	
+	pRegex = g_regex_new (szRegex, 0, 0, NULL);
+	if (g_regex_match (pRegex, szNewText, 0, NULL)){
+		bRes = TRUE;
+	}
+	
+	g_regex_unref (pRegex);
+	
+	g_free(szNewText);
+	g_free(szRegex);
+	
+	return bRes;
+}
+
+static gboolean
 on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 {
 	gboolean bRes = TRUE;
@@ -2034,17 +2071,7 @@ on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 		gtk_tree_model_get(GTK_TREE_MODEL(model), iter, CHANNEL_COLUMN, &pChannelInfos, -1);
 		
 		if(pChannelInfos != NULL){
-			gchar *channel = g_utf8_strdown (pChannelInfos->name,-1);
-			gchar *search = g_strdup_printf("^.*%s.*$",
-							g_utf8_strdown (filter,-1));
-			GRegex *regex;			
-			regex = g_regex_new (search, 0, 0 ,NULL);
-			if (g_regex_match (regex, channel, 0, NULL)){
-				bRes = TRUE;
-			}else{
-				bRes = FALSE;
-			}
-			g_regex_unref (regex);
+			bRes = is_filter_match (filter, pChannelInfos->name);
 		}		
 	}else{
 		// We look if we have at least one channel visible in the group
@@ -2052,17 +2079,7 @@ on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 			do {
 				gtk_tree_model_get(GTK_TREE_MODEL(model), &iterChannel, CHANNEL_COLUMN, &pChannelInfos, -1);
 				if(pChannelInfos){
-					bRes = FALSE;
-					gchar *channel = g_utf8_strdown (pChannelInfos->name,-1);
-					gchar *search = g_strdup_printf("^.*%s.*$",
-									g_utf8_strdown (filter,-1));
-					GRegex *regex;			
-					regex = g_regex_new (search, 0, 0 ,NULL);
-					if (g_regex_match (regex, channel, 0, NULL)){
-						bRes = TRUE;
-					}
-					g_regex_unref (regex);
-					
+					bRes = is_filter_match (filter, pChannelInfos->name);
 				}
 			} while (!bRes && gtk_tree_model_iter_next (GTK_TREE_MODEL(model), &iterChannel));
 				
