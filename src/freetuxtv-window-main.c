@@ -60,6 +60,10 @@ static void
 on_windowmain_menuitemupdatetvchannels_activate (GtkMenuItem *menuitem,
                                                  gpointer user_data);
 
+static void 
+on_windowmain_menuitemmute_activate (GtkMenuItem *menuitem,
+                                     gpointer user_data);
+
 static void
 on_windowmain_menuitemquit_activate (GtkMenuItem *menuitem,
                                      gpointer user_data);
@@ -923,13 +927,31 @@ on_windowmain_trayicon_popupmenu (GtkStatusIcon *status_icon, guint button,
 	GtkWidget *pMenu;
 	GtkWidget *pMenuItem;
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	gboolean bVolumeDisabled;
 	
 	g_return_if_fail (status_icon != NULL);
 	g_return_if_fail (GTK_IS_STATUS_ICON (status_icon));
+
+	bVolumeDisabled = gtk_libvlc_media_player_get_mute (app->player, NULL);
 	
 	pMenu = gtk_menu_new();
 
 	/* Create the menu items */
+	pMenuItem = gtk_check_menu_item_new_with_label (_("Mute"));
+	gtk_check_menu_item_set_show_toggle (GTK_CHECK_MENU_ITEM(pMenuItem), FALSE);
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(pMenuItem), bVolumeDisabled);
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+	g_signal_connect(G_OBJECT(pMenuItem),
+	                 "activate",
+	                 G_CALLBACK(on_windowmain_menuitemmute_activate),
+	                 app);
+	gtk_widget_show(pMenuItem);
+
+	pMenuItem = gtk_separator_menu_item_new();
+	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+	gtk_widget_show(pMenuItem);
+	
 	pMenuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);	
 	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
 	g_signal_connect(G_OBJECT(pMenuItem),
@@ -950,6 +972,25 @@ on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data)
 	FreetuxTVApp *app = (FreetuxTVApp *) data;
 	freetuxtv_quit (app, GTK_WINDOW(widget));
 	return TRUE;
+}
+
+static void 
+on_windowmain_menuitemmute_activate (GtkMenuItem *menuitem,
+                                     gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	GError* error = NULL;
+	gboolean mute;
+
+	mute = gtk_libvlc_media_player_get_mute (app->player, NULL);
+	if(!error){
+		gtk_libvlc_media_player_set_mute (app->player, !mute, NULL);
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 static void 
