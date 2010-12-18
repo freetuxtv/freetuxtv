@@ -516,6 +516,7 @@ splashscreen_app_init(gpointer data)
 	}
 
 	list_options_free(options);
+	options = NULL;
 
 	gtk_widget_show(GTK_WIDGET(app->player));
 	g_object_unref(G_OBJECT(instance));
@@ -965,9 +966,10 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 			}
 		}
 
-		list_options_free(options);
-
 		gtk_libvlc_media_player_play(app->player, options, error);
+
+		list_options_free(options);
+		options = NULL;
 	}
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
 	      "end freetuxtv_play_channel(%s)\n", pChannelInfos->name);
@@ -1451,7 +1453,7 @@ main (int argc, char *argv[])
 	gboolean bTraceDebug = FALSE;
 	gboolean bOpenChannel = FALSE;
 	gchar* szUri;
-	gchar* szChannelName;
+	gchar* szChannelName = NULL;
 	gchar* szDataDir = NULL;
 
 	int p;

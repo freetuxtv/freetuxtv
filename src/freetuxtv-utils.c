@@ -68,7 +68,7 @@ get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_pre
 	gchar *dir;
 	gchar *mux;
 	gchar *transcode_options = NULL;
-	gchar *transcode;
+	gchar *transcode = NULL;
 	
 	GtkWidget* widget;
 
