@@ -218,7 +218,7 @@ g_utf8_removediacritics(const gchar *str, gssize len)
 			c = g_utf8_get_char(szPtr);
 			if(c != '\0'){
 				if (!g_unichar_ismark(c)){
-					g_string_append_c(szStringBuilder, c);
+					g_string_append_unichar (szStringBuilder, c);
 				}
 				szPtr = g_utf8_next_char (szPtr);
 			}else{
