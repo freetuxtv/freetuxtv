@@ -180,6 +180,15 @@ load_user_configuration(FreetuxTVApp *app)
 			app->prefs.enable_notifications = b;		
 		}
 
+		b = g_key_file_get_boolean (keyfile, "general",
+		                            "ignore_diacritics", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.ignore_diacritics = b;		
+		}
+
 		i = g_key_file_get_integer (keyfile, "libvlc",
 		                            "configfile_mode", &err);
 		if (err != NULL) {
@@ -661,6 +670,7 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	// Loads default configuration
 	app->prefs.channelonstartup = TRUE;
 	app->prefs.enable_notifications = TRUE;
+	app->prefs.ignore_diacritics = TRUE;
 	app->prefs.libvlcconfigfile_mode = 0;
 	app->prefs.directoryrecordings = g_strdup(g_get_home_dir());
 	app->prefs.transcoding_mode = 0;
@@ -1236,6 +1246,9 @@ freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 		g_key_file_set_boolean (keyfile, "general",
 			                    "enable_notifications",
 			                    app->prefs.enable_notifications);
+		g_key_file_set_boolean (keyfile, "general",
+			                    "ignore_diacritics",
+			                    app->prefs.ignore_diacritics);
 
 		g_key_file_set_integer (keyfile, "libvlc",
 			                    "configfile_mode",

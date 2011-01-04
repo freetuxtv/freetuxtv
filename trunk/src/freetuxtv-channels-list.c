@@ -2013,29 +2013,36 @@ get_favourites_channels_groups_paths(FreetuxTVApp *app)
 }
 
 static gboolean
-is_filter_match(const gchar* szFilter, const gchar* szText)
+is_filter_match(const gchar* szFilter, const gchar* szText, gboolean bIgnoreDiacritics)
 {
 	gboolean bRes = FALSE;
 	GRegex *pRegex;
 	gchar *szNewText;
-	gchar *szRegex;
+	gchar *szNewRegex;
 	gchar *szTmp;
 
-	// We remove diacritics and case from the channel name
+	// We remove case from the channel name
 	szNewText = g_utf8_casefold (szText, -1);
-	szTmp = g_utf8_removediacritics(szNewText, -1);
-	g_free(szNewText);
-	szNewText = szTmp;
+	// We remove diacritics from the channel name
+	if(bIgnoreDiacritics){
+		szTmp = g_utf8_removediacritics(szNewText, -1);
+		g_free(szNewText);
+		szNewText = szTmp;
+	}
 
 	// We set the filter
-	szTmp = g_utf8_casefold (szFilter, -1);
-	szRegex = g_utf8_removediacritics(szTmp, -1);
-	g_free(szTmp);
-	szTmp = g_regex_escape_string (szRegex, -1);
-	g_free(szRegex);
-	szRegex = g_strdup_printf("^.*%s.*$", szTmp);
+	szNewRegex = g_utf8_casefold (szFilter, -1);
+	// We remove diacritics from the channel name
+	if(bIgnoreDiacritics){
+		szTmp = g_utf8_removediacritics(szNewRegex, -1);
+		g_free(szNewRegex);
+		szNewRegex = szTmp;
+	}
+	szTmp = g_regex_escape_string (szNewRegex, -1);
+	g_free(szNewRegex);
+	szNewRegex = g_strdup_printf("^.*%s.*$", szTmp);
 	
-	pRegex = g_regex_new (szRegex, 0, 0, NULL);
+	pRegex = g_regex_new (szNewRegex, 0, 0, NULL);
 	if (g_regex_match (pRegex, szNewText, 0, NULL)){
 		bRes = TRUE;
 	}
@@ -2043,7 +2050,7 @@ is_filter_match(const gchar* szFilter, const gchar* szText)
 	g_regex_unref (pRegex);
 	
 	g_free(szNewText);
-	g_free(szRegex);
+	g_free(szNewRegex);
 	
 	return bRes;
 }
@@ -2071,7 +2078,7 @@ on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 		gtk_tree_model_get(GTK_TREE_MODEL(model), iter, CHANNEL_COLUMN, &pChannelInfos, -1);
 		
 		if(pChannelInfos != NULL){
-			bRes = is_filter_match (filter, pChannelInfos->name);
+			bRes = is_filter_match (filter, pChannelInfos->name, app->prefs.ignore_diacritics);
 		}		
 	}else{
 		// We look if we have at least one channel visible in the group
@@ -2079,7 +2086,7 @@ on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
 			do {
 				gtk_tree_model_get(GTK_TREE_MODEL(model), &iterChannel, CHANNEL_COLUMN, &pChannelInfos, -1);
 				if(pChannelInfos){
-					bRes = is_filter_match (filter, pChannelInfos->name);
+					bRes = is_filter_match (filter, pChannelInfos->name, app->prefs.ignore_diacritics);
 				}
 			} while (!bRes && gtk_tree_model_iter_next (GTK_TREE_MODEL(model), &iterChannel));
 				
