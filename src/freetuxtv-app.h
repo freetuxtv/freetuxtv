@@ -30,6 +30,7 @@
 #include <libvlc-gtk/gtk-libvlc-media-player.h>
 
 #include "freetuxtv-channel-infos.h"
+#include "freetuxtv-fileutils.h"
 
 G_BEGIN_DECLS
 
@@ -67,13 +68,7 @@ struct _FreetuxTVApp {
 		gchar* transcoding_format;
 
 		// Prefs network
-		gint proxy_mode;
-		gchar* proxy_server;
-		gchar* proxy_port;
-		gchar* proxy_type;
-		gboolean proxy_use_auth;
-		gchar* proxy_username;
-		gchar* proxy_password;
+		GProxyStruct proxy;
 		
 	} prefs;
 

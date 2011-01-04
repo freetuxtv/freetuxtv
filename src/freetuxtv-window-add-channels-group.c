@@ -338,7 +338,7 @@ on_buttonrefresh_clicked (GtkButton *button, gpointer user_data)
 
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "Downloading the file '%s'\n", url);
-	freetuxtv_fileutils_get_file (url, dst_file, &error);
+	freetuxtv_fileutils_get_file (url, dst_file, &(app->prefs.proxy), &error);
 
 	if(error == NULL){
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,

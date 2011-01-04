@@ -35,7 +35,7 @@ freetuxtv_curl_error_quark () {
 }
 
 void
-freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, GError **error)
+freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, const GProxyStruct* pProxySctruct, GError **error)
 {
 	g_return_if_fail(url != NULL);
 	g_return_if_fail(dst_file != NULL);
@@ -43,6 +43,9 @@ freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, GError **error)
 	g_return_if_fail(*error == NULL);
 	
 	gchar **uriv;
+
+	gchar* szProxyServeur = NULL;
+	gchar* szProxyAuth = NULL;
 
 	uriv = g_strsplit (url, "//", 2);
 	
@@ -53,6 +56,19 @@ freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, GError **error)
 		curl_easy_setopt(session, CURLOPT_TIMEOUT, 10);
 		// curl_easy_setopt(session, CURLOPT_VERBOSE, 1);
 		curl_easy_setopt(session, CURLOPT_FOLLOWLOCATION, 1);
+
+		if(pProxySctruct){
+			if(pProxySctruct->proxy_mode == G_PROXY_MODE_MANUAL){
+				
+				szProxyServeur = gproxystruct_to_string(pProxySctruct, FALSE, TRUE, FALSE);
+				curl_easy_setopt(session, CURLOPT_PROXY, szProxyServeur);
+				if(pProxySctruct->proxy_use_auth){
+					szProxyAuth = gproxystruct_to_string(pProxySctruct, FALSE, FALSE, TRUE);
+					curl_easy_setopt(session, CURLOPT_PROXYUSERPWD, szProxyAuth);
+				}
+			}
+		}
+		
 		FILE * fp = fopen(dst_file, "w"); 
 		curl_easy_setopt(session,
 				 CURLOPT_WRITEDATA, fp); 
@@ -82,8 +98,68 @@ freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, GError **error)
 		g_object_unref(source);
 		g_object_unref(destination);
 	}
-	
+
+	if(szProxyServeur){
+		g_free(szProxyServeur);
+		szProxyServeur = NULL;
+	}
+
+	if(szProxyAuth){
+		g_free(szProxyAuth);
+		szProxyAuth = NULL;
+	}
 
 	g_strfreev (uriv);
 
+}
+
+gchar*
+gproxystruct_to_string(const GProxyStruct* pProxySctruct, gboolean protocol, gboolean server, gboolean auth)
+{
+	gchar* szRes = NULL;
+	
+	gchar* szProtocole = NULL;
+	gchar* szServer = NULL;
+	gchar* szAuth = NULL;
+	
+	if(protocol){
+		szProtocole = g_strdup_printf("%s://", pProxySctruct->proxy_type);
+	}
+	
+	if(server){
+		szServer = g_strdup_printf("%s:%s", pProxySctruct->proxy_server, pProxySctruct->proxy_port);
+	}
+	
+	if(auth){
+		szAuth = g_strdup_printf("%s:%s", pProxySctruct->proxy_username, pProxySctruct->proxy_password);
+	}
+
+	if(szProtocole || szServer || szAuth){
+		if(szServer && szAuth){
+			szRes = g_strdup_printf("%s%s@%s",
+			    (szProtocole ? szProtocole : ""), (szAuth ? szAuth : ""),
+			    (szServer ? szServer : ""));
+		}else{
+			szRes = g_strdup_printf("%s%s%s",
+			    (szProtocole ? szProtocole : ""), (szAuth ? szAuth : ""),
+			    (szServer ? szServer : ""));
+		}
+	}
+
+	if(szProtocole){
+		g_free(szProtocole);
+		szProtocole = NULL;
+	}
+
+	if(szServer){
+		g_free(szServer);
+		szServer = NULL;
+	}
+
+	if(szAuth){
+		g_free(szAuth);
+		szAuth = NULL;
+	}
+
+	return szRes;
 }
