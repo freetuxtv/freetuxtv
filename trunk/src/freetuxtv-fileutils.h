@@ -30,7 +30,26 @@ typedef enum
 GQuark
 freetuxtv_curl_error_quark ();
 
+typedef enum _GProxyMode {
+	G_PROXY_MODE_NONE       = 0,
+	G_PROXY_MODE_MANUAL     = 1
+} GProxyMode;
+
+typedef struct _GProxyStruct {
+	GProxyMode proxy_mode;
+	gchar* proxy_server;
+	gchar* proxy_port;
+	gchar* proxy_type;
+	gboolean proxy_use_auth;
+	gchar* proxy_username;
+	gchar* proxy_password;
+} GProxyStruct;
+
 void
-freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, GError **error);
+freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, const GProxyStruct* pProxySctruct, GError **error);
+
+gchar*
+gproxystruct_to_string(const GProxyStruct* pProxySctruct, gboolean protocol, gboolean server, gboolean auth);
+
 
 #endif /* FREETUXTV_FILEUTILS_H */
