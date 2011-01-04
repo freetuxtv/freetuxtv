@@ -130,7 +130,7 @@ on_parsem3u_add_channel (char *url, int num, int argc,
 			 char **argv, void *user_data);
 
 static void
-channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
+channels_group_get_file (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos *self, gchar **filename,
 			 gboolean update, GError** error);
 
 static GtkTreePath*
@@ -308,7 +308,7 @@ channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group
 		      "Getting the file \"%s\"\n", pChannelsGroupInfos->uri);
 
 		gchar *filename = NULL;
-		channels_group_get_file (pChannelsGroupInfos, &filename, TRUE, error);		
+		channels_group_get_file (app, pChannelsGroupInfos, &filename, TRUE, error);		
 		windowmain_statusbar_pop (app, "UpdateMsg");
 
 		// Delete channels of the channels group in the database 
@@ -423,7 +423,7 @@ channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 	// Delete the temporary file
 	if(pChannelsGroupInfos->type == FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST){
 		if(*error == NULL){
-			channels_group_get_file (pChannelsGroupInfos, &filename, FALSE, error);
+			channels_group_get_file (app, pChannelsGroupInfos, &filename, FALSE, error);
 	
 			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 			      "Deleting the file \"%s\"\n", filename);
@@ -767,8 +767,8 @@ channels_list_display_channels (FreetuxTVApp *app)
 */
 
 static void
-channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
-			 gboolean update, GError** error)
+channels_group_get_file (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos *self, gchar **filename,
+    gboolean update, GError** error)
 {
 	gchar *groupfile;
 	gchar *name;
@@ -778,7 +778,7 @@ channels_group_get_file (FreetuxTVChannelsGroupInfos *self, gchar **filename,
 	g_free(name);
 
 	if(update){
-		freetuxtv_fileutils_get_file (self->uri, groupfile, error);
+		freetuxtv_fileutils_get_file (self->uri, groupfile, &(app->prefs.proxy), error);
 	}
 
 	*filename = groupfile;
