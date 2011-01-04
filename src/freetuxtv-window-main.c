@@ -1264,6 +1264,10 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	                                               "dialogpreferences_enablenotifications");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.enable_notifications);
 
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_ignorediacritics");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget), app->prefs.ignore_diacritics);
+
 	// LibVLC
 	switch(app->prefs.libvlcconfigfile_mode){
 		case 0:
@@ -1634,6 +1638,10 @@ on_dialogpreferences_response (GtkDialog *dialog,
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 		                                               "dialogpreferences_enablenotifications");
 		app->prefs.enable_notifications = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_ignorediacritics");
+		app->prefs.ignore_diacritics = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 
 		// Get prefs libvlc
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
