@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: freetuxtv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-05 23:05+0100\n"
-"PO-Revision-Date: 2010-11-26 17:17+0800\n"
+"PO-Revision-Date: 2011-01-06 16:34+0800\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese Simplified <xslidian+freetuxtv@gmail.com>\n"
 "Language: \n"
@@ -70,9 +70,8 @@ msgid "<b>Recording options</b>"
 msgstr "<b>录制选项</b>"
 
 #: ../data/ui/freetuxtv.glade.h:14
-#, fuzzy
 msgid "<b>Search of channels</b>"
-msgstr "<b>正在处理频道名称</b>"
+msgstr "<b>搜索频道</b>"
 
 #: ../data/ui/freetuxtv.glade.h:15
 msgid "<b>Special group type:</b>"
@@ -178,7 +177,8 @@ msgstr "收藏"
 msgid "Format:"
 msgstr "格式:"
 
-#: ../data/ui/freetuxtv.glade.h:41 ../data/menu/freetuxtv.desktop.in.h:1
+#: ../data/ui/freetuxtv.glade.h:41
+#: ../data/menu/freetuxtv.desktop.in.h:1
 msgid "FreetuxTV"
 msgstr "FreetuxTV"
 
@@ -216,7 +216,7 @@ msgstr "HTTP"
 
 #: ../data/ui/freetuxtv.glade.h:50
 msgid "Ignore diacritics"
-msgstr ""
+msgstr "忽略变音符"
 
 #: ../data/ui/freetuxtv.glade.h:51
 msgid "Jump to current channel"
@@ -347,9 +347,7 @@ msgid "Select a directory"
 msgstr "选择目录"
 
 #: ../data/ui/freetuxtv.glade.h:83
-msgid ""
-"Select one or several channels group you want to add and click on the add "
-"button."
+msgid "Select one or several channels group you want to add and click on the add button."
 msgstr "选择希望添加的一个或多个频道组并点击添加按钮。"
 
 #: ../data/ui/freetuxtv.glade.h:84
@@ -365,8 +363,7 @@ msgid "Stop playing the current channel"
 msgstr "停止播放当前频道"
 
 #: ../data/ui/freetuxtv.glade.h:87
-msgid ""
-"Text or regexp which must be deleted at the beginning of the channel's name"
+msgid "Text or regexp which must be deleted at the beginning of the channel's name"
 msgstr "频道名称开头必须删除的文本或正则表达式"
 
 #: ../data/ui/freetuxtv.glade.h:88
@@ -418,15 +415,8 @@ msgid "Web TV channels player"
 msgstr "网络电视频道播放器"
 
 #: ../data/ui/freetuxtv.glade.h:100
-msgid ""
-"You can easily use regular expressions to delete some text in the channel's "
-"name of the groupe. For example, if in your playlist, you have a name like "
-"\"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV is able to remove the channel's "
-"number before the name, by using the regular expression \"[0-9]* - \"."
-msgstr ""
-"您可以使用正则表达式删除组中频道名称的部分文字。例如，如果您的播放列表中有类"
-"似 \"11 - NT1\" 或 \"12 - NRJ 12\" 的名称，FreetuxTV 可以使用正则表达式 "
-"\"[0-9]* - \" 移除名称前的频道号。"
+msgid "You can easily use regular expressions to delete some text in the channel's name of the groupe. For example, if in your playlist, you have a name like \"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV is able to remove the channel's number before the name, by using the regular expression \"[0-9]* - \"."
+msgstr "您可以使用正则表达式删除组中频道名称的部分文字。例如，如果您的播放列表中有类似 \"11 - NT1\" 或 \"12 - NRJ 12\" 的名称，FreetuxTV 可以使用正则表达式 \"[0-9]* - \" 移除名称前的频道号。"
 
 #: ../data/ui/freetuxtv.glade.h:101
 msgid "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
@@ -455,12 +445,8 @@ msgid "ts"
 msgstr "ts"
 
 #: ../data/ui/freetuxtv.glade.h:108
-msgid ""
-"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
-"channels=2"
-msgstr ""
-"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
-"channels=2"
+msgid "vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels=2"
+msgstr "vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels=2"
 
 #: ../data/ui/freetuxtv.glade.h:109
 msgid "vcodec=mp2v,vb=800,scale=1,acodec=mpga,ab=128,channels=2"
@@ -782,7 +768,8 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:304 ../src/freetuxtv-db-sync.c:407
+#: ../src/freetuxtv-db-sync.c:304
+#: ../src/freetuxtv-db-sync.c:407
 #, c-format
 msgid ""
 "Error when displaying the channels.\n"
@@ -847,7 +834,8 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:656 ../src/freetuxtv-db-sync.c:695
+#: ../src/freetuxtv-db-sync.c:656
+#: ../src/freetuxtv-db-sync.c:695
 #, c-format
 msgid ""
 "Error when getting the channel by name.\n"
@@ -860,7 +848,8 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:735 ../src/freetuxtv-db-sync.c:978
+#: ../src/freetuxtv-db-sync.c:735
+#: ../src/freetuxtv-db-sync.c:978
 #: ../src/freetuxtv-db-sync.c:1001
 #, c-format
 msgid ""
@@ -874,7 +863,8 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:790 ../src/freetuxtv-db-sync.c:824
+#: ../src/freetuxtv-db-sync.c:790
+#: ../src/freetuxtv-db-sync.c:824
 #, c-format
 msgid ""
 "Error when adding the group \"%s\" in database.\n"
@@ -887,7 +877,8 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:868 ../src/freetuxtv-db-sync.c:909
+#: ../src/freetuxtv-db-sync.c:868
+#: ../src/freetuxtv-db-sync.c:909
 #: ../src/freetuxtv-db-sync.c:932
 #, c-format
 msgid ""
@@ -953,7 +944,8 @@ msgstr ""
 "SQLite 返回错误:\n"
 "%s."
 
-#: ../src/freetuxtv-db-sync.c:1171 ../src/freetuxtv-db-sync.c:1207
+#: ../src/freetuxtv-db-sync.c:1171
+#: ../src/freetuxtv-db-sync.c:1207
 #, c-format
 msgid ""
 "Error when updating the channels of the group \"%s\".\n"
@@ -1218,7 +1210,7 @@ msgstr "帮助(_H)"
 #. Create the menu items
 #: ../src/freetuxtv-window-main.c:941
 msgid "Mute"
-msgstr ""
+msgstr "静音"
 
 #: ../src/main.c:386
 #, c-format
@@ -1249,7 +1241,8 @@ msgstr "正在载入频道列表..."
 msgid "Loading the list of recordings..."
 msgstr "正在载入录像列表..."
 
-#: ../src/main.c:867 ../src/main.c:1063
+#: ../src/main.c:867
+#: ../src/main.c:1063
 #, c-format
 msgid "Playing: %s"
 msgstr "正在播放: %s"
@@ -1275,3 +1268,4 @@ msgstr "正在录制: %s"
 #: ../src/main.c:1226
 msgid "Are you sure you want to quit?"
 msgstr "您是否确定要退出?"
+
