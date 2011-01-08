@@ -10,6 +10,8 @@ FreetuxTV 0.5.2 (2010-xx-xx)
   - Added systray icon to hide/show FreetuxTV.
   - Dialog to show channel's properties.
   - Preference to allow use of the VLC configuration file for LibVLC.
+  - No more group without results in the channel search.
+  - Preference to ignore diacritics.
   - Added TV channel logos:
       WebTV: Orange Sport Infos, R King TV, Zahra TV, TV8 Moselle Est, Clap TV, Archeo TV,
          Canalmoza, CT2E, HiScore TV, Info Sport, Soleil TV, TVSF
