@@ -1,4 +1,4 @@
-FreetuxTV 0.5.2 (2010-xx-xx)
+FreetuxTV 0.5.2 (2011-01-08)
   - Ajout d'un nouvel icône et splashscreen officiel pour FreetuxTV
   - Support de la configuration d'un proxy dans les préférences
   - Ajout de l'option --help pour afficher l'aide de FreetuxTV.
@@ -10,6 +10,8 @@ FreetuxTV 0.5.2 (2010-xx-xx)
   - Ajout d'un icone pour la barre d'état permettant que cacher FreetuxTV.
   - Fenêtre de propriétés pour voir les informations des chaînes.
   - Préférence pour permettre l'utilisation du fichier de configuration VLC pour LibVLC.
+  - Plus d'affichage des groupes sans résultat dans la recherche des chaînes.
+  - Préférence pour ignorer les diacritiques.
   - Ajout de logos :
       Radio et WebRadio :
          BBC britannique, RNE espagnole, RAI italienne, ChanteFrance, Radio O
