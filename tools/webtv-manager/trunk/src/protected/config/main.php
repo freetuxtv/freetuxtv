@@ -34,7 +34,7 @@ return array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
-			'showScriptName'=>false,
+			'showScriptName'=>true,
 		),
 		/*
 		'db'=>array(
@@ -45,7 +45,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=freetuxtv',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'mysql',
+			'password' => '',
 			'charset' => 'utf8',
 		),
 		'authManager'=>array(
@@ -86,11 +86,11 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'admin@mail.com',
+		'adminEmail'=>'administrateur@PROVID.com',
 		'appAuthor'=>'FreetuxTV WebTV Manager',
-		'appEmail'=>'sender@mail.com',
+		'appEmail'=>'USER@mail.com',
 		'SMTPHost'=>'smtp.mail.com',
-		'SMTPUsername'=>'sender@mail.com',
+		'SMTPUsername'=>'USER@mail.com',
 		'SMTPPassword'=>'password',
 	),
 );

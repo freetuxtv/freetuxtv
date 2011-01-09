@@ -8,7 +8,6 @@
 class History extends CActiveRecord
 {
 	const ENTITYTYPE_WEBSTREAM = 1;
-
 	const ACTIONTYPE_WEBSTREAM_IMPORT = 1;
 	const ACTIONTYPE_WEBSTREAM_ADD = 2;
 	const ACTIONTYPE_WEBSTREAM_EDIT = 3;
@@ -100,7 +99,7 @@ class History extends CActiveRecord
 	/**
 	 * @return create an history line
 	 */
-	public static function createNew($entityType, $actionType, $entityId, $actionDetails = null)
+	public static function createNew($entityType, $actionType, $entityId, $actionDetails = null,$email,$username)
 	{
 		$history = new History;
 		
@@ -108,7 +107,8 @@ class History extends CActiveRecord
 		$history->ActionType=$actionType;
 		$history->EntityId=$entityId;
 		$history->ActionDetails=$actionDetails;
-
+		$history->Email=$email;
+		$history->Username=$username;
 		return $history;
 	}
 }

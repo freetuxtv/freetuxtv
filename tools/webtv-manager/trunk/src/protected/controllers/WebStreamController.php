@@ -100,13 +100,20 @@ class WebStreamController extends Controller
 			if($model->LangCode==""){
 				$model->LangCode=null;
 			}
+			$model->username=Yii::app()->user->name;
+			
+			$model->email='nono@mil.com'; // how get email from database...
+			
+			if($model->LangStream==""){
+				$model->LangStream=null;
+			}			
 			if($model->RequiredIsp==""){
 				$model->RequiredIsp=null;
 			}
 
 			if($model->save()){
 				if($actionDetails != ""){
-					$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_EDIT, $model->Id, $actionDetails);
+					$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_EDIT, $model->Id, $actionDetails,$model->email,$model->username);
 					if($history->save()){
 						$this->redirect(array('view','id'=>$model->Id));
 					}
@@ -136,11 +143,13 @@ class WebStreamController extends Controller
 
 			$model->attributes=$_POST['WebStream'];
 			if($oldStreamStatusCode != $model->StreamStatusCode){
+				$model->username=Yii::app()->user->name;
+				$model->email='nono@mil.com'; // how get email from database...
 				if($model->save()){
 					$newStreamStatus=StreamStatus::model()->findbyPk($model->StreamStatusCode);
 
 					$actionDetails = $oldStreamStatusLabel.' => '.$newStreamStatus->Label;
-					$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_CHANGESTATUS, $model->Id, $actionDetails);
+					$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_CHANGESTATUS, $model->Id, $actionDetails,$model->email,$model->username);
 					if($history->save()){
 						$this->redirect(array('view','id'=>$model->Id));
 					}
@@ -217,9 +226,17 @@ class WebStreamController extends Controller
 		}
 		if(isset($modelSearchForm->Language)){
 			if($modelSearchForm->Language != ""){
-				$conditions .= " AND LangCode=:WebStreamLang";
+				$conditions .= " AND LangStream=:WebStreamLang";
 				$params[':WebStreamLang'] = $modelSearchForm->Language;
-				$playlist_params["lng"] = $modelSearchForm->Language;
+				$playlist_params["lngstrem"] = $modelSearchForm->Language;
+			}
+		}
+		
+		if(isset($modelSearchForm->Country)){
+			if($modelSearchForm->Country != ""){
+				$conditions .= " AND LangCode=:WebLangCode";
+				$params[':WebLangCode'] = $modelSearchForm->Country;
+				$playlist_params["lngcode"] = $modelSearchForm->Country;
 			}
 		}
 
@@ -254,11 +271,18 @@ class WebStreamController extends Controller
 			if($model->LangCode==""){
 				$model->LangCode=null;
 			}
+			if(!Yii::app()->user->isGuest){
+				$model->username=Yii::app()->user->name;
+				$model->email='nono@mil.com'; // how get email from database...
+			}
+			if($model->LangStream==""){
+				$model->LangStream=null;
+			}
 			if($model->RequiredIsp==""){
 				$model->RequiredIsp=null;
 			}
 			if($model->save()){
-				$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_ADD, $model->Id);
+				$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_ADD, $model->Id,'NEW STREAM',$model->email,$model->username);
 				if($history->save()){
 
 					// Send a mail to the admin

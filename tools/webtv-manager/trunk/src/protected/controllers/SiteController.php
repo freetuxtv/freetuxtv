@@ -98,11 +98,40 @@ class SiteController extends Controller
 		// display the login form
 		$this->render('login', array('model'=>$model));
 	}
-
-
-	public function actionSendWebStream()
+	
+	/**
+	 * Displays the create account page
+	 */
+	public function actionAccount()
 	{
-		$modelSearchForm = new WebStreamSearchForm;
+		$model=new AccountForm;
+
+		// if it is ajax validation request
+		if(isset($_POST['ajax']) && $_POST['ajax']==='account-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+
+		// collect user input data
+		if(isset($_POST['AccountForm']))
+		{
+			$model->attributes=$_POST['AccountForm'];
+			// validate user input and redirect to the previous page if valid
+			if($model->validate() && $model->account() && $model->login()){
+				$this->redirect(Yii::app()->user->returnUrl);
+			}
+		}
+		// display the create account form
+		$this->render('account', array('model'=>$model));
+	}
+
+	/**
+	 * Displays the Send page
+	 */
+	 
+	public function actionWebStreamSend()
+	{
 		$modelSendForm = new WebStreamSendForm;
 
 		// collect user input data
@@ -114,16 +143,17 @@ class SiteController extends Controller
 			}
 		}
 		
-		$this->render('index', array(
-			'modelSearchForm'=>$modelSearchForm,
+		$this->render('WebStreamSend', array(
 			'modelSendForm'=>$modelSendForm,
 		));
 	}
 
-	public function actionSearchWebStream()
+	/**
+	 * Displays the Search page
+	 */
+	public function actionWebStreamSearch()
 	{
 		$modelSearchForm = new WebStreamSearchForm;
-		$modelSendForm = new WebStreamSendForm;
 
 		// collect user input data
 		if(isset($_GET['WebStreamSearchForm']))
@@ -134,9 +164,8 @@ class SiteController extends Controller
 			}
 		}
 		
-		$this->render('index', array(
-			'modelSearchForm'=>$modelSearchForm,
-			'modelSendForm'=>$modelSendForm,
+		$this->render('WebStreamSearch', array(
+			'modelSearchForm'=>$modelSearchForm,	
 		));
 	}
 
@@ -155,12 +184,12 @@ class SiteController extends Controller
 		/*
 		$auth=Yii::app()->authManager;
  
-		$auth->createOperation('sendWebStream','Send a WebStream');
+		$auth->createOperation('WebStreamSend','Send a WebStream');
 		$auth->createOperation('editWebStream','Edit a WebStream');
 		$auth->createOperation('changeStatusWebStream','Change the status of a WebStream');
 		 
 		$role=$auth->createRole('guest');
-		$role->addChild('sendWebStream');
+		$role->addChild('WebStreamSend');
 		$role->addChild('editWebStream');
 		 
 		$role=$auth->createRole('contributor');

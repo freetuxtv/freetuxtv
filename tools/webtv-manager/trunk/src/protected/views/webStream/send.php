@@ -77,6 +77,15 @@ Please complete the following information about the link before sending it :
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'LangStream'); ?>
+		<?php
+			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+			echo $form->dropDownList($model, 'LangStream', $dropList, array ('empty' => '-- None --'));
+			echo $form->error($model,'LangStream');
+		?>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->labelEx($model,'LangCode'); ?>
 		<?php
 			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
@@ -89,12 +98,48 @@ Please complete the following information about the link before sending it :
 		if(Yii::app()->user->isGuest){
 	?>
 		<p class="hint">
-			This link will be send as user "Anonyme" from IP adress <?php echo Yii::app()->getRequest()->getUserHostAddress(); ?>.
+			You are not logged, please enter your email and username or create an account.
+			
 		</p>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'email'); ?>
+		<?php echo $form->textField($model,'email'); ?>
+		<?php echo $form->error($model,'email'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'username'); ?>
+		<?php echo $form->textField($model,'username'); ?>
+		<?php echo $form->error($model,'username'); ?>
+	</div>
 	<?php
 		}
 	?>
+	
+		<?php
+		if(!Yii::app()->user->isGuest){
+	?>
+		<p class="hint">
+			You are <?php echo Yii::app()->user->name ?>.
+			
+		</p>
 
+	<div class="row">
+		<?php echo $form->hiddenField($model,'email'); ?>
+		
+	</div>
+	
+	<div class="row">
+		<?php echo $form->hiddenField($model,'username'); ?>
+	</div>
+	<?php
+		}
+	?>
+	
+	 
+
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Send'); ?>
 	</div>

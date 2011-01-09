@@ -7,7 +7,8 @@
  */
 class WebStream extends CActiveRecord
 {
-
+	public $email;
+	public $username;
 	const WEBSTREAM_STATUS_SUBMITTED		= 1;
 	const WEBSTREAM_STATUS_WORKING			= 2;
 
@@ -39,9 +40,12 @@ class WebStream extends CActiveRecord
             array('Name, Url, TypeStream, StreamStatusCode', 'required'),
 			array('Name', 'length', 'max'=>100),
 			array('Url', 'length', 'max'=>255),
-            array('RequiredIsp', 'length', 'max'=>50),
+			array('RequiredIsp', 'length', 'max'=>50),
             array('LangCode', 'length', 'max'=>2),
-			array('SubmissionDate', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
+			array('LangStream', 'length', 'max'=>2),
+			array('username', 'length', 'max'=>100),
+			array('email','email'),
+            array('SubmissionDate', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
         );
 	}
 
@@ -54,7 +58,8 @@ class WebStream extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
             'StreamStatus'=>array(self::BELONGS_TO, 'StreamStatus', 'StreamStatusCode'),
-            'Lang'=>array(self::BELONGS_TO, 'Lang', 'LangCode')
+            'LangS'=>array(self::BELONGS_TO, 'Lang', 'LangStream'),
+			'LangC'=>array(self::BELONGS_TO, 'Lang', 'LangCode')
 		);
 	}
 
@@ -65,7 +70,8 @@ class WebStream extends CActiveRecord
 	{
 		return array(
 			'RequiredIsp'=>'Required ISP',
-			'LangCode'=>'Language',
+			'LangCode'=>'Country',
+			'LangStream'=>'Language',
 			'StreamStatusCode'=>'Status',
 			'TypeStream'=>'Type of stream',
 			'SubmissionDate'=>'Date of submission',
@@ -140,6 +146,14 @@ class WebStream extends CActiveRecord
 				$actionsDetails .= $this->getTypeStreamName().' => '.$this->getTypeStreamNameById($attributes["TypeStream"]);
 			}
 		}
+		if(isset($attributes["LangStream"])){
+			if($this->LangStream != $attributes["LangStream"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$actionsDetails .= $this->LangStream.' => '.$attributes["LangStream"];
+			}
+		}
 		if(isset($attributes["LangCode"])){
 			if($this->LangCode != $attributes["LangCode"]){
 				if($actionsDetails != ""){
@@ -177,7 +191,7 @@ class WebStream extends CActiveRecord
 	{
 		$tab = WebStream::getPlaylistTypeStreamList();
 		if(isset($tab[$typeStream])){
-			return $tab[$typeStream];
+			return $tab[$typeStream];	
 		}
 		return "";
 	}

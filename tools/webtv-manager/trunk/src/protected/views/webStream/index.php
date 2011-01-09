@@ -20,12 +20,12 @@ $this->menu=array(
 
 <?php
 	$querystring="";
-	$lng="all";
+	$lngstrem="all";
 	$type="all";
 	foreach ($playlist_params as $key => $val)
 	{
-		if($key == "lng"){
-			$lng = $val;
+		if($key == "lngstrem"){
+			$lngstrem = $val;
 		}else if($key == "type"){
 			$type = WebStream::getPlaylistTypeStreamNameById($val);
 		}else if($key == "status" && $val == WebStream::WEBSTREAM_STATUS_WORKING){
@@ -39,10 +39,10 @@ $this->menu=array(
 			$querystring.=$key."=".$val;
 		}
 	}
-	if($lng == "all" && $type == "all"){
+	if($lngstrem == "all" && $type == "all"){
 		$playlist_link = $this->createUrl("playlists/playlist.m3u".$querystring);
 	}else{
-		$playlist_link = $this->createUrl("playlists/playlist_".$type."_".$lng.".m3u".$querystring);
+		$playlist_link = $this->createUrl("playlists/playlist_".$type."_".$lngstrem.".m3u".$querystring);
 	}
 ?>
 

@@ -71,7 +71,18 @@ $this->menu=array(
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'LangStream'); ?>
+		<?php
+			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+			echo $form->dropDownList($model, 'LangStream', $dropList, array ('empty' => '-- None --'));
+			echo $form->error($model,'LangStream');
+		?>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->labelEx($model,'LangCode'); ?>
+		<?php echo $form->hiddenField($model,'username'); ?>
+		<?php echo $form->hiddenField($model,'email'); ?>
 		<?php
 			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
 			echo $form->dropDownList($model, 'LangCode', $dropList, array ('empty' => '-- None --'));

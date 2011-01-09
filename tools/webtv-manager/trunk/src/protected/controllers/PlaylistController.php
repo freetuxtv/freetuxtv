@@ -82,11 +82,19 @@ class PlaylistController extends Controller
 			$conditions .= " AND StreamStatusCode=:WebStreamStatus";
 			$params[':WebStreamStatus'] = WebStream::WEBSTREAM_STATUS_WORKING;
 		}
-		if(isset($_GET['lng'])){
-			if($_GET['lng'] != ""){
-				if($_GET['lng'] != "all"){
-					$conditions .= " AND LangCode=:WebStreamLang";
-					$params[':WebStreamLang'] = $_GET['lng'];
+		if(isset($_GET['lngstrem'])){
+			if($_GET['lngstrem'] != ""){
+				if($_GET['lngstrem'] != "all"){
+					$conditions .= " AND LangStream=:WebStreamLang";
+					$params[':WebStreamLang'] = $_GET['lngstrem'];
+				}
+			}
+		}
+		if(isset($_GET['lngcode'])){
+			if($_GET['lngcode'] != ""){
+				if($_GET['lngcode'] != "all"){
+					$conditions .= " AND LangCode=:WebLangCode";
+					$params[':WebLangCode'] = $_GET['lngcode'];
 				}
 			}
 		}

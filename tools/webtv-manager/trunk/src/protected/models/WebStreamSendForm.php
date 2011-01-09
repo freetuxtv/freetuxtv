@@ -8,6 +8,7 @@
 class WebStreamSendForm extends CFormModel
 {
 	public $Url;
+	public $username;
 
 	/**
 	 * Declares the validation rules.
@@ -20,6 +21,7 @@ class WebStreamSendForm extends CFormModel
 			// username and password are required
 			array('Url', 'required'),
 			array('Url', 'length', 'max'=>255),
+			
 		);
 	}
 
