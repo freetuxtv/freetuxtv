@@ -89,6 +89,7 @@ return array(
 		'adminEmail'=>'administrateur@PROVID.com',
 		'appAuthor'=>'FreetuxTV WebTV Manager',
 		'appEmail'=>'USER@mail.com',
+		'UseSMTP'=>false,
 		'SMTPHost'=>'smtp.mail.com',
 		'SMTPUsername'=>'USER@mail.com',
 		'SMTPPassword'=>'password',

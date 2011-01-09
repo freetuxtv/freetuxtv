@@ -5,7 +5,8 @@
 	<div class="tbody">
 <?php
 	$form=$this->beginWidget('CActiveForm', array(
-		'method'=>'get',
+		'method'=>'GET',
+		'action'=>array('WebStream/index'),
 		'id'=>'web-stream-search-form',
 		'enableAjaxValidation'=>false,
 		));

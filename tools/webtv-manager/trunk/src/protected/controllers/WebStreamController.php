@@ -371,11 +371,14 @@ class WebStreamController extends Controller
 
 	protected function sendMailToAdmin($subject, $message)
 	{
-		Yii::app()->mailer->IsSMTP();
-		Yii::app()->mailer->SMTPAuth = true;
-		Yii::app()->mailer->Host = Yii::app()->params['SMTPHost'];
-		Yii::app()->mailer->Username = Yii::app()->params['SMTPUsername'];
-		Yii::app()->mailer->Password = Yii::app()->params['SMTPPassword'];
+		if(Yii::app()->params['UseSMTP']){
+			Yii::app()->mailer->IsSMTP();
+			Yii::app()->mailer->Host = Yii::app()->params['SMTPHost'];
+			Yii::app()->mailer->Username = Yii::app()->params['SMTPUsername'];
+			Yii::app()->mailer->Password = Yii::app()->params['SMTPPassword'];
+		}else{
+			Yii::app()->mailer->IsSendMail();
+		}
 		Yii::app()->mailer->From = Yii::app()->params['appEmail'];
 		Yii::app()->mailer->FromName = Yii::app()->params['appAuthor'];
 		Yii::app()->mailer->AddAddress(Yii::app()->params['adminEmail']);
