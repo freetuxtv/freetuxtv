@@ -736,7 +736,9 @@ gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance, GError** error)
 
 	self->media_list = gtk_tree_store_new(GTK_LIBVLC_MODEL_NB_COLUMN, GTK_TYPE_LIBVLC_MEDIA);
 
-	gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
+	GTK_WIDGET_SET_FLAGS(GTK_WIDGET(self), GTK_CAN_FOCUS);
+	// TODO : Only since 2.20 
+	// gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
 
 	return GTK_WIDGET(self);
 }
