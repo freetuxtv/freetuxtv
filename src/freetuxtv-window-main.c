@@ -913,11 +913,19 @@ on_windowmain_trayicon_activate(GtkStatusIcon *status_icon, gpointer user_data)
 	                                                "windowmain");
 	widget =  gtk_widget_get_toplevel(GTK_WIDGET(app->player));
 
+	if(GTK_WIDGET_FLAGS (widget) & GTK_VISIBLE){
+		gtk_widget_hide(widget);
+	}else{
+		gtk_widget_show(widget);
+	}
+	/*
+	// TODO : Only since 2.20
 	if(gtk_widget_get_visible(widget)){
 		gtk_widget_set_visible(widget, FALSE);
 	}else{
 		gtk_widget_set_visible(widget, TRUE);
 	}
+	*/
 }
 
 static void
