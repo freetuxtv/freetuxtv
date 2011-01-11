@@ -102,7 +102,7 @@ class WebStreamController extends Controller
 			}
 			$model->username=Yii::app()->user->name;
 			
-			$model->email='nono@mil.com'; // how get email from database...
+			$model->email='howget@email.com'; // how get email from database...
 			
 			if($model->LangStream==""){
 				$model->LangStream=null;
@@ -144,7 +144,7 @@ class WebStreamController extends Controller
 			$model->attributes=$_POST['WebStream'];
 			if($oldStreamStatusCode != $model->StreamStatusCode){
 				$model->username=Yii::app()->user->name;
-				$model->email='nono@mil.com'; // how get email from database...
+				$model->email='howget@email.com'; // how get email from database...
 				if($model->save()){
 					$newStreamStatus=StreamStatus::model()->findbyPk($model->StreamStatusCode);
 
@@ -224,19 +224,19 @@ class WebStreamController extends Controller
 				$playlist_params["status"] = $modelSearchForm->Status;
 			}
 		}
-		if(isset($modelSearchForm->Language)){
-			if($modelSearchForm->Language != ""){
-				$conditions .= " AND LangStream=:WebStreamLang";
-				$params[':WebStreamLang'] = $modelSearchForm->Language;
-				$playlist_params["lngstrem"] = $modelSearchForm->Language;
+		if(isset($modelSearchForm->Country)){
+			if($modelSearchForm->Country != ""){
+				$conditions .= " AND CountryCode=:WebCountryCode";
+				$params[':WebCountryCode'] = $modelSearchForm->Country;
+				$playlist_params["cntcode"] = $modelSearchForm->Country;
 			}
 		}
 		
-		if(isset($modelSearchForm->Country)){
-			if($modelSearchForm->Country != ""){
+		if(isset($modelSearchForm->Language)){
+			if($modelSearchForm->Language != ""){
 				$conditions .= " AND LangCode=:WebLangCode";
-				$params[':WebLangCode'] = $modelSearchForm->Country;
-				$playlist_params["lngcode"] = $modelSearchForm->Country;
+				$params[':WebLangCode'] = $modelSearchForm->Language;
+				$playlist_params["lngcode"] = $modelSearchForm->Language;
 			}
 		}
 
@@ -273,10 +273,10 @@ class WebStreamController extends Controller
 			}
 			if(!Yii::app()->user->isGuest){
 				$model->username=Yii::app()->user->name;
-				$model->email='nono@mil.com'; // how get email from database...
+				$model->email='howget@email.com'; // how get email from database...
 			}
-			if($model->LangStream==""){
-				$model->LangStream=null;
+			if($model->CountryCode==""){
+				$model->CountryCode=null;
 			}
 			if($model->RequiredIsp==""){
 				$model->RequiredIsp=null;

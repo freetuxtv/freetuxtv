@@ -37,15 +37,13 @@ class WebStream extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('Name, Url, TypeStream, StreamStatusCode', 'required'),
-			array('Name', 'length', 'max'=>100),
-			array('Url', 'length', 'max'=>255),
-			array('RequiredIsp', 'length', 'max'=>50),
-            array('LangCode', 'length', 'max'=>2),
-			array('LangStream', 'length', 'max'=>2),
-			array('username', 'length', 'max'=>100),
-			array('email','email'),
-            array('SubmissionDate', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
+		array('Name, Url, TypeStream, StreamStatusCode', 'required'),
+		array('Name', 'length', 'max'=>100),
+		array('Url', 'length', 'max'=>255),
+		array('RequiredIsp', 'length', 'max'=>50),
+		array('LangCode', 'length', 'max'=>2),
+		array('CountryCode', 'length', 'max'=>2),
+		array('SubmissionDate', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
         );
 	}
 
@@ -57,9 +55,9 @@ class WebStream extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'StreamStatus'=>array(self::BELONGS_TO, 'StreamStatus', 'StreamStatusCode'),
-            'LangS'=>array(self::BELONGS_TO, 'Lang', 'LangStream'),
-			'LangC'=>array(self::BELONGS_TO, 'Lang', 'LangCode')
+			'StreamStats'=>array(self::BELONGS_TO, 'StreamStatus', 'StreamStatusCode'),
+			'LangC'=>array(self::BELONGS_TO, 'Lang', 'LangCode'),
+			'CountryC'=>array(self::BELONGS_TO, 'Lang', 'CountryCode')
 		);
 	}
 
@@ -70,8 +68,8 @@ class WebStream extends CActiveRecord
 	{
 		return array(
 			'RequiredIsp'=>'Required ISP',
-			'LangCode'=>'Country',
-			'LangStream'=>'Language',
+			'CountryCode'=>'Country',
+			'LangCode'=>'Language',
 			'StreamStatusCode'=>'Status',
 			'TypeStream'=>'Type of stream',
 			'SubmissionDate'=>'Date of submission',
@@ -146,12 +144,12 @@ class WebStream extends CActiveRecord
 				$actionsDetails .= $this->getTypeStreamName().' => '.$this->getTypeStreamNameById($attributes["TypeStream"]);
 			}
 		}
-		if(isset($attributes["LangStream"])){
-			if($this->LangStream != $attributes["LangStream"]){
+		if(isset($attributes["CountryCode"])){
+			if($this->CountryCode != $attributes["CountryCode"]){
 				if($actionsDetails != ""){
 					$actionsDetails .= ", ";
 				}
-				$actionsDetails .= $this->LangStream.' => '.$attributes["LangStream"];
+				$actionsDetails .= $this->CountryCode.' => '.$attributes["CountryCode"];
 			}
 		}
 		if(isset($attributes["LangCode"])){
