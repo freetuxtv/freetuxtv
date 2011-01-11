@@ -287,3 +287,9 @@ ALTER TABLE wtvmT_TVChannelType CONVERT TO CHARACTER SET utf8;
 ALTER TABLE wtvmT_User CONVERT TO CHARACTER SET utf8;
 ALTER TABLE wtvmT_WebStream CONVERT TO CHARACTER SET utf8;
 SET foreign_key_checks = 1;
+
+ALTER TABLE wtvmT_WebStream
+ADD CountryCode CHAR(2) NULL;
+
+ALTER TABLE wtvmT_WebStream 
+ADD CONSTRAINT FK_WebStream_Country FOREIGN KEY (CountryCode) REFERENCES wtvmT_Lang (Code) ON DELETE SET NULL;
