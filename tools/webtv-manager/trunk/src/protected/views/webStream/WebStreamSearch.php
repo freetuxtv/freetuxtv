@@ -13,7 +13,7 @@ $this->breadcrumbs=array(
 
 <?php
 	$form=$this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl("site/WebStreamSearch"),
+		'action'=>Yii::app()->createUrl("WebStream/WebStreamSearch"),
 		'method'=>'get',
 		'id'=>'web-stream-search-form',
 		'enableAjaxValidation'=>false,

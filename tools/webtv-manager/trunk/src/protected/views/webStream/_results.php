@@ -13,14 +13,14 @@
             'name'=>'Language',
 			'type'=>'image',
 			'htmlOptions' => array('style'=>'text-align:center'),
-            'value'=>'Yii::app()->request->baseUrl."/images/lang/languageicons/flags/".strtolower($data->LangStream).".png"',
+            'value'=>'Yii::app()->request->baseUrl."/images/lang/languageicons/flags/".strtolower($data->LangCode).".png"',
         ),
 		
         array(
             'name'=>'Country',
 			'type'=>'image',
 			'htmlOptions' => array('style'=>'text-align:center'),
-            'value'=>'Yii::app()->request->baseUrl."/images/lang/languageicons/flags/".strtolower($data->LangCode).".png"',
+            'value'=>'Yii::app()->request->baseUrl."/images/lang/languageicons/flags/".strtolower($data->CountryCode).".png"',
         ),
         array(
             'name'=>'Type',

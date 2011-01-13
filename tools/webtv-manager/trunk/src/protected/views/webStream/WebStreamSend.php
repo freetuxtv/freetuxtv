@@ -13,9 +13,9 @@ $this->breadcrumbs=array(
 
 <?php
 	$form=$this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl("site/WebStreamSend"),
+		'action'=>Yii::app()->createUrl("WebStream/WebStreamSend"),
 		'method'=>'get',
-		'id'=>'web-stream-search-form',
+		'id'=>'web-stream-send-form',
 		'enableAjaxValidation'=>false,
 		));
 ?>

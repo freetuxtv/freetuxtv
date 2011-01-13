@@ -32,7 +32,7 @@ class WebStreamController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','webstreamsearch','webstreamsend','send'),
 				'users'=>array('*'),
 			),
 			array('allow',
@@ -104,8 +104,8 @@ class WebStreamController extends Controller
 			
 			$model->email='howget@email.com'; // how get email from database...
 			
-			if($model->LangStream==""){
-				$model->LangStream=null;
+			if($model->CountryCode==""){
+				$model->CountryCode=null;
 			}			
 			if($model->RequiredIsp==""){
 				$model->RequiredIsp=null;
@@ -255,6 +255,48 @@ class WebStreamController extends Controller
 			'modelSearchForm'=>$modelSearchForm,
 			'dataProvider'=>$dataProvider,
 			'playlist_params'=>$playlist_params,
+		));
+	}
+	/**
+	 * Displays the Send page
+	 */
+	 
+	public function actionWebStreamSend()
+	{
+		$modelSendForm = new WebStreamSendForm;
+
+		// collect user input data
+		if(isset($_GET['WebStreamSendForm']))
+		{
+			$modelSendForm->attributes=$_GET['WebStreamSendForm'];
+			if($modelSendForm->validate()){
+				$this->redirect(array("WebStream/send", "WebStreamUrl" => $modelSendForm->Url));
+			}
+		}
+		
+		$this->render('WebStreamSend', array(
+			'modelSendForm'=>$modelSendForm,
+		));
+	}
+
+	/**
+	 * Displays the Search page
+	 */
+	public function actionWebStreamSearch()
+	{
+		$modelSearchForm = new WebStreamSearchForm;
+
+		// collect user input data
+		if(isset($_GET['WebStreamSearchForm']))
+		{
+			$modelSearchForm->attributes=$_GET['WebStreamSearchForm'];
+			if($modelSearchForm->validate()){
+				$this->redirect($this->createUrl("WebStream/index", array('WebStreamSearchForm' => $modelSearchForm->attributes)));
+			}
+		}
+		
+		$this->render('WebStreamSearch', array(
+			'modelSearchForm'=>$modelSearchForm,	
 		));
 	}
 

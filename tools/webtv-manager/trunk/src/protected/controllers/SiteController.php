@@ -126,48 +126,6 @@ class SiteController extends Controller
 		$this->render('account', array('model'=>$model));
 	}
 
-	/**
-	 * Displays the Send page
-	 */
-	 
-	public function actionWebStreamSend()
-	{
-		$modelSendForm = new WebStreamSendForm;
-
-		// collect user input data
-		if(isset($_GET['WebStreamSendForm']))
-		{
-			$modelSendForm->attributes=$_GET['WebStreamSendForm'];
-			if($modelSendForm->validate()){
-				$this->redirect(array("WebStream/send", "WebStreamUrl" => $modelSendForm->Url));
-			}
-		}
-		
-		$this->render('WebStreamSend', array(
-			'modelSendForm'=>$modelSendForm,
-		));
-	}
-
-	/**
-	 * Displays the Search page
-	 */
-	public function actionWebStreamSearch()
-	{
-		$modelSearchForm = new WebStreamSearchForm;
-
-		// collect user input data
-		if(isset($_GET['WebStreamSearchForm']))
-		{
-			$modelSearchForm->attributes=$_GET['WebStreamSearchForm'];
-			if($modelSearchForm->validate()){
-				$this->redirect($this->createUrl("WebStream/index", array('WebStreamSearchForm' => $modelSearchForm->attributes)));
-			}
-		}
-		
-		$this->render('WebStreamSearch', array(
-			'modelSearchForm'=>$modelSearchForm,	
-		));
-	}
 
 	/**
 	 * Logs out the current user and redirect to homepage.

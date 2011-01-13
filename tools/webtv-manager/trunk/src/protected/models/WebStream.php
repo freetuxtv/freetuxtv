@@ -55,7 +55,7 @@ class WebStream extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'StreamStats'=>array(self::BELONGS_TO, 'StreamStatus', 'StreamStatusCode'),
+			'StreamStatus'=>array(self::BELONGS_TO, 'StreamStatus', 'StreamStatusCode'),
 			'LangC'=>array(self::BELONGS_TO, 'Lang', 'LangCode'),
 			'CountryC'=>array(self::BELONGS_TO, 'Lang', 'CountryCode')
 		);
