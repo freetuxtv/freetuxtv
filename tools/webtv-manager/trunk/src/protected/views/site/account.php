@@ -35,6 +35,12 @@ $this->breadcrumbs=array(
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'retype'); ?>
+		<?php echo $form->passwordField($model,'retype'); ?>
+		<?php echo $form->error($model,'retype'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Create'); ?>
 	</div>

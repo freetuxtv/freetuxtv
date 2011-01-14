@@ -118,8 +118,12 @@ class SiteController extends Controller
 		{
 			$model->attributes=$_POST['AccountForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->account() && $model->login()){
-				$this->redirect(Yii::app()->user->returnUrl);
+			if($model->validate() && $model->createAccount()){
+				// display the login form
+				
+				
+				$login=new LoginForm;
+				$this->redirect('login',array('model'=>$login));			
 			}
 		}
 		// display the create account form

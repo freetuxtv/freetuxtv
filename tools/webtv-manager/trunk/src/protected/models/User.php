@@ -91,4 +91,26 @@ class User extends CActiveRecord
 	{
 		return $this->Password;
 	}
+	
+		public function getEmail()
+	{
+		return $this->Email;
+	}
+		public function setEmail($email)
+	{
+		$this->Email=$email;
+	}
+	/**
+	 * @return create an history line
+	 */
+	public static function createNew($username,$password,$email,$right)
+	{
+		$user = new User;
+		
+		$user->Password=md5($password);
+		$user->Email=$email;
+		$user->Username=$username;
+		$user->Rights=$right;
+		return $user;
+	}
 }

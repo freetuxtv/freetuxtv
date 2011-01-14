@@ -10,7 +10,7 @@ class AccountForm extends CFormModel
 	public $email;
 	public $username;
 	public $password;
-	
+	public $retype;
 	private $Id;
 	private $_identity;
 
@@ -22,71 +22,77 @@ class AccountForm extends CFormModel
 	{
 		return array(
 			// email and username and password are required
-			array('email, username, password', 'required'),
+			array('email, username, password, retype', 'required'),
 			// email must be valid
 			array('email', 'email'),
 			// email and username needs to be unique
-			array('email, username', 'authenticate', 'skipOnError'=>true),
+			array('email, username, retype', 'authenticate', 'skipOnError'=>true),
+			
 			
 		);
 	}
 
 	/**
-	 * check unicitie of email and/or username.
+	 * Authenticates the username and email.
 	 * This is the 'authenticate' validator as declared in rules().
 	 */
 	public function authenticate($attribute,$params)
 	{
-		$this->Id=new UserEmail($this->username,$this->password,$this->email);
-		if(!$this->Id->authenticate()){
-			$this->addError('email','Email already in database.');
-			$this->addError('username','Username already in database.');
-			}
-		
-	}
-
-	/**
-	 * Logs in the user using the given username and password in the model.
-	 * @return boolean whether login is successful
-	 */
-	public function account()
-	{
-		if($this->Id!==null)
-		{
-			$this->Id=new UserIdentity($this->username,$this->password);
-			$this->Id->authenticate();
-			// SQL requet maybe not in the good place... 
-							
-				$sql="INSERT INTO wtvmt_user (username, email, password, Rights) VALUES(:username,:email,:password,9)";
-				$connection=Yii::app()->db;
-				$command=$connection->createCommand($sql);
-				// replace ":username" by real username same for email and password Rights to 9
-				$command->bindParam(":username",$this->username,PDO::PARAM_STR);
-				// remplace la marque ":email" avec la vrai valeur email
-				$command->bindParam(":email",$this->email,PDO::PARAM_STR);
-				$command->bindParam(":password",md5($this->password),PDO::PARAM_STR);
-				$command->execute();
-				return true;	
+		$this->_identity=new UserIdentity($this->username,$this->password);
+		$this->_identity->setEmail($this->email);
+		if($this->retype !== $this->password){
+					$this->errorCode=3;
 		}
+			
+		if(!$this->_identity->authenticateNewUser()){
+			$identity=new UserIdentity($this->username,$this->password);
+	                if(!$this->_identity->authenticateNewUser()){
+				if($this->retype !== $this->password){
+					$this->addError('retype','Check your password.');
+					return false;
+				}
+			        switch($this->_identity->errorCode)
+			        {
+			                case 0:
+						return true;
+			                        break;
+			                case 1:
+			                        $this->addError('email','Email already in database.');
+						return false;
+			                        break;
+			                case 2:
+			                        $this->addError('username','Email already in database.');
+						return false;
+			                        break;
+				}
+			}
+	        }	
 	}
-		/**
-	 * Logs in the user using the given username and password in the model.
-	 * @return boolean whether login is successful
+	/**
+	 * Creat an account in database using the given email and username and password in the model.
+	 * @return boolean whether createAccount is successful
 	 */
-	public function login()
+	public function createAccount()
 	{
-		if($this->_identity===null)
+		if($this->_identity!==null)
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
-			$this->_identity->authenticate();
-		}
-		if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
-		{
-			$duration=0;
-			Yii::app()->user->login($this->_identity,$duration);
-			return true;
-		}
-		else
+			$this->_identity->authenticateNewUser();
+			if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
+			{
+
+				$user = User::createNew($this->username,$this->password,$this->email,0);
+				if($user->save() || $this->CreateNew($this->username,$this->password,$this->email,0 && $this->_identity->login())){
+
+					Yii::app()->user->setFlash('contact','Check Your email.',10);
+					$headers="From: {$this->email}\r\nReply-To: {$this->email}";
+				mail(Yii::app()->params['adminEmail'],'WebTv-Manager: Registration Successful','Thank you for contacting us. We will respond to you as soon as possible.',$headers);
+				
+					return true;
+				}
+
+			}
 			return false;
+		}
 	}
 }
