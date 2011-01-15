@@ -515,8 +515,8 @@
 	</tvchannel>
 	<tvchannel name="i&gt;TELE">
 		<logo_filename>itelevision.png</logo_filename>
-		<label>i> TELE</label>
-		<label>i>Tele</label>
+		<label>i&gt; TELE</label>
+		<label>i&gt;Tele</label>
 	</tvchannel>
 	<tvchannel name="Jamzine TV">
 		<logo_filename>jamzine.png</logo_filename>
