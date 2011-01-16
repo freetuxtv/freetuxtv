@@ -1,0 +1,23 @@
+<?php
+return array(
+	'Price' => 'Preis',
+	'Order number' => 'Bestellnummer',
+	'Order membership' => 'Mitgliedschaft bestellen',
+	'Membership has not been payed yet' => 'Zahlungseingang noch nicht erfolgt',
+	'Membership payed at: {date}' => 'Zahlungseingang erfolgt am: {date}',
+	'Membership ends at: {date}' => 'Mitgliedschaft endet am: {date}',
+	'This membership is still {days} days active' => 'Die Mitgliedschaft ist noch {days} Tage aktiv',
+	'Payments' => 'Zahlungsarten',
+	'Membership' => 'Mitgliedschaft',
+	'Memberships' => 'Mitgliedschaften',
+	'Ordered memberships' => 'Bestellte Mitgliedschaften',
+	'Order confirmed' => 'Bestellbestätigung',
+	'Payment arrived' => 'Zahlungseingang bestätigt',
+	'Membership' => 'Mitgliedschaft',
+	'Membership' => 'Mitgliedschaft',
+	'Payment date' => 'Bezahldatum',
+	'Order date' => 'Bestelldatum',
+	'End date' => 'Enddatum',
+	'Payment' => 'Zahlungsmethode',
+	'User' => 'Bestellt von',
+);

@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'User':
  */
-class User extends CActiveRecord
+class User extends user/YumUser
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -14,14 +14,6 @@ class User extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
-	}
-
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'wtvmT_User';
 	}
 
 	/**

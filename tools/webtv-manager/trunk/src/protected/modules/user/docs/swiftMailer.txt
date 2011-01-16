@@ -1,0 +1,15 @@
+Since yum 0.8 you can use swiftMailer to send emails from the Yii User 
+Management module. To do so, first install the swiftMailer extension
+from 
+
+http://www.yiiframework.com/extension/swiftmailer/
+
+and follow the install instructions. After that, set the option 'mailer' to 'swift' in the Application Configuration:
+
+	'modules' => array(
+		'user' => array(
+			'mailer' => 'swift',
+			),
+[...]
+
+

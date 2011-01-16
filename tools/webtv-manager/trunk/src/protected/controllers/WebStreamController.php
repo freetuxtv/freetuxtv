@@ -100,9 +100,11 @@ class WebStreamController extends Controller
 			if($model->LangCode==""){
 				$model->LangCode=null;
 			}
+			
 			$model->username=Yii::app()->user->name;
 			
-			$model->email='howget@email.com'; // how get email from database...
+			$profile = YumProfile::model()->find('user_id = ' . Yii::app()->user->id);
+			$model->email=$profile->email;
 			
 			if($model->CountryCode==""){
 				$model->CountryCode=null;
@@ -144,7 +146,9 @@ class WebStreamController extends Controller
 			$model->attributes=$_POST['WebStream'];
 			if($oldStreamStatusCode != $model->StreamStatusCode){
 				$model->username=Yii::app()->user->name;
-				$model->email='howget@email.com'; // how get email from database...
+				
+				$profile = YumProfile::model()->find('user_id = ' . Yii::app()->user->id);
+				$model->email=$profile->email;
 				if($model->save()){
 					$newStreamStatus=StreamStatus::model()->findbyPk($model->StreamStatusCode);
 
@@ -306,6 +310,7 @@ class WebStreamController extends Controller
 	public function actionSend()
 	{
 		$model=new WebStream;
+		
 
 		if(isset($_POST['WebStream']))
 		{
@@ -315,7 +320,8 @@ class WebStreamController extends Controller
 			}
 			if(!Yii::app()->user->isGuest){
 				$model->username=Yii::app()->user->name;
-				$model->email='howget@email.com'; // how get email from database...
+				$profile = YumProfile::model()->find('user_id = ' . Yii::app()->user->id);
+				$model->email=$profile->email;
 			}
 			if($model->CountryCode==""){
 				$model->CountryCode=null;
@@ -324,6 +330,7 @@ class WebStreamController extends Controller
 				$model->RequiredIsp=null;
 			}
 			if($model->save()){
+				
 				$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_ADD, $model->Id,'NEW STREAM',$model->email,$model->username);
 				if($history->save()){
 

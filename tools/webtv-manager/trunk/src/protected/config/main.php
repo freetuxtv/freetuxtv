@@ -8,7 +8,8 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'FreetuxTV WebTV Manager',
-
+	'language' => 'en',
+	
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -16,12 +17,18 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.modules.user.models.*',
+                'application.modules.user.components.*',
+		'application.modules.user.controllers.*',
+		
 	),
 
 	// application components
 	'components'=>array(
 		'user'=>array(
-			// enable cookie-based authentication
+			'class' => 'application.modules.user.components.YumWebUser',
+      			'loginUrl' => array('/user/login'),
+      			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
 		// uncomment the following to enable URLs in path-format
@@ -79,8 +86,14 @@ return array(
       		'class' => 'application.extensions.mailer.EMailer',
       		'pathViews' => 'application.views.email',
       		'pathLayouts' => 'application.views.email.layouts',
-   ),
+ 		),
 	),
+
+	'modules' => array(
+		'user' => array(
+			'debug' => false,
+		)
+	),	
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']

@@ -1,0 +1,20 @@
+This document will describe how to use a Drop down List in the Registration Form.
+
+Let's assume we have a Table 'states' from which the User should choose.
+We first create our database Table like this:
+
+CREATE TABLE IF NOT EXISTS `state` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `state` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+); 
+
+Now, we generate our Model 'State' with it (with yiic or gii, it doesn't matter)
+
+A new profile field called 'state' now can be created. Select the type 'DROPDOWNLIST' as field Type. At the bottom of the profile field creation Page you can find a 'related_field_name' input field. Type the name of the column you want to be displayed in the Registration form. In our example it's 'state'.
+
+Save the new profile Field. If you have done everything correct, a Dropdownlist containing all values of the State-table should be displayed in the Registration Process.
+
+The field name is the indicator for the Database Table. You need to make sure that a CActiveRecord Model is available since Yum relies on it. 
+
+If you have any questions/bug reports/suggestions for this, please email me at thyseus@gmail.com or come to the yum google code issue tracker, thank you
