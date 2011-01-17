@@ -73,7 +73,7 @@ $this->menu=array(
 	<div class="row">
 		<?php echo $form->labelEx($model,'CountryCode'); ?>
 		<?php
-			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+			$dropList = CHtml::listData(Cntry::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
 			echo $form->dropDownList($model, 'CountryCode', $dropList, array ('empty' => '-- None --'));
 			echo $form->error($model,'CountryCode');
 		?>

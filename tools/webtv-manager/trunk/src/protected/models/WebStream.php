@@ -57,7 +57,7 @@ class WebStream extends CActiveRecord
 		return array(
 			'StreamStatus'=>array(self::BELONGS_TO, 'StreamStatus', 'StreamStatusCode'),
 			'LangC'=>array(self::BELONGS_TO, 'Lang', 'LangCode'),
-			'CountryC'=>array(self::BELONGS_TO, 'Lang', 'CountryCode')
+			'CountryC'=>array(self::BELONGS_TO, 'Cntry', 'CountryCode')
 		);
 	}
 

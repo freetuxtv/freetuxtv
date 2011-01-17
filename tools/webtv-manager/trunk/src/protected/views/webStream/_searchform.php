@@ -41,7 +41,7 @@
 			<div class="td">
 				<?php
 					echo $form->labelEx($modelSearchForm, 'Country');
-					$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+					$dropList = CHtml::listData(Cntry::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
 					echo $form->dropDownList($modelSearchForm, 'Country', $dropList, array ('empty' => '-- All --'));
 					echo $form->error($modelSearchForm, 'Country');
 				?>
