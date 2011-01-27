@@ -1,0 +1,44 @@
+This is the Documentation for the Role Management Submodule.
+
+To use it, activate it in your Application Configuration
+
+In order to check whether a User belongs to a Role, use this function:
+
+if(Yii::app()->user->hasRole('role')) 
+{
+ // user is allowed
+}
+else
+{
+ // user is not allowed to do this
+}
+
+You can use the 'roles' function in the Controller accessRules like always:
+
+	public function accessRules()
+	{
+		return array(
+			array('allow',  
+				'actions'=>array('manage)',
+				'roles'=>array('manager'),
+			),
+			array('allow', 
+				'actions'=>array('index'),
+				'users'=>array('@'),
+			),
+			array('allow', 
+				'actions'=>array('admin'),
+				'users'=>array('admin'),
+			),
+			array('allow', 
+				'actions'=>array('delete'),
+				'expression'=>'$user->hasRole("delete")',
+			),
+
+			array('deny',  // deny all other users
+				'users'=>array('*'),
+			),
+		);
+	}
+
+

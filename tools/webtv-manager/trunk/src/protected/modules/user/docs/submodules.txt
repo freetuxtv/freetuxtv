@@ -1,0 +1,51 @@
+To test the new submodules, please use this in your Application Configuration:
+
+  'modules' => array(
+    'user' => array(
+      'modules' => array(
+        'role',
+        'profiles',
+        'messages',
+        ),
+      'debug' => 'true',
+      )
+    ),
+
+If you require custom table names and other specific submodule configuration,
+please refer to the following example:
+
+  'modules' => array(
+    'user' => array(
+      'modules' => array(
+        'role' => array(
+          'rolesTable'    => 'custom_roles_table',
+          'userRoleTable' => 'custom_user_has_role_table',
+        ),
+        'profiles' => array(
+          'profileTable'       => 'custom_profiles_table',
+          'profileFieldsTable' => 'custom_profile_fields_table',
+        ),
+        'messages' => array(
+          'messagesTable' => 'custom_messages_table',
+        ),
+      ),
+      'debug'                 => false,
+      'usersTable'            => 'custom_users_table',
+      'messagesTable'         => 'custom_messages_table',
+      'profileFieldsTable'    => 'custom_profile_fields_table',
+      'profileTable'          => 'custom_profiles_table',
+      'rolesTable'            => 'custom_roles_table',
+      'userRoleTable'         => 'custom_user_has_role_table',
+      'userUserTable'         => 'custom_user_has_user_table',
+      'installDemoData'       => false,
+      'disableEmailActivation'=> true,
+    ),
+  ),
+
+ 
+If you would are using table prefixes you can define table names using Yii convention {{custom_table_name}} as well.
+
+You can toggle submodules within the 'modules' array. In order to check if a submodule
+is activated in the configuration, use $this->module->hasModule('submodule');
+
+
