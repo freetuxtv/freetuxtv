@@ -18,17 +18,16 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.modules.user.models.*',
-                'application.modules.user.components.*',
+        'application.modules.user.components.*',
 		'application.modules.user.controllers.*',
-		
 	),
 
 	// application components
 	'components'=>array(
 		'user'=>array(
 			'class' => 'application.modules.user.components.YumWebUser',
-      			'loginUrl' => array('/user/login'),
-      			// enable cookie-based authentication
+      		'loginUrl' => array('/user/login'),
+      		// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
 		// uncomment the following to enable URLs in path-format
@@ -52,7 +51,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=freetuxtv',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => 'mysql',
 			'charset' => 'utf8',
 		),
 		'authManager'=>array(
@@ -91,7 +90,29 @@ return array(
 
 	'modules' => array(
 		'user' => array(
-			'debug' => false,
+			'debug' => true, // Set it to true to install YUM
+			// Set table name for the module
+			'usersTable' => 'wtvmT_YumUsers',
+		//	'privacySettingTable' => 'wtvmT_YumPrivacySetting',
+		//	'settingsTable' => 'wtvmT_YumSettings',
+		//	'textSettingsTable' => 'wtvmT_YumTextSettings',
+			'messagesTable' => 'wtvmT_YumMessages',
+		//	'usergroupTable' => 'wtvmT_YumUsergroup',
+		//	'userUsergroupTable' => 'wtvmT_YumUserHasUsergroup',
+			'profileFieldsTable' => 'wtvmT_YumProfileFields',
+			'profileFieldsGroupTable' => 'wtvmT_YumProfileFieldsGroup',
+			'profileTable' => 'wtvmT_YumProfiles',
+		//	'profileCommentTable' => 'wtvmT_YumProfileComment',
+		//	'profileVisitTable' => 'wtvmT_YumProfileVisit',
+			'rolesTable' => 'wtvmT_YumRoles',
+		//	'membershipTable' => 'wtvmT_YumMembership',
+		//	'paymentTable' => 'wtvmT_YumPayment',
+		//	'friendshipTable' => 'wtvmT_YumFriendship',
+		//	'permissionTable' => 'wtvmT_YumPermission',
+		//	'actionTable' => 'wtvmT_YumAction',
+			'userRoleTable' => 'wtvmT_YumUserHasRole',
+		//	'activityTable' => 'wtvmT_YumActivities',
+		//	'activitiesTable' => 'wtvmT_YumActivities',
 		)
 	),	
 

@@ -4,8 +4,6 @@
 
 <p>This website is a free database of WebTV and Web Radio.</p>
 
-<h1>Search</h1>
-
 <p>You can look for a channel by using the search form :</p>
 
 <div class="wide form">
@@ -73,8 +71,6 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- search-form -->
-
-<h1>URL</h1>
 
 <p>You can send to the team a new URL :</p>
 

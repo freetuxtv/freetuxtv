@@ -31,9 +31,9 @@
 				array('label'=>'Home', 'url'=>array('/site/index')),
 				//array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 				//array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('user/auth'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Create Account', 'url'=>array('user/registration'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Search On FreeTux Database', 'url'=>array('/WebStream/WebStreamSearch')),
+				array('label'=>'Login', 'url'=>array('/user/user/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Create Account', 'url'=>array('/user/user/registration'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Search a WebStream', 'url'=>array('/WebStream/WebStreamSearch')),
 				array('label'=>'Add new URL', 'url'=>array('/WebStream/WebStreamSend')),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 				
