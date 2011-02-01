@@ -1,0 +1,126 @@
+# $Id: de.po,v 1.2 2008/10/11 13:36:15 freso Exp $
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  languageicons.admin.inc,v 1.1.2.2 2008/08/11 17:25:55 freso
+#  languageicons.module,v 1.2.2.3 2008/08/16 13:16:24 freso
+#  languageicons.info: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: German translation for languageicons\n"
+"POT-Creation-Date: 2008-08-26 20:39+0200\n"
+"PO-Revision-Date: 2008-09-17 22:05+0100\n"
+"Last-Translator: Alexander Hass\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+
+#: languageicons.admin.inc:18
+msgid "Add language icons"
+msgstr "Sprachicons hinzufügen"
+
+#: languageicons.admin.inc:19
+msgid "Link types to add language icons."
+msgstr "Linktypen zum Hinzufügen von Sprachicons."
+
+#: languageicons.admin.inc:23
+msgid "Node links"
+msgstr "Beitraglinks"
+
+#: languageicons.admin.inc:28
+msgid "Language switcher block"
+msgstr "Block für die Sprachumschaltung"
+
+#: languageicons.admin.inc:33
+msgid "Icon placement"
+msgstr "Anordnung der Icons"
+
+#: languageicons.admin.inc:34
+msgid "Before"
+msgstr "Vor"
+
+#: languageicons.admin.inc:34
+msgid "After"
+msgstr "Nach"
+
+#: languageicons.admin.inc:34
+msgid "Replace"
+msgstr "Ersetzen"
+
+#: languageicons.admin.inc:36
+msgid "Where to display the icon, relative to the link title."
+msgstr "Wo das Icon angezeigt werden soll, relativ zum Linktitel."
+
+#: languageicons.admin.inc:40
+msgid "Icons file path"
+msgstr "Dateipfad mit Icons"
+
+#: languageicons.admin.inc:44
+msgid "Path for language icons, relative to Drupal installation. '*' is a placeholder for language code."
+msgstr "Pfad für Sprachicons, relativ zur Drupal-Installation. ‚*‘ ist ein Platzhalter für den Sprachcode."
+
+#: languageicons.admin.inc:48
+msgid "Image size"
+msgstr "Bildgröße"
+
+#: languageicons.admin.inc:52
+msgid "Image size for language icons, in the form \"width x height\"."
+msgstr "Bildgröße der Sprachicons, in der Form „Breite x Höhe“."
+
+#: languageicons.module:33
+msgid "This module manages language icons for multilingual sites:"
+msgstr "Dieses Modul verwaltet Spachicons für mehrsprachige Websites:"
+
+#: languageicons.module:35
+msgid "Automatically adds icons to language links"
+msgstr "Fügt automatisch Icons zu Sprachlinks hinzu"
+
+#: languageicons.module:36
+#, fuzzy
+msgid "Provides related theme functions"
+msgstr "Bietet themeabhängige Funktionen"
+
+#: languageicons.module:38
+msgid "For more information please read the <a href=\"@i18n\">on-line help pages</a>."
+msgstr "Nähere Informationen bezüglich der Konfiguration und Anpassung gibt es auf der Handbuch-Seite zum <a href=\"@i18n\">Internationalisierungs-Modul</a>."
+
+# Context senstive string is buggy
+#: languageicons.module:41
+#, fuzzy
+msgid "To enable multilingual support for specific content types go to !configure_content_types."
+msgstr "Die mehrsprachige Unterstützung kann für bestimmte Inhaltstypen in den !configure_content_types aktiviert werden."
+
+#: languageicons.module:41
+msgid "configure content types"
+msgstr "Inhaltstypen konfigurieren"
+
+#: languageicons.module:51
+msgid "Configure"
+msgstr "Konfigurieren"
+
+#: languageicons.module:58
+msgid "Icons"
+msgstr "Icons"
+
+#: languageicons.module:0
+msgid "languageicons"
+msgstr "languageicons"
+
+#: languageicons.info:0
+msgid "Language Icons"
+msgstr "Sprachicons"
+
+#: languageicons.info:0
+msgid "Adds icons to language links."
+msgstr "Fügt Icons zu Sprachlinks hinzu."
+
+#: languageicons.info:0
+msgid "Multilanguage"
+msgstr "Mehrsprachig"
+
