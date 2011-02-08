@@ -69,7 +69,20 @@ Please complete the following information about the link before sending it :
 			echo $form->error($model,'TypeStream');
 		?>
 	</div>
-
+<?php
+	if(Yii::app()->user->checkAccess('changeStatusWebStream')) {
+?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'StreamStatusCode'); ?>
+		<?php
+			$dropList = CHtml::listData(StreamStatus::model()->findAll(), 'Code', 'Label');
+			echo $form->dropDownList($model, 'StreamStatusCode', $dropList);
+			echo $form->error($model,'StreamStatusCode');
+		?>
+	</div>
+<?php
+	}
+?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'RequiredIsp'); ?>
 		<?php echo $form->textField($model,'RequiredIsp',array('size'=>20,'maxlength'=>20)); ?>
