@@ -52,7 +52,8 @@ class History extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'User'=>array(self::BELONGS_TO, 'User', 'UserId')
+            'User'=>array(self::BELONGS_TO, 'User', 'UserId'),
+            'WebStream'=>array(self::BELONGS_TO, 'WebStream', 'EntityId')
 		);
 	}
 
@@ -110,5 +111,20 @@ class History extends CActiveRecord
 		$history->ActionDetails=$actionDetails;
 
 		return $history;
+	}
+
+	public function getTimeAgo()
+	{
+		$timestamp = CDateTimeParser::parse($this->Date, 'yyyy-MM-dd HH:mm:ss');
+
+		$difference = time() - $timestamp;
+		$periods = array("second", "minute", "hour", "day", "week", "month", "years", "decade");
+		$lengths = array("60","60","24","7","4.35","12","10");
+		for($j = 0; $difference >= $lengths[$j]; $j++)
+		$difference /= $lengths[$j];
+		$difference = round($difference);
+		if($difference != 1) $periods[$j].= "s";
+		$text = "$difference $periods[$j] ago";
+		return $text;
 	}
 }

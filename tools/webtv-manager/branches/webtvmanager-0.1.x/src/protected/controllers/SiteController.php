@@ -30,11 +30,25 @@ class SiteController extends Controller
 		$modelSearchForm = new WebStreamSearchForm;
 		$modelSendForm = new WebStreamSendForm;
 
+		// Load the last update
+		$conditions = "";
+		$params = array();
+
+		$lastUpdates=new CActiveDataProvider('History', array(
+			'criteria'=>array(
+				'condition'=>$conditions,
+				'params'=>$params,
+				'limit'=>10,
+				'order'=>'Date DESC',
+			),
+		));
+
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->render('index', array(
 			'modelSearchForm'=>$modelSearchForm,
 			'modelSendForm'=>$modelSendForm,
+			'lastUpdates'=>$lastUpdates,
 		));
 	}
 

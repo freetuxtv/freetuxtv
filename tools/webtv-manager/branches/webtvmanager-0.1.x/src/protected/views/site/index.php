@@ -95,5 +95,30 @@
 
 </div><!-- web-stream-send-form -->
 
+<br/>
+
+<p>Last updates :</p>
+
+<div style="width:30%">
+<?php
+	// Display a grid for the webstream list
+
+	$this->widget('zii.widgets.grid.CGridView', array(
+	'dataProvider'=>$lastUpdates,
+	'enablePagination'=>false,
+	'summaryText'=>'',
+	'columns'=>array(
+        array(
+            'name'=>'Last updates',
+			'type'=>'html',
+			'htmlOptions' => array('style'=>'text-align:left'),
+            'value'=>'"<font><b>".$data->getHistoryActionName()."</b> ".CHtml::link($data->WebStream->Name, array("WebStream/view", "id"=>$data->EntityId))
+				."<br/>".$data->getTimeAgo()." by ".($data->User ? $data->User->Username : "Anonymous")
+				."<br/>".$data->ActionDetails
+				."</font>"',
+        ),
+    ),
+)); ?>
+</div>
 
 <p>This webstite is part of the FreetuxTV project : <a href="http://code.google.com/p/freetuxtv/">http://code.google.com/p/freetuxtv/</a>.
