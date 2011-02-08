@@ -62,6 +62,11 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
             'value'=>'<font color="'.$model->StreamStatus->Color.'">'.$model->StreamStatus->Label.'</font>',
         ),
 		'SubmissionDate',
+        array(
+            'label'=>'Comments',
+			'name'=>'Comments',
+            'type'=>'text',
+        ),
 	),
 )); ?>
 

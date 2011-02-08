@@ -79,6 +79,14 @@ $this->menu=array(
 		?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'Comments'); ?>
+		<?php echo $form->textArea($model,'Comments',array('cols'=>80,'rows'=>10)); ?>
+		<?php echo $form->error($model,'Comments'); ?>
+	</div>
+
+
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Update'); ?>
 	</div>

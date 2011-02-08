@@ -42,6 +42,7 @@ class WebStream extends CActiveRecord
             array('RequiredIsp', 'length', 'max'=>50),
             array('LangCode', 'length', 'max'=>2),
 			array('SubmissionDate', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
+            array('Comments', 'length'),
         );
 	}
 
@@ -69,6 +70,7 @@ class WebStream extends CActiveRecord
 			'StreamStatusCode'=>'Status',
 			'TypeStream'=>'Type of stream',
 			'SubmissionDate'=>'Date of submission',
+			'Comments'=>'Comments',
 		);
 	}
 
@@ -163,6 +165,14 @@ class WebStream extends CActiveRecord
 					$actionsDetails .= ", ";
 				}
 				$actionsDetails .= $this->RequiredIsp.' => '.$attributes["RequiredIsp"];
+			}
+		}
+		if(isset($attributes["Comments"])){
+			if($this->Comments != $attributes["Comments"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$actionsDetails .= 'Comments modified';
 			}
 		}
 		return $actionsDetails;
