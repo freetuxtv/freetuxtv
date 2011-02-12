@@ -97,28 +97,59 @@
 
 <br/>
 
-<p>Last updates :</p>
+<p>Last adds/updates :</p>
 
-<div style="width:30%">
-<?php
-	// Display a grid for the webstream list
+<table border="0">
+<tr>
+	<td style="vertical-align:top;">
 
-	$this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'=>$lastUpdates,
-	'enablePagination'=>false,
-	'summaryText'=>'',
-	'columns'=>array(
-        array(
-            'name'=>'Last updates',
-			'type'=>'html',
-			'htmlOptions' => array('style'=>'text-align:left'),
-            'value'=>'"<font><b>".$data->getHistoryActionName()."</b> ".CHtml::link($data->WebStream->Name, array("WebStream/view", "id"=>$data->EntityId))
-				."<br/>".$data->getTimeAgo()." by ".($data->User ? $data->User->Username : "Anonymous")
-				."<br/>".$data->ActionDetails
-				."</font>"',
-        ),
-    ),
-)); ?>
-</div>
+	<div style="width:80%">
+	<?php
+		// Display a grid for the adds list
+		$this->widget('zii.widgets.grid.CGridView', array(
+		'dataProvider'=>$lastAdds,
+		'enablePagination'=>false,
+		'summaryText'=>'',
+		'columns'=>array(
+		    array(
+		        'name'=>'Last adds',
+				'type'=>'html',
+				'htmlOptions' => array('style'=>'text-align:left'),
+		        'value'=>'"<font><b>".$data->getHistoryActionName()."</b> ".CHtml::link($data->WebStream->Name, array("WebStream/view", "id"=>$data->EntityId))
+					."<br/>".$data->getTimeAgo()." by ".($data->User ? $data->User->Username : "Anonyme")
+					."<br/>".$data->ActionDetails
+					."</font>"',
+		    ),
+		),
+	)); ?>
+	</div>
+
+	</td>
+	<td style="vertical-align:top">
+
+	<div style="width:80%">
+	<?php
+		// Display a grid for the updates list
+		$this->widget('zii.widgets.grid.CGridView', array(
+		'dataProvider'=>$lastUpdates,
+		'enablePagination'=>false,
+		'summaryText'=>'',
+		'columns'=>array(
+		    array(
+		        'name'=>'Last updates',
+				'type'=>'html',
+				'htmlOptions' => array('style'=>'text-align:left'),
+		        'value'=>'"<font><b>".$data->getHistoryActionName()."</b> ".CHtml::link($data->WebStream->Name, array("WebStream/view", "id"=>$data->EntityId))
+					."<br/>".$data->getTimeAgo()." by ".($data->User ? $data->User->Username : "Anonyme")
+					."<br/>".$data->ActionDetails
+					."</font>"',
+		    ),
+		),
+	)); ?>
+	</div>
+
+	</td>
+</tr>
+</table>
 
 <p>This webstite is part of the FreetuxTV project : <a href="http://code.google.com/p/freetuxtv/">http://code.google.com/p/freetuxtv/</a>.

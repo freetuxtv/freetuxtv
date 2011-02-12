@@ -30,11 +30,14 @@ class SiteController extends Controller
 		$modelSearchForm = new WebStreamSearchForm;
 		$modelSendForm = new WebStreamSendForm;
 
-		// Load the last update
+		// Load the last updates
 		$conditions = "";
 		$params = array();
 
-		$lastUpdates=new CActiveDataProvider('History', array(
+		$conditions = "EntityType=:EntityType AND (ActionType=:ActionType1 OR ActionType=:ActionType2)";
+		$params = array(":EntityType"=>History::ENTITYTYPE_WEBSTREAM,
+			":ActionType1"=>History::ACTIONTYPE_WEBSTREAM_ADD, ":ActionType2"=>History::ACTIONTYPE_WEBSTREAM_IMPORT);
+		$lastAdds=new CActiveDataProvider('History', array(
 			'criteria'=>array(
 				'condition'=>$conditions,
 				'params'=>$params,
@@ -43,11 +46,24 @@ class SiteController extends Controller
 			),
 		));
 
+
+		$conditions = "EntityType=:EntityType AND (ActionType=:ActionType1 OR ActionType=:ActionType2)";
+		$params = array(":EntityType"=>History::ENTITYTYPE_WEBSTREAM,
+			":ActionType1"=>History::ACTIONTYPE_WEBSTREAM_EDIT, ":ActionType2"=>History::ACTIONTYPE_WEBSTREAM_CHANGESTATUS);
+		$lastUpdates=new CActiveDataProvider('History', array(
+			'criteria'=>array(
+				'condition'=>$conditions,
+				'params'=>$params,
+				'limit'=>10,
+				'order'=>'Date DESC',
+			),
+		));
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->render('index', array(
 			'modelSearchForm'=>$modelSearchForm,
 			'modelSendForm'=>$modelSendForm,
+			'lastAdds'=>$lastAdds,
 			'lastUpdates'=>$lastUpdates,
 		));
 	}
