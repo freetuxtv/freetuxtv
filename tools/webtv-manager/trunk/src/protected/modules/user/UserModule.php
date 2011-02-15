@@ -26,6 +26,7 @@ class UserModule extends YumWebModule
 	public $userUserTable = "user_has_user";
 	public $installDemoData = true;
 	public $enableEmailActivation = true;
+	public $disableEmailActivation = false;
 	public $layout = 'column2';
 	public $adminLayout = 'column2';
 	public $salt = '';

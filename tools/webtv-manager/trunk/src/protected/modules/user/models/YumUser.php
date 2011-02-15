@@ -82,14 +82,14 @@ class YumUser extends YumActiveRecord
     if (isset(Yii::app()->controller->module->userRoleTable))
       $this->_userRoleTable = Yii::app()->controller->module->userRoleTable;
     elseif (isset(Yii::app()->modules['user']['userRoleTable'])) 
-      $this->_tableName = Yii::app()->modules['user']['userRoleTable'];
+      $this->_userRoleTable = Yii::app()->modules['user']['userRoleTable'];
     else
       $this->_userRoleTable = '{{user_has_role}}';
 
     if (isset(Yii::app()->controller->module->userUserTable))
       $this->_userUserTable = Yii::app()->controller->module->userUserTable;
     elseif (isset(Yii::app()->modules['user']['userUserTable'])) 
-      $this->_tableName = Yii::app()->modules['user']['userUserTable'];
+      $this->_userUserTable = Yii::app()->modules['user']['userUserTable'];
     else
       $this->_userUserTable = '{{user_has_user}}';
       
