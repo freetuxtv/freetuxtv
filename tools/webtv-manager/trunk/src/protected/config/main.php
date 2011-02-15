@@ -50,7 +50,7 @@ return array(
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=freetuxtv',
 			'emulatePrepare' => true,
-			'username' => 'toor',
+			'username' => 'root',
 			'password' => 'mysql',
 			'charset' => 'utf8',
 		),
@@ -88,33 +88,36 @@ return array(
  		),
 	),
 	'modules' => array(
-    'user' => array(
-      'modules' => array(
-        'role' => array(
-          'rolesTable'    => 'wtvmT_YumRoles',
-          'userRoleTable' => 'wtvmT_YumUserHasRole',
-        ),
-        'profiles' => array(
-          'profileTable'       => 'wtvmT_YumProfiles',
-		  'profileFieldsGroupTable'    => 'wtvmT_YumProfileFieldsGroup',
-          'profileFieldsTable' => 'wtvmT_YumProfileFields',
-        ),
-        'messages' => array(
-          'messagesTable' => 'wtvmT_YumMessages',
-        ),
-      ),
-      'debug'                 => false, //Turn it to false after user/installation.
-      'usersTable'            => 'wtvmT_YumUsers',
-      'messagesTable'         => 'wtvmT_YumMessages',
-      'profileFieldsTable'    => 'wtvmT_YumProfileFields',
-      'profileTable'          => 'wtvmT_YumProfiles',
-      'rolesTable'            => 'wtvmT_YumRoles',
-      'userRoleTable'         => 'wtvmT_YumUserHasRole',
-      'userUserTable'         => 'wtvmT_YumUserHasUser',
-	  'profileFieldsGroupTable'    => 'wtvmT_YumProfileFieldsGroup',
-      'installDemoData'       => true,
-    ),
-  ),	
+		'user' => array(
+			'modules' => array(
+				'role' => array(
+				  'rolesTable'    => 'wtvmT_YumRoles',
+				  'userRoleTable' => 'wtvmT_YumUserHasRole',
+				),
+				'profiles' => array(
+				  'profileTable'       => 'wtvmT_YumProfiles',
+				  'profileFieldsGroupTable'    => 'wtvmT_YumProfileFieldsGroup',
+				  'profileFieldsTable' => 'wtvmT_YumProfileFields',
+				),
+				'messages' => array(
+				  'messagesTable' => 'wtvmT_YumMessages',
+				),
+			),
+			'debug'                 => false, //Turn it to false after user/installation.
+			'usersTable'            => 'wtvmT_YumUsers',
+			'messagesTable'         => 'wtvmT_YumMessages',
+			'profileFieldsTable'    => 'wtvmT_YumProfileFields',
+			'profileTable'          => 'wtvmT_YumProfiles',
+			'rolesTable'            => 'wtvmT_YumRoles',
+			'userRoleTable'         => 'wtvmT_YumUserHasRole',
+			'userUserTable'         => 'user_has_user',
+			//'userUserTable'         => 'wtvmT_YumUserHasUser',
+			'profileFieldsGroupTable'    => 'wtvmT_YumProfileFieldsGroup',
+			'installDemoData'       => true,
+			'disableEmailActivation'=> true,
+			'enableEmailActivation'	=> false,
+		),
+	),	
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
