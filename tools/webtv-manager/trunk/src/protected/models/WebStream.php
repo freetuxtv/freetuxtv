@@ -9,6 +9,9 @@ class WebStream extends CActiveRecord
 {
 	public $email;
 	public $username;
+	public $RestrictionValue;
+	public $RestrictionCode;
+		
 	const WEBSTREAM_STATUS_SUBMITTED		= 1;
 	const WEBSTREAM_STATUS_WORKING			= 2;
 
@@ -44,7 +47,11 @@ class WebStream extends CActiveRecord
 		array('LangCode', 'length', 'max'=>2),
 		array('CountryCode', 'length', 'max'=>2),
 		array('SubmissionDate', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
-        );
+        array('email', 'email'),
+		array('username', 'length', 'max'=>100),
+		array('RestrictionValue', 'length', 'max'=>200),
+		array('RestrictionCode', 'length', 'max'=>50),
+		);
 	}
 
 	/**
@@ -57,7 +64,9 @@ class WebStream extends CActiveRecord
 		return array(
 			'StreamStatus'=>array(self::BELONGS_TO, 'StreamStatus', 'StreamStatusCode'),
 			'LangC'=>array(self::BELONGS_TO, 'Lang', 'LangCode'),
-			'CountryC'=>array(self::BELONGS_TO, 'Cntry', 'CountryCode')
+			'CountryC'=>array(self::BELONGS_TO, 'Cntry', 'CountryCode'),
+			'RestrictionV'=>array(self::BELONGS_TO, 'Restriction', 'RestrictionValue'),
+			'RestrictionC'=>array(self::BELONGS_TO, 'Restrictiontype', 'RestrictionCode'),
 		);
 	}
 
@@ -70,8 +79,12 @@ class WebStream extends CActiveRecord
 			'RequiredIsp'=>'Required ISP',
 			'CountryCode'=>'Country',
 			'LangCode'=>'Language',
+			'email'=>'E-mail',
+			'username'=>'Username',
 			'StreamStatusCode'=>'Status',
 			'TypeStream'=>'Type of stream',
+			'RestrictionCode'=>'Restriction Type',
+			'RestrictionValue'=>'Restriction Value',
 			'SubmissionDate'=>'Date of submission',
 		);
 	}
@@ -160,6 +173,25 @@ class WebStream extends CActiveRecord
 				$actionsDetails .= $this->LangCode.' => '.$attributes["LangCode"];
 			}
 		}
+		
+		if(isset($attributes["RestrictionCode"])){
+			if($this->RestrictionCode != $attributes["RestrictionCode"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$actionsDetails .= $this->RestrictionCode.' => '.$attributes["RestrictionCode"];
+			}
+		}
+		
+		if(isset($attributes["RestrictionValue"])){
+			if($this->RestrictionValue != $attributes["RestrictionValue"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$actionsDetails .= $this->RestrictionValue.' => '.$attributes["RestrictionValue"];
+			}
+		}
+		
 		if(isset($attributes["StreamStatusCode"])){
 			if($this->StreamStatusCode != $attributes["StreamStatusCode"]){
 				if($actionsDetails != ""){

@@ -18,9 +18,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.modules.user.models.*',
-        'application.modules.user.components.*',
-		'application.modules.user.controllers.*',
-	),
+ 	),
 
 	// application components
 	'components'=>array(
@@ -50,7 +48,7 @@ return array(
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=freetuxtv',
 			'emulatePrepare' => true,
-			'username' => 'root',
+			'username' => 'toor',
 			'password' => 'mysql',
 			'charset' => 'utf8',
 		),
@@ -103,7 +101,7 @@ return array(
 				  'messagesTable' => 'wtvmT_YumMessages',
 				),
 			),
-			'debug'                 => false, //Turn it to false after user/installation.
+			'debug'                 => true, //Turn it to false after user/installation.
 			'usersTable'            => 'wtvmT_YumUsers',
 			'messagesTable'         => 'wtvmT_YumMessages',
 			'profileFieldsTable'    => 'wtvmT_YumProfileFields',

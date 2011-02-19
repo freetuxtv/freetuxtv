@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS wtvmT_WebStream (
 		REFERENCES wtvmT_TVChannel(Id) ON DELETE SET NULL
 ) TYPE=InnoDB;
 
+<<<<<<< .mine
 CREATE TABLE IF NOT EXISTS wtvmT_User (
 	Id INTEGER NOT NULL AUTO_INCREMENT,
 	Username VARCHAR(20) NOT NULL,
@@ -74,6 +75,18 @@ CREATE TABLE IF NOT EXISTS wtvmT_User (
 	Rights INTEGER(10) NOT NULL DEFAULT '0',
 	CONSTRAINT PK_User PRIMARY KEY(Id)
 ) TYPE=InnoDB;
+
+INSERT INTO wtvmT_Lang (Label, Code)  VALUES ('English', 'en'),('Afar', 'aa'),('Abkhazian', 'ab'),('Afrikaans', 'af'),('Amharic', 'am'),('Arabic', 'ar'),('Assamese', 'as'),('Aymara', 'ay'),('Azerbaijani', 'az'),('Bashkir', 'ba'),('Byelorussian', 'be'),('Bulgarian', 'bg'),('Bihari', 'bh'),('Bislama', 'bi'),('Bengali/Bangla', 'bn'),('Tibetan', 'bo'),('Breton', 'br'),('Catalan', 'ca'),('Corsican', 'co'),('Czech', 'cs'),('Welsh', 'cy'),('Danish', 'da'),('German', 'de'),('Bhutani', 'dz'),('Greek', 'el'),('Esperanto', 'eo'),('Spanish', 'es'),('Estonian', 'et'),('Basque', 'eu'),('Persian', 'fa'),('Finnish', 'fi'),('Fiji', 'fj'),('Faeroese', 'fo'),('French', 'fr'),('Frisian', 'fy'),('Irish', 'ga'),('Scots/Gaelic', 'gd'),('Galician', 'gl'),('Guarani', 'gn'),('Gujarati', 'gu'),('Hausa', 'ha'),('Hindi', 'hi'),('Croatian', 'hr'),('Hungarian', 'hu'),('Armenian', 'hy'),('Interlingua', 'ia'),('Interlingue', 'ie'),('Inupiak', 'ik'),('Indonesian', 'in'),('Icelandic', 'is'),('Italian', 'it'),('Hebrew', 'iw'),('Japanese', 'ja'),('Yiddish', 'ji'),('Javanese', 'jw'),('Georgian', 'ka'),('Kazakh', 'kk'),('Greenlandic', 'kl'),('Cambodian', 'km'),('Kannada', 'kn'),('Korean', 'ko'),('Kashmiri', 'ks'),('Kurdish', 'ku'),('Kirghiz', 'ky'),('Latin', 'la'),('Lingala', 'ln'),('Laothian', 'lo'),('Lithuanian', 'lt'),('Latvian/Lettish', 'lv'),('Malagasy', 'mg'),('Maori', 'mi'),('Macedonian', 'mk'),('Malayalam', 'ml'),('Mongolian', 'mn'),('Moldavian', 'mo'),('Marathi', 'mr'),('Malay', 'ms'),('Maltese', 'mt'),('Burmese', 'my'),('Nauru', 'na'),('Nepali', 'ne'),('Dutch', 'nl'),('Norwegian', 'no'),('Occitan', 'oc'),('(Afan)/Oromoor/Oriya', 'om'),('Punjabi', 'pa'),('Polish', 'pl'),('Pashto/Pushto', 'ps'),('Portuguese', 'pt'),('Quechua', 'qu'),('Rhaeto-Romance', 'rm'),('Kirundi', 'rn'),('Romanian', 'ro'),('Russian', 'ru'),('Kinyarwanda', 'rw'),('Sanskrit', 'sa'),('Sindhi', 'sd'),('Sangro', 'sg'),('Serbo-Croatian', 'sh'),('Singhalese', 'si'),('Slovak', 'sk'),('Slovenian', 'sl'),('Samoan', 'sm'),('Shona', 'sn'),('Somali', 'so'),('Albanian', 'sq'),('Serbian', 'sr'),('Siswati', 'ss'),('Sesotho', 'st'),('Sundanese', 'su'),('Swedish', 'sv'),('Swahili', 'sw'),('Tamil', 'ta'),('Tegulu', 'te'),('Tajik', 'tg'),('Thai', 'th'),('Tigrinya', 'ti'),('Turkmen', 'tk'),('Tagalog', 'tl'),('Setswana', 'tn'),('Tonga', 'to'),('Turkish', 'tr'),('Tsonga', 'ts'),('Tatar', 'tt'),('Twi', 'tw'),('Ukrainian', 'uk'),('Urdu', 'ur'),('Uzbek', 'uz'),('Vietnamese', 'vi'),('Volapuk', 'vo'),('Wolof', 'wo'),('Xhosa', 'xh'),('Yoruba', 'yo'),('Chinese', 'zh'),('Zulu', 'zu');
+=======
+CREATE TABLE IF NOT EXISTS wtvmT_User (
+	Id INTEGER NOT NULL AUTO_INCREMENT,
+	Username VARCHAR(20) NOT NULL,
+	Password VARCHAR(64) NOT NULL,
+	Email VARCHAR(255) NOT NULL,
+	Rights INTEGER(10) NOT NULL DEFAULT '0',
+	CONSTRAINT PK_User PRIMARY KEY(Id)
+) TYPE=InnoDB;
+>>>>>>> .r557
 
 INSERT INTO wtvmT_Lang (Label, Code)  VALUES ('English', 'en');
 INSERT INTO wtvmT_Lang (Label, Code)  VALUES ('Afar', 'aa');
@@ -528,3 +541,65 @@ INSERT INTO `wtvmT_Country` (`Code`, `Label`) VALUES
 	('zm', 'Zambia'),
 	('zw', 'Zimbabwe');
 
+<<<<<<< .mine
+--
+-- Contraintes pour la table `wtvmt_history`
+--
+
+ALTER TABLE wtvmT_History DROP FOREIGN KEY FK_History_User;
+
+ALTER TABLE `wtvmT_History`
+  ADD CONSTRAINT `FK_History_User` FOREIGN KEY (`UserId`) REFERENCES `wtvmT_YumUsers` (`id`);
+  
+INSERT INTO  wtvmT_YumUsers(username,password,superuser,status) 
+SELECT Username, Password, superuser=0, status = 1
+FROM wtvmT_User;
+	
+insert into  wtvmT_YumProfiles (user_id,timestamp,privacy, lastname,firstname,email) 
+wtvmT_YumUsers (username,password,superuser,status) 
+SELECT YU.id, timestamp=0, privacy=protected, YU.username,firstname= "", Us.Email
+FROM wtvmT_YumUsers as YU, wtvmT_User as Us, wtvmT_YumProfiles
+WHERE YU.username=Us.Username and YU.password=Us.Password;
+
+
+
+--
+-- table `wtmT_WebStreamRestrictionAccessType`
+--
+
+
+CREATE TABLE  `wtvmT_WebStreamRestrictionAccessType` (
+`Id` INT NOT NULL AUTO_INCREMENT,
+`Label` VARCHAR( 100 ),
+CONSTRAINT PK_WebStreamRestrictionAccessType PRIMARY KEY(Id)
+) TYPE=InnoDB;
+
+INSERT INTO wtvmT_WebStreamRestrictionAccessType (`Id` ,`Label`) VALUES (1 ,  'Country'), (2 ,  'ISP'), (3,  'Slot');
+ 
+ 
+--
+-- table `wtmT_WebStreamRestrictionAccess`
+--
+
+ CREATE TABLE `wtvmT_WebStreamRestrictionAccess` (
+`Id` INT NOT NULL AUTO_INCREMENT,
+`IdWebStream` INTEGER NOT NULL ,
+`IdTypeRestrictionAccess` INT NOT NULL ,
+`Value` VARCHAR(200),
+CONSTRAINT PK_WebStreamRestrictionAccess PRIMARY KEY(Id),
+CONSTRAINT FK_WebStreamRestrictionAccess_WebStream FOREIGN KEY (IdWebStream)
+	REFERENCES wtvmT_WebStream(Id),
+CONSTRAINT FK_WebStreamRestrictionAccess_WebStreamRestrictionAccessType FOREIGN KEY (IdTypeRestrictionAccess)
+	REFERENCES wtvmT_WebStreamRestrictionAccessType(Id)
+)  TYPE=InnoDB;
+
+--
+-- Contenu de la table `wtvmt_yumroles`
+--
+INSERT INTO `wtvmT_YumRoles` (`title`, `description`) VALUES
+('modoEditWebStream', 'Allow to edit webstream from WebStream database.\r\n'),
+('modoChangeStatusWebS', 'Allow to change status of a webstream from Webstream database');
+
+
+=======
+>>>>>>> .r557

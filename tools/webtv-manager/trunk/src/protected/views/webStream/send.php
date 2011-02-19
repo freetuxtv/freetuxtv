@@ -94,6 +94,21 @@ Please complete the following information about the link before sending it :
 		?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'RestrictionCode:'); ?>
+		<?php
+			$dropList = CHtml::listData(Restrictiontype::model()->findAll(array('order'=>'Label')), 'Id', 'Label');
+			echo $form->dropDownList($model, 'RestrictionCode', $dropList, array ('empty' => '-- None --'));
+			echo $form->error($model,'RestrictionCode');
+		?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'RestrictionValue'); ?>
+		<?php echo $form->textField($model,'RestrictionValue',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'RestrictionValue'); ?>
+	</div>
+
 	<?php
 		if(Yii::app()->user->isGuest){
 	?>
@@ -113,6 +128,7 @@ Please complete the following information about the link before sending it :
 		<?php echo $form->textField($model,'username'); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
+
 	<?php
 		}
 	?>

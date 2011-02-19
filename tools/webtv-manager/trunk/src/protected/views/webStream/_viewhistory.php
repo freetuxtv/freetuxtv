@@ -13,7 +13,7 @@
 		    array(
 				'header'=>'User',
 				'type'=>'html',
-		        'value'=>'"<font>".($data->UserId ? "<b>".$data->User->Username."</b>" : (Yii::app()->user->isGuest ? "Anonyme" : $data->RemoteAddr))."</font>"',
+		        'value'=>'"<font>".($data->Username ? "<b>".$data->Username."</b>" : "Anonyme" )."</font>"',
 		    ),
 		    array(
 		        'name'=>'Action',

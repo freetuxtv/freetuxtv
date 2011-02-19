@@ -36,16 +36,12 @@ class WebStreamController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow',
-				'actions'=>array('send'),
-				'roles'=>array('sendWebStream'),
-			),
-			array('allow',
 				'actions'=>array('update'),
-				'roles'=>array('editWebStream'),
+				'roles'=>array('modoEditWebStream'),
 			),
 			array('allow',
 				'actions'=>array('changestatus'),
-				'roles'=>array('changeStatusWebStream'),
+				'roles'=>array('modoChangeStatusWebS'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -244,6 +240,14 @@ class WebStreamController extends Controller
 			}
 		}
 
+		if(isset($modelSearchForm->Restriction)){
+			if($modelSearchForm->Restriction != ""){
+				$conditions .= " AND RestrictionCode=:WebRestrictionCode";
+				$params[':WebRestrictionCode'] = $modelSearchForm->Restriction;
+				$playlist_params["rstcode"] = $modelSearchForm->Restriction;
+			}
+		}
+
 		$dataProvider=new CActiveDataProvider('WebStream',array(
 			'criteria'=>array(
 				'condition'=>$conditions,
@@ -323,14 +327,36 @@ class WebStreamController extends Controller
 				$profile = YumProfile::model()->find('user_id = ' . Yii::app()->user->id);
 				$model->email=$profile->email;
 			}
+			
+			if(Yii::app()->user->isGuest){
+				if($model->username==""){
+					$model->username=null;
+				}
+				if($model->email==""){
+					$model->email=null;
+				}
+			}
 			if($model->CountryCode==""){
 				$model->CountryCode=null;
 			}
 			if($model->RequiredIsp==""){
 				$model->RequiredIsp=null;
 			}
+			
+			if($model->RestrictionCode==""){
+				$model->RestrictionCode=null;
+				$model->RestrictionValue=null;
+			}
+			if($model->RestrictionValue==""){
+				$model->RestrictionCode=null;
+				$model->RestrictionValue=null;
+			}
+			
 			if($model->save()){
-				
+				if($model->RestrictionCode!=null){
+					$restriction = Restriction::createNewValue($model->Id, $model->RestrictionCode, $model->RestrictionValue);
+					$restriction->save();
+				}
 				$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_ADD, $model->Id,'NEW STREAM',$model->email,$model->username);
 				if($history->save()){
 

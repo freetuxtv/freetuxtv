@@ -8,10 +8,10 @@ $this->breadcrumbs=array(
 <?php
 	$this->menu=array();
 	$this->menu[] = array('label'=>'View', 'url'=>array('view', 'id'=>$model->Id));
-	if(Yii::app()->user->checkAccess('editWebStream')) {
+	if(Yii::app()->user->checkAccess('modoEditWebStream')) {
 		$this->menu[] = array('label'=>'Edit', 'url'=>array('update', 'id'=>$model->Id));
 	}
-	if(Yii::app()->user->checkAccess('changeStatusWebStream')) {
+	if(Yii::app()->user->checkAccess('modoChangeStatusWebS')) {
 		$this->menu[] = array('label'=>'Change status', 'url'=>array('changestatus', 'id'=>$model->Id));
 	}
 /*
@@ -31,7 +31,10 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 
 <br><br>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php 
+$restrictionmodel=Restriction::model()->find('IdWebStream=:IdWebStream',array(':IdWebStream'=>$model->Id));
+
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		array(
@@ -61,7 +64,19 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 			'type'=>'html',
             'value'=>($model->CountryCode ? '<img src="'.Yii::app()->request->baseUrl.'/images/lang/languageicons/flags/'.strtolower($model->CountryCode).'.png'.'"> '.$model->CountryC->Label : $model->CountryCode),
         ),
-        array(
+		
+			array(
+				'label'=>'Restriction Type',
+				'type'=>'html',
+				'value'=>($restrictionmodel ? Restrictiontype::model()->find('Id=:IdTypeRestrictionAccess',array(':IdTypeRestrictionAccess'=>$restrictionmodel->IdTypeRestrictionAccess))->Label : null),
+			),
+			array(
+				'label'=>'Restriction Value',
+				'type'=>'html',
+				'value'=>($restrictionmodel ? $restrictionmodel->Value : null),
+			),
+		
+		array(
             'label'=>'Status',
 			'type'=>'html',
             'value'=>'<font color="'.$model->StreamStatus->Color.'">'.$model->StreamStatus->Label.'</font>',
