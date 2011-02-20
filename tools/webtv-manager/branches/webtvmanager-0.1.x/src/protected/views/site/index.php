@@ -101,7 +101,7 @@
 
 <table border="0">
 <tr>
-	<td style="vertical-align:top;">
+	<td width="50%" style="vertical-align:top;">
 
 	<div style="width:80%">
 	<?php
@@ -125,7 +125,7 @@
 	</div>
 
 	</td>
-	<td style="vertical-align:top">
+	<td width="50%" style="vertical-align:top">
 
 	<div style="width:80%">
 	<?php

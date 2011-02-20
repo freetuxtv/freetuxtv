@@ -46,7 +46,7 @@ class SiteController extends Controller
 			),
 		));
 
-
+		// Load the last adds
 		$conditions = "EntityType=:EntityType AND (ActionType=:ActionType1 OR ActionType=:ActionType2)";
 		$params = array(":EntityType"=>History::ENTITYTYPE_WEBSTREAM,
 			":ActionType1"=>History::ACTIONTYPE_WEBSTREAM_EDIT, ":ActionType2"=>History::ACTIONTYPE_WEBSTREAM_CHANGESTATUS);
@@ -58,8 +58,9 @@ class SiteController extends Controller
 				'order'=>'Date DESC',
 			),
 		));
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
+
+		
+		// Load stats
 		$this->render('index', array(
 			'modelSearchForm'=>$modelSearchForm,
 			'modelSendForm'=>$modelSendForm,
