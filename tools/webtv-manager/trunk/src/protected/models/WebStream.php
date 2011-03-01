@@ -9,6 +9,7 @@ class WebStream extends CActiveRecord
 {
 	public $email;
 	public $username;
+	public $Content;
 	public $RestrictionValue;
 	public $RestrictionCode;
 		
@@ -49,6 +50,7 @@ class WebStream extends CActiveRecord
 		array('SubmissionDate', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
         array('email', 'email'),
 		array('username', 'length', 'max'=>100),
+		array('Content', 'length', 'max'=>255),
 		array('RestrictionValue', 'length', 'max'=>200),
 		array('RestrictionCode', 'length', 'max'=>50),
 		);
@@ -67,6 +69,7 @@ class WebStream extends CActiveRecord
 			'CountryC'=>array(self::BELONGS_TO, 'Cntry', 'CountryCode'),
 			'RestrictionV'=>array(self::BELONGS_TO, 'Restriction', 'RestrictionValue'),
 			'RestrictionC'=>array(self::BELONGS_TO, 'Restrictiontype', 'RestrictionCode'),
+			'comment'=>array(self::HAS_MANY,'Comment','IdWebStream'),
 		);
 	}
 

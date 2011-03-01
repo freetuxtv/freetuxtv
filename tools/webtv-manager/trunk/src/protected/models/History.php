@@ -7,11 +7,16 @@
  */
 class History extends CActiveRecord
 {
+
 	const ENTITYTYPE_WEBSTREAM = 1;
+	const ENTITYTYPE_COMMENT = 2;
 	const ACTIONTYPE_WEBSTREAM_IMPORT = 1;
 	const ACTIONTYPE_WEBSTREAM_ADD = 2;
 	const ACTIONTYPE_WEBSTREAM_EDIT = 3;
 	const ACTIONTYPE_WEBSTREAM_CHANGESTATUS = 4;
+	const ACTIONTYPE_COMMENT_IMPORT = 1;
+	const ACTIONTYPE_COMMENT_ADD = 2;
+	const ACTIONTYPE_COMMENT_EDIT = 3;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -51,6 +56,7 @@ class History extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'Comment'=>array(self::HAS_MANY,'Comment','IdHistory'),
             'User'=>array(self::BELONGS_TO, 'User', 'UserId')
 		);
 	}
@@ -91,6 +97,12 @@ class History extends CActiveRecord
 			case History::ACTIONTYPE_WEBSTREAM_ADD : return "Added";
 			case History::ACTIONTYPE_WEBSTREAM_EDIT : return "Edited";
 			case History::ACTIONTYPE_WEBSTREAM_CHANGESTATUS : return "Status changed";
+			}
+		case History::ENTITYTYPE_COMMENT:
+			switch($this->ActionType){
+			case History::ACTIONTYPE_COMMENT_IMPORT : return "Comment Imported";
+			case History::ACTIONTYPE_COMMENT_ADD : return "Comment Added";
+			case History::ACTIONTYPE_COMMENT_EDIT : return "Comment Edited";
 			}
 		}
 		return "";

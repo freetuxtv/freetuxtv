@@ -32,12 +32,16 @@ class WebStreamController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','webstreamsearch','webstreamsend','send'),
+				'actions'=>array('index','view','webstreamsearch','webstreamsend','send','comment'),
 				'users'=>array('*'),
 			),
 			array('allow',
 				'actions'=>array('update'),
 				'roles'=>array('modoEditWebStream'),
+			),
+			array('allow',
+				'actions'=>array('hideComment','validComment'),
+				'roles'=>array('modoHideComment'),
 			),
 			array('allow',
 				'actions'=>array('changestatus'),
@@ -59,15 +63,42 @@ class WebStreamController extends Controller
 		$conditions = "";
 		$params = array();	
 		
-		$conditions = "EntityType=:Type AND EntityId=:WebStreamId";
+		$conditions = "EntityType=:Type  AND EntityId=:WebStreamId";
+		
+		//$conditions = "(EntityType=:Type OR EntityType=:Type2)  AND EntityId=:WebStreamId";
+		//$params["Type2"] = History::ENTITYTYPE_COMMENT;
+		
 		$params["Type"] = History::ENTITYTYPE_WEBSTREAM;
 		$params["WebStreamId"] = $model->Id;
-
+		
 		$dataHistory=new CActiveDataProvider('History',array(
 			'criteria'=>array(
 				'condition'=>$conditions,
 				'params'=>$params,
-				'order'=>'Date DESC',
+				'order'=>'Date ASC',
+			),
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
+		));
+		//Hide Submited and hided comment to no modoHideComment's power
+		if(Yii::app()->user->checkAccess('modoHideComment')) {
+			$commentConditions = "WebStreamId=:IdWebStream";
+			$commentparams["IdWebStream"] = $model->Id;
+			//$commentparams["Statut"] = Comment::COMMENT_STATUS_ACTIVE;
+		}
+		else {
+			$commentConditions = "WebStreamId=:IdWebStream AND Statut=:Statut";
+			$commentparams["IdWebStream"] = $model->Id;
+			$commentparams["Statut"] = Comment::COMMENT_STATUS_ACTIVE;
+		}
+		$dataComment=new CActiveDataProvider('Comment',array(
+			'criteria'=>array(
+				'join'=>'LEFT JOIN '.History::tableName().' as Hist ON Hist.Id = HistoryId AND Hist.EntityType='.History::ENTITYTYPE_COMMENT.'',
+				'together'=>true,
+				'condition'=>$commentConditions,
+				'params'=>$commentparams,
+				'order'=>'HistoryId DESC',
 			),
 			'pagination'=>array(
 				'pageSize'=>20,
@@ -75,6 +106,8 @@ class WebStreamController extends Controller
 		));
 
 		$this->render('view', array(
+			
+			'dataComment'=>$dataComment,
 			'model'=>$model,
 			'dataHistory'=>$dataHistory,
 		));
@@ -126,6 +159,86 @@ class WebStreamController extends Controller
 		));
 	}
 
+	/**
+	 * Add a Comment to a WebStream.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionComment()
+	{
+		$model=$this->loadModel();
+		if(isset($_POST['WebStream']))
+		{
+			$model->attributes=$_POST['WebStream'];
+			$model2->attributes=$_POST['WebStream'];
+			if(!Yii::app()->user->isGuest){
+				$model->username=Yii::app()->user->name;
+				$profile = YumProfile::model()->find('user_id = ' . Yii::app()->user->id);
+				$model->email=$profile->email;
+			}
+			
+			if(Yii::app()->user->isGuest){
+				if($model->username==""){
+					$model->username=null;
+				}
+				if($model->email==""){
+					$model->email=null;
+				}
+			}
+			if($model->Content==""){
+				$model->Content=null;
+			}
+			$history = History::createNew(History::ENTITYTYPE_COMMENT, History::ACTIONTYPE_COMMENT_ADD, $model->Id,'NEW COMMENT',$model->email,$model->username);
+				
+			if($history->save()){
+				$comment = Comment::createNew($model->Id, $history->Id,$model->Content,Comment::COMMENT_STATUS_SUBMITTED);
+				if($comment->save()){
+
+					// Send a mail to the admin
+					$link = Yii::app()->getRequest()->getHostInfo().Yii::app()->createUrl("WebStream/view", array("id" => $model->Id));
+					$subject = Yii::app()->name.' - New Comment submitted';
+					$message = 'A new Comment has been submitted by an user :<br><br>';
+					$message .= '<u>Name :</u> '.$model->username.'<br>';
+					$message .= '<u>Content :</u> '.$model->Content.'<br>';
+					$message .= '<br>';
+					$message .= 'Click here to view the details of the WebStream : <a href="'.$link.'">'.$link.'</a><br>';
+
+					$this->sendMailToAdmin($subject, $message);
+
+					$this->redirect(array('view','id'=>$model->Id));
+				}
+			}
+		}
+
+		$this->render('comment',array(
+			'model'=>$model,
+		));
+	}
+
+	
+	public function actionhideComment()
+	{
+		$model=$this->loadModel();
+		$Comment=Comment::model()->find('Id = ' . ($model->Id));
+		if ($Comment!=null){
+			$Comment->Statut=Comment::COMMENT_STATUS_HIDE;
+			if($Comment->save()){
+				$this->redirect(array('view','id'=>$Comment->WebStreamId));
+			}
+		}
+	}
+	
+	public function actionvalidComment()
+	{
+		$model=$this->loadModel();
+		$Comment=Comment::model()->find('Id = ' . ($model->Id));
+		if ($Comment!=null){
+			$Comment->Statut=Comment::COMMENT_STATUS_ACTIVE;
+			if($Comment->save()){
+				$this->redirect(array('view','id'=>$Comment->WebStreamId));
+			}
+		}
+	}
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.

@@ -7,6 +7,11 @@
  */
 class Comment extends CActiveRecord
 {
+	public $Username;
+	public $Date;
+	const COMMENT_STATUS_HIDE		= 0;
+	const COMMENT_STATUS_ACTIVE		= 1;
+	const COMMENT_STATUS_SUBMITTED	= 2;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -33,8 +38,9 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('IdWebStream, UserId, Value', 'required'),
+            array('WebStreamId, HistoryId, Content, Statut', 'required'),
 			array('Date', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
+        
         );
 	}
 
@@ -46,7 +52,7 @@ class Comment extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'User'=>array(self::BELONGS_TO, 'User', 'UserId')
+			
 		);
 	}
 
@@ -57,34 +63,38 @@ class Comment extends CActiveRecord
 	{
 		return array(
 			'Date'=>'Date',
+			'IdWebStream'=>'IdWebStream',
+			'IdHistory'=>'IdHistory',
+			'Content'=>'Content',
 		);
+	}
+
+	public function getCommentStatut()
+	{
+		switch($this->Statut){
+			case Comment::COMMENT_STATUS_HIDE : return "Hide";
+			case Comment::COMMENT_STATUS_SUBMITTED : return "Submit";
+			case Comment::COMMENT_STATUS_ACTIVE : return "Active";
+		}
+		return "";
 	}
 
 	protected function beforeSave()
 	{
-		$this->Date=new CDbExpression('NOW()');
-		if(parent::beforeSave())
-		{
-			$time=time();
-			if($this->isNewRecord) {
-				$this->UserId=Yii::app()->user->getId();
-				$this->Date=new CDbExpression('NOW()');
-			}
 		    return true;
-		}
-		else
-		    return false;
 	}
-
+	
 	/**
 	 * @return create a Comment line
 	 */
-	public static function createNew($IdWebStream, $Value)
+	public static function createNew($WebStreamId, $HistoryId, $Content, $Statut = Comment::COMMENT_STATUS_SUBMITTED)
 	{
 		$Comment = new Comment;
 		
-		$Comment->IdWebStream=$IdWebStream;
-		$Comment->Value=$Value;
+		$Comment->WebStreamId=$WebStreamId;
+		$Comment->HistoryId=$HistoryId;
+		$Comment->Content=$Content;
+		$Comment->Statut=$Statut;
 		return $Comment;
 	}
 }

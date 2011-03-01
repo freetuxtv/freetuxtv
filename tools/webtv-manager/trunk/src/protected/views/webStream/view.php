@@ -8,12 +8,14 @@ $this->breadcrumbs=array(
 <?php
 	$this->menu=array();
 	$this->menu[] = array('label'=>'View', 'url'=>array('view', 'id'=>$model->Id));
+	$this->menu[] = array('label'=>'Add Comment', 'url'=>array('comment', 'id'=>$model->Id));
 	if(Yii::app()->user->checkAccess('modoEditWebStream')) {
 		$this->menu[] = array('label'=>'Edit', 'url'=>array('update', 'id'=>$model->Id));
 	}
 	if(Yii::app()->user->checkAccess('modoChangeStatusWebS')) {
 		$this->menu[] = array('label'=>'Change status', 'url'=>array('changestatus', 'id'=>$model->Id));
 	}
+
 /*
 $this->menu=array(
 	array('label'=>'List WebStream', 'url'=>array('index')),
@@ -88,3 +90,6 @@ $this->widget('zii.widgets.CDetailView', array(
 <br><br>
 
 <?php echo $this->renderPartial('_viewhistory', array('dataHistory'=>$dataHistory)); ?>
+<br><br>
+
+<?php echo $this->renderPartial('_viewcomment', array('dataComment'=>$dataComment)); ?>
