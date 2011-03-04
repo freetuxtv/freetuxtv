@@ -9,7 +9,6 @@
 	</language>
 	<language lang="Free (FreeBox)" id="free">
 		<channels_group uri="http://mafreebox.freebox.fr/freeboxtv/playlist.m3u" required_isp="Free" name="FreeboxTV" bregex="[0-9]* - "/>
-		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_freeboxtv_nd.m3u" required_isp="Free" name="FreeboxTV (non dégroupé)"/>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_freeboxtv_mirror.m3u" required_isp="Free" name="FreeboxTV (miroir)" bregex="[0-9]* - "/>
 	</language>
 	<language lang="Orange" id="orange">
