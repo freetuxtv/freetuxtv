@@ -1217,7 +1217,7 @@ freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 	gboolean bIsPlaying;
 	bIsPlaying = (gtk_libvlc_media_player_get_state(app->player, &error) == GTK_LIBVLC_STATE_PLAYING);
 
-	if(bIsPlaying){
+	if(bIsPlaying && app->current.is_recording){
 		bQuit = FALSE;
 
 		dialog = gtk_message_dialog_new (parent,
