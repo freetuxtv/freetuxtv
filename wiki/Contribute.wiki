@@ -27,6 +27,12 @@ Aidez FreetuxTV à ce développer en le faisant connaître autour de vous.
 
 = Pour les graphistes =
 
+== Soumettre des nouveaux liens ==
+
+Si vous avez des nouveaux liens de WebTV ou WebRadio a nous transmettre, vous pouvez poster ici : http://freetuxtv.eric-beuque.com/webtv-manager/.
+
+Ces liens seront alors automatiquement disponible dans FreetuxTV après modération.
+
 == Logos manquant ==
 
 Vous avez pu constater que beaucoup de chaîne dans FreetuxTV ne possédait pas de logo. Vous pouvez les créer vous même et les transmettre à l'équipe de FreetuxTV.
@@ -35,9 +41,7 @@ Ces images doivent impérativement :
  * Avoir des dimensions de 38x38 pixels
  * Une bordure noir de largeur de 1 pixels autour du logo.
 
-== Logo et icône ==
-
-FreetuxTV n'a malheureusement pas de logo officiel, ni d'icône. Alors si vous êtes plutôt créatif, que vous avez du temps à perdre, et que vous maîtrisez la création d'image, proposez un logo ou une icône pour FreetuxTV. Puis avec l'avis des utilisateurs, nous pourrons décider (ou pas) de l'intégrer aux prochaines version de FreetuxTV.
+Vous pouvez les transmettre soit en postant une "Issues" sur le site du projet, ou me les transmettre [http://www.eric-beuque.com par mail]. 
 
 == Bannière pour le Blog ==
 
