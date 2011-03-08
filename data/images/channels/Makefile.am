@@ -51,11 +51,18 @@ channels_DATA = \
   bulgariatv.png \
   c9.png \
   calaistv.png \
+  canal10tucuman.png \
+  canal26.png \
+  canal4sanjuan.png \
+  canal5tucuman.png \
+  canal6posadas.png \
+  canal9entrerios.png \
   canalacademie.png \
   canalalgerie.png \
   canalinfonews.png \
   canalmoza.png \
   canalplus.png \
+  canalrural.png \
   canalsavoir.png \
   canaltv.png \
   cap24-paris.png \
@@ -341,6 +348,7 @@ channels_DATA = \
   tlt-toulouse.png \
   tmc.png \
   tna.png \
+  tn.png \
   topmusic.png \
   tracetropical.png \
   tracetv.png \
@@ -369,6 +377,7 @@ channels_DATA = \
   tvt.png \
   tvtours.png \
   tvvi.png \
+  urbaniatv.png \
   vesti.png \
   vh1.png \
   vh1classic.png \
@@ -385,5 +394,6 @@ channels_DATA = \
   yementv.png \
   zahratv.png \
   zdf_de.png \
-  zhejiangstartv.png
+  zhejiangstartv.png \
+  zona31.png
 EXTRA_DIST   = $(channels_DATA)
