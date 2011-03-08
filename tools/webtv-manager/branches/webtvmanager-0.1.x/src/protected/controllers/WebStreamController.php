@@ -276,6 +276,9 @@ class WebStreamController extends Controller
 				}
 			}
 		}else{
+			$modelSendForm = new WebStreamSendForm;
+			$modelSendForm->Url = $_GET['WebStreamUrl'];
+
 			$model->Url = $_GET['WebStreamUrl'];
 		}
 
@@ -297,7 +300,8 @@ class WebStreamController extends Controller
 
 		$this->render('send',array(
 			'dataProvider'=>$dataProvider,
-			'model'=>$model
+			'model'=>$model,
+			'modelSendForm'=>$modelSendForm,
 		));
 	}
 

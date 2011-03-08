@@ -89,11 +89,11 @@
 
 <?php $this->endWidget(); ?>
 
+</div><!-- web-stream-send-form -->
+
 <?php
 	}
 ?>
-
-</div><!-- web-stream-send-form -->
 
 <br/>
 

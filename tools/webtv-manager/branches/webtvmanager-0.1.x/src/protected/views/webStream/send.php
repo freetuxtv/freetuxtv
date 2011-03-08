@@ -21,6 +21,30 @@ You can view the details of existing links by choosing one in the following list
 
 <?php echo $this->renderPartial('_results', array('dataProvider'=>$dataProvider)); ?>
 
+You can try to send another link :
+
+<div class="wide form">
+
+<?php
+	$form=$this->beginWidget('CActiveForm', array(
+		'action'=>Yii::app()->createUrl("site/SendWebStream"),
+		'method'=>'get',
+		'id'=>'web-stream-search-form',
+		'enableAjaxValidation'=>false,
+		));
+?>
+
+	<div class="row">
+		<?php echo $form->labelEx($modelSendForm,'Url'); ?>
+		<?php echo $form->textField($modelSendForm,'Url',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo CHtml::submitButton('Confirm'); ?>
+		<?php echo $form->error($modelSendForm,'Url'); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+
+</div><!-- web-stream-send-form -->
+
 <?php
 	}
 ?>
