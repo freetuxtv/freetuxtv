@@ -162,6 +162,24 @@
 	<tvchannel name="Calais TV">
 		<logo_filename>calaistv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Canal10 Tucuman">
+		<logo_filename>canal10tucuman.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal26">
+		<logo_filename>canal26.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal4 SanJuan">
+		<logo_filename>canal4sanjuan.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal5 Tucuman">
+		<logo_filename>canal5tucuman.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal6 Posadas">
+		<logo_filename>canal6posadas.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal9 EntreRios">
+		<logo_filename>canal9entrerios.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Canal Académie">
 		<logo_filename>canalacademie.png</logo_filename>
 	</tvchannel>
@@ -180,6 +198,9 @@
 	</tvchannel>
 	<tvchannel name="Canal savoir">
 		<logo_filename>canalsavoir.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CanalRural">
+		<logo_filename>canalrural.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="CanalTV">
 		<logo_filename>canaltv.png</logo_filename>
@@ -1136,6 +1157,9 @@
 	<tvchannel name="TNA">
 		<logo_filename>tna.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="TN">
+		<logo_filename>tn.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Top Music">
 		<logo_filename>topmusic.png</logo_filename>
 	</tvchannel>
@@ -1226,6 +1250,9 @@
 	<tvchannel name="TVVi">
 		<logo_filename>tvvi.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="UrbaniaTV">
+		<logo_filename>urbaniatv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Vesti FM">
 		<logo_filename>vesti.png</logo_filename>
 	</tvchannel>
@@ -1277,5 +1304,8 @@
 	</tvchannel>
 	<tvchannel name="Zhejiang Star TV">
 		<logo_filename>zhejiangstartv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Zona 31">
+		<logo_filename>zona31.png</logo_filename>
 	</tvchannel>
 </tvchannels>
