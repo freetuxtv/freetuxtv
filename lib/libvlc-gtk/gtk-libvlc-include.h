@@ -24,21 +24,6 @@
 #  include <config.h>
 #endif
 
-// Set default value for LIBVLC_VERSION_MAJOR
-#ifndef LIBVLC_VERSION_MAJOR
-#error "LIBVLC_VERSION_MAJOR must be defined."
-#endif
-
-// Set default value for LIBVLC_VERSION_MINOR
-#ifndef LIBVLC_VERSION_MINOR
-#error "LIBVLC_VERSION_MINOR must be defined."
-#endif
-
-// Set default value for LIBVLC_VERSION_REVISION
-#ifndef LIBVLC_VERSION_REVISION
-#error "LIBVLC_VERSION_REVISION must be defined."
-#endif
-
 // Max volume power for VLC
 #define LIBVLC_MAX_VOLUME_POWER 2.0 // Represent a percentage (2.0 = 200%)
 
