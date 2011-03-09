@@ -24,6 +24,21 @@
 
 #define GTK_LIBVLC_LOG_DOMAIN			"LibVLC-Gtk"
 
+// Set default value for LIBVLC_VERSION_MAJOR
+#ifndef LIBVLC_VERSION_MAJOR
+#error "LIBVLC_VERSION_MAJOR must be defined."
+#endif
+
+// Set default value for LIBVLC_VERSION_MINOR
+#ifndef LIBVLC_VERSION_MINOR
+#error "LIBVLC_VERSION_MINOR must be defined."
+#endif
+
+// Set default value for LIBVLC_VERSION_REVISION
+#ifndef LIBVLC_VERSION_REVISION
+#error "LIBVLC_VERSION_REVISION must be defined."
+#endif
+
 // List of options avaliable for each branche
 // LIBVLC_OLD_INSTANCE : The branche use the old libvlc_instance_t interface
 // LIBVLC_OLD_VLCEXCEPTION : The branche use the deprecated libvlc_exception_t object
