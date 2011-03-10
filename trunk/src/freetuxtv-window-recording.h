@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
 /*
  * FreetuxTV is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,10 +23,39 @@
 
 #include "freetuxtv-app.h"
 
-void
-windowrecording_init(FreetuxTVApp *app);
+G_BEGIN_DECLS
 
-void
-windowrecording_updateinfos(FreetuxTVApp *app);
+#define FREETUXTV_TYPE_WINDOW_RECORDING             (freetuxtv_window_recording_get_type ())
+#define FREETUXTV_WINDOW_RECORDING(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), FREETUXTV_TYPE_WINDOW_RECORDING, FreetuxTVWindowRecording))
+#define FREETUXTV_WINDOW_RECORDING_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), FREETUXTV_TYPE_WINDOW_RECORDING, FreetuxTVWindowRecordingClass))
+#define FREETUXTV_IS_WINDOW_RECORDING(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FREETUXTV_TYPE_WINDOW_RECORDING))
+#define FREETUXTV_IS_WINDOW_RECORDING_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), FREETUXTV_TYPE_WINDOW_RECORDING))
+#define FREETUXTV_WINDOW_RECORDING_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), FREETUXTV_TYPE_WINDOW_RECORDING, FreetuxTVWindowRecordingClass))
+
+typedef struct _FreetuxTVWindowRecordingClass FreetuxTVWindowRecordingClass;
+typedef struct _FreetuxTVWindowRecording FreetuxTVWindowRecording;
+
+struct _FreetuxTVWindowRecordingClass
+{
+	GObjectClass parent_class;
+};
+
+struct _FreetuxTVWindowRecording
+{
+	GObject parent_instance;
+};
+
+GType freetuxtv_window_channel_properties_get_type (void) G_GNUC_CONST;
+
+FreetuxTVWindowRecording*
+freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app);
+
+gint
+freetuxtv_window_recording_run (
+    FreetuxTVWindowRecording* pWindowRecording,
+    FreetuxTVChannelInfos* pChannelInfos,
+    GtkTreePath* pPath);
+
+G_END_DECLS
 
 #endif /* FREETUXTV_WINDOW_RECORDING_H */
