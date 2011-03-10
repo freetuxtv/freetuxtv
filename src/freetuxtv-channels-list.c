@@ -585,8 +585,8 @@ channels_list_get_prev_channel (FreetuxTVApp *app,
 							"windowmain_treeviewchannelslist");
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 
-	if (app->current.path_channel != NULL) {
-		path = gtk_tree_path_copy(app->current.path_channel);
+	if (app->current.pPathChannel != NULL) {
+		path = gtk_tree_path_copy(app->current.pPathChannel);
 		if(gtk_tree_path_prev (path)){
 			if(gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter_channel, path)){
 				*path_prev_channel = path;
@@ -612,8 +612,8 @@ channels_list_get_next_channel (FreetuxTVApp *app,
 							"windowmain_treeviewchannelslist");
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 
-	if (app->current.path_channel != NULL) {
-		path = gtk_tree_path_copy(app->current.path_channel);
+	if (app->current.pPathChannel != NULL) {
+		path = gtk_tree_path_copy(app->current.pPathChannel);
 		gtk_tree_path_next (path);
 		if(gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter_channel, path)){
 			*path_next_channel = path;
@@ -659,20 +659,20 @@ channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 	
 	if(path_channel != NULL){
-		if(app->current.path_channel != path_channel){
-			if(app->current.path_channel != NULL){
-				gtk_tree_model_get_iter (model, &iter, app->current.path_channel);		
-				gtk_tree_model_row_changed (model, app->current.path_channel, &iter);
-				gtk_tree_path_free(app->current.path_channel);
+		if(app->current.pPathChannel != path_channel){
+			if(app->current.pPathChannel != NULL){
+				gtk_tree_model_get_iter (model, &iter, app->current.pPathChannel);		
+				gtk_tree_model_row_changed (model, app->current.pPathChannel, &iter);
+				gtk_tree_path_free(app->current.pPathChannel);
 			}
-			app->current.path_channel = gtk_tree_path_copy(path_channel);
-			gtk_tree_model_get_iter (model, &iter, app->current.path_channel);
-			gtk_tree_model_row_changed (model, app->current.path_channel, &iter);
+			app->current.pPathChannel = gtk_tree_path_copy(path_channel);
+			gtk_tree_model_get_iter (model, &iter, app->current.pPathChannel);
+			gtk_tree_model_row_changed (model, app->current.pPathChannel, &iter);
 		}
 
-		gtk_tree_view_expand_to_path (GTK_TREE_VIEW(treeview), app->current.path_channel);
+		gtk_tree_view_expand_to_path (GTK_TREE_VIEW(treeview), app->current.pPathChannel);
 
-		filter_path = gtk_tree_model_filter_convert_child_path_to_path (GTK_TREE_MODEL_FILTER(model), app->current.path_channel);
+		filter_path = gtk_tree_model_filter_convert_child_path_to_path (GTK_TREE_MODEL_FILTER(model), app->current.pPathChannel);
 		
 		if(filter_path != NULL){
 			gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW(treeview), filter_path, NULL,
@@ -683,9 +683,9 @@ channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel)
 			gtk_tree_view_expand_to_path (GTK_TREE_VIEW(treeview), filter_path);
 		}
 	}else{
-		GtkTreePath* pTmpPath = app->current.path_channel;
+		GtkTreePath* pTmpPath = app->current.pPathChannel;
 		if(pTmpPath != NULL){
-			app->current.path_channel = NULL;
+			app->current.pPathChannel = NULL;
 			gtk_tree_model_get_iter (model, &iter, pTmpPath);		
 			gtk_tree_model_row_changed (model, pTmpPath, &iter);
 			gtk_tree_path_free(pTmpPath);
@@ -840,7 +840,7 @@ on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* pChannelInfos,
 
 		// Get the path of the channel to play, if needed
 		gboolean match = FALSE;
-		if(app->current.path_channel == NULL){
+		if(app->current.pPathChannel == NULL){
 			// If channel name match with required channel
 			if(app->current.open_channel_id != -1){
 				if(pChannelInfos->id == app->current.open_channel_id){
@@ -855,7 +855,7 @@ on_dbsync_add_channel(FreetuxTVApp *app, FreetuxTVChannelInfos* pChannelInfos,
 			if(match){
 				GtkTreePath* path;
 				path = gtk_tree_model_get_path(GTK_TREE_MODEL(app->channelslist), iter_data->iter);
-				app->current.path_channel = path;
+				app->current.pPathChannel = path;
 				app->current.autoplay_channel = TRUE;
 			}
 		}
@@ -925,11 +925,11 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 		imgfile = tvchannels_list_get_tvchannel_logo_path(app, channel_infos, TRUE);
 
 		gboolean is_playing = FALSE;
-		if(app->current.path_channel != NULL){
+		if(app->current.pPathChannel != NULL){
 			GtkTreePath* path, *model_path;
 			path = gtk_tree_model_get_path(model, iter);
 			model_path = gtk_tree_model_filter_convert_path_to_child_path (GTK_TREE_MODEL_FILTER(model), path);
-			if(gtk_tree_path_compare(app->current.path_channel, model_path) == 0){
+			if(gtk_tree_path_compare(app->current.pPathChannel, model_path) == 0){
 				is_playing = TRUE;
 			}
 			gtk_tree_path_free(path);

@@ -51,6 +51,7 @@ struct _FreetuxTVApp {
 	struct {
 		gchar* datadir;
 		gchar* gladexmlfile;
+		gchar* szPathGladeXml;
 	} paths;
 
 	struct {		
@@ -85,7 +86,7 @@ struct _FreetuxTVApp {
 	struct {
 		gchar* open_channel_name;
 		gint open_channel_id;
-		GtkTreePath *path_channel;
+		GtkTreePath *pPathChannel;
 		gboolean autoplay_channel;
 		NotifyNotification *notification;
 		gboolean bIsAccelGroupActivated;

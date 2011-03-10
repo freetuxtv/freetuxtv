@@ -651,7 +651,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 	                                               "windowmain_buttonprevious");
 	switch(mode){
 		case WINDOW_MODE_STOPPED :
-			if(app->current.path_channel != NULL){
+			if(app->current.pPathChannel != NULL){
 				sensitive = TRUE;		
 			}else{
 				sensitive = FALSE;	
@@ -674,7 +674,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 	                                               "windowmain_buttonnext");
 	switch(mode){
 		case WINDOW_MODE_STOPPED :
-			if(app->current.path_channel != NULL){
+			if(app->current.pPathChannel != NULL){
 				sensitive = TRUE;		
 			}else{
 				sensitive = FALSE;	
@@ -697,7 +697,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 	switch(mode){
 		case WINDOW_MODE_STOPPED :
 		case WINDOW_MODE_PAUSED :
-			if(app->current.path_channel == NULL){
+			if(app->current.pPathChannel == NULL){
 				sensitive = FALSE;
 			}else{
 				sensitive = TRUE;
@@ -1044,7 +1044,7 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
 
 	gtk_tree_view_collapse_all (GTK_TREE_VIEW(treeview));
-	channels_list_set_playing (app, app->current.path_channel);
+	channels_list_set_playing (app, app->current.pPathChannel);
 }
 
 static void
@@ -1053,7 +1053,7 @@ on_windowmain_buttongotocurrent_clicked (GtkButton *button,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	channels_list_set_playing(app, app->current.path_channel);
+	channels_list_set_playing(app, app->current.pPathChannel);
 }
 
 static void
@@ -1109,19 +1109,35 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 
 	GtkWidget *widget;
 	GError* error = NULL;
+	FreetuxTVChannelInfos* pChannelInfos;
 
-	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                                "dialogrecording");
+	FreetuxTVWindowRecording* pWindowRecording;
+	gint res;
 
-	windowrecording_updateinfos(app);
+	// Create the window
+	widget = gtk_widget_get_toplevel (GTK_WIDGET(button));
+	if (!gtk_widget_is_toplevel  (widget)) {
+		widget = NULL;
+	}
+	pWindowRecording = freetuxtv_window_recording_new (GTK_WINDOW(widget), app);
+	
+	// Show properties to the channel corresponding to the path
+	pChannelInfos = channels_list_get_channel (app, app->current.pPathChannel);
 
-	if(gtk_dialog_run(GTK_DIALOG(widget)) == GTK_RESPONSE_OK){
+	// Display the window
+	res = freetuxtv_window_recording_run (pWindowRecording,
+	    pChannelInfos, app->current.pPathChannel);
 
+	// Destroy the window
+	g_object_unref(pWindowRecording);
+	pWindowRecording = NULL;
+
+	if(res == GTK_RESPONSE_OK){
 		g_get_current_time (&(app->current.recording.time_begin));
 
 		freetuxtv_action_record (app, &error);
 	}
-
+	
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
 		g_error_free (error);
@@ -1209,7 +1225,7 @@ on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 
 	if(g_ascii_strcasecmp(text, "") == 0){
 		gtk_tree_view_collapse_all (GTK_TREE_VIEW(treeview));
-		channels_list_set_playing (app, app->current.path_channel);
+		channels_list_set_playing (app, app->current.pPathChannel);
 	}else{
 		gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 	}
@@ -1446,13 +1462,13 @@ on_windowmain_menuitemdeinterlace_change (GtkMenuItem *menuitem,
 	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
 		freetuxtv_action_deinterlace (app, mode, &error);
 
-		if(app->current.path_channel){
+		if(app->current.pPathChannel){
 			if(error == NULL){
 				dbsync_open_db (&dbsync, &error);
 			}
 
 			if(error == NULL){
-				pChannel = channels_list_get_channel (app, app->current.path_channel);
+				pChannel = channels_list_get_channel (app, app->current.pPathChannel);
 				dbsync_update_channel_deinterlace_mode (&dbsync, pChannel, (gchar*)mode, &error);		
 			}
 
@@ -2030,7 +2046,7 @@ on_accel_volumedown (GtkAccelGroup *accel_group, GObject *acceleratable, guint k
 	}
 	gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
 	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, &error);
-
+	
 
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
