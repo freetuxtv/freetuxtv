@@ -49,8 +49,8 @@ freetuxtv_SOURCES = \
 	freetuxtv-window-channel-properties.c \
 	freetuxtv-window-main.c \
 	freetuxtv-window-main.h \
-	freetuxtv-window-recording.c \
-	freetuxtv-window-recording.h \
+	freetuxtv-window-add-recording.c \
+	freetuxtv-window-add-recording.h \
 	lib-gmmkeys.c \
 	lib-gmmkeys.h \
 	lib-m3uparser.c \
