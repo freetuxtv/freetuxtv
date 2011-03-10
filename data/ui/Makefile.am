@@ -1,6 +1,8 @@
 
 # UI file to install
-freetuxtvui_DATA = freetuxtv.glade
+freetuxtvui_DATA = \
+	addrecording.glade \
+	freetuxtv.glade
 freetuxtvuidir = $(pkgdatadir)/ui
 
 EXTRA_DIST = \

@@ -31,6 +31,7 @@ freetuxtv_SOURCES = \
 	freetuxtv-db-sync.h \
 	freetuxtv-fileutils.c \
 	freetuxtv-fileutils.h \
+	freetuxtv-gladexml.h \
 	freetuxtv-i18n.h \
 	freetuxtv-models.c \
 	freetuxtv-models.h \
