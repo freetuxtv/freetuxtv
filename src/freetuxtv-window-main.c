@@ -21,7 +21,7 @@
 #include <sqlite3.h>
 
 #include "freetuxtv-window-main.h"
-#include "freetuxtv-window-recording.h"
+#include "freetuxtv-window-add-recording.h"
 #include "freetuxtv-window-add-channels-group.h"
 
 #include "freetuxtv-app.h"

@@ -23,7 +23,7 @@
 #include <gtk/gtk.h>
 #include <stdlib.h>
 
-#include "freetuxtv-window-recording.h"
+#include "freetuxtv-window-add-recording.h"
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-gladexml.h"

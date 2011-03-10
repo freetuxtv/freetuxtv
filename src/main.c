@@ -28,7 +28,6 @@
 #include "freetuxtv-utils.h"
 #include "freetuxtv-i18n.h"
 #include "freetuxtv-window-main.h"
-#include "freetuxtv-window-recording.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-recordings-list.h"
 #include "freetuxtv-tv-channels-list.h"
