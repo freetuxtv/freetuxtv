@@ -778,7 +778,7 @@ channels_group_get_file (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos *self, g
 	g_free(name);
 
 	if(update){
-		freetuxtv_fileutils_get_file (self->uri, groupfile, &(app->prefs.proxy), error);
+		freetuxtv_fileutils_get_file (self->uri, groupfile, &(app->prefs.proxy), app->prefs.timeout, error);
 	}
 
 	*filename = groupfile;
