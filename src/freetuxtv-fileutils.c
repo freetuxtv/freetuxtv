@@ -35,7 +35,7 @@ freetuxtv_curl_error_quark () {
 }
 
 void
-freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, const GProxyStruct* pProxySctruct, GError **error)
+freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, const GProxyStruct* pProxySctruct, int timeout, GError **error)
 {
 	g_return_if_fail(url != NULL);
 	g_return_if_fail(dst_file != NULL);
@@ -53,7 +53,9 @@ freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, const GProxyStruct* p
 		// Download the file
 		CURL *session = curl_easy_init(); 
 		curl_easy_setopt(session, CURLOPT_URL, url);
-		curl_easy_setopt(session, CURLOPT_TIMEOUT, 10);
+		if(timeout > 0){
+			curl_easy_setopt(session, CURLOPT_TIMEOUT, timeout);
+		}
 		// curl_easy_setopt(session, CURLOPT_VERBOSE, 1);
 		curl_easy_setopt(session, CURLOPT_FOLLOWLOCATION, 1);
 

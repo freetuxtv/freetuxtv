@@ -229,6 +229,15 @@ load_user_configuration(FreetuxTVApp *app)
 		}
 
 		i = g_key_file_get_integer (keyfile, "network",
+		                            "timeout", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->prefs.timeout = i;
+		}
+
+		i = g_key_file_get_integer (keyfile, "network",
 		                            "proxy_mode", &err);
 		if (err != NULL) {
 			g_error_free (err);
@@ -675,6 +684,7 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	app->prefs.directoryrecordings = g_strdup(g_get_home_dir());
 	app->prefs.transcoding_mode = 0;
 	app->prefs.transcoding_format = g_strdup("0");
+	app->prefs.timeout = 20;
 	app->prefs.proxy.proxy_mode = G_PROXY_MODE_NONE;
 	app->prefs.proxy.proxy_server = g_strdup("");
 	app->prefs.proxy.proxy_port = g_strdup("");
@@ -1266,6 +1276,9 @@ freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 			                   "transcoding_format",
 			                   app->prefs.transcoding_format);
 
+		g_key_file_set_integer (keyfile, "network",
+			                    "timeout",
+			                    app->prefs.timeout);
 		g_key_file_set_integer (keyfile, "network",
 			                    "proxy_mode",
 			                    app->prefs.proxy.proxy_mode);
