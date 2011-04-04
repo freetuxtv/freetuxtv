@@ -1279,6 +1279,8 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 
+	gchar* szTmp = NULL;
+
 	// General
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                               "dialogpreferences_channelonstartup");
@@ -1340,6 +1342,14 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	gtk_combo_box_set_active_iter (GTK_COMBO_BOX(widget), &iter);
 
 	// Network
+	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                               "dialogpreferences_entrytimeout");
+	szTmp = g_strdup_printf("%d", app->prefs.timeout);
+	gtk_entry_set_text (GTK_ENTRY(widget), szTmp);
+	g_free(szTmp);
+	szTmp = NULL;
+
 	switch(app->prefs.proxy.proxy_mode){
 		case 0:
 			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
@@ -1712,6 +1722,11 @@ on_dialogpreferences_response (GtkDialog *dialog,
 		app->prefs.transcoding_format = gtk_tree_model_get_string_from_iter (model, &iter);
 
 		// Get prefs network
+		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+		                                               "dialogpreferences_entrytimeout");
+		text = gtk_entry_get_text (GTK_ENTRY(widget));
+		app->prefs.timeout = atoi(text);
+
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 		                                               "dialogpreferences_radioproxyno");
 		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){

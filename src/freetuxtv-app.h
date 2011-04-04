@@ -69,6 +69,7 @@ struct _FreetuxTVApp {
 		gchar* transcoding_format;
 
 		// Prefs network
+		gint timeout;
 		GProxyStruct proxy;
 		
 	} prefs;
