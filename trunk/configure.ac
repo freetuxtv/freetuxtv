@@ -95,6 +95,36 @@ else
   exit 1
 fi
 
+dnl Get libnotify version
+LIBNOTIFY_VERSION=""
+LIBNOTIFY_PKGCONFIG=""
+LIBNOTIFY_FOUND=no
+if test "$PKGCONFIG" == "yes"; then
+  if pkg-config --exists libvlc; then
+    LIBNOTIFY_VERSION=`pkg-config --modversion libnotify | sed 's/[[a-zA-Z\-]].*$//'`
+    LIBNOTIFY_PKGCONFIG="libnotify"
+    LIBNOTIFY_FOUND=yes
+  fi
+fi
+dnl Set variable for the config.h
+if test "$LIBNOTIFY_FOUND" == "yes"; then
+  LIBNOTIFY_VERSION_MAJOR=`echo $LIBNOTIFY_VERSION | cut -d'.' -f1`
+  LIBNOTIFY_VERSION_MINOR=`echo $LIBNOTIFY_VERSION | cut -d'.' -f2`
+  LIBNOTIFY_VERSION_REVISION=`echo $LIBNOTIFY_VERSION | cut -d'.' -f3`
+  echo "compiling with libnotify version $LIBNOTIFY_VERSION_MAJOR.$LIBNOTIFY_VERSION_MINOR.$LIBNOTIFY_VERSION_REVISION"
+  AC_DEFINE_UNQUOTED(LIBNOTIFY_VERSION_MAJOR, $LIBNOTIFY_VERSION_MAJOR, [libnotify version major used for complication])
+  AC_DEFINE_UNQUOTED(LIBNOTIFY_VERSION_MINOR, $LIBNOTIFY_VERSION_MINOR, [Current libnotify version minor])
+  AC_DEFINE_UNQUOTED(LIBNOTIFY_VERSION_REVISION, $LIBNOTIFY_VERSION_REVISION, [Current libnotify version revision])
+  if test "$LIBNOTIFY_PKGCONFIG" != ""; then
+    LIBNOTIFY_PKGCONFIG="libnotify >= $LIBNOTIFY_VERSION_MAJOR.$LIBNOTIFY_VERSION_MINOR.$LIBNOTIFY_VERSION_REVISION"
+  fi
+else
+  echo
+  echo "**Error**: Cannot detect libnotify version."
+  echo "Do you have installed the libnotify development (libnotify-dev) package?"
+  exit 1
+fi
+
 dnl Use "pkg-config --modversion module" to find version.
 PKG_CHECK_MODULES(FREETUXTV, gtk+-2.0 >= 2.12
                              glib-2.0 >= 2.16.0
