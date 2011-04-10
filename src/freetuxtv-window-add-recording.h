@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 
 #include "freetuxtv-app.h"
+#include "freetuxtv-recording-infos.h"
 
 G_BEGIN_DECLS
 
@@ -53,8 +54,8 @@ freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app);
 gint
 freetuxtv_window_recording_run (
     FreetuxTVWindowRecording* pWindowRecording,
-    FreetuxTVChannelInfos* pChannelInfos,
-    GtkTreePath* pPath);
+    FreetuxTVChannelInfos* pChannelInfos, GtkTreePath* pPath,
+    FreetuxTVRecordingInfos** ppRecordingInfos);
 
 G_END_DECLS
 

@@ -30,6 +30,7 @@
 #include <libvlc-gtk/gtk-libvlc-media-player.h>
 
 #include "freetuxtv-channel-infos.h"
+#include "freetuxtv-recording-infos.h"
 #include "freetuxtv-fileutils.h"
 
 G_BEGIN_DECLS
@@ -47,6 +48,7 @@ struct _FreetuxTVApp {
 
 	GtkLibvlcMediaPlayer *player;
 	GtkTreeModel *channelslist;
+	GtkTreeModel *pRecordingList;
 
 	struct {
 		gchar* datadir;
@@ -94,7 +96,7 @@ struct _FreetuxTVApp {
 		
 		gboolean is_recording;
 		struct {
-			gchar* dst_file;
+			FreetuxTVRecordingInfos* pRecordingInfo;
 			GTimeVal time_begin;
 			gint max_duration;
 			GTimer *duration;
@@ -131,7 +133,10 @@ void
 freetuxtv_action_stop (FreetuxTVApp *app, GError** error);
 
 void
-freetuxtv_action_record (FreetuxTVApp *app, GError** error);
+freetuxtv_action_start_recording (FreetuxTVApp *app, FreetuxTVRecordingInfos* pRecordingInfos, GError** error);
+
+void
+freetuxtv_action_stop_recording (FreetuxTVApp *app, FreetuxTVRecordingInfos* pRecordingInfos, GError** error);
 
 void
 freetuxtv_action_prev (FreetuxTVApp *app, GError** error);

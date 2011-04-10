@@ -88,6 +88,9 @@ channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel);
 FreetuxTVChannelInfos*
 channels_list_get_channel(FreetuxTVApp *app, GtkTreePath* path_channel);
 
+FreetuxTVChannelInfos*
+channels_list_get_channel_by_id(FreetuxTVApp *app, int channel_id);
+
 FreetuxTVChannelsGroupInfos*
 channels_list_get_group(FreetuxTVApp *app, GtkTreePath* path_group);
 

@@ -28,8 +28,13 @@ tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
     GError** error);
 
 gchar*
-tvchannels_list_get_tvchannel_logo_path(FreetuxTVApp *app, 
-    FreetuxTVChannelInfos* channel_infos,
-    gboolean none_icon);
+tvchannels_list_get_tvchannel_logo_path_for_channel(FreetuxTVApp *app, 
+    FreetuxTVChannelInfos* pChannelInfos,
+    gboolean bNoneIcon);
+
+gchar*
+tvchannels_list_get_tvchannel_logo_path_for_recording(FreetuxTVApp *app, 
+    FreetuxTVRecordingInfos* pRecordingInfos,
+    gboolean bNoneIcon);
 
 #endif /* FREETUXTV_TV_CHANNELS_LIST_H */

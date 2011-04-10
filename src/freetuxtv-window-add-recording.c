@@ -45,7 +45,7 @@ static gboolean
 dialog_init (FreetuxTVWindowRecording *pWindowRecording, GtkWindow *parent);
 
 static void
-dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, GTimeVal* pTimeRef);
+dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, gint64 timeref);
 
 static void
 on_dialogaddrecording_response (GtkDialog *dialog, gint response_id, gpointer user_data);
@@ -126,8 +126,8 @@ freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app)
 gint
 freetuxtv_window_recording_run (
     FreetuxTVWindowRecording* pWindowRecording,
-    FreetuxTVChannelInfos* pChannelInfos,
-    GtkTreePath* pPath)
+    FreetuxTVChannelInfos* pChannelInfos, GtkTreePath* pPath,
+    FreetuxTVRecordingInfos** ppRecordingInfos)
 {
 	g_return_val_if_fail(pWindowRecording != NULL, GTK_RESPONSE_NONE);
 	g_return_val_if_fail(FREETUXTV_IS_WINDOW_RECORDING(pWindowRecording), GTK_RESPONSE_NONE);
@@ -143,8 +143,12 @@ freetuxtv_window_recording_run (
 	GtkWidget *widget;
 	//	GObject *object;
 	
-	GTimeVal time_now;
-	g_get_current_time (&time_now);
+	GTimeVal now;
+	gint64 beginTime;
+	gint64 endTime;
+	int duration;
+	g_get_current_time (&now);
+	beginTime = g_time_val_to_int64(&now);
 
 	// Set the value in the fields
 	widget = (GtkWidget *) gtk_builder_get_object (priv->pBuilder, "label_channel");
@@ -154,17 +158,34 @@ freetuxtv_window_recording_run (
 
 	gchar* szTmp;
 	gchar* szEndText;
-	szEndText = g_time_val_to_string(&time_now, "%d/%m/%y %H:%M");
+	szEndText = g_time_int64_to_string(beginTime, "%d/%m/%y %H:%M");
 	szTmp = g_strdup_printf("%s - %s", pChannelInfos->name, szEndText);
 	gtk_entry_set_text(GTK_ENTRY(widget), szTmp);
 	g_free(szTmp);
 	g_free(szEndText);
 
 	// Update display
-	dialog_updateinfos(pWindowRecording, &time_now);
+	dialog_updateinfos(pWindowRecording, beginTime);
 
 	// Display the dialog
 	res = gtk_dialog_run(dialog);
+
+	if(res == GTK_RESPONSE_OK && ppRecordingInfos){
+
+		widget =  (GtkWidget *) gtk_builder_get_object (priv->pBuilder,
+		    "entry_duration");
+		szTmp = (gchar*)gtk_entry_get_text(GTK_ENTRY(widget));
+		duration = atoi(szTmp);
+
+		widget = (GtkWidget *) gtk_builder_get_object (priv->pBuilder, "entry_title");
+		szTmp = (gchar*)gtk_entry_get_text(GTK_ENTRY(widget));
+
+		g_get_current_time (&now);
+		endTime = beginTime;
+		g_time_int64_add_seconds (&endTime, duration * 60);
+		
+	    *ppRecordingInfos = freetuxtv_recording_infos_new(szTmp, beginTime, endTime, pChannelInfos->id);
+	}
 
 	return res;
 }
@@ -215,7 +236,7 @@ dialog_init (FreetuxTVWindowRecording *pWindowRecording, GtkWindow *parent)
 }
 
 static void
-dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, GTimeVal* pTimeRef)
+dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, gint64 timeref)
 {
 	GtkWidget *widget;
 	const gchar* szDurationText;
@@ -234,18 +255,16 @@ dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, GTimeVal* pTimeRe
 	duration = atoi(szDurationText);
 	priv->app->current.recording.max_duration = duration;
 
-	if(pTimeRef){
-		szBeginText = g_time_val_to_string(pTimeRef, "%d/%m/%y %H:%M");
-		widget =  (GtkWidget *) gtk_builder_get_object (priv->pBuilder,
-			"label_begintime");
-		gtk_label_set_text(GTK_LABEL(widget), szBeginText);
-		
-		g_time_val_add_seconds (pTimeRef, duration * 60);
-		szEndText = g_time_val_to_string(pTimeRef, "%d/%m/%y %H:%M");
-		widget =  (GtkWidget *) gtk_builder_get_object (priv->pBuilder,
-			"label_endtime");
-		gtk_label_set_text(GTK_LABEL(widget), szEndText);
-	}
+	szBeginText = g_time_int64_to_string(timeref, "%d/%m/%y %H:%M");
+	widget =  (GtkWidget *) gtk_builder_get_object (priv->pBuilder,
+		"label_begintime");
+	gtk_label_set_text(GTK_LABEL(widget), szBeginText);
+	
+	g_time_int64_add_seconds (&timeref, duration * 60);
+	szEndText = g_time_int64_to_string(timeref, "%d/%m/%y %H:%M");
+	widget =  (GtkWidget *) gtk_builder_get_object (priv->pBuilder,
+		"label_endtime");
+	gtk_label_set_text(GTK_LABEL(widget), szEndText);
 
 	if(szBeginText){
 		g_free(szBeginText);
@@ -277,7 +296,9 @@ on_entry_duration_changed (GtkEditable *self, gpointer user_data)
 
 	// Get current hour
 	GTimeVal time_now;
+	gint64 time;
 	g_get_current_time (&time_now);
+	time = g_time_val_to_int64(&time_now);
 	
-	dialog_updateinfos(pWindowRecording, &time_now);
+	dialog_updateinfos(pWindowRecording, time);
 }
