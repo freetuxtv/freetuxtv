@@ -223,11 +223,32 @@
                         <property name="left_padding">4</property>
                         <property name="right_padding">4</property>
                         <child>
-                          <object class="GtkVBox" id="vbox5">
+                          <object class="GtkNotebook" id="notebook5">
                             <property name="visible">True</property>
-                            <property name="spacing">4</property>
+                            <property name="can_focus">True</property>
                             <child>
-                              <placeholder/>
+                              <object class="GtkScrolledWindow" id="scrolledwindow5">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="hscrollbar_policy">automatic</property>
+                                <property name="vscrollbar_policy">automatic</property>
+                                <child>
+                                  <object class="GtkTreeView" id="windowmain_treeviewrecordings">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="headers_visible">False</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child type="tab">
+                              <object class="GtkLabel" id="label62">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">In progress</property>
+                              </object>
+                              <packing>
+                                <property name="tab_fill">False</property>
+                              </packing>
                             </child>
                             <child>
                               <object class="GtkScrolledWindow" id="scrolledwindow2">
@@ -237,28 +258,27 @@
                                 <property name="vscrollbar_policy">automatic</property>
                                 <property name="shadow_type">in</property>
                                 <child>
-                                  <object class="GtkTreeView" id="windowmain_treeviewrecordings">
+                                  <object class="GtkTreeView" id="windowmain_treeviewfinishedrecordings">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="model">liststore_recordings</property>
-                                    <property name="headers_clickable">False</property>
+                                    <property name="headers_visible">False</property>
                                     <property name="search_column">0</property>
-                                    <child>
-                                      <object class="GtkTreeViewColumn" id="treeviewcolumn1">
-                                        <property name="title">My recordings</property>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                                          <attributes>
-                                            <attribute name="text">0</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                    </child>
                                   </object>
                                 </child>
                               </object>
                               <packing>
                                 <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child type="tab">
+                              <object class="GtkLabel" id="label63">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Terminated</property>
+                              </object>
+                              <packing>
+                                <property name="position">1</property>
+                                <property name="tab_fill">False</property>
                               </packing>
                             </child>
                           </object>
@@ -1629,7 +1649,7 @@
                       </object>
                     </child>
                     <child type="label">
-                      <object class="GtkLabel" id="label44">
+                      <object class="GtkLabel" id="label28">
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">&lt;b&gt;Connection&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
@@ -1943,10 +1963,6 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
     <property name="upper">1</property>
     <property name="step_increment">0.050000000000000003</property>
     <property name="page_increment">0.10000000000000001</property>
-  </object>
-  <object class="GtkImage" id="image">
-    <property name="visible">True</property>
-    <property name="stock">gtk-jump-to</property>
   </object>
   <object class="GtkWindow" id="splashscreen">
     <property name="visible">True</property>
@@ -2388,7 +2404,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                     <property name="column_spacing">3</property>
                     <property name="row_spacing">3</property>
                     <child>
-                      <object class="GtkLabel" id="label28">
+                      <object class="GtkLabel" id="label29">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">Channel's name:</property>
@@ -2398,7 +2414,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label29">
+                      <object class="GtkLabel" id="label30">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">Channel's URI:</property>
@@ -2537,7 +2553,7 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
               </packing>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="label30">
+              <object class="GtkLabel" id="label46">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Options</property>
               </object>
@@ -2572,4 +2588,8 @@ Sébastien Morge &lt;contact@smorge.com&gt;</property>
     </child>
   </object>
   <object class="GtkTextBuffer" id="textbuffer_channelvlcoptions"/>
+  <object class="GtkImage" id="image">
+    <property name="visible">True</property>
+    <property name="stock">gtk-jump-to</property>
+  </object>
 </interface>

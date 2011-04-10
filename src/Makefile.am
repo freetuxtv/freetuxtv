@@ -55,7 +55,11 @@ freetuxtv_SOURCES = \
 	lib-gmmkeys.h \
 	lib-m3uparser.c \
 	lib-m3uparser.h \
-	main.c
+	main.c \
+	freetuxtv-recording-infos.h \
+	freetuxtv-recording-infos.c \
+	freetuxtv-cellrenderer-recordingslist.h \
+	freetuxtv-cellrenderer-recordingslist.c
 
 freetuxtv_LDFLAGS = \
 	-Wl, --export-dynamic

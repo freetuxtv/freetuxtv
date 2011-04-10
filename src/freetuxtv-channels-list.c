@@ -703,6 +703,34 @@ channels_list_get_channel(FreetuxTVApp *app, GtkTreePath* path_channel)
 	return channel_infos;
 }
 
+FreetuxTVChannelInfos*
+channels_list_get_channel_by_id(FreetuxTVApp *app, int channel_id)
+{
+	FreetuxTVChannelInfos* pChannelInfos = NULL;
+
+	GtkTreeIter iter;
+	GtkTreeIter iter2;
+	GtkTreeModel *model;
+
+	model = app->channelslist;
+
+	if(gtk_tree_model_get_iter_first (model, &iter)){
+		do {
+			if(gtk_tree_model_iter_children(model, &iter2, &iter)){
+				do {
+					gtk_tree_model_get(model, &iter2, CHANNEL_COLUMN, &pChannelInfos, -1);
+					if(pChannelInfos){
+						if(pChannelInfos->id != channel_id){
+							pChannelInfos = NULL;
+						}
+					}
+				}while(gtk_tree_model_iter_next(model, &iter2) && (pChannelInfos == NULL));
+			}
+		}while(gtk_tree_model_iter_next(model, &iter) && (pChannelInfos == NULL));
+	}
+
+	return pChannelInfos;
+}
 
 FreetuxTVChannelsGroupInfos*
 channels_list_get_group(FreetuxTVApp *app, GtkTreePath* path_group)
@@ -922,7 +950,7 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 		gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channel_infos, -1);  
 
 		gchar *imgfile;
-		imgfile = tvchannels_list_get_tvchannel_logo_path(app, channel_infos, TRUE);
+		imgfile = tvchannels_list_get_tvchannel_logo_path_for_channel(app, channel_infos, TRUE);
 
 		gboolean is_playing = FALSE;
 		if(app->current.pPathChannel != NULL){

@@ -22,7 +22,7 @@
 #include <libdbevolution/db-evolution-instance.h>
 
 #include "freetuxtv-db-sync.h"
-#include "freetuxtv-tv-channel-infos.h"
+#include "freetuxtv-utils.h"
 
 /*
 typedef struct {
@@ -36,6 +36,9 @@ typedef struct {
 
 }CBDBSync;
 */
+
+#define SQLITE_FORMAT_DATETIME          "%Y-%m-%d %H:%M:%S"
+#define SQLITE_FORMAT_DATETIME00        "%Y-%m-%d %H:%M:00"
 
 // Define constant for the list of field in the database
 
@@ -73,6 +76,16 @@ typedef struct {
 #define DB_CHANNEL_UPDATED             "updated"
 #define DB_CHANNEL_CHANNELGROUPID      "channelsgroup_id"
 #define DB_CHANNEL_TVCHANNELID         "tvchannel_id"
+
+// Table recording
+#define DB_RECORDING                    "recording"
+#define DB_RECORDING_ID                 "id"
+#define DB_RECORDING_TITLE              "title"
+#define DB_RECORDING_STATUS             "status"
+#define DB_RECORDING_BEGINTIME	        "begin_date"
+#define DB_RECORDING_ENDTIME	        "end_date"
+#define DB_RECORDING_FILENAME	        "filename"
+#define DB_RECORDING_CHANNELID	        "channel_id"
 
 static void
 dbsync_add_label_tvchannel (DBSync *dbsync, gchar* label, glong id_tvchannel, 
@@ -1297,6 +1310,145 @@ dbsync_add_tvchannel (DBSync *dbsync, FreetuxTVTvChannelInfos* tv_channel_infos,
 	}
 }
 
+void
+dbsync_add_recording (DBSync *dbsync, FreetuxTVRecordingInfos* pRecordingInfos,
+    GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	g_return_if_fail(pRecordingInfos != NULL);
+	g_return_if_fail(FREETUXTV_IS_RECORDING_INFOS(pRecordingInfos));
+
+	gchar *query;
+	gchar *db_err = NULL;
+	int res;
+	int id;
+
+	gchar* szTitle = pRecordingInfos->szTitle;
+	gchar* szChannelId = NULL;
+	if(pRecordingInfos->channel_id != -1){
+		szChannelId = g_strdup_printf("%d", pRecordingInfos->channel_id);
+	}
+
+	gchar* szBeginTime = g_time_int64_to_string(pRecordingInfos->beginTime, SQLITE_FORMAT_DATETIME00);
+	gchar* szEndTime = g_time_int64_to_string(pRecordingInfos->endTime, SQLITE_FORMAT_DATETIME00);
+
+	// Add the TV channel in the database
+	query = sqlite3_mprintf("INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES ('%q', %d, %Q, %Q, %Q, %Q);",
+	    // INSERT INTO
+	    DB_RECORDING,
+	    // (
+	    DB_RECORDING_TITLE, DB_RECORDING_STATUS, DB_RECORDING_BEGINTIME, DB_RECORDING_ENDTIME,
+	    DB_RECORDING_FILENAME, DB_RECORDING_CHANNELID,
+	    // ) VALUES (
+	    szTitle, pRecordingInfos->status, szBeginTime, szEndTime, NULL, szChannelId
+	    // )
+	    );
+	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+	sqlite3_free(query);	
+	if(res != SQLITE_OK){
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+		    _("Error when adding the recording '%s'.\n\nSQLite has returned error:\n%s."),
+		    szTitle, sqlite3_errmsg(dbsync->db_link));
+		sqlite3_free(db_err);
+	}
+
+	if(*error == NULL){
+		// Get the insert id of the TV channel
+		id = sqlite3_last_insert_rowid(dbsync->db_link);
+		pRecordingInfos->id = id;
+	}
+
+	if(szChannelId){
+		g_free(szChannelId);
+		szChannelId = NULL;
+	}
+}
+
+void
+dbsync_select_recordings (DBSync *dbsync,
+    FreetuxTVApp *app,
+    int (*callback)(FreetuxTVApp *app, 
+	    FreetuxTVRecordingInfos* pRecordingInfos,
+	    DBSync *dbsync, gpointer user_data, GError** error),
+    gpointer user_data, GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	g_return_if_fail(app != NULL);
+
+	gchar *szQuery;
+	int res;	
+	
+	szQuery = sqlite3_mprintf("\
+	    SELECT %s, %s, %s, %s, %s, %s, %s \
+	    FROM %s \
+	    ORDER BY %s",
+	    // SELECT
+	    DB_RECORDING_ID, DB_RECORDING_TITLE, DB_RECORDING_STATUS, DB_RECORDING_BEGINTIME, DB_RECORDING_ENDTIME,
+	    DB_RECORDING_FILENAME, DB_RECORDING_CHANNELID,
+	    // FROM
+	    DB_RECORDING,
+	    // ORDER BY
+	    DB_RECORDING_BEGINTIME);
+
+	sqlite3_stmt *pStmt;
+	
+	FreetuxTVRecordingInfos* pRecordingInfos;
+	
+	gchar *szTitle;
+	gchar *szBeginTime = 0;
+	gchar *szEndTime = 0;
+	gint64 beginTime = 0;
+	gint64 endTime = 0;
+	gint id, channel_id, status;
+	gchar *szFileName = NULL;
+	
+	res = sqlite3_prepare_v2(dbsync->db_link, szQuery, -1, &pStmt, NULL);
+	sqlite3_free(szQuery);
+	if(res == SQLITE_OK) {
+		while(sqlite3_step(pStmt) == SQLITE_ROW) {
+			// Create new recording
+			szTitle = (gchar*)sqlite3_column_text(pStmt, 1);
+			status = sqlite3_column_int(pStmt, 2);
+			szBeginTime = (gchar*)sqlite3_column_text(pStmt, 3);
+			szEndTime = (gchar*)sqlite3_column_text(pStmt, 4);
+			szFileName = (gchar*)sqlite3_column_text(pStmt, 5);
+			channel_id = sqlite3_column_int(pStmt, 6);
+
+			beginTime = g_string_to_time_int64(szBeginTime, SQLITE_FORMAT_DATETIME);
+			endTime = g_string_to_time_int64(szEndTime, SQLITE_FORMAT_DATETIME);
+			
+			pRecordingInfos = freetuxtv_recording_infos_new (szTitle, beginTime, endTime, channel_id);
+			freetuxtv_recording_infos_set_status (pRecordingInfos, (FREETUXTV_RECORDING_STATUS)status);
+			freetuxtv_recording_infos_set_filename (pRecordingInfos, szFileName);
+
+			// Set the ID
+			id = sqlite3_column_int(pStmt, 0);
+			freetuxtv_recording_infos_set_id(pRecordingInfos, id);
+			
+			// Call the callback
+			if(callback){
+				callback(app, pRecordingInfos, dbsync, user_data, error);
+			}
+
+			// Unref the channel
+			g_object_unref(pRecordingInfos);
+		}
+	}else{
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+		    _("Error when displaying the channels.\n\nSQLite has returned error:\n%s."),
+		    sqlite3_errmsg(dbsync->db_link));
+	}
+	sqlite3_finalize(pStmt);
+}
+
 static void
 dbsync_add_label_tvchannel (DBSync *dbsync, gchar* label, glong id_tvchannel, 
     GError** error)
@@ -1364,7 +1516,6 @@ dbsync_link_tvchannel_to_channels_from_label (DBSync *dbsync, gchar *label,
 		sqlite3_free(db_err);
 	}
 }
-
 
 static gchar*
 dbsync_get_current_db_version (gpointer user_data, GError** error)
@@ -1504,4 +1655,43 @@ dbsync_exec_query(const gchar* szQuery, gpointer user_data,
 	}
 
 	return bRes;
+}
+
+void
+dbsync_update_recording (DBSync *dbsync,
+    FreetuxTVRecordingInfos* pRecordingInfos,
+    GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	g_return_if_fail(pRecordingInfos != NULL);
+	g_return_if_fail(FREETUXTV_IS_RECORDING_INFOS(pRecordingInfos));
+
+	gchar *query;
+	gchar *db_err = NULL;
+	int res;
+
+	// Update the group
+	query = sqlite3_mprintf("\
+	    UPDATE %s SET %s=%d, %s=%Q\
+	    WHERE %s=%d",
+	    // UPDATE
+	    DB_RECORDING,
+	    // SET
+	    DB_RECORDING_STATUS, pRecordingInfos->status,
+	    DB_RECORDING_FILENAME, pRecordingInfos->szFileName,
+	    // WHERE
+	    DB_RECORDING_ID, pRecordingInfos->id);
+	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+	sqlite3_free(query);
+
+	if(res != SQLITE_OK){
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+		    _("Error when updating the status of the recording \"%s\".\n\nSQLite has returned error:\n%s."),
+		    pRecordingInfos->szTitle, sqlite3_errmsg(dbsync->db_link));
+		sqlite3_free(db_err);
+	}
 }

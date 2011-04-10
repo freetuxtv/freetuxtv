@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
 /*
  * FreetuxTV is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,10 +23,24 @@
 
 #include "freetuxtv-app.h"
 
+#include "freetuxtv-db-sync.h"
+
 void
 recordings_list_init(FreetuxTVApp *app);
 
 void
-recordings_list_load_recordings(FreetuxTVApp *app);
+recordings_list_load_recordings(FreetuxTVApp *app, DBSync* dbsync, GError** error);
+
+void
+recordings_list_refresh(FreetuxTVApp *app);
+
+void
+recordings_list_updatestatus(FreetuxTVApp *app, DBSync* dbsync, GError** error);
+
+void
+recordings_list_getrecordings_toprocess(FreetuxTVApp *app, GList** ppListRecording, GError** error);
+
+void
+recordings_list_add_recording(FreetuxTVApp *app, DBSync* dbsync, FreetuxTVRecordingInfos* pRecordingInfos, GError** error);
 
 #endif /* FREETUXTV_RECORDINGS_LIST_H */

@@ -30,6 +30,7 @@
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-tv-channels-list.h"
+#include "freetuxtv-recordings-list.h"
 #include "freetuxtv-db-sync.h"
 #include "freetuxtv-models.h"
 
@@ -1093,7 +1094,12 @@ on_windowmain_buttonstop_clicked (GtkButton *button,
 	GError* error = NULL;
 
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_stop (app, &error);
+
+	if(app->current.is_recording){
+		freetuxtv_action_stop_recording(app, app->current.recording.pRecordingInfo, &error);
+	}else{
+		freetuxtv_action_stop (app, &error);
+	}
 
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
@@ -1110,8 +1116,10 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 	GtkWidget *widget;
 	GError* error = NULL;
 	FreetuxTVChannelInfos* pChannelInfos;
+	DBSync dbsync;
 
 	FreetuxTVWindowRecording* pWindowRecording;
+	FreetuxTVRecordingInfos* pRecordingInfos = NULL;
 	gint res;
 
 	// Create the window
@@ -1126,7 +1134,7 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 
 	// Display the window
 	res = freetuxtv_window_recording_run (pWindowRecording,
-	    pChannelInfos, app->current.pPathChannel);
+	    pChannelInfos, app->current.pPathChannel, &pRecordingInfos);
 
 	// Destroy the window
 	g_object_unref(pWindowRecording);
@@ -1135,12 +1143,27 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 	if(res == GTK_RESPONSE_OK){
 		g_get_current_time (&(app->current.recording.time_begin));
 
-		freetuxtv_action_record (app, &error);
+		dbsync_open_db (&dbsync, &error);
+		if(error == NULL){
+			freetuxtv_recording_infos_set_status(pRecordingInfos, FREETUXTV_RECORDING_STATUS_WAITING);
+
+			recordings_list_add_recording (app, &dbsync, pRecordingInfos, &error);
+		}
+		dbsync_close_db(&dbsync);
+
+		if(error == NULL){
+			freetuxtv_action_start_recording (app, pRecordingInfos, &error);
+		}
 	}
 	
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
 		g_error_free (error);
+	}
+
+	if(pRecordingInfos){
+		g_object_unref (pRecordingInfos);
+		pRecordingInfos = NULL;
 	}
 }
 
@@ -1595,13 +1618,18 @@ on_windowminimode_buttonstayontop_clicked (GtkButton *button,
                                            gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	if(app->config.windowminimode_stayontop){
-		app->config.windowminimode_stayontop = FALSE;	
-	}else{
-		app->config.windowminimode_stayontop = TRUE;
-	}
+	GtkWidget *widget;
+	gboolean bActive;
 
-	GtkWidget *widget;	
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	    "windowminimode_buttonstayontop");
+	bActive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget));
+	
+	if(bActive){
+		app->config.windowminimode_stayontop = TRUE;	
+	}else{
+		app->config.windowminimode_stayontop = FALSE;
+	}
 
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                               "windowminimode");
