@@ -289,3 +289,18 @@ ALTER TABLE wtvmT_WebStream CONVERT TO CHARACTER SET utf8;
 SET foreign_key_checks = 1;
 
 ALTER TABLE wtvmT_WebStream MODIFY COLUMN Comments TEXT NULL;
+
+-- Version 2011-06-19
+
+ALTER TABLE wtvmT_StreamStatus ADD COLUMN Description TEXT NOT NULL AFTER Label;
+INSERT INTO wtvmT_StreamStatus (Code, Label, Color, Searchable) VALUES
+	(8, 'Test failed', 'gray', TRUE);
+UPDATE wtvmT_StreamStatus SET Description='The stream have been submitted by an user, but not tested by a moderator.' WHERE Code = 1;
+UPDATE wtvmT_StreamStatus SET Description='The stream have been approved by a moderator and should work.' WHERE Code = 2;
+UPDATE wtvmT_StreamStatus SET Description='The stream is still working but should not be used.' WHERE Code = 3;
+UPDATE wtvmT_StreamStatus SET Description='The stream is exactly identical to another stream.' WHERE Code = 4;
+UPDATE wtvmT_StreamStatus SET Description='The stream URL is not valid.' WHERE Code = 5;
+UPDATE wtvmT_StreamStatus SET Description='The stream is not working anymore.' WHERE Code = 6;
+UPDATE wtvmT_StreamStatus SET Description='The stream have been reported as illegal.' WHERE Code = 7;
+UPDATE wtvmT_StreamStatus SET Description='The stream URL is valid and have been tested by a moderator, but he don\'t succeed to use it.' WHERE Code = 8;
+

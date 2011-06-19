@@ -59,7 +59,7 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
         array(
             'label'=>'Status',
 			'type'=>'html',
-            'value'=>'<font color="'.$model->StreamStatus->Color.'">'.$model->StreamStatus->Label.'</font>',
+            'value'=>'<font color="'.$model->StreamStatus->Color.'">'.$model->StreamStatus->Label.'</font> : <i>'.$model->StreamStatus->Description.'</i>',
         ),
 		'SubmissionDate',
         array(
