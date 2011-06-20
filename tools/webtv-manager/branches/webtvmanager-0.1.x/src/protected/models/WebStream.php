@@ -95,6 +95,22 @@ class WebStream extends CActiveRecord
 		else
 		    return false;
 	}
+	
+	protected function beforeValidate()
+	{
+		if(parent::beforeValidate())
+		{
+			if($this->Name){
+				$this->Name = trim($this->Name);
+			}
+			if($this->Url){
+				$this->Url = trim($this->Url);
+			}
+
+			return true;
+		}
+		return false;
+	}
 
 	public function getTypeStreamList()
 	{

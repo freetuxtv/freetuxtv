@@ -32,5 +32,18 @@ class WebStreamSendForm extends CFormModel
 			'Url'=>'Url',
 		);
 	}
+	
+	protected function beforeValidate()
+	{
+		if(parent::beforeValidate())
+		{
+			if($this->Url){
+				$this->Url = trim($this->Url);
+			}
+
+			return true;
+		}
+		return false;
+	}
 
 }
