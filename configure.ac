@@ -125,20 +125,57 @@ else
   exit 1
 fi
 
+dnl Checking librarie with pkg-config
 dnl Use "pkg-config --modversion module" to find version.
-PKG_CHECK_MODULES(FREETUXTV, gtk+-2.0 >= 2.12
-                             glib-2.0 >= 2.16.0
-                             gio-2.0 >= 2.16.0
-                             dbus-glib-1 >= 0.74
-                             libnotify >= 0.4
-                             sqlite3 >= 3.4
-                             libcurl >= 7.18)
 
-PKG_CHECK_MODULES(LIBDBEVOLUTION, glib-2.0 >= 2.16.0
-                             gobject-2.0 >= 2.16.0)
+dnl Detect the gtk version to use
+PKG_CHECK_MODULES([GTK3], [gtk+-3.0],
+   [
+    GTK_CFLAGS="$GTK3_CFLAGS"
+    GTK_LIBS="$GTK3_LIBS"
+    AC_DEFINE(HAVE_GTK3, 1, [Have GTK+ 3.0])
+   ],
+   [PKG_CHECK_MODULES([GTK2], [gtk+-2.0 >= 2.12],
+       [
+        GTK_CFLAGS="$GTK2_CFLAGS"
+    	GTK_LIBS="$GTK2_LIBS"
+       	AC_DEFINE([HAVE_GTK2], [1], [Have GTK+ 2.0])
+       ])
+   ])
 
-PKG_CHECK_MODULES(LIBVLCGTK, gtk+-2.0 >= 2.12
-                             $LIBVLC_PKGCONFIG)
+PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.16.0)
+PKG_CHECK_MODULES(GOBJECT, gobject-2.0 >= 2.16.0)
+PKG_CHECK_MODULES(GIO, gio-2.0 >= 2.16.0)
+PKG_CHECK_MODULES(DBUS_GLIB, dbus-glib-1 >= 0.74)
+
+PKG_CHECK_MODULES(LIBNOTIFY, libnotify >= 0.4)
+PKG_CHECK_MODULES(SQLITE3, sqlite3 >= 3.4)
+PKG_CHECK_MODULES(LIBCURL, libcurl >= 7.18)
+
+if test "$LIBVLC_PKGCONFIG" != ""; then
+	PKG_CHECK_MODULES(LIBVLC, $LIBVLC_PKGCONFIG)
+fi
+
+LIBDBEVOLUTION_CFLAGS="$GTK_CFLAGS $GLIB_CFLAGS $GOBJECT_CFLAGS"
+LIBDBEVOLUTION_LDFLAGS="$GTK_LIBS $GLIB_LIBS $GOBJECT_LIBS"
+AC_SUBST(LIBDBEVOLUTION_CFLAGS)
+AC_SUBST(LIBDBEVOLUTION_LDFLAGS)
+echo "LIBDBEVOLUTION_CFLAGS " $LIBDBEVOLUTION_CFLAGS
+echo "LIBDBEVOLUTION_LDFLAGS " $LIBDBEVOLUTION_LDFLAGS
+                             
+LIBVLCGTK_CFLAGS="$GTK_CFLAGS $LIBVLC_CFLAGS"
+LIBVLCGTK_LDFLAGS="$GTK_LIBS $LIBVLC_LIBS"
+AC_SUBST(LIBVLCGTK_CFLAGS)
+AC_SUBST(LIBVLCGTK_LDFLAGS)
+echo "LIBVLCGTK_CFLAGS " $LIBVLCGTK_CFLAGS
+echo "LIBVLCGTK_LDFLAGS " $LIBVLCGTK_LDFLAGS
+                             
+FREETUXTV_CFLAGS="$GTK_CFLAGS $GLIB_CFLAGS $GIO_CFLAGS $DBUS_GLIB_CFLAGS $LIBNOTIFY_CFLAGS $SQLITE3_CFLAGS $LIBCURL_CFLAGS"
+FREETUXTV_LDFLAGS="$GTK_LIBS $GLIB_LIBS $GIO_LIBS $DBUS_GLIB_LIBS $LIBNOTIFY_LIBS $SQLITE3_LIBS $LIBCURL_LIBS"
+AC_SUBST(FREETUXTV_CFLAGS)
+AC_SUBST(FREETUXTV_LDFLAGS)
+echo "FREETUXTV_CFLAGS " $FREETUXTV_CFLAGS
+echo "FREETUXTV_LDFLAGS " $FREETUXTV_LDFLAGS
 
 AC_CHECK_LIB(vlc, libvlc_new)
 AC_CHECK_LIB(gthread-2.0, g_thread_init)
