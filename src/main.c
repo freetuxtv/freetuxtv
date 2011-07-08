@@ -1039,36 +1039,35 @@ freetuxtv_action_playpause (FreetuxTVApp *app, GError** error)
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
 	      "freetuxtv_action_playpause()\n");
 
-	if(app->current.pPathChannel != NULL){
+	FreetuxTVChannelInfos* pChannelInfos;
 
-		FreetuxTVChannelInfos* channel_infos;
-
-		GtkLibvlcState state = gtk_libvlc_media_player_get_state(app->player, error);
-		switch(state){
-			case GTK_LIBVLC_STATE_PAUSED :
+	GtkLibvlcState state = gtk_libvlc_media_player_get_state(app->player, error);
+	switch(state){
+		case GTK_LIBVLC_STATE_PAUSED :
+			gtk_libvlc_media_player_pause(app->player, NULL);
+			windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
+			break;
+		case GTK_LIBVLC_STATE_PLAYING :
+			if(gtk_libvlc_media_player_can_pause(app->player, NULL)){
 				gtk_libvlc_media_player_pause(app->player, NULL);
-				windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
-				break;
-			case GTK_LIBVLC_STATE_PLAYING :
-				if(gtk_libvlc_media_player_can_pause(app->player, NULL)){
-					gtk_libvlc_media_player_pause(app->player, NULL);
-				}
-				windowmain_display_buttons (app, WINDOW_MODE_PAUSED);
-				break;
-			default:
-				channel_infos = channels_list_get_channel (app, app->current.pPathChannel);
+			}
+			windowmain_display_buttons (app, WINDOW_MODE_PAUSED);
+			break;
+		default:
+			if(app->current.pPathChannel != NULL){
+				pChannelInfos = channels_list_get_channel (app, app->current.pPathChannel);
 
 				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-				      "Current channel %s\n", channel_infos->name);
+					  "Current channel %s\n", pChannelInfos->name);
 				GtkLibvlcMedia *media;
-				media = gtk_libvlc_media_new(channel_infos->url);
+				media = gtk_libvlc_media_new(pChannelInfos->url);
 				gtk_libvlc_media_player_clear_media_list(app->player);
 				gtk_libvlc_media_player_add_media(app->player, media);
 				g_object_unref(media);
 				gtk_libvlc_media_player_play(app->player, NULL, error);
 
-				windowmain_display_buttons (app, WINDOW_MODE_PLAYING);	
-		}
+				windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
+			}
 	}
 
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
@@ -1083,7 +1082,8 @@ freetuxtv_action_stop (FreetuxTVApp *app, GError** error)
 
 	gchar *text;
 
-	if(gtk_libvlc_media_player_is_playing(app->player, error)){
+	GtkLibvlcState state = gtk_libvlc_media_player_get_state(app->player, error);
+	if(state == GTK_LIBVLC_STATE_PLAYING || state == GTK_LIBVLC_STATE_PAUSED){
 		if(app->current.pPathChannel != NULL){
 			FreetuxTVChannelInfos* channel_infos;
 			channel_infos = channels_list_get_channel (app, app->current.pPathChannel);
