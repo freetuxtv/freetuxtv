@@ -697,12 +697,15 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 	                                               "windowmain_buttonplaypause");
 	switch(mode){
 		case WINDOW_MODE_STOPPED :
-		case WINDOW_MODE_PAUSED :
 			if(app->current.pPathChannel == NULL){
 				sensitive = FALSE;
 			}else{
 				sensitive = TRUE;
 			}
+			image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PLAY, GTK_ICON_SIZE_BUTTON);
+			break;
+		case WINDOW_MODE_PAUSED :
+			sensitive = TRUE;
 			image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PLAY, GTK_ICON_SIZE_BUTTON);
 			break;
 		case WINDOW_MODE_PLAYING :
