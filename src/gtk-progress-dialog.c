@@ -19,10 +19,6 @@
 
 #include "gtk-progress-dialog.h"
 
-#include <gtk/gtkvbox.h>
-#include <gtk/gtklabel.h>
-#include <gtk/gtkprogressbar.h>
-
 typedef struct _GtkProgressDialogPrivate GtkProgressDialogPrivate;
 struct _GtkProgressDialogPrivate
 {

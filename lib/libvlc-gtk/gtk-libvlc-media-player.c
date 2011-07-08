@@ -144,10 +144,20 @@ gtk_libvlc_media_player_size_allocate(GtkWidget *widget, GtkAllocation *allocati
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(widget));
 	g_return_if_fail(allocation != NULL);
 
+	GdkWindow* pWindow = NULL;
+
+#if HAVE_GTK3 == 1
+	gtk_widget_set_allocation(widget, allocation);
+	pWindow = gtk_widget_get_window(widget);
+
+	if (gtk_widget_is_realized(widget)) {
+#else
 	widget->allocation = *allocation;
+	pWindow = widget->window;
 
 	if (GTK_WIDGET_REALIZED(widget)) {
-		gdk_window_move_resize(widget->window,
+#endif
+		gdk_window_move_resize(pWindow,
 		                       allocation->x, allocation->y,
 		                       allocation->width, allocation->height);
 	}
@@ -166,27 +176,49 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 	if (GTK_WIDGET_NO_WINDOW (widget)){
 		GTK_WIDGET_CLASS (gtk_libvlc_media_player_parent_class)->realize (widget);
 	}else{
+
+		GtkAllocation allocation;
+		GtkStyle* pStyle;
+
+#if HAVE_GTK3 == 1
+		gtk_widget_set_realized (widget, TRUE);
+		gtk_widget_get_allocation (widget, &allocation);
+		pStyle = gtk_widget_get_style(widget);
+#else
 		GTK_WIDGET_SET_FLAGS(widget, GTK_REALIZED);
+		allocation = widget->allocation;
+		pStyle = widget->style;
+#endif
 
 		attributes.window_type = GDK_WINDOW_CHILD;
-		attributes.x = widget->allocation.x;
-		attributes.y = widget->allocation.y;
-		attributes.width = widget->allocation.width;
-		attributes.height = widget->allocation.height;		
+		attributes.x = allocation.x;
+		attributes.y = allocation.y;
+		attributes.width = allocation.width;
+		attributes.height = allocation.height;		
 		attributes.wclass = GDK_INPUT_OUTPUT;
 		attributes.visual = gtk_widget_get_visual (widget);
-		attributes.colormap = gtk_widget_get_colormap (widget);		
+#if HAVE_GTK3 == 1
+		attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
+#else
+		attributes.colormap = gtk_widget_get_colormap (widget);
+		attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
+#endif
 		attributes.event_mask = gtk_widget_get_events(widget) | GDK_EXPOSURE_MASK;
 
-		attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
-
-		widget->window = gdk_window_new(gtk_widget_get_parent_window (widget),
+		GdkWindow* pWindow;
+		pWindow = gdk_window_new(gtk_widget_get_parent_window (widget),
 		                                & attributes, attributes_mask);
 
-		gdk_window_set_user_data(widget->window, libvlcmp);
+		gdk_window_set_user_data(pWindow, libvlcmp);
 
-		widget->style = gtk_style_attach(widget->style, widget->window);
-		// gtk_style_set_background(widget->style, widget->window, GTK_STATE_ACTIVE);
+#if HAVE_GTK3 == 1
+		gtk_widget_set_window (widget, pWindow);
+		gtk_widget_set_style(widget, gtk_style_attach(pStyle, pWindow));
+#else
+		widget->window = pWindow;
+		widget->style = gtk_style_attach(pStyle, pWindow);
+		// gtk_style_set_background(pStyle, widget->window, GTK_STATE_ACTIVE);
+#endif
 	}
 }
 
@@ -311,7 +343,12 @@ gtk_libvlc_media_player_class_init (GtkLibvlcMediaPlayerClass *klass)
 	object_class->finalize = gtk_libvlc_media_player_finalize;
 
 	parent_class->realize = gtk_libvlc_media_player_realize;
+
+#if HAVE_GTK3 == 1
+
+#else
 	parent_class->size_request = gtk_libvlc_media_player_size_request;
+#endif
 	parent_class->size_allocate = gtk_libvlc_media_player_size_allocate;
 }
 
@@ -337,9 +374,18 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self, GError **error)
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
 	gboolean bIsRealized = FALSE;
+#if HAVE_GTK3 == 1
+	bIsRealized = gtk_widget_is_realized(GTK_WIDGET(self));
+#else
 	bIsRealized = (GTK_WIDGET_FLAGS (self) & GTK_REALIZED) ? TRUE : FALSE;
-	// TODO : Only since 2.20
-	// bIsRealized = gtk_widget_get_realized(GTK_WIDGET(self);
+#endif
+
+	GdkWindow *pWindow;
+#if HAVE_GTK3 == 1
+	pWindow = gtk_widget_get_window(GTK_WIDGET(self));
+#else
+	pWindow = GTK_WIDGET(self)->window;
+#endif
 
 	if(priv->initialized == FALSE && bIsRealized){
 
@@ -349,11 +395,11 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self, GError **error)
 #endif // LIBVLC_OLD_FULLSCREEN_MODE
 
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
-		XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
+		XID xid = gdk_x11_drawable_get_xid(pWindow);
 		libvlc_video_set_parent(libvlc_instance, xid, &_vlcexcep);
 		raise_error(self, error, &_vlcexcep);
 #else
-		XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
+		XID xid = gdk_x11_drawable_get_xid(pWindow);
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 		priv->libvlc_mediaplayer = libvlc_media_player_new (libvlc_instance, &_vlcexcep);
@@ -729,16 +775,18 @@ gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance, GError** error)
 	g_return_if_fail(GTK_IS_LIBVLC_INSTANCE(libvlc_instance));
 
 	GtkLibvlcMediaPlayer *self = NULL;
-	self = gtk_type_new (GTK_TYPE_LIBVLC_MEDIA_PLAYER);
+	self = (GtkLibvlcMediaPlayer *)gtk_type_new (GTK_TYPE_LIBVLC_MEDIA_PLAYER);
 
 	self->libvlc_instance = libvlc_instance;
 	g_object_ref(G_OBJECT(self->libvlc_instance));
 
 	self->media_list = gtk_tree_store_new(GTK_LIBVLC_MODEL_NB_COLUMN, GTK_TYPE_LIBVLC_MEDIA);
 
+#if HAVE_GTK3 == 1
+	gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
+#else
 	GTK_WIDGET_SET_FLAGS(GTK_WIDGET(self), GTK_CAN_FOCUS);
-	// TODO : Only since 2.20 
-	// gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
+#endif
 
 	return GTK_WIDGET(self);
 }
