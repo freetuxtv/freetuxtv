@@ -126,6 +126,46 @@ gtk_libvlc_media_player_init (GtkLibvlcMediaPlayer *object)
 	priv->pAccelGroup = NULL;
 }
 
+#if GTK_API_VERSION == 3
+
+GtkSizeRequestMode
+gtk_libvlc_media_player_get_request_mode (GtkWidget *widget)
+{
+	return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
+}
+
+static void
+gtk_libvlc_media_player_get_preferred_width (
+	GtkWidget *widget,
+    gint *minimum_width,
+    gint *natural_width)
+{
+	if(minimum_width){
+		*minimum_width = 240;
+	}
+	if(natural_width){
+		*natural_width = 640;
+	}
+}
+
+static void
+gtk_libvlc_media_player_get_preferred_height_for_width (
+	GtkWidget *widget,
+	gint width,
+	gint *minimum_height,
+	gint *natural_height)
+{
+	float ratio = 16/9;
+	if(minimum_height){
+		*minimum_height = 160;
+	}
+	if(natural_height){
+		*natural_height = (int)(width * ratio);
+	}
+}
+
+#else
+
 static void
 gtk_libvlc_media_player_size_request(GtkWidget *widget, GtkRequisition *requisition)
 {
@@ -137,6 +177,8 @@ gtk_libvlc_media_player_size_request(GtkWidget *widget, GtkRequisition *requisit
 	requisition->height = 160;
 }
 
+#endif
+
 static void
 gtk_libvlc_media_player_size_allocate(GtkWidget *widget, GtkAllocation *allocation)
 {
@@ -145,18 +187,21 @@ gtk_libvlc_media_player_size_allocate(GtkWidget *widget, GtkAllocation *allocati
 	g_return_if_fail(allocation != NULL);
 
 	GdkWindow* pWindow = NULL;
+	gboolean bIsRealized;
 
-#if HAVE_GTK3 == 1
+#if GTK_API_VERSION == 3
 	gtk_widget_set_allocation(widget, allocation);
 	pWindow = gtk_widget_get_window(widget);
 
-	if (gtk_widget_is_realized(widget)) {
+	bIsRealized = gtk_widget_is_realized(widget);
 #else
 	widget->allocation = *allocation;
 	pWindow = widget->window;
 
-	if (GTK_WIDGET_REALIZED(widget)) {
+	bIsRealized = (GTK_WIDGET_REALIZED(widget));
 #endif
+
+	if(bIsRealized){
 		gdk_window_move_resize(pWindow,
 		                       allocation->x, allocation->y,
 		                       allocation->width, allocation->height);
@@ -180,7 +225,7 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 		GtkAllocation allocation;
 		GtkStyle* pStyle;
 
-#if HAVE_GTK3 == 1
+#if GTK_API_VERSION == 3
 		gtk_widget_set_realized (widget, TRUE);
 		gtk_widget_get_allocation (widget, &allocation);
 		pStyle = gtk_widget_get_style(widget);
@@ -197,7 +242,7 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 		attributes.height = allocation.height;		
 		attributes.wclass = GDK_INPUT_OUTPUT;
 		attributes.visual = gtk_widget_get_visual (widget);
-#if HAVE_GTK3 == 1
+#if GTK_API_VERSION == 3
 		attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
 #else
 		attributes.colormap = gtk_widget_get_colormap (widget);
@@ -211,7 +256,7 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 
 		gdk_window_set_user_data(pWindow, libvlcmp);
 
-#if HAVE_GTK3 == 1
+#if GTK_API_VERSION == 3
 		gtk_widget_set_window (widget, pWindow);
 		gtk_widget_set_style(widget, gtk_style_attach(pStyle, pWindow));
 #else
@@ -344,8 +389,10 @@ gtk_libvlc_media_player_class_init (GtkLibvlcMediaPlayerClass *klass)
 
 	parent_class->realize = gtk_libvlc_media_player_realize;
 
-#if HAVE_GTK3 == 1
-
+#if GTK_API_VERSION == 3
+	parent_class->get_request_mode = gtk_libvlc_media_player_get_request_mode;
+	parent_class->get_preferred_width = gtk_libvlc_media_player_get_preferred_width;
+	parent_class->get_preferred_height_for_width = gtk_libvlc_media_player_get_preferred_height_for_width;
 #else
 	parent_class->size_request = gtk_libvlc_media_player_size_request;
 #endif
@@ -374,14 +421,14 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self, GError **error)
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
 	gboolean bIsRealized = FALSE;
-#if HAVE_GTK3 == 1
+#if GTK_API_VERSION == 3
 	bIsRealized = gtk_widget_is_realized(GTK_WIDGET(self));
 #else
 	bIsRealized = (GTK_WIDGET_FLAGS (self) & GTK_REALIZED) ? TRUE : FALSE;
 #endif
 
 	GdkWindow *pWindow;
-#if HAVE_GTK3 == 1
+#if GTK_API_VERSION == 3
 	pWindow = gtk_widget_get_window(GTK_WIDGET(self));
 #else
 	pWindow = GTK_WIDGET(self)->window;
@@ -782,7 +829,7 @@ gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance, GError** error)
 
 	self->media_list = gtk_tree_store_new(GTK_LIBVLC_MODEL_NB_COLUMN, GTK_TYPE_LIBVLC_MEDIA);
 
-#if HAVE_GTK3 == 1
+#if GTK_API_VERSION == 3
 	gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
 #else
 	GTK_WIDGET_SET_FLAGS(GTK_WIDGET(self), GTK_CAN_FOCUS);
