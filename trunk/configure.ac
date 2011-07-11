@@ -140,11 +140,11 @@ AC_ARG_WITH([gtk],
 AC_MSG_RESULT([$with_gtk])
 
 case "$with_gtk" in
-  3.0) GTK_API_VERSION=3.0
+  3.0) GTK_PKG_API_VERSION=3.0
        GTK_REQUIRED=2.90.4
        AC_DEFINE(GTK_API_VERSION, 3, [Have GTK+ 3.0])
        ;;
-  2.0|*) GTK_API_VERSION=2.0
+  2.0) GTK_PKG_API_VERSION=2.0
        GTK_REQUIRED=2.12.0
        AC_DEFINE(GTK_API_VERSION, 2, [Have GTK+ 2.0])
        ;;
