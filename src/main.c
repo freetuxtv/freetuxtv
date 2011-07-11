@@ -1631,7 +1631,7 @@ main (int argc, char *argv[])
 #endif
 
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Compiled with GTK%s\n", GTK_API_VERSION);		
+		    "Compiled with GTK%d\n", GTK_API_VERSION);		
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 		    "Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
