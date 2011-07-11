@@ -19,6 +19,8 @@
 
 #include "gtk-progress-dialog.h"
 
+#include <config.h>
+
 typedef struct _GtkProgressDialogPrivate GtkProgressDialogPrivate;
 struct _GtkProgressDialogPrivate
 {
@@ -102,7 +104,14 @@ gtk_progress_dialog_new(GtkWindow* parent)
 
 	gtk_box_pack_start (GTK_BOX(vbox), priv->text_widget, TRUE, TRUE, 0);
 
-	gtk_box_pack_start (GTK_BOX(GTK_DIALOG (dialog)->vbox), vbox, FALSE, FALSE, 0);
+	GtkBox* pDialogVBox;
+#if GTK_API_VERSION == 3
+	pDialogVBox = GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG (dialog)));
+#else
+	pDialogVBox = GTK_BOX(GTK_DIALOG (dialog)->vbox);
+#endif
+
+	gtk_box_pack_start (pDialogVBox, vbox, FALSE, FALSE, 0);
 	gtk_widget_show_all(vbox);
 
 	// Initialize signals for dialogprogress
