@@ -1631,15 +1631,17 @@ main (int argc, char *argv[])
 #endif
 
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-			  "Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+		    "Compiled with GTK%s\n", GTK_API_VERSION);		
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-			  "Compiled with libnotify version %d.%d.%d\n", LIBNOTIFY_VERSION_MAJOR, LIBNOTIFY_VERSION_MINOR, LIBNOTIFY_VERSION_REVISION);
+		    "Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		    "Compiled with libnotify version %d.%d.%d\n", LIBNOTIFY_VERSION_MAJOR, LIBNOTIFY_VERSION_MINOR, LIBNOTIFY_VERSION_REVISION);
 
 		gtk_set_locale ();
 		gtk_init (&argc, &argv);
 
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-			  "Loading FreetuxTV %s\n", VERSION);
+		    "Loading FreetuxTV %s\n", VERSION);
 		app = freetuxtv_app_create_app (szDataDir);
 		if (app != NULL) {
 

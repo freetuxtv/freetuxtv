@@ -128,20 +128,29 @@ fi
 dnl Checking librarie with pkg-config
 dnl Use "pkg-config --modversion module" to find version.
 
-dnl Detect the gtk version to use
-PKG_CHECK_MODULES([GTK3], [gtk+-3.0],
-   [
-    GTK_CFLAGS="$GTK3_CFLAGS"
-    GTK_LIBS="$GTK3_LIBS"
-    AC_DEFINE(HAVE_GTK3, 1, [Have GTK+ 3.0])
-   ],
-   [PKG_CHECK_MODULES([GTK2], [gtk+-2.0 >= 2.12],
-       [
-        GTK_CFLAGS="$GTK2_CFLAGS"
-    	GTK_LIBS="$GTK2_LIBS"
-       	AC_DEFINE([HAVE_GTK2], [1], [Have GTK+ 2.0])
-       ])
-   ])
+dnl Select the gtk version to use
+AC_MSG_CHECKING([which gtk+ version to compile against])
+AC_ARG_WITH([gtk],
+  [AS_HELP_STRING([--with-gtk=2.0|3.0],[which gtk+ version to compile against (default: 2.0)])],
+  [case "$with_gtk" in
+     2.0|3.0) ;;
+     *) AC_MSG_ERROR([invalid gtk version specified]) ;;
+   esac],
+  [with_gtk=2.0])
+AC_MSG_RESULT([$with_gtk])
+
+case "$with_gtk" in
+  3.0) GTK_API_VERSION=3.0
+       GTK_REQUIRED=2.90.4
+       AC_DEFINE(GTK_API_VERSION, 3, [Have GTK+ 3.0])
+       ;;
+  2.0|*) GTK_API_VERSION=2.0
+       GTK_REQUIRED=2.12.0
+       AC_DEFINE(GTK_API_VERSION, 2, [Have GTK+ 2.0])
+       ;;
+esac
+
+PKG_CHECK_MODULES(GTK, gtk+-$GTK_API_VERSION >= $GTK_REQUIRED)
 
 PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.16.0)
 PKG_CHECK_MODULES(GOBJECT, gobject-2.0 >= 2.16.0)
