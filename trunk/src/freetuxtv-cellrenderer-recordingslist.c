@@ -297,9 +297,9 @@ freetuxtv_cellrenderer_recordingslist_init (FreetuxTVCellRendererRecordingsList 
 #if GTK_API_VERSION == 3
 	gtk_cell_renderer_set_padding (GTK_CELL_RENDERER(object), 2, 2);
 #else
-	GTK_CELL_RENDERER(self)->mode = GTK_CELL_RENDERER_MODE_INERT;
-	GTK_CELL_RENDERER(self)->xpad = 2;
-	GTK_CELL_RENDERER(self)->ypad = 2;
+	GTK_CELL_RENDERER(object)->mode = GTK_CELL_RENDERER_MODE_INERT;
+	GTK_CELL_RENDERER(object)->xpad = 2;
+	GTK_CELL_RENDERER(object)->ypad = 2;
 #endif
 
 	object->szTitle = NULL;
