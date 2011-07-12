@@ -96,11 +96,21 @@ freetuxtv_cellrenderer_recordingslist_set_property (GObject *object,
 	}
 }
 
+#if GTK_API_VERSION == 3
 static void
-freetuxtv_cellrenderer_recordingslist_get_size (GtkCellRenderer *cell,
+freetuxtv_cellrenderer_recordingslist_get_size (
+    GtkCellRenderer *cell,
+    GtkWidget *widget, const GdkRectangle *cell_area,
+    gint *x_offset, gint *y_offset,
+    gint *width, gint *height)
+#else
+static void
+freetuxtv_cellrenderer_recordingslist_get_size (
+    GtkCellRenderer *cell,
     GtkWidget *widget, GdkRectangle *cell_area,
     gint *x_offset, gint *y_offset,
     gint *width, gint *height)
+#endif
 {
 
 	// FreetuxTVCellRendererRecordingsList *self = FREETUXTV_CELLRENDERER_RECORDINGSLIST (cell);
@@ -108,12 +118,30 @@ freetuxtv_cellrenderer_recordingslist_get_size (GtkCellRenderer *cell,
 	gint calc_width;
 	gint calc_height;
 
-	calc_width  = (gint) cell->xpad * 2;
-	calc_height = (gint) cell->ypad * 2;
+	gint cell_xpad;
+	gint cell_ypad;
+	gfloat cell_xalign;
+	gfloat cell_yalign;
+	GtkAllocation allocation;
+
+#if GTK_API_VERSION == 3
+	gtk_cell_renderer_get_padding(cell, &cell_xpad, &cell_ypad);
+	gtk_cell_renderer_get_alignment (cell, &cell_xalign, &cell_yalign);
+	gtk_widget_get_allocation(widget, &allocation);
+#else
+	cell_xpad = cell->xpad;
+	cell_ypad = cell->ypad;
+	cell_xalign = cell->xalign;
+	cell_yalign = cell->yalign;
+	allocation = widget->allocation;
+#endif
+
+	calc_width  = (gint) cell_xpad * 2;
+	calc_height = (gint) cell_ypad * 2;
 	calc_height+=40;
 
 	if (cell_area){
-		calc_width += widget->allocation.width;
+		calc_width += allocation.width;
 	}
 
 	if (width)
@@ -124,22 +152,36 @@ freetuxtv_cellrenderer_recordingslist_get_size (GtkCellRenderer *cell,
 
 	if (cell_area){
 		if (x_offset){
-			*x_offset = cell->xalign * (cell_area->width - calc_width);
+			*x_offset = cell_xalign * (cell_area->width - calc_width);
 			*x_offset = MAX (*x_offset, 0);
 		}
 
 		if (y_offset){
-			*y_offset = cell->yalign * (cell_area->height - calc_height);
+			*y_offset = cell_yalign * (cell_area->height - calc_height);
 			*y_offset = MAX (*y_offset, 0);
 		}
 	}
 }
 
+#if GTK_API_VERSION == 3
 static void
 freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
-    GdkWindow *window, GtkWidget *widget,
-    GdkRectangle *background_area, GdkRectangle *cell_area,
-    GdkRectangle *expose_area, guint flags)
+    cairo_t *cr,
+    GtkWidget *widget,
+    const GdkRectangle *background_area,
+    const GdkRectangle *cell_area,
+    GtkCellRendererState flags)
+#else
+static void
+freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
+    GdkWindow       *window,
+    GtkWidget       *widget,
+    GdkRectangle    *background_area,
+    GdkRectangle    *cell_area,
+    GdkRectangle    *expose_area,
+    guint            flags)
+#endif
+
 {
 	FreetuxTVCellRendererRecordingsList *self = FREETUXTV_CELLRENDERER_RECORDINGSLIST (cell);
 	GtkStateType state;
@@ -149,9 +191,22 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	gchar* szTmp;
 	gint64 duration;
 
-	if (GTK_WIDGET_HAS_FOCUS (cell)){			
+	gboolean bHasFocus;
+
+#if GTK_API_VERSION == 3
+	GtkStyleContext *pStyleContext;
+	pStyleContext = gtk_widget_get_style_context (GTK_WIDGET(cell));
+	GdkWindow* window = gtk_widget_get_window  (GTK_WIDGET(cell));
+	bHasFocus = gtk_widget_has_focus (GTK_WIDGET(cell));
+#else
+	GtkStyle* pStyle;
+	pStyle = widget->style;
+	bHasFocus = GTK_WIDGET_HAS_FOCUS (cell);
+#endif
+	
+	if (bHasFocus) {			
 		state = GTK_STATE_ACTIVE;
-	}else{
+	} else {
 		state = GTK_STATE_NORMAL;
 	}
 
@@ -159,31 +214,51 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	    &x_offset, &y_offset,
 	    &width, &height);
 
-
 	if ((flags & GTK_CELL_RENDERER_SELECTED) != 0){
 		state = GTK_STATE_SELECTED;
 	}
 
+	int cell_xpad;
+	int cell_ypad;
+	
 	// Draw the title
 	layout = gtk_widget_create_pango_layout (widget,
 	    self->szTitle);
 	pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
+	
+#if GTK_API_VERSION == 3
+	gtk_cell_renderer_get_padding (cell, &cell_xpad, &cell_ypad);
+
+	gtk_render_layout (pStyleContext, cr,
+	    cell_xpad * 2, cell_ypad,
+	    layout);
+#else
+	cell_xpad = cell->xpad;
+	cell_ypad = cell->ypad;
+	
 	gtk_paint_layout (widget->style, window, state,
 	    TRUE, NULL, widget, NULL,
-	    cell->xpad * 2, cell_area->y,
+	    cell_xpad * 2, cell_ypad,
 	    layout);
-	
+#endif
+
 	// Draw the channel logo
 	GdkPixbuf* pLogo;
 	GdkPixbuf* pDestPixbuf;
 	pLogo = gdk_pixbuf_new_from_file(self->szLogoPath, NULL);
 
 	pDestPixbuf = gdk_pixbuf_scale_simple(pLogo, 20, 20, GDK_INTERP_HYPER);
-	
+
+#if GTK_API_VERSION == 3
+	gdk_cairo_set_source_pixbuf(cr, pDestPixbuf, (double)cell_xpad, (double)cell_ypad);
+	cairo_paint(cr);
+#else
 	gdk_draw_pixbuf (GDK_DRAWABLE(window), NULL, pDestPixbuf,
-			 0, 0, cell->xpad + 1, cell_area->y + cell->ypad + 17 + 1,
-			 -1, -1,
-			 GDK_RGB_DITHER_NONE, 0,0);
+	    0, 0, cell->xpad + 1, cell_area->y + cell->ypad + 17 + 1,
+	    -1, -1,
+	    GDK_RGB_DITHER_NONE, 0,0);
+#endif
+
 	if(pDestPixbuf){
 		g_object_unref(pDestPixbuf);
 		pDestPixbuf = NULL;
@@ -198,10 +273,18 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	szTmp = g_strdup_printf(_("(S%d) - %lld min"), self->status, duration);
 	layout = gtk_widget_create_pango_layout (widget, szTmp);
 	pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
+
+#if GTK_API_VERSION == 3
+	gtk_render_layout (pStyleContext, cr,
+	    cell_xpad * 2 + 25, cell_area->y+20,
+	    layout);
+#else
 	gtk_paint_layout (widget->style, window, state,
 	    TRUE, NULL, widget, NULL,
-	    cell->xpad * 2 + 25, cell_area->y+20,
+	    cell_xpad * 2 + 25, cell_area->y+20,
 	    layout);
+#endif
+	
 	if(szTmp){
 		g_free(szTmp);
 		szTmp = NULL;
@@ -211,9 +294,13 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 static void
 freetuxtv_cellrenderer_recordingslist_init (FreetuxTVCellRendererRecordingsList *object)
 {
-	GTK_CELL_RENDERER(object)->mode = GTK_CELL_RENDERER_MODE_INERT;
-	GTK_CELL_RENDERER(object)->xpad = 2;
-	GTK_CELL_RENDERER(object)->ypad = 2;
+#if GTK_API_VERSION == 3
+	gtk_cell_renderer_set_padding (GTK_CELL_RENDERER(object), 2, 2);
+#else
+	GTK_CELL_RENDERER(self)->mode = GTK_CELL_RENDERER_MODE_INERT;
+	GTK_CELL_RENDERER(self)->xpad = 2;
+	GTK_CELL_RENDERER(self)->ypad = 2;
+#endif
 
 	object->szTitle = NULL;
 	object->szLogoPath = NULL;
@@ -226,7 +313,7 @@ freetuxtv_cellrenderer_recordingslist_finalize (GObject *object)
 {
 	FreetuxTVCellRendererRecordingsList *self;
 	self = FREETUXTV_CELLRENDERER_RECORDINGSLIST(object);
-	
+
 	G_OBJECT_CLASS (freetuxtv_cellrenderer_recordingslist_parent_class)->finalize (object);
 
 	if(self->szTitle){
@@ -274,9 +361,9 @@ freetuxtv_cellrenderer_recordingslist_class_init (FreetuxTVCellRendererRecording
 	    g_param_spec_int64 ("begintime",
 		    "BeginTime",
 		    "Recording begin time",
-			G_MININT64,
-			G_MAXINT64,
-			0,
+		    G_MININT64,
+		    G_MAXINT64,
+		    0,
 		    G_PARAM_READWRITE));
 
 	g_object_class_install_property (object_class,
@@ -284,9 +371,9 @@ freetuxtv_cellrenderer_recordingslist_class_init (FreetuxTVCellRendererRecording
 	    g_param_spec_int64 ("endtime",
 		    "EndTime",
 		    "Recording end time",
-			G_MININT64,
-			G_MAXINT64,
-			0,
+		    G_MININT64,
+		    G_MAXINT64,
+		    0,
 		    G_PARAM_READWRITE));
 
 	g_object_class_install_property (object_class,
@@ -294,9 +381,9 @@ freetuxtv_cellrenderer_recordingslist_class_init (FreetuxTVCellRendererRecording
 	    g_param_spec_int ("status",
 		    "Status",
 		    "Recording status",
-			G_MININT,
-			G_MAXINT,
-			0,
+		    G_MININT,
+		    G_MAXINT,
+		    0,
 		    G_PARAM_READWRITE));
 }
 

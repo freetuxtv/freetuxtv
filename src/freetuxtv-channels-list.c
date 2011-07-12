@@ -573,17 +573,17 @@ channels_list_switch_channel (FreetuxTVApp *app,
 
 gboolean
 channels_list_get_prev_channel (FreetuxTVApp *app,
-				GtkTreePath **path_prev_channel)
+    GtkTreePath **path_prev_channel)
 {
 	GtkWidget *treeview;
-	GtkTreeModel *model;
+//	GtkTreeModel *model;
 		
 	GtkTreePath *path;
 	GtkTreeIter iter_channel;
 	
 	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
 							"windowmain_treeviewchannelslist");
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
+//	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 
 	if (app->current.pPathChannel != NULL) {
 		path = gtk_tree_path_copy(app->current.pPathChannel);
@@ -603,14 +603,14 @@ channels_list_get_next_channel (FreetuxTVApp *app,
 				GtkTreePath ** path_next_channel)
 {
 	GtkWidget *treeview;
-	GtkTreeModel *model;
+//	GtkTreeModel *model;
 		
 	GtkTreePath *path;
 	GtkTreeIter iter_channel;
 	
 	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
 							"windowmain_treeviewchannelslist");
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
+//	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 
 	if (app->current.pPathChannel != NULL) {
 		path = gtk_tree_path_copy(app->current.pPathChannel);
