@@ -18,7 +18,7 @@ libvlc_gtk_la_LDFLAGS = \
 	$(AM_LDFLAGS)
 
 libvlc_gtk_la_LIBADD = \
-	$(LIBVLCGTK_LIBS)
+	$(LIBVLCGTK_LDFLAGS)
 
 libvlcgtkincludedir = $(includedir)/libvlc-gtk
 libvlcgtkinclude_HEADERS = \

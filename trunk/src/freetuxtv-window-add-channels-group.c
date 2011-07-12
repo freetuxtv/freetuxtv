@@ -278,7 +278,13 @@ dialog_init (FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup)
 	priv->add_button = gtk_button_new_from_stock ("gtk-add");
 	g_signal_connect(G_OBJECT(priv->add_button),
 		"clicked", G_CALLBACK(on_buttonadd_clicked), pWindowAddChannelsGroup);
-	gtk_box_pack_end(GTK_BOX(dialog->action_area), priv->add_button, FALSE, FALSE, 0);
+	GtkBox* pDialogActionArea;
+#if GTK_API_VERSION == 3
+	pDialogActionArea = GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG (dialog)));
+#else
+	pDialogActionArea = GTK_BOX(GTK_DIALOG (dialog)->action_area);
+#endif
+	gtk_box_pack_end(pDialogActionArea, priv->add_button, FALSE, FALSE, 0);
 	gtk_widget_show(priv->add_button);
 	
 	widget = (GtkWidget *)gtk_builder_get_object (builder,
@@ -667,8 +673,8 @@ on_dialog_response (GtkDialog *dialog, gint response_id, gpointer user_data)
 	pWindowAddChannelsGroup = (FreetuxTVWindowAddChannelsGroup*)user_data;
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);
 
-	GtkBuilder *builder;
-	builder = priv->app->gui;
+//	GtkBuilder *builder;
+//	builder = priv->app->gui;
 
 	gtk_widget_hide(GTK_WIDGET(dialog));
 }

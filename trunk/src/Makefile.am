@@ -62,8 +62,8 @@ freetuxtv_SOURCES = \
 	freetuxtv-cellrenderer-recordingslist.c
 
 freetuxtv_LDFLAGS = \
-	-Wl, --export-dynamic
+	-Wl
 
-freetuxtv_LDADD = $(FREETUXTV_LIBS) \
+freetuxtv_LDADD = $(FREETUXTV_LDFLAGS) \
 	../lib/libvlc-gtk/libvlc-gtk.la \
 	../lib/libdbevolution/libdbevolution.la
