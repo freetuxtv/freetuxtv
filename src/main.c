@@ -1637,7 +1637,7 @@ main (int argc, char *argv[])
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 		    "Compiled with libnotify version %d.%d.%d\n", LIBNOTIFY_VERSION_MAJOR, LIBNOTIFY_VERSION_MINOR, LIBNOTIFY_VERSION_REVISION);
 
-#ifdef GTK_API_VERSION == 3
+#if GTK_API_VERSION == 3
 		setlocale(LC_ALL, "");
 #else
 		gtk_set_locale ();
