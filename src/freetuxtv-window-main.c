@@ -19,6 +19,7 @@
 
 #include <gtk/gtk.h>
 #include <sqlite3.h>
+#include <gdk/gdkx.h>
 
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-window-add-recording.h"
@@ -631,8 +632,12 @@ void
 windowmain_dispose(FreetuxTVApp *app)
 {
 	windowmain_enable_accelerators(app, FALSE);
-	
+
+#if GTK_API_VERSION == 3
+	g_object_unref (app->widget.pAccelGroup);
+#else
 	gtk_accel_group_unref (app->widget.pAccelGroup);
+#endif
 	app->widget.pAccelGroup = NULL;
 
 	if(app->widget.pTrayIcon){
@@ -920,7 +925,7 @@ on_windowmain_trayicon_activate(GtkStatusIcon *status_icon, gpointer user_data)
 	gboolean bIsVisible;
 
 #if GTK_API_VERSION == 3
-	bIsVisible = gtk_widget_is_visible(widget);
+	bIsVisible = gtk_widget_get_visible(widget);
 #else
 	bIsVisible = GTK_WIDGET_FLAGS (widget) & GTK_VISIBLE;
 #endif
@@ -958,7 +963,10 @@ on_windowmain_trayicon_popupmenu (GtkStatusIcon *status_icon, guint button,
 
 	/* Create the menu items */
 	pMenuItem = gtk_check_menu_item_new_with_label (_("Mute"));
+#if GTK_API_VERSION == 3
+#else
 	gtk_check_menu_item_set_show_toggle (GTK_CHECK_MENU_ITEM(pMenuItem), FALSE);
+#endif
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(pMenuItem), bVolumeDisabled);
 	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
 	g_signal_connect(G_OBJECT(pMenuItem),

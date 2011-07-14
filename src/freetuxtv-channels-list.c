@@ -1099,7 +1099,11 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			
 			// Refresh, delete and delete group channels is only for channels groups
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-refresh", NULL);
-			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);					
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_grouprefresh), app);
 			// Only for type playlist
@@ -1110,11 +1114,19 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 
 			// Separator
 			pMenuItem = gtk_separator_menu_item_new();
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			gtk_widget_show (pMenuItem);
 			
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-up", NULL);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_groupgoup), app);
 			if(bIsFirstGroupSelected){
@@ -1123,7 +1135,11 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			gtk_widget_show (pMenuItem);
 
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-down", NULL);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_groupgodown), app);
 			if(bIsLastGroupSelected){
@@ -1133,30 +1149,50 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 
 			// Separator
 			pMenuItem = gtk_separator_menu_item_new();
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			gtk_widget_show (pMenuItem);
 			
 			pMenuItem = gtk_image_menu_item_new_with_label(_("Delete group's channels"));
 			pImage = gtk_image_new_from_stock (GTK_STOCK_DELETE, GTK_ICON_SIZE_MENU);
 			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (pMenuItem), pImage);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_groupdeletechannels), app);
 			gtk_widget_show (pMenuItem);
 			
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-delete", NULL);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_groupdelete), app);
 			gtk_widget_show (pMenuItem);
 			
 			pMenuItem = gtk_separator_menu_item_new();
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			gtk_widget_show (pMenuItem);
 			
 			// Group properties is only if one channels groups is selected
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-properties", NULL);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_groupproperties), app);
 			if(nbGroupsTab[TYPEGRP_COUNT] > 1){
@@ -1172,7 +1208,11 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			pMenuItem = gtk_image_menu_item_new_with_label(_("Add to favourites"));
 			pImage = gtk_image_new_from_stock (GTK_STOCK_ADD, GTK_ICON_SIZE_MENU);
 			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (pMenuItem), pImage);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			gtk_widget_show (pMenuItem);
 			
 			// Sub menu to choose the group where add the channel
@@ -1184,14 +1224,22 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			pSubMenuItem = gtk_image_menu_item_new_with_label(_("New group"));
 			pImage = gtk_image_new_from_stock (GTK_STOCK_NEW, GTK_ICON_SIZE_MENU);
 			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (pSubMenuItem), pImage);
-			gtk_menu_append (GTK_MENU (pSubMenu), pSubMenuItem);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pSubMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_channeladdfavourites), app);
 			gtk_widget_show (pSubMenuItem);
 			
 			// Separator
 			pSubMenuItem = gtk_separator_menu_item_new ();
-			gtk_menu_append (GTK_MENU (pSubMenu), pSubMenuItem);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			gtk_widget_show (pSubMenuItem);
 			
 			// Add each favourites group in the menu
@@ -1213,7 +1261,11 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 
 				if(pChannelsGroupInfos){
 					pSubMenuItem = gtk_image_menu_item_new_with_label(pChannelsGroupInfos->name);
-					gtk_menu_append (GTK_MENU (pSubMenu), pSubMenuItem);
+#if GTK_API_VERSION == 3
+					gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
+					gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 
 					g_object_set_data (G_OBJECT(pSubMenuItem), "FavouritesChannelsGroup", pChannelsGroupInfos);
 					g_object_set_data (G_OBJECT(pSubMenuItem), "PathFavouritesChannelsGroup", pPath);
@@ -1228,11 +1280,19 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			
 			// Separator
 			pMenuItem = gtk_separator_menu_item_new();
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			gtk_widget_show (pMenuItem);
 
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-up", NULL);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_channelgoup), app);
 			if(nbChannelsForGroupTab[TYPEGRP_FAVORITE] != nbChannels || bHasOneFirstChannelSelected){
@@ -1241,7 +1301,11 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			gtk_widget_show (pMenuItem);
 
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-down", NULL);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_channelgodown), app);
 			if(nbChannelsForGroupTab[TYPEGRP_FAVORITE] != nbChannels || bHasOneLastChannelSelected){
@@ -1251,12 +1315,20 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			
 			// Separator
 			pMenuItem = gtk_separator_menu_item_new();
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			gtk_widget_show (pMenuItem);
 
 			// Delete channels from favourites group
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-delete", NULL);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_channeldelete), app);
 			if(nbChannelsForGroupTab[TYPEGRP_FAVORITE] != nbChannels){
@@ -1266,12 +1338,20 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			
 			// Separator
 			pMenuItem = gtk_separator_menu_item_new();
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			gtk_widget_show (pMenuItem);
 			
 			// Group properties is only if one channels groups is selected
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-properties", NULL);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
 			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_channelproperties), app);
 			if(nbGroupsTab[TYPEGRP_COUNT] > 1){
