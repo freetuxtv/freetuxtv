@@ -193,7 +193,7 @@ gtk_libvlc_media_player_size_allocate(GtkWidget *widget, GtkAllocation *allocati
 	gtk_widget_set_allocation(widget, allocation);
 	pWindow = gtk_widget_get_window(widget);
 
-	bIsRealized = gtk_widget_is_realized(widget);
+	bIsRealized = gtk_widget_get_realized(widget);
 #else
 	widget->allocation = *allocation;
 	pWindow = widget->window;
@@ -218,7 +218,13 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 	g_return_if_fail(widget != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(widget));
 
-	if (GTK_WIDGET_NO_WINDOW (widget)){
+#if GTK_API_VERSION == 3
+	gboolean bNoWindow = gtk_widget_get_has_window(widget);
+#else
+	gboolean bNoWindow = GTK_WIDGET_NO_WINDOW (widget);
+#endif
+
+	if (bNoWindow){
 		GTK_WIDGET_CLASS (gtk_libvlc_media_player_parent_class)->realize (widget);
 	}else{
 
@@ -365,7 +371,11 @@ gtk_libvlc_media_player_finalize (GObject *object)
 #endif // LIBVLC_OLD_FULLSCREEN_MODE
 
 	if(priv->pAccelGroup){
-		gtk_accel_group_unref(priv->pAccelGroup);
+#if GTK_API_VERSION == 3
+		g_object_unref (priv->pAccelGroup);
+#else
+		gtk_accel_group_unref (priv->pAccelGroup);
+#endif
 		priv->pAccelGroup = NULL;
 	}
 
@@ -422,7 +432,7 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self, GError **error)
 
 	gboolean bIsRealized = FALSE;
 #if GTK_API_VERSION == 3
-	bIsRealized = gtk_widget_is_realized(GTK_WIDGET(self));
+	bIsRealized = gtk_widget_get_realized(GTK_WIDGET(self));
 #else
 	bIsRealized = (GTK_WIDGET_FLAGS (self) & GTK_REALIZED) ? TRUE : FALSE;
 #endif
@@ -441,12 +451,16 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self, GError **error)
 		g_signal_connect(self, "button-press-event", G_CALLBACK(on_buttonpress_event), NULL);
 #endif // LIBVLC_OLD_FULLSCREEN_MODE
 
-#ifdef LIBVLC_DEPRECATED_PLAYLIST
-		XID xid = gdk_x11_drawable_get_xid(pWindow);
-		libvlc_video_set_parent(libvlc_instance, xid, &_vlcexcep);
-		raise_error(self, error, &_vlcexcep);
+#if GTK_API_VERSION == 3
+		XID xid = gdk_x11_window_get_xid(pWindow);
 #else
 		XID xid = gdk_x11_drawable_get_xid(pWindow);
+#endif
+		
+#ifdef LIBVLC_DEPRECATED_PLAYLIST
+		libvlc_video_set_parent(libvlc_instance, xid, &_vlcexcep);
+		raise_error(self, error, &_vlcexcep);
+#else  
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 		priv->libvlc_mediaplayer = libvlc_media_player_new (libvlc_instance, &_vlcexcep);
@@ -822,8 +836,13 @@ gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance, GError** error)
 	g_return_if_fail(GTK_IS_LIBVLC_INSTANCE(libvlc_instance));
 
 	GtkLibvlcMediaPlayer *self = NULL;
-	self = (GtkLibvlcMediaPlayer *)gtk_type_new (GTK_TYPE_LIBVLC_MEDIA_PLAYER);
 
+#if GTK_API_VERSION == 3
+	self = (GtkLibvlcMediaPlayer*)g_object_new (GTK_TYPE_LIBVLC_MEDIA_PLAYER, NULL);
+#else
+	self = (GtkLibvlcMediaPlayer*)gtk_type_new (GTK_TYPE_LIBVLC_MEDIA_PLAYER);
+#endif
+	
 	self->libvlc_instance = libvlc_instance;
 	g_object_ref(G_OBJECT(self->libvlc_instance));
 
@@ -1575,7 +1594,11 @@ gtk_libvlc_media_player_set_accel_group (GtkLibvlcMediaPlayer *self,
 	}
 	
 	if(priv->pAccelGroup){
-		gtk_accel_group_unref(priv->pAccelGroup);
+#if GTK_API_VERSION == 3
+		g_object_unref (priv->pAccelGroup);
+#else
+		gtk_accel_group_unref (priv->pAccelGroup);
+#endif
 		priv->pAccelGroup = NULL;
 	}
 

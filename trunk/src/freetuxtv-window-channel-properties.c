@@ -139,13 +139,21 @@ freetuxtv_window_channel_properties_run (
 	widget = (GtkWidget *) gtk_builder_get_object (builder, "dialogchannelproperties_name");
 	gtk_entry_set_text(GTK_ENTRY(widget), pChannelInfos->name);
 	if(!editable){
+#if GTK_API_VERSION == 3
+		gtk_editable_set_editable (GTK_EDITABLE(widget), FALSE);
+#else
 		gtk_entry_set_editable (GTK_ENTRY(widget), FALSE);
+#endif
 	}
 
 	widget = (GtkWidget *) gtk_builder_get_object (builder, "dialogchannelproperties_uri");
 	gtk_entry_set_text(GTK_ENTRY(widget), pChannelInfos->url);
 	if(!editable){
+#if GTK_API_VERSION == 3
+		gtk_editable_set_editable (GTK_EDITABLE(widget), FALSE);
+#else
 		gtk_entry_set_editable (GTK_ENTRY(widget), FALSE);
+#endif
 	}
 
 	// Display the VLC options of the channel

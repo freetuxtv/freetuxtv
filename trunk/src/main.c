@@ -1671,8 +1671,12 @@ main (int argc, char *argv[])
 				app->current.open_channel_name = szChannelName;
 			}
 
+#if GTK_API_VERSION == 3
+			splashscreen_app_init((gpointer)app);
+#else
 			gtk_init_add (splashscreen_app_init, app);
-
+#endif
+			
 			gtk_main ();
 
 			g_mmkeys_deactivate (mmkeys);
