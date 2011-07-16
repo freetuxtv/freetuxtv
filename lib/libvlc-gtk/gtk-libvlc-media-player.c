@@ -219,23 +219,22 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(widget));
 
 #if GTK_API_VERSION == 3
-	gboolean bNoWindow = gtk_widget_get_has_window(widget);
+	gboolean bHasWindow = gtk_widget_get_has_window(widget);
 #else
-	gboolean bNoWindow = GTK_WIDGET_NO_WINDOW (widget);
+	gboolean bHasWindow = !GTK_WIDGET_NO_WINDOW (widget);
 #endif
 
-	if (bNoWindow){
+	if (!bHasWindow){
 		GTK_WIDGET_CLASS (gtk_libvlc_media_player_parent_class)->realize (widget);
 	}else{
 
 		GtkAllocation allocation;
-		GtkStyle* pStyle;
 
 #if GTK_API_VERSION == 3
 		gtk_widget_set_realized (widget, TRUE);
 		gtk_widget_get_allocation (widget, &allocation);
-		pStyle = gtk_widget_get_style(widget);
 #else
+		GtkStyle* pStyle;
 		GTK_WIDGET_SET_FLAGS(widget, GTK_REALIZED);
 		allocation = widget->allocation;
 		pStyle = widget->style;
@@ -264,7 +263,6 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 
 #if GTK_API_VERSION == 3
 		gtk_widget_set_window (widget, pWindow);
-		gtk_widget_set_style(widget, gtk_style_attach(pStyle, pWindow));
 #else
 		widget->window = pWindow;
 		widget->style = gtk_style_attach(pStyle, pWindow);
