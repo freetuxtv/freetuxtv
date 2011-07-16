@@ -214,6 +214,12 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** er
 	raise_error(self, &pError, NULL);	
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
+	if(pError == NULL && !priv->libvlc_instance){
+		pError = g_error_new (GTK_LIBVLC_ERROR,
+		    GTK_LIBVLC_ERROR_LIBVLC,
+		    "%s", "Cannot initialize the LibVLC");
+	}
+	
 	if(pError){
 		if(error){
 			*error = pError;
@@ -221,6 +227,8 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** er
 			g_error_free (pError);
 			pError = NULL;
 		}
+		g_object_unref(self);
+		self = NULL;
 	}
 
 	return self;
