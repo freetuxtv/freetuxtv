@@ -148,6 +148,7 @@ channels_DATA = \
   heilongjiangtv.png \
   hilaltv.png \
   hiscore.png \
+  hitmusictv.png \
   hitwest.png \
   hunansatellitetv.png \
   idf1.png \
@@ -218,6 +219,9 @@ channels_DATA = \
   mtv2.png \
   mtvdance.png \
   mtvhits.png \
+  musicplusclassicrock.png \
+  musicplushits.png \
+  musicpluspoprock.png \
   myzentv.png \
   nasatv.png \
   natgeomusic.png \
@@ -292,6 +296,7 @@ channels_DATA = \
   recordinternacional.png \
   relaxtv.png \
   renaulttv.png \
+  reservoirfilms.png \
   rfi.png \
   rfm.png \
   rfo.png \
@@ -338,6 +343,7 @@ channels_DATA = \
   teleplaisance.png \
   telessonne.png \
   telesur.png \
+  televisionsavoir.png \
   telif.png \
   tempomix.png \
   teva.png \

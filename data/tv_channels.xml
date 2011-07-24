@@ -510,6 +510,9 @@
 	<tvchannel name="HiScore TV">
 		<logo_filename>hiscore.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Hit Music TV">
+		<logo_filename>hitmusictv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Hit West">
 		<logo_filename>hitwest.png</logo_filename>
 	</tvchannel>
@@ -664,6 +667,7 @@
 	<tvchannel name="Ma Chaîne Etudiante">
 		<logo_filename>mce-ma_chaine_etudiante.png</logo_filename>
 		<label>Ma Chaine Etudiante</label>
+		<label>MCE</label>
 	</tvchannel>
 	<tvchannel name="MCM">
 		<logo_filename>mcm.png</logo_filename>
@@ -732,6 +736,15 @@
 	</tvchannel>
 	<tvchannel name="MTV Hits">
 		<logo_filename>mtvhits.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Music plus Classic Rock">
+		<logo_filename>musicplusclassicrock.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Music plus Hits">
+		<logo_filename>musicplushits.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Music plus pop rock">
+		<logo_filename>musicpluspoprock.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="MyZen.tv">
 		<logo_filename>myzentv.png</logo_filename>
@@ -972,6 +985,9 @@
 	<tvchannel name="Renault TV">
 		<logo_filename>renaulttv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Reservoir Films">
+		<logo_filename>reservoirfilms.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="RFI">
 		<logo_filename>rfi.png</logo_filename>
 		<label>RFI Afrique</label>
@@ -1121,6 +1137,9 @@
 	</tvchannel>
 	<tvchannel name="Telesur">
 		<logo_filename>telesur.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Télévision savoir">
+		<logo_filename>televisionsavoir.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Telif">
 		<logo_filename>telif.png</logo_filename>
