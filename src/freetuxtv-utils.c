@@ -222,8 +222,10 @@ g_time_int64_to_string(gint64 time, const gchar* format)
 
 	pTime = localtime (&tmp_time_t);
 	tmp_size_t = strftime (buf, 1000, format, pTime);
-
-	return g_strdup(buf);
+	if(tmp_size_t > 0){
+		return g_strdup(buf);
+	}
+	return NULL;
 }
 
 gint64

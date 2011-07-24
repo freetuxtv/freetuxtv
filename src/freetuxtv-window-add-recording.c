@@ -69,10 +69,8 @@ freetuxtv_window_recording_finalize (GObject *object)
 	G_OBJECT_CLASS (freetuxtv_window_recording_parent_class)->finalize (object);
 
 	FreetuxTVWindowRecordingPrivate* priv;
-	FreetuxTVWindowRecordingClass* klass;
 
 	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(object);
-	klass = FREETUXTV_WINDOW_RECORDING_GET_CLASS(object);
 
 	priv->app = NULL;
 
@@ -86,7 +84,6 @@ static void
 freetuxtv_window_recording_class_init (FreetuxTVWindowRecordingClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	//GObjectClass* parent_class = G_OBJECT_CLASS (klass);
 
 	g_type_class_add_private (klass, sizeof (FreetuxTVWindowRecordingPrivate));
 
@@ -141,7 +138,6 @@ freetuxtv_window_recording_run (
 	dialog = (GtkDialog *) gtk_builder_get_object (priv->pBuilder, FREETUXTV_GUI_DIALOG_ADDRECORDING);
 
 	GtkWidget *widget;
-	//	GObject *object;
 	
 	GTimeVal now;
 	gint64 beginTime;
@@ -198,11 +194,7 @@ dialog_init (FreetuxTVWindowRecording *pWindowRecording, GtkWindow *parent)
 	FreetuxTVWindowRecordingPrivate* priv;
 	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(pWindowRecording);
 
-	FreetuxTVWindowRecordingClass* klass;
-
 	GtkWidget *widget;
-
-	klass = FREETUXTV_WINDOW_RECORDING_GET_CLASS(pWindowRecording);
 
 	// Initialize signals for dialog
 	widget = (GtkWidget *)gtk_builder_get_object (priv->pBuilder,
@@ -279,12 +271,6 @@ dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, gint64 timeref)
 static void
 on_dialogaddrecording_response (GtkDialog *self, gint response_id, gpointer user_data)
 {
-	FreetuxTVWindowRecording* pWindowRecording;
-	FreetuxTVWindowRecordingPrivate* priv;
-
-	pWindowRecording = (FreetuxTVWindowRecording*)user_data;
-	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(pWindowRecording);
-
 	gtk_widget_hide(GTK_WIDGET(self));
 }
 
