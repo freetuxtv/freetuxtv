@@ -627,6 +627,11 @@ splashscreen_app_init(gpointer data)
 		recordings_list_updatestatus(app, &dbsync, &error);
 		splashscreen_statusbar_pop (app);
 	}
+	
+	// Close database
+	if(bDbOpen){
+		dbsync_close_db(&dbsync);
+	}
 
 	// Showing the main window
 	if(error == NULL){
@@ -677,11 +682,6 @@ splashscreen_app_init(gpointer data)
 		windowmain_update_statusbar_infos (app);
 	}
 
-	// Close database
-	if(bDbOpen){
-		dbsync_close_db(&dbsync);
-	}
-
 	// Start internal timer
 	if(error == NULL && FALSE){
 		g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
@@ -697,8 +697,12 @@ splashscreen_app_init(gpointer data)
 		g_error_free(error);		
 		return FALSE;
 	}
-
+	
+#if GTK_API_VERSION == 3
+	return FALSE;
+#else
 	return TRUE;
+#endif
 }
 
 static FreetuxTVApp *
@@ -1694,17 +1698,14 @@ main (int argc, char *argv[])
 			if(bOpenChannel){
 				app->current.open_channel_name = szChannelName;
 			}
-
-			gboolean bStart = TRUE; 
+			
 #if GTK_API_VERSION == 3
-			bStart = splashscreen_app_init((gpointer)app);
+			g_idle_add(splashscreen_app_init, app);
 #else
 			gtk_init_add (splashscreen_app_init, app);
 #endif
 
-			if(bStart){
-				gtk_main ();
-			}
+			gtk_main ();
 
 			g_mmkeys_deactivate (mmkeys);
 			g_object_unref(G_OBJECT(app->current.notification));
