@@ -262,7 +262,7 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	gtk_cell_renderer_get_padding (cell, &cell_xpad, &cell_ypad);
 
 	gtk_render_layout (pStyleContext, cr,
-	    cell_xpad * 2, cell_ypad,
+	    cell_xpad * 2, cell_area->y + cell_ypad,
 	    layout);
 #else
 	cell_xpad = cell->xpad;
@@ -270,7 +270,7 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	
 	gtk_paint_layout (widget->style, window, state,
 	    TRUE, NULL, widget, NULL,
-	    cell_xpad * 2, cell_ypad,
+	    cell_xpad * 2, cell_area->y + cell_ypad,
 	    layout);
 #endif
 
