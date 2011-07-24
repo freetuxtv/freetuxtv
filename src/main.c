@@ -671,6 +671,9 @@ splashscreen_app_init(gpointer data)
 
 			pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (app);
 			res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
+			if(res == GTK_RESPONSE_OK){
+
+			}
 
 			g_object_unref(pWindowAddChannelsGroups);
 			pWindowAddChannelsGroups = NULL;
@@ -1583,7 +1586,7 @@ main (int argc, char *argv[])
 	gboolean bShowHelp = FALSE;
 	gboolean bTraceDebug = FALSE;
 	gboolean bOpenChannel = FALSE;
-	gchar* szUri;
+//	gchar* szUri;
 	gchar* szChannelName = NULL;
 	gchar* szDataDir = NULL;
 
@@ -1626,7 +1629,8 @@ main (int argc, char *argv[])
 			}else{
 				if(p == argc-1){
 					// If the last args isn't an option, it should be an URI 
-					szUri = argv[p];
+					// TODO : Allow to play the URI
+					// szUri = argv[p];
 				}else{
 					szErrMsg = g_strdup_printf("invalid option '%s'", argv[p]);
 				}

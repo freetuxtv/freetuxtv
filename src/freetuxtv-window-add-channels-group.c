@@ -117,7 +117,6 @@ static void
 freetuxtv_window_add_channels_group_class_init (FreetuxTVWindowAddChannelsGroupClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	//GObjectClass* parent_class = G_OBJECT_CLASS (klass);
 
 	g_type_class_add_private (klass, sizeof (FreetuxTVWindowAddChannelsGroupPrivate));
 
@@ -667,24 +666,11 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 static void
 on_dialog_response (GtkDialog *dialog, gint response_id, gpointer user_data)
 {
-	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup;
-	FreetuxTVWindowAddChannelsGroupPrivate* priv;
-
-	pWindowAddChannelsGroup = (FreetuxTVWindowAddChannelsGroup*)user_data;
-	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);
-
-//	GtkBuilder *builder;
-//	builder = priv->app->gui;
-
 	gtk_widget_hide(GTK_WIDGET(dialog));
 }
 
 static gboolean
 on_dialog_close (GtkWidget *widget, GdkEvent  *event, gpointer user_data)
-{
-	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup;
-
-	pWindowAddChannelsGroup = (FreetuxTVWindowAddChannelsGroup*)user_data;
-	
+{	
 	return gtk_widget_hide_on_delete(widget);
 }
