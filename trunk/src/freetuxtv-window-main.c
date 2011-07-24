@@ -17,6 +17,7 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
 #include <gtk/gtk.h>
 #include <sqlite3.h>
 #include <gdk/gdkx.h>
@@ -1469,6 +1470,9 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 
 	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (app);
 	res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
+	if(res == GTK_RESPONSE_OK){
+		
+	}
 
 	g_object_unref(pWindowAddChannelsGroups);
 	pWindowAddChannelsGroups = NULL;

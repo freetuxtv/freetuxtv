@@ -192,26 +192,8 @@ freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
 	gint calc_width;
 	gint calc_height;
 
-	gint cell_xpad;
-	gint cell_ypad;
-	gfloat cell_xalign;
-	gfloat cell_yalign;
-	GtkAllocation allocation;
-#if GTK_API_VERSION == 3
-	gtk_cell_renderer_get_padding(cell, &cell_xpad, &cell_ypad);
-	gtk_cell_renderer_get_alignment (cell, &cell_xalign, &cell_yalign);
-	gtk_widget_get_allocation(widget, &allocation);
-#else
-
-	cell_xpad = cell->xpad;
-	cell_ypad = cell->ypad;
-	cell_xalign = cell->xalign;
-	cell_yalign = cell->yalign;
-	allocation = widget->allocation
-#endif
-
-	calc_width  = (gint) cell_xpad * 2;
-	calc_height = (gint) cell_ypad * 2;
+	calc_width  = (gint) cell->xpad * 2;
+	calc_height = (gint) cell->ypad * 2;
 	if(self->type == CELLRENDERER_TYPE_CHANNEL){
 		calc_height+=40;
 	}else{
@@ -219,7 +201,7 @@ freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
 	}
 
 	if (cell_area){
-		calc_width += allocation.width;
+		calc_width += widget->allocation.width;
 	}
 
 	if (width)
@@ -230,12 +212,12 @@ freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
 
 	if (cell_area){
 		if (x_offset){
-			*x_offset = cell_xalign * (cell_area->width - calc_width);
+			*x_offset = cell->xalign * (cell_area->width - calc_width);
 			*x_offset = MAX (*x_offset, 0);
 		}
 
 		if (y_offset){
-			*y_offset = cell_yalign * (cell_area->height - calc_height);
+			*y_offset = cell->yalign * (cell_area->height - calc_height);
 			*y_offset = MAX (*y_offset, 0);
 		}
 		/*

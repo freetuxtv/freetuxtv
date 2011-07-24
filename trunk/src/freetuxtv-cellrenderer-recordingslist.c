@@ -97,12 +97,64 @@ freetuxtv_cellrenderer_recordingslist_set_property (GObject *object,
 }
 
 #if GTK_API_VERSION == 3
+
+static GtkSizeRequestMode
+freetuxtv_cellrenderer_recordingslist_get_request_mode (GtkCellRenderer *cell)
+{
+	return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
+}
+
 static void
-freetuxtv_cellrenderer_recordingslist_get_size (
-    GtkCellRenderer *cell,
-    GtkWidget *widget, const GdkRectangle *cell_area,
-    gint *x_offset, gint *y_offset,
-    gint *width, gint *height)
+freetuxtv_cellrenderer_recordingslist_get_preferred_width (
+	GtkCellRenderer *cell,
+    GtkWidget *widget,
+    gint *minimum_width,
+    gint *natural_width)
+{	
+	gint calc_width;
+
+	gint cell_xpad;
+	GtkAllocation allocation;
+
+	gtk_cell_renderer_get_padding(cell, &cell_xpad, NULL);
+	gtk_widget_get_allocation(widget, &allocation);
+
+	calc_width  = (gint) cell_xpad * 2;
+	calc_width += allocation.width;
+	
+	if(minimum_width){
+		*minimum_width = 0;
+	}
+	
+	if(natural_width){
+		*natural_width = calc_width;
+	}
+}
+
+static void
+freetuxtv_cellrenderer_recordingslist_get_preferred_height_for_width (
+	GtkCellRenderer *cell,
+    GtkWidget *widget,
+	gint width,
+	gint *minimum_height,
+	gint *natural_height)
+{
+	gint calc_height;
+
+	gint cell_ypad;
+	gtk_cell_renderer_get_padding(cell, NULL, &cell_ypad);
+		
+	calc_height = (gint) cell_ypad * 2;
+	calc_height+=40;
+	
+	if(minimum_height){
+		*minimum_height = calc_height;
+	}
+	if(natural_height){
+		*natural_height = calc_height;
+	}
+}
+
 #else
 static void
 freetuxtv_cellrenderer_recordingslist_get_size (
@@ -110,38 +162,16 @@ freetuxtv_cellrenderer_recordingslist_get_size (
     GtkWidget *widget, GdkRectangle *cell_area,
     gint *x_offset, gint *y_offset,
     gint *width, gint *height)
-#endif
 {
-
-	// FreetuxTVCellRendererRecordingsList *self = FREETUXTV_CELLRENDERER_RECORDINGSLIST (cell);
-
 	gint calc_width;
 	gint calc_height;
 
-	gint cell_xpad;
-	gint cell_ypad;
-	gfloat cell_xalign;
-	gfloat cell_yalign;
-	GtkAllocation allocation;
-
-#if GTK_API_VERSION == 3
-	gtk_cell_renderer_get_padding(cell, &cell_xpad, &cell_ypad);
-	gtk_cell_renderer_get_alignment (cell, &cell_xalign, &cell_yalign);
-	gtk_widget_get_allocation(widget, &allocation);
-#else
-	cell_xpad = cell->xpad;
-	cell_ypad = cell->ypad;
-	cell_xalign = cell->xalign;
-	cell_yalign = cell->yalign;
-	allocation = widget->allocation;
-#endif
-
-	calc_width  = (gint) cell_xpad * 2;
-	calc_height = (gint) cell_ypad * 2;
+	calc_width  = (gint) cell->xpad * 2;
+	calc_height = (gint) cell->ypad * 2;
 	calc_height+=40;
 
 	if (cell_area){
-		calc_width += allocation.width;
+		calc_width += widget->allocation.width;
 	}
 
 	if (width)
@@ -152,16 +182,17 @@ freetuxtv_cellrenderer_recordingslist_get_size (
 
 	if (cell_area){
 		if (x_offset){
-			*x_offset = cell_xalign * (cell_area->width - calc_width);
+			*x_offset = cell->xalign * (cell_area->width - calc_width);
 			*x_offset = MAX (*x_offset, 0);
 		}
 
 		if (y_offset){
-			*y_offset = cell_yalign * (cell_area->height - calc_height);
+			*y_offset = cell->yalign * (cell_area->height - calc_height);
 			*y_offset = MAX (*y_offset, 0);
 		}
 	}
 }
+#endif
 
 #if GTK_API_VERSION == 3
 static void
@@ -186,7 +217,6 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	FreetuxTVCellRendererRecordingsList *self = FREETUXTV_CELLRENDERER_RECORDINGSLIST (cell);
 	GtkStateType state;
 	gint width, height;
-	gint x_offset, y_offset;
 	PangoLayout *layout;
 	gchar* szTmp;
 	gint64 duration;
@@ -195,13 +225,19 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 
 #if GTK_API_VERSION == 3
 	GtkStyleContext *pStyleContext;
-	pStyleContext = gtk_widget_get_style_context (GTK_WIDGET(cell));
-	GdkWindow* window = gtk_widget_get_window  (GTK_WIDGET(cell));
-	bHasFocus = gtk_widget_has_focus (GTK_WIDGET(cell));
+	pStyleContext = gtk_widget_get_style_context (GTK_WIDGET(widget));
+	bHasFocus = gtk_widget_has_focus (GTK_WIDGET(widget));
+
+	freetuxtv_cellrenderer_recordingslist_get_preferred_width(cell, widget, NULL, &width);
+	freetuxtv_cellrenderer_recordingslist_get_preferred_height_for_width(cell, widget, width, NULL, &height);
 #else
 	GtkStyle* pStyle;
 	pStyle = widget->style;
 	bHasFocus = GTK_WIDGET_HAS_FOCUS (cell);
+
+	freetuxtv_cellrenderer_recordingslist_get_size (cell, widget, cell_area,
+	    NULL, NULL,
+	    &width, &height);
 #endif
 	
 	if (bHasFocus) {			
@@ -209,10 +245,6 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	} else {
 		state = GTK_STATE_NORMAL;
 	}
-
-	freetuxtv_cellrenderer_recordingslist_get_size (cell, widget, cell_area,
-	    &x_offset, &y_offset,
-	    &width, &height);
 
 	if ((flags & GTK_CELL_RENDERER_SELECTED) != 0){
 		state = GTK_STATE_SELECTED;
@@ -336,8 +368,15 @@ freetuxtv_cellrenderer_recordingslist_class_init (FreetuxTVCellRendererRecording
 
 	object_class->get_property = freetuxtv_cellrenderer_recordingslist_get_property;
 	object_class->set_property = freetuxtv_cellrenderer_recordingslist_set_property;
-
+	
+#if GTK_API_VERSION == 3
+	parent_class->get_request_mode = freetuxtv_cellrenderer_recordingslist_get_request_mode;
+	parent_class->get_preferred_width = freetuxtv_cellrenderer_recordingslist_get_preferred_width;
+	parent_class->get_preferred_height_for_width = freetuxtv_cellrenderer_recordingslist_get_preferred_height_for_width;
+#else
 	parent_class->get_size = freetuxtv_cellrenderer_recordingslist_get_size;
+#endif
+
 	parent_class->render   = freetuxtv_cellrenderer_recordingslist_render;
 
 	g_object_class_install_property (object_class,

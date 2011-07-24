@@ -574,16 +574,9 @@ channels_list_switch_channel (FreetuxTVApp *app,
 gboolean
 channels_list_get_prev_channel (FreetuxTVApp *app,
     GtkTreePath **path_prev_channel)
-{
-	GtkWidget *treeview;
-//	GtkTreeModel *model;
-		
+{		
 	GtkTreePath *path;
 	GtkTreeIter iter_channel;
-	
-	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
-							"windowmain_treeviewchannelslist");
-//	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 
 	if (app->current.pPathChannel != NULL) {
 		path = gtk_tree_path_copy(app->current.pPathChannel);
@@ -602,15 +595,8 @@ gboolean
 channels_list_get_next_channel (FreetuxTVApp *app,
 				GtkTreePath ** path_next_channel)
 {
-	GtkWidget *treeview;
-//	GtkTreeModel *model;
-		
 	GtkTreePath *path;
 	GtkTreeIter iter_channel;
-	
-	treeview = (GtkWidget *) gtk_builder_get_object(app->gui,
-							"windowmain_treeviewchannelslist");
-//	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
 
 	if (app->current.pPathChannel != NULL) {
 		path = gtk_tree_path_copy(app->current.pPathChannel);
@@ -984,7 +970,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 		GtkTreeSelection *selection;
 		GtkTreeModel* model_filter;
 		GList *list;
-		gint nb_selected = 0;
+//		gint nb_selected = 0;
 		gint nbChannels = 0;
 		gint nbGroupsTab[TYPEGRP_COUNT+1] = {0, 0, 0};
 		gint nbChannelsForGroupTab[TYPEGRP_COUNT] = {0, 0};
@@ -1002,7 +988,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 		
 		// Get the selection
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-		nb_selected = gtk_tree_selection_count_selected_rows(selection);
+//		nb_selected = gtk_tree_selection_count_selected_rows(selection);
 
 		// Get the path where user has clicked
 		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(treeview),
@@ -1015,7 +1001,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			gtk_tree_path_free(path_selected);			
 		}
 		
-		nb_selected = gtk_tree_selection_count_selected_rows(selection);
+//		nb_selected = gtk_tree_selection_count_selected_rows(selection);
 		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
 
 		nbTotalGroupsVisible = gtk_tree_model_iter_n_children (GTK_TREE_MODEL(model_filter), NULL);
@@ -2060,6 +2046,9 @@ on_popupmenu_activated_channelproperties (GtkMenuItem *menuitem, gpointer user_d
 
 		res = freetuxtv_window_channel_properties_run (pWindowChannelProperties,
 		    pChannelInfos, real_path);
+		if(res == GTK_RESPONSE_OK){
+
+		}
 		
 		g_object_unref(pWindowChannelProperties);
 		pWindowChannelProperties = NULL;
@@ -2082,6 +2071,9 @@ get_favourites_channels_group_new(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos
 	freetuxtv_window_add_channels_group_set_allowed_type (pWindowAddChannelsGroups, allowedType);
 	
 	res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
+	if(res == GTK_RESPONSE_OK){
+
+	}
 
 	freetuxtv_window_add_channels_group_get_last_added (pWindowAddChannelsGroups,
 	                                                    ppChannelsGroupInfos, &pTreePath);
