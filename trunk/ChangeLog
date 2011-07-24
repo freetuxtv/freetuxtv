@@ -5,7 +5,8 @@ FreetuxTV 0.6.0 (2011-XX-XX)
   - Better display for recording list
   - Added TV channel logos:
       WebTV: Canal26, CanalRural, Canal4 SanJuan, Canal5 Tucuman, Canal10 Tucuman,
-      	Canal6 Posadas, Canal9 EntreRios, TN, UrbaniaTV, Zona 31
+      	Canal6 Posadas, Canal9 EntreRios, Hit Music TV, Music plus Classic Rock, Music plus Hits,
+        Music plus pop rock, Reservoir Films, Télévision savoir, TN, UrbaniaTV, Zona 31
 
 FreetuxTV 0.5.2 (2011-01-10)
   - Added new official icon and splashcreen for FreetuxTV
@@ -23,7 +24,7 @@ FreetuxTV 0.5.2 (2011-01-10)
   - Preference to ignore diacritics.
   - Added TV channel logos:
       WebTV: Orange Sport Infos, R King TV, Zahra TV, TV8 Moselle Est, Clap TV, Archeo TV,
-         Canalmoza, CT2E, HiScore TV, Info Sport, Soleil TV, TVSF
+         Canalmoza, CT2E, Hit Music TV, HiScore TV, Info Sport, Soleil TV, TVSF
       WebRadio: BBC, RNE, RAI, ChanteFrance, Radio O
   - Updating and adding playlists (See http://code.google.com/p/freetuxtv/wiki/MajListesChaines)
 
