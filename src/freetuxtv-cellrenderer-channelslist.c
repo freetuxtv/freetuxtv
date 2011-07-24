@@ -112,14 +112,70 @@ freetuxtv_cellrenderer_channelslist_set_property (GObject      *object,
 }
 
 #if GTK_API_VERSION == 3
+
+static GtkSizeRequestMode
+freetuxtv_cellrenderer_channelslist_get_request_mode (GtkCellRenderer *cell)
+{
+	return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
+}
+
 static void
-freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
+freetuxtv_cellrenderer_channelslist_get_preferred_width (
+	GtkCellRenderer *cell,
     GtkWidget *widget,
-    const GdkRectangle *cell_area,
-    gint *x_offset,
-    gint *y_offset,
-    gint *width,
-    gint *height)
+    gint *minimum_width,
+    gint *natural_width)
+{	
+	gint calc_width;
+
+	gint cell_xpad;
+	GtkAllocation allocation;
+
+	gtk_cell_renderer_get_padding(cell, &cell_xpad, NULL);
+	gtk_widget_get_allocation(widget, &allocation);
+
+	calc_width  = (gint) cell_xpad * 2;
+	calc_width += allocation.width;
+	
+	if(minimum_width){
+		*minimum_width = 0;
+	}
+	
+	if(natural_width){
+		*natural_width = calc_width;
+	}
+}
+
+static void
+freetuxtv_cellrenderer_channelslist_get_preferred_height_for_width (
+	GtkCellRenderer *cell,
+    GtkWidget *widget,
+	gint width,
+	gint *minimum_height,
+	gint *natural_height)
+{
+	FreetuxTVCellRendererChannelsList *self = FREETUXTV_CELLRENDERER_CHANNELSLIST (cell);
+
+	gint calc_height;
+
+	gint cell_ypad;
+	gtk_cell_renderer_get_padding(cell, NULL, &cell_ypad);
+		
+	calc_height = (gint) cell_ypad * 2;
+	if(self->type == CELLRENDERER_TYPE_CHANNEL){
+		calc_height+=40;
+	}else{
+		calc_height+=20;
+	}
+	
+	if(minimum_height){
+		*minimum_height = calc_height;
+	}
+	if(natural_height){
+		*natural_height = calc_height;
+	}
+}
+
 #else
 static void
 freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
@@ -129,9 +185,8 @@ freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
     gint            *y_offset,
     gint            *width,
     gint            *height)
-#endif
-{
 
+{
 	FreetuxTVCellRendererChannelsList *self = FREETUXTV_CELLRENDERER_CHANNELSLIST (cell);
 
 	gint calc_width;
@@ -142,17 +197,17 @@ freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
 	gfloat cell_xalign;
 	gfloat cell_yalign;
 	GtkAllocation allocation;
-
 #if GTK_API_VERSION == 3
 	gtk_cell_renderer_get_padding(cell, &cell_xpad, &cell_ypad);
 	gtk_cell_renderer_get_alignment (cell, &cell_xalign, &cell_yalign);
 	gtk_widget_get_allocation(widget, &allocation);
 #else
+
 	cell_xpad = cell->xpad;
 	cell_ypad = cell->ypad;
 	cell_xalign = cell->xalign;
 	cell_yalign = cell->yalign;
-	allocation = widget->allocation;
+	allocation = widget->allocation
 #endif
 
 	calc_width  = (gint) cell_xpad * 2;
@@ -193,6 +248,8 @@ freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
 	}
 }
 
+#endif
+
 #if GTK_API_VERSION == 3
 static void
 freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
@@ -215,20 +272,27 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 	FreetuxTVCellRendererChannelsList *self = FREETUXTV_CELLRENDERER_CHANNELSLIST (cell);
 	GtkStateType state;
 	gint width, height;
-	gint x_offset, y_offset;
 	PangoLayout *layout;
 
 	gboolean bHasFocus;
 
 #if GTK_API_VERSION == 3
 	GtkStyleContext *pStyleContext;
-	pStyleContext = gtk_widget_get_style_context (GTK_WIDGET(cell));
-	GdkWindow* window = gtk_widget_get_window  (GTK_WIDGET(cell));
-	bHasFocus = gtk_widget_has_focus (GTK_WIDGET(cell));
+	pStyleContext = gtk_widget_get_style_context (GTK_WIDGET(widget));
+	GdkWindow* window = gtk_widget_get_window  (GTK_WIDGET(widget));
+	bHasFocus = gtk_widget_has_focus (GTK_WIDGET(widget));
+
+	freetuxtv_cellrenderer_channelslist_get_preferred_width(cell, widget, NULL, &width);
+	freetuxtv_cellrenderer_channelslist_get_preferred_height_for_width(cell, widget, width, NULL, &height);
+	
 #else
 	GtkStyle* pStyle;
 	pStyle = widget->style;
-	bHasFocus = GTK_WIDGET_HAS_FOCUS (cell);
+	bHasFocus = GTK_WIDGET_HAS_FOCUS (widget);
+
+	freetuxtv_cellrenderer_channelslist_get_size (cell, widget, cell_area,
+	    NULL, NULL,
+	    &width, &height);
 #endif
 
 	if (bHasFocus){
@@ -236,10 +300,6 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 	}else{
 		state = GTK_STATE_NORMAL;
 	}
-
-	freetuxtv_cellrenderer_channelslist_get_size (cell, widget, cell_area,
-	    &x_offset, &y_offset,
-	    &width, &height);
 
 	layout = gtk_widget_create_pango_layout (widget,
 	    self->name);
@@ -290,7 +350,7 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 			    0, cell_area->y, cell_area->x + width, cell_area->height);
 #endif			
 
-			// g_print("cell : %d %d\n", cell_area->x, width);
+			//g_print("cell : %d %d\n", cell_area->x, width);
 		}
 
 		logo = gdk_pixbuf_new_from_file(self->logo, NULL);
@@ -300,14 +360,16 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 
 #if GTK_API_VERSION == 3
 		gtk_cell_renderer_get_padding (cell, &cell_xpad, &cell_ypad);
-
-		gdk_cairo_set_source_pixbuf(cr, logo, (double)cell_xpad, (double)cell_ypad);
+		
+		gdk_cairo_set_source_pixbuf(cr, logo,
+		    (double)cell_xpad + 1.0, cell_area->y + (double)cell_ypad + 1.0);
 		cairo_paint(cr);
 
 		gtk_render_layout (pStyleContext, cr,
 		    cell_xpad * 2 + gdk_pixbuf_get_width(logo) + 5,
 		    cell_area->y + 15,
 		    layout);
+
 #else
 		cell_xpad = cell->xpad;
 		cell_ypad = cell->ypad;
@@ -374,7 +436,13 @@ freetuxtv_cellrenderer_channelslist_class_init (FreetuxTVCellRendererChannelsLis
 	object_class->get_property = freetuxtv_cellrenderer_channelslist_get_property;
 	object_class->set_property = freetuxtv_cellrenderer_channelslist_set_property;
 
+#if GTK_API_VERSION == 3
+	cell_class->get_request_mode = freetuxtv_cellrenderer_channelslist_get_request_mode;
+	cell_class->get_preferred_width = freetuxtv_cellrenderer_channelslist_get_preferred_width;
+	cell_class->get_preferred_height_for_width = freetuxtv_cellrenderer_channelslist_get_preferred_height_for_width;
+#else
 	cell_class->get_size = freetuxtv_cellrenderer_channelslist_get_size;
+#endif
 	cell_class->render   = freetuxtv_cellrenderer_channelslist_render;
 
 	g_object_class_install_property (object_class,

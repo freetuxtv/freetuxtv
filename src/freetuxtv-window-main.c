@@ -799,7 +799,12 @@ windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg)
 	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
 	                    context_id,
 	                    msg);
+	
+#if GTK_API_VERSION == 3
+	// TODO : Fond alternative to g_main_context_iteration
+#else
 	while (g_main_context_iteration(NULL, FALSE)){}
+#endif
 }
 
 
@@ -926,22 +931,19 @@ on_windowmain_trayicon_activate(GtkStatusIcon *status_icon, gpointer user_data)
 
 #if GTK_API_VERSION == 3
 	bIsVisible = gtk_widget_get_visible(widget);
+	if(bIsVisible){
+		gtk_widget_set_visible(widget, FALSE);
+	}else{
+		gtk_widget_set_visible(widget, TRUE);
+	}
 #else
 	bIsVisible = GTK_WIDGET_FLAGS (widget) & GTK_VISIBLE;
-#endif
 	if(bIsVisible){
 		gtk_widget_hide(widget);
 	}else{
 		gtk_widget_show(widget);
 	}
-	/*
-	// TODO : Only since 2.20
-	if(gtk_widget_get_visible(widget)){
-		gtk_widget_set_visible(widget, FALSE);
-	}else{
-		gtk_widget_set_visible(widget, TRUE);
-	}
-	*/
+#endif
 }
 
 static void

@@ -128,7 +128,7 @@ gtk_libvlc_media_player_init (GtkLibvlcMediaPlayer *object)
 
 #if GTK_API_VERSION == 3
 
-GtkSizeRequestMode
+static GtkSizeRequestMode
 gtk_libvlc_media_player_get_request_mode (GtkWidget *widget)
 {
 	return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
