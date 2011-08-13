@@ -2,7 +2,9 @@ FreetuxTV 0.6.0 (2011-XX-XX)
   - Alert on exit only when a channel is recording
   - Preference to set timeout when downloading with curl
   - Compilation with libnotify 0.7.x
+  - Compilation with gtk3
   - Better display for recording list
+  - Issue 23 : Hide original window when switching fullscreen mode
   - Added TV channel logos:
       WebTV: Canal26, CanalRural, Canal4 SanJuan, Canal5 Tucuman, Canal10 Tucuman,
       	Canal6 Posadas, Canal9 EntreRios, Hit Music TV, Music plus Classic Rock, Music plus Hits,
