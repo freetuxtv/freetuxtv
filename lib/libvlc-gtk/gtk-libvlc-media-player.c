@@ -1506,6 +1506,12 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean ful
 					gtk_window_add_accel_group (GTK_WINDOW(priv->pWindowFullscreen), priv->pAccelGroup);
 				}
 				priv->pWigdetOriginalParent = gtk_widget_get_parent (GTK_WIDGET(self));
+
+				GtkWidget *pTopLevel = gtk_widget_get_toplevel (priv->pWigdetOriginalParent);
+				if (gtk_widget_is_toplevel (pTopLevel)) {
+					gtk_widget_hide(pTopLevel);
+				}
+					
        			gtk_widget_show (priv->pWindowFullscreen);
 
 				gtk_widget_reparent (GTK_WIDGET(self), priv->pWindowFullscreen);
@@ -1520,6 +1526,12 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean ful
 #ifndef LIBVLC_OLD_FULLSCREEN_MODE
 				gtk_window_unfullscreen(GTK_WINDOW(priv->pWindowFullscreen));
 				gtk_widget_reparent (GTK_WIDGET(self), priv->pWigdetOriginalParent);
+
+				GtkWidget *pTopLevel = gtk_widget_get_toplevel (priv->pWigdetOriginalParent);
+				if (gtk_widget_is_toplevel (pTopLevel)) {
+					gtk_widget_show(pTopLevel);
+				}
+
 				
 				gtk_widget_hide (priv->pWindowFullscreen);
 #endif // LIBVLC_OLD_FULLSCREEN_MODE
