@@ -1211,9 +1211,9 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			pImage = gtk_image_new_from_stock (GTK_STOCK_NEW, GTK_ICON_SIZE_MENU);
 			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (pSubMenuItem), pImage);
 #if GTK_API_VERSION == 3
-			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+			gtk_menu_shell_append (GTK_MENU_SHELL (pSubMenu), pSubMenuItem);
 #else
-			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			gtk_menu_append (GTK_MENU (pSubMenu), pSubMenuItem);
 #endif
 			g_signal_connect(G_OBJECT(pSubMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_channeladdfavourites), app);
@@ -1222,9 +1222,9 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			// Separator
 			pSubMenuItem = gtk_separator_menu_item_new ();
 #if GTK_API_VERSION == 3
-			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+			gtk_menu_shell_append (GTK_MENU_SHELL (pSubMenu), pSubMenuItem);
 #else
-			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+			gtk_menu_append (GTK_MENU (pSubMenu), pSubMenuItem);
 #endif
 			gtk_widget_show (pSubMenuItem);
 			
@@ -1248,9 +1248,9 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 				if(pChannelsGroupInfos){
 					pSubMenuItem = gtk_image_menu_item_new_with_label(pChannelsGroupInfos->name);
 #if GTK_API_VERSION == 3
-					gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+					gtk_menu_shell_append (GTK_MENU_SHELL (pSubMenu), pSubMenuItem);
 #else
-					gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+					gtk_menu_append (GTK_MENU (pSubMenu), pSubMenuItem);
 #endif
 
 					g_object_set_data (G_OBJECT(pSubMenuItem), "FavouritesChannelsGroup", pChannelsGroupInfos);
