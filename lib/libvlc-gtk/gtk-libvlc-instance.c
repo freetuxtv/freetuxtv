@@ -133,7 +133,7 @@ raise_error(GtkLibvlcInstance *self, GError** error, gpointer user_data)
 
 /**
  * gtk_libvlc_instance_new:
- * @vlc_args: a string array containing the vlc command line arguments. Can be NULL.
+ * @vlc_args: a NULL terminated string array containing the vlc command line arguments. Can be NULL.
  * @log_func: pointer to a Glib log function to send internal libvlc-gtk message.
  * @error: a pointer to an error object that will be initialized if an error happend.
  * Should be freed when it is no longer needed with g_error_free(). Can be NULL.
