@@ -19,6 +19,7 @@
 
 #include "freetuxtv-window-add-channels-group.h"
 
+#include "freetuxtv-gladexml.h"
 #include "freetuxtv-fileutils.h"
 #include "freetuxtv-models.h"
 #include "freetuxtv-db-sync.h"
@@ -30,13 +31,14 @@ typedef struct _FreetuxTVWindowAddChannelsGroupPrivate FreetuxTVWindowAddChannel
 struct _FreetuxTVWindowAddChannelsGroupPrivate
 {
 	FreetuxTVApp* app;
-
-	GtkWidget* add_button;
+	GtkBuilder* pBuilder;
 
 	int allowedType;
 
 	FreetuxTVChannelsGroupInfos* pLastAddedChannelsGroupInfos;
     GtkTreePath* pLastAddedChannelsGroupPath;
+
+	GtkTreeModel* pModel;
 };
 
 #define FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), FREETUXTV_TYPE_WINDOW_ADD_CHANNELS_GROUP, FreetuxTVWindowAddChannelsGroupPrivate))
@@ -47,7 +49,7 @@ G_DEFINE_TYPE (FreetuxTVWindowAddChannelsGroup, freetuxtv_window_add_channels_gr
 
 
 static gboolean
-dialog_init (FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup);
+dialog_init (FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup, GtkWindow *parent);
 
 static void
 on_buttonrefresh_clicked (GtkButton *button, gpointer user_data);
@@ -71,8 +73,8 @@ freetuxtv_window_add_channels_group_init (FreetuxTVWindowAddChannelsGroup *objec
 
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(object);
 	priv->app = NULL;
+	priv->pBuilder = NULL;
 
-	priv->add_button = NULL;
 	priv->allowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_ALL;
 
 	priv->pLastAddedChannelsGroupInfos = NULL;
@@ -85,32 +87,15 @@ freetuxtv_window_add_channels_group_finalize (GObject *object)
 	G_OBJECT_CLASS (freetuxtv_window_add_channels_group_parent_class)->finalize (object);
 
 	FreetuxTVWindowAddChannelsGroupPrivate* priv;
-	FreetuxTVWindowAddChannelsGroupClass* klass;
-
-	GtkWidget* widget;
 	
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(object);
 
-	if(priv->add_button){
-		gtk_widget_destroy (priv->add_button);
-		priv->add_button = NULL;
-	}
-
-	klass = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_GET_CLASS(object);
-
-	if(klass->on_buttonrefresh_clicked_hid != -1){
-		widget = (GtkWidget *)gtk_builder_get_object (priv->app->gui,
-		    "dialogaddgroup_buttonrefresh");
-		g_signal_handler_disconnect (widget, klass->on_buttonrefresh_clicked_hid);
-		klass->on_buttonrefresh_clicked_hid = -1;
-	}
-	if(klass->on_dialog_response_hid != -1){
-		widget = (GtkWidget *) gtk_builder_get_object (priv->app->gui, "dialogaddgroup");
-		g_signal_handler_disconnect (widget, klass->on_dialog_response_hid);
-		klass->on_dialog_response_hid = -1;
-	}
-
 	priv->app = NULL;
+
+	if(priv->pBuilder){
+		g_object_unref (priv->pBuilder);
+		priv->pBuilder = NULL;
+	}
 }
 
 static void
@@ -121,25 +106,36 @@ freetuxtv_window_add_channels_group_class_init (FreetuxTVWindowAddChannelsGroupC
 	g_type_class_add_private (klass, sizeof (FreetuxTVWindowAddChannelsGroupPrivate));
 
 	object_class->finalize = freetuxtv_window_add_channels_group_finalize;
-
-	klass->initialized = FALSE;
-	klass->on_buttonrefresh_clicked_hid = -1;
-	klass->on_dialog_response_hid = -1;
 }
 
 FreetuxTVWindowAddChannelsGroup*
-freetuxtv_window_add_channels_group_new (FreetuxTVApp* app)
+freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app)
 {
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 	FreetuxTVWindowAddChannelsGroupPrivate* priv;
+	
+	gchar* szUiFile = NULL;
 	
 	pWindowAddChannelsGroups = g_object_new (FREETUXTV_TYPE_WINDOW_ADD_CHANNELS_GROUP, NULL);
 	
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroups);
 
 	priv->app = app;
+	szUiFile = g_build_filename (app->paths.szPathGladeXml, FREETUXTV_GUIFILE_ADDCHANNELSGROUPS, NULL);
 
-	dialog_init (pWindowAddChannelsGroups);
+	priv->pBuilder = gtk_builder_new ();
+	gtk_builder_add_from_file (priv->pBuilder, szUiFile, NULL);
+	
+	priv->pModel = (GtkTreeModel*) gtk_builder_get_object (priv->pBuilder,
+	    "treestore_channelsgroup");
+
+	// Initialize dialog
+	dialog_init (pWindowAddChannelsGroups, parent);
+
+	if(szUiFile){
+		g_free(szUiFile);
+		szUiFile = NULL;
+	}
 
 	return pWindowAddChannelsGroups;
 }
@@ -169,17 +165,16 @@ freetuxtv_window_add_channels_group_run (
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);
 	
 	GtkBuilder *builder;
-	builder = priv->app->gui;
+	builder = priv->pBuilder;
 
 	gint res;
 
 	GtkDialog *dialog;
-	dialog = (GtkDialog *) gtk_builder_get_object (builder, "dialogaddgroup");
+	dialog = (GtkDialog*) gtk_builder_get_object (builder, "dialogaddgroup");
 
 	// Show the group allowed
 	GtkNotebook *notebook;
-	notebook = (GtkNotebook *) gtk_builder_get_object (priv->app->gui,
-	    "dialogaddgroup_notebook");
+	notebook = (GtkNotebook *) gtk_builder_get_object (builder, "dialogaddgroup_notebook");
 	if((priv->allowedType & FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING) 
 	    == FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING){
 		gtk_notebook_set_page_visible(notebook, 0, TRUE);
@@ -235,7 +230,7 @@ freetuxtv_window_add_channels_group_get_last_added(
 }
 
 static gboolean
-dialog_init (FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup)
+dialog_init (FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup, GtkWindow *parent)
 {
 	gboolean res = TRUE;
 	
@@ -248,55 +243,62 @@ dialog_init (FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup)
 	GtkWidget *widget;
 
 	GtkBuilder *builder;
-	builder = priv->app->gui;
+	builder = priv->pBuilder;
 
 	klass = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_GET_CLASS(pWindowAddChannelsGroup);
 
-	dialog = (GtkDialog *) gtk_builder_get_object (builder, "dialogaddgroup");
-	
-	if(!klass->initialized){
-		// Connect signal to the UI
-		gtk_dialog_add_buttons (GTK_DIALOG(dialog),
-			"gtk-close", GTK_RESPONSE_CLOSE, NULL);
-		g_signal_connect(G_OBJECT(dialog),
-			"delete-event",
-			G_CALLBACK(on_dialog_close),
-			NULL);
+	dialog = (GtkDialog*) gtk_builder_get_object (builder, "dialogaddgroup");
 
-		// Set the tree selection mode
-		widget = (GtkWidget *)gtk_builder_get_object (builder,
-			"dialogaddgroup_treeviewchannelsgroups");
-		GtkTreeSelection *selection;
-		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(widget));
-		gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
-		
-		klass->initialized = TRUE;
-	}
+	// Set the parent
+	gtk_window_set_transient_for (GTK_WINDOW(dialog), parent);
 
-	// Signal to connect for each instance
-	priv->add_button = gtk_button_new_from_stock ("gtk-add");
-	g_signal_connect(G_OBJECT(priv->add_button),
-		"clicked", G_CALLBACK(on_buttonadd_clicked), pWindowAddChannelsGroup);
+	// Connect signal to the UI
+	gtk_dialog_add_buttons (GTK_DIALOG(dialog),
+		"gtk-close", GTK_RESPONSE_CLOSE, NULL);
+	g_signal_connect(G_OBJECT(dialog),
+		"delete-event",
+		G_CALLBACK(on_dialog_close),
+		pWindowAddChannelsGroup);
+
+	// Set the tree selection mode
+	widget = (GtkWidget *)gtk_builder_get_object (builder,
+		"dialogaddgroup_treeviewchannelsgroups");
+	GtkTreeSelection *selection;
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(widget));
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
+
+	// Signal to connect instance
+	widget = gtk_button_new_from_stock ("gtk-add");
+	g_signal_connect(G_OBJECT(widget),
+		"clicked",
+	    G_CALLBACK(on_buttonadd_clicked),
+	    pWindowAddChannelsGroup);
 	GtkBox* pDialogActionArea;
 #if GTK_API_VERSION == 3
 	pDialogActionArea = GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG (dialog)));
 #else
 	pDialogActionArea = GTK_BOX(GTK_DIALOG (dialog)->action_area);
 #endif
-	gtk_box_pack_end(pDialogActionArea, priv->add_button, FALSE, FALSE, 0);
-	gtk_widget_show(priv->add_button);
+	gtk_box_pack_end(pDialogActionArea, widget, FALSE, FALSE, 0);
+	gtk_widget_show(widget);
 	
 	widget = (GtkWidget *)gtk_builder_get_object (builder,
 		"dialogaddgroup_buttonrefresh");
-	klass->on_buttonrefresh_clicked_hid = g_signal_connect(G_OBJECT(widget),
+	g_signal_connect(G_OBJECT(widget),
 		"clicked",
 		G_CALLBACK(on_buttonrefresh_clicked),
 		pWindowAddChannelsGroup);
-
-	klass->on_dialog_response_hid = g_signal_connect(G_OBJECT(dialog),
+	
+	g_signal_connect(G_OBJECT(dialog),
 		"response",
 		G_CALLBACK(on_dialog_response),
 		pWindowAddChannelsGroup);
+
+	GError* error = NULL;
+	load_model_channels_group_from_file (priv->app, priv->pModel, &error);
+	if(error != NULL){
+		g_print("Test ");
+	}
 
 	return res;
 }
@@ -328,13 +330,16 @@ on_buttonrefresh_clicked (GtkButton *button, gpointer user_data)
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroups);
 	app = priv->app;
 
+	GtkBuilder *builder;
+	builder = priv->pBuilder;
+
 	GError* error = NULL;
 
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "Starting update of the channel's groups list\n");
 
 	GtkWidget* widget;
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	widget = (GtkWidget *) gtk_builder_get_object (builder,
 	    "dialogaddgroup_entrychannelsgroupfile");
 	gchar *url;
 	gchar *dst_file;
@@ -348,7 +353,7 @@ on_buttonrefresh_clicked (GtkButton *button, gpointer user_data)
 	if(error == NULL){
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 			  "Updating the list of channel's groups\n");
-		load_model_channels_group_from_file(app, &error);
+		load_model_channels_group_from_file(app, priv->pModel, &error);
 	}
 
 	if(error != NULL){
@@ -371,6 +376,8 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);
 	
 	app = priv->app;
+	GtkBuilder *builder;
+	builder = priv->pBuilder;
 	
 	GError* error = NULL;
 	gchar *errmsg = NULL;
@@ -393,9 +400,9 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 	dbsync_open_db (&dbsync, &error);
 
 	GtkDialog *dialog;
-	dialog = (GtkDialog *) gtk_builder_get_object (app->gui, "dialogaddgroup");
+	dialog = (GtkDialog *) gtk_builder_get_object (builder, "dialogaddgroup");
 
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+	widget = (GtkWidget *) gtk_builder_get_object (builder,
 	    "dialogaddgroup_notebook");
 
 	if(error == NULL){
@@ -404,13 +411,13 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 		switch(page){
 		case 0:
 			// Add one or many groups in the list
-			widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+			widget = (GtkWidget *)gtk_builder_get_object (builder,
 								      "dialogaddgroup_treeviewchannelsgroups");
 			GtkTreeSelection *selection;
 			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(widget));
 			
 			GtkTreeModel* model;
-			model = (GtkTreeModel *) gtk_builder_get_object (app->gui,
+			model = (GtkTreeModel *) gtk_builder_get_object (builder,
 									 "treestore_channelsgroup");
 			GList *list;
 			list = gtk_tree_selection_get_selected_rows (selection, &model);
@@ -543,19 +550,19 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 			break;
 		case 1:
 			// Add custom group
-			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			widget = (GtkWidget *) gtk_builder_get_object (builder,
 							       "dialogaddgroup_name");
 			sgroupname = gtk_entry_get_text(GTK_ENTRY(widget));
 			
-			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			widget = (GtkWidget *) gtk_builder_get_object (builder,
 								       "dialogaddgroup_uri");
 			sgroupuri = gtk_entry_get_text(GTK_ENTRY(widget));
 			
-			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			widget = (GtkWidget *) gtk_builder_get_object (builder,
 								       "dialogaddgroup_bregex");
 			sbregex = gtk_entry_get_text(GTK_ENTRY(widget));
 			
-			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			widget = (GtkWidget *) gtk_builder_get_object (builder,
 								       "dialogaddgroup_eregex");
 			seregex = gtk_entry_get_text(GTK_ENTRY(widget));			
 			
@@ -605,7 +612,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 			break;
 		case 2:
 			// Add custom group
-			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+			widget = (GtkWidget *) gtk_builder_get_object (builder,
 							       "dialogaddgroup_specialgroupname");
 			sgroupname = gtk_entry_get_text(GTK_ENTRY(widget));
 			
@@ -658,10 +665,11 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 	}
 
 	if(pProgressDialog){
-		// TODO g_object_unref(pProgressDialog);
+		g_object_unref(pProgressDialog);
 		pProgressDialog = NULL;
 	}
 }
+
 
 static void
 on_dialog_response (GtkDialog *dialog, gint response_id, gpointer user_data)
@@ -671,6 +679,9 @@ on_dialog_response (GtkDialog *dialog, gint response_id, gpointer user_data)
 
 static gboolean
 on_dialog_close (GtkWidget *widget, GdkEvent  *event, gpointer user_data)
-{	
+{
+	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
+	pWindowAddChannelsGroups = (FreetuxTVWindowAddChannelsGroup*)user_data;
+	
 	return gtk_widget_hide_on_delete(widget);
 }

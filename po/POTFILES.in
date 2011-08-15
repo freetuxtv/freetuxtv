@@ -1,6 +1,7 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 data/ui/addrecording.glade
+data/ui/addchannelsgroups.glade
 data/ui/freetuxtv.glade
 data/channels_groups.xml.in
 data/menu/freetuxtv.desktop.in

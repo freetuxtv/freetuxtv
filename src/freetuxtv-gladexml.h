@@ -20,7 +20,8 @@
 // This file define constant to be used in FreetuxTV around GladeXML file
 
 // List of files
-#define FREETUXTV_GUIFILE_ADDRECORDING	  "addrecording.glade"
+#define FREETUXTV_GUIFILE_ADDRECORDING			"addrecording.glade"
+#define FREETUXTV_GUIFILE_ADDCHANNELSGROUPS		"addchannelsgroups.glade"
 
 // List of windows and dialogs
 #define FREETUXTV_GUI_DIALOG_ADDRECORDING "dialogaddrecording"

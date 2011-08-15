@@ -2064,7 +2064,14 @@ get_favourites_channels_group_new(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 	gint res;
 
-	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (app);
+	GtkWidget* pParent;
+	pParent = NULL;
+	// TODO : Get the parent
+	/*pParent = gtk_widget_get_toplevel (GTK_WIDGET(button));
+	if (!gtk_widget_is_toplevel  (pParent)) {
+		pParent = NULL;
+	}*/
+	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app);
 
 	int allowedType;
 	allowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES;

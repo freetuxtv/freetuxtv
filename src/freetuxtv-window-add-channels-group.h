@@ -42,11 +42,6 @@ typedef struct _FreetuxTVWindowAddChannelsGroup FreetuxTVWindowAddChannelsGroup;
 struct _FreetuxTVWindowAddChannelsGroupClass
 {
 	GObjectClass parent_class;
-
-	gboolean initialized;
-	
-	gulong on_buttonrefresh_clicked_hid;
-	gulong on_dialog_response_hid;
 };
 
 struct _FreetuxTVWindowAddChannelsGroup
@@ -68,7 +63,7 @@ enum FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW {
 GType freetuxtv_window_add_channels_group_get_type (void) G_GNUC_CONST;
 
 FreetuxTVWindowAddChannelsGroup*
-freetuxtv_window_add_channels_group_new (FreetuxTVApp* app);
+freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app);
 
 void
 freetuxtv_window_add_channels_group_set_allowed_type (
