@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
 /*
  * FreetuxTV is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,11 +30,7 @@ enum {
 	MODEL_CHANNELSGROUP_N_COLUMNS
 };
 
-
 void
-load_all_models(FreetuxTVApp* app, GError** error);
-
-void
-load_model_channels_group_from_file(FreetuxTVApp* app, GError** error);
+load_model_channels_group_from_file(FreetuxTVApp* app, GtkTreeModel *model, GError** error);
 
 #endif /* FREETUXTV_MODELS_H */

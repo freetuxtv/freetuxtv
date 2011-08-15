@@ -822,6 +822,7 @@ windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
 	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
 	                   context_id);
 	// while (g_main_context_iteration(NULL, FALSE)){}		
+	while (g_main_context_iteration(NULL, FALSE)){}
 }
 
 void
@@ -1467,8 +1468,13 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 	gint res;
-
-	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (app);
+	
+	GtkWidget* pParent;
+	pParent = gtk_widget_get_toplevel (GTK_WIDGET(menuitem));
+	if (!gtk_widget_is_toplevel  (pParent)) {
+		pParent = NULL;
+	}
+	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app);
 	res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
 	if(res == GTK_RESPONSE_OK){
 		

@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
 /*
  * FreetuxTV is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,12 +39,7 @@ xml_start_cb(GMarkupParseContext *context, const gchar *element_name,
 	     gpointer data, GError **error);
 
 void
-load_all_models(FreetuxTVApp* app, GError** error){
-	load_model_channels_group_from_file(app, error);
-}
-
-void
-load_model_channels_group_from_file(FreetuxTVApp* app, GError** error)
+load_model_channels_group_from_file(FreetuxTVApp* app, GtkTreeModel *model, GError** error)
 {
 	g_return_if_fail(error != NULL);
 	g_return_if_fail(*error == NULL);
@@ -60,9 +55,6 @@ load_model_channels_group_from_file(FreetuxTVApp* app, GError** error)
 	}
 
 	// Clear the model
-	GtkTreeModel *model;
-	model = (GtkTreeModel *) gtk_builder_get_object (app->gui,
-							 "treestore_channelsgroup");
 	gtk_tree_store_clear (GTK_TREE_STORE(model));
 		
 	// Parse the file	

@@ -1,6 +1,7 @@
 
 # UI file to install
 freetuxtvui_DATA = \
+	addchannelsgroups.glade \
 	addrecording.glade \
 	freetuxtv.glade
 freetuxtvuidir = $(pkgdatadir)/ui

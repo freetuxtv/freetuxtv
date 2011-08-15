@@ -495,6 +495,7 @@ splashscreen_app_init(gpointer data)
 
 	GtkWidget *widget;
 	GtkWidget *eventboxplayer;
+	GtkWidget *pMainWindow = NULL;
 
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 		                                          "splashscreen_image");
@@ -600,14 +601,6 @@ splashscreen_app_init(gpointer data)
 		}
 	}
 
-	// Loading the models
-	if(error == NULL){
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		      "Loading models\n");
-		splashscreen_statusbar_push (app, _("Loading models..."));
-		load_all_models (app, &error);
-		splashscreen_statusbar_pop (app);
-	}
 
 	// Loading the list of channels
 	if(error == NULL){
@@ -644,6 +637,7 @@ splashscreen_app_init(gpointer data)
 		widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 			                                          "windowmain");
 		gtk_widget_show(widget);
+		pMainWindow = widget;
 	}
 
 	// Set the sound level of the media player
@@ -669,7 +663,7 @@ splashscreen_app_init(gpointer data)
 			FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 			gint res;
 
-			pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (app);
+			pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pMainWindow), app);
 			res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
 			if(res == GTK_RESPONSE_OK){
 
