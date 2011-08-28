@@ -35,18 +35,20 @@ struct _FreetuxTVWindowAddChannelsGroupPrivate
 
 	int allowedType;
 
-	FreetuxTVChannelsGroupInfos* pLastAddedChannelsGroupInfos;
-    GtkTreePath* pLastAddedChannelsGroupPath;
-
 	GtkTreeModel* pModel;
 };
 
 #define FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), FREETUXTV_TYPE_WINDOW_ADD_CHANNELS_GROUP, FreetuxTVWindowAddChannelsGroupPrivate))
 
-
-
 G_DEFINE_TYPE (FreetuxTVWindowAddChannelsGroup, freetuxtv_window_add_channels_group, G_TYPE_OBJECT);
 
+enum {
+   SIGNAL_CHANNELS_GROUP_ADDED,
+   SIGNAL_CHANNELS_ADDED,
+   NB_SIGNALS
+};
+
+static guint g_signals [NB_SIGNALS] = { 0, 0 };
 
 static gboolean
 dialog_init (FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup, GtkWindow *parent);
@@ -67,6 +69,18 @@ static void
 gtk_notebook_set_page_visible(GtkNotebook* notebook, int page_num, gboolean visible);
 
 static void
+db_on_group_added (
+    FreetuxTVApp *app, DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    gpointer user_data, GError** error);
+
+static void
+db_on_channels_added (
+    FreetuxTVApp *app, DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    gpointer user_data, GError** error);
+
+static void
 freetuxtv_window_add_channels_group_init (FreetuxTVWindowAddChannelsGroup *object)
 {
 	FreetuxTVWindowAddChannelsGroupPrivate* priv;
@@ -76,9 +90,6 @@ freetuxtv_window_add_channels_group_init (FreetuxTVWindowAddChannelsGroup *objec
 	priv->pBuilder = NULL;
 
 	priv->allowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_ALL;
-
-	priv->pLastAddedChannelsGroupInfos = NULL;
-    priv->pLastAddedChannelsGroupPath = NULL;
 }
 
 static void
@@ -98,6 +109,89 @@ freetuxtv_window_add_channels_group_finalize (GObject *object)
 	}
 }
 
+#ifdef G_ENABLE_DEBUG
+#define g_marshal_value_peek_boolean(v)  g_value_get_boolean (v)
+#define g_marshal_value_peek_char(v)     g_value_get_char (v)
+#define g_marshal_value_peek_uchar(v)    g_value_get_uchar (v)
+#define g_marshal_value_peek_int(v)      g_value_get_int (v)
+#define g_marshal_value_peek_uint(v)     g_value_get_uint (v)
+#define g_marshal_value_peek_long(v)     g_value_get_long (v)
+#define g_marshal_value_peek_ulong(v)    g_value_get_ulong (v)
+#define g_marshal_value_peek_int64(v)    g_value_get_int64 (v)
+#define g_marshal_value_peek_uint64(v)   g_value_get_uint64 (v)
+#define g_marshal_value_peek_enum(v)     g_value_get_enum (v)
+#define g_marshal_value_peek_flags(v)    g_value_get_flags (v)
+#define g_marshal_value_peek_float(v)    g_value_get_float (v)
+#define g_marshal_value_peek_double(v)   g_value_get_double (v)
+#define g_marshal_value_peek_string(v)   (char*) g_value_get_string (v)
+#define g_marshal_value_peek_param(v)    g_value_get_param (v)
+#define g_marshal_value_peek_boxed(v)    g_value_get_boxed (v)
+#define g_marshal_value_peek_pointer(v)  g_value_get_pointer (v)
+#define g_marshal_value_peek_object(v)   g_value_get_object (v)
+#else /* !G_ENABLE_DEBUG */
+/* WARNING: This code accesses GValues directly, which is UNSUPPORTED API.
+ *          Do not access GValues directly in your code. Instead, use the
+ *          g_value_get_*() functions
+ */
+#define g_marshal_value_peek_boolean(v)  (v)->data[0].v_int
+#define g_marshal_value_peek_char(v)     (v)->data[0].v_int
+#define g_marshal_value_peek_uchar(v)    (v)->data[0].v_uint
+#define g_marshal_value_peek_int(v)      (v)->data[0].v_int
+#define g_marshal_value_peek_uint(v)     (v)->data[0].v_uint
+#define g_marshal_value_peek_long(v)     (v)->data[0].v_long
+#define g_marshal_value_peek_ulong(v)    (v)->data[0].v_ulong
+#define g_marshal_value_peek_int64(v)    (v)->data[0].v_int64
+#define g_marshal_value_peek_uint64(v)   (v)->data[0].v_uint64
+#define g_marshal_value_peek_enum(v)     (v)->data[0].v_long
+#define g_marshal_value_peek_flags(v)    (v)->data[0].v_ulong
+#define g_marshal_value_peek_float(v)    (v)->data[0].v_float
+#define g_marshal_value_peek_double(v)   (v)->data[0].v_double
+#define g_marshal_value_peek_string(v)   (v)->data[0].v_pointer
+#define g_marshal_value_peek_param(v)    (v)->data[0].v_pointer
+#define g_marshal_value_peek_boxed(v)    (v)->data[0].v_pointer
+#define g_marshal_value_peek_pointer(v)  (v)->data[0].v_pointer
+#define g_marshal_value_peek_object(v)   (v)->data[0].v_pointer
+#endif /* !G_ENABLE_DEBUG */
+
+void
+g_cclosure_marshal_VOID__OBJECT_POINTER_POINTER (GClosure     *closure,
+    GValue       *return_value,
+    guint         n_param_values,
+    const GValue *param_values,
+    gpointer      invocation_hint,
+    gpointer      marshal_data)
+{
+	typedef void (*GMarshalFunc_VOID__OBJECT_POINTER_POINTER) (gpointer     data1,
+	    gpointer     arg_1,
+	    gpointer     arg_2,
+	    gpointer     arg_3,
+	    gpointer     data2);
+	register GMarshalFunc_VOID__OBJECT_POINTER_POINTER callback;
+	register GCClosure *cc = (GCClosure*) closure;
+	register gpointer data1, data2;
+
+	g_return_if_fail (n_param_values == 4);
+
+	if (G_CCLOSURE_SWAP_DATA (closure))
+	{
+		data1 = closure->data;
+		data2 = g_value_peek_pointer (param_values + 0);
+	}
+	else
+	{
+		data1 = g_value_peek_pointer (param_values + 0);
+		data2 = closure->data;
+	}
+	callback = (GMarshalFunc_VOID__OBJECT_POINTER_POINTER) (marshal_data ? marshal_data : cc->callback);
+
+	callback (data1,
+	    g_marshal_value_peek_object (param_values + 1),
+	    g_marshal_value_peek_pointer (param_values + 2),
+	    g_marshal_value_peek_pointer (param_values + 3),
+	    data2);
+}
+
+
 static void
 freetuxtv_window_add_channels_group_class_init (FreetuxTVWindowAddChannelsGroupClass *klass)
 {
@@ -106,6 +200,34 @@ freetuxtv_window_add_channels_group_class_init (FreetuxTVWindowAddChannelsGroupC
 	g_type_class_add_private (klass, sizeof (FreetuxTVWindowAddChannelsGroupPrivate));
 
 	object_class->finalize = freetuxtv_window_add_channels_group_finalize;
+
+	g_signals [SIGNAL_CHANNELS_GROUP_ADDED] = g_signal_new (
+	    "channels-group-added",
+	    G_TYPE_FROM_CLASS (klass),
+	    G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+	    G_STRUCT_OFFSET (FreetuxTVWindowAddChannelsGroupClass, channels_group_added),
+	    NULL, NULL,
+	    g_cclosure_marshal_VOID__OBJECT_POINTER_POINTER,
+	    G_TYPE_NONE,
+	    3,
+	    FREETUXTV_TYPE_CHANNELS_GROUP_INFOS,
+	    G_TYPE_POINTER,
+	    G_TYPE_POINTER
+	    );
+
+	g_signals [SIGNAL_CHANNELS_ADDED] = g_signal_new (
+	    "channels-added",
+	    G_TYPE_FROM_CLASS (klass),
+	    G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+	    G_STRUCT_OFFSET (FreetuxTVWindowAddChannelsGroupClass, channels_added),
+	    NULL, NULL,
+	    g_cclosure_marshal_VOID__OBJECT_POINTER_POINTER,
+	    G_TYPE_NONE,
+	    3,
+	    FREETUXTV_TYPE_CHANNELS_GROUP_INFOS,
+	    G_TYPE_POINTER,
+	    G_TYPE_POINTER
+	    );
 }
 
 FreetuxTVWindowAddChannelsGroup*
@@ -154,20 +276,21 @@ freetuxtv_window_add_channels_group_set_allowed_type (
 	priv->allowedType = allowedType;
 }
 
-gint
-freetuxtv_window_add_channels_group_run (
+void
+freetuxtv_window_add_channels_group_show (
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup)
 {
-	g_return_val_if_fail(pWindowAddChannelsGroup != NULL, GTK_RESPONSE_NONE);
-	g_return_val_if_fail(FREETUXTV_IS_WINDOW_ADD_CHANNELS_GROUP(pWindowAddChannelsGroup), GTK_RESPONSE_NONE);
+	g_return_if_fail(pWindowAddChannelsGroup != NULL);
+	g_return_if_fail(FREETUXTV_IS_WINDOW_ADD_CHANNELS_GROUP(pWindowAddChannelsGroup));
+
+	// TODO : Destroy it
+	g_object_ref(pWindowAddChannelsGroup);
 
 	FreetuxTVWindowAddChannelsGroupPrivate* priv;
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);
 	
 	GtkBuilder *builder;
 	builder = priv->pBuilder;
-
-	gint res;
 
 	GtkDialog *dialog;
 	dialog = (GtkDialog*) gtk_builder_get_object (builder, "dialogaddgroup");
@@ -195,38 +318,7 @@ freetuxtv_window_add_channels_group_run (
 	}
 
 	// Display the dialog
-	res = gtk_dialog_run(dialog);
-
-	return res;
-}
-
-gboolean
-freetuxtv_window_add_channels_group_get_last_added(
-    FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup,
-	FreetuxTVChannelsGroupInfos** ppChannelsGroupInfos,
-    GtkTreePath** ppTreePath
-    )
-{
-	g_return_val_if_fail(pWindowAddChannelsGroup != NULL, GTK_RESPONSE_NONE);
-	g_return_val_if_fail(FREETUXTV_IS_WINDOW_ADD_CHANNELS_GROUP(pWindowAddChannelsGroup), GTK_RESPONSE_NONE);
-
-	FreetuxTVWindowAddChannelsGroupPrivate* priv;
-	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);	
-	
-	gboolean res = FALSE;
-
-	res = priv->pLastAddedChannelsGroupInfos != NULL
-		&& priv->pLastAddedChannelsGroupPath != NULL;
-
-	if(ppChannelsGroupInfos){
-		*ppChannelsGroupInfos = priv->pLastAddedChannelsGroupInfos;
-	}
-
-	if(ppTreePath){
-		*ppTreePath = priv->pLastAddedChannelsGroupPath;
-	}
-	
-	return res;
+	gtk_widget_show(GTK_WIDGET(dialog));
 }
 
 static gboolean
@@ -237,15 +329,11 @@ dialog_init (FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup, GtkWindow
 	FreetuxTVWindowAddChannelsGroupPrivate* priv;
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);
 
-	FreetuxTVWindowAddChannelsGroupClass* klass;
-
 	GtkDialog *dialog;
 	GtkWidget *widget;
 
 	GtkBuilder *builder;
 	builder = priv->pBuilder;
-
-	klass = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_GET_CLASS(pWindowAddChannelsGroup);
 
 	dialog = (GtkDialog*) gtk_builder_get_object (builder, "dialogaddgroup");
 
@@ -393,8 +481,6 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 	gboolean has_process = FALSE;
 
 	gchar *tmptext;
-
-	GtkTreePath* pTreePathTmp;
 	
 	DBSync dbsync;
 	dbsync_open_db (&dbsync, &error);
@@ -410,7 +496,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 		page = gtk_notebook_get_current_page (GTK_NOTEBOOK(widget));
 		switch(page){
 		case 0:
-			// Add one or many groups in the list
+			// Add one or many groups from the list of existing group
 			widget = (GtkWidget *)gtk_builder_get_object (builder,
 								      "dialogaddgroup_treeviewchannelsgroups");
 			GtkTreeSelection *selection;
@@ -427,7 +513,6 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 			int nb_added = 0;
 			count = gtk_tree_selection_count_selected_rows(selection);
 
-			
 			GList* iterator = NULL;
 			iterator = g_list_first (list);
 			
@@ -485,7 +570,12 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 								gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 								g_free(tmptext);
 
-								channels_list_add_channels_group (app, pChannelsGroupInfos, NULL, &dbsync, &error);
+								// Add the group in the database
+								if(error == NULL){
+									channels_list_db_add_channels_group (app, &dbsync, pChannelsGroupInfos,
+									    db_on_group_added, db_on_channels_added, pWindowAddChannelsGroup, &error);
+								}
+
 								if(error == NULL){
 									nb_added++;
 								}
@@ -523,8 +613,13 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 								pChannelsGroupInfos->name);
 							gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 							g_free(tmptext);
+
+							// Add the group in the database
+							if(error == NULL){
+								channels_list_db_add_channels_group (app, &dbsync, pChannelsGroupInfos,
+								    db_on_group_added, db_on_channels_added, pWindowAddChannelsGroup, &error);
+							}
 							
-							channels_list_add_channels_group (app, pChannelsGroupInfos, NULL, &dbsync, &error);
 							if(error == NULL){
 								nb_added++;
 							}
@@ -600,13 +695,19 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 				gtk_progress_dialog_set_percent(pProgressDialog, 0.0);
 				g_free(tmptext);
 
-				channels_list_add_channels_group (app, pChannelsGroupInfos, NULL, &dbsync, &error);
+				// Add the group in the database
+				if(error == NULL){
+					channels_list_db_add_channels_group (app, &dbsync, pChannelsGroupInfos,
+					    db_on_group_added, db_on_channels_added, pWindowAddChannelsGroup, &error);
+				}
 
-				tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), 1);
-				gtk_progress_dialog_set_text(pProgressDialog, tmptext);
-				gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
+				if(error == NULL){
+					tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), 1);
+					gtk_progress_dialog_set_text(pProgressDialog, tmptext);
+					gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
 				
-				g_free(tmptext);
+					g_free(tmptext);
+				}
 			}
 			
 			break;
@@ -637,18 +738,19 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 				gtk_progress_dialog_set_percent(pProgressDialog, 0.0);
 				g_free(tmptext);
 
-				channels_list_add_channels_group (app, pChannelsGroupInfos, &pTreePathTmp, &dbsync, &error);
-				priv->pLastAddedChannelsGroupInfos = pChannelsGroupInfos;
-				if(priv->pLastAddedChannelsGroupPath){
-					gtk_tree_path_free(priv->pLastAddedChannelsGroupPath);
+				// Add the group in the database
+				if(error == NULL){
+					channels_list_db_add_channels_group (app, &dbsync, pChannelsGroupInfos,
+					    db_on_group_added, db_on_channels_added, pWindowAddChannelsGroup, &error);
 				}
-				priv->pLastAddedChannelsGroupPath = pTreePathTmp;
 
-				tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), 1);
-				gtk_progress_dialog_set_text(pProgressDialog, tmptext);
-				gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
+				if(error == NULL){
+					tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), 1);
+					gtk_progress_dialog_set_text(pProgressDialog, tmptext);
+					gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
 				
-				g_free(tmptext);
+					g_free(tmptext);
+				}
 			}
 			break;
 		}
@@ -670,7 +772,6 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 	}
 }
 
-
 static void
 on_dialog_response (GtkDialog *dialog, gint response_id, gpointer user_data)
 {
@@ -684,4 +785,70 @@ on_dialog_close (GtkWidget *widget, GdkEvent  *event, gpointer user_data)
 	pWindowAddChannelsGroups = (FreetuxTVWindowAddChannelsGroup*)user_data;
 	
 	return gtk_widget_hide_on_delete(widget);
+}
+
+static void
+db_on_group_added (
+    FreetuxTVApp *app, DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    gpointer user_data, GError** error)
+{
+	g_return_if_fail(app != NULL);
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(pChannelsGroupInfos != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+
+	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup;
+	pWindowAddChannelsGroup = (FreetuxTVWindowAddChannelsGroup*)user_data;
+	
+	g_return_if_fail(pWindowAddChannelsGroup != NULL);
+	g_return_if_fail(FREETUXTV_IS_WINDOW_ADD_CHANNELS_GROUP(pWindowAddChannelsGroup));
+
+	// Send signal that a group is added
+	if(*error == NULL){
+		g_signal_emit (
+		    G_OBJECT (pWindowAddChannelsGroup),
+		    g_signals [SIGNAL_CHANNELS_GROUP_ADDED],
+		    0, pChannelsGroupInfos, dbsync, error
+		    );
+	}
+}
+static void
+db_on_channels_added (
+    FreetuxTVApp *app, DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    gpointer user_data, GError** error)
+{
+	g_return_if_fail(app != NULL);
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(pChannelsGroupInfos != NULL);
+	g_return_if_fail(error != NULL);
+
+	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup;
+	pWindowAddChannelsGroup = (FreetuxTVWindowAddChannelsGroup*)user_data;
+	
+	g_return_if_fail(pWindowAddChannelsGroup != NULL);
+	g_return_if_fail(FREETUXTV_IS_WINDOW_ADD_CHANNELS_GROUP(pWindowAddChannelsGroup));
+
+	// Send signal that a group is added
+	if(*error == NULL){
+		g_signal_emit (
+		    G_OBJECT (pWindowAddChannelsGroup),
+		    g_signals [SIGNAL_CHANNELS_ADDED],
+		    0, pChannelsGroupInfos, dbsync, error
+		    );
+	}
+}
+
+FreetuxTVApp*
+freetuxtv_window_add_channels_group_get_app(FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup)
+{
+	g_return_val_if_fail(pWindowAddChannelsGroup != NULL, NULL);
+	g_return_val_if_fail(FREETUXTV_IS_WINDOW_ADD_CHANNELS_GROUP(pWindowAddChannelsGroup), NULL);
+	
+	FreetuxTVWindowAddChannelsGroupPrivate* priv;
+	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);
+	
+	return priv->app;
 }
