@@ -133,11 +133,21 @@ static void
 channels_group_get_file (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos *self, gchar **filename,
 			 gboolean update, GError** error);
 
-static GtkTreePath*
-get_favourites_channels_group_new(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos **pChannelsGroupInfos);
-
 static GList*
 get_favourites_channels_groups_paths(FreetuxTVApp *app);
+
+static void
+on_channels_group_favourites_added (
+	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
+	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+	    DBSync *dbsync, GError** error,
+	    gpointer user_data);
+
+static void 
+channels_list_add_favourites(FreetuxTVApp* app,
+    FreetuxTVChannelsGroupInfos* pFavouritesChannelsGroupInfos,
+    GtkTreePath* pFavouritesChannelsGroupInfosPath,
+    DBSync* dbsync, GError** error);
 
 /*
 static void
@@ -216,37 +226,48 @@ channels_list_load_channels (FreetuxTVApp *app, DBSync* dbsync, GError** error)
 }
 
 void
-channels_list_add_channels_group (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-                                  GtkTreePath** ppChannelsGroupTreePath, DBSync* dbsync,
-                                  GError** error)
+channels_list_db_add_channels_group (
+    FreetuxTVApp *app, DBSync* dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    DBOnChannelsGroupAddedFunc func_group_added,
+    DBOnChannelsAddedFunc func_channels_added,
+    gpointer user_data,
+    GError** error)
 {
+	g_return_if_fail(app != NULL);
 	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(pChannelsGroupInfos != NULL);
 	g_return_if_fail(error != NULL);
 
+	// Add the group in the database
 	if(*error == NULL){
 		dbsync_add_channels_group (dbsync, pChannelsGroupInfos, error);
 	}
 
-	// Add group in the treeview
-	if(*error == NULL){	
-		GtkTreeIter iter_channelsgroup;
-		gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup, NULL);
-		gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup,
-		                    CHANNELSGROUP_COLUMN, pChannelsGroupInfos, -1);
-
-		GtkTreePath* path;
-		path = gtk_tree_model_get_path(app->channelslist, &iter_channelsgroup);
-
-		channels_list_refresh_channels_group(app, path, dbsync, error);
-
-		if(ppChannelsGroupTreePath){
-			*ppChannelsGroupTreePath = path;
-		}else{
-			gtk_tree_path_free(path);
+	// Send signal that a group is added
+	if(*error == NULL){
+		if(func_group_added){
+			func_group_added(app, dbsync, pChannelsGroupInfos, user_data, error);
 		}
 	}
 
-	if(*error == NULL){		
+	// Only playslist group have can have channel when added
+	if(pChannelsGroupInfos->type == FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST){
+		// Refresh the list of channel for the group
+		if(*error == NULL){
+			channels_list_db_refresh_channels_group(app, dbsync, pChannelsGroupInfos, error);
+		}
+
+		// Send signal that channels of group are added
+		if(*error == NULL){
+			if(func_channels_added){
+				func_channels_added(app, dbsync, pChannelsGroupInfos, user_data, error);
+			}
+		}
+	}
+
+	if(*error == NULL){
+		// Update the channels list count
 		windowmain_update_statusbar_infos (app);
 	}
 }
@@ -279,6 +300,126 @@ channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 		g_error_free (error);
 	}	
 }
+
+void
+channels_list_db_refresh_channels_group (
+    FreetuxTVApp *app, DBSync* dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error)
+{
+	g_return_if_fail(app != NULL);
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
+
+	gchar *text;
+
+	// Update status bar
+	text = g_strdup_printf(_("Update \"%s\" channels list"), pChannelsGroupInfos->name);
+	windowmain_statusbar_push (app, "UpdateMsg", text);
+	g_free(text);
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+	      "Start updating \"%s\" channels list\n", pChannelsGroupInfos->name);
+
+	if(pChannelsGroupInfos->type == FREETUXTV_CHANNELSGROUP_TYPEGROUP_PLAYLIST){
+		// Get the file of the playlist
+		text = g_strdup_printf (_("Getting the file: \"%s\""), pChannelsGroupInfos->uri);
+		windowmain_statusbar_push (app, "UpdateMsg", text);
+		g_free(text);
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		      "Getting the file \"%s\"\n", pChannelsGroupInfos->uri);
+
+		gchar *filename = NULL;
+		channels_group_get_file (app, pChannelsGroupInfos, &filename, TRUE, error);		
+		windowmain_statusbar_pop (app, "UpdateMsg");
+
+		// Delete channels of the channels group in the database 
+		if(*error == NULL){
+			dbsync_start_update_channels_of_channels_group (dbsync, pChannelsGroupInfos, error);
+		}
+	
+		// Parse the M3U file and add channels in the database
+		if(*error == NULL){
+			Parsem3uData pdata;
+			pdata.channels_group_infos = pChannelsGroupInfos;
+			pdata.dbsync = dbsync;
+			pdata.app = app;
+			pdata.error = error;
+			int res = 0;
+
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+			    "Parsing the file \"%s\"\n", filename);
+			res = libm3uparser_parse(filename, &on_parsem3u_add_channel, &pdata);
+			if (res != LIBM3UPARSER_OK){		
+				if (res != LIBM3UPARSER_CALLBACK_RETURN_ERROR){
+					*error = g_error_new (FREETUXTV_LIBM3UPARSE_ERROR,
+								  FREETUXTV_LIBM3UPARSE_ERROR_PARSE,
+								  _("Error when adding the channels.\n\nM3UParser has returned error:\n%s."),
+								  libm3uparser_errmsg(res));
+				}
+			}
+		}
+
+		if(*error == NULL){
+			dbsync_end_update_channels_of_channels_group (dbsync, pChannelsGroupInfos, error);
+		}
+	
+		if(filename){
+			g_free(filename);
+		}
+	}
+
+	if(*error == NULL){
+		// Update the last update date of the group
+		dbsync_update_channels_group_last_update (dbsync,
+		    pChannelsGroupInfos, error);
+	}
+
+	windowmain_statusbar_pop (app, "UpdateMsg");
+}
+
+void
+channels_list_reload_channels_of_channels_group (
+    FreetuxTVApp *app, DBSync* dbsync,
+    GtkTreePath *path_group,
+    GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
+
+	FreetuxTVChannelsGroupInfos* pChannelsGroupInfos;
+	pChannelsGroupInfos = channels_list_get_group (app, path_group);
+	
+	g_return_if_fail(pChannelsGroupInfos != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(pChannelsGroupInfos));
+
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	    "Reloading channel for the group \"%s\"\n", pChannelsGroupInfos->name);
+	
+	if(*error == NULL){
+		// Delete channels of the channels group in the treeview
+		channels_list_delete_rows (app, path_group, TRUE);
+
+		// Display the channels from the database
+		CBIterData iter_data;
+		GtkTreeIter iter_group;
+		GtkTreeIter iter_channel;
+		gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter_group, path_group);
+		
+		iter_data.iter = &iter_channel;
+		iter_data.iter_parent = &iter_group;
+
+		dbsync_select_channels_of_channels_group (dbsync, pChannelsGroupInfos, app, on_dbsync_add_channel, &iter_data, error);
+	}
+
+	// Expand the group
+	if(*error == NULL){
+		GtkWidget *treeview;
+		treeview = (GtkWidget *)gtk_builder_get_object (app->gui,
+		    "windowmain_treeviewchannelslist");
+		gtk_tree_view_expand_row (GTK_TREE_VIEW(treeview), path_group, FALSE);
+	}
+}
+
 
 void
 channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
@@ -569,6 +710,33 @@ channels_list_switch_channel (FreetuxTVApp *app,
 		}
 	}
 
+}
+
+void
+channels_list_ui_add_channels_group (
+    FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GtkTreePath** ppChannelsGroupTreePath)
+{
+	
+	g_return_if_fail(app != NULL);
+	g_return_if_fail(pChannelsGroupInfos != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(pChannelsGroupInfos));
+
+	// Add group in the treeview
+	GtkTreeIter iter_channelsgroup;
+	gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup, NULL);
+	gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup,
+	                    CHANNELSGROUP_COLUMN, pChannelsGroupInfos, -1);
+
+	// Get the path of the new group
+	GtkTreePath* path;
+	path = gtk_tree_model_get_path(app->channelslist, &iter_channelsgroup);
+
+	if(ppChannelsGroupTreePath){
+		*ppChannelsGroupTreePath = path;
+	}else{
+		gtk_tree_path_free(path);
+	}
 }
 
 gboolean
@@ -1744,89 +1912,44 @@ on_popupmenu_activated_channeladdfavourites (GtkMenuItem *menuitem, gpointer use
 
 	GError* error = NULL;
 
-	GtkWidget* treeview;
-	GtkTreeModel* model_filter;
-	GtkTreeSelection *selection;
-	GList *list;
-	GList* iterator = NULL;
-	GtkTreePath *path;
-	GtkTreePath *real_path;
-	GtkTreeIter treeiter;
-
 	FreetuxTVChannelsGroupInfos* pFavouritesChannelsGroupInfos = NULL;
 	GtkTreePath* pFavouritesChannelsGroupInfosPath = NULL;
-
-	FreetuxTVChannelInfos* pOriginalChannelInfos = NULL;
-	FreetuxTVChannelInfos* pChannelInfos = NULL;
 	
 	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
 
-	treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
-	    "windowmain_treeviewchannelslist");
-	model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
-
-	// Get the selection
-	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-	list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
-
-	iterator = g_list_last (list);
+	GtkWidget* pParent;
+	pParent =  (GtkWidget *) gtk_builder_get_object (app->gui,
+	    "windowmain");
 
 	// Get the favourites group where add channels
-	if(iterator != NULL){
-		pFavouritesChannelsGroupInfos = g_object_get_data (G_OBJECT(menuitem), "FavouritesChannelsGroup");
-		pFavouritesChannelsGroupInfosPath = g_object_get_data (G_OBJECT(menuitem), "PathFavouritesChannelsGroup");
-
-		if(pFavouritesChannelsGroupInfos == NULL){
-			pFavouritesChannelsGroupInfosPath = get_favourites_channels_group_new(app, &pFavouritesChannelsGroupInfos);
-		}
-	}
+	pFavouritesChannelsGroupInfos = g_object_get_data (G_OBJECT(menuitem), "FavouritesChannelsGroup");
+	pFavouritesChannelsGroupInfosPath = g_object_get_data (G_OBJECT(menuitem), "PathFavouritesChannelsGroup");
 
 	if(pFavouritesChannelsGroupInfos != NULL){
-		
-		while(iterator != NULL && error == NULL){			
+		dbsync_open_db (&dbsync, &error);
+		channels_list_add_favourites(app,
+		    pFavouritesChannelsGroupInfos, pFavouritesChannelsGroupInfosPath,
+		    &dbsync, &error);
+		dbsync_close_db(&dbsync);
+	}else{
+		// No favourites group, ask to add one
+		FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 
-			// Get the real path
-			path = (GtkTreePath*)iterator->data;
-			real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
+		pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app);
 
-			gtk_tree_model_get_iter (app->channelslist, &treeiter, real_path);
-			gtk_tree_model_get (app->channelslist, &treeiter, CHANNEL_COLUMN, &pOriginalChannelInfos, -1);
+		int allowedType;
+		allowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES;
+		freetuxtv_window_add_channels_group_set_allowed_type (pWindowAddChannelsGroups, allowedType);
 
-			if(pOriginalChannelInfos){
-				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
-				      "Adding '%s' to favourites group '%s'\n", pOriginalChannelInfos->name, pFavouritesChannelsGroupInfos->name);
+		freetuxtv_window_add_channels_group_show (pWindowAddChannelsGroups);
 
-				// Copy the channel and add it in database
-				pChannelInfos = freetuxtv_channel_infos_new (pOriginalChannelInfos->name, pOriginalChannelInfos->url);
-				freetuxtv_channel_infos_set_position (pChannelInfos, pFavouritesChannelsGroupInfos->nb_channels+1);
-				freetuxtv_channel_infos_set_logo (pChannelInfos, pOriginalChannelInfos->logo_name);
-				freetuxtv_channel_infos_set_channels_group (pChannelInfos, pFavouritesChannelsGroupInfos);			
-				freetuxtv_channel_infos_set_vlcoptions (pChannelInfos, pOriginalChannelInfos->vlc_options);
+		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
+			G_CALLBACK(on_channels_group_favourites_added), NULL);
 
-				// Add the channels in the groups
-				dbsync_add_channel (&dbsync, pChannelInfos, FALSE, &error);
-
-				if(error == NULL){
-					pFavouritesChannelsGroupInfos->nb_channels++;
-
-					// Add the channel in the treeview as the last element
-					GtkTreeIter iterChannelsGroup;
-					GtkTreeIter iterChannel;
-					gtk_tree_model_get_iter (app->channelslist, &iterChannelsGroup,
-							                 pFavouritesChannelsGroupInfosPath);
-			
-					gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iterChannel, &iterChannelsGroup);
-					gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iterChannel,
-							CHANNEL_COLUMN, pChannelInfos, -1);
-				}
-			}
-
-			iterator = g_list_previous(iterator);
-		}
+		g_object_unref(pWindowAddChannelsGroups);
+		pWindowAddChannelsGroups = NULL;
 	}
 	
-	dbsync_close_db(&dbsync);
 	
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
@@ -2053,42 +2176,6 @@ on_popupmenu_activated_channelproperties (GtkMenuItem *menuitem, gpointer user_d
 		g_object_unref(pWindowChannelProperties);
 		pWindowChannelProperties = NULL;
 	}
-}
-
-static GtkTreePath*
-get_favourites_channels_group_new(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos **ppChannelsGroupInfos)
-{
-	GtkTreePath* pTreePath = NULL;
-	
-	// No favourites group, ask to add one
-	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
-	gint res;
-
-	GtkWidget* pParent;
-	pParent = NULL;
-	// TODO : Get the parent
-	/*pParent = gtk_widget_get_toplevel (GTK_WIDGET(button));
-	if (!gtk_widget_is_toplevel  (pParent)) {
-		pParent = NULL;
-	}*/
-	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app);
-
-	int allowedType;
-	allowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES;
-	freetuxtv_window_add_channels_group_set_allowed_type (pWindowAddChannelsGroups, allowedType);
-	
-	res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
-	if(res == GTK_RESPONSE_OK){
-
-	}
-
-	freetuxtv_window_add_channels_group_get_last_added (pWindowAddChannelsGroups,
-	                                                    ppChannelsGroupInfos, &pTreePath);
-
-	g_object_unref(pWindowAddChannelsGroups);
-	pWindowAddChannelsGroups = NULL;
-
-	return pTreePath;
 }
 
 static GList*
@@ -2331,3 +2418,110 @@ channels_list_print(FreetuxTVApp *app)
 	}
 }
 */
+
+static void
+on_channels_group_favourites_added (
+	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
+	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+	    DBSync *dbsync, GError** error,
+	    gpointer user_data)
+{
+	g_return_if_fail(pWindowAddChannelsGroup != NULL);
+	g_return_if_fail(FREETUXTV_IS_WINDOW_ADD_CHANNELS_GROUP(pWindowAddChannelsGroup));
+	g_return_if_fail(pChannelsGroupInfos != NULL);
+	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(pChannelsGroupInfos));
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	
+	g_print("channels_group_added\n");
+
+	FreetuxTVApp *app;
+	app = freetuxtv_window_add_channels_group_get_app (pWindowAddChannelsGroup);
+
+	GtkTreePath* pTreePath = NULL;
+		
+	channels_list_ui_add_channels_group (app, pChannelsGroupInfos, &pTreePath);
+
+	channels_list_add_favourites(app, pChannelsGroupInfos, pTreePath, dbsync, error);
+
+	if(pTreePath){
+		gtk_tree_path_free (pTreePath);
+		pTreePath = NULL;
+	}
+}
+
+static void 
+channels_list_add_favourites(FreetuxTVApp* app,
+    FreetuxTVChannelsGroupInfos* pFavouritesChannelsGroupInfos,
+    GtkTreePath* pFavouritesChannelsGroupInfosPath,
+    DBSync* dbsync, GError** error)
+{
+	g_return_if_fail(app != NULL);
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	
+	GtkWidget* treeview;
+	GtkTreeModel* model_filter;
+	GtkTreeSelection *selection;
+	GList *list;
+	GList* iterator = NULL;
+	GtkTreePath *path;
+	GtkTreePath *real_path;
+	GtkTreeIter treeiter;
+
+	FreetuxTVChannelInfos* pOriginalChannelInfos = NULL;
+	FreetuxTVChannelInfos* pChannelInfos = NULL;
+
+	treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+	    "windowmain_treeviewchannelslist");
+	model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+
+	// Get the selection
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+	list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+
+	iterator = g_list_last (list);
+	
+	while(iterator != NULL && *error == NULL){			
+
+		// Get the real path
+		path = (GtkTreePath*)iterator->data;
+		real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
+
+		gtk_tree_model_get_iter (app->channelslist, &treeiter, real_path);
+		gtk_tree_model_get (app->channelslist, &treeiter, CHANNEL_COLUMN, &pOriginalChannelInfos, -1);
+
+		if(pOriginalChannelInfos){
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+			      "Adding '%s' to favourites group '%s'\n", pOriginalChannelInfos->name, pFavouritesChannelsGroupInfos->name);
+
+			// Copy the channel and add it in database
+			pChannelInfos = freetuxtv_channel_infos_new (pOriginalChannelInfos->name, pOriginalChannelInfos->url);
+			freetuxtv_channel_infos_set_position (pChannelInfos, pFavouritesChannelsGroupInfos->nb_channels+1);
+			freetuxtv_channel_infos_set_logo (pChannelInfos, pOriginalChannelInfos->logo_name);
+			freetuxtv_channel_infos_set_channels_group (pChannelInfos, pFavouritesChannelsGroupInfos);			
+			freetuxtv_channel_infos_set_vlcoptions (pChannelInfos, pOriginalChannelInfos->vlc_options);
+
+			// Add the channels in the groups
+			dbsync_add_channel (dbsync, pChannelInfos, FALSE, error);
+
+			if(*error == NULL){
+				pFavouritesChannelsGroupInfos->nb_channels++;
+
+				// Add the channel in the treeview as the last element
+				GtkTreeIter iterChannelsGroup;
+				GtkTreeIter iterChannel;
+				gtk_tree_model_get_iter (app->channelslist, &iterChannelsGroup,
+						                 pFavouritesChannelsGroupInfosPath);
+		
+				gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iterChannel, &iterChannelsGroup);
+				gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iterChannel,
+						CHANNEL_COLUMN, pChannelInfos, -1);
+			}
+		}
+
+		iterator = g_list_previous(iterator);
+	}
+}
