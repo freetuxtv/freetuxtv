@@ -27,6 +27,8 @@
 #include "freetuxtv-app.h"
 #include "gtk-progress-dialog.h"
 
+#include "freetuxtv-db-sync.h"
+
 G_BEGIN_DECLS
 
 #define FREETUXTV_TYPE_WINDOW_ADD_CHANNELS_GROUP             (freetuxtv_window_add_channels_group_get_type ())
@@ -42,6 +44,18 @@ typedef struct _FreetuxTVWindowAddChannelsGroup FreetuxTVWindowAddChannelsGroup;
 struct _FreetuxTVWindowAddChannelsGroupClass
 {
 	GObjectClass parent_class;
+
+	void (*channels_group_added) (
+	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
+	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+	    DBSync *dbsync, GError** error,
+	    gpointer user_data);
+
+	void (*channels_added) (
+	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
+	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+	    DBSync *dbsync, GError** error,
+	    gpointer user_data);
 };
 
 struct _FreetuxTVWindowAddChannelsGroup
@@ -70,16 +84,12 @@ freetuxtv_window_add_channels_group_set_allowed_type (
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup,
     int allowedType);
 
-gint
-freetuxtv_window_add_channels_group_run (
+void
+freetuxtv_window_add_channels_group_show (
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup);
-
-gboolean
-freetuxtv_window_add_channels_group_get_last_added(
-    FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup,
-	FreetuxTVChannelsGroupInfos** ppChannelsGroupInfos,
-    GtkTreePath** ppTreePath
-    );
+ 
+FreetuxTVApp*
+freetuxtv_window_add_channels_group_get_app(FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup);
 
 G_END_DECLS
 

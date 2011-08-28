@@ -228,7 +228,14 @@ on_accel_volumeup (GtkAccelGroup *accel_group, GObject *acceleratable, guint key
 
 static gboolean
 on_accel_volumedown (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
-                     GdkModifierType modifier, gpointer user_data);
+    GdkModifierType modifier, gpointer user_data);
+
+static void
+on_channels_group_added (
+	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
+	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+	    DBSync *dbsync, GError** error,
+	    gpointer user_data);
 
 void
 windowmain_init(FreetuxTVApp *app)
@@ -1461,13 +1468,55 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 }
 
 static void
+on_channels_group_added (
+	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
+	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+	    DBSync *dbsync, GError** error,
+	    gpointer user_data)
+{
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Received signal for channels group added '%s'\n", pChannelsGroupInfos->name);
+
+	FreetuxTVApp *app;
+	app = freetuxtv_window_add_channels_group_get_app(pWindowAddChannelsGroup);
+
+	GtkTreePath** ppTreePath = (GtkTreePath**)user_data;
+
+	if(ppTreePath){
+		gtk_tree_path_free (*ppTreePath);
+		*ppTreePath = NULL;
+	}
+		
+	channels_list_ui_add_channels_group (app, pChannelsGroupInfos, ppTreePath);
+}
+
+static void
+on_channels_added (
+	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
+	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+	    DBSync *dbsync, GError** error,
+	    gpointer user_data)
+{
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Received signal for channels added in group '%s'\n", pChannelsGroupInfos->name);
+
+	FreetuxTVApp *app;
+	app = freetuxtv_window_add_channels_group_get_app(pWindowAddChannelsGroup);
+
+	GtkTreePath** ppTreePath = (GtkTreePath**)user_data;
+
+	if(ppTreePath){
+		channels_list_reload_channels_of_channels_group (app, dbsync, *ppTreePath, error);
+	}
+}
+
+static void
 on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
                                           gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
-	gint res;
 	
 	GtkWidget* pParent;
 	pParent = gtk_widget_get_toplevel (GTK_WIDGET(menuitem));
@@ -1475,11 +1524,15 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 		pParent = NULL;
 	}
 	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app);
-	res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
-	if(res == GTK_RESPONSE_OK){
-		
-	}
+	freetuxtv_window_add_channels_group_show (pWindowAddChannelsGroups);
 
+	GtkTreePath* pCurrentTreePath = NULL;
+
+	g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
+	    G_CALLBACK(on_channels_group_added), &pCurrentTreePath);
+	g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
+	    G_CALLBACK(on_channels_added), &pCurrentTreePath);
+	
 	g_object_unref(pWindowAddChannelsGroups);
 	pWindowAddChannelsGroups = NULL;
 }

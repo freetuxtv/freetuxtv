@@ -486,6 +486,48 @@ splashscreen_statusbar_pop (FreetuxTVApp *app)
 	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),  context_id);		
 }
 
+static void
+on_channels_group_added (
+	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
+	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+	    DBSync *dbsync, GError** error,
+	    gpointer user_data)
+{
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Received signal for channels group added '%s'\n", pChannelsGroupInfos->name);
+
+	FreetuxTVApp *app;
+	app = freetuxtv_window_add_channels_group_get_app(pWindowAddChannelsGroup);
+
+	GtkTreePath** ppTreePath = (GtkTreePath**)user_data;
+
+	if(ppTreePath){
+		gtk_tree_path_free (*ppTreePath);
+		*ppTreePath = NULL;
+	}
+		
+	channels_list_ui_add_channels_group (app, pChannelsGroupInfos, ppTreePath);
+}
+
+static void
+on_channels_added (
+	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
+	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+	    DBSync *dbsync, GError** error,
+	    gpointer user_data)
+{
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Received signal for channels added in group '%s'\n", pChannelsGroupInfos->name);
+
+	FreetuxTVApp *app;
+	app = freetuxtv_window_add_channels_group_get_app(pWindowAddChannelsGroup);
+
+	GtkTreePath** ppTreePath = (GtkTreePath**)user_data;
+
+	if(ppTreePath){
+		channels_list_reload_channels_of_channels_group (app, dbsync, *ppTreePath, error);
+	}
+}
 
 static gboolean
 splashscreen_app_init(gpointer data)
@@ -661,13 +703,16 @@ splashscreen_app_init(gpointer data)
 		nb_channelsgroup = gtk_tree_model_iter_n_children (app->channelslist, NULL);
 		if(nb_channelsgroup == 0){	
 			FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
-			gint res;
 
 			pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pMainWindow), app);
-			res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
-			if(res == GTK_RESPONSE_OK){
+			freetuxtv_window_add_channels_group_show (pWindowAddChannelsGroups);
 
-			}
+			GtkTreePath* pCurrentTreePath = NULL;
+
+			g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
+				G_CALLBACK(on_channels_group_added), &pCurrentTreePath);
+			g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
+				G_CALLBACK(on_channels_added), &pCurrentTreePath);
 
 			g_object_unref(pWindowAddChannelsGroups);
 			pWindowAddChannelsGroups = NULL;
