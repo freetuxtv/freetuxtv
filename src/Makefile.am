@@ -16,11 +16,15 @@ AM_CFLAGS =\
 bin_PROGRAMS = freetuxtv
 
 freetuxtv_SOURCES = \
+	gtk-builder-window.h \
+	gtk-builder-window.c \
 	gtk-progress-dialog.h \
 	gtk-progress-dialog.c \
 	freetuxtv-app.h \
 	freetuxtv-cellrenderer-channelslist.c \
 	freetuxtv-cellrenderer-channelslist.h \
+	freetuxtv-cellrenderer-recordingslist.h \
+	freetuxtv-cellrenderer-recordingslist.c \
 	freetuxtv-channel-infos.c \
 	freetuxtv-channel-infos.h \
 	freetuxtv-channels-group-infos.c \
@@ -35,6 +39,8 @@ freetuxtv_SOURCES = \
 	freetuxtv-i18n.h \
 	freetuxtv-models.c \
 	freetuxtv-models.h \
+	freetuxtv-recording-infos.h \
+	freetuxtv-recording-infos.c \
 	freetuxtv-recordings-list.c \
 	freetuxtv-recordings-list.h \
 	freetuxtv-tv-channel-infos.h \
@@ -55,11 +61,7 @@ freetuxtv_SOURCES = \
 	lib-gmmkeys.h \
 	lib-m3uparser.c \
 	lib-m3uparser.h \
-	main.c \
-	freetuxtv-recording-infos.h \
-	freetuxtv-recording-infos.c \
-	freetuxtv-cellrenderer-recordingslist.h \
-	freetuxtv-cellrenderer-recordingslist.c
+	main.c
 
 freetuxtv_LDFLAGS = \
 	-Wl

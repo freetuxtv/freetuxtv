@@ -1523,8 +1523,11 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 	if (!gtk_widget_is_toplevel  (pParent)) {
 		pParent = NULL;
 	}
+	
+	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
+	
 	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app);
-	freetuxtv_window_add_channels_group_show (pWindowAddChannelsGroups);
+	gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
 
 	GtkTreePath* pCurrentTreePath = NULL;
 
@@ -1532,9 +1535,6 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 	    G_CALLBACK(on_channels_group_added), &pCurrentTreePath);
 	g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
 	    G_CALLBACK(on_channels_added), &pCurrentTreePath);
-	
-	g_object_unref(pWindowAddChannelsGroups);
-	pWindowAddChannelsGroups = NULL;
 }
 
 static void

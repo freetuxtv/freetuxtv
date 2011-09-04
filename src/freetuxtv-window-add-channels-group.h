@@ -24,6 +24,7 @@
 
 #include <gtk/gtk.h>
 
+#include "gtk-builder-window.h"
 #include "freetuxtv-app.h"
 #include "gtk-progress-dialog.h"
 
@@ -43,7 +44,7 @@ typedef struct _FreetuxTVWindowAddChannelsGroup FreetuxTVWindowAddChannelsGroup;
 
 struct _FreetuxTVWindowAddChannelsGroupClass
 {
-	GObjectClass parent_class;
+	GtkBuilderWindowClass parent_class;
 
 	void (*channels_group_added) (
 	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
@@ -60,7 +61,7 @@ struct _FreetuxTVWindowAddChannelsGroupClass
 
 struct _FreetuxTVWindowAddChannelsGroup
 {
-	GObject parent_instance;
+	GtkBuilderWindow parent_instance;
 };
 
 enum FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW {
@@ -83,10 +84,6 @@ void
 freetuxtv_window_add_channels_group_set_allowed_type (
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup,
     int allowedType);
-
-void
-freetuxtv_window_add_channels_group_show (
-	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup);
  
 FreetuxTVApp*
 freetuxtv_window_add_channels_group_get_app(FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup);
