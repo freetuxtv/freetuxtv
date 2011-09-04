@@ -15,17 +15,41 @@
       <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="spacing">2</property>
+        <property name="spacing">5</property>
         <child internal-child="action_area">
           <object class="GtkHButtonBox" id="dialog-action_area2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
-              <placeholder/>
+              <object class="GtkButton" id="button_close">
+                <property name="label">gtk-close</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="GtkButton" id="button_add">
+                <property name="label">gtk-add</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
             </child>
           </object>
           <packing>
@@ -36,7 +60,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkNotebook" id="dialogaddgroup_notebook">
+          <object class="GtkNotebook" id="notebook_dialogaddgroup">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
@@ -78,7 +102,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="dialogaddgroup_buttonrefresh">
+                      <object class="GtkButton" id="button_refresh">
                         <property name="label">gtk-refresh</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -121,7 +145,7 @@
                     <property name="vscrollbar_policy">automatic</property>
                     <property name="shadow_type">etched-in</property>
                     <child>
-                      <object class="GtkTreeView" id="dialogaddgroup_treeviewchannelsgroups">
+                      <object class="GtkTreeView" id="treeview_channelsgroups">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="model">treestore_channelsgroup</property>
@@ -504,6 +528,10 @@
         </child>
       </object>
     </child>
+    <action-widgets>
+      <action-widget response="0">button_close</action-widget>
+      <action-widget response="0">button_add</action-widget>
+    </action-widgets>
   </object>
   <object class="GtkTreeStore" id="treestore_channelsgroup">
     <columns>

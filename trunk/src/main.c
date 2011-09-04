@@ -705,7 +705,7 @@ splashscreen_app_init(gpointer data)
 			FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 
 			pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pMainWindow), app);
-			freetuxtv_window_add_channels_group_show (pWindowAddChannelsGroups);
+			gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
 
 			GtkTreePath* pCurrentTreePath = NULL;
 
