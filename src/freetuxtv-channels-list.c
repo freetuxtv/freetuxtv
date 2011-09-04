@@ -1940,8 +1940,7 @@ on_popupmenu_activated_channeladdfavourites (GtkMenuItem *menuitem, gpointer use
 		int allowedType;
 		allowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES;
 		freetuxtv_window_add_channels_group_set_allowed_type (pWindowAddChannelsGroups, allowedType);
-
-		freetuxtv_window_add_channels_group_show (pWindowAddChannelsGroups);
+		gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
 
 		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
 			G_CALLBACK(on_channels_group_favourites_added), NULL);
