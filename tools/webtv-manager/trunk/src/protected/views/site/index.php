@@ -183,7 +183,7 @@
 		    'name'=>'Total count',
 			'type'=>'html',
 			'htmlOptions' => array('style'=>'text-align:center'),
-		    'value'=>'"<font>".$data["TotalCount"]."</font>"',
+			'value'=>'"<font><a href=\"".Yii::app()->createUrl("WebStream/index", array("WebStreamSearchForm[Language]"=>$data["LangCode"], "WebStreamSearchForm[Status]"=>'.WebStream::WEBSTREAM_STATUS_WORKING.'))."\">".$data["TotalCount"]."</a></font>"',
 		);
 
 		$this->widget('zii.widgets.grid.CGridView', array(
