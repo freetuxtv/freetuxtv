@@ -175,7 +175,6 @@
 				'name'=>$value,
 				'type'=>'html',
 				'htmlOptions' => array('style'=>'text-align:center'),
-				// ?WebStreamSearchForm[Name]=&WebStreamSearchForm[Type]=1&WebStreamSearchForm[Language]=af&WebStreamSearchForm[Status]=2
 				'value'=>'"<font><a href=\"".Yii::app()->createUrl("WebStream/index", array("WebStreamSearchForm[Type]"=>'.$key.', "WebStreamSearchForm[Language]"=>$data["LangCode"], "WebStreamSearchForm[Status]"=>'.WebStream::WEBSTREAM_STATUS_WORKING.'))."\">".$data['.$key.']."</a></font>"',
 			);
 		}
