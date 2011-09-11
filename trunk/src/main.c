@@ -529,6 +529,27 @@ on_channels_added (
 	}
 }
 
+#if GTK_API_VERSION == 3
+static void
+on_window_add_channels_group_destroy (GtkWidget *widget, gpointer user_data)
+#else
+static void
+on_window_add_channels_group_destroy (GtkObject *object, gpointer user_data)
+#endif
+{
+	GtkTreePath** ppCurrentTreePath = (GtkTreePath**)user_data;
+
+	if(ppCurrentTreePath){
+		if(*ppCurrentTreePath){
+			gtk_tree_path_free (*ppCurrentTreePath);
+			*ppCurrentTreePath = NULL;
+		}
+		
+		g_free(ppCurrentTreePath);
+		ppCurrentTreePath = NULL;
+	}
+}
+
 static gboolean
 splashscreen_app_init(gpointer data)
 {
@@ -704,18 +725,20 @@ splashscreen_app_init(gpointer data)
 		if(nb_channelsgroup == 0){	
 			FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 
-			pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pMainWindow), app);
-			gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
+			pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pMainWindow), app, &error);
 
-			GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
+			if(error == NULL){
+				gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
 
-			g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
-				G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
-			g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
-				G_CALLBACK(on_channels_added), ppCurrentTreePath);
-			/* // TODO create a destroy function
-			g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
-				G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);*/
+				GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
+
+				g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
+					G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
+				g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
+					G_CALLBACK(on_channels_added), ppCurrentTreePath);
+				g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
+					G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);
+			}
 		}
 	}
 

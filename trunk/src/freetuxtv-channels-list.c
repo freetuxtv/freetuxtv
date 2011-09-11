@@ -1935,18 +1935,17 @@ on_popupmenu_activated_channeladdfavourites (GtkMenuItem *menuitem, gpointer use
 		// No favourites group, ask to add one
 		FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 
-		pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app);
+		pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app, &error);
 
-		int allowedType;
-		allowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES;
-		freetuxtv_window_add_channels_group_set_allowed_type (pWindowAddChannelsGroups, allowedType);
-		gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
+		if(error == NULL){
+			int allowedType;
+			allowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES;
+			freetuxtv_window_add_channels_group_set_allowed_type (pWindowAddChannelsGroups, allowedType);
+			gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
 
-		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
-			G_CALLBACK(on_channels_group_favourites_added), NULL);
-
-		g_object_unref(pWindowAddChannelsGroups);
-		pWindowAddChannelsGroups = NULL;
+			g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
+				G_CALLBACK(on_channels_group_favourites_added), NULL);
+		}
 	}
 	
 	

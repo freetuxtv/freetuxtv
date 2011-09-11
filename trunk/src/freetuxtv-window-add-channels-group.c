@@ -217,8 +217,15 @@ freetuxtv_window_add_channels_group_class_init (FreetuxTVWindowAddChannelsGroupC
 }
 
 FreetuxTVWindowAddChannelsGroup*
-freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app)
+freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app, GError** error)
 {
+	g_return_val_if_fail(parent != NULL, NULL);
+	g_return_val_if_fail(GTK_IS_WINDOW(parent), NULL);
+	g_return_val_if_fail(app != NULL, NULL);
+	g_return_val_if_fail(error != NULL, NULL);
+	g_return_val_if_fail(*error == NULL, NULL);
+	
+	
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 	FreetuxTVWindowAddChannelsGroupPrivate* priv;
 	GtkBuilder* builder;
@@ -268,15 +275,15 @@ freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app)
 	g_signal_connect(G_OBJECT(widget),
 		"clicked",
 		G_CALLBACK(on_buttonclose_clicked),
-		pWindowAddChannelsGroups);
+	    pWindowAddChannelsGroups);
 	
-	GError* error = NULL;
-	load_model_channels_group_from_file (priv->app, priv->pModel, &error);
-	if(error != NULL){
-		// TODO : Better error
-		g_print("Test ");
+	load_model_channels_group_from_file (priv->app, priv->pModel, error);
+
+	if(*error != NULL){
+		g_object_unref (G_OBJECT(pWindowAddChannelsGroups));
+		pWindowAddChannelsGroups = NULL;
 	}
-	
+
 
 	if(szUiFile){
 		g_free(szUiFile);
@@ -773,11 +780,19 @@ freetuxtv_window_add_channels_group_get_app(FreetuxTVWindowAddChannelsGroup* pWi
 	return priv->app;
 }
 
-static void
-on_buttonclose_clicked (GtkButton *button, gpointer user_data)
+static gboolean
+do_close_clicked (gpointer user_data)
 {
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup;
 
 	pWindowAddChannelsGroup = (FreetuxTVWindowAddChannelsGroup*)user_data;
 	gtk_widget_destroy (GTK_WIDGET(pWindowAddChannelsGroup));
+
+	return FALSE;
+}
+
+static void
+on_buttonclose_clicked (GtkButton *button, gpointer user_data)
+{
+	g_idle_add (do_close_clicked, user_data);
 }

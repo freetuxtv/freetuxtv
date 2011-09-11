@@ -1515,10 +1515,10 @@ on_channels_added (
 }
 
 #if GTK_API_VERSION == 3
-void
+static void
 on_window_add_channels_group_destroy (GtkWidget *widget, gpointer user_data)
 #else
-void
+static void
 on_window_add_channels_group_destroy (GtkObject *object, gpointer user_data)
 #endif
 {
@@ -1541,22 +1541,32 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
+	GError* error = NULL;
+
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 
 	GtkWidget* pParent;
 	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
 	
-	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app);
-	gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
+	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app, &error);
 
-	GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
+	if(error == NULL){
+		gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
 
-	g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
-	    G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
-	g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
-	    G_CALLBACK(on_channels_added), ppCurrentTreePath);
-	g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
-	    G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);
+		GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
+
+		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
+			G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
+		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
+			G_CALLBACK(on_channels_added), ppCurrentTreePath);
+		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
+			G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
 }
 
 static void
