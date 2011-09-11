@@ -150,6 +150,54 @@
 
 	</td>
 </tr>
+
+<tr>
+	<td colspan="2">
+
+	<center>Here you can see overview of the working URL added the WebTV Manager database.</center>
+
+	<?php
+		//print_r($statsLangs);
+		// Display a grid for the lang stats list
+
+		$columns = array();
+		$columns[] = array(
+		    'name'=>'Language',
+			'type'=>'html',
+			'htmlOptions' => array('style'=>'text-align:left'),
+		    'value'=>'($data["LangCode"] ? "<img src=\"'.Yii::app()->request->baseUrl.'/images/lang/languageicons/flags/'.'".strtolower($data["LangCode"])."'.'.png'.'\" alt=\"\">" : $data["LangCode"])."&nbsp;<i>".$data["LangName"]."</i>"',
+		);
+
+		$streamTypes = WebStream::getTypeStreamList();
+
+		foreach ($streamTypes as $key => $value) {
+			$columns[] = array(
+				'name'=>$value,
+				'type'=>'html',
+				'htmlOptions' => array('style'=>'text-align:center'),
+				// ?WebStreamSearchForm[Name]=&WebStreamSearchForm[Type]=1&WebStreamSearchForm[Language]=af&WebStreamSearchForm[Status]=2
+				'value'=>'"<font><a href=\"".Yii::app()->createUrl("WebStream/index", array("WebStreamSearchForm[Type]"=>'.$key.', "WebStreamSearchForm[Language]"=>$data["LangCode"], "WebStreamSearchForm[Status]"=>'.WebStream::WEBSTREAM_STATUS_WORKING.'))."\">".$data['.$key.']."</a></font>"',
+			);
+		}
+
+		$columns[] = array(
+		    'name'=>'Total count',
+			'type'=>'html',
+			'htmlOptions' => array('style'=>'text-align:center'),
+		    'value'=>'"<font>".$data["TotalCount"]."</font>"',
+		);
+
+		$this->widget('zii.widgets.grid.CGridView', array(
+			'dataProvider'=>$statsLangs,
+			'enablePagination'=>false,
+			'enableSorting' => true,
+			'summaryText'=>'',
+			'columns'=>$columns,
+		));
+	?>
+	</td>
+</tr>
+
 </table>
 
 <p>This webstite is part of the FreetuxTV project : <a href="http://code.google.com/p/freetuxtv/">http://code.google.com/p/freetuxtv/</a>.

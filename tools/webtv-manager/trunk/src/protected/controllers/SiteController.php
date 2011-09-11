@@ -59,13 +59,68 @@ class SiteController extends Controller
 			),
 		));
 
-		
 		// Load stats
+		$query = "SELECT wtvmT_WebStream.LangCode AS LangCode, wtvmT_Lang.Label As LangName, TypeStream, Count(*) AS StreamCount, CountLang
+			FROM wtvmT_WebStream LEFT JOIN wtvmT_Lang ON wtvmT_WebStream.LangCode=wtvmT_Lang.Code, (SELECT LangCode, Count(*) AS CountLang FROM wtvmT_WebStream GROUP BY LangCode) AS TmpCountLang
+			WHERE StreamStatusCode = :StreamStatusCode
+			AND (TmpCountLang.LangCode = wtvmT_WebStream.LangCode OR (TmpCountLang.LangCode IS NULL AND wtvmT_WebStream.LangCode IS NULL))
+			GROUP BY wtvmT_WebStream.LangCode, TypeStream
+			ORDER BY CountLang DESC, wtvmT_WebStream.LangCode";
+		$params = array(":StreamStatusCode" => WebStream::WEBSTREAM_STATUS_WORKING);
+		$command = Yii::app()->db->createCommand($query);
+		$rows = $command->queryAll(true, $params);
+
+		$streamTypes = WebStream::getTypeStreamList();
+
+		$rawData = array();
+		$curLang = null;
+		$rawLine = null;
+		foreach($rows as $row) {
+			$realLang = $row['LangCode'];
+			$realLangName = $row['LangName'];
+			if($realLang == null || $realLang == ""){
+				$realLang = "_unknown";
+				$realLangName = "Unknown";
+			}
+
+			if($curLang == null || $curLang != $realLang){
+
+				$curLang = $realLang;
+				if($rawLine != null){
+					$rawData[] = $rawLine;
+				}
+
+				$rawLine = array('LangCode'=>$realLang, 'id'=>$realLang, 'LangName'=>$realLangName);
+				foreach($streamTypes as $key => $value){
+					$rawLine[$key] = 0;
+				}
+				$rawLine['TotalCount'] = 0;
+			}
+			$rawLine[$row['TypeStream']] = $row['StreamCount'];
+			$rawLine['TotalCount'] = $rawLine['TotalCount'] + $row['StreamCount'];
+		}
+		if($rawLine != null){
+			$rawData[] = $rawLine;
+		}
+		$statsLangs = new CArrayDataProvider($rawData, array(
+			'id'=>'LangCode',
+			'sort'=>array(
+				'attributes'=>array(
+				     'LangCode', 'TotalCount',
+				),
+			),
+			'pagination'=>array(
+				'pageSize'=>count($rawData),
+			),
+		));
+		
+		// Render page
 		$this->render('index', array(
 			'modelSearchForm'=>$modelSearchForm,
 			'modelSendForm'=>$modelSendForm,
 			'lastAdds'=>$lastAdds,
 			'lastUpdates'=>$lastUpdates,
+			'statsLangs' => $statsLangs,
 		));
 	}
 
