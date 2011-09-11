@@ -809,7 +809,7 @@ windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg)
 	                    msg);
 	
 #if GTK_API_VERSION == 3
-	// TODO : Fond alternative to g_main_context_iteration
+	// TODO : Found alternative to g_main_context_iteration
 #else
 	while (g_main_context_iteration(NULL, FALSE)){}
 #endif
@@ -828,8 +828,12 @@ windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
 	                                          context);
 	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
 	                   context_id);
-	// while (g_main_context_iteration(NULL, FALSE)){}		
+
+#if GTK_API_VERSION == 3
+	// TODO : Found alternative to g_main_context_iteration
+#else	
 	while (g_main_context_iteration(NULL, FALSE)){}
+#endif
 }
 
 void
@@ -1510,8 +1514,13 @@ on_channels_added (
 	}
 }
 
+#if GTK_API_VERSION == 3
+void
+on_window_add_channels_group_destroy (GtkWidget *widget, gpointer user_data)
+#else
 void
 on_window_add_channels_group_destroy (GtkObject *object, gpointer user_data)
+#endif
 {
 	GtkTreePath** ppCurrentTreePath = (GtkTreePath**)user_data;
 
