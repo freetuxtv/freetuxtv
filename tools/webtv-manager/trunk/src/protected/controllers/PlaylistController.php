@@ -84,7 +84,9 @@ class PlaylistController extends Controller
 		}
 		if(isset($_GET['lng'])){
 			if($_GET['lng'] != ""){
-				if($_GET['lng'] != "all"){
+				if($_GET['lng'] == "nolang"){
+					$conditions .= " AND LangCode IS NULL";
+				}elseif($_GET['lng'] != "all"){
 					$conditions .= " AND LangCode=:WebStreamLang";
 					$params[':WebStreamLang'] = $_GET['lng'];
 				}

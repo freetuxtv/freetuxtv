@@ -217,9 +217,14 @@ class WebStreamController extends Controller
 		}
 		if(isset($modelSearchForm->Language)){
 			if($modelSearchForm->Language != ""){
-				$conditions .= " AND LangCode=:WebStreamLang";
-				$params[':WebStreamLang'] = $modelSearchForm->Language;
-				$playlist_params["lng"] = $modelSearchForm->Language;
+				if($modelSearchForm->Language == "nolang"){
+					$conditions .= " AND LangCode IS NULL";
+					$playlist_params["lng"] = $modelSearchForm->Language;
+				}else{
+					$conditions .= " AND LangCode=:WebStreamLang";
+					$params[':WebStreamLang'] = $modelSearchForm->Language;
+					$playlist_params["lng"] = $modelSearchForm->Language;
+				}
 			}
 		}
 

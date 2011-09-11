@@ -109,6 +109,8 @@
 		'type'=>'html',
 		'htmlOptions' => array('style'=>'text-align:left'),
 	    'value'=>'($data["LangCode"] ? "<img src=\"'.Yii::app()->request->baseUrl.'/images/lang/languageicons/flags/'.'".strtolower($data["LangCode"])."'.'.png'.'\" alt=\"\">" : $data["LangCode"])."&nbsp;<i>".$data["LangName"]."</i>"',
+		'footer'=>"Total:",
+		'footerHtmlOptions'=>array('style'=>'text-align:right'),
 	);
 
 	$streamTypes = WebStream::getTypeStreamList();
@@ -119,6 +121,8 @@
 			'type'=>'html',
 			'htmlOptions' => array('style'=>'text-align:center'),
 			'value'=>'"<font>".($data['.$key.'] != 0 ? "<a href=\"".Yii::app()->createUrl("WebStream/index", array("WebStreamSearchForm[Type]"=>'.$key.', "WebStreamSearchForm[Language]"=>$data["LangCode"], "WebStreamSearchForm[Status]"=>'.WebStream::WEBSTREAM_STATUS_WORKING.'))."\">".$data['.$key.']."</a>" : "-")."</font>"',
+			'footer'=>'<font><a href="'.Yii::app()->createUrl("WebStream/index", array("WebStreamSearchForm[Type]"=>$key, "WebStreamSearchForm[Status]"=>WebStream::WEBSTREAM_STATUS_WORKING)).'">'.$statsTypes[$key].'</a></font>',
+			'footerHtmlOptions'=>array('style'=>'text-align:center'),
 		);
 	}
 
@@ -127,6 +131,8 @@
 		'type'=>'html',
 		'htmlOptions' => array('style'=>'text-align:center'),
 		'value'=>'"<font><a href=\"".Yii::app()->createUrl("WebStream/index", array("WebStreamSearchForm[Language]"=>$data["LangCode"], "WebStreamSearchForm[Status]"=>'.WebStream::WEBSTREAM_STATUS_WORKING.'))."\">".$data["TotalCount"]."</a></font>"',
+			'footer'=>'<font><a href="'.Yii::app()->createUrl("WebStream/index", array("WebStreamSearchForm[Status]"=>WebStream::WEBSTREAM_STATUS_WORKING)).'">'.array_sum($statsTypes).'</a></font>',
+			'footerHtmlOptions'=>array('style'=>'text-align:center'),
 	);
 
 	$this->widget('zii.widgets.grid.CGridView', array(

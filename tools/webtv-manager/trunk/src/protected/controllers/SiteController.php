@@ -72,6 +72,11 @@ class SiteController extends Controller
 
 		$streamTypes = WebStream::getTypeStreamList();
 
+		$statsTypes = WebStream::getTypeStreamList();
+		foreach($statsTypes as $key => $value){
+			$statsTypes[$key] = 0;
+		}
+
 		$rawData = array();
 		$curLang = null;
 		$rawLine = null;
@@ -79,8 +84,8 @@ class SiteController extends Controller
 			$realLang = $row['LangCode'];
 			$realLangName = $row['LangName'];
 			if($realLang == null || $realLang == ""){
-				$realLang = "_unknown";
-				$realLangName = "Unknown";
+				$realLang = "nolang";
+				$realLangName = "No lang";
 			}
 
 			if($curLang == null || $curLang != $realLang){
@@ -98,6 +103,7 @@ class SiteController extends Controller
 			}
 			$rawLine[$row['TypeStream']] = $row['StreamCount'];
 			$rawLine['TotalCount'] = $rawLine['TotalCount'] + $row['StreamCount'];
+			$statsTypes[$row['TypeStream']] = $statsTypes[$row['TypeStream']] + $row['StreamCount'];
 		}
 		if($rawLine != null){
 			$rawData[] = $rawLine;
@@ -121,6 +127,7 @@ class SiteController extends Controller
 			'lastAdds'=>$lastAdds,
 			'lastUpdates'=>$lastUpdates,
 			'statsLangs' => $statsLangs,
+			'statsTypes' => $statsTypes,
 		));
 	}
 
