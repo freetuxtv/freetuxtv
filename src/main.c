@@ -707,15 +707,15 @@ splashscreen_app_init(gpointer data)
 			pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pMainWindow), app);
 			gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
 
-			GtkTreePath* pCurrentTreePath = NULL;
+			GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
 
 			g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
-				G_CALLBACK(on_channels_group_added), &pCurrentTreePath);
+				G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
 			g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
-				G_CALLBACK(on_channels_added), &pCurrentTreePath);
-
-			g_object_unref(pWindowAddChannelsGroups);
-			pWindowAddChannelsGroups = NULL;
+				G_CALLBACK(on_channels_added), ppCurrentTreePath);
+			/* // TODO create a destroy function
+			g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
+				G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);*/
 		}
 	}
 
