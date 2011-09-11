@@ -78,7 +78,7 @@ enum FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW {
 GType freetuxtv_window_add_channels_group_get_type (void) G_GNUC_CONST;
 
 FreetuxTVWindowAddChannelsGroup*
-freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app);
+freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app, GError** error);
 
 void
 freetuxtv_window_add_channels_group_set_allowed_type (
