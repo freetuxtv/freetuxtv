@@ -19,6 +19,9 @@
 		<channels_group uri="http://tv.sfr.fr/tv-pc/televisionsurpc.m3u" required_isp="SFR" name="SFR TV"/>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_sfrtv_unofficial.m3u" required_isp="SFR" name="SFR TV (Unofficial)"></channels_group>
 	</language>
+	<language lang="Darty" id="darty">
+		<channels_group uri="http://dartybox-news.fr/ftp/dartyboxtvpc.m3u" required_isp="Darty" name="Darty TV"/>
+	</language>
 	<language id="ar" lang="Arabic Web TV and Radio">
 		<channels_group uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webradio_ar.m3u" name="Web Radio (Arabic)"></channels_group>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webtv_ar.m3u" name="Web TV (Arabic)"></channels_group>

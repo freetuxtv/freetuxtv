@@ -697,10 +697,13 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 		g_error_free (error);
 	}
 
+	/*
+	// TODO : Destroy the dialog
 	if(pProgressDialog){
 		g_object_unref(pProgressDialog);
 		pProgressDialog = NULL;
 	}
+	*/
 }
 
 static void
