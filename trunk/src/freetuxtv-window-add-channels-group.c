@@ -794,10 +794,6 @@ do_close_clicked (gpointer user_data)
 static void
 on_buttonclose_clicked (GtkButton *button, gpointer user_data)
 {
-#if GTK_API_VERSION == 3
-	// TODO : Find how to send it in idle
-	do_close_clicked(user_data);
-#else
+	// We do the destruction after the button clicked event is finished
 	g_idle_add (do_close_clicked, user_data);
-#endif
 }
