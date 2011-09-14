@@ -258,6 +258,7 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 
 	gboolean bHasFocus;
 
+	// Get the size of the widget
 #if GTK_API_VERSION == 3
 	GtkStyleContext *pStyleContext;
 	pStyleContext = gtk_widget_get_style_context (GTK_WIDGET(widget));
@@ -288,24 +289,22 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 	//pango_layout_set_width(layout, 700);
 	//pango_layout_set_height(layout, 20);
 	pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
-	/*
-	 gtk_paint_flat_box (widget->style, window, GTK_STATE_SELECTED,
-	     GTK_SHADOW_NONE , NULL, widget,
-	     NULL,
-	     0, cell_area->y,
-	     cell_area->x + width, cell_area->height);
-		 */
-	/*
-	 gtk_paint_hline (widget->style, window, state,
-	     NULL, widget, NULL,
-	     0, widget->allocation.width, cell_area->y);
-		 gtk_paint_hline (widget->style, window, state,
-		     NULL, widget, NULL,
-		     cell_area->x, cell_area->width, cell_area->y + 2);
-			 gtk_paint_hline (widget->style, window, state,
-			     NULL, widget, NULL,
-			     0, 176, cell_area->y + 3);
-				 */
+	
+	// gtk_paint_flat_box (widget->style, window, GTK_STATE_SELECTED,
+	//     GTK_SHADOW_NONE , NULL, widget,
+	//     NULL,
+	//     0, cell_area->y,
+	//     cell_area->x + width, cell_area->height);
+	
+	// gtk_paint_hline (widget->style, window, state,
+	//     NULL, widget, NULL,
+	//     0, widget->allocation.width, cell_area->y);
+	//	 gtk_paint_hline (widget->style, window, state,
+	//	     NULL, widget, NULL,
+	//	     cell_area->x, cell_area->width, cell_area->y + 2);
+	//		 gtk_paint_hline (widget->style, window, state,
+	//		     NULL, widget, NULL,
+	//		     0, 176, cell_area->y + 3);
 
 	GdkPixbuf* logo;
 
@@ -321,11 +320,11 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 
 #if GTK_API_VERSION == 3
 			gtk_style_context_set_state (pStyleContext, state);
-			gtk_style_context_set_background (pStyleContext, window);
+			// gtk_style_context_set_background (pStyleContext, window);
 
-			gtk_render_background (pStyleContext, cr,
-			    0, cell_area->y,
-			    cell_area->x + width, cell_area->height);
+			// gtk_render_background (pStyleContext, cr,
+			//    0, cell_area->y,
+			//    cell_area->x + width, cell_area->height);
 #else
 			gtk_style_set_background (pStyle, window, state);
 			gtk_style_apply_default_background  (pStyle, window, TRUE, state, NULL,
@@ -375,11 +374,11 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 
 #if GTK_API_VERSION == 3
 		gtk_style_context_set_state (pStyleContext, state);
-		gtk_style_context_set_background (pStyleContext, window);
+		// gtk_style_context_set_background (pStyleContext, window);
 
-		gtk_render_background (pStyleContext, cr,
-		    0, cell_area->y,
-		    cell_area->x + width, cell_area->height);
+		// gtk_render_background (pStyleContext, cr,
+		//    0, cell_area->y,
+		//    cell_area->x + width, cell_area->height);
 
 		gtk_render_layout (pStyleContext, cr,
 		    cell_area->x, cell_area->y + 3,

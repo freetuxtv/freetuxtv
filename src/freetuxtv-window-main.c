@@ -808,11 +808,7 @@ windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg)
 	                    context_id,
 	                    msg);
 	
-#if GTK_API_VERSION == 3
-	// TODO : Found alternative to g_main_context_iteration
-#else
 	while (g_main_context_iteration(NULL, FALSE)){}
-#endif
 }
 
 
@@ -829,11 +825,7 @@ windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
 	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
 	                   context_id);
 
-#if GTK_API_VERSION == 3
-	// TODO : Found alternative to g_main_context_iteration
-#else	
 	while (g_main_context_iteration(NULL, FALSE)){}
-#endif
 }
 
 void

@@ -121,13 +121,9 @@ gtk_progress_dialog_new(GtkWindow* parent)
 	g_signal_connect(G_OBJECT(dialog), "delete-event",
 	    G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 
-#if GTK_API_VERSION == 3
-
-#else
 	while (gtk_events_pending()) {
 	    gtk_main_iteration();
 	}
-#endif
 	
 	return dialog;
 }
@@ -149,13 +145,9 @@ gtk_progress_dialog_set_title(GtkProgressDialog* dialog, gchar *title)
 	gtk_label_set_markup(GTK_LABEL(priv->title_widget), text);
 	g_free(text);
 	
-#if GTK_API_VERSION == 3
-
-#else
 	while (gtk_events_pending()) {
 	    gtk_main_iteration();
 	}
-#endif
 }
 
 void
@@ -169,13 +161,9 @@ gtk_progress_dialog_set_text(GtkProgressDialog* dialog, gchar *text)
 
 	gtk_label_set_markup(GTK_LABEL(priv->text_widget), text);
 	
-#if GTK_API_VERSION == 3
-
-#else
 	while (gtk_events_pending()) {
 	    gtk_main_iteration();
 	}
-#endif
 }
 
 void
@@ -195,11 +183,7 @@ gtk_progress_dialog_set_percent(GtkProgressDialog* dialog, gdouble percent)
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(priv->progress_widget), text);
 	g_free(text);
 	
-#if GTK_API_VERSION == 3
-
-#else
 	while (gtk_events_pending()) {
 	    gtk_main_iteration();
 	}
-#endif
 }
