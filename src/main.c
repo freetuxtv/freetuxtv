@@ -748,7 +748,7 @@ splashscreen_app_init(gpointer data)
 	}
 
 	// Start internal timer
-	if(error == NULL && FALSE){
+	if(error == NULL){
 		g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
 	}
 

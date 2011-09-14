@@ -577,6 +577,8 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 			if(has_process){
 				tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), nb_added);
 				gtk_progress_dialog_set_text(pProgressDialog, tmptext);
+				gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
+				gtk_progress_dialog_set_button_close_enabled(pProgressDialog, TRUE);
 				g_free(tmptext);
 			}
 			
@@ -643,6 +645,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 					tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), 1);
 					gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 					gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
+					gtk_progress_dialog_set_button_close_enabled(pProgressDialog, TRUE);
 				
 					g_free(tmptext);
 				}
@@ -686,6 +689,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 					tmptext = g_strdup_printf(_("%d channels group(s) have been successfully added."), 1);
 					gtk_progress_dialog_set_text(pProgressDialog, tmptext);
 					gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
+					gtk_progress_dialog_set_button_close_enabled(pProgressDialog, TRUE);
 				
 					g_free(tmptext);
 				}
@@ -695,6 +699,12 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 	}
 	dbsync_close_db(&dbsync);
 
+	// On error we destroy the progress dialog view
+	if(pProgressDialog && (errmsg != NULL || error != NULL)){
+		gtk_widget_destroy (GTK_WIDGET(pProgressDialog));
+		pProgressDialog = NULL;
+	}
+
 	if(errmsg != NULL){
 		windowmain_show_error (app, errmsg);
 		g_free(errmsg);
@@ -703,14 +713,6 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 		windowmain_show_gerror (app, error);
 		g_error_free (error);
 	}
-
-	/*
-	// TODO : Destroy the dialog
-	if(pProgressDialog){
-		g_object_unref(pProgressDialog);
-		pProgressDialog = NULL;
-	}
-	*/
 }
 
 static void
@@ -781,12 +783,12 @@ freetuxtv_window_add_channels_group_get_app(FreetuxTVWindowAddChannelsGroup* pWi
 }
 
 static gboolean
-do_close_clicked (gpointer user_data)
+do_idle_destroy_window (gpointer user_data)
 {
-	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup;
+	GtkWidget* pWidget;
 
-	pWindowAddChannelsGroup = (FreetuxTVWindowAddChannelsGroup*)user_data;
-	gtk_widget_destroy (GTK_WIDGET(pWindowAddChannelsGroup));
+	pWidget = (GtkWidget*)user_data;
+	gtk_widget_destroy (GTK_WIDGET(pWidget));
 
 	return FALSE;
 }
@@ -795,5 +797,5 @@ static void
 on_buttonclose_clicked (GtkButton *button, gpointer user_data)
 {
 	// We do the destruction after the button clicked event is finished
-	g_idle_add (do_close_clicked, user_data);
+	g_idle_add (do_idle_destroy_window, user_data);
 }
