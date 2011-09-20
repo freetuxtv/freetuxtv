@@ -73,6 +73,8 @@ freetuxtv_window_recording_finalize (GObject *object)
 		g_object_unref(priv->pChannelInfos);
 		priv->pChannelInfos = NULL;
 	}
+	
+	G_OBJECT_CLASS (freetuxtv_window_recording_parent_class)->finalize (object);
 }
 
 static void
@@ -102,6 +104,11 @@ freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app, FreetuxTVC
 	    "ui-file", szUiFile,
 	    "toplevel-widget-name", "dialogaddrecording",
 	    NULL);
+
+	if(szUiFile){
+		g_free(szUiFile);
+		szUiFile = NULL;
+	}
 
 	GtkBuilder* builder;
 	builder = gtk_builder_dialog_get_builder(GTK_BUILDER_DIALOG(pWindowRecording));
@@ -151,11 +158,6 @@ freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app, FreetuxTVC
 
 	// Update display
 	dialog_updateinfos(pWindowRecording, beginTime);
-
-	if(szUiFile){
-		g_free(szUiFile);
-		szUiFile = NULL;
-	}
 
 	return pWindowRecording;
 }
