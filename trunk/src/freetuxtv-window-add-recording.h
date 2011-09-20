@@ -21,6 +21,7 @@
 
 #include <gtk/gtk.h>
 
+#include "gtk-builder-dialog.h"
 #include "freetuxtv-app.h"
 #include "freetuxtv-recording-infos.h"
 
@@ -38,24 +39,21 @@ typedef struct _FreetuxTVWindowRecording FreetuxTVWindowRecording;
 
 struct _FreetuxTVWindowRecordingClass
 {
-	GObjectClass parent_class;
+	GtkBuilderDialogClass parent_class;
 };
 
 struct _FreetuxTVWindowRecording
 {
-	GObject parent_instance;
+	GtkBuilderDialog parent_instance;
 };
 
 GType freetuxtv_window_channel_properties_get_type (void) G_GNUC_CONST;
 
 FreetuxTVWindowRecording*
-freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app);
+freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app, FreetuxTVChannelInfos* pChannelInfos);
 
-gint
-freetuxtv_window_recording_run (
-    FreetuxTVWindowRecording* pWindowRecording,
-    FreetuxTVChannelInfos* pChannelInfos, GtkTreePath* pPath,
-    FreetuxTVRecordingInfos** ppRecordingInfos);
+FreetuxTVRecordingInfos*
+freetuxtv_window_recording_get_recording_infos(FreetuxTVWindowRecording* pWindowRecording);
 
 G_END_DECLS
 

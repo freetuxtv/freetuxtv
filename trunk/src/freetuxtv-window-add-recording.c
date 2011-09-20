@@ -34,21 +34,15 @@ typedef struct _FreetuxTVWindowRecordingPrivate FreetuxTVWindowRecordingPrivate;
 struct _FreetuxTVWindowRecordingPrivate
 {
 	FreetuxTVApp* app;
-	GtkBuilder* pBuilder;
+	FreetuxTVChannelInfos* pChannelInfos;
 };
 
 #define FREETUXTV_WINDOW_RECORDING_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), FREETUXTV_TYPE_WINDOW_RECORDING, FreetuxTVWindowRecordingPrivate))
 
-G_DEFINE_TYPE (FreetuxTVWindowRecording, freetuxtv_window_recording, G_TYPE_OBJECT);
-
-static gboolean
-dialog_init (FreetuxTVWindowRecording *pWindowRecording, GtkWindow *parent);
+G_DEFINE_TYPE (FreetuxTVWindowRecording, freetuxtv_window_recording, GTK_TYPE_BUILDER_DIALOG);
 
 static void
 dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, gint64 timeref);
-
-static void
-on_dialogaddrecording_response (GtkDialog *dialog, gint response_id, gpointer user_data);
 
 static void
 on_entry_duration_changed(GtkEditable *self, gpointer user_data);
@@ -60,7 +54,8 @@ freetuxtv_window_recording_init (FreetuxTVWindowRecording *object)
 
 	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(object);
 
-	priv->pBuilder = NULL;
+	priv->app = NULL;
+	priv->pChannelInfos = NULL;
 }
 
 static void
@@ -74,9 +69,9 @@ freetuxtv_window_recording_finalize (GObject *object)
 
 	priv->app = NULL;
 
-	if(priv->pBuilder){
-		g_object_unref (priv->pBuilder);
-		priv->pBuilder = NULL;
+	if(priv->pChannelInfos){
+		g_object_unref(priv->pChannelInfos);
+		priv->pChannelInfos = NULL;
 	}
 }
 
@@ -91,66 +86,60 @@ freetuxtv_window_recording_class_init (FreetuxTVWindowRecordingClass *klass)
 }
 
 FreetuxTVWindowRecording*
-freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app)
+freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app, FreetuxTVChannelInfos* pChannelInfos)
 {
+	g_return_val_if_fail(parent != NULL, NULL);
+	g_return_val_if_fail(GTK_IS_WINDOW(parent), NULL);
+	g_return_val_if_fail(app != NULL, NULL);
+	
 	FreetuxTVWindowRecording* pWindowRecording;
-	FreetuxTVWindowRecordingPrivate* priv;
-
-	gchar* szUiFile = NULL;
-
-	pWindowRecording = g_object_new (FREETUXTV_TYPE_WINDOW_RECORDING, NULL);
-
-	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(pWindowRecording);
-
-	priv->app = app;
-
-	szUiFile = g_build_filename (app->paths.szPathGladeXml, FREETUXTV_GUIFILE_ADDRECORDING, NULL);
-
-	priv->pBuilder = gtk_builder_new ();
-	gtk_builder_add_from_file (priv->pBuilder, szUiFile, NULL);
-
-	// Initialize dialog
-	dialog_init (pWindowRecording, parent);
-
-	if(szUiFile){
-		g_free(szUiFile);
-		szUiFile = NULL;
-	}
-
-	return pWindowRecording;
-}
-
-gint
-freetuxtv_window_recording_run (
-    FreetuxTVWindowRecording* pWindowRecording,
-    FreetuxTVChannelInfos* pChannelInfos, GtkTreePath* pPath,
-    FreetuxTVRecordingInfos** ppRecordingInfos)
-{
-	g_return_val_if_fail(pWindowRecording != NULL, GTK_RESPONSE_NONE);
-	g_return_val_if_fail(FREETUXTV_IS_WINDOW_RECORDING(pWindowRecording), GTK_RESPONSE_NONE);
-
-	FreetuxTVWindowRecordingPrivate* priv;
-	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(pWindowRecording);
-
-	gint res;
-
-	GtkDialog *dialog;
-	dialog = (GtkDialog *) gtk_builder_get_object (priv->pBuilder, FREETUXTV_GUI_DIALOG_ADDRECORDING);
-
 	GtkWidget *widget;
 	
+	gchar* szUiFile = NULL;
+	szUiFile = g_build_filename (app->paths.szPathGladeXml, FREETUXTV_GUIFILE_ADDRECORDING, NULL);
+	
+	pWindowRecording = g_object_new (FREETUXTV_TYPE_WINDOW_RECORDING,
+	    "ui-file", szUiFile,
+	    "toplevel-widget-name", "dialogaddrecording",
+	    NULL);
+
+	GtkBuilder* builder;
+	builder = gtk_builder_dialog_get_builder(GTK_BUILDER_DIALOG(pWindowRecording));
+
+	// Private members
+	FreetuxTVWindowRecordingPrivate* priv;
+	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(pWindowRecording);
+	priv->app = app;
+
+	priv->pChannelInfos = pChannelInfos;
+	g_object_unref(priv->pChannelInfos);
+	
+	// Set the parent
+	gtk_window_set_transient_for (GTK_WINDOW(pWindowRecording), parent);
+	gtk_window_set_position (GTK_WINDOW(pWindowRecording), GTK_WIN_POS_CENTER_ON_PARENT);
+
+	gtk_dialog_add_buttons (GTK_DIALOG(pWindowRecording),
+	    "gtk-cancel", GTK_RESPONSE_CANCEL,
+	    "gtk-ok", GTK_RESPONSE_OK, NULL);
+
+	// Signal to connect instance
+	widget =  (GtkWidget *) gtk_builder_get_object (builder,
+	    "entry_duration");
+	g_signal_connect(G_OBJECT(widget),
+	    "changed",
+	    G_CALLBACK(on_entry_duration_changed),
+	    pWindowRecording);
+
+	// Set default value in the fields
 	GTimeVal now;
 	gint64 beginTime;
-	gint64 endTime;
-	int duration;
 	g_get_current_time (&now);
 	beginTime = g_time_val_to_int64(&now);
 
-	// Set the value in the fields
-	widget = (GtkWidget *) gtk_builder_get_object (priv->pBuilder, "label_channel");
+	widget = (GtkWidget *) gtk_builder_get_object (builder, "label_channel");
 	gtk_label_set_text(GTK_LABEL(widget), pChannelInfos->name);
 	
-	widget = (GtkWidget *) gtk_builder_get_object (priv->pBuilder, "entry_title");
+	widget = (GtkWidget *) gtk_builder_get_object (builder, "entry_title");
 
 	gchar* szTmp;
 	gchar* szEndText;
@@ -163,68 +152,51 @@ freetuxtv_window_recording_run (
 	// Update display
 	dialog_updateinfos(pWindowRecording, beginTime);
 
-	// Display the dialog
-	res = gtk_dialog_run(dialog);
-
-	if(res == GTK_RESPONSE_OK && ppRecordingInfos){
-
-		widget =  (GtkWidget *) gtk_builder_get_object (priv->pBuilder,
-		    "entry_duration");
-		szTmp = (gchar*)gtk_entry_get_text(GTK_ENTRY(widget));
-		duration = atoi(szTmp);
-
-		widget = (GtkWidget *) gtk_builder_get_object (priv->pBuilder, "entry_title");
-		szTmp = (gchar*)gtk_entry_get_text(GTK_ENTRY(widget));
-
-		g_get_current_time (&now);
-		endTime = beginTime;
-		g_time_int64_add_seconds (&endTime, duration * 60);
-		
-	    *ppRecordingInfos = freetuxtv_recording_infos_new(szTmp, beginTime, endTime, pChannelInfos->id);
+	if(szUiFile){
+		g_free(szUiFile);
+		szUiFile = NULL;
 	}
 
-	return res;
+	return pWindowRecording;
 }
 
-static gboolean
-dialog_init (FreetuxTVWindowRecording *pWindowRecording, GtkWindow *parent)
+FreetuxTVRecordingInfos*
+freetuxtv_window_recording_get_recording_infos(FreetuxTVWindowRecording* pWindowRecording)
 {
-	gboolean res = TRUE;
+	g_return_val_if_fail(pWindowRecording != NULL, NULL);
+	g_return_val_if_fail(FREETUXTV_IS_WINDOW_RECORDING(pWindowRecording), NULL);
+
+	FreetuxTVRecordingInfos* pRecordingInfos;
+	
+	gchar* szTmp;
+	int duration;
 
 	FreetuxTVWindowRecordingPrivate* priv;
 	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(pWindowRecording);
-
-	GtkWidget *widget;
-
-	// Initialize signals for dialog
-	widget = (GtkWidget *)gtk_builder_get_object (priv->pBuilder,
-	    FREETUXTV_GUI_DIALOG_ADDRECORDING);
 	
-	// Set the parent
-	gtk_window_set_transient_for (GTK_WINDOW(widget), parent);
-
-	gtk_dialog_add_buttons (GTK_DIALOG(widget),
-	    "gtk-cancel", GTK_RESPONSE_CANCEL,
-	    "gtk-ok", GTK_RESPONSE_OK, NULL);
-
-	g_signal_connect(G_OBJECT(widget),
-	    "response",
-	    G_CALLBACK(on_dialogaddrecording_response),
-	    pWindowRecording);
-
-	g_signal_connect(G_OBJECT(widget),
-	    "delete-event",
-	    G_CALLBACK(gtk_widget_hide_on_delete),
-	    NULL);
-
-	widget =  (GtkWidget *) gtk_builder_get_object (priv->pBuilder,
+	GtkBuilder* builder;
+	builder = gtk_builder_dialog_get_builder(GTK_BUILDER_DIALOG(pWindowRecording));
+	
+	GtkWidget *widget;
+	widget =  (GtkWidget *) gtk_builder_get_object (builder,
 	    "entry_duration");
-	g_signal_connect(G_OBJECT(widget),
-	    "changed",
-	    G_CALLBACK(on_entry_duration_changed),
-	    pWindowRecording);
+	szTmp = (gchar*)gtk_entry_get_text(GTK_ENTRY(widget));
+	duration = atoi(szTmp);
 
-	return res;
+	widget = (GtkWidget *) gtk_builder_get_object (builder, "entry_title");
+	szTmp = (gchar*)gtk_entry_get_text(GTK_ENTRY(widget));
+
+	GTimeVal now;
+	gint64 beginTime;
+	gint64 endTime;
+	g_get_current_time (&now);
+	beginTime = g_time_val_to_int64(&now);
+	endTime = beginTime;
+	g_time_int64_add_seconds (&endTime, duration * 60);
+	
+    pRecordingInfos = freetuxtv_recording_infos_new(szTmp, beginTime, endTime, priv->pChannelInfos->id);
+
+	return pRecordingInfos;
 }
 
 static void
@@ -239,7 +211,10 @@ dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, gint64 timeref)
 	FreetuxTVWindowRecordingPrivate* priv;
 	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(pWindowRecording);
 
-	widget =  (GtkWidget *) gtk_builder_get_object (priv->pBuilder,
+	GtkBuilder* builder;
+	builder = gtk_builder_dialog_get_builder(GTK_BUILDER_DIALOG(pWindowRecording));	
+
+	widget =  (GtkWidget *) gtk_builder_get_object (builder,
 	    "entry_duration");
 
 	szDurationText = gtk_entry_get_text(GTK_ENTRY(widget));
@@ -248,13 +223,13 @@ dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, gint64 timeref)
 	priv->app->current.recording.max_duration = duration;
 
 	szBeginText = g_time_int64_to_string(timeref, "%d/%m/%y %H:%M");
-	widget =  (GtkWidget *) gtk_builder_get_object (priv->pBuilder,
+	widget =  (GtkWidget *) gtk_builder_get_object (builder,
 		"label_begintime");
 	gtk_label_set_text(GTK_LABEL(widget), szBeginText);
 	
 	g_time_int64_add_seconds (&timeref, duration * 60);
 	szEndText = g_time_int64_to_string(timeref, "%d/%m/%y %H:%M");
-	widget =  (GtkWidget *) gtk_builder_get_object (priv->pBuilder,
+	widget =  (GtkWidget *) gtk_builder_get_object (builder,
 		"label_endtime");
 	gtk_label_set_text(GTK_LABEL(widget), szEndText);
 
@@ -266,12 +241,6 @@ dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, gint64 timeref)
 		g_free(szEndText);
 		szEndText = NULL;
 	}
-}
-
-static void
-on_dialogaddrecording_response (GtkDialog *self, gint response_id, gpointer user_data)
-{
-	gtk_widget_hide(GTK_WIDGET(self));
 }
 
 static void

@@ -1138,7 +1138,6 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	GtkWidget *widget;
 	GError* error = NULL;
 	FreetuxTVChannelInfos* pChannelInfos;
 	DBSync dbsync;
@@ -1148,21 +1147,22 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 	gint res;
 
 	// Create the window
-	widget = gtk_widget_get_toplevel (GTK_WIDGET(button));
-	if (!gtk_widget_is_toplevel  (widget)) {
-		widget = NULL;
-	}
-	pWindowRecording = freetuxtv_window_recording_new (GTK_WINDOW(widget), app);
+	GtkWidget* pParent;
+	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
 	
 	// Show properties to the channel corresponding to the path
 	pChannelInfos = channels_list_get_channel (app, app->current.pPathChannel);
 
-	// Display the window
-	res = freetuxtv_window_recording_run (pWindowRecording,
-	    pChannelInfos, app->current.pPathChannel, &pRecordingInfos);
+	// Create and show the window
+	pWindowRecording = freetuxtv_window_recording_new (GTK_WINDOW(pParent), app, pChannelInfos);
+	res = gtk_dialog_run(GTK_DIALOG(pWindowRecording));
+	
+	if(res == GTK_RESPONSE_OK){
+		pRecordingInfos = freetuxtv_window_recording_get_recording_infos (pWindowRecording);
+	}
 
 	// Destroy the window
-	g_object_unref(pWindowRecording);
+	gtk_widget_destroy(GTK_WIDGET(pWindowRecording));
 	pWindowRecording = NULL;
 
 	if(res == GTK_RESPONSE_OK){
