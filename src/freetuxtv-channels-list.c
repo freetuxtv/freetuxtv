@@ -2161,17 +2161,15 @@ on_popupmenu_activated_channelproperties (GtkMenuItem *menuitem, gpointer user_d
 		// Show properties to the channel corresponding to the path
 		pChannelInfos = channels_list_get_channel (app, real_path);
 
+		GtkWidget* pParent;
+		pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
+
 		FreetuxTVWindowChannelProperties* pWindowChannelProperties;
-		gint res;
-		pWindowChannelProperties = freetuxtv_window_channel_properties_new (app);
+		pWindowChannelProperties = freetuxtv_window_channel_properties_new (GTK_WINDOW(pParent), app, pChannelInfos);
 
-		res = freetuxtv_window_channel_properties_run (pWindowChannelProperties,
-		    pChannelInfos, real_path);
-		if(res == GTK_RESPONSE_OK){
-
-		}
+		gtk_dialog_run (GTK_DIALOG(pWindowChannelProperties));
 		
-		g_object_unref(pWindowChannelProperties);
+		gtk_widget_destroy(GTK_WIDGET(pWindowChannelProperties));
 		pWindowChannelProperties = NULL;
 	}
 }
