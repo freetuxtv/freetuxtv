@@ -132,9 +132,13 @@ gtk_builder_dialog_constructed (GObject *object)
 	gtk_window_get_default_size (GTK_WINDOW(dialog), &default_width, &default_height);
 	gtk_window_set_default_size (GTK_WINDOW(object), default_width, default_height);
 
+#if GTK_API_VERSION == 3
+
+#else
 	gboolean separator;
 	separator = gtk_dialog_get_has_separator (GTK_DIALOG(dialog));
 	gtk_dialog_set_has_separator (GTK_DIALOG(object), separator);
+#endif
 }
 
 static void

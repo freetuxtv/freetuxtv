@@ -87,8 +87,6 @@ freetuxtv_window_add_channels_group_init (FreetuxTVWindowAddChannelsGroup *objec
 static void
 freetuxtv_window_add_channels_group_finalize (GObject *object)
 {
-	G_OBJECT_CLASS (freetuxtv_window_add_channels_group_parent_class)->finalize (object);
-
 	FreetuxTVWindowAddChannelsGroupPrivate* priv;
 	
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(object);
