@@ -11,7 +11,7 @@
     <property name="default_width">400</property>
     <property name="icon_name">freetuxtv</property>
     <property name="type_hint">normal</property>
-    <signal name="response" handler="on_dialogaddrecording_response" swapped="no"/>
+    <property name="has_separator">True</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox7">
         <property name="visible">True</property>
@@ -223,9 +223,6 @@
                 <property name="fill">False</property>
                 <property name="position">1</property>
               </packing>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
           <packing>

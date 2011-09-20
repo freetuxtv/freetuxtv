@@ -16,6 +16,8 @@ AM_CFLAGS =\
 bin_PROGRAMS = freetuxtv
 
 freetuxtv_SOURCES = \
+	gtk-builder-dialog.h \
+	gtk-builder-dialog.c \
 	gtk-builder-window.h \
 	gtk-builder-window.c \
 	gtk-progress-dialog.h \

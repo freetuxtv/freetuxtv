@@ -11,6 +11,7 @@
     <property name="default_height">450</property>
     <property name="icon_name">freetuxtv</property>
     <property name="type_hint">dialog</property>
+    <property name="has_separator">True</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
