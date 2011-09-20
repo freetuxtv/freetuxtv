@@ -1146,7 +1146,6 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 	FreetuxTVRecordingInfos* pRecordingInfos = NULL;
 	gint res;
 
-	// Create the window
 	GtkWidget* pParent;
 	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
 	

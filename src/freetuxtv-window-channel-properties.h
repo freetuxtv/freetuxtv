@@ -22,6 +22,7 @@
 
 #include <glib-object.h>
 
+#include "gtk-builder-dialog.h"
 #include "freetuxtv-app.h"
 #include "freetuxtv-channel-infos.h"
 
@@ -39,28 +40,18 @@ typedef struct _FreetuxTVWindowChannelProperties FreetuxTVWindowChannelPropertie
 
 struct _FreetuxTVWindowChannelPropertiesClass
 {
-	GObjectClass parent_class;
-
-	gboolean initialized;
-	
-	gulong on_dialog_response_hid;
+	GtkBuilderDialogClass parent_class;
 };
 
 struct _FreetuxTVWindowChannelProperties
 {
-	GObject parent_instance;
+	GtkBuilderDialog parent_instance;
 };
 
 GType freetuxtv_window_channel_properties_get_type (void) G_GNUC_CONST;
 
 FreetuxTVWindowChannelProperties*
-freetuxtv_window_channel_properties_new (FreetuxTVApp* app);
-
-gint
-freetuxtv_window_channel_properties_run (
-	FreetuxTVWindowChannelProperties* pWindowChannelProperties,
-    FreetuxTVChannelInfos* pChannelInfos,
-    GtkTreePath* pPath);
+freetuxtv_window_channel_properties_new (GtkWindow *parent, FreetuxTVApp* app, FreetuxTVChannelInfos* pChannelInfos);
 
 G_END_DECLS
 

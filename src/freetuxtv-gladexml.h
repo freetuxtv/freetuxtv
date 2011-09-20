@@ -22,6 +22,7 @@
 // List of files
 #define FREETUXTV_GUIFILE_ADDRECORDING			"addrecording.glade"
 #define FREETUXTV_GUIFILE_ADDCHANNELSGROUPS		"addchannelsgroups.glade"
+#define FREETUXTV_GUIFILE_CHANNELPROPERTIES		"channelproperties.glade"
 
 // List of windows and dialogs
 #define FREETUXTV_GUI_DIALOG_ADDRECORDING "dialogaddrecording"

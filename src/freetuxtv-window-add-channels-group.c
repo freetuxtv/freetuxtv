@@ -94,6 +94,8 @@ freetuxtv_window_add_channels_group_finalize (GObject *object)
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(object);
 
 	priv->app = NULL;
+	
+	G_OBJECT_CLASS (freetuxtv_window_add_channels_group_parent_class)->finalize (object);
 }
 
 #ifdef G_ENABLE_DEBUG
@@ -238,6 +240,11 @@ freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app, G
 	    "toplevel-widget-name", "dialogaddgroup",
 	    NULL);
 
+	if(szUiFile){
+		g_free(szUiFile);
+		szUiFile = NULL;
+	}
+
 	builder = gtk_builder_window_get_builder(GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
 
 	// Private members
@@ -281,12 +288,6 @@ freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app, G
 	if(*error != NULL){
 		g_object_unref (G_OBJECT(pWindowAddChannelsGroups));
 		pWindowAddChannelsGroups = NULL;
-	}
-
-
-	if(szUiFile){
-		g_free(szUiFile);
-		szUiFile = NULL;
 	}
 
 	return pWindowAddChannelsGroups;
