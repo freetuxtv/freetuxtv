@@ -19,6 +19,8 @@
 
 #include "gtk-builder-dialog.h"
 
+#include <config.h>
+
 typedef struct _GtkBuilderDialogPrivate GtkBuilderDialogPrivate;
 struct _GtkBuilderDialogPrivate
 {
