@@ -61,8 +61,6 @@ freetuxtv_window_recording_init (FreetuxTVWindowRecording *object)
 static void
 freetuxtv_window_recording_finalize (GObject *object)
 {
-	G_OBJECT_CLASS (freetuxtv_window_recording_parent_class)->finalize (object);
-
 	FreetuxTVWindowRecordingPrivate* priv;
 
 	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(object);
