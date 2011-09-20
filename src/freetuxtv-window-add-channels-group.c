@@ -224,11 +224,11 @@ freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app, G
 	g_return_val_if_fail(app != NULL, NULL);
 	g_return_val_if_fail(error != NULL, NULL);
 	g_return_val_if_fail(*error == NULL, NULL);
-	
-	
+
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 	FreetuxTVWindowAddChannelsGroupPrivate* priv;
 	GtkBuilder* builder;
+	GtkWidget *widget;
 	
 	gchar* szUiFile = NULL;
 	szUiFile = g_build_filename (app->paths.szPathGladeXml, FREETUXTV_GUIFILE_ADDCHANNELSGROUPS, NULL);
@@ -251,7 +251,6 @@ freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app, G
 	gtk_window_set_position (GTK_WINDOW(pWindowAddChannelsGroups), GTK_WIN_POS_CENTER_ON_PARENT);
 
 	// Set the tree selection mode
-	GtkWidget *widget;
 	widget = (GtkWidget *)gtk_builder_get_object (builder,
 		"treeview_channelsgroups");
 	GtkTreeSelection *selection;

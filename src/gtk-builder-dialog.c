@@ -17,17 +17,19 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gtk-builder-window.h"
+#include "gtk-builder-dialog.h"
 
-typedef struct _GtkBuilderWindowPrivate GtkBuilderWindowPrivate;
-struct _GtkBuilderWindowPrivate
+typedef struct _GtkBuilderDialogPrivate GtkBuilderDialogPrivate;
+struct _GtkBuilderDialogPrivate
 {
 	GtkBuilder* builder;
 	gchar* uifile;
 	gchar* toplevel_widget_name;
 };
 
-#define GTK_BUILDER_WINDOW_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), GTK_TYPE_BUILDER_WINDOW, GtkBuilderWindowPrivate))
+#define GTK_BUILDER_DIALOG_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), GTK_TYPE_BUILDER_DIALOG, GtkBuilderDialogPrivate))
+
+G_DEFINE_TYPE (GtkBuilderDialog, gtk_builder_dialog, GTK_TYPE_DIALOG);
 
 enum
 {
@@ -37,14 +39,11 @@ enum
 	PROP_TOPLEVEL_WIDGET_NAME,
 };
 
-
-G_DEFINE_TYPE (GtkBuilderWindow, gtk_builder_window, GTK_TYPE_WINDOW);
-
 static void
-gtk_builder_window_init (GtkBuilderWindow *object)
+gtk_builder_dialog_init (GtkBuilderDialog *object)
 {
-	GtkBuilderWindowPrivate* priv;
-	priv = GTK_BUILDER_WINDOW_PRIVATE(object);
+	GtkBuilderDialogPrivate* priv;
+	priv = GTK_BUILDER_DIALOG_PRIVATE(object);
 
 	priv->builder = NULL;
 	priv->uifile = NULL;
@@ -55,18 +54,18 @@ gtk_builder_window_init (GtkBuilderWindow *object)
 }
 
 static void
-gtk_builder_window_constructed (GObject *object)
+gtk_builder_dialog_constructed (GObject *object)
 {
-	GtkBuilderWindowPrivate* priv;
-	priv = GTK_BUILDER_WINDOW_PRIVATE(object);
+	GtkBuilderDialogPrivate* priv;
+	priv = GTK_BUILDER_DIALOG_PRIVATE(object);
 
-	GtkBuilderWindowClass* klass;
-	klass = GTK_BUILDER_WINDOW_GET_CLASS(object);
+	GtkBuilderDialogClass* klass;
+	klass = GTK_BUILDER_DIALOG_GET_CLASS(object);
 
 	// Call parent function
-	G_OBJECT_CLASS (gtk_builder_window_parent_class)->constructed (object);
+	G_OBJECT_CLASS (gtk_builder_dialog_parent_class)->constructed (object);
 
-	g_print("Loading window \"%s\" from %s\n", priv->toplevel_widget_name, priv->uifile);
+	g_print("Loading dialog \"%s\" from %s\n", priv->toplevel_widget_name, priv->uifile);
 	
 	gtk_builder_add_from_file (priv->builder, priv->uifile, NULL);
 
@@ -74,54 +73,51 @@ gtk_builder_window_constructed (GObject *object)
 	dialog = (GtkWidget*) gtk_builder_get_object (priv->builder, priv->toplevel_widget_name);
 
 	// Get the child of the window in the ui file and add it in the current widget
+	GList *children;
+	GtkWidget* content_area;
+	GtkWidget* action_area;
+	GtkWidget* dest_content_area;
+	GtkWidget* dest_action_area;
 	GtkWidget* child;
-	child = gtk_bin_get_child(GTK_BIN(dialog));
-	gtk_container_remove (GTK_CONTAINER(dialog), child);
-	gtk_container_add (GTK_CONTAINER(object), child);
-
-	// Copy the propertie of the window
-	/*
-	GParamSpec **ppListParamSpec;
-	guint n_properties;
-	ppListParamSpec = g_object_class_list_properties (G_OBJECT_GET_CLASS(dialog), &n_properties);
-
-	int i;
-	const gchar *property_name;
-	gboolean bTest;
 	
-	for (i=0; i<n_properties; i++){
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG(dialog));
+	action_area = gtk_dialog_get_action_area (GTK_DIALOG(dialog));
+	dest_content_area = gtk_dialog_get_content_area (GTK_DIALOG(object));
+	dest_action_area = gtk_dialog_get_action_area (GTK_DIALOG(object));
+	
+	children = gtk_container_get_children(GTK_CONTAINER(content_area));
+	while(children != NULL){
+		child = (GtkWidget*)children->data;
 
-		bTest = ppListParamSpec[i] != NULL;
-		if(bTest){
-			bTest = (ppListParamSpec[i]->flags & G_PARAM_WRITABLE) && (ppListParamSpec[i]->flags & G_PARAM_READABLE);
+		if(GTK_IS_WIDGET(child)){
+			if(action_area != child){
+				gtk_container_remove (GTK_CONTAINER(content_area), child);
+				if(GTK_IS_WIDGET(child)){
+					gtk_container_add (GTK_CONTAINER(dest_content_area), child);
+				}
+			}
 		}
-		if(bTest){
-			bTest = !(ppListParamSpec[i]->flags & G_PARAM_CONSTRUCT_ONLY);
-		}
-		
-		if(bTest){
 
-			property_name = g_param_spec_get_name (ppListParamSpec[i]);
-			
-			g_print("Properties %s\n", property_name);
-
-			GValue value = {0, };
-			g_value_init (&value, ppListParamSpec[i]->value_type);
-			
-			g_object_get_property (G_OBJECT(object), property_name, &value);
-			g_object_set_property (G_OBJECT(dialog), property_name, &value);
-
-			//g_value_unset(value);
-			//value = NULL;
-			
-			g_param_spec_unref (ppListParamSpec[i]);
-			ppListParamSpec[i] = NULL;
-		}
+		children = g_list_next(children);
 	}
 
-	ppListParamSpec = NULL;
-	*/
-	
+	gint response;
+	children = gtk_container_get_children(GTK_CONTAINER(action_area));
+	while(children != NULL){
+		child = (GtkWidget*)children->data;
+
+		response = gtk_dialog_get_response_for_widget (GTK_DIALOG(dialog), child);
+		
+		if(GTK_IS_WIDGET(child)){
+			gtk_container_remove (GTK_CONTAINER(action_area), child);
+
+			gtk_dialog_add_action_widget (GTK_DIALOG(object), child, response);
+		}
+
+		children = g_list_next(children);
+	}
+
+	// Copy the propertie of the window
 	const gchar* szTitle = gtk_window_get_title (GTK_WINDOW(dialog));
 	gtk_window_set_title (GTK_WINDOW(object), szTitle);
 
@@ -135,15 +131,19 @@ gtk_builder_window_constructed (GObject *object)
 	gint default_height;
 	gtk_window_get_default_size (GTK_WINDOW(dialog), &default_width, &default_height);
 	gtk_window_set_default_size (GTK_WINDOW(object), default_width, default_height);
+
+	gboolean separator;
+	separator = gtk_dialog_get_has_separator (GTK_DIALOG(dialog));
+	gtk_dialog_set_has_separator (GTK_DIALOG(object), separator);
 }
 
 static void
-gtk_builder_window_finalize (GObject *object)
+gtk_builder_dialog_finalize (GObject *object)
 {
-	GtkBuilderWindowPrivate* priv;
-	priv = GTK_BUILDER_WINDOW_PRIVATE(object);
+	GtkBuilderDialogPrivate* priv;
+	priv = GTK_BUILDER_DIALOG_PRIVATE(object);
 	
-	g_print("Destroying window \"%s\" from %s\n", priv->toplevel_widget_name, priv->uifile);
+	g_print("Destroying dialog \"%s\" from %s\n", priv->toplevel_widget_name, priv->uifile);
 	
 	if(priv->uifile){
 		g_free(priv->uifile);
@@ -159,20 +159,20 @@ gtk_builder_window_finalize (GObject *object)
 		g_object_unref (priv->builder);
 		priv->builder = NULL;
 	}
-	
-	G_OBJECT_CLASS (gtk_builder_window_parent_class)->finalize (object);
+
+	G_OBJECT_CLASS (gtk_builder_dialog_parent_class)->finalize (object);
 }
 
 static void
-gtk_builder_window_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
+gtk_builder_dialog_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
-	g_return_if_fail (GTK_IS_BUILDER_WINDOW (object));
+	g_return_if_fail (GTK_IS_BUILDER_DIALOG (object));
 	
-	GtkBuilderWindow* self;
-	self = GTK_BUILDER_WINDOW(object);
+	GtkBuilderDialog* self;
+	self = GTK_BUILDER_DIALOG(object);
 
-	GtkBuilderWindowPrivate* priv;
-	priv = GTK_BUILDER_WINDOW_PRIVATE(object);
+	GtkBuilderDialogPrivate* priv;
+	priv = GTK_BUILDER_DIALOG_PRIVATE(object);
 
 	switch (prop_id)
 	{
@@ -197,12 +197,12 @@ gtk_builder_window_set_property (GObject *object, guint prop_id, const GValue *v
 }
 
 static void
-gtk_builder_window_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
+gtk_builder_dialog_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
 {
-	g_return_if_fail (GTK_IS_BUILDER_WINDOW (object));
+	g_return_if_fail (GTK_IS_BUILDER_DIALOG (object));
 
-	GtkBuilderWindowPrivate* priv;
-	priv = GTK_BUILDER_WINDOW_PRIVATE(object);
+	GtkBuilderDialogPrivate* priv;
+	priv = GTK_BUILDER_DIALOG_PRIVATE(object);
 
 	switch (prop_id)
 	{
@@ -219,16 +219,16 @@ gtk_builder_window_get_property (GObject *object, guint prop_id, GValue *value, 
 }
 
 static void
-gtk_builder_window_class_init (GtkBuilderWindowClass *klass)
+gtk_builder_dialog_class_init (GtkBuilderDialogClass *klass)
 {
 	GObjectClass* gobject_class = G_OBJECT_CLASS (klass);
 
-	gobject_class->constructed = gtk_builder_window_constructed;
-	gobject_class->set_property = gtk_builder_window_set_property;
-	gobject_class->get_property = gtk_builder_window_get_property;
-	gobject_class->finalize = gtk_builder_window_finalize;
+	gobject_class->constructed = gtk_builder_dialog_constructed;
+	gobject_class->set_property = gtk_builder_dialog_set_property;
+	gobject_class->get_property = gtk_builder_dialog_get_property;
+	gobject_class->finalize = gtk_builder_dialog_finalize;
 
-	g_type_class_add_private (klass, sizeof (GtkBuilderWindowPrivate));
+	g_type_class_add_private (klass, sizeof (GtkBuilderDialogPrivate));
 
 	g_object_class_install_property (gobject_class,
 	                                 PROP_UIFILE,
@@ -248,13 +248,12 @@ gtk_builder_window_class_init (GtkBuilderWindowClass *klass)
 }
 
 GtkBuilder*
-gtk_builder_window_get_builder(GtkBuilderWindow* dialog)
+gtk_builder_dialog_get_builder(GtkBuilderDialog* dialog)
 {
-	g_return_val_if_fail (GTK_IS_BUILDER_WINDOW (dialog), NULL);
+	g_return_val_if_fail (GTK_IS_BUILDER_DIALOG (dialog), NULL);
 
-	GtkBuilderWindowPrivate* priv;
-	priv = GTK_BUILDER_WINDOW_PRIVATE(dialog);
+	GtkBuilderDialogPrivate* priv;
+	priv = GTK_BUILDER_DIALOG_PRIVATE(dialog);
 
 	return priv->builder;
 }
-
