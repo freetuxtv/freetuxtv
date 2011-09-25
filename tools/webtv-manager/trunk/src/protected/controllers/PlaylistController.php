@@ -92,6 +92,12 @@ class PlaylistController extends Controller
 				}
 			}
 		}
+		if(isset($_GET['country'])){
+			if($_GET['country'] != ""){
+				$conditions .= " AND CountryCode=:WebCountryCode";
+				$params[':WebCountryCode'] = $_GET['country'];
+			}
+		}
 
 		$criteria=new CDbCriteria;
 		$criteria->condition=$conditions;

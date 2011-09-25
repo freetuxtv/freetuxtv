@@ -80,6 +80,15 @@ $this->menu=array(
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'CountryCode'); ?>
+		<?php
+			$dropList = CHtml::listData(Country::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+			echo $form->dropDownList($model, 'CountryCode', $dropList, array ('empty' => '-- None --'));
+			echo $form->error($model,'CountryCode');
+		?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'Comments'); ?>
 		<?php echo $form->textArea($model,'Comments',array('cols'=>80,'rows'=>10)); ?>
 		<?php echo $form->error($model,'Comments'); ?>

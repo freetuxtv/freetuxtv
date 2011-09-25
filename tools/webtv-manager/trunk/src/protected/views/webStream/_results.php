@@ -12,8 +12,14 @@
         array(
             'name'=>'Language',
 			'type'=>'image',
-			'htmlOptions' => array('style'=>'text-align:center'),
+			'htmlOptions' => array('style'=>'text-align:center', 'class' => 'flag'),
             'value'=>'Yii::app()->request->baseUrl."/images/lang/languageicons/flags/".strtolower($data->LangCode).".png"',
+        ),
+        array(
+            'name'=>'Country',
+			'type'=>'image',
+			'htmlOptions' => array('style'=>'text-align:center', 'class' => 'flag'),
+            'value'=>'Yii::app()->request->baseUrl."/images/country/softclean/".strtoupper($data->CountryCode).".png"',
         ),
         array(
             'name'=>'Type',

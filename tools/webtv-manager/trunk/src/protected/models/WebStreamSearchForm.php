@@ -9,6 +9,7 @@ class WebStreamSearchForm extends CFormModel
 	public $Name;
 	public $Type;
 	public $Language;
+	public $Country;
 	public $Status;
 
 	/**
@@ -22,6 +23,7 @@ class WebStreamSearchForm extends CFormModel
 			array('Name', 'length', 'max'=>'255'),
 			array('Type', 'numerical', 'integerOnly'=>true),
 			array('Language', 'length', 'max'=>'2'),
+			array('Country', 'length', 'max'=>'2'),
 			array('Status', 'numerical', 'integerOnly'=>true),
 		);
 	}
@@ -35,6 +37,7 @@ class WebStreamSearchForm extends CFormModel
 			'Name'=>'Name',
 			'Type'=>'Type',
 			'Language'=>'Language',
+			'Country'=>'Country',
 			'Status'=>'Status',
 		);
 	}

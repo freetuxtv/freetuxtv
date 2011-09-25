@@ -54,7 +54,12 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 		array(
             'label'=>'Language',
 			'type'=>'html',
-            'value'=>($model->LangCode ? '<img src="'.Yii::app()->request->baseUrl.'/images/lang/languageicons/flags/'.strtolower($model->LangCode).'.png'.'"> '.$model->Lang->Label : $model->LangCode),
+            'value'=>($model->LangCode ? '<img class="flag" src="'.Yii::app()->request->baseUrl.'/images/lang/languageicons/flags/'.strtolower($model->LangCode).'.png'.'"> '.$model->Lang->Label : $model->LangCode),
+        ),
+		array(
+            'label'=>'Country',
+			'type'=>'html',
+            'value'=>($model->CountryCode ? '<img class="flag" src="'.Yii::app()->request->baseUrl.'/images/country/softclean/'.strtoupper($model->CountryCode).'.png'.'"> '.$model->Country->Label : $model->CountryCode),
         ),
         array(
             'label'=>'Status',

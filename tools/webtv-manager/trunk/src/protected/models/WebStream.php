@@ -43,6 +43,7 @@ class WebStream extends CActiveRecord
 			array('Url', 'length', 'max'=>255),
             array('RequiredIsp', 'length', 'max'=>50),
             array('LangCode', 'length', 'max'=>2),
+            array('CountryCode', 'length', 'max'=>2),
 			array('SubmissionDate', 'type', 'type'=>'datetime', 'datetimeFormat'=>'yyyy-MM-dd HH:mm:ss'),
             array('Comments', 'length'),
         );
@@ -57,7 +58,8 @@ class WebStream extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
             'StreamStatus'=>array(self::BELONGS_TO, 'StreamStatus', 'StreamStatusCode'),
-            'Lang'=>array(self::BELONGS_TO, 'Lang', 'LangCode')
+            'Lang'=>array(self::BELONGS_TO, 'Lang', 'LangCode'),
+			'Country'=>array(self::BELONGS_TO, 'Country', 'CountryCode'),
 		);
 	}
 
@@ -69,6 +71,7 @@ class WebStream extends CActiveRecord
 		return array(
 			'RequiredIsp'=>'Required ISP',
 			'LangCode'=>'Language',
+			'CountryCode'=>'Country',
 			'StreamStatusCode'=>'Status',
 			'TypeStream'=>'Type of stream',
 			'SubmissionDate'=>'Date of submission',
@@ -166,6 +169,14 @@ class WebStream extends CActiveRecord
 					$actionsDetails .= ", ";
 				}
 				$actionsDetails .= $this->LangCode.' => '.$attributes["LangCode"];
+			}
+		}
+		if(isset($attributes["CountryCode"])){
+			if($this->CountryCode != $attributes["CountryCode"]){
+				if($actionsDetails != ""){
+					$actionsDetails .= ", ";
+				}
+				$actionsDetails .= strtoupper($this->CountryCode).' => '.strtoupper($attributes["CountryCode"]);
 			}
 		}
 		if(isset($attributes["StreamStatusCode"])){

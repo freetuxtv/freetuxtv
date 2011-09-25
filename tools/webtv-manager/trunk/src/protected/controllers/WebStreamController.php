@@ -100,6 +100,9 @@ class WebStreamController extends Controller
 			if($model->LangCode==""){
 				$model->LangCode=null;
 			}
+			if($model->CountryCode==""){
+				$model->CountryCode=null;
+			}
 			if($model->RequiredIsp==""){
 				$model->RequiredIsp=null;
 			}
@@ -228,6 +231,14 @@ class WebStreamController extends Controller
 			}
 		}
 
+		if(isset($modelSearchForm->Country)){
+			if($modelSearchForm->Country != ""){
+				$conditions .= " AND CountryCode=:WebCountryCode";
+				$params[':WebCountryCode'] = $modelSearchForm->Country;
+				$playlist_params["country"] = $modelSearchForm->Country;
+			}
+		}
+
 		$dataProvider=new CActiveDataProvider('WebStream',array(
 			'criteria'=>array(
 				'condition'=>$conditions,
@@ -258,6 +269,9 @@ class WebStreamController extends Controller
 			$model->attributes=$_POST['WebStream'];
 			if($model->LangCode==""){
 				$model->LangCode=null;
+			}
+			if($model->CountryCode==""){
+				$model->CountryCode=null;
 			}
 			if($model->RequiredIsp==""){
 				$model->RequiredIsp=null;

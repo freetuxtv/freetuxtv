@@ -227,3 +227,8 @@ div.search-form
 {
 	background: #80CFFF;
 }
+
+img.flag, td.flag img {
+	height: 12px;
+	width: 18px;
+}

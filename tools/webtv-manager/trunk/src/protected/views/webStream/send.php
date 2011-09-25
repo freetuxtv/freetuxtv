@@ -122,6 +122,15 @@ Please complete the following information about the link before sending it :
 		?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'CountryCode'); ?>
+		<?php
+			$dropList = CHtml::listData(Country::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+			echo $form->dropDownList($model, 'CountryCode', $dropList, array ('empty' => '-- None --'));
+			echo $form->error($model,'CountryCode');
+		?>
+	</div>
+
 	<?php
 		if(Yii::app()->user->isGuest){
 	?>

@@ -42,6 +42,15 @@
 			echo $form->error($modelSearchForm, 'Language');
 		?>
 	</div>
+	
+	<div class="row">
+		<?php
+			echo $form->labelEx($modelSearchForm, 'Country');
+			$dropList = CHtml::listData(Country::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+			echo $form->dropDownList($modelSearchForm, 'Country', $dropList, array ('empty' => '-- All --'));
+			echo $form->error($modelSearchForm, 'Country');
+		?>
+	</div>
 
 	<div class="row">
 		<?php
@@ -108,7 +117,7 @@
 	    'name'=>'Language',
 		'type'=>'html',
 		'htmlOptions' => array('style'=>'text-align:left'),
-	    'value'=>'($data["LangCode"] ? "<img src=\"'.Yii::app()->request->baseUrl.'/images/lang/languageicons/flags/'.'".strtolower($data["LangCode"])."'.'.png'.'\" alt=\"\">" : $data["LangCode"])."&nbsp;<i>".$data["LangName"]."</i>"',
+	    'value'=>'($data["LangCode"] ? "<img class=\"flag\" src=\"'.Yii::app()->request->baseUrl.'/images/lang/languageicons/flags/'.'".strtolower($data["LangCode"])."'.'.png'.'\" alt=\"\">" : $data["LangCode"])."&nbsp;<i>".$data["LangName"]."</i>"',
 		'footer'=>"Total:",
 		'footerHtmlOptions'=>array('style'=>'text-align:right'),
 	);
