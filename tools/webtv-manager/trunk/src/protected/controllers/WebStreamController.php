@@ -267,7 +267,9 @@ class WebStreamController extends Controller
 	 */
 	public function actionSend()
 	{
+		$bRes = false;
 		$model=new WebStream;
+		$modelSendForm = new WebStreamSendForm;
 
 		if(isset($_POST['WebStream']))
 		{
@@ -281,6 +283,7 @@ class WebStreamController extends Controller
 			if($model->RequiredIsp==""){
 				$model->RequiredIsp=null;
 			}
+			$modelSendForm->Url = $model->Url;
 			if($model->save()){
 				$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_ADD, $model->Id);
 				if($history->save()){
@@ -297,36 +300,37 @@ class WebStreamController extends Controller
 					$this->sendMailToAdmin($subject, $message);
 
 					$this->redirect(array('view','id'=>$model->Id));
+					$bRes = true;
 				}
 			}
 		}else{
-			$modelSendForm = new WebStreamSendForm;
 			$modelSendForm->Url = $_GET['WebStreamUrl'];
-
 			$model->Url = $_GET['WebStreamUrl'];
 		}
+		
+		if(!$bRes){
+			$conditions = "";
+			$params = array();
+			$params[':WebStreamUrl'] = $model->Url;
+			$conditions = "Url=:WebStreamUrl";
 
-		$conditions = "";
-		$params = array();
-		$params[':WebStreamUrl'] = $model->Url;
-		$conditions = "Url=:WebStreamUrl";
+			$dataProvider=new CActiveDataProvider('WebStream',array(
+				'criteria'=>array(
+					'condition'=>$conditions,
+					'params'=>$params,
+					'order'=>'Name DESC',
+				),
+				'pagination'=>array(
+					'pageSize'=>20,
+				),
+			));
 
-		$dataProvider=new CActiveDataProvider('WebStream',array(
-			'criteria'=>array(
-				'condition'=>$conditions,
-				'params'=>$params,
-				'order'=>'Name DESC',
-			),
-			'pagination'=>array(
-				'pageSize'=>20,
-			),
-		));
-
-		$this->render('send',array(
-			'dataProvider'=>$dataProvider,
-			'model'=>$model,
-			'modelSendForm'=>$modelSendForm,
-		));
+			$this->render('send',array(
+				'dataProvider'=>$dataProvider,
+				'model'=>$model,
+				'modelSendForm'=>$modelSendForm,
+			));
+		}
 	}
 
 	/**

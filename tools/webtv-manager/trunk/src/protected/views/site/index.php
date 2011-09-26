@@ -108,6 +108,10 @@
 
 <br/>
 
+<?php
+	if(isset($statsTypes)){
+?>
+
 <p>Here you can see overview of the working URL added the WebTV Manager database :</p>
 
 <?php
@@ -153,6 +157,12 @@
 		'summaryText'=>'',
 		'columns'=>$columns,
 	));
+?>
+
+<?php } ?>
+
+<?php
+	if(isset($lastAdds) && isset($lastUpdates)){
 ?>
 <p>Last adds/updates :</p>
 
@@ -208,5 +218,7 @@
 	</td>
 </tr>
 </table>
+
+<?php } ?>
 
 <p>This webstite is part of the FreetuxTV project : <a href="http://code.google.com/p/freetuxtv/">http://code.google.com/p/freetuxtv/</a>.

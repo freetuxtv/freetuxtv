@@ -259,6 +259,21 @@ CREATE TABLE wtvmT_AuthAssignment
    foreign key (itemname) references AuthItem (name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+INSERT INTO `wtvmT_AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
+	('sendWebStream', 0, 'Send a WebStream', NULL, 'N;'),
+	('editWebStream', 0, 'Edit a WebStream', NULL, 'N;'),
+	('changeStatusWebStream', 0, 'Change the status of a WebStream', NULL, 'N;'),
+	('guest', 2, '', NULL, 'N;'),
+	('contributor', 2, '', NULL, 'N;'),
+	('moderator', 2, '', NULL, 'N;');
+
+INSERT INTO `wtvmT_AuthItemChild` (`parent`, `child`) VALUES
+	('contributor', 'editWebStream'),
+	('contributor', 'guest'),
+	('guest', 'sendWebStream'),
+	('moderator', 'changeStatusWebStream'),
+	('moderator', 'contributor');
+
 CREATE TABLE IF NOT EXISTS wtvmT_History (
 	Id INTEGER NOT NULL AUTO_INCREMENT,
 	Date DATETIME NOT NULL,
@@ -549,3 +564,8 @@ INSERT INTO `wtvmT_Country` (`Code`, `Label`) VALUES
 	('za', 'South Africa'),
 	('zm', 'Zambia'),
 	('zw', 'Zimbabwe');
+
+-- Version 26/09/2011
+
+INSERT INTO `wtvmT_AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('importWebStream', 0, 'Import a list of WebStream', NULL, 'N;');
+INSERT INTO `wtvmT_AuthItemChild` (`parent`, `child`) VALUES ('moderator', 'importWebStream');
