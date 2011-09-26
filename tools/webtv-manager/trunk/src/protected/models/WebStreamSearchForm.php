@@ -22,8 +22,8 @@ class WebStreamSearchForm extends CFormModel
 		return array(
 			array('Name', 'length', 'max'=>'255'),
 			array('Type', 'numerical', 'integerOnly'=>true),
-			array('Language', 'length', 'max'=>'2'),
-			array('Country', 'length', 'max'=>'2'),
+			array('Language', 'length', 'max'=>'4'),
+			array('Country', 'length', 'max'=>'4'),
 			array('Status', 'numerical', 'integerOnly'=>true),
 		);
 	}

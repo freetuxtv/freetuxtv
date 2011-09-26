@@ -220,7 +220,7 @@ class WebStreamController extends Controller
 		}
 		if(isset($modelSearchForm->Language)){
 			if($modelSearchForm->Language != ""){
-				if($modelSearchForm->Language == "nolang"){
+				if($modelSearchForm->Language == "none"){
 					$conditions .= " AND LangCode IS NULL";
 					$playlist_params["lng"] = $modelSearchForm->Language;
 				}else{
@@ -233,9 +233,14 @@ class WebStreamController extends Controller
 
 		if(isset($modelSearchForm->Country)){
 			if($modelSearchForm->Country != ""){
-				$conditions .= " AND CountryCode=:WebCountryCode";
-				$params[':WebCountryCode'] = $modelSearchForm->Country;
-				$playlist_params["country"] = $modelSearchForm->Country;
+				if($modelSearchForm->Country == "none"){
+					$conditions .= " AND CountryCode IS NULL";
+					$playlist_params["country"] = $modelSearchForm->Country;
+				}else{
+					$conditions .= " AND CountryCode=:WebCountryCode";
+					$params[':WebCountryCode'] = $modelSearchForm->Country;
+					$playlist_params["country"] = $modelSearchForm->Country;
+				}
 			}
 		}
 

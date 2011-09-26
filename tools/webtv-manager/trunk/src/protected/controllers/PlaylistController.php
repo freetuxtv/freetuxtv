@@ -84,7 +84,7 @@ class PlaylistController extends Controller
 		}
 		if(isset($_GET['lng'])){
 			if($_GET['lng'] != ""){
-				if($_GET['lng'] == "nolang"){
+				if($_GET['lng'] == "none"){
 					$conditions .= " AND LangCode IS NULL";
 				}elseif($_GET['lng'] != "all"){
 					$conditions .= " AND LangCode=:WebStreamLang";
@@ -94,8 +94,12 @@ class PlaylistController extends Controller
 		}
 		if(isset($_GET['country'])){
 			if($_GET['country'] != ""){
-				$conditions .= " AND CountryCode=:WebCountryCode";
-				$params[':WebCountryCode'] = $_GET['country'];
+				if($_GET['country'] == "none"){
+					$conditions .= " AND CountryCode IS NULL";
+				}elseif($_GET['country'] != "all"){
+					$conditions .= " AND CountryCode=:WebCountryCode";
+					$params[':WebCountryCode'] = $_GET['country'];
+				}
 			}
 		}
 

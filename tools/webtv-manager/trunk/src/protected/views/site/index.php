@@ -38,6 +38,7 @@
 		<?php
 			echo $form->labelEx($modelSearchForm, 'Language');
 			$dropList = CHtml::listData(Lang::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+			$dropList = array_merge(array('none' => '- None -'), $dropList);
 			echo $form->dropDownList($modelSearchForm, 'Language', $dropList, array ('empty' => '-- All --'));
 			echo $form->error($modelSearchForm, 'Language');
 		?>
@@ -47,6 +48,7 @@
 		<?php
 			echo $form->labelEx($modelSearchForm, 'Country');
 			$dropList = CHtml::listData(Country::model()->findAll(array('order'=>'Label')), 'Code', 'Label');
+			$dropList = array_merge(array('none' => '- None -'), $dropList);
 			echo $form->dropDownList($modelSearchForm, 'Country', $dropList, array ('empty' => '-- All --'));
 			echo $form->error($modelSearchForm, 'Country');
 		?>
