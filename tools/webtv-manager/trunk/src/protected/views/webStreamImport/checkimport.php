@@ -33,10 +33,10 @@
 		'summaryText'=>'',
 		'columns'=>array(
 			array(
-				'name'=>'Edit',
-				'type'=>'raw',
+				'name'=>'#',
+				'type'=>'html',
 				'htmlOptions' => array('style'=>'text-align:center'),
-				'value'=>'(!isset($data["WebStream"]) ? CHtml::checkBox("Import[".$row."][Edit]", false).CHtml::hiddenField("Import[".$row."][Name]", $data["Name"]).CHtml::hiddenField("Import[".$row."][URL]", $data["URL"]) : "")',
+				'value'=>'($row+1)',
 			),
 			array(
 				'name'=>'Stream to import',
@@ -55,6 +55,12 @@
 				'type'=>'html',
 				'htmlOptions' => array('style'=>'text-align:center'),
 				'value'=>'(isset($data["WebStream"]) ? "<font color=\"".$data["WebStream"]->StreamStatus->Color."\">".$data["WebStream"]->StreamStatus->Label."</font>" : "/")',
+			),
+			array(
+				'name'=>'Actions',
+				'type'=>'raw',
+				'htmlOptions' => array('style'=>'text-align:center'),
+				'value'=>'(!isset($data["WebStream"]) ? CHtml::checkBox("Import[".$row."][Edit]", false).CHtml::hiddenField("Import[".$row."][Name]", $data["Name"]).CHtml::hiddenField("Import[".$row."][URL]", $data["URL"]) : "")',
 			),
 		),
 	));
