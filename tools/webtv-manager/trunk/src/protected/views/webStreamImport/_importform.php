@@ -17,6 +17,13 @@
 			echo CHtml::submitButton('Check file');
 		?>
 	</div>
+	<div class="row">
+		<?php
+			echo $form->labelEx($modelImportForm,'OnlyNewLinks');
+			echo $form->checkBox($modelImportForm, 'OnlyNewLinks');
+			echo $form->error($modelImportForm,'OnlyNewLinks');
+		?>
+	</div>
 
 <?php $this->endWidget(); ?>
 

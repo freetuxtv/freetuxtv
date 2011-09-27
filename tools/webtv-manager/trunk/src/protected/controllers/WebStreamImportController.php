@@ -62,20 +62,24 @@ class WebStreamImportController extends Controller
 	public function actionCheckImport()
 	{
 		$modelImportForm = new WebStreamImportForm;
-		$webStreamList = null;
+		$webStreamList = array();
 		$modelWebStreamData = new WebStream;
+
+		$showAll = true;
 
 		// collect user input data
 		if(isset($_GET['WebStreamImportForm']))
 		{
 			$modelImportForm->attributes=$_GET['WebStreamImportForm'];
 
+			$showAll = !$modelImportForm->OnlyNewLinks;
+
 			$XMLData = $this->getRemoteFileContents($modelImportForm->UrlWSLFEData);
-			$webStreamList = $this->parseWSLEF($XMLData);
+			$webStreamListFromXml = $this->parseWSLEF($XMLData);
 
 			 $i = 0;
 
-			foreach($webStreamList as &$webstream) {
+			foreach($webStreamListFromXml as $webstream) {
 				$attrs = array("Url" => $webstream['URL']);
 				$model = WebStream::model()->findByAttributes($attrs);
 
@@ -87,6 +91,9 @@ class WebStreamImportController extends Controller
 					$webstream['WebStream'] = $model;
 				}
 				
+				if($showAll || $model == null){
+					$webStreamList[] = $webstream;
+				}
 			}
 
 			$this->render('checkimport', array(

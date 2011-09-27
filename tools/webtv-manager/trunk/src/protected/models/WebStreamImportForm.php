@@ -8,6 +8,7 @@
 class WebStreamImportForm extends CFormModel
 {
 	public $UrlWSLFEData;
+	public $OnlyNewLinks;
 
 	/**
 	 * Declares the validation rules.
@@ -19,6 +20,7 @@ class WebStreamImportForm extends CFormModel
 		return array(
 			array('UrlWSLFEData', 'required'),
 			array('UrlWSLFEData', 'length', 'max' => 255),
+			array('OnlyNewLinks', 'type', 'type'=>'boolean'),
 		);
 	}
 
@@ -28,7 +30,8 @@ class WebStreamImportForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'UrlWSLFEData'=>'Url to WSLFE XML File',
+			'UrlWSLFEData'=>'URL to WSLFE XML File',
+			'OnlyNewLinks'=>'Show only new links',
 		);
 	}
 	
