@@ -3,10 +3,20 @@
 <h1>WSLFE Import module</h1>
 
 <?php
-	if(isset($_GET["success"])){
+	if(isset($_GET["error"])){
+		if($_GET["error"] == 0){
 ?>
-<p align="center" class="alert">The links have been successfully imported !</p>
+<p align="center" class="alert"><?php echo $_GET["success"] ?> links have been successfully imported !</p>
 <?php
+		}else if($_GET["error"] > 0){
+?>
+<p align="center" class="alert"><?php echo $_GET["error"] ?> error(s) have been encountered while importing link !</p>
+<?php
+		}else{
+?>
+<p align="center" class="alert">Error(s) have been encountered while importing link !</p>
+<?php
+		}
 	}
 ?>
 

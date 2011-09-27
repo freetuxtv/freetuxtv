@@ -104,6 +104,11 @@ class WebStreamImportController extends Controller
 		$modelImportForm = new WebStreamImportForm;
 		$modelWebStreamData = new WebStream;
 
+		$setStatus = false;
+		if(Yii::app()->user->checkAccess('changeStatusWebStream')) {
+			$setStatus = true;
+		}
+
 		if(isset($_POST['WebStreamImportForm']))
 		{
 			$modelImportForm->attributes=$_POST['WebStreamImportForm'];
@@ -117,14 +122,24 @@ class WebStreamImportController extends Controller
 			$subject = Yii::app()->name.' - New WebStreams imported';
 			$message = 'A list of WebStream have been imported by an user :<br><br>';
 
+			$bError = false;
+			$countTotalError = -1;
+			$countTotalSucceed = 0;
+
 			foreach($_POST['Import'] as $webstream) {
 				if(isset($webstream["Edit"])){
+
+					if($countTotalError == -1){
+						$countTotalError = 0;
+					}
 
 					$model = new WebStream;
 					$model->attributes = $_POST['WebStream'];
 					$model->Url = $webstream["URL"];
 					$model->Name = $webstream["Name"];
-					$model->StreamStatusCode = WebStream::WEBSTREAM_STATUS_SUBMITTED;
+					if(!$setStatus){
+						$model->StreamStatusCode = WebStream::WEBSTREAM_STATUS_SUBMITTED;
+					}
 
 					if($model->LangCode==""){
 						$model->LangCode=null;
@@ -133,29 +148,34 @@ class WebStreamImportController extends Controller
 						$model->CountryCode=null;
 					}
 					if($model->save()){
+						$countTotalSucceed++;
+
 						$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_IMPORT, $model->Id);
 						if($history->save()){
 
 							// Send a mail to the admin
 							$link = Yii::app()->getRequest()->getHostInfo().Yii::app()->createUrl("WebStream/view", array("id" => $model->Id));
-							$message .= '<u>Name :</u> '.$model->Name.'<br>';
-							$message .= '<u>Url :</u> <a href="'.$model->Url.'">'.$model->Url.'</a><br>';
-							$message .= '<br>';
+
+							$message .= '<u>Import n°:</u> '.$countTotalSucceed.'<br>';
+							$message .= '<u>Name:</u> '.$model->Name.'<br>';
+							$message .= '<u>Url:</u> <a href="'.$model->Url.'">'.$model->Url.'</a><br>';
 							$message .= 'Click here to view the details of the WebStream : <a href="'.$link.'">'.$link.'</a><br><br>';
+						}else{
+							$countTotalError++;
 						}
+					}else{
+						$countTotalError++;
 					}
 				}
 			}
 
-			$this->sendMailToAdmin($subject, $message);
+			if($countTotalSucceed>0){
+				$this->sendMailToAdmin($subject, $message);
+			}
 
-			$this->redirect(array('index', 'WebStreamImportForm[UrlWSLFEData]'=>$modelImportForm->UrlWSLFEData, 'success'=>'on'));
-		}
-
-		$this->render('index', array(
-			'modelImportForm' => $modelImportForm,
-			'modelWebStreamData' => $modelWebStreamData,
-		));
+			$this->redirect(array('index', 'WebStreamImportForm[UrlWSLFEData]'=>$modelImportForm->UrlWSLFEData, 'error'=>$countTotalError, 'success'=>$countTotalSucceed));
+		} else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	public function parseWSLEF($xmlData) {
