@@ -84,7 +84,7 @@ class SiteController extends Controller
 			$realLang = $row['LangCode'];
 			$realLangName = $row['LangName'];
 			if($realLang == null || $realLang == ""){
-				$realLang = "nolang";
+				$realLang = "none";
 				$realLangName = "No lang";
 			}
 
