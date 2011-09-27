@@ -70,7 +70,7 @@ class WebStreamImportController extends Controller
 		{
 			$modelImportForm->attributes=$_GET['WebStreamImportForm'];
 
-			$XMLData = file_get_contents($modelImportForm->UrlWSLFEData);
+			$XMLData = $this->getRemoteFileContents($modelImportForm->UrlWSLFEData);
 			$webStreamList = $this->parseWSLEF($XMLData);
 
 			 $i = 0;
@@ -149,7 +149,7 @@ class WebStreamImportController extends Controller
 
 			$this->sendMailToAdmin($subject, $message);
 
-			$this->redirect(array('index', 'WebStreamImportForm[UrlWSLFEData]'=>$modelImportForm->UrlWSLFEData, 'sucess'=>'on'));
+			$this->redirect(array('index', 'WebStreamImportForm[UrlWSLFEData]'=>$modelImportForm->UrlWSLFEData, 'success'=>'on'));
 		}
 
 		$this->render('index', array(
@@ -205,4 +205,120 @@ class WebStreamImportController extends Controller
 		Yii::app()->mailer->Send();
 	}
 
+	public function getRemoteFileContents($url, $timeout = 10, $localFileName = '', $post = NULL)
+	{
+		$ret = FALSE;
+		if (extension_loaded('curl')) {
+		    $ch = curl_init($url);
+		    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+		    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		    if ($localFileName) {
+		        $fp = fopen($localFileName, 'w') or die("File '$localFileName' cannot be openned in write mode");
+		        curl_setopt($ch, CURLOPT_FILE, $fp);
+		    } else {
+		        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		    }
+		    if ($post) {
+		        curl_setopt($ch, CURLOPT_POST, TRUE);
+		        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		    }
+		    $ret = curl_exec($ch);
+		    if ($localFileName) {
+		        fclose($fp);
+		    }
+		    if ($ret === FALSE) {
+		        die("Encountered error : " . curl_error($ch));
+		    }
+		    curl_close($ch);
+		    return $ret;
+		} elseif (ini_get('allow_url_fopen') && in_array(parse_url($url, PHP_URL_SCHEME), stream_get_wrappers())) {
+		    $infos = parse_url($url);
+		    $contexte = NULL;
+		    if (isset($infos['user']) || $post) {
+		        $options = array(
+		            'http' => array(
+		                'method' => $post ? 'POST' : 'GET',
+		                'header' => '',
+		                'timeout' => $timeout // Effectif pour les versions 5.2.1 et supérieures
+		            )
+		        );
+		        if (isset($infos['user'])) {
+		            $options['http']['header'] .= 'Authorization: Basic ' . base64_encode($infos['user'] . ':' . $infos['pass']) . "\r\n";
+		        }
+		        if ($post) {
+		            $data = http_build_query($post);
+		            $options['http']['header'] .= "Content-type: application/x-www-form-urlencoded\r\n";
+		            $options['http']['header'] .= 'Content-Length: ' . strlen($data) . "\r\n";
+		            $options['http']['content'] = $data;
+		        }
+		        $contexte = stream_context_create($options);
+		    }
+		    if (!$localFileName) {
+		        return file_get_contents($url, FALSE, $contexte);
+		    } else {
+		        $in = fopen($url, 'r', FALSE, $contexte);
+		        stream_set_timeout($in, $timeout);
+		        $out = fopen($localFileName, 'w') or die("File '$localFileName' cannot be openned in write mode");
+		        while (!feof($in)) {
+		            fwrite($out, fread($in, 1024));
+		        }
+		        fclose($in);
+		        fclose($out);
+		    }
+		} elseif (function_exists('fsockopen')) {
+		    $infos = parse_url($url);
+		    if ($localFileName) {
+		        $out = fopen($localFileName, 'w') or die("File '$localFileName' cannot be openned in write mode");
+		    }
+		    if (empty($infos['path'])) {
+		        $infos['path'] = '/';
+		    }
+		    if (!isset($infos['port'])) {
+		        if ($infos['scheme'] == 'http') {
+		            $infos['port'] = 80;
+		        } elseif ($infos['scheme'] == 'https') {
+		            $infos['port'] = 443;
+		        }
+		    }
+		    @ $fp = fsockopen($infos['host'] == 'https' ? 'ssl://' . $infos['host'] : $infos['host'], $infos['port'], $errno, $errstr, $timeout);
+		    if (!$fp) {
+		        return FALSE;
+		    }
+		    stream_set_timeout($fp, $timeout);
+		    $requete = ($post ? 'POST ' : 'GET ') . $infos['path'] . '?'  . (isset($infos['query']) ? $infos['query'] : '') . " HTTP/1.1\r\n";
+		    $requete .= 'Host: ' . $infos['host'] . ':' . (isset($infos['port']) ? $infos['port'] : '80') . "\r\n";
+		    if (isset($infos['user'])) {
+		        $requete .= 'Authorization: Basic ' . base64_encode($infos['user'] . ':' . $infos['pass']) . "\r\n";
+		    }
+		    if ($post) {
+		        $data = http_build_query($post);
+		        $requete .= "Content-type: application/x-www-form-urlencoded\r\n";
+		        $requete .= 'Content-Length: ' . strlen($data) . "\r\n";
+		    }
+		    fwrite($fp, $requete . "\r\n" . $data);
+		    $buffer = '';
+		    do { // Saut de l'entête HTTP
+		        $buffer .= fgets($fp, 1024);
+		    } while (!feof($fp) && strpos($buffer, "\r\n\r\n") === FALSE);
+		    $buffer = '';
+		    while (!feof($fp)) {
+		        $buffer .= fread($fp, 1024);
+		    }
+		    $buffer = ltrim($buffer);
+		    $pos = strpos($buffer, "\r\n");
+		    $len = hexdec(substr($buffer, 0, $pos));
+		    $buffer = substr($buffer, $pos + strlen("\r\n"), $len);
+		    if ($localFileName) {
+		        fwrite($out, $buffer);
+		        fclose($out);
+		        $buffer = TRUE;
+		    }
+		    fclose($fp);
+		    return $buffer;
+		} else {
+		    die("No medium to download the page is availiable");
+		}
+
+		return $ret;
+	}
 }
