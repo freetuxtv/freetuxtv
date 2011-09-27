@@ -17,6 +17,8 @@
 	echo CHtml::hiddenField('WebStreamImportForm[UrlWSLFEData]', $modelImportForm->UrlWSLFEData);	
 ?>
 
+<p align="center">The import module has found <?php echo count($webStreamList) ?> links.</p>
+
 <?php
 	$dataProvider=new CArrayDataProvider($webStreamList, array(
 		'id'=>'webstream_list',
@@ -43,13 +45,13 @@
 				'value'=>'(isset($data["Name"]) ? $data["Name"]."<br/>" : "")."=> <a href=\"".$data["URL"]."\">".(strlen($data["URL"])<100?$data["URL"]:substr($data["URL"], 0,100)."...")."</a>"',
 			),
 			array(
-				'name'=>'Current Name',
+				'name'=>'Related WebStream',
 				'type'=>'html',
 				'htmlOptions' => array('style'=>'text-align:left'),
 				'value'=>'"<font>".(isset($data["WebStream"]) ? $data["WebStream"]->Name."<br/>".$data["WebStream"]->getTypeStreamName() : "")."</font>"',
 			),
 			array(
-				'name'=>'Current Status',
+				'name'=>'Status',
 				'type'=>'html',
 				'htmlOptions' => array('style'=>'text-align:center'),
 				'value'=>'(isset($data["WebStream"]) ? "<font color=\"".$data["WebStream"]->StreamStatus->Color."\">".$data["WebStream"]->StreamStatus->Label."</font>" : "/")',
