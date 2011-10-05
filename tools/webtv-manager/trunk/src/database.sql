@@ -569,3 +569,26 @@ INSERT INTO `wtvmT_Country` (`Code`, `Label`) VALUES
 
 INSERT INTO `wtvmT_AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('importWebStream', 0, 'Import a list of WebStream', NULL, 'N;');
 INSERT INTO `wtvmT_AuthItemChild` (`parent`, `child`) VALUES ('moderator', 'importWebStream');
+
+-- Version 05/10/2011
+
+CREATE TABLE IF NOT EXISTS wtvmT_Comment (
+	Id INTEGER NOT NULL AUTO_INCREMENT,
+	Comment TEXT NULL,
+	HistoryId INTEGER NOT NULL,
+	CONSTRAINT PK_Comment PRIMARY KEY(Id),
+	CONSTRAINT FK_Comment_History FOREIGN KEY (HistoryId)
+		REFERENCES wtvmT_History(Id)
+) TYPE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS wtvmT_EditRequest (
+	Id INTEGER NOT NULL AUTO_INCREMENT,
+	Status TINYINT NOT NULL,
+	Field TINYINT NOT NULL,
+	OldValue VARCHAR(100) NULL,
+	NewValue VARCHAR(100) NULL,
+	HistoryId INTEGER NOT NULL,
+	CONSTRAINT PK_ChangeRequest PRIMARY KEY(Id),
+	CONSTRAINT FK_ChangeRequest_History FOREIGN KEY (HistoryId)
+		REFERENCES wtvmT_History(Id)
+) TYPE=InnoDB;

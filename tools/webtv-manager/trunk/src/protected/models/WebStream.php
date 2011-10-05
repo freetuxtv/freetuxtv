@@ -184,8 +184,9 @@ class WebStream extends CActiveRecord
 				if($actionsDetails != ""){
 					$actionsDetails .= ", ";
 				}
+				$oldStreamStatus=StreamStatus::model()->findbyPk($this->StreamStatusCode);
 				$newStreamStatus=StreamStatus::model()->findbyPk($attributes["StreamStatusCode"]);
-				$actionsDetails .= $this->StreamStatusCode.' => '.$newStreamStatus->Label;
+				$actionsDetails .= $oldStreamStatus->Label.' => '.$newStreamStatus->Label;
 			}
 		}
 		if(isset($attributes["RequiredIsp"])){

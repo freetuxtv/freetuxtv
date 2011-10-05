@@ -75,7 +75,9 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 	),
 )); ?>
 
-<br>
+<br/>
+
+<?php echo $this->renderPartial('_actions', array('model'=>$model)); ?>
 
 <?php
 	if($model->TypeStream == WebStream::WEBSTREAM_TYPE_WEBLINK){

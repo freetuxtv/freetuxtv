@@ -7,6 +7,10 @@
  */
 class StreamStatus extends CActiveRecord
 {
+	const STREAM_STATUS_WORKING			= 2;
+	const STREAM_STATUS_DEAD				= 6;
+	const STREAM_STATUS_TESTFAILED		= 8;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return StreamStatus the static model class

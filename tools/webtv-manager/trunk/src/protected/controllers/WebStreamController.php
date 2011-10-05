@@ -36,7 +36,7 @@ class WebStreamController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow',
-				'actions'=>array('send'),
+				'actions'=>array('send', 'editrequest'),
 				'roles'=>array('sendWebStream'),
 			),
 			array('allow',
@@ -122,6 +122,77 @@ class WebStreamController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 		));
+	}
+
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionEditRequest()
+	{
+		$model=$this->loadModel();
+
+		$action = null;
+		$bError = false;
+
+		if(isset($_POST['Action']))
+		{
+			$action = $_POST['Action'];
+			$modelChange = array();
+			$comment = null;
+			$editRequest = new EditRequest;
+
+			$editRequest->Field = EditRequest::FIELD_WEBSTREAM_STATUS;
+
+			if($action == 'ReportDeadLink'){
+				$modelChange['StreamStatusCode'] = StreamStatus::STREAM_STATUS_DEAD;
+				$editRequest->OldValue = $model->StreamStatusCode;
+				$editRequest->NewValue = StreamStatus::STREAM_STATUS_DEAD;
+			}
+			$actionDetails = $model->getModelDiffMsg($modelChange);
+
+			if(isset($_POST['Comments']) && $_POST['Comments'] != ""){
+				$comment = new Comment;
+				$comment->Comment = $_POST['Comments'];
+			}
+
+			$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_EDITREQUEST, $model->Id, $actionDetails);
+			if($history->save()){
+
+				$editRequest->HistoryId = $history->Id;
+				if(!$editRequest->save()){
+					$bError = true;
+				}
+
+				if(!$bError && $comment != null){
+					$comment->HistoryId = $history->Id;
+					if(!$comment->save()){
+						$bError = true;
+					}
+				}
+
+			}else{
+				$bError = true;
+			}
+
+			if(!$bError){
+				$link = Yii::app()->getRequest()->getHostInfo().Yii::app()->createUrl("WebStream/view", array("id" => $model->Id));
+				$subject = Yii::app()->name.' - New WebStream change request';
+				$message = 'A new WebStream change request has been submitted by an user :<br><br>';
+				$message .= '<u>Name :</u> '.$model->Name.'<br>';
+				$message .= '<u>Url :</u> <a href="'.$model->Url.'">'.$model->Url.'</a><br>';
+				$message .= '<br>';
+				$message .= 'Click here to view the details of the request : <a href="'.$link.'">'.$link.'</a><br>';
+
+				$this->sendMailToAdmin($subject, $message);
+
+				$this->redirect(array('view','id'=>$model->Id));
+			}else{
+				throw new CHttpException(400,'Error while saving request.');
+			}
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**

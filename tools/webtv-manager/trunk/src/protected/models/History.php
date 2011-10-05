@@ -13,6 +13,7 @@ class History extends CActiveRecord
 	const ACTIONTYPE_WEBSTREAM_ADD = 2;
 	const ACTIONTYPE_WEBSTREAM_EDIT = 3;
 	const ACTIONTYPE_WEBSTREAM_CHANGESTATUS = 4;
+	const ACTIONTYPE_WEBSTREAM_EDITREQUEST = 5;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -93,6 +94,7 @@ class History extends CActiveRecord
 			case History::ACTIONTYPE_WEBSTREAM_ADD : return "Added";
 			case History::ACTIONTYPE_WEBSTREAM_EDIT : return "Edited";
 			case History::ACTIONTYPE_WEBSTREAM_CHANGESTATUS : return "Status changed";
+			case History::ACTIONTYPE_WEBSTREAM_EDITREQUEST : return "Request edit";
 			}
 		}
 		return "";
