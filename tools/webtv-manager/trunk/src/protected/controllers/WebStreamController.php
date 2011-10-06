@@ -133,7 +133,6 @@ class WebStreamController extends Controller
 		$model=$this->loadModel();
 
 		$action = null;
-		$bError = false;
 
 		if(isset($_POST['Action']))
 		{
@@ -156,26 +155,28 @@ class WebStreamController extends Controller
 				$comment->Comment = $_POST['Comments'];
 			}
 
-			$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_EDITREQUEST, $model->Id, $actionDetails);
-			if($history->save()){
-
-				$editRequest->HistoryId = $history->Id;
-				if(!$editRequest->save()){
-					$bError = true;
-				}
-
-				if(!$bError && $comment != null){
-					$comment->HistoryId = $history->Id;
-					if(!$comment->save()){
-						$bError = true;
+			$transaction=$model->dbConnection->beginTransaction();
+			try
+			{
+				$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_EDITREQUEST, $model->Id, $actionDetails);
+				if($history->save()){
+					$editRequest->HistoryId = $history->Id;
+					if(!$editRequest->save()){
+						throw new CException("Error when saving the edit request");
 					}
+
+					if($comment != null){
+						$comment->HistoryId = $history->Id;
+						if(!$comment->save()){
+							throw new CException("Error when saving the comment");
+						}
+					}
+				}else{
+					throw new CException("Error when saving the history");
 				}
+				$transaction->commit();
 
-			}else{
-				$bError = true;
-			}
-
-			if(!$bError){
+				// Send a link to admin
 				$link = Yii::app()->getRequest()->getHostInfo().Yii::app()->createUrl("WebStream/view", array("id" => $model->Id));
 				$subject = Yii::app()->name.' - New WebStream change request';
 				$message = 'A new WebStream change request has been submitted by an user :<br><br>';
@@ -187,8 +188,10 @@ class WebStreamController extends Controller
 				$this->sendMailToAdmin($subject, $message);
 
 				$this->redirect(array('view','id'=>$model->Id));
-			}else{
-				throw new CHttpException(400,'Error while saving request.');
+
+			} catch(Exception $e) {
+				$transaction->rollBack();
+				throw new CHttpException(400, $e->getMessage());
 			}
 		}
 		else

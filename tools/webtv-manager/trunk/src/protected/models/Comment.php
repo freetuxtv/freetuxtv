@@ -32,7 +32,8 @@ class Comment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Comment', 'length', 'max'=>20000),
+			array('Comment', 'required'),
+			//array('Comment', 'length', 'max'=>255),
         );
 	}
 
