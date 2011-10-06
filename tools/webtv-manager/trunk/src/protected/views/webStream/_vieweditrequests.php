@@ -8,36 +8,16 @@
 		'enableSorting'=>false,
 		'columns'=>array(
 		    array(
-		        'name'=>'Date',
-		    ),
-		    array(
-				'header'=>'User',
+				'header'=>'Edit request',
 				'type'=>'html',
-		        'value'=>'"<font>".($data->UserId ? "<b>".$data->User->Username."</b>" : (Yii::app()->user->isGuest ? "Anonyme" : $data->RemoteAddr))."</font>"',
+		        'value'=>'"<font><b>".$data->Date."</b> by ".($data->UserId ? "<b>".$data->User->Username."</b>" : (Yii::app()->user->isGuest ? "Anonyme" : $data->RemoteAddr))."</font>"."<font><br/><b>Actions :</b> ".str_replace("\n","<br>",$data->ActionDetails)."</font>".($data->Comments ? "<br/><br/><b>Comment :</b><br/>".$data->Comments->Comment : "")',
 		    ),
-		    array(
-		        'name'=>'Action',
-				'type'=>'html',
-		        'value'=>'"<font>".$data->getHistoryActionName()."</font>"',
-		    ),
-		    array(
-		        'name'=>'Details',
-				'type'=>'html',
-		        'value'=>'"<font>".str_replace("\n","<br>",$data->ActionDetails)."</font>"',
-		    ),/*
 		    array(
 		        'name'=>'Status',
 				'type'=>'html',
 				'htmlOptions' => array('style'=>'text-align:center'),
-		        'value'=>'"<font color=\"".$data->StreamStatus->Color."\">".$data->StreamStatus->Label."</font>"',
+		        'value'=>'"<font>".($data->EditRequest ? $data->EditRequest[0]->getStatusName() : "")."</font>"',
 		    ),
-		    array(
-				'class'=>'CLinkColumn',
-		        'header'=>'Details',
-				'label' => 'View details',
-				'urlExpression'=>'Yii::app()->createUrl("WebStream/view", array("id" => $data->Id))',
-				'htmlOptions' => array('style'=>'text-align:center'),
-		    ),*/
 		),
 	));
 ?>

@@ -54,7 +54,9 @@ class History extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
             'User'=>array(self::BELONGS_TO, 'User', 'UserId'),
-            'WebStream'=>array(self::BELONGS_TO, 'WebStream', 'EntityId')
+            'WebStream'=>array(self::BELONGS_TO, 'WebStream', 'EntityId'),
+            'Comments'=>array(self::HAS_ONE, 'Comment', 'HistoryId'),
+            'EditRequest'=>array(self::HAS_MANY, 'EditRequest', 'HistoryId'),
 		);
 	}
 

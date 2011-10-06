@@ -87,4 +87,16 @@ class EditRequest extends CActiveRecord
 		    return false;
 	}
 
+	public function getStatusName()
+	{
+		switch($this->Status){
+		case 0:
+			return 'Submitted';
+		case 1:
+			return 'Approuved';
+		case 2:
+			return 'Rejected';
+		}
+	}
+
 }
