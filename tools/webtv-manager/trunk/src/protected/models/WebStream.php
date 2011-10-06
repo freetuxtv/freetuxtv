@@ -60,6 +60,16 @@ class WebStream extends CActiveRecord
             'StreamStatus'=>array(self::BELONGS_TO, 'StreamStatus', 'StreamStatusCode'),
             'Lang'=>array(self::BELONGS_TO, 'Lang', 'LangCode'),
 			'Country'=>array(self::BELONGS_TO, 'Country', 'CountryCode'),
+			'Histories'=>array(self::HAS_MANY, 'History', 'EntityId',
+				'condition'=>'EntityType=:EntityType AND ActionType!=:ActionType',
+				'params'=>array(":EntityType" => History::ENTITYTYPE_WEBSTREAM, ":ActionType"=>History::ACTIONTYPE_WEBSTREAM_EDITREQUEST),
+				'order'=>'Date DESC',
+			),
+			'EditRequests'=>array(self::HAS_MANY, 'History', 'EntityId',
+				'condition'=>'EntityType=:EntityType AND ActionType=:ActionType',
+				'params'=>array(":EntityType" => History::ENTITYTYPE_WEBSTREAM, ":ActionType"=>History::ACTIONTYPE_WEBSTREAM_EDITREQUEST),
+				'order'=>'Date DESC',
+			),
 		);
 	}
 

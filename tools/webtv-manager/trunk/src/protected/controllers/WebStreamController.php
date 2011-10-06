@@ -63,24 +63,13 @@ class WebStreamController extends Controller
 		$conditions = "";
 		$params = array();	
 		
-		$conditions = "EntityType=:Type AND EntityId=:WebStreamId";
-		$params["Type"] = History::ENTITYTYPE_WEBSTREAM;
-		$params["WebStreamId"] = $model->Id;
-
-		$dataHistory=new CActiveDataProvider('History',array(
-			'criteria'=>array(
-				'condition'=>$conditions,
-				'params'=>$params,
-				'order'=>'Date DESC',
-			),
-			'pagination'=>array(
-				'pageSize'=>20,
-			),
-		));
+		$dataHistory=new CArrayDataProvider($model->Histories, array('keyField'=>'Id'));
+		$dataEditRequests=new CArrayDataProvider($model->EditRequests, array('keyField'=>'Id'));
 
 		$this->render('view', array(
 			'model'=>$model,
 			'dataHistory'=>$dataHistory,
+			'dataEditRequests'=>$dataEditRequests,
 		));
 	}
 

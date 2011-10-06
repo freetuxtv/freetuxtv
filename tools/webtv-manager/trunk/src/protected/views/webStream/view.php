@@ -92,3 +92,7 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 <br>
 
 <?php echo $this->renderPartial('_viewhistory', array('dataHistory'=>$dataHistory)); ?>
+
+<br>
+
+<?php echo $this->renderPartial('_vieweditrequests', array('dataEditRequests'=>$dataEditRequests)); ?>
