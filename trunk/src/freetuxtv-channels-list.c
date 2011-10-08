@@ -1053,29 +1053,29 @@ on_row_activated_channels_list(GtkTreeView *view, GtkTreePath *path,
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	
 	GError* error = NULL;
-	
-	GtkTreeIter iter;
-	gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, path);
-
-	FreetuxTVChannelsGroupInfos* channels_group_infos;
-	// FreetuxTVChannelInfos* channel_infos;
 
 	GtkTreeModel *model;
-	GtkTreePath* model_path;
+	GtkTreePath* child_path;
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(view));
-	model_path = gtk_tree_model_filter_convert_path_to_child_path (GTK_TREE_MODEL_FILTER(model), path);
+	child_path = gtk_tree_model_filter_convert_path_to_child_path (GTK_TREE_MODEL_FILTER(model), path);
+	
+	GtkTreeIter iter;
+	gtk_tree_model_get_iter (GTK_TREE_MODEL(app->channelslist), &iter, child_path);
+
+	FreetuxTVChannelsGroupInfos* channels_group_infos;
 
 	gtk_tree_model_get(GTK_TREE_MODEL(app->channelslist), &iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
 	if(channels_group_infos != NULL){
-		if(gtk_tree_view_row_expanded(view, model_path)){
-			gtk_tree_view_collapse_row (view, model_path);
+		if(gtk_tree_view_row_expanded(view, child_path)){
+			gtk_tree_view_collapse_row (view, child_path);
 		}else{
-			gtk_tree_view_expand_row (view, model_path, TRUE);
+			gtk_tree_view_expand_row (view, child_path, TRUE);
 		}	
 	}else{
-		freetuxtv_play_channel (app, model_path, &error);		
+		freetuxtv_play_channel (app, child_path, &error);		
 	}
-	gtk_tree_path_free(model_path);
+	gtk_tree_path_free(child_path);
+	child_path = NULL;
 
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
