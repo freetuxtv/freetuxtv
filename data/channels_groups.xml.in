@@ -56,6 +56,9 @@
 	<language id="hu" _lang="Hungarian Web TV and Radio">
 		<channels_group _name="Web TV (Hungarian)" uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webtv_hu.m3u" />
 	</language>
+	<language id="el" _lang="Greek Web TV and Radio">
+		<channels_group _name="Web TV (Greek)" uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webtv_el.m3u" />
+	</language>
 	<language id="it" _lang="Italian Web TV and Radio">
                 <channels_group _name="Web Radio (Italian)" uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webradio_it.m3u" />
 		<channels_group _name="Web TV (Italian)" uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webtv_it.m3u" />
@@ -101,8 +104,15 @@
 	<language id="sv" _lang="Swedish Web TV and Radio">
 		<channels_group _name="Web TV (Swedish)" uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webtv_sv.m3u" />
 	</language>
+	<language id="th" _lang="Thai Web TV and Radio">
+		<channels_group _name="Web TV (Thai)" uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webtv_th.m3u" />
+	</language>
 	<language id="tr" _lang="Turkish Web TV and Radio">
 		<channels_group _name="Web TV (Turkish)" uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webtv_tr.m3u" />
+	</language>
+	<language id="none" _lang="No lang Web TV and Radio">
+		<channels_group _name="Web TV (No lang)" uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webtv_none.m3u" />
+		<channels_group _name="Web Radio (No lang)" uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webradio_none.m3u" />
 	</language>
 	<language id="webcam" _lang="WebCam">
 		<channels_group _name="WebCam" uri="http://freetuxtv.eric-beuque.com/webtv-manager/playlists/playlist_webcam_all.m3u" />
