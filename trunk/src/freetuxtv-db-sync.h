@@ -180,4 +180,9 @@ dbsync_update_recording (DBSync *dbsync,
     FreetuxTVRecordingInfos* pRecordingInfos,
     GError** error);
 
+void
+dbsync_delete_recording (DBSync *dbsync,
+    FreetuxTVRecordingInfos* pRecordingInfos,
+    GError** error);
+
 #endif /* FREETUXTV_DB_SYNC_H */

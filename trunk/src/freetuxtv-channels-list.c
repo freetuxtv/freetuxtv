@@ -585,7 +585,7 @@ channels_list_delete_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
 
 void
 channels_list_delete_channel (FreetuxTVApp *app, GtkTreePath *path_channel,
-				     DBSync* dbsync, GError** error)
+    DBSync* dbsync, GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(error != NULL);
@@ -1127,6 +1127,12 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 	}
 }
 
+static void
+on_popupmenu_selectiondone (GtkMenuShell *menushell, gpointer user_data)
+{
+	gtk_widget_destroy (GTK_WIDGET(menushell));
+}
+
 static gboolean
 on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event, gpointer user_data)
 {
@@ -1156,9 +1162,9 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 		
 		// Get the selection
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-//		nb_selected = gtk_tree_selection_count_selected_rows(selection);
+		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
 
-		// Get the path where user has clicked
+		// Select the path where user has clicked
 		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(treeview),
 						  (gint) event->x, (gint) event->y,
 						  &path_selected, NULL, NULL, NULL)){
@@ -1166,19 +1172,16 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 				gtk_tree_selection_unselect_all (selection);
 				gtk_tree_selection_select_path(selection, path_selected);
 			}
-			gtk_tree_path_free(path_selected);			
+			gtk_tree_path_free(path_selected);
+			path_selected = NULL;
 		}
-		
-//		nb_selected = gtk_tree_selection_count_selected_rows(selection);
-		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
 
 		nbTotalGroupsVisible = gtk_tree_model_iter_n_children (GTK_TREE_MODEL(model_filter), NULL);
 		
+		// Count number of elements selected by category
 		GList* iterator = NULL;
 		iterator = g_list_first (list);
-
 		gint *indices;
-
 		while(iterator != NULL){
 			GtkTreePath *real_path;
 			GtkTreeIter iter;
@@ -1250,6 +1253,8 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 		
 		if(nbGroupsTab[TYPEGRP_COUNT] > 0 && nbChannels == 0){
 			pMenu = gtk_menu_new();
+			g_signal_connect(G_OBJECT(pMenu), "selection-done",
+			    G_CALLBACK(on_popupmenu_selectiondone), app);
 			
 			// Refresh, delete and delete group channels is only for channels groups
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-refresh", NULL);
@@ -1990,7 +1995,7 @@ on_popupmenu_activated_channeldelete (GtkMenuItem *menuitem, gpointer user_data)
 			path = (GtkTreePath*)iterator->data;
 			real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
 			
-			// Delete the channels group corresponding to the path
+			// Delete the channel corresponding to the path
 			channels_list_delete_channel(app, real_path, &dbsync, &error);
 
 			iterator = g_list_previous(iterator);

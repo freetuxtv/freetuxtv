@@ -1695,3 +1695,38 @@ dbsync_update_recording (DBSync *dbsync,
 		sqlite3_free(db_err);
 	}
 }
+
+void
+dbsync_delete_recording (DBSync *dbsync,
+    FreetuxTVRecordingInfos* pRecordingInfos,
+    GError** error)
+{
+	g_return_if_fail(dbsync != NULL);
+	g_return_if_fail(dbsync->db_link != NULL);
+	g_return_if_fail(error != NULL);
+	g_return_if_fail(*error == NULL);
+	g_return_if_fail(pRecordingInfos != NULL);
+	g_return_if_fail(FREETUXTV_IS_RECORDING_INFOS(pRecordingInfos));
+
+	gchar *query;
+	gchar *db_err = NULL;
+	int res;
+
+	// Delete the channels group
+	query = sqlite3_mprintf("DELETE FROM %s WHERE %s=%d",
+	    // DELETE FROM
+	    DB_RECORDING,
+	    // WHERE
+	    DB_RECORDING_ID, pRecordingInfos->id);
+	res = sqlite3_exec(dbsync->db_link, query, NULL, NULL, &db_err);
+	sqlite3_free(query);
+
+	if(res != SQLITE_OK){
+		*error = g_error_new (FREETUXTV_DBSYNC_ERROR,
+		    FREETUXTV_DBSYNC_ERROR_EXEC_QUERY,
+		    _("Error when deleting the recording \"%s\".\n\nSQLite has returned error:\n%s."),
+		    pRecordingInfos->szTitle,
+		    sqlite3_errmsg(dbsync->db_link));
+		sqlite3_free(db_err);
+	}
+}
