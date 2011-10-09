@@ -19,6 +19,7 @@
 
 #include "freetuxtv-cellrenderer-recordingslist.h"
 #include "freetuxtv-i18n.h"
+#include "freetuxtv-recording-infos.h"
 
 G_DEFINE_TYPE (FreetuxTVCellRendererRecordingsList, freetuxtv_cellrenderer_recordingslist, GTK_TYPE_CELL_RENDERER);
 
@@ -220,6 +221,7 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	PangoLayout *layout;
 	gchar* szTmp;
 	gint64 duration;
+	GdkPixbuf* pPixbuf = NULL;
 
 	gboolean bHasFocus;
 
@@ -276,44 +278,85 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 
 	// Draw the channel logo
 	GdkPixbuf* pLogo;
-	GdkPixbuf* pDestPixbuf;
 	pLogo = gdk_pixbuf_new_from_file(self->szLogoPath, NULL);
-
-	pDestPixbuf = gdk_pixbuf_scale_simple(pLogo, 20, 20, GDK_INTERP_HYPER);
-
-#if GTK_API_VERSION == 3
-	gdk_cairo_set_source_pixbuf(cr, pDestPixbuf, (double)cell_xpad, (double)cell_ypad);
-	cairo_paint(cr);
-#else
-	gdk_draw_pixbuf (GDK_DRAWABLE(window), NULL, pDestPixbuf,
-	    0, 0, cell->xpad + 1, cell_area->y + cell->ypad + 17 + 1,
-	    -1, -1,
-	    GDK_RGB_DITHER_NONE, 0,0);
-#endif
-
-	if(pDestPixbuf){
-		g_object_unref(pDestPixbuf);
-		pDestPixbuf = NULL;
-	}
+	pPixbuf = gdk_pixbuf_scale_simple(pLogo, 20, 20, GDK_INTERP_HYPER);
 	if(pLogo){
 		g_object_unref(pLogo);
 		pLogo = NULL;
 	}
+#if GTK_API_VERSION == 3
+	gdk_cairo_set_source_pixbuf(cr, pPixbuf, (double)cell_xpad, (double)cell_ypad);
+	cairo_paint(cr);
+#else
+	gdk_draw_pixbuf (GDK_DRAWABLE(window), NULL, pPixbuf,
+	    0, 0, cell->xpad + 1, cell_area->y + cell->ypad + 17 + 1,
+	    -1, -1,
+	    GDK_RGB_DITHER_NONE, 0,0);
+#endif
+	if(pPixbuf){
+		g_object_unref(pPixbuf);
+		pPixbuf = NULL;
+	}
+
+	// Draw the status icon
+	gchar* szStockIcon = NULL;
+	switch(self->status){
+		case FREETUXTV_RECORDING_STATUS_WAITING :
+			break;
+		case FREETUXTV_RECORDING_STATUS_PROCESSING :
+			szStockIcon = GTK_STOCK_MEDIA_RECORD;
+			break;
+		case FREETUXTV_RECORDING_STATUS_FINISHED :
+			break;
+		case FREETUXTV_RECORDING_STATUS_SKIPPED :
+			szStockIcon = GTK_STOCK_DIALOG_WARNING;
+			break;
+		case FREETUXTV_RECORDING_STATUS_ERROR :
+		case FREETUXTV_RECORDING_STATUS_NOTSET :
+		default:
+			szStockIcon = GTK_STOCK_DIALOG_ERROR;
+	}
+
+	GdkPixbuf* pImgage = NULL;
+	if(szStockIcon){
+		pImgage = gtk_widget_render_icon (widget, szStockIcon, GTK_ICON_SIZE_SMALL_TOOLBAR, NULL);
+		pPixbuf = gdk_pixbuf_scale_simple(pImgage, 10, 10, GDK_INTERP_HYPER);
+	}
+	if(pImgage){
+		g_object_unref(pImgage);
+		pImgage = NULL;
+	}
+	if(pPixbuf){
+#if GTK_API_VERSION == 3
+		gdk_cairo_set_source_pixbuf(cr, pPixbuf, (double)cell_xpad, (double)cell_ypad);
+		cairo_paint(cr);
+#else
+		gdk_draw_pixbuf (GDK_DRAWABLE(window), NULL, pPixbuf,
+			0, 0, cell->xpad + 1 + 22, cell_area->y + cell->ypad + 17 + 1 + 5,
+			-1, -1,
+			GDK_RGB_DITHER_NONE, 0,0);
+#endif
+
+		if(pPixbuf){
+			g_object_unref(pPixbuf);
+			pPixbuf = NULL;
+		}
+	}
 
 	// Draw time
 	duration = (self->endTime - self->beginTime) / (G_USEC_PER_SEC * 60);
-	szTmp = g_strdup_printf(_("(S%d) - %lld min"), self->status, duration);
+	szTmp = g_strdup_printf(_("%lld min"), duration);
 	layout = gtk_widget_create_pango_layout (widget, szTmp);
 	pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
 
 #if GTK_API_VERSION == 3
 	gtk_render_layout (pStyleContext, cr,
-	    cell_xpad * 2 + 25, cell_area->y+20,
+	    cell_xpad * 2 + 35, cell_area->y+20,
 	    layout);
 #else
 	gtk_paint_layout (widget->style, window, state,
 	    TRUE, NULL, widget, NULL,
-	    cell_xpad * 2 + 25, cell_area->y+20,
+	    cell_xpad * 2 + 35, cell_area->y+20,
 	    layout);
 #endif
 	
