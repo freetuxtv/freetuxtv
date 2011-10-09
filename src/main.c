@@ -304,15 +304,15 @@ load_user_configuration(FreetuxTVApp *app)
 		}
 
 		// Load current config
-		b = g_key_file_get_boolean (keyfile, "windowminimode",
-		                            "stay_on_top", &err);
-		if (err != NULL) {
-			g_error_free (err);
-			err = NULL;
-		}else{
-			app->config.windowminimode_stayontop = b;		
-		}
-
+		// b = g_key_file_get_boolean (keyfile, "windowminimode",
+		//                             "stay_on_top", &err);
+		// if (err != NULL) {
+		// 	g_error_free (err);
+		// 	err = NULL;
+		// }else{
+		// 	app->config.windowminimode_stayontop = b;		
+		// }
+		
 		i = g_key_file_get_integer (keyfile, "windowminimode",
 		                            "width", &err);
 		if (err != NULL) {
@@ -1489,9 +1489,9 @@ freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 			                    "logos_file_date",
 			                    app->config.logosfiledate);
 
-		g_key_file_set_boolean (keyfile, "windowminimode",
-			                    "stay_on_top",
-			                    app->config.windowminimode_stayontop);
+		//g_key_file_set_boolean (keyfile, "windowminimode",
+		//    "stay_on_top",
+		//    app->config.windowminimode_stayontop);
 		g_key_file_set_integer (keyfile, "windowminimode",
 			                    "width",
 			                    app->config.windowminimode_width);
