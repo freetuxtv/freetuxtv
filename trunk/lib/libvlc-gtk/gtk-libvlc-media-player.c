@@ -812,7 +812,7 @@ on_buttonpress_event (GtkWidget *widget, GdkEventButton *event, gpointer user_da
 
 	gtk_widget_grab_focus (widget);
 
-	// If doulbe click, toggle fullscreen mode
+	// If double click, toggle fullscreen mode
 	if (event->type==GDK_2BUTTON_PRESS && event->button == 1) {
 		gtk_libvlc_media_player_toggle_fullscreen (self, &error);
 	}
