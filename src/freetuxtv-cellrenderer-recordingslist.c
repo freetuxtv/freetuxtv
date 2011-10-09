@@ -285,7 +285,7 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 		pLogo = NULL;
 	}
 #if GTK_API_VERSION == 3
-	gdk_cairo_set_source_pixbuf(cr, pPixbuf, (double)cell_xpad, (double)cell_ypad);
+	gdk_cairo_set_source_pixbuf(cr, pPixbuf, (double)cell_xpad + 1.0, cell_area->y + (double)cell_ypad + 17.0 + 1.0);
 	cairo_paint(cr);
 #else
 	gdk_draw_pixbuf (GDK_DRAWABLE(window), NULL, pPixbuf,
@@ -328,7 +328,7 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	}
 	if(pPixbuf){
 #if GTK_API_VERSION == 3
-		gdk_cairo_set_source_pixbuf(cr, pPixbuf, (double)cell_xpad, (double)cell_ypad);
+		gdk_cairo_set_source_pixbuf(cr, pPixbuf, (double)cell_xpad + 1.0 + 22.0, cell_area->y + (double)cell_ypad + 17.0 + 1.0 + 5.0);
 		cairo_paint(cr);
 #else
 		gdk_draw_pixbuf (GDK_DRAWABLE(window), NULL, pPixbuf,
