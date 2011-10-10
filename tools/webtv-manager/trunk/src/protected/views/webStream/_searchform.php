@@ -1,3 +1,7 @@
+<?php
+	$ISPs = ISP::model()->findAll();
+?>
+
 <div class="table">
 	<div class="caption">Search a WebStream :</div>
 
@@ -57,6 +61,16 @@
 					$dropList = CHtml::listData(StreamStatus::model()->findAll('Searchable=TRUE'), 'Code', 'Label');
 					echo $form->dropDownList($modelSearchForm, 'Status', $dropList, array ('empty' => '-- All --'));
 					echo $form->error($modelSearchForm, 'Status');
+				?>
+			</div>
+					
+			<div class="td">
+				<?php
+					echo $form->labelEx($modelSearchForm, 'RequiredISP');
+					$dropList = CHtml::listData($ISPs, 'RequiredISP', 'RequiredISP');
+					$dropList = array_merge(array('all' => '- All -'), $dropList);
+					echo $form->dropDownList($modelSearchForm, 'RequiredISP', $dropList, array ('empty' => '-- None --'));
+					echo $form->error($modelSearchForm, 'RequiredISP');
 				?>
 			</div>
 

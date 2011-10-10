@@ -2,6 +2,10 @@
 
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
+<?php
+	$ISPs = ISP::model()->findAll();
+?>
+
 <p>This website is a free database of WebTV and Web Radio.</p>
 
 <p>You can look for a channel by using the search form :</p>
@@ -70,6 +74,16 @@
 					echo $form->error($modelSearchForm, 'Status');
 				?>
 			</div>
+					
+			<div class="td">
+				<?php
+					echo $form->labelEx($modelSearchForm, 'RequiredISP');
+					$dropList = CHtml::listData($ISPs, 'RequiredISP', 'RequiredISP');
+					$dropList = array_merge(array('all' => '- All -'), $dropList);
+					echo $form->dropDownList($modelSearchForm, 'RequiredISP', $dropList, array ('empty' => '-- None --'));
+					echo $form->error($modelSearchForm, 'RequiredISP');
+				?>
+			</div>
 
 			<div class="td">
 				<br/>
@@ -119,11 +133,38 @@
 
 <br/>
 
+<p><b>Playlist by ISP :</b></p>
+
+<table>
+<?php
+	foreach($ISPs as $ISP){
+		$url = Yii::app()->createUrl("WebStream/index",
+			array("WebStreamSearchForm[Status]"=>WebStream::WEBSTREAM_STATUS_WORKING, "WebStreamSearchForm[RequiredISP]"=>$ISP->RequiredISP)
+		);
+		$playlist_link = $this->createUrl("playlists/playlist.m3u?isp=".$ISP->RequiredISP);
+?>
+		<tr>
+			<td nowrap>
+				<a href="<?php echo $url; ?>"><u><?php echo $ISP->RequiredISP; ?>:</u></a>
+			</td>
+			<td>
+				<?php echo CHtml::link(Yii::app()->getRequest()->getHostInfo().$playlist_link, $playlist_link); ?>
+			</td>
+		</tr>
+<?php
+	}
+?>
+</table>
+
+<br/>
+
 <?php
 	if(isset($statsTypes)){
 ?>
 
-<p>Here you can see overview of the working URL added the WebTV Manager database :</p>
+<b>Database overview :</b>
+<br/><br/>
+Here you can see overview of the working URL added the WebTV Manager database :
 
 <?php
 	//print_r($statsLangs);
@@ -175,7 +216,7 @@
 <?php
 	if(isset($lastAdds) && isset($lastUpdates)){
 ?>
-<p>Last adds/updates :</p>
+<b>Last adds/updates :</b>
 
 <table border="0">
 <tr>

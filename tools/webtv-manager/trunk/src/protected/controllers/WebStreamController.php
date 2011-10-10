@@ -300,10 +300,25 @@ class WebStreamController extends Controller
 					$conditions .= " AND CountryCode IS NULL";
 					$playlist_params["country"] = $modelSearchForm->Country;
 				}else{
-					$conditions .= " AND CountryCode=:WebCountryCode";
-					$params[':WebCountryCode'] = $modelSearchForm->Country;
+					$conditions .= " AND CountryCode=:WebStreamCountryCode";
+					$params[':WebStreamCountryCode'] = $modelSearchForm->Country;
 					$playlist_params["country"] = $modelSearchForm->Country;
 				}
+			}
+		}
+
+		if(isset($modelSearchForm->RequiredISP)){
+			if($modelSearchForm->RequiredISP != ""){
+				if($modelSearchForm->RequiredISP == "all"){
+					$playlist_params["isp"] = $modelSearchForm->RequiredISP;
+				}else{
+					$conditions .= " AND RequiredISP=:WebStreamRequiredISP";
+					$params[':WebStreamRequiredISP'] = $modelSearchForm->RequiredISP;
+					$playlist_params["isp"] = $modelSearchForm->RequiredISP;
+				}
+			}else{
+				$conditions .= " AND RequiredISP IS NULL";
+				$playlist_params["isp"] = $modelSearchForm->RequiredISP;
 			}
 		}
 

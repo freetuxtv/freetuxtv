@@ -11,6 +11,7 @@ class WebStreamSearchForm extends CFormModel
 	public $Language;
 	public $Country;
 	public $Status;
+	public $RequiredISP = 'all';
 
 	/**
 	 * Declares the validation rules.
@@ -25,6 +26,7 @@ class WebStreamSearchForm extends CFormModel
 			array('Language', 'length', 'max'=>'4'),
 			array('Country', 'length', 'max'=>'4'),
 			array('Status', 'numerical', 'integerOnly'=>true),
+			array('RequiredISP', 'length', 'max'=>'255'),
 		);
 	}
 
@@ -39,6 +41,7 @@ class WebStreamSearchForm extends CFormModel
 			'Language'=>'Language',
 			'Country'=>'Country',
 			'Status'=>'Status',
+			'RequiredISP'=>'Required ISP',
 		);
 	}
 

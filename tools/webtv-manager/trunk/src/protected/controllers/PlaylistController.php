@@ -97,10 +97,22 @@ class PlaylistController extends Controller
 				if($_GET['country'] == "none"){
 					$conditions .= " AND CountryCode IS NULL";
 				}elseif($_GET['country'] != "all"){
-					$conditions .= " AND CountryCode=:WebCountryCode";
-					$params[':WebCountryCode'] = $_GET['country'];
+					$conditions .= " AND CountryCode=:WebStreamCountryCode";
+					$params[':WebStreamCountryCode'] = $_GET['country'];
 				}
 			}
+		}
+		if(isset($_GET['isp'])){
+			if($_GET['isp'] != ""){
+				if($_GET['isp'] != "all"){
+					$conditions .= " AND RequiredISP=:WebStreamRequiredISP";
+					$params[':WebStreamRequiredISP'] = $_GET['isp'];
+				}
+			}else{
+				$conditions .= " AND RequiredISP IS NULL";
+			}
+		}else{
+			$conditions .= " AND RequiredISP IS NULL";
 		}
 
 		$criteria=new CDbCriteria;

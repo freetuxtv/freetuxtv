@@ -592,3 +592,7 @@ CREATE TABLE IF NOT EXISTS wtvmT_EditRequest (
 	CONSTRAINT FK_ChangeRequest_History FOREIGN KEY (HistoryId)
 		REFERENCES wtvmT_History(Id)
 ) TYPE=InnoDB;
+
+-- Version 10/10/2011
+
+CREATE VIEW wtvmV_ISP AS SELECT DISTINCT RequiredISP FROM `wtvmT_WebStream` WHERE RequiredISP IS NOT NULL;

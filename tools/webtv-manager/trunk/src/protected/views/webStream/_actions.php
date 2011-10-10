@@ -43,7 +43,7 @@
 	<p align="left">
 		<span id="description"></span><br/>
 		You may add a comment related to this report :
-	<p>
+	</p>
 
 	<?php echo CHtml::hiddenField('Action', '', array('id'=>'edit-request-action')); ?>
 
