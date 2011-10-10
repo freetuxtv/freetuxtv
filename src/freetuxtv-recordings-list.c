@@ -314,9 +314,8 @@ on_button_press_event_recordings_list (GtkWidget *treeview, GdkEventButton *even
 		
 		// Get the selection
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
 		
-		// Select the path where user has clicked
+		// Select the path where user has clicked if not selected
 		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(treeview),
 						  (gint) event->x, (gint) event->y,
 						  &path_selected, NULL, NULL, NULL)){
@@ -328,6 +327,8 @@ on_button_press_event_recordings_list (GtkWidget *treeview, GdkEventButton *even
 			path_selected = NULL;
 		}
 
+		// Get the final list of selected item
+		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
 		
 		//nbTotalGroupsVisible = gtk_tree_model_iter_n_children (GTK_TREE_MODEL(model_filter), NULL);
 
