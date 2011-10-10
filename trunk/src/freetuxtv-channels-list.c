@@ -1162,9 +1162,8 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 		
 		// Get the selection
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
 
-		// Select the path where user has clicked
+		// Select the path where user has clicked if not selected
 		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(treeview),
 						  (gint) event->x, (gint) event->y,
 						  &path_selected, NULL, NULL, NULL)){
@@ -1175,6 +1174,9 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			gtk_tree_path_free(path_selected);
 			path_selected = NULL;
 		}
+
+		// Get the final list of selected item
+		list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
 
 		nbTotalGroupsVisible = gtk_tree_model_iter_n_children (GTK_TREE_MODEL(model_filter), NULL);
 		
@@ -1826,7 +1828,7 @@ on_popupmenu_activated_groupproperties (GtkMenuItem *menuitem, gpointer user_dat
 	GList* iterator = NULL;
 	GtkTreePath *path;
 	GtkTreePath *real_path;
-	
+	g_print("test\n");
 	FreetuxTVChannelsGroupInfos* pChannelsGroupInfos;
 
 	treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
