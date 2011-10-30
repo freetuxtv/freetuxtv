@@ -211,9 +211,7 @@ gtk_libvlc_media_player_size_allocate(GtkWidget *widget, GtkAllocation *allocati
 static void
 gtk_libvlc_media_player_realize(GtkWidget *widget)
 {
-	GtkLibvlcMediaPlayer *libvlcmp = GTK_LIBVLC_MEDIA_PLAYER (widget);
-	GdkWindowAttr attributes;
-	guint attributes_mask;
+	GtkLibvlcMediaPlayer *libvlc_mediaplayer = GTK_LIBVLC_MEDIA_PLAYER (widget);
 
 	g_return_if_fail(widget != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(widget));
@@ -228,8 +226,24 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 		GTK_WIDGET_CLASS (gtk_libvlc_media_player_parent_class)->realize (widget);
 	}else{
 
+		GdkWindow *window, *parent;
+		GdkWindowAttr attributes;
+		guint attributes_mask;
 		GtkAllocation allocation;
+#if GTK_API_VERSION == 3
+		GtkStyleContext *context;
+#else
+		GtkStyle *style;
+#endif
 
+#if GTK_API_VERSION == 3
+        gtk_widget_set_realized(widget, TRUE);
+        gtk_widget_get_allocation(widget, &allocation);
+#else
+        GTK_WIDGET_SET_FLAGS(widget, GTK_REALIZED);
+        memcpy(&allocation, &(widget->allocation), sizeof(GtkAllocation));
+#endif
+		
 #if GTK_API_VERSION == 3
 		gtk_widget_set_realized (widget, TRUE);
 		gtk_widget_get_allocation (widget, &allocation);
@@ -240,33 +254,42 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 		pStyle = widget->style;
 #endif
 
-		attributes.window_type = GDK_WINDOW_CHILD;
 		attributes.x = allocation.x;
 		attributes.y = allocation.y;
 		attributes.width = allocation.width;
 		attributes.height = allocation.height;		
 		attributes.wclass = GDK_INPUT_OUTPUT;
+		attributes.window_type = GDK_WINDOW_CHILD;
+		attributes.event_mask = gtk_widget_get_events(widget) | GDK_EXPOSURE_MASK;
 		attributes.visual = gtk_widget_get_visual (widget);
 #if GTK_API_VERSION == 3
 		attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
+        gtk_widget_set_has_window(widget, TRUE);
 #else
 		attributes.colormap = gtk_widget_get_colormap (widget);
 		attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
+        GTK_WIDGET_SET_FLAGS(widget, !GTK_NO_WINDOW);
 #endif
-		attributes.event_mask = gtk_widget_get_events(widget) | GDK_EXPOSURE_MASK;
 
-		GdkWindow* pWindow;
-		pWindow = gdk_window_new(gtk_widget_get_parent_window (widget),
-		                                & attributes, attributes_mask);
-
-		gdk_window_set_user_data(pWindow, libvlcmp);
+		parent = gtk_widget_get_parent_window(widget);
+		window = gdk_window_new(parent, &attributes, attributes_mask);
+#if GTK_API_VERSION == 3
+        gtk_widget_set_window(widget, window);
+#else
+        widget->window = window;
+#endif
+		
+		gdk_window_set_user_data(window, libvlc_mediaplayer);
 
 #if GTK_API_VERSION == 3
-		gtk_widget_set_window (widget, pWindow);
+        gdk_window_set_background_pattern(window, NULL);
+        context = gtk_widget_get_style_context(widget);
+        gtk_style_context_set_background(context, window);
 #else
-		widget->window = pWindow;
-		widget->style = gtk_style_attach(pStyle, pWindow);
-		// gtk_style_set_background(pStyle, widget->window, GTK_STATE_ACTIVE);
+        style = gtk_widget_get_style(widget);
+        widget->style = gtk_style_attach(widget->style, widget->window);
+        gtk_style_set_background(style, window, GTK_STATE_NORMAL);
+        gdk_window_set_back_pixmap(window, NULL, TRUE);
 #endif
 	}
 }
@@ -850,6 +873,23 @@ gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance, GError** error)
 	gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
 #else
 	GTK_WIDGET_SET_FLAGS(GTK_WIDGET(self), GTK_CAN_FOCUS);
+#endif
+
+#if GTK_API_VERSION == 3
+	// Set the background color
+	GdkRGBA color;
+	color.red = 0.0F;
+	color.green = 0.0F;
+	color.blue = 0.0F;
+	color.alpha = 1.0F;
+
+	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_NORMAL, &color);
+	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_ACTIVE, &color);
+	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_PRELIGHT, &color);
+	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_SELECTED, &color);
+	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_INSENSITIVE, &color);
+	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_INCONSISTENT, &color);
+	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_FOCUSED, &color);
 #endif
 
 	return GTK_WIDGET(self);
