@@ -60,9 +60,6 @@ gtk_builder_window_constructed (GObject *object)
 	GtkBuilderWindowPrivate* priv;
 	priv = GTK_BUILDER_WINDOW_PRIVATE(object);
 
-	GtkBuilderWindowClass* klass;
-	klass = GTK_BUILDER_WINDOW_GET_CLASS(object);
-
 	// Call parent function
 	G_OBJECT_CLASS (gtk_builder_window_parent_class)->constructed (object);
 
@@ -167,9 +164,6 @@ static void
 gtk_builder_window_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
 	g_return_if_fail (GTK_IS_BUILDER_WINDOW (object));
-	
-	GtkBuilderWindow* self;
-	self = GTK_BUILDER_WINDOW(object);
 
 	GtkBuilderWindowPrivate* priv;
 	priv = GTK_BUILDER_WINDOW_PRIVATE(object);

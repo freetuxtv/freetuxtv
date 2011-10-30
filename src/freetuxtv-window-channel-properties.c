@@ -95,9 +95,6 @@ freetuxtv_window_channel_properties_new (GtkWindow *parent, FreetuxTVApp* app, F
 		szUiFile = NULL;
 	}
 
-	GtkBuilder* builder;
-	builder = gtk_builder_dialog_get_builder(GTK_BUILDER_DIALOG(pWindowChannelProperties));
-
 	// Private members
 	FreetuxTVWindowChannelPropertiesPrivate* priv;
 	priv = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_PRIVATE(pWindowChannelProperties);
@@ -116,9 +113,6 @@ freetuxtv_window_channel_properties_new (GtkWindow *parent, FreetuxTVApp* app, F
 static void
 dialog_updateinfos(FreetuxTVWindowChannelProperties *pWindowChannelProperties, FreetuxTVChannelInfos* pChannelInfos)
 {
-	FreetuxTVWindowChannelPropertiesPrivate* priv;
-	priv = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_PRIVATE(pWindowChannelProperties);
-
 	GtkBuilder* builder;
 	builder = gtk_builder_dialog_get_builder(GTK_BUILDER_DIALOG(pWindowChannelProperties));
 

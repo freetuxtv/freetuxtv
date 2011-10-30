@@ -61,9 +61,6 @@ gtk_builder_dialog_constructed (GObject *object)
 	GtkBuilderDialogPrivate* priv;
 	priv = GTK_BUILDER_DIALOG_PRIVATE(object);
 
-	GtkBuilderDialogClass* klass;
-	klass = GTK_BUILDER_DIALOG_GET_CLASS(object);
-
 	// Call parent function
 	G_OBJECT_CLASS (gtk_builder_dialog_parent_class)->constructed (object);
 
@@ -79,13 +76,11 @@ gtk_builder_dialog_constructed (GObject *object)
 	GtkWidget* content_area;
 	GtkWidget* action_area;
 	GtkWidget* dest_content_area;
-	GtkWidget* dest_action_area;
 	GtkWidget* child;
 	
 	content_area = gtk_dialog_get_content_area (GTK_DIALOG(dialog));
 	action_area = gtk_dialog_get_action_area (GTK_DIALOG(dialog));
 	dest_content_area = gtk_dialog_get_content_area (GTK_DIALOG(object));
-	dest_action_area = gtk_dialog_get_action_area (GTK_DIALOG(object));
 	
 	children = gtk_container_get_children(GTK_CONTAINER(content_area));
 	while(children != NULL){
@@ -173,9 +168,6 @@ static void
 gtk_builder_dialog_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
 	g_return_if_fail (GTK_IS_BUILDER_DIALOG (object));
-	
-	GtkBuilderDialog* self;
-	self = GTK_BUILDER_DIALOG(object);
 
 	GtkBuilderDialogPrivate* priv;
 	priv = GTK_BUILDER_DIALOG_PRIVATE(object);
