@@ -262,7 +262,6 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 #if GTK_API_VERSION == 3
 	GtkStyleContext *pStyleContext;
 	pStyleContext = gtk_widget_get_style_context (GTK_WIDGET(widget));
-	GdkWindow* window = gtk_widget_get_window  (GTK_WIDGET(widget));
 	bHasFocus = gtk_widget_has_focus (GTK_WIDGET(widget));
 
 	freetuxtv_cellrenderer_channelslist_get_preferred_width(cell, widget, NULL, &width);

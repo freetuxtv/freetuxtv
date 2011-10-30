@@ -624,6 +624,7 @@ recordings_list_getrecordings_toprocess(FreetuxTVApp *app, GList** ppListRecordi
 		if(pRecordingInfos->status == FREETUXTV_RECORDING_STATUS_WAITING){
 			if(pRecordingInfos->endTime < time){
 				newstatus = FREETUXTV_RECORDING_STATUS_SKIPPED;
+				pRecordingInfos->status = newstatus;
 				*ppListRecording = g_list_append(*ppListRecording, (gpointer)pRecordingInfos);
 			}
 		}
