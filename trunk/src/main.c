@@ -24,6 +24,8 @@
 #include <libnotify/notify.h>
 #include <locale.h>
 
+#include <libvlc-gtk/gtk-libvlc-media-player.h>
+
 #include "lib-gmmkeys.h"
 #include "freetuxtv-app.h"
 #include "freetuxtv-utils.h"
@@ -34,7 +36,7 @@
 #include "freetuxtv-tv-channels-list.h"
 #include "freetuxtv-models.h"
 #include "freetuxtv-window-add-channels-group.h"
-#include <libvlc-gtk/gtk-libvlc-media-player.h>
+#include "freetuxtv-player-error-dialog.h"
 
 static void
 list_options_add_options (gchar*** pOptions, gchar** options);
@@ -551,6 +553,55 @@ on_window_add_channels_group_destroy (GtkObject *object, gpointer user_data)
 }
 
 static gboolean
+showplayer_error (gpointer data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *)data;
+
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO, "Displaying error window\n");
+
+	GtkWidget* pParent;
+	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
+
+	GtkWidget* dialog = app->widget.pPlayerErrorDialog;
+	if(dialog == NULL){
+		dialog = freetuxtv_player_error_dialog_new (
+			GTK_WINDOW(pParent), GTK_DIALOG_DESTROY_WITH_PARENT, app);
+		app->widget.pPlayerErrorDialog = dialog;
+	}
+
+	
+	FreetuxTVChannelInfos *pChannelInfos;
+	pChannelInfos = channels_list_get_channel(app, app->current.pPathChannel);
+
+	gchar* message = "";
+	
+	if(pChannelInfos != NULL){
+		message = g_strdup_printf (_("An error occurred while playing channel '%s' : %s"),
+		    pChannelInfos->name, pChannelInfos->url);
+	}else{
+		message = _("An error occurred");
+	}
+	
+	freetuxtv_player_error_dialog_set_message (
+		FREETUXTV_PLAYER_ERROR_DIALOG(dialog), message);
+	gtk_widget_show(dialog);
+		
+	return FALSE;
+}
+
+static void on_mediaplayer_event_occurred (
+    GtkLibvlcMediaPlayer *self,
+    GtkLibvlcEventType type_event,
+    gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
+	
+	if(type_event == GTK_LIBVLC_EVENT_MP_ENCOUTEREDERROR){
+		g_idle_add (showplayer_error, app);
+	}
+}
+
+static gboolean
 splashscreen_app_init(gpointer data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *)data;
@@ -614,7 +665,11 @@ splashscreen_app_init(gpointer data)
 		instance = gtk_libvlc_instance_new((const gchar**)options, freetuxtv_log, &error);
 		if(error == NULL){
 			app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance, NULL));
-			
+			g_signal_connect(G_OBJECT(app->player),
+                 "event-occurred",
+                 G_CALLBACK(on_mediaplayer_event_occurred),
+                 app);
+
 			gtk_widget_show(GTK_WIDGET(app->player));
 			g_object_unref(G_OBJECT(instance));
 			gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
@@ -778,6 +833,7 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	app = g_new0 (FreetuxTVApp, 1);
 
 	app->name = "FreetuxTV";
+	app->player = NULL;
 
 	// Set app paths
 	if(szDataDir){
@@ -834,6 +890,9 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	//windowrecording_init(app);
 	channels_list_init(app);
 	recordings_list_init(app);
+
+	// Player error dialog
+	app->widget.pPlayerErrorDialog = NULL;
 
 	return app;
 
@@ -895,6 +954,11 @@ freetuxtv_app_destroy_app (FreetuxTVApp** pApp)
 		app->gui = NULL;
 	}
 
+	if(app->widget.pPlayerErrorDialog){
+		gtk_widget_destroy (app->widget.pPlayerErrorDialog);
+		app->widget.pPlayerErrorDialog = NULL;
+	}
+	
 	g_free(app);
 	app = NULL;
 }

@@ -50,6 +50,13 @@ struct _GtkLibvlcMediaPlayerPrivate
 
 G_DEFINE_TYPE (GtkLibvlcMediaPlayer, gtk_libvlc_media_player, GTK_TYPE_WIDGET);
 
+enum {
+   SIGNAL_EVENT_OCCURRED,
+   NB_SIGNALS
+};
+
+static guint g_signals [NB_SIGNALS] = { 0 };
+
 #ifndef LIBVLC_DEPRECATED_PLAYLIST
 static void 
 on_vlc_event(const libvlc_event_t *event, void *user_data);
@@ -428,6 +435,18 @@ gtk_libvlc_media_player_class_init (GtkLibvlcMediaPlayerClass *klass)
 	parent_class->size_request = gtk_libvlc_media_player_size_request;
 #endif
 	parent_class->size_allocate = gtk_libvlc_media_player_size_allocate;
+	
+	g_signals [SIGNAL_EVENT_OCCURRED] = g_signal_new (
+	    "event-occurred",
+	    G_TYPE_FROM_CLASS (klass),
+	    G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+	    G_STRUCT_OFFSET (GtkLibvlcMediaPlayerClass, event_occurred),
+	    NULL, NULL,
+	    g_cclosure_marshal_VOID__ENUM,
+	    G_TYPE_NONE,
+	    1,
+	    G_TYPE_INT
+	    );
 }
 
 static void
@@ -820,6 +839,54 @@ on_vlc_event(const libvlc_event_t *event, void *user_data)
 		if(priv->play_next_at_end == TRUE){
 			g_idle_add (idle_play_next_function, (gpointer)self);
 		}
+	}
+
+	// Emit signal
+	gboolean bEmitSignal = TRUE;
+	GtkLibvlcEventType gtkevent;
+
+	switch(event->type){
+		case libvlc_MediaPlayerNothingSpecial:
+			gtkevent = GTK_LIBVLC_EVENT_MP_NOTHINGSPECIAL;
+			break;
+		case libvlc_MediaPlayerOpening:
+			gtkevent = GTK_LIBVLC_EVENT_MP_OPENING;
+			break;
+		case libvlc_MediaPlayerBuffering:
+			gtkevent = GTK_LIBVLC_EVENT_MP_BUFFERING;
+			break;
+		case libvlc_MediaPlayerPlaying:
+			gtkevent = GTK_LIBVLC_EVENT_MP_PLAYING;
+			break;
+		case libvlc_MediaPlayerPaused:
+			gtkevent = GTK_LIBVLC_EVENT_MP_PAUSED;
+			break;
+		case libvlc_MediaPlayerStopped:
+			gtkevent = GTK_LIBVLC_EVENT_MP_STOPPED;
+			break;
+		case libvlc_MediaPlayerForward:
+			gtkevent = GTK_LIBVLC_EVENT_MP_FORWARD;
+			break;
+		case libvlc_MediaPlayerBackward:
+			gtkevent = GTK_LIBVLC_EVENT_MP_BACKWARD;
+			break;
+		case libvlc_MediaPlayerEndReached:
+			gtkevent = GTK_LIBVLC_EVENT_MP_ENDREACHED;
+			break;
+		case libvlc_MediaPlayerEncounteredError:
+			gtkevent = GTK_LIBVLC_EVENT_MP_ENCOUTEREDERROR;
+			break;
+		default:
+			// Signal not handled
+			bEmitSignal = FALSE;
+	}
+
+	if(bEmitSignal){
+		g_signal_emit (
+			G_OBJECT (self),
+			g_signals [SIGNAL_EVENT_OCCURRED],
+			0, gtkevent
+			);
 	}
 }
 
