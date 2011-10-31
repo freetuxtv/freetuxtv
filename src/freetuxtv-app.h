@@ -116,6 +116,8 @@ struct _FreetuxTVApp {
 		GtkWidget* pMenuDeinterlaceLinear;
 		GtkWidget* pMenuDeinterlaceMean;
 		GtkWidget* pMenuDeinterlaceX;
+
+		GtkWidget* pPlayerErrorDialog;
 	} widget;
 };
 typedef struct _FreetuxTVApp FreetuxTVApp;

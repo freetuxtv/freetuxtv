@@ -16,17 +16,19 @@ AM_CFLAGS =\
 bin_PROGRAMS = freetuxtv
 
 freetuxtv_SOURCES = \
-	gtk-builder-dialog.h \
 	gtk-builder-dialog.c \
-	gtk-builder-window.h \
+	gtk-builder-dialog.h \
 	gtk-builder-window.c \
-	gtk-progress-dialog.h \
+	gtk-builder-window.h \
 	gtk-progress-dialog.c \
+	gtk-progress-dialog.h \
 	freetuxtv-app.h \
+	freetuxtv-cclosure-marshal.c \
+	freetuxtv-cclosure-marshal.h \
 	freetuxtv-cellrenderer-channelslist.c \
 	freetuxtv-cellrenderer-channelslist.h \
-	freetuxtv-cellrenderer-recordingslist.h \
 	freetuxtv-cellrenderer-recordingslist.c \
+	freetuxtv-cellrenderer-recordingslist.h \
 	freetuxtv-channel-infos.c \
 	freetuxtv-channel-infos.h \
 	freetuxtv-channels-group-infos.c \
@@ -41,20 +43,22 @@ freetuxtv_SOURCES = \
 	freetuxtv-i18n.h \
 	freetuxtv-models.c \
 	freetuxtv-models.h \
-	freetuxtv-recording-infos.h \
+	freetuxtv-player-error-dialog.c \
+	freetuxtv-player-error-dialog.h \
 	freetuxtv-recording-infos.c \
+	freetuxtv-recording-infos.h \
 	freetuxtv-recordings-list.c \
 	freetuxtv-recordings-list.h \
-	freetuxtv-tv-channel-infos.h \
 	freetuxtv-tv-channel-infos.c \
+	freetuxtv-tv-channel-infos.h \
 	freetuxtv-tv-channels-list.c \
 	freetuxtv-tv-channels-list.h \
 	freetuxtv-utils.c \
 	freetuxtv-utils.h \
-	freetuxtv-window-add-channels-group.h \
 	freetuxtv-window-add-channels-group.c \
-	freetuxtv-window-channel-properties.h \
+	freetuxtv-window-add-channels-group.h \
 	freetuxtv-window-channel-properties.c \
+	freetuxtv-window-channel-properties.h \
 	freetuxtv-window-main.c \
 	freetuxtv-window-main.h \
 	freetuxtv-window-add-recording.c \
