@@ -60,9 +60,6 @@ gtk_builder_window_constructed (GObject *object)
 	GtkBuilderWindowPrivate* priv;
 	priv = GTK_BUILDER_WINDOW_PRIVATE(object);
 
-	// Call parent function
-	G_OBJECT_CLASS (gtk_builder_window_parent_class)->constructed (object);
-
 	g_print("Loading window \"%s\" from %s\n", priv->toplevel_widget_name, priv->uifile);
 	
 	gtk_builder_add_from_file (priv->builder, priv->uifile, NULL);
@@ -132,6 +129,10 @@ gtk_builder_window_constructed (GObject *object)
 	gint default_height;
 	gtk_window_get_default_size (GTK_WINDOW(dialog), &default_width, &default_height);
 	gtk_window_set_default_size (GTK_WINDOW(object), default_width, default_height);
+
+	// Call parent function
+    if (G_OBJECT_CLASS (gtk_builder_window_parent_class)->constructed)
+        G_OBJECT_CLASS (gtk_builder_window_parent_class)->constructed (object);
 }
 
 static void

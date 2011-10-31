@@ -61,9 +61,6 @@ gtk_builder_dialog_constructed (GObject *object)
 	GtkBuilderDialogPrivate* priv;
 	priv = GTK_BUILDER_DIALOG_PRIVATE(object);
 
-	// Call parent function
-	G_OBJECT_CLASS (gtk_builder_dialog_parent_class)->constructed (object);
-
 	g_print("Loading dialog \"%s\" from %s\n", priv->toplevel_widget_name, priv->uifile);
 	
 	gtk_builder_add_from_file (priv->builder, priv->uifile, NULL);
@@ -136,6 +133,10 @@ gtk_builder_dialog_constructed (GObject *object)
 	separator = gtk_dialog_get_has_separator (GTK_DIALOG(dialog));
 	gtk_dialog_set_has_separator (GTK_DIALOG(object), separator);
 #endif
+	
+	// Call parent function
+    if (G_OBJECT_CLASS (gtk_builder_dialog_parent_class)->constructed)
+        G_OBJECT_CLASS (gtk_builder_dialog_parent_class)->constructed (object);
 }
 
 static void
