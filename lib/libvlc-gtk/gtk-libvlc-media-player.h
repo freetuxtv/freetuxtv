@@ -42,6 +42,11 @@ typedef struct _GtkLibvlcMediaPlayer GtkLibvlcMediaPlayer;
 struct _GtkLibvlcMediaPlayerClass
 {
 	GtkWidgetClass parent_class;
+
+	void (*event_occurred) (
+	    GtkLibvlcMediaPlayer *self,
+	    GtkLibvlcEventType type_event,
+	    gpointer user_data);
 };
 
 struct _GtkLibvlcMediaPlayer
