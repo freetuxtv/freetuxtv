@@ -31,12 +31,12 @@ src/freetuxtv-utils.c
 src/freetuxtv-utils.h
 src/freetuxtv-window-add-channels-group.h
 src/freetuxtv-window-add-channels-group.c
+src/freetuxtv-window-add-recording.c
+src/freetuxtv-window-add-recording.h
 src/freetuxtv-window-channel-properties.c
 src/freetuxtv-window-channel-properties.h
 src/freetuxtv-window-main.c
 src/freetuxtv-window-main.h
-src/freetuxtv-window-add-recording.c
-src/freetuxtv-window-add-recording.h
 src/lib-m3uparser.c
 src/lib-m3uparser.h
 src/main.c
