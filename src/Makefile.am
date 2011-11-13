@@ -20,6 +20,8 @@ freetuxtv_SOURCES = \
 	gtk-builder-dialog.h \
 	gtk-builder-window.c \
 	gtk-builder-window.h \
+	gtk-date-time-picker.c \
+	gtk-date-time-picker.h \
 	gtk-progress-dialog.c \
 	gtk-progress-dialog.h \
 	freetuxtv-app.h \
