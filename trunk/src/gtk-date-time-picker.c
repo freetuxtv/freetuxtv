@@ -22,13 +22,14 @@
 typedef struct _GtkDateTimePickerPrivate GtkDateTimePickerPrivate;
 struct _GtkDateTimePickerPrivate
 {
-	GtkCalendar* calendar_widget;
-
 	gchar* szDateFormat;
 
 	GtkWidget* date_entry;
 	GtkWidget* hour_spinbutton;
 	GtkWidget* minute_spinbutton;
+	
+	GtkWidget* calendar_window;
+	GtkWidget* calendar;
 };
 
 #define GTK_DATE_TIME_PICKER_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), GTK_TYPE_DATE_TIME_PICKER, GtkDateTimePickerPrivate))
@@ -60,6 +61,13 @@ check_date_text_handler (
     GtkEntry *entry, const gchar *text,
     gint length, gint *position, gpointer data);
 	*/
+/*
+static gboolean
+on_dateentry_focusin (GtkWidget *widget, GdkEvent  *event, gpointer user_data);
+
+static gboolean
+on_dateentry_focusout (GtkWidget *widget, GdkEvent  *event, gpointer user_data);
+*/
 
 static void
 gtk_date_time_picker_init (GtkDateTimePicker *object)
@@ -73,17 +81,27 @@ gtk_date_time_picker_init (GtkDateTimePicker *object)
 	priv->hour_spinbutton = NULL;
 	priv->minute_spinbutton = NULL;
 
+	priv->calendar_window = NULL;
+	priv->calendar = NULL;
+
 	GtkWidget *label, *hbox_time;
 	gtk_box_set_spacing(GTK_BOX(object), 2);
 
 	// Date picker
 	priv->date_entry = gtk_entry_new ();
-	gtk_entry_set_icon_from_stock (GTK_ENTRY(priv->date_entry), GTK_ENTRY_ICON_SECONDARY, "gtk-edit");
+	//priv->date_entry = gtk_combo_box_text_new_with_entry ();
+	//gtk_entry_set_icon_from_stock (GTK_ENTRY(priv->date_entry), GTK_ENTRY_ICON_SECONDARY, "gtk-edit");
 	gtk_entry_set_width_chars (GTK_ENTRY(priv->date_entry), 12);
 	gtk_widget_show(priv->date_entry);
 	gtk_box_pack_start(GTK_BOX(object), priv->date_entry, FALSE, FALSE, 0);
 
 	/*
+	g_signal_connect(G_OBJECT(priv->date_entry), "focus-in-event",
+	    G_CALLBACK(on_dateentry_focusin),
+	    (gpointer)object);
+	g_signal_connect(G_OBJECT(priv->date_entry), "focus-out-event",
+	    G_CALLBACK(on_dateentry_focusout),
+	    (gpointer)object);
 	g_signal_connect(G_OBJECT(entry), "insert_text",
 	    G_CALLBACK(check_date_text_handler),
 	    NULL);*/
@@ -94,6 +112,7 @@ gtk_date_time_picker_init (GtkDateTimePicker *object)
 	gtk_box_pack_start(GTK_BOX(object), hbox_time, FALSE, FALSE, 0);
 	
 	priv->hour_spinbutton = gtk_spin_button_new_with_range (0.0, 23.0, 1.0);
+	gtk_spin_button_set_wrap (GTK_SPIN_BUTTON(priv->hour_spinbutton), TRUE);
 	gtk_widget_show(priv->hour_spinbutton);
 	gtk_box_pack_start(GTK_BOX(hbox_time), priv->hour_spinbutton, FALSE, FALSE, 0);
 
@@ -102,9 +121,10 @@ gtk_date_time_picker_init (GtkDateTimePicker *object)
 	gtk_box_pack_start(GTK_BOX(hbox_time), label, FALSE, FALSE, 0);
 
 	priv->minute_spinbutton = gtk_spin_button_new_with_range (0.0, 59.0, 1.0);
+	gtk_spin_button_set_wrap (GTK_SPIN_BUTTON(priv->minute_spinbutton), TRUE);
 	gtk_widget_show(priv->minute_spinbutton);
 	gtk_box_pack_start(GTK_BOX(hbox_time), priv->minute_spinbutton, FALSE, FALSE, 0);
-
+	
 	gtk_widget_set_sensitive (GTK_WIDGET(priv->date_entry), FALSE);
 	gtk_widget_set_sensitive (GTK_WIDGET(priv->hour_spinbutton), FALSE);
 	gtk_widget_set_sensitive (GTK_WIDGET(priv->minute_spinbutton), FALSE);
@@ -115,6 +135,11 @@ gtk_date_time_picker_finalize (GObject *object)
 {
 	GtkDateTimePickerPrivate* priv;
 	priv = GTK_DATE_TIME_PICKER_PRIVATE(object);
+
+	if(priv->calendar_window){
+		gtk_widget_destroy(priv->calendar_window);
+		priv->calendar_window = NULL;
+	}
 
 	if(priv->szDateFormat){
 		g_free(priv->szDateFormat);
@@ -253,6 +278,8 @@ gtk_date_time_picker_set_datetime (GtkDateTimePicker* picker, GDateTime *datetim
 	gchar* szTmp;
 	
 	szTmp = g_date_time_format (datetime, priv->szDateFormat);
+	//gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT(priv->date_entry), szTmp);
+	//gtk_combo_box_set_active (GTK_COMBO_BOX(priv->date_entry), 0);
 	gtk_entry_set_text(GTK_ENTRY(priv->date_entry), szTmp);
 
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON(priv->hour_spinbutton),
@@ -261,6 +288,62 @@ gtk_date_time_picker_set_datetime (GtkDateTimePicker* picker, GDateTime *datetim
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON(priv->minute_spinbutton),
 	    g_date_time_get_minute (datetime));
 }
+
+/*
+static gboolean
+on_dateentry_focusin (GtkWidget *widget, GdkEvent  *event, gpointer user_data)
+{
+	GtkDateTimePicker *self;
+	self = (GtkDateTimePicker*)user_data;
+	
+	GtkDateTimePickerPrivate* priv;
+	priv = GTK_DATE_TIME_PICKER_PRIVATE(self);
+	
+	// Calendar
+	if(priv->calendar_window == NULL){
+		
+		priv->calendar_window = gtk_window_new(GTK_WINDOW_POPUP);
+		
+		GtkWidget *parent = gtk_widget_get_toplevel (widget);
+		if (gtk_widget_is_toplevel (parent))
+		{
+			gtk_window_set_transient_for(GTK_WINDOW(priv->calendar_window), GTK_WINDOW(parent));
+		}
+
+		GtkWidget* vbox;
+		vbox = gtk_vbox_new(FALSE, 0);
+
+		gtk_box_pack_start(GTK_BOX(vbox), gtk_entry_new(), TRUE, TRUE, 0);
+
+		//gtk_window_set_modal (GTK_WINDOW(priv->calendar_window), TRUE);
+		priv->calendar = gtk_calendar_new();
+		//gtk_calendar_set_display_options(GTK_CALENDAR(priv->calendar), GTK_CALENDAR_SHOW_DETAILS);
+		//gtk_container_add(GTK_CONTAINER(priv->calendar_window), priv->calendar);
+		gtk_box_pack_start(GTK_BOX(vbox), priv->calendar, TRUE, TRUE, 0);
+		gtk_container_add(GTK_CONTAINER(priv->calendar_window), vbox);
+	}
+	gtk_window_set_position (GTK_WINDOW(priv->calendar_window), GTK_WIN_POS_MOUSE);
+	gtk_widget_show_all(priv->calendar_window);
+
+	return FALSE;
+}
+
+static gboolean
+on_dateentry_focusout (GtkWidget *widget, GdkEvent  *event, gpointer user_data)
+{
+	GtkDateTimePicker *self;
+	self = (GtkDateTimePicker*)user_data;
+	
+	GtkDateTimePickerPrivate* priv;
+	priv = GTK_DATE_TIME_PICKER_PRIVATE(self);
+
+	if(priv->calendar_window){
+		gtk_widget_hide(priv->calendar_window);
+	}
+
+	return FALSE;
+}
+*/
 
 /*
 static void
