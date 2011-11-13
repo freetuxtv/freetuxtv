@@ -46,5 +46,9 @@
 #  define N_(String) (String)
 #endif /* ENABLE_NLS */
 
+#define I18N_DATE_FORMAT _("%m/%d/%y")
+#define I18N_DATE_FORMAT_LONG _("%m/%d/%Y")
+#define I18N_DATETIME_FORMAT_SHORT _("%m/%d/%Y %H:%M")
+
 #endif /* FREETUXTV_INTL_H */
 

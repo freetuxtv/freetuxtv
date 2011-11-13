@@ -22,12 +22,14 @@
 
 #include <gtk/gtk.h>
 #include <stdlib.h>
+#include "gtk-date-time-picker.h"
 
 #include "freetuxtv-window-add-recording.h"
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-gladexml.h"
 #include "freetuxtv-utils.h"
+#include "freetuxtv-i18n.h"
 
 
 typedef struct _FreetuxTVWindowRecordingPrivate FreetuxTVWindowRecordingPrivate;
@@ -35,6 +37,9 @@ struct _FreetuxTVWindowRecordingPrivate
 {
 	FreetuxTVApp* app;
 	FreetuxTVChannelInfos* pChannelInfos;
+
+	GtkWidget* pWidgetTimeBegin;
+	GtkWidget* pWidgetTimeEnd;
 };
 
 #define FREETUXTV_WINDOW_RECORDING_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), FREETUXTV_TYPE_WINDOW_RECORDING, FreetuxTVWindowRecordingPrivate))
@@ -42,7 +47,7 @@ struct _FreetuxTVWindowRecordingPrivate
 G_DEFINE_TYPE (FreetuxTVWindowRecording, freetuxtv_window_recording, GTK_TYPE_BUILDER_DIALOG);
 
 static void
-dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, gint64 timeref);
+dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, GDateTime* datetime_ref);
 
 static void
 on_entry_duration_changed(GtkEditable *self, gpointer user_data);
@@ -56,6 +61,9 @@ freetuxtv_window_recording_init (FreetuxTVWindowRecording *object)
 
 	priv->app = NULL;
 	priv->pChannelInfos = NULL;
+
+	priv->pWidgetTimeBegin = NULL;
+	priv->pWidgetTimeEnd = NULL;
 }
 
 static void
@@ -135,11 +143,19 @@ freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app, FreetuxTVC
 	    G_CALLBACK(on_entry_duration_changed),
 	    pWindowRecording);
 
+	// Add the date time picker
+	widget = (GtkWidget *) gtk_builder_get_object (builder, "hbox_begintime");
+	priv->pWidgetTimeBegin = gtk_date_time_picker_new (I18N_DATE_FORMAT_LONG);
+	gtk_box_pack_start(GTK_BOX(widget), priv->pWidgetTimeBegin, FALSE, FALSE, 0);
+	gtk_widget_show(priv->pWidgetTimeBegin);
+	
+	widget = (GtkWidget *) gtk_builder_get_object (builder, "hbox_endtime");
+	priv->pWidgetTimeEnd = gtk_date_time_picker_new (I18N_DATE_FORMAT_LONG);
+	gtk_box_pack_start(GTK_BOX(widget), priv->pWidgetTimeEnd, FALSE, FALSE, 0);
+	gtk_widget_show(priv->pWidgetTimeEnd);
+
 	// Set default value in the fields
-	GTimeVal now;
-	gint64 beginTime;
-	g_get_current_time (&now);
-	beginTime = g_time_val_to_int64(&now);
+	GDateTime *datetime_now = g_date_time_new_now_local();
 
 	widget = (GtkWidget *) gtk_builder_get_object (builder, "label_channel");
 	gtk_label_set_text(GTK_LABEL(widget), pChannelInfos->name);
@@ -148,14 +164,17 @@ freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app, FreetuxTVC
 
 	gchar* szTmp;
 	gchar* szEndText;
-	szEndText = g_time_int64_to_string(beginTime, "%d/%m/%y %H:%M");
+	szEndText = g_date_time_format(datetime_now, I18N_DATETIME_FORMAT_SHORT);
 	szTmp = g_strdup_printf("%s - %s", pChannelInfos->name, szEndText);
 	gtk_entry_set_text(GTK_ENTRY(widget), szTmp);
 	g_free(szTmp);
 	g_free(szEndText);
 
 	// Update display
-	dialog_updateinfos(pWindowRecording, beginTime);
+	dialog_updateinfos(pWindowRecording, datetime_now);
+
+	g_date_time_unref (datetime_now);
+	datetime_now = NULL;
 
 	return pWindowRecording;
 }
@@ -200,7 +219,7 @@ freetuxtv_window_recording_get_recording_infos(FreetuxTVWindowRecording* pWindow
 }
 
 static void
-dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, gint64 timeref)
+dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, GDateTime *datetime_ref)
 {
 	GtkWidget *widget;
 	const gchar* szDurationText;
@@ -221,17 +240,14 @@ dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording, gint64 timeref)
 	
 	duration = atoi(szDurationText);
 	priv->app->current.recording.max_duration = duration;
-
-	szBeginText = g_time_int64_to_string(timeref, "%d/%m/%y %H:%M");
-	widget =  (GtkWidget *) gtk_builder_get_object (builder,
-		"label_begintime");
-	gtk_label_set_text(GTK_LABEL(widget), szBeginText);
 	
-	g_time_int64_add_seconds (&timeref, duration * 60);
-	szEndText = g_time_int64_to_string(timeref, "%d/%m/%y %H:%M");
-	widget =  (GtkWidget *) gtk_builder_get_object (builder,
-		"label_endtime");
-	gtk_label_set_text(GTK_LABEL(widget), szEndText);
+	gtk_date_time_picker_set_datetime(GTK_DATE_TIME_PICKER(priv->pWidgetTimeBegin), datetime_ref);
+
+	GDateTime* datetime_end;
+	datetime_end = g_date_time_add_minutes (datetime_ref, duration);
+	gtk_date_time_picker_set_datetime(GTK_DATE_TIME_PICKER(priv->pWidgetTimeEnd), datetime_end);
+	g_date_time_unref (datetime_end);
+	datetime_end = NULL;
 
 	if(szBeginText){
 		g_free(szBeginText);
@@ -250,10 +266,10 @@ on_entry_duration_changed (GtkEditable *self, gpointer user_data)
 	pWindowRecording = (FreetuxTVWindowRecording*)user_data;
 
 	// Get current hour
-	GTimeVal time_now;
-	gint64 time;
-	g_get_current_time (&time_now);
-	time = g_time_val_to_int64(&time_now);
+	GDateTime *datetime_now = g_date_time_new_now_local();
 	
-	dialog_updateinfos(pWindowRecording, time);
+	dialog_updateinfos(pWindowRecording, datetime_now);
+	
+	g_date_time_unref (datetime_now);
+	datetime_now = NULL;
 }
