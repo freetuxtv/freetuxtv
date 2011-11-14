@@ -19,6 +19,9 @@
 
 #include "gtk-date-time-picker.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 typedef struct _GtkDateTimePickerPrivate GtkDateTimePickerPrivate;
 struct _GtkDateTimePickerPrivate
 {
@@ -45,7 +48,7 @@ enum
 
 enum
 {
-	DATE_CHANGED,
+	SIGNAL_DATETIME_CHANGED,
 
 	LAST_SIGNAL
 };
@@ -68,6 +71,15 @@ on_dateentry_focusin (GtkWidget *widget, GdkEvent  *event, gpointer user_data);
 static gboolean
 on_dateentry_focusout (GtkWidget *widget, GdkEvent  *event, gpointer user_data);
 */
+
+static gboolean
+on_spinbutton_output (GtkSpinButton *spin, gpointer data);
+
+static void
+on_editable_changed (GtkEditable *editable, gpointer user_data);
+
+static gboolean
+get_dmy_if_valid(GtkDateTimePicker* picker, gint* day, gint* month, gint* year);
 
 static void
 gtk_date_time_picker_init (GtkDateTimePicker *object)
@@ -92,9 +104,11 @@ gtk_date_time_picker_init (GtkDateTimePicker *object)
 	//priv->date_entry = gtk_combo_box_text_new_with_entry ();
 	//gtk_entry_set_icon_from_stock (GTK_ENTRY(priv->date_entry), GTK_ENTRY_ICON_SECONDARY, "gtk-edit");
 	gtk_entry_set_width_chars (GTK_ENTRY(priv->date_entry), 12);
+	g_signal_connect(G_OBJECT(priv->date_entry), "changed",
+	    G_CALLBACK(on_editable_changed),
+	    (gpointer)object);
 	gtk_widget_show(priv->date_entry);
 	gtk_box_pack_start(GTK_BOX(object), priv->date_entry, FALSE, FALSE, 0);
-
 	/*
 	g_signal_connect(G_OBJECT(priv->date_entry), "focus-in-event",
 	    G_CALLBACK(on_dateentry_focusin),
@@ -113,6 +127,12 @@ gtk_date_time_picker_init (GtkDateTimePicker *object)
 	
 	priv->hour_spinbutton = gtk_spin_button_new_with_range (0.0, 23.0, 1.0);
 	gtk_spin_button_set_wrap (GTK_SPIN_BUTTON(priv->hour_spinbutton), TRUE);
+	g_signal_connect(G_OBJECT(priv->hour_spinbutton), "output",
+	    G_CALLBACK(on_spinbutton_output),
+	    NULL);
+	g_signal_connect(G_OBJECT(priv->hour_spinbutton), "changed",
+	    G_CALLBACK(on_editable_changed),
+	    (gpointer)object);
 	gtk_widget_show(priv->hour_spinbutton);
 	gtk_box_pack_start(GTK_BOX(hbox_time), priv->hour_spinbutton, FALSE, FALSE, 0);
 
@@ -122,6 +142,12 @@ gtk_date_time_picker_init (GtkDateTimePicker *object)
 
 	priv->minute_spinbutton = gtk_spin_button_new_with_range (0.0, 59.0, 1.0);
 	gtk_spin_button_set_wrap (GTK_SPIN_BUTTON(priv->minute_spinbutton), TRUE);
+	g_signal_connect(G_OBJECT(priv->minute_spinbutton), "output",
+	    G_CALLBACK(on_spinbutton_output),
+	    NULL);
+	g_signal_connect(G_OBJECT(priv->minute_spinbutton), "changed",
+	    G_CALLBACK(on_editable_changed),
+	    (gpointer)object);
 	gtk_widget_show(priv->minute_spinbutton);
 	gtk_box_pack_start(GTK_BOX(hbox_time), priv->minute_spinbutton, FALSE, FALSE, 0);
 	
@@ -204,9 +230,27 @@ gtk_date_time_picker_get_property (GObject *object, guint prop_id, GValue *value
 }
 
 static void
-gtk_date_time_picker_date_changed (GtkDateTimePicker *self)
+gtk_date_time_picker_datetime_changed (GtkDateTimePicker *self, gpointer user_data)
 {
-	/* TODO: Add default signal handler implementation here */
+	g_return_if_fail(self != NULL);
+	g_return_if_fail(GTK_IS_DATE_TIME_PICKER(self));
+	
+	GtkDateTimePickerPrivate* priv;
+	priv = GTK_DATE_TIME_PICKER_PRIVATE(self);
+	
+	const gchar* szCurIcon;
+	const gchar* szNewIcon;
+	szCurIcon = gtk_entry_get_icon_stock (GTK_ENTRY(priv->date_entry), GTK_ENTRY_ICON_SECONDARY);
+	
+	if(get_dmy_if_valid (self, NULL, NULL, NULL)){
+		szNewIcon = GTK_STOCK_YES;
+	}else{
+		szNewIcon = GTK_STOCK_NO;
+	}
+	if(szCurIcon == NULL || g_ascii_strcasecmp(szCurIcon, szNewIcon) != 0){
+		gtk_entry_set_icon_from_stock (GTK_ENTRY(priv->date_entry),
+		    GTK_ENTRY_ICON_SECONDARY, szNewIcon);
+	}
 }
 
 static void
@@ -221,7 +265,7 @@ gtk_date_time_picker_class_init (GtkDateTimePickerClass *klass)
 	object_class->set_property = gtk_date_time_picker_set_property;
 	object_class->get_property = gtk_date_time_picker_get_property;
 
-	klass->date_changed = gtk_date_time_picker_date_changed;
+	klass->datetime_changed = gtk_date_time_picker_datetime_changed;
 
 	g_object_class_install_property (object_class,
 	    PROP_DATE_FORMAT,
@@ -247,11 +291,11 @@ gtk_date_time_picker_class_init (GtkDateTimePickerClass *klass)
 		    TRUE,
 		    G_PARAM_READWRITE));
 
-	date_time_picker_signals[DATE_CHANGED] =
-		g_signal_new ("date-changed",
+	date_time_picker_signals[SIGNAL_DATETIME_CHANGED] =
+		g_signal_new ("datetime-changed",
 		    G_OBJECT_CLASS_TYPE (klass),
 		    G_SIGNAL_RUN_FIRST,
-		    G_STRUCT_OFFSET (GtkDateTimePickerClass, date_changed),
+		    G_STRUCT_OFFSET (GtkDateTimePickerClass, datetime_changed),
 		    NULL, NULL,
 		    g_cclosure_marshal_VOID__VOID,
 		    G_TYPE_NONE, 0);
@@ -272,6 +316,10 @@ gtk_date_time_picker_new (gchar* date_format)
 void
 gtk_date_time_picker_set_datetime (GtkDateTimePicker* picker, GDateTime *datetime)
 {
+	g_return_if_fail(picker != NULL);
+	g_return_if_fail(GTK_IS_DATE_TIME_PICKER(picker));
+	g_return_if_fail(datetime != NULL);
+	
 	GtkDateTimePickerPrivate* priv;
 	priv = GTK_DATE_TIME_PICKER_PRIVATE(picker);
 	
@@ -287,6 +335,49 @@ gtk_date_time_picker_set_datetime (GtkDateTimePicker* picker, GDateTime *datetim
 
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON(priv->minute_spinbutton),
 	    g_date_time_get_minute (datetime));
+}
+
+GDateTime*
+gtk_date_time_picker_get_datetime (GtkDateTimePicker* picker, GTimeZone *tz)
+{
+	g_return_val_if_fail(picker != NULL, NULL);
+	g_return_val_if_fail(GTK_IS_DATE_TIME_PICKER(picker), NULL);
+	g_return_val_if_fail(tz != NULL, NULL);
+	
+	GtkDateTimePickerPrivate* priv;
+	priv = GTK_DATE_TIME_PICKER_PRIVATE(picker);
+	
+	GDateTime* datetime = NULL;
+	gint year, month, day, hour, minute;
+
+	const gchar *szCurDate, *szCTmp;
+	gchar *szTmp;
+	szCurDate = gtk_entry_get_text(GTK_ENTRY(priv->date_entry));
+	
+	szCTmp = gtk_entry_get_text(GTK_ENTRY(priv->hour_spinbutton));
+	hour = atoi(szCTmp);
+
+	szCTmp = gtk_entry_get_text(GTK_ENTRY(priv->minute_spinbutton));
+	minute = atoi(szCTmp);
+
+	if(get_dmy_if_valid (picker, &day, &month, &year)){
+		datetime = g_date_time_new (tz, year, month, day, hour, minute, 0.0);
+	}
+
+	// Check if the calculated date match with the original text
+	if(datetime){
+		szTmp = g_date_time_format(datetime, priv->szDateFormat);
+		if(szTmp){
+			if(g_ascii_strcasecmp(szCurDate, szTmp) != 0){
+				g_date_time_unref (datetime);
+				datetime = NULL;
+			}
+			g_free(szTmp);
+			szTmp = NULL;
+		}
+	}
+
+	return datetime;
 }
 
 /*
@@ -376,3 +467,64 @@ check_date_text_handler (
 	g_free (result);
 }
 */
+
+static gboolean
+on_spinbutton_output (GtkSpinButton *spin, gpointer data)
+{
+   GtkAdjustment *adj;
+   gchar *text;
+   int value;
+   adj = gtk_spin_button_get_adjustment (spin);
+   value = (int)gtk_adjustment_get_value (adj);
+   text = g_strdup_printf ("%02d", value);
+   gtk_entry_set_text (GTK_ENTRY (spin), text);
+   g_free (text);
+   
+   return TRUE;
+}
+
+static void
+on_editable_changed (GtkEditable *editable, gpointer user_data)
+{
+	GtkDateTimePicker *self;
+	self = (GtkDateTimePicker*)user_data;
+	
+	g_signal_emit (
+	    G_OBJECT (self),
+	    date_time_picker_signals [SIGNAL_DATETIME_CHANGED],
+	    0);
+}
+
+static gboolean
+get_dmy_if_valid(GtkDateTimePicker* picker, gint* day, gint* month, gint* year)
+{
+	g_return_val_if_fail(picker != NULL, FALSE);
+	g_return_val_if_fail(GTK_IS_DATE_TIME_PICKER(picker), FALSE);
+	
+	GtkDateTimePickerPrivate* priv;
+	priv = GTK_DATE_TIME_PICKER_PRIVATE(picker);
+	
+	struct tm tm;
+	gint iyear, imonth, iday;
+
+	const gchar *szDate;
+	szDate = gtk_entry_get_text(GTK_ENTRY(priv->date_entry));
+	strptime (szDate, priv->szDateFormat, &tm);
+
+	iyear = tm.tm_year + 1900;
+	imonth = tm.tm_mon + 1;
+	iday = tm.tm_mday;
+
+	if(g_date_valid_dmy (iday, imonth, iyear)){
+
+		if(day)
+			*day = iday;
+		if(month)
+			*month = imonth;
+		if(year)
+			*year = iyear;
+		
+		return TRUE;
+	}
+	return FALSE;
+}

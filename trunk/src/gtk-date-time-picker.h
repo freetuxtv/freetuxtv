@@ -39,7 +39,7 @@ struct _GtkDateTimePickerClass
 	GtkHBoxClass parent_class;
 
 	/* Signals */
-	void(* date_changed) (GtkDateTimePicker *self);
+	void(* datetime_changed) (GtkDateTimePicker *self, gpointer user_data);
 };
 
 struct _GtkDateTimePicker
@@ -53,6 +53,9 @@ GtkWidget* gtk_date_time_picker_new (gchar* date_format);
 
 void
 gtk_date_time_picker_set_datetime (GtkDateTimePicker* picker, GDateTime *datetime);
+
+GDateTime*
+gtk_date_time_picker_get_datetime (GtkDateTimePicker* picker, GTimeZone *tz);
 
 G_END_DECLS
 
