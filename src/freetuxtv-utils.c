@@ -276,3 +276,13 @@ g_utf8_removediacritics(const gchar *str, gssize len)
 
 	return szRes;
 }
+
+void
+g_print_datetime (GDateTime *datetime)
+{
+	gchar* szTmp;
+
+	szTmp = g_date_time_format (datetime, "%Y-%m-%d %H-%M-%S");
+	g_print("%s\n", szTmp);
+	g_free(szTmp);
+}

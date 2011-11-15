@@ -59,4 +59,7 @@ windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms, gf
 void
 windowmain_enable_accelerators(FreetuxTVApp *app, gboolean enable);
 
+void
+windowmain_show_dialog_addrecordings(FreetuxTVApp *app, FreetuxTVChannelInfos* pChannelInfos, GError** error);
+
 #endif /* FREETUXTV_WINDOW_MAIN_H */

@@ -622,9 +622,13 @@ recordings_list_getrecordings_toprocess(FreetuxTVApp *app, GList** ppListRecordi
 		newstatus = pRecordingInfos->status;
 
 		if(pRecordingInfos->status == FREETUXTV_RECORDING_STATUS_WAITING){
-			if(pRecordingInfos->endTime < time){
+			if(freetuxtv_recording_infos_is_time_greater (pRecordingInfos, time)){
+				// To late for the recording
 				newstatus = FREETUXTV_RECORDING_STATUS_SKIPPED;
 				pRecordingInfos->status = newstatus;
+				//*ppListRecording = g_list_append(*ppListRecording, (gpointer)pRecordingInfos);
+			}else if(freetuxtv_recording_infos_has_time (pRecordingInfos, time)){
+				// The recording should be started
 				*ppListRecording = g_list_append(*ppListRecording, (gpointer)pRecordingInfos);
 			}
 		}

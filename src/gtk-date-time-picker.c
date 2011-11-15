@@ -241,8 +241,6 @@ gtk_date_time_picker_datetime_changed (GtkDateTimePicker *self, gpointer user_da
 	const gchar* szCurIcon;
 	const gchar* szNewIcon;
 	szCurIcon = gtk_entry_get_icon_stock (GTK_ENTRY(priv->date_entry), GTK_ENTRY_ICON_SECONDARY);
-
-	g_print("datetime_changed\n");
 	
 	if(get_dmy_if_valid (self, NULL, NULL, NULL)){
 		szNewIcon = GTK_STOCK_YES;

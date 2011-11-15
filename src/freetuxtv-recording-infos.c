@@ -98,3 +98,21 @@ freetuxtv_recording_infos_set_filename(FreetuxTVRecordingInfos* self, const gcha
 	}
 	self->szFileName = g_strdup(szFileName);
 }
+
+gboolean
+freetuxtv_recording_infos_has_time (FreetuxTVRecordingInfos* self, gint64 refTime)
+{
+	if(self->beginTime <= refTime && refTime <= self->endTime){
+		return TRUE;
+	}
+	return FALSE;
+}
+
+gboolean
+freetuxtv_recording_infos_is_time_greater (FreetuxTVRecordingInfos* self, gint64 refTime)
+{
+	if(refTime > self->endTime){
+		return TRUE;
+	}
+	return FALSE;
+}

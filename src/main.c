@@ -374,33 +374,39 @@ increase_progress_timeout (FreetuxTVApp *app)
 {
 	GError* error = NULL;
 
-//	GList *list = NULL;
+	GList *list = NULL;
 	FreetuxTVRecordingInfos* pRecordingInfos = NULL;
 
-	// Get the list of record to process
-	/*
-	recordings_list_getrecordings_toprocess(app, &list, &error);
-	if(error == NULL && list){
-		pRecordingInfos = (FreetuxTVRecordingInfos*)list->data;
-		while(pRecordingInfos){
-			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
-			      "Staring recording %s\n", pRecordingInfos->szTitle);	
-			
+	if(!app->current.is_recording){
+
+		// Get the list of record to process
+		recordings_list_getrecordings_toprocess(app, &list, &error);
+		if(error == NULL && list){
 			pRecordingInfos = (FreetuxTVRecordingInfos*)list->data;
+			if(pRecordingInfos){
+				// We record only the first found
+				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+					  "Staring recording %s\n", pRecordingInfos->szTitle);
+				pRecordingInfos = (FreetuxTVRecordingInfos*)list->data;
+
+				freetuxtv_action_start_recording (app, pRecordingInfos, &error);
+			}
 		}
-	}
-	g_list_free (list);
-*/
-	if(app->current.is_recording){
+		g_list_free (list);
+	}else{
+		
+		GTimeVal now_time;
+		g_get_current_time (&now_time);
+		gint64 now64 = g_time_val_to_int64(&now_time);
+		
 		pRecordingInfos = app->current.recording.pRecordingInfo;
-		if(app->current.recording.duration != NULL && pRecordingInfos){
+		if(pRecordingInfos){
 
 			FreetuxTVChannelInfos* pChannelInfos;
 			pChannelInfos = channels_list_get_channel (app, app->current.pPathChannel);
 
-			gint second;
-			second = (gint)g_timer_elapsed (app->current.recording.duration, NULL);
-
+			gint second_elapsed;
+			second_elapsed = now_time.tv_sec - app->current.recording.time_begin.tv_sec;
 			// gtk_libvlc_media_player_set_time (app->player, second*1000);
 
 			struct stat buf;
@@ -409,31 +415,20 @@ increase_progress_timeout (FreetuxTVApp *app)
 				file_size = buf.st_size;
 			}
 
-			gchar *format = format_time(second);
+			gchar *format = format_time(second_elapsed);
 			gchar *size_text = format_size(file_size);
 			gchar *text;
 			gchar *szTmp;
 
 			szTmp = g_path_get_basename (pRecordingInfos->szFileName);
-			text = g_strdup_printf (_("Recording: %s (%s) -> %s (%s)"), pChannelInfos->name, 
-			                        format, szTmp, size_text);
+			text = g_strdup_printf (_("Recording: %s (%s) -> %s (%s)"),
+			    pChannelInfos->name, format, szTmp, size_text);
 			g_free(szTmp);
 			windowmain_statusbar_pop (app, "RecordChannelMsg");
 			windowmain_statusbar_push (app, "RecordChannelMsg", text);
 			g_free(text);
-		}
 
-		if(app->current.recording.max_duration > 0){
-			GTimeVal max_time;
-			GTimeVal now_time;
-
-			g_get_current_time (&now_time);
-
-			g_time_val_copy(&(app->current.recording.time_begin), &max_time);
-
-			g_time_val_add_seconds(&max_time, app->current.recording.max_duration * 60);
-
-			if(g_time_val_compare(&now_time, &max_time) > 0){
+			if(freetuxtv_recording_infos_is_time_greater(pRecordingInfos, now64)){
 				freetuxtv_action_stop_recording (app, app->current.recording.pRecordingInfo, &error);
 			}
 		}
@@ -443,9 +438,10 @@ increase_progress_timeout (FreetuxTVApp *app)
 	switch(state){
 		case GTK_LIBVLC_STATE_PAUSED :
 		case GTK_LIBVLC_STATE_PLAYING :
-			windowmain_timebar_update (app, gtk_libvlc_media_player_get_time(app->player, &error), 
-			                           gtk_libvlc_media_player_get_length(app->player, &error),
-			                           gtk_libvlc_media_player_get_position(app->player, &error));
+			windowmain_timebar_update (app,
+			    gtk_libvlc_media_player_get_time(app->player, &error),
+			    gtk_libvlc_media_player_get_length(app->player, &error),
+			    gtk_libvlc_media_player_get_position(app->player, &error));
 			break;
 		default:
 			break;	
@@ -874,7 +870,6 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	app->current.autoplay_channel = FALSE;
 	app->current.is_recording = FALSE;
 	app->current.recording.pRecordingInfo = NULL;
-	app->current.recording.duration = NULL;
 	app->current.bIsAccelGroupActivated = FALSE;
 
 	// Create UI from file
@@ -1283,6 +1278,7 @@ freetuxtv_action_start_recording (FreetuxTVApp *app, FreetuxTVRecordingInfos* pR
 	gchar *szDstFilename;
 
 	if(!app->current.is_recording) {
+		g_get_current_time (&(app->current.recording.time_begin));
 
 		pChannelInfos = channels_list_get_channel_by_id(app, pRecordingInfos->channel_id);
 
@@ -1291,22 +1287,17 @@ freetuxtv_action_start_recording (FreetuxTVApp *app, FreetuxTVRecordingInfos* pR
 
 		if(app->prefs.enable_notifications){
 		   notify_notification_update (app->current.notification, pChannelInfos->name,
-					                   _("is recording"), szImgFile);
+		       _("is recording"), szImgFile);
 		   if (!notify_notification_show (app->current.notification, NULL)) {
 			   g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_WARNING,
-					 "Failed to send notification\n");
+			       "Failed to send notification\n");
 		   }
 		}
 		g_free(szImgFile);
 
 		windowmain_display_buttons (app, WINDOW_MODE_RECORDING);
 
-		// Timer and file name
-		if(app->current.recording.duration != NULL){
-		   g_timer_stop (app->current.recording.duration);
-		   g_timer_destroy (app->current.recording.duration);
-		}
-		app->current.recording.duration = g_timer_new ();
+		// File name
 
 		// Get the current date string
 		time_t rawtime;
@@ -1338,6 +1329,10 @@ freetuxtv_action_start_recording (FreetuxTVApp *app, FreetuxTVRecordingInfos* pR
 		g_free(szBaseFilename);
 		g_free(options[0]);
 
+		// Mark the recording as the current recording
+		app->current.is_recording = TRUE;
+		app->current.recording.pRecordingInfo = pRecordingInfos;
+
 		szTmp = g_path_get_basename (szDstFilename);
 		szText = g_strdup_printf (_("Recording: %s"), szTmp);
 		windowmain_statusbar_push (app, "PlayChannelMsg", szText);
@@ -1355,9 +1350,6 @@ freetuxtv_action_start_recording (FreetuxTVApp *app, FreetuxTVRecordingInfos* pR
 			recordings_list_refresh (app);
 		}
 		dbsync_close_db(&dbsync);
-
-		app->current.is_recording = TRUE;
-		app->current.recording.pRecordingInfo = pRecordingInfos;
 
 		g_free(szDstFilename);
 		szDstFilename = NULL;
