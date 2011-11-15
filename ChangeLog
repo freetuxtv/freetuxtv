@@ -6,6 +6,7 @@ FreetuxTV 0.6.0 (2011-XX-XX)
   - Better display for recording list
   - Issue 23 : Hide original window when switching fullscreen mode
   - Show message dialog for player error
+  - Issue 86 : Ability to program recording
   - Added TV channel logos:
       WebTV: Canal26, CanalRural, Canal4 SanJuan, Canal5 Tucuman, Canal10 Tucuman,
       	Canal6 Posadas, Canal9 EntreRios, Hit Music TV, Music plus Classic Rock, Music plus Hits,

@@ -98,8 +98,6 @@ struct _FreetuxTVApp {
 		struct {
 			FreetuxTVRecordingInfos* pRecordingInfo;
 			GTimeVal time_begin;
-			gint max_duration;
-			GTimer *duration;
 		} recording;
 
 	} current;

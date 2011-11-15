@@ -874,6 +874,58 @@ windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms, gf
 }
 
 void
+windowmain_show_dialog_addrecordings(FreetuxTVApp *app, FreetuxTVChannelInfos* pChannelInfos, GError** error)
+{
+	g_return_if_fail (error != NULL);
+	
+	GtkWidget* pParent;
+	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
+
+	DBSync dbsync;
+	
+	// Create and show the window
+	FreetuxTVWindowRecording* pWindowRecording;
+	FreetuxTVRecordingInfos* pRecordingInfos = NULL;
+	gint res;
+	
+	pWindowRecording = freetuxtv_window_recording_new (GTK_WINDOW(pParent), app, pChannelInfos);
+	res = gtk_dialog_run(GTK_DIALOG(pWindowRecording));
+
+	if(res == GTK_RESPONSE_OK){
+		pRecordingInfos = freetuxtv_window_recording_get_recording_infos (pWindowRecording);
+	}
+
+	// Destroy the window
+	gtk_widget_destroy(GTK_WIDGET(pWindowRecording));
+	pWindowRecording = NULL;
+
+	if(res == GTK_RESPONSE_OK){
+		dbsync_open_db (&dbsync, error);
+		if(*error == NULL){
+			freetuxtv_recording_infos_set_status(pRecordingInfos, FREETUXTV_RECORDING_STATUS_WAITING);
+
+			recordings_list_add_recording (app, &dbsync, pRecordingInfos, error);
+		}
+		dbsync_close_db(&dbsync);
+
+		if(*error == NULL){
+			GTimeVal now;
+			g_get_current_time (&now);
+			gint64 now64 = g_time_val_to_int64(&now);
+
+			if(freetuxtv_recording_infos_has_time(pRecordingInfos, now64)){
+				freetuxtv_action_start_recording (app, pRecordingInfos, error);
+			}
+		}
+	}
+
+	if(pRecordingInfos){
+		g_object_unref (pRecordingInfos);
+		pRecordingInfos = NULL;
+	}
+}
+
+void
 windowmain_enable_accelerators(FreetuxTVApp *app, gboolean enable)
 {
 	g_return_if_fail(app != NULL);
@@ -1140,54 +1192,15 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 
 	GError* error = NULL;
 	FreetuxTVChannelInfos* pChannelInfos;
-	DBSync dbsync;
-
-	FreetuxTVWindowRecording* pWindowRecording;
-	FreetuxTVRecordingInfos* pRecordingInfos = NULL;
-	gint res;
-
-	GtkWidget* pParent;
-	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
 	
 	// Show properties to the channel corresponding to the path
 	pChannelInfos = channels_list_get_channel (app, app->current.pPathChannel);
 
-	// Create and show the window
-	pWindowRecording = freetuxtv_window_recording_new (GTK_WINDOW(pParent), app, pChannelInfos);
-	res = gtk_dialog_run(GTK_DIALOG(pWindowRecording));
-	
-	if(res == GTK_RESPONSE_OK){
-		pRecordingInfos = freetuxtv_window_recording_get_recording_infos (pWindowRecording);
-	}
-
-	// Destroy the window
-	gtk_widget_destroy(GTK_WIDGET(pWindowRecording));
-	pWindowRecording = NULL;
-
-	if(res == GTK_RESPONSE_OK){
-		g_get_current_time (&(app->current.recording.time_begin));
-
-		dbsync_open_db (&dbsync, &error);
-		if(error == NULL){
-			freetuxtv_recording_infos_set_status(pRecordingInfos, FREETUXTV_RECORDING_STATUS_WAITING);
-
-			recordings_list_add_recording (app, &dbsync, pRecordingInfos, &error);
-		}
-		dbsync_close_db(&dbsync);
-
-		if(error == NULL){
-			freetuxtv_action_start_recording (app, pRecordingInfos, &error);
-		}
-	}
+	windowmain_show_dialog_addrecordings (app, pChannelInfos, &error);
 	
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
 		g_error_free (error);
-	}
-
-	if(pRecordingInfos){
-		g_object_unref (pRecordingInfos);
-		pRecordingInfos = NULL;
 	}
 }
 

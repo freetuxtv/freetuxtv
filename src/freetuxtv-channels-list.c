@@ -121,6 +121,8 @@ on_popupmenu_activated_channelgodown (GtkMenuItem *menuitem, gpointer user_data)
 static void
 on_popupmenu_activated_channelproperties (GtkMenuItem *menuitem, gpointer user_data);
 
+static void
+on_popupmenu_activated_channelrecord (GtkMenuItem *menuitem, gpointer user_data);
 
 static gboolean
 on_filter_channels_list (GtkTreeModel *model, GtkTreeIter *iter, gpointer data);
@@ -1338,7 +1340,8 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			g_signal_connect(G_OBJECT(pMenuItem), "activate",
 				G_CALLBACK(on_popupmenu_activated_groupdelete), app);
 			gtk_widget_show (pMenuItem);
-			
+
+			// Separator
 			pMenuItem = gtk_separator_menu_item_new();
 #if GTK_API_VERSION == 3
 			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
@@ -1439,6 +1442,20 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 				iter = iter->next;
 			}
 			
+			// Record is only if one channels groups is selected
+			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-media-record", NULL);
+#if GTK_API_VERSION == 3
+			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
+#else
+			gtk_menu_append (GTK_MENU (pMenu), pMenuItem);
+#endif
+			g_signal_connect(G_OBJECT(pMenuItem), "activate",
+				G_CALLBACK(on_popupmenu_activated_channelrecord), app);
+			if(nbGroupsTab[TYPEGRP_COUNT] > 1){
+				gtk_widget_set_sensitive (pMenuItem, FALSE);
+			}
+			gtk_widget_show (pMenuItem);
+			
 			// Separator
 			pMenuItem = gtk_separator_menu_item_new();
 #if GTK_API_VERSION == 3
@@ -1448,6 +1465,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 #endif
 			gtk_widget_show (pMenuItem);
 
+			// Go up
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-up", NULL);
 #if GTK_API_VERSION == 3
 			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
@@ -1461,6 +1479,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 			}
 			gtk_widget_show (pMenuItem);
 
+			// Go down
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-go-down", NULL);
 #if GTK_API_VERSION == 3
 			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
@@ -1483,7 +1502,7 @@ on_button_press_event_channels_list (GtkWidget *treeview, GdkEventButton *event,
 #endif
 			gtk_widget_show (pMenuItem);
 
-			// Delete channels from favourites group
+			// Delete channel from favourites group
 			pMenuItem = gtk_image_menu_item_new_from_stock ("gtk-delete", NULL);
 #if GTK_API_VERSION == 3
 			gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
@@ -2178,6 +2197,51 @@ on_popupmenu_activated_channelproperties (GtkMenuItem *menuitem, gpointer user_d
 		
 		gtk_widget_destroy(GTK_WIDGET(pWindowChannelProperties));
 		pWindowChannelProperties = NULL;
+	}
+}
+
+static void
+on_popupmenu_activated_channelrecord (GtkMenuItem *menuitem, gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
+
+	GError* error = NULL;
+	
+	GtkWidget* treeview;
+	GtkTreeModel* model_filter;
+	GtkTreeSelection *selection;
+	GList *list;
+	GList* iterator = NULL;
+	GtkTreePath *path;
+	GtkTreePath *real_path;
+	
+	FreetuxTVChannelInfos* pChannelInfos;
+
+	treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                                  "windowmain_treeviewchannelslist");
+	model_filter = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
+	
+	// Get the selection
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+	list = gtk_tree_selection_get_selected_rows (selection, &model_filter);
+	
+	iterator = g_list_last (list);
+	
+	if(iterator != NULL){			
+		
+		// Get the real path
+		path = (GtkTreePath*)iterator->data;
+		real_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(model_filter), path);
+		
+		// Show the add recording dialog for the channel corresponding to the path
+		pChannelInfos = channels_list_get_channel (app, real_path);
+
+		windowmain_show_dialog_addrecordings(app, pChannelInfos, &error);
+	}
+	
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
 	}
 }
 
