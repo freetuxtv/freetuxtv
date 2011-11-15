@@ -62,5 +62,8 @@ g_time_val_to_string(GTimeVal *timeval, const gchar* format);
 gchar*
 g_utf8_removediacritics(const gchar *str, gssize len);
 
+void
+g_print_datetime (GDateTime *datetime);
+
 
 #endif /* FREETUXTV_UTILS_H */

@@ -79,6 +79,12 @@ freetuxtv_recording_infos_set_status(FreetuxTVRecordingInfos* self, FREETUXTV_RE
 void
 freetuxtv_recording_infos_set_filename(FreetuxTVRecordingInfos* self, const gchar* szFileName);
 
+gboolean
+freetuxtv_recording_infos_has_time (FreetuxTVRecordingInfos* self, gint64 refTime);
+
+gboolean
+freetuxtv_recording_infos_is_time_greater (FreetuxTVRecordingInfos* self, gint64 refTime);
+
 G_END_DECLS
 
 #endif /* _FREETUXTV_RECORDING_INFOS_H_ */
