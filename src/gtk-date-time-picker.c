@@ -151,9 +151,9 @@ gtk_date_time_picker_init (GtkDateTimePicker *object)
 	gtk_widget_show(priv->minute_spinbutton);
 	gtk_box_pack_start(GTK_BOX(hbox_time), priv->minute_spinbutton, FALSE, FALSE, 0);
 	
-	gtk_widget_set_sensitive (GTK_WIDGET(priv->date_entry), FALSE);
-	gtk_widget_set_sensitive (GTK_WIDGET(priv->hour_spinbutton), FALSE);
-	gtk_widget_set_sensitive (GTK_WIDGET(priv->minute_spinbutton), FALSE);
+	//gtk_widget_set_sensitive (GTK_WIDGET(priv->date_entry), FALSE);
+	//gtk_widget_set_sensitive (GTK_WIDGET(priv->hour_spinbutton), FALSE);
+	//gtk_widget_set_sensitive (GTK_WIDGET(priv->minute_spinbutton), FALSE);
 }
 
 static void
@@ -241,6 +241,8 @@ gtk_date_time_picker_datetime_changed (GtkDateTimePicker *self, gpointer user_da
 	const gchar* szCurIcon;
 	const gchar* szNewIcon;
 	szCurIcon = gtk_entry_get_icon_stock (GTK_ENTRY(priv->date_entry), GTK_ENTRY_ICON_SECONDARY);
+
+	g_print("datetime_changed\n");
 	
 	if(get_dmy_if_valid (self, NULL, NULL, NULL)){
 		szNewIcon = GTK_STOCK_YES;
@@ -350,31 +352,16 @@ gtk_date_time_picker_get_datetime (GtkDateTimePicker* picker, GTimeZone *tz)
 	GDateTime* datetime = NULL;
 	gint year, month, day, hour, minute;
 
-	const gchar *szCurDate, *szCTmp;
-	gchar *szTmp;
-	szCurDate = gtk_entry_get_text(GTK_ENTRY(priv->date_entry));
+	const gchar *szTmp;
 	
-	szCTmp = gtk_entry_get_text(GTK_ENTRY(priv->hour_spinbutton));
-	hour = atoi(szCTmp);
+	szTmp = gtk_entry_get_text(GTK_ENTRY(priv->hour_spinbutton));
+	hour = atoi(szTmp);
 
-	szCTmp = gtk_entry_get_text(GTK_ENTRY(priv->minute_spinbutton));
-	minute = atoi(szCTmp);
+	szTmp = gtk_entry_get_text(GTK_ENTRY(priv->minute_spinbutton));
+	minute = atoi(szTmp);
 
 	if(get_dmy_if_valid (picker, &day, &month, &year)){
 		datetime = g_date_time_new (tz, year, month, day, hour, minute, 0.0);
-	}
-
-	// Check if the calculated date match with the original text
-	if(datetime){
-		szTmp = g_date_time_format(datetime, priv->szDateFormat);
-		if(szTmp){
-			if(g_ascii_strcasecmp(szCurDate, szTmp) != 0){
-				g_date_time_unref (datetime);
-				datetime = NULL;
-			}
-			g_free(szTmp);
-			szTmp = NULL;
-		}
 	}
 
 	return datetime;
@@ -507,6 +494,8 @@ get_dmy_if_valid(GtkDateTimePicker* picker, gint* day, gint* month, gint* year)
 	struct tm tm;
 	gint iyear, imonth, iday;
 
+	gboolean bRes = FALSE;
+
 	const gchar *szDate;
 	szDate = gtk_entry_get_text(GTK_ENTRY(priv->date_entry));
 	strptime (szDate, priv->szDateFormat, &tm);
@@ -515,16 +504,29 @@ get_dmy_if_valid(GtkDateTimePicker* picker, gint* day, gint* month, gint* year)
 	imonth = tm.tm_mon + 1;
 	iday = tm.tm_mday;
 
+	GDate* date;
 	if(g_date_valid_dmy (iday, imonth, iyear)){
+		date = g_date_new_dmy (iday, imonth, iyear);
+		if(date){
+			gchar szBuf[80];
+			g_date_strftime (szBuf, 80, priv->szDateFormat, date);
+			if(g_ascii_strcasecmp(szDate, szBuf) == 0){
+				bRes = TRUE;
+			}
 
+			g_date_free (date);
+			date = NULL;
+		}
+	}
+
+	if(bRes){
 		if(day)
 			*day = iday;
 		if(month)
 			*month = imonth;
 		if(year)
 			*year = iyear;
-		
-		return TRUE;
 	}
-	return FALSE;
+	
+	return bRes;
 }
