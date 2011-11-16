@@ -136,7 +136,14 @@ AC_ARG_WITH([gtk],
      2.0|3.0) ;;
      *) AC_MSG_ERROR([invalid gtk version specified]) ;;
    esac],
-  [with_gtk=2.0])
+  [])
+if test "$with_gtk" == ""; then
+	dnl If not precised we try to detect it automatically
+	if pkg-config --exists gtk+-3.0; then
+	   with_gtk=3.0
+	fi
+fi
+  
 AC_MSG_RESULT([$with_gtk])
 
 case "$with_gtk" in
