@@ -570,10 +570,13 @@ showplayer_error (gpointer data)
 	pChannelInfos = channels_list_get_channel(app, app->current.pPathChannel);
 
 	gchar* message = "";
+
+	gchar* db_url = "http://database.freetuxtv.net/";
 	
 	if(pChannelInfos != NULL){
-		message = g_strdup_printf (_("An error occurred while playing channel '%s' : %s"),
-		    pChannelInfos->name, pChannelInfos->url);
+		message = g_strdup_printf (_("An error occurred while playing channel '%s' : %s\n\n\
+If the problem persist, you can report that the link is dead at %s"),
+		    pChannelInfos->name, pChannelInfos->url, db_url);
 	}else{
 		message = _("An error occurred");
 	}
