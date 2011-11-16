@@ -141,6 +141,8 @@ if test "$with_gtk" == ""; then
 	dnl If not precised we try to detect it automatically
 	if pkg-config --exists gtk+-3.0; then
 	   with_gtk=3.0
+	else
+	   with_gtk=2.0
 	fi
 fi
   
@@ -152,7 +154,7 @@ case "$with_gtk" in
        AC_DEFINE(GTK_API_VERSION, 3, [Have GTK+ 3.0])
        ;;
   2.0) GTK_PKG_API_VERSION=2.0
-       GTK_REQUIRED=2.26.0
+       GTK_REQUIRED=2.22.0
        AC_DEFINE(GTK_API_VERSION, 2, [Have GTK+ 2.0])
        ;;
 esac
