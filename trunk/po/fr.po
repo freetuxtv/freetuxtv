@@ -235,7 +235,7 @@ msgstr "Dossier des enregistrements :"
 
 #: ../data/ui/freetuxtv.glade.h:24
 msgid "Download timeout (seconds) :"
-msgstr ""
+msgstr "Timeout de téléchargement (secondes) :"
 
 #: ../data/ui/freetuxtv.glade.h:25
 msgid "Enable desktop notifications"
@@ -283,7 +283,7 @@ msgstr "Ignorer les diacritiques"
 
 #: ../data/ui/freetuxtv.glade.h:37
 msgid "In progress"
-msgstr ""
+msgstr "En cours"
 
 #: ../data/ui/freetuxtv.glade.h:38
 msgid "Jump to current channel"
