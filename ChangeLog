@@ -1,4 +1,4 @@
-FreetuxTV 0.6.0 (2011-XX-XX)
+FreetuxTV 0.6.0 (2011-22-11)
   - Alert on exit only when a channel is recording
   - Preference to set timeout when downloading with curl
   - Compilation with libnotify 0.7.x
