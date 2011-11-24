@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 23:28+0100\n"
+"POT-Creation-Date: 2011-11-24 21:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,6 +144,39 @@ msgstr ""
 msgid "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 msgstr ""
 
+#: ../data/ui/channelproperties.glade.h:1
+msgid "<b>Channel VLC options:</b>"
+msgstr ""
+
+#: ../data/ui/channelproperties.glade.h:2
+msgid "Channel properties"
+msgstr ""
+
+#: ../data/ui/channelproperties.glade.h:3
+msgid "Channel's URI:"
+msgstr ""
+
+#: ../data/ui/channelproperties.glade.h:4
+msgid "Channel's name:"
+msgstr ""
+
+#: ../data/ui/channelproperties.glade.h:5
+msgid "Deinterlacement:"
+msgstr ""
+
+#: ../data/ui/channelproperties.glade.h:6 ../data/ui/freetuxtv.glade.h:30
+msgid "General"
+msgstr ""
+
+#: ../data/ui/channelproperties.glade.h:7
+msgid "Options"
+msgstr ""
+
+#: ../data/ui/channelproperties.glade.h:8
+#: ../src/freetuxtv-window-channel-properties.c:175
+msgid "none"
+msgstr ""
+
 #: ../data/ui/freetuxtv.glade.h:1
 msgid " channels"
 msgstr ""
@@ -246,10 +279,6 @@ msgstr ""
 
 #: ../data/ui/freetuxtv.glade.h:29
 msgid "GNU General Public License v3"
-msgstr ""
-
-#: ../data/ui/freetuxtv.glade.h:30
-msgid "General"
 msgstr ""
 
 #: ../data/ui/freetuxtv.glade.h:31
@@ -743,6 +772,11 @@ msgstr ""
 msgid "Watch television channels from internet"
 msgstr ""
 
+#: ../src/freetuxtv-cellrenderer-recordingslist.c:348
+#, c-format
+msgid "%lld min"
+msgstr ""
+
 #. Update status bar
 #: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
 #, c-format
@@ -1109,10 +1143,6 @@ msgstr ""
 #: ../src/freetuxtv-window-main.c:1985
 #, c-format
 msgid "Please enter the group's URI !"
-msgstr ""
-
-#: ../src/freetuxtv-window-channel-properties.c:175
-msgid "none"
 msgstr ""
 
 #. Menu : FreetuxTV

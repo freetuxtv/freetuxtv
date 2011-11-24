@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-20 19:00+0100\n"
+"POT-Creation-Date: 2011-11-24 21:41+0100\n"
 "PO-Revision-Date: 2010-08-09 20:00+0200\n"
 "Last-Translator: Benni <bestofbenni@@googlemail.com>\n"
 "Language-Team: DE <DE@li.org>\n"
@@ -177,6 +177,41 @@ msgstr ""
 msgid "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 msgstr "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 
+#: ../data/ui/channelproperties.glade.h:1
+msgid "<b>Channel VLC options:</b>"
+msgstr "<b>VLC Senderoptionen:</b>"
+
+#: ../data/ui/channelproperties.glade.h:2
+msgid "Channel properties"
+msgstr "Sendereigenschaften"
+
+#: ../data/ui/channelproperties.glade.h:3
+msgid "Channel's URI:"
+msgstr "URI der Sender:"
+
+#: ../data/ui/channelproperties.glade.h:4
+msgid "Channel's name:"
+msgstr "Sendername:"
+
+#: ../data/ui/channelproperties.glade.h:5
+#, fuzzy
+msgid "Deinterlacement:"
+msgstr "_Zeilenentflechtung"
+
+#: ../data/ui/channelproperties.glade.h:6 ../data/ui/freetuxtv.glade.h:30
+msgid "General"
+msgstr "Allgemein"
+
+#: ../data/ui/channelproperties.glade.h:7
+msgid "Options"
+msgstr ""
+
+#: ../data/ui/channelproperties.glade.h:8
+#: ../src/freetuxtv-window-channel-properties.c:175
+#, fuzzy
+msgid "none"
+msgstr "nichts"
+
 #: ../data/ui/freetuxtv.glade.h:1
 msgid " channels"
 msgstr " Sender"
@@ -290,10 +325,6 @@ msgstr "Vollbild"
 #: ../data/ui/freetuxtv.glade.h:29
 msgid "GNU General Public License v3"
 msgstr "GNU General Public License v3"
-
-#: ../data/ui/freetuxtv.glade.h:30
-msgid "General"
-msgstr "Allgemein"
 
 #: ../data/ui/freetuxtv.glade.h:31
 msgid "Go back to the normal mode"
@@ -504,9 +535,11 @@ msgstr "ts"
 
 #: ../data/ui/freetuxtv.glade.h:86
 msgid ""
-"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels=2"
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
+"channels=2"
 msgstr ""
-"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels=2"
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
+"channels=2"
 
 #: ../data/ui/freetuxtv.glade.h:87
 #, fuzzy
@@ -817,6 +850,11 @@ msgstr "Internet-TV-Player"
 #, fuzzy
 msgid "Watch television channels from internet"
 msgstr "Internet-TV anschauen"
+
+#: ../src/freetuxtv-cellrenderer-recordingslist.c:348
+#, c-format
+msgid "%lld min"
+msgstr ""
 
 #. Update status bar
 #: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
@@ -1301,11 +1339,6 @@ msgstr "Bitte gib einen Gruppennamen ein!"
 msgid "Please enter the group's URI !"
 msgstr "Bitte gib die URI der Gruppe ein!"
 
-#: ../src/freetuxtv-window-channel-properties.c:175
-#, fuzzy
-msgid "none"
-msgstr "nichts"
-
 #. Menu : FreetuxTV
 #: ../src/freetuxtv-window-main.c:277
 msgid "_FreetuxTV"
@@ -1452,23 +1485,11 @@ msgstr "Sind Sie sicher, dass Sie beenden wollen?"
 #~ msgid "60"
 #~ msgstr "60"
 
-#~ msgid "<b>Channel VLC options:</b>"
-#~ msgstr "<b>VLC Senderoptionen:</b>"
-
 #~ msgid "<span size=\"large\"><b>Process in progress</b></span>"
 #~ msgstr "<span size=\"large\"><b>Vorgang in Bearbeitung</b></span>"
 
 #~ msgid "Approximative end time:"
 #~ msgstr "Geschätzte Endzeit:"
-
-#~ msgid "Channel properties"
-#~ msgstr "Sendereigenschaften"
-
-#~ msgid "Channel's URI:"
-#~ msgstr "URI der Sender:"
-
-#~ msgid "Channel's name:"
-#~ msgstr "Sendername:"
 
 #~ msgid "Process details"
 #~ msgstr "Details des Vorgangs"

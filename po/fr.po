@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 23:28+0100\n"
+"POT-Creation-Date: 2011-11-24 21:41+0100\n"
 "PO-Revision-Date: 2010-08-03 23:14+0200\n"
 "Last-Translator: Yannick LE NY <yleny@laposte.net>\n"
 "Language-Team: FR <eric.beuque@gmail.com>\n"
@@ -153,6 +153,39 @@ msgstr ""
 msgid "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 msgstr "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 
+#: ../data/ui/channelproperties.glade.h:1
+msgid "<b>Channel VLC options:</b>"
+msgstr "<b>Options VLC de la chaîne:</b>"
+
+#: ../data/ui/channelproperties.glade.h:2
+msgid "Channel properties"
+msgstr "Propriété de la chaîne"
+
+#: ../data/ui/channelproperties.glade.h:3
+msgid "Channel's URI:"
+msgstr "URI de la chaîne :"
+
+#: ../data/ui/channelproperties.glade.h:4
+msgid "Channel's name:"
+msgstr "Nom de la chaîne :"
+
+#: ../data/ui/channelproperties.glade.h:5
+msgid "Deinterlacement:"
+msgstr "Désentrelacement :"
+
+#: ../data/ui/channelproperties.glade.h:6 ../data/ui/freetuxtv.glade.h:30
+msgid "General"
+msgstr "Général"
+
+#: ../data/ui/channelproperties.glade.h:7
+msgid "Options"
+msgstr "Options"
+
+#: ../data/ui/channelproperties.glade.h:8
+#: ../src/freetuxtv-window-channel-properties.c:175
+msgid "none"
+msgstr "aucun"
+
 #: ../data/ui/freetuxtv.glade.h:1
 msgid " channels"
 msgstr " chaînes"
@@ -256,10 +289,6 @@ msgstr "Mode plein écran"
 #: ../data/ui/freetuxtv.glade.h:29
 msgid "GNU General Public License v3"
 msgstr "GNU General Public License v3"
-
-#: ../data/ui/freetuxtv.glade.h:30
-msgid "General"
-msgstr "Général"
 
 #: ../data/ui/freetuxtv.glade.h:31
 msgid "Go back to the normal mode"
@@ -755,6 +784,11 @@ msgstr "Lecteur de chaînes de télévision"
 msgid "Watch television channels from internet"
 msgstr "Visionnez les chaînes de télévision sur internet"
 
+#: ../src/freetuxtv-cellrenderer-recordingslist.c:348
+#, c-format
+msgid "%lld min"
+msgstr "%lld min"
+
 #. Update status bar
 #: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
 #, c-format
@@ -1233,10 +1267,6 @@ msgstr "Veuillez remplir le nom du groupe !"
 msgid "Please enter the group's URI !"
 msgstr "Veuillez remplir l'URI du groupe !"
 
-#: ../src/freetuxtv-window-channel-properties.c:175
-msgid "none"
-msgstr "aucun"
-
 #. Menu : FreetuxTV
 #: ../src/freetuxtv-window-main.c:277
 msgid "_FreetuxTV"
@@ -1374,29 +1404,11 @@ msgstr "En cours d'enregistrement : %s"
 msgid "Are you sure you want to quit?"
 msgstr "Êtes-vous sûr de vouloir quitter?"
 
-#~ msgid "<b>Channel VLC options:</b>"
-#~ msgstr "<b>Options VLC de la chaîne:</b>"
-
 #~ msgid "<span size=\"large\"><b>Process in progress</b></span>"
 #~ msgstr "<span size=\"large\"><b>Traitement en cours</b></span>"
 
 #~ msgid "Approximative end time:"
 #~ msgstr "Heure de fin approximative :"
-
-#~ msgid "Channel properties"
-#~ msgstr "Propriété de la chaîne"
-
-#~ msgid "Channel's URI:"
-#~ msgstr "URI de la chaîne :"
-
-#~ msgid "Channel's name:"
-#~ msgstr "Nom de la chaîne :"
-
-#~ msgid "Deinterlacement:"
-#~ msgstr "Désentrelacement :"
-
-#~ msgid "Options"
-#~ msgstr "Options"
 
 #~ msgid "Process details"
 #~ msgstr "Détails du traitement"
