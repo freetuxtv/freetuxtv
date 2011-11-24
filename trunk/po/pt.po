@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 23:28+0100\n"
+"POT-Creation-Date: 2011-11-24 21:41+0100\n"
 "PO-Revision-Date: 2009-12-13 22:57+0100\n"
 "Last-Translator: José JORGE <jjorge@free.fr>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
@@ -154,6 +154,43 @@ msgstr ""
 msgid "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 msgstr ""
 
+#: ../data/ui/channelproperties.glade.h:1
+#, fuzzy
+msgid "<b>Channel VLC options:</b>"
+msgstr "<b>Destino</b>"
+
+#: ../data/ui/channelproperties.glade.h:2
+#, fuzzy
+msgid "Channel properties"
+msgstr "Ficheiro de grupos de canais :"
+
+#: ../data/ui/channelproperties.glade.h:3
+#, fuzzy
+msgid "Channel's URI:"
+msgstr "Canais"
+
+#: ../data/ui/channelproperties.glade.h:4
+#, fuzzy
+msgid "Channel's name:"
+msgstr "Canais"
+
+#: ../data/ui/channelproperties.glade.h:5
+msgid "Deinterlacement:"
+msgstr ""
+
+#: ../data/ui/channelproperties.glade.h:6 ../data/ui/freetuxtv.glade.h:30
+msgid "General"
+msgstr "Gerais"
+
+#: ../data/ui/channelproperties.glade.h:7
+msgid "Options"
+msgstr ""
+
+#: ../data/ui/channelproperties.glade.h:8
+#: ../src/freetuxtv-window-channel-properties.c:175
+msgid "none"
+msgstr ""
+
 #: ../data/ui/freetuxtv.glade.h:1
 msgid " channels"
 msgstr "canais"
@@ -263,10 +300,6 @@ msgstr "Modo tela cheia"
 #: ../data/ui/freetuxtv.glade.h:29
 msgid "GNU General Public License v3"
 msgstr ""
-
-#: ../data/ui/freetuxtv.glade.h:30
-msgid "General"
-msgstr "Gerais"
 
 #: ../data/ui/freetuxtv.glade.h:31
 msgid "Go back to the normal mode"
@@ -766,6 +799,11 @@ msgstr ""
 msgid "Watch television channels from internet"
 msgstr ""
 
+#: ../src/freetuxtv-cellrenderer-recordingslist.c:348
+#, c-format
+msgid "%lld min"
+msgstr ""
+
 #. Update status bar
 #: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
 #, c-format
@@ -1135,10 +1173,6 @@ msgstr ""
 msgid "Please enter the group's URI !"
 msgstr ""
 
-#: ../src/freetuxtv-window-channel-properties.c:175
-msgid "none"
-msgstr ""
-
 #. Menu : FreetuxTV
 #: ../src/freetuxtv-window-main.c:277
 msgid "_FreetuxTV"
@@ -1277,22 +1311,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "60"
 #~ msgstr "0"
-
-#, fuzzy
-#~ msgid "<b>Channel VLC options:</b>"
-#~ msgstr "<b>Destino</b>"
-
-#, fuzzy
-#~ msgid "Channel properties"
-#~ msgstr "Ficheiro de grupos de canais :"
-
-#, fuzzy
-#~ msgid "Channel's URI:"
-#~ msgstr "Canais"
-
-#, fuzzy
-#~ msgid "Channel's name:"
-#~ msgstr "Canais"
 
 #~ msgid "<b>Author : </b>"
 #~ msgstr "<b>Autor : </b>"

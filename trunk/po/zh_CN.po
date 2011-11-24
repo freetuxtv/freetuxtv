@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 23:28+0100\n"
+"POT-Creation-Date: 2011-11-24 21:41+0100\n"
 "PO-Revision-Date: 2011-01-06 16:34+0800\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese Simplified <xslidian+freetuxtv@gmail.com>\n"
@@ -151,6 +151,39 @@ msgstr ""
 msgid "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 msgstr "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 
+#: ../data/ui/channelproperties.glade.h:1
+msgid "<b>Channel VLC options:</b>"
+msgstr "<b>频道 VLC 选项:</b>"
+
+#: ../data/ui/channelproperties.glade.h:2
+msgid "Channel properties"
+msgstr "频道属性"
+
+#: ../data/ui/channelproperties.glade.h:3
+msgid "Channel's URI:"
+msgstr "频道 URI:"
+
+#: ../data/ui/channelproperties.glade.h:4
+msgid "Channel's name:"
+msgstr "频道名称:"
+
+#: ../data/ui/channelproperties.glade.h:5
+msgid "Deinterlacement:"
+msgstr "反交错:"
+
+#: ../data/ui/channelproperties.glade.h:6 ../data/ui/freetuxtv.glade.h:30
+msgid "General"
+msgstr "常规"
+
+#: ../data/ui/channelproperties.glade.h:7
+msgid "Options"
+msgstr "选项"
+
+#: ../data/ui/channelproperties.glade.h:8
+#: ../src/freetuxtv-window-channel-properties.c:175
+msgid "none"
+msgstr "无"
+
 #: ../data/ui/freetuxtv.glade.h:1
 msgid " channels"
 msgstr " 频道"
@@ -255,10 +288,6 @@ msgstr "全屏模式"
 #: ../data/ui/freetuxtv.glade.h:29
 msgid "GNU General Public License v3"
 msgstr "GNU 通用公共授权许可 第三版"
-
-#: ../data/ui/freetuxtv.glade.h:30
-msgid "General"
-msgstr "常规"
 
 #: ../data/ui/freetuxtv.glade.h:31
 msgid "Go back to the normal mode"
@@ -760,6 +789,11 @@ msgstr "电视频道播放器"
 msgid "Watch television channels from internet"
 msgstr "在网上观看电视频道"
 
+#: ../src/freetuxtv-cellrenderer-recordingslist.c:348
+#, c-format
+msgid "%lld min"
+msgstr ""
+
 #. Update status bar
 #: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
 #, c-format
@@ -1236,10 +1270,6 @@ msgstr "请输入组名!"
 msgid "Please enter the group's URI !"
 msgstr "请输入组 URI !"
 
-#: ../src/freetuxtv-window-channel-properties.c:175
-msgid "none"
-msgstr "无"
-
 #. Menu : FreetuxTV
 #: ../src/freetuxtv-window-main.c:277
 msgid "_FreetuxTV"
@@ -1377,29 +1407,11 @@ msgstr "您是否确定要退出?"
 #~ msgid "60"
 #~ msgstr "60"
 
-#~ msgid "<b>Channel VLC options:</b>"
-#~ msgstr "<b>频道 VLC 选项:</b>"
-
 #~ msgid "<span size=\"large\"><b>Process in progress</b></span>"
 #~ msgstr "<span size=\"large\"><b>正在处理</b></span>"
 
 #~ msgid "Approximative end time:"
 #~ msgstr "大概终止时间:"
-
-#~ msgid "Channel properties"
-#~ msgstr "频道属性"
-
-#~ msgid "Channel's URI:"
-#~ msgstr "频道 URI:"
-
-#~ msgid "Channel's name:"
-#~ msgstr "频道名称:"
-
-#~ msgid "Deinterlacement:"
-#~ msgstr "反交错:"
-
-#~ msgid "Options"
-#~ msgstr "选项"
 
 #~ msgid "Process details"
 #~ msgstr "进度详情"
