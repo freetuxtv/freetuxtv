@@ -21,6 +21,7 @@
 #include "gtk-libvlc-private.h"
 
 #include <gdk/gdkx.h>
+#include <string.h>
 
 typedef struct _GtkLibvlcMediaPlayerPrivate GtkLibvlcMediaPlayerPrivate;
 struct _GtkLibvlcMediaPlayerPrivate
@@ -288,6 +289,7 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 		
 		gdk_window_set_user_data(window, libvlc_mediaplayer);
 
+		// Setting the style will set the background to black by default
 #if GTK_API_VERSION == 3
         gdk_window_set_background_pattern(window, NULL);
         context = gtk_widget_get_style_context(widget);
@@ -295,8 +297,8 @@ gtk_libvlc_media_player_realize(GtkWidget *widget)
 #else
         style = gtk_widget_get_style(widget);
         widget->style = gtk_style_attach(widget->style, widget->window);
-        gtk_style_set_background(style, window, GTK_STATE_NORMAL);
-        gdk_window_set_back_pixmap(window, NULL, TRUE);
+        //gtk_style_set_background(style, window, GTK_STATE_NORMAL);
+        //gdk_window_set_back_pixmap(window, NULL, TRUE);
 #endif
 	}
 }
