@@ -226,7 +226,7 @@ freetuxtv_cellrenderer_channelslist_get_size (GtkCellRenderer *cell,
 		 cell_area->width, cell_area->height,
 		 *x_offset, *y_offset,
 		 cell->xalign, cell->yalign, *width, *height);
-		 */
+		*/
 	}
 }
 
@@ -252,43 +252,77 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 #endif
 {
 	FreetuxTVCellRendererChannelsList *self = FREETUXTV_CELLRENDERER_CHANNELSLIST (cell);
-	GtkStateType state;
+	
 	gint width, height;
 	PangoLayout *layout;
 
-	gboolean bHasFocus;
+	gboolean is_selected = FALSE;
+	gboolean is_playing = FALSE;
+	
+	if ((flags & GTK_CELL_RENDERER_SELECTED) != 0){
+		is_selected = TRUE;
+	}
 
-	// Get the size of the widget
+	if(self->type == CELLRENDERER_TYPE_CHANNEL){
+		if(self->is_playing){
+			is_playing = TRUE;
+		}
+	}
+
 #if GTK_API_VERSION == 3
+	
+	// Set the cell state
+	GtkStateFlags state = GTK_STATE_FLAG_NORMAL;
+	if(is_selected){
+		if(self->type == CELLRENDERER_TYPE_CHANNEL){
+			state = GTK_STATE_FLAG_SELECTED;
+		}else{
+			state = GTK_STATE_FLAG_ACTIVE;
+		}
+	}
+
+	// Define the style of the row.
 	GtkStyleContext *pStyleContext;
 	pStyleContext = gtk_widget_get_style_context (GTK_WIDGET(widget));
-	bHasFocus = gtk_widget_has_focus (GTK_WIDGET(widget));
+	gtk_style_context_save(pStyleContext);
+	gtk_style_context_set_state(pStyleContext, state);
+	if(self->type == CELLRENDERER_TYPE_CHANNEL){
+		gtk_style_context_add_class (pStyleContext, GTK_STYLE_CLASS_CELL);
+	}else{
+		gtk_style_context_add_class (pStyleContext, GTK_STYLE_CLASS_BUTTON);
+	}
 
 	freetuxtv_cellrenderer_channelslist_get_preferred_width(cell, widget, NULL, &width);
 	freetuxtv_cellrenderer_channelslist_get_preferred_height_for_width(cell, widget, width, NULL, &height);
-	
 #else
 	GtkStyle* pStyle;
 	pStyle = widget->style;
-	bHasFocus = GTK_WIDGET_HAS_FOCUS (widget);
+
+	GtkStateType state;
+	state = GTK_STATE_NORMAL;
+	if(is_selected){
+		state = GTK_STATE_SELECTED;
+	}
 
 	freetuxtv_cellrenderer_channelslist_get_size (cell, widget, cell_area,
 	    NULL, NULL,
 	    &width, &height);
 #endif
 
-	if (bHasFocus){
-		state = GTK_STATE_ACTIVE;
-	}else{
-		state = GTK_STATE_NORMAL;
-	}
-
-	layout = gtk_widget_create_pango_layout (widget,
-	    self->name);
+	// Build the layout
+	layout = gtk_widget_create_pango_layout (widget, self->name);
 	//pango_layout_set_width(layout, 700);
 	//pango_layout_set_height(layout, 20);
 	pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
-	
+	if(is_playing){
+		PangoFontDescription *desc;
+		desc = pango_font_description_new();
+		pango_font_description_set_weight (desc, PANGO_WEIGHT_BOLD);
+		pango_font_description_set_style (desc, PANGO_STYLE_ITALIC);
+		pango_layout_set_font_description (layout, desc);
+		pango_font_description_free(desc);
+	}
+
 	// gtk_paint_flat_box (widget->style, window, GTK_STATE_SELECTED,
 	//     GTK_SHADOW_NONE , NULL, widget,
 	//     NULL,
@@ -307,32 +341,31 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 
 	GdkPixbuf* logo;
 
-	if ((flags & GTK_CELL_RENDERER_SELECTED) != 0){
-		state = GTK_STATE_SELECTED;
-	}
-
+	// If the cell contain a channel
 	if(self->type == CELLRENDERER_TYPE_CHANNEL){
 
 		// Backgroung of the cell
-		if(self->is_playing){
-			state = GTK_STATE_SELECTED;		
-
 #if GTK_API_VERSION == 3
-			gtk_style_context_set_state (pStyleContext, state);
-			// gtk_style_context_set_background (pStyleContext, window);
+		gtk_style_context_set_state (pStyleContext, state);
+		// gtk_style_context_set_background (pStyleContext, window); // This block the main loop
 
-			// gtk_render_background (pStyleContext, cr,
-			//    0, cell_area->y,
-			//    cell_area->x + width, cell_area->height);
+		gtk_render_background (pStyleContext, cr,
+		    0, cell_area->y,
+		    cell_area->x + width, cell_area->height);
+		gtk_render_frame (pStyleContext, cr, 0, cell_area->y, cell_area->x + width, cell_area->height);
 #else
-			gtk_style_set_background (pStyle, window, state);
+		if(state != GTK_STATE_NORMAL){
+			// gtk_style_set_background (pStyle, window, state); // This block the main loop
 			gtk_style_apply_default_background  (pStyle, window, TRUE, state, NULL,
-			    0, cell_area->y, cell_area->x + width, cell_area->height);
-#endif			
-
-			//g_print("cell : %d %d\n", cell_area->x, width);
+				0, cell_area->y, cell_area->x + width, cell_area->height);
 		}
+#endif
 
+		//static int count = 0;
+		//count++;
+		//g_print("cell(%d) : %d %d\n", count, cell_area->x, width);
+
+		// Display the logo and text of the cell
 		logo = gdk_pixbuf_new_from_file(self->logo, NULL);
 
 		int cell_xpad;
@@ -340,11 +373,13 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 
 #if GTK_API_VERSION == 3
 		gtk_cell_renderer_get_padding (cell, &cell_xpad, &cell_ypad);
-		
+
+		// Render the logo
 		gdk_cairo_set_source_pixbuf(cr, logo,
 		    (double)cell_xpad + 1.0, cell_area->y + (double)cell_ypad + 1.0);
 		cairo_paint(cr);
 
+		// Render the channel name
 		gtk_render_layout (pStyleContext, cr,
 		    cell_xpad * 2 + gdk_pixbuf_get_width(logo) + 5,
 		    cell_area->y + 15,
@@ -354,11 +389,13 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 		cell_xpad = cell->xpad;
 		cell_ypad = cell->ypad;
 
+		// Render the logo
 		gdk_draw_pixbuf (GDK_DRAWABLE(window), NULL, logo,
 		    0, 0, cell_xpad + 1, cell_area->y + cell_ypad + 1,
 		    -1, -1,
 		    GDK_RGB_DITHER_NONE, 0,0);
-
+		
+		// Render the channel name
 		gtk_paint_layout (widget->style, window, state,
 		    TRUE, NULL, widget, NULL,
 		    cell->xpad * 2 + gdk_pixbuf_get_width(logo) + 5, cell_area->y + 15,
@@ -369,30 +406,46 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 			g_object_unref(logo);
 			logo = NULL;
 		}
-	}else{
+	}
+
+	// If the cell contain a group
+	if(self->type == CELLRENDERER_TYPE_CHANNELS_GROUP){
 
 #if GTK_API_VERSION == 3
-		gtk_style_context_set_state (pStyleContext, state);
-		// gtk_style_context_set_background (pStyleContext, window);
+		int x = background_area->x;
+        int y = background_area->y;
+		width = background_area->width;
+		height = background_area->height;
 
-		// gtk_render_background (pStyleContext, cr,
-		//    0, cell_area->y,
-		//    cell_area->x + width, cell_area->height);
+		// Background of the cell
+		gtk_render_background (pStyleContext, cr,
+		    x, y, width, height);
+		gtk_render_frame (pStyleContext, cr,
+		    x, y, width, height);
 
+		//g_print("cell_bg %s : x=%d, y=%d\n", self->name, background_area->x, background_area->y);
+		//g_print("cell %s : x=%d, y=%d, w=%d, h=%d\n", self->name, x, y, width, height);
+
+		// Render the group name
 		gtk_render_layout (pStyleContext, cr,
 		    cell_area->x, cell_area->y + 3,
 		    layout);
 #else
-		gtk_style_set_background (widget->style, window, state);
+		// Background of the cell
 		gtk_style_apply_default_background  (widget->style, window, TRUE,
 		    state, NULL,
 		    0, cell_area->y, cell_area->x + width, cell_area->height);
 
+		// Render the group name
 		gtk_paint_layout (widget->style, window, state,
 		    TRUE, NULL, widget, NULL,
 		    cell_area->x, cell_area->y + 3, layout);
 #endif
 	}
+
+#if GTK_API_VERSION == 3
+	gtk_style_context_restore(pStyleContext);
+#endif
 }
 
 

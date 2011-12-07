@@ -223,31 +223,22 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	gint64 duration;
 	GdkPixbuf* pPixbuf = NULL;
 
-	gboolean bHasFocus;
-
 #if GTK_API_VERSION == 3
 	GtkStyleContext *pStyleContext;
 	pStyleContext = gtk_widget_get_style_context (GTK_WIDGET(widget));
-	bHasFocus = gtk_widget_has_focus (GTK_WIDGET(widget));
 
 	freetuxtv_cellrenderer_recordingslist_get_preferred_width(cell, widget, NULL, &width);
 	freetuxtv_cellrenderer_recordingslist_get_preferred_height_for_width(cell, widget, width, NULL, &height);
 #else
 	GtkStyle* pStyle;
 	pStyle = widget->style;
-	bHasFocus = GTK_WIDGET_HAS_FOCUS (cell);
 
 	freetuxtv_cellrenderer_recordingslist_get_size (cell, widget, cell_area,
 	    NULL, NULL,
 	    &width, &height);
 #endif
-	
-	if (bHasFocus) {			
-		state = GTK_STATE_ACTIVE;
-	} else {
-		state = GTK_STATE_NORMAL;
-	}
-
+			
+	state = GTK_STATE_ACTIVE;
 	if ((flags & GTK_CELL_RENDERER_SELECTED) != 0){
 		state = GTK_STATE_SELECTED;
 	}
