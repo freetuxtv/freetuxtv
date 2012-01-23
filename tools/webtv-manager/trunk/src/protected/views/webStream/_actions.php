@@ -1,4 +1,4 @@
-<h3>WebStream actions</h3>
+<h3>Actions</h3>
 
 <script type="text/javascript">
 	function loadPage() {

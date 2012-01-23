@@ -596,3 +596,39 @@ CREATE TABLE IF NOT EXISTS wtvmT_EditRequest (
 -- Version 10/10/2011
 
 CREATE VIEW wtvmV_ISP AS SELECT DISTINCT RequiredISP FROM `wtvmT_WebStream` WHERE RequiredISP IS NOT NULL;
+
+-- Version 18/01/2011
+
+CREATE TABLE IF NOT EXISTS wtvmT_WebStreamRelationType (
+	Code INTEGER NOT NULL AUTO_INCREMENT,
+	Label VARCHAR(50) NOT NULL,
+	Description VARCHAR(50) NOT NULL,
+	ReverseRelationTypeCode INTEGER NULL,
+	CONSTRAINT PK_WebStreamRelationType PRIMARY KEY(Code),
+	CONSTRAINT FK_WebStreamRelationType_ReverseRelationTypeCode FOREIGN KEY (ReverseRelationTypeCode)
+		REFERENCES wtvmT_WebStreamRelationType(Code)
+) TYPE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS wtvmT_WebStreamRelation (
+	WebStreamId1 INTEGER NOT NULL,
+	WebStreamId2 INTEGER NOT NULL,
+	RelationTypeCode INTEGER NOT NULL,
+	CONSTRAINT PK_WebStreamRelation PRIMARY KEY(WebStreamId1, WebStreamId2),
+	CONSTRAINT FK_WebStreamRelation_WebStreamId1 FOREIGN KEY (WebStreamId1)
+		REFERENCES wtvmT_WebStream(Id),
+	CONSTRAINT FK_WebStreamRelation_WebStreamId2 FOREIGN KEY (WebStreamId2)
+		REFERENCES wtvmT_WebStream(Id),
+	CONSTRAINT FK_WebStreamRelation_RelationTypeCode FOREIGN KEY (RelationTypeCode)
+		REFERENCES wtvmT_WebStreamRelationType(Code)
+) TYPE=InnoDB;
+
+INSERT INTO wtvmT_WebStreamRelationType (Code, Label, Description) VALUES
+	(1, 'Alternative', 'is alternative for'),
+	(2, 'Replacement', 'replace'),
+	(3, 'Replacement', 'is replaced by'),
+	(4, 'Groups', 'is same group than');
+
+UPDATE wtvmT_WebStreamRelationType SET ReverseRelationTypeCode = 1 WHERE Code = 1;
+UPDATE wtvmT_WebStreamRelationType SET ReverseRelationTypeCode = 3 WHERE Code = 2;
+UPDATE wtvmT_WebStreamRelationType SET ReverseRelationTypeCode = 2 WHERE Code = 3;
+UPDATE wtvmT_WebStreamRelationType SET ReverseRelationTypeCode = 4 WHERE Code = 4;

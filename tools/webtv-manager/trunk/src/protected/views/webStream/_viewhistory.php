@@ -1,4 +1,4 @@
-<h3>WebStream History</h3>
+<h3>History</h3>
 
 <?php
 	// Display a grid for the historic for webstream

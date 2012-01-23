@@ -1,4 +1,4 @@
-<h3>WebStream edit requests</h3>
+<h3>Edit requests</h3>
 
 <?php
 	// Display a grid for the historic for webstream

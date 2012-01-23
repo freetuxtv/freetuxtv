@@ -89,10 +89,27 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 	}
 ?>
 
-<br>
+<br/>
+
+<?php
+	$rawData = $model->RelatedWebStream;
+	$dataRelations=new CArrayDataProvider($rawData, array(
+		'id'=>'dataRelations',
+		'keyField'=>'WebStreamId2',/*
+		'sort'=>array(
+		    'attributes'=>array(
+		         'WebStreamId1',
+		    ),
+		),*/
+	));
+
+	echo $this->renderPartial('_viewrelations', array('dataRelations'=>$dataRelations));
+?>
+
+<br/>
 
 <?php echo $this->renderPartial('_viewhistory', array('dataHistory'=>$dataHistory)); ?>
 
-<br>
+<br/>
 
 <?php echo $this->renderPartial('_vieweditrequests', array('dataEditRequests'=>$dataEditRequests)); ?>

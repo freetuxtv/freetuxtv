@@ -70,6 +70,8 @@ class WebStream extends CActiveRecord
 				'params'=>array(":EntityType" => History::ENTITYTYPE_WEBSTREAM, ":ActionType"=>History::ACTIONTYPE_WEBSTREAM_EDITREQUEST),
 				'order'=>'Date DESC',
 			),
+			'RelatedWebStream'=>array(self::HAS_MANY, 'WebStreamRelation', 'WebStreamId2'),
+			'WebStreamRelations'=>array(self::HAS_MANY, 'WebStream', 'WebStreamId1', 'through'=>'RelatedWebStream'),
 		);
 	}
 
