@@ -1,0 +1,83 @@
+
+    FreetuxTV
+    =========
+
+    FreetuxTV is a WebTV player working on the Linux platform based on GTK2+ and LibVLC.
+
+    Features :
+      - Play TV (Free, SFR and WebTV)
+      - Play in full screen mode
+      - Play in miniature Mode
+      - Support for multimedia keys
+      - Add new groups of channels from M3U playlists 
+
+
+    Requirements
+    ============
+
+    - gtk+ (>= 2.12.0)
+    - glib (>= 2.16.0)
+    - dbus-glib-1 (>= 0.74)
+    - libsqlite3 (>= 3.4.0)
+    - libvlc (>= 0.8.6)
+    - libcurl (>= 7.18.0)
+    - libnotify (>= 0.4)
+
+    Report bugs at
+    ==============
+
+    http://code.google.com/p/freetuxtv/issues/list
+
+
+    Installing FreetuxTV
+    ====================
+
+    1) Get the tarball from FreetuxTV website
+    2) Copy it in your home directory
+    3) Untar it:
+        $> tar xvzf freetuxtv-<version>.tar.gz
+    4) Enter the new folder
+        $> cd freetuxtv-<version>
+    5) Run the configure script (you can see options with - help)
+        $> ./configure --prefix=/usr
+    6) Install FreetuxTV
+        $> make install
+       or use sudo to run it as root
+        $> sudo make install
+    7) Run FreetuxTV
+        $> freetuxtv
+
+
+    Uninstalling FreetuxTV
+    ======================
+
+    1) Uninstalling the program
+        $> make uninstall
+    2) Uninstall your profile
+        $> rm -rf ~/.config/FreetuxTV
+
+
+    Installing from SVN repository
+    ==============================
+
+    1) Install needed packages to compile according to your distribution
+      a) Ubuntu
+        $> sudo apt-get install subversion gcc make autoconf automake intltool libtool gettext libgtk2.0-dev libdbus-glib-1-dev libsqlite3-0 libsqlite3-dev libcurl3 libcurl4-openssl-dev vlc libvlc-dev libnotify-dev
+      b) Mandriva Linux
+        $> su root
+        $> urpmi subversion gcc autoconf automake make gettext-devel libgtk+2.0_0-devel vlc libvlc-devel libsqlite3-devel libcurl-devel libnotify-devel
+        $> exit
+      c) openSUSE
+        $> su root
+        $> zypper install subversion gcc autoconf automake make gettext-tools gtk2-devel vlc vlc-devel sqlite3-devel libcurl-devel dbus-1-glib-devel libnotify-devel
+        $> exit
+    2) Get FreetuxTV sources from the SVN
+        $> svn checkout http://freetuxtv.googlecode.com/svn/trunk/ freetuxtv-read-only
+        $> cd freetuxtv-read-only
+    3) Compile it
+        $> ./autogen.sh
+        $> ./configure --prefix=/usr
+        $> make
+        $> sudo make install
+    4) Watch TV
+        $> freetuxtv
