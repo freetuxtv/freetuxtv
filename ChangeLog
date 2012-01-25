@@ -1,3 +1,8 @@
+FreetuxTV 0.6.2 (2011-01-25)
+  - Issue 136 : Fix GTK theme support
+  - Issue 137 : Restore the black background
+  - Issue 140 : Update zh_CN lang
+
 FreetuxTV 0.6.1 (2011-11-24)
   - Add missing file in POTFILE.in (blocking package creation)
 

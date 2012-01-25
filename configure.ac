@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(freetuxtv, 0.6.1, http://code.google.com/p/freetuxtv/)
+AC_INIT(freetuxtv, 0.6.2, http://code.google.com/p/freetuxtv/)
 
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AC_CONFIG_HEADERS([config.h])
