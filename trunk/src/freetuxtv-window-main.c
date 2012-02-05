@@ -300,12 +300,16 @@ windowmain_init(FreetuxTVApp *app)
 	pMenu = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pMenu);
 	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Add a group"));
+	gtk_widget_set_tooltip_text (GTK_WIDGET(pMenuItem),
+	                             _("Add/create a channels group from different sources"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
 	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
 	                 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
 	                 app);
-	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Update TV channels list"));
+	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Synchronize TV channels database"));
+	gtk_widget_set_tooltip_text (GTK_WIDGET(pMenuItem),
+	                             _("Synchronize the TV channels list in the local database from the XML database"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
 	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
