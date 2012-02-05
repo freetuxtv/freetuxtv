@@ -1,4 +1,7 @@
-FreetuxTV 0.6.2 (2011-01-25)
+FreetuxTV 0.6.3 (2012-XX-XX)
+  - Rename the menu to synchronize TV channel list.
+
+FreetuxTV 0.6.2 (2012-01-25)
   - Issue 136 : Fix GTK theme support
   - Issue 137 : Restore the black background
   - Issue 140 : Update zh_CN lang
