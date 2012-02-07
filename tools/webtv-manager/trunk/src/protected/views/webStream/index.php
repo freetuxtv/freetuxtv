@@ -44,9 +44,25 @@ $this->menu=array(
 	}else{
 		$playlist_link = $this->createUrl("playlists/playlist_".$type."_".$lng.".m3u".$querystring);
 	}
+  	$params = array_merge(array("format"=>""), $playlist_params);
 ?>
 
-Playlist corresponding to the search : <br/>
-&nbsp;&nbsp;<?php echo CHtml::link(Yii::app()->getRequest()->getHostInfo().$playlist_link, $playlist_link); ?><br/><br/>
+<b>Export for the current search:</b>
+<?php
+	// Export for M3U format
+	$params["format"] = "m3u";
+	$link = $this->createUrl("WebStreamExport/index", $params);
+	echo CHtml::link("M3U", $link);
+	echo " - ";
+	// Export for XML format
+	$params["format"] = "xml";
+	$link = $this->createUrl("WebStreamExport/index", $params);
+	echo CHtml::link("XML", $link);
+	echo " - ";
+	// Export for coolfvwmmanager format
+	$params["format"] = "coolfvwmmanager";
+	$link = $this->createUrl("WebStreamExport/index", $params);
+	echo CHtml::link("Coolfvwmmanager", $link);
+?>
 
 <?php echo $this->renderPartial('_results', array('dataProvider'=>$dataProvider)); ?>
