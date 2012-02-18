@@ -639,25 +639,43 @@ splashscreen_app_init(gpointer data)
 	// Add player to UI
 	if(error == NULL){
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-			  "Creating media player widget\n");
+		    "Creating media player widget\n");
 		eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
-			                                                  "windowmain_eventboxplayer");
+		    "windowmain_eventboxplayer");
 		GtkLibvlcInstance* instance;
 		gchar **options = NULL;
 		gchar* newoption;
+
+		gint major, minor;
+		gtk_libvlc_get_libvlc_version(&major, &minor, NULL);
+		if(major>=1 || (major == 1 && minor>= 1)){
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+			    "Add LibVLC option: --no-xlib\n");
+			list_options_add_option(&options, "--no-xlib"); // Tell VLC to not use Xlib
+		}
 		if(app->prefs.libvlcconfigfile_mode == 0){
 			// No config file
 			list_options_add_option(&options, "--ignore-config");
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+			    "Add LibVLC option: --ignore-config\n");
 			list_options_add_option(&options, "--no-video-title-show");
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+			    "Add LibVLC option: --no-video-title-show\n");
 		}else if(app->prefs.libvlcconfigfile_mode == 1){
 			// Custom config file
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+			    "Add LibVLC option: --no-ignore-config\n");
 			list_options_add_option(&options, "--no-ignore-config");
 			newoption = g_strdup_printf("--config=%s/vlcrc", szConfigDir);
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+			    "Add LibVLC option: %s\n", newoption);
 			list_options_add_option(&options, newoption);
 			g_free(newoption);
 			newoption = NULL;
 		}else if(app->prefs.libvlcconfigfile_mode == 2){
 			// VLC config file
+			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+			    "Add LibVLC option: --no-ignore-config\n");
 			list_options_add_option(&options, "--no-ignore-config");
 		}
 
@@ -714,7 +732,7 @@ splashscreen_app_init(gpointer data)
 	if(error == NULL){
 		if(app->current.open_channel_name){
 			app->current.open_channel_id = dbsync_get_channel_id_by_name (&dbsync,
-			         app->current.open_channel_name, &error);
+			    app->current.open_channel_name, &error);
 		}
 	}
 
@@ -722,7 +740,7 @@ splashscreen_app_init(gpointer data)
 	// Loading the list of channels
 	if(error == NULL){
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		      "Loading the list of channels\n");
+		    "Loading the list of channels\n");
 		splashscreen_statusbar_push (app, _("Loading the list of channels..."));
 		channels_list_load_channels (app, &dbsync, &error);
 		splashscreen_statusbar_pop (app);
@@ -731,7 +749,7 @@ splashscreen_app_init(gpointer data)
 	// Loading the list of recordings
 	if(error == NULL){
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-			  "Loading the list of recordings\n");
+		    "Loading the list of recordings\n");
 		splashscreen_statusbar_push (app, _("Loading the list of recordings..."));
 		recordings_list_load_recordings (app, &dbsync, &error);
 		recordings_list_updatestatus(app, &dbsync, &error);
@@ -746,13 +764,13 @@ splashscreen_app_init(gpointer data)
 	// Showing the main window
 	if(error == NULL){
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-			  "Showing the main window, hide splashscreen\n");
+		    "Showing the main window, hide splashscreen\n");
 		widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-			                                          "splashscreen");
+		    "splashscreen");
 		gtk_widget_hide(widget);
 
 		widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-			                                          "windowmain");
+		    "windowmain");
 		gtk_widget_show(widget);
 		pMainWindow = widget;
 	}
@@ -760,7 +778,7 @@ splashscreen_app_init(gpointer data)
 	// Set the sound level of the media player
 	if(error == NULL){
 		widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-			                                          "windowmain_volumecontrol");
+		    "windowmain_volumecontrol");
 		gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
 		gtk_libvlc_media_player_set_volume (app->player, app->config.volume, NULL);
 	}
