@@ -646,36 +646,28 @@ splashscreen_app_init(gpointer data)
 		gchar **options = NULL;
 		gchar* newoption;
 
+		// Initialize LibVLC instance
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		    "Initializing LibVLC instance\n");
+
 		gint major, minor;
 		gtk_libvlc_get_libvlc_version(&major, &minor, NULL);
 		if(major>=1 || (major == 1 && minor>= 1)){
-			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-			    "Add LibVLC option: --no-xlib\n");
 			list_options_add_option(&options, "--no-xlib"); // Tell VLC to not use Xlib
 		}
 		if(app->prefs.libvlcconfigfile_mode == 0){
 			// No config file
 			list_options_add_option(&options, "--ignore-config");
-			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-			    "Add LibVLC option: --ignore-config\n");
 			list_options_add_option(&options, "--no-video-title-show");
-			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-			    "Add LibVLC option: --no-video-title-show\n");
 		}else if(app->prefs.libvlcconfigfile_mode == 1){
 			// Custom config file
-			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-			    "Add LibVLC option: --no-ignore-config\n");
 			list_options_add_option(&options, "--no-ignore-config");
 			newoption = g_strdup_printf("--config=%s/vlcrc", szConfigDir);
-			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-			    "Add LibVLC option: %s\n", newoption);
 			list_options_add_option(&options, newoption);
 			g_free(newoption);
 			newoption = NULL;
 		}else if(app->prefs.libvlcconfigfile_mode == 2){
 			// VLC config file
-			g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-			    "Add LibVLC option: --no-ignore-config\n");
 			list_options_add_option(&options, "--no-ignore-config");
 		}
 
