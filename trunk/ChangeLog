@@ -1,5 +1,6 @@
 FreetuxTV 0.6.3 (2012-XX-XX)
   - Rename the menu to synchronize TV channel list.
+  - Add zh_TW lang
 
 FreetuxTV 0.6.2 (2012-01-25)
   - Issue 136 : Fix GTK theme support
