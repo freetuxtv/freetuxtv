@@ -38,7 +38,6 @@ gtk_builder_window_init (GtkBuilderWindow *object)
 static void
 gtk_builder_window_finalize (GObject *object)
 {
-	
 	G_OBJECT_CLASS (gtk_builder_window_parent_class)->finalize (object);
 }
 

@@ -100,7 +100,8 @@ freetuxtv_window_channel_properties_new (GtkWindow *parent, FreetuxTVApp* app, F
 	priv = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_PRIVATE(pWindowChannelProperties);
 	priv->app = app;
 
-	gtk_dialog_add_buttons (GTK_DIALOG(pWindowChannelProperties),
+	GtkWindow* pWindow = gtk_builder_window_get_top_window(GTK_BUILDER_WINDOW(pWindowChannelProperties));
+	gtk_dialog_add_buttons (GTK_DIALOG(pWindow),
 	    "gtk-close", GTK_RESPONSE_CLOSE, NULL);
 
 	// Update from channel
@@ -114,7 +115,7 @@ static void
 dialog_updateinfos(FreetuxTVWindowChannelProperties *pWindowChannelProperties, FreetuxTVChannelInfos* pChannelInfos)
 {
 	GtkBuilder* builder;
-	builder = gtk_builder_dialog_get_builder(GTK_BUILDER_DIALOG(pWindowChannelProperties));
+	builder = gtk_builder_object_get_builder(GTK_BUILDER_OBJECT(pWindowChannelProperties));
 
 	GtkWidget *widget;
 	GObject *object;

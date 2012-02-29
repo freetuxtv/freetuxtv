@@ -61,7 +61,9 @@ gtk_builder_object_constructed (GObject *object)
 	GtkBuilderObjectPrivate* priv;
 	priv = GTK_BUILDER_OBJECT_PRIVATE(object);
 
-	g_print("Loading dialog \"%s\" from %s\n", priv->toplevel_widget_name, priv->uifile);
+	g_log("FreetuxTV", G_LOG_LEVEL_INFO,
+	    "Loading GtkBuilder object \"%s\" from %s\n",
+	    priv->toplevel_widget_name, priv->uifile);
 	
 	gtk_builder_add_from_file (priv->builder, priv->uifile, NULL);
 	
@@ -75,8 +77,10 @@ gtk_builder_object_finalize (GObject *object)
 {
 	GtkBuilderObjectPrivate* priv;
 	priv = GTK_BUILDER_OBJECT_PRIVATE(object);
-	
-	g_print("Destroying dialog \"%s\" from %s\n", priv->toplevel_widget_name, priv->uifile);
+
+	g_log("FreetuxTV", G_LOG_LEVEL_INFO,
+	    "Destroying GtkBuilder object \"%s\" from %s\n",
+	    priv->toplevel_widget_name, priv->uifile);
 	
 	if(priv->uifile){
 		g_free(priv->uifile);
