@@ -216,7 +216,6 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 
 {
 	FreetuxTVCellRendererRecordingsList *self = FREETUXTV_CELLRENDERER_RECORDINGSLIST (cell);
-	GtkStateType state;
 	gint width, height;
 	PangoLayout *layout;
 	gchar* szTmp;
@@ -236,12 +235,13 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 	freetuxtv_cellrenderer_recordingslist_get_size (cell, widget, cell_area,
 	    NULL, NULL,
 	    &width, &height);
-#endif
-			
+	
+	GtkStateType state;
 	state = GTK_STATE_ACTIVE;
 	if ((flags & GTK_CELL_RENDERER_SELECTED) != 0){
 		state = GTK_STATE_SELECTED;
 	}
+#endif
 
 	int cell_xpad;
 	int cell_ypad;
@@ -336,7 +336,7 @@ freetuxtv_cellrenderer_recordingslist_render (GtkCellRenderer *cell,
 
 	// Draw time
 	duration = (self->endTime - self->beginTime) / (G_USEC_PER_SEC * 60);
-	szTmp = g_strdup_printf(_("%lld min"), duration);
+	szTmp = g_strdup_printf(_("%ld min"), duration);
 	layout = gtk_widget_create_pango_layout (widget, szTmp);
 	pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
 
