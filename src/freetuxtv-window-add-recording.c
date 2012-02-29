@@ -131,7 +131,7 @@ freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app, FreetuxTVC
 	}
 
 	GtkBuilder* builder;
-	builder = gtk_builder_dialog_get_builder(GTK_BUILDER_DIALOG(pWindowRecording));
+	builder = gtk_builder_object_get_builder(GTK_BUILDER_OBJECT(pWindowRecording));
 
 	// Private members
 	FreetuxTVWindowRecordingPrivate* priv;
@@ -140,12 +140,14 @@ freetuxtv_window_recording_new (GtkWindow *parent, FreetuxTVApp* app, FreetuxTVC
 
 	priv->pChannelInfos = pChannelInfos;
 	g_object_unref(priv->pChannelInfos);
+
+	GtkWindow* pWindow = gtk_builder_window_get_top_window(GTK_BUILDER_WINDOW(pWindowRecording));
 	
 	// Set the parent
-	gtk_window_set_transient_for (GTK_WINDOW(pWindowRecording), parent);
-	gtk_window_set_position (GTK_WINDOW(pWindowRecording), GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_window_set_transient_for (GTK_WINDOW(pWindow), parent);
+	gtk_window_set_position (GTK_WINDOW(pWindow), GTK_WIN_POS_CENTER_ON_PARENT);
 
-	gtk_dialog_add_buttons (GTK_DIALOG(pWindowRecording),
+	gtk_dialog_add_buttons (GTK_DIALOG(pWindow),
 	    "gtk-cancel", GTK_RESPONSE_CANCEL,
 	    "gtk-ok", GTK_RESPONSE_OK, NULL);
 
@@ -214,7 +216,7 @@ freetuxtv_window_recording_get_recording_infos(FreetuxTVWindowRecording* pWindow
 	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(pWindowRecording);
 	
 	GtkBuilder* builder;
-	builder = gtk_builder_dialog_get_builder(GTK_BUILDER_DIALOG(pWindowRecording));
+	builder = gtk_builder_object_get_builder(GTK_BUILDER_OBJECT(pWindowRecording));
 	
 	GtkWidget *widget;
 
@@ -277,7 +279,7 @@ dialog_updateinfos(FreetuxTVWindowRecording *pWindowRecording,
 	priv = FREETUXTV_WINDOW_RECORDING_PRIVATE(pWindowRecording);
 
 	GtkBuilder* builder;
-	builder = gtk_builder_dialog_get_builder(GTK_BUILDER_DIALOG(pWindowRecording));
+	builder = gtk_builder_object_get_builder(GTK_BUILDER_OBJECT(pWindowRecording));
 
 	duration_entry =  (GtkWidget *) gtk_builder_get_object (builder,
 	    "entry_duration");

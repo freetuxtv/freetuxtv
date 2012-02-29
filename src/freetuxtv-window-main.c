@@ -893,14 +893,14 @@ windowmain_show_dialog_addrecordings(FreetuxTVApp *app, FreetuxTVChannelInfos* p
 	gint res;
 	
 	pWindowRecording = freetuxtv_window_recording_new (GTK_WINDOW(pParent), app, pChannelInfos);
-	res = gtk_dialog_run(GTK_DIALOG(pWindowRecording));
+	res = gtk_builder_dialog_run (GTK_BUILDER_DIALOG(pWindowRecording));
 
 	if(res == GTK_RESPONSE_OK){
 		pRecordingInfos = freetuxtv_window_recording_get_recording_infos (pWindowRecording);
 	}
 
 	// Destroy the window
-	gtk_widget_destroy(GTK_WIDGET(pWindowRecording));
+	gtk_builder_widget_destroy(GTK_BUILDER_WIDGET(pWindowRecording));
 	pWindowRecording = NULL;
 
 	if(res == GTK_RESPONSE_OK){

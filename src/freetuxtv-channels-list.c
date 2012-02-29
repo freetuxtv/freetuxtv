@@ -2193,9 +2193,9 @@ on_popupmenu_activated_channelproperties (GtkMenuItem *menuitem, gpointer user_d
 		FreetuxTVWindowChannelProperties* pWindowChannelProperties;
 		pWindowChannelProperties = freetuxtv_window_channel_properties_new (GTK_WINDOW(pParent), app, pChannelInfos);
 
-		gtk_dialog_run (GTK_DIALOG(pWindowChannelProperties));
+		gtk_builder_dialog_run (GTK_BUILDER_DIALOG(pWindowChannelProperties));
 		
-		gtk_widget_destroy(GTK_WIDGET(pWindowChannelProperties));
+		gtk_builder_widget_destroy(GTK_BUILDER_WIDGET(pWindowChannelProperties));
 		pWindowChannelProperties = NULL;
 	}
 }
