@@ -1785,7 +1785,7 @@ main (int argc, char *argv[])
 		// Initialize log handler
 		idLogHandler = g_log_set_handler (FREETUXTV_LOG_DOMAIN,
 			                              G_LOG_LEVEL_MASK,
-			                              freetuxtv_log, (gpointer*)bTraceDebug);
+			                              freetuxtv_log, (gpointer)bTraceDebug);
 
 #ifdef ENABLE_NLS
 		bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
