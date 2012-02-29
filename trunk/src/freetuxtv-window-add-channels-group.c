@@ -145,8 +145,8 @@ freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app, G
 
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 	FreetuxTVWindowAddChannelsGroupPrivate* priv;
-	GtkBuilder* builder;
 	GtkWidget *widget;
+	GtkWindow *pWindow;
 	
 	gchar* szUiFile = NULL;
 	szUiFile = g_build_filename (app->paths.szPathGladeXml, FREETUXTV_GUIFILE_ADDCHANNELSGROUPS, NULL);
@@ -161,39 +161,48 @@ freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app, G
 		szUiFile = NULL;
 	}
 
-	builder = gtk_builder_window_get_builder(GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
-
 	// Private members
 	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroups);
 	priv->app = app;
-	priv->pModel = (GtkTreeModel*) gtk_builder_get_object (builder,
+	priv->pModel = (GtkTreeModel*) gtk_builder_object_get_object (
+	    GTK_BUILDER_OBJECT(pWindowAddChannelsGroups),
 	    "treestore_channelsgroup");
+
+	pWindow = gtk_builder_window_get_top_window (
+	    GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
 	
 	// Set the parent
-	gtk_window_set_transient_for (GTK_WINDOW(pWindowAddChannelsGroups), parent);
-	gtk_window_set_position (GTK_WINDOW(pWindowAddChannelsGroups), GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_window_set_transient_for (pWindow, parent);
+	gtk_window_set_position (pWindow, GTK_WIN_POS_CENTER_ON_PARENT);
 
 	// Set the tree selection mode
-	widget = (GtkWidget *)gtk_builder_get_object (builder,
+	widget = (GtkWidget *) gtk_builder_object_get_object (
+	    GTK_BUILDER_OBJECT(pWindowAddChannelsGroups),
 		"treeview_channelsgroups");
 	GtkTreeSelection *selection;
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(widget));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
 
 	// Signal to connect instance
-	widget = (GtkWidget*) gtk_builder_get_object (builder, "button_add");
+	widget = (GtkWidget*) gtk_builder_object_get_object (
+	    GTK_BUILDER_OBJECT(pWindowAddChannelsGroups),
+	    "button_add");
 	g_signal_connect(G_OBJECT(widget),
 		"clicked",
 	    G_CALLBACK(on_buttonadd_clicked),
 	    pWindowAddChannelsGroups);
 	
-	widget = (GtkWidget *)gtk_builder_get_object (builder, "button_refresh");
+	widget = (GtkWidget *)gtk_builder_object_get_object (
+	    GTK_BUILDER_OBJECT(pWindowAddChannelsGroups),
+	    "button_refresh");
 	g_signal_connect(G_OBJECT(widget),
 		"clicked",
 		G_CALLBACK(on_buttonrefresh_clicked),
 		pWindowAddChannelsGroups);
 	
-	widget = (GtkWidget *)gtk_builder_get_object (builder, "button_close");
+	widget = (GtkWidget *)gtk_builder_object_get_object (
+	    GTK_BUILDER_OBJECT(pWindowAddChannelsGroups),
+	    "button_close");
 	g_signal_connect(G_OBJECT(widget),
 		"clicked",
 		G_CALLBACK(on_buttonclose_clicked),
@@ -223,7 +232,7 @@ freetuxtv_window_add_channels_group_set_allowed_type (
 	priv->allowedType = allowedType;
 	
 	GtkBuilder *builder;
-	builder = gtk_builder_window_get_builder(GTK_BUILDER_WINDOW(pWindowAddChannelsGroup));
+	builder = gtk_builder_object_get_builder(GTK_BUILDER_OBJECT(pWindowAddChannelsGroup));
 
 	// Show the group allowed
 	GtkNotebook *notebook;
@@ -276,7 +285,7 @@ on_buttonrefresh_clicked (GtkButton *button, gpointer user_data)
 	app = priv->app;
 
 	GtkBuilder *builder;
-	builder = gtk_builder_window_get_builder(GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
+	builder = gtk_builder_object_get_builder(GTK_BUILDER_OBJECT(pWindowAddChannelsGroups));
 
 	GError* error = NULL;
 
@@ -322,7 +331,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 	
 	app = priv->app;
 	GtkBuilder *builder;
-	builder = gtk_builder_window_get_builder(GTK_BUILDER_WINDOW(pWindowAddChannelsGroup));
+	builder = gtk_builder_object_get_builder(GTK_BUILDER_OBJECT(pWindowAddChannelsGroup));
 	
 	GError* error = NULL;
 	gchar *errmsg = NULL;
@@ -701,10 +710,8 @@ freetuxtv_window_add_channels_group_get_app(FreetuxTVWindowAddChannelsGroup* pWi
 static gboolean
 do_idle_destroy_window (gpointer user_data)
 {
-	GtkWidget* pWidget;
-
-	pWidget = (GtkWidget*)user_data;
-	gtk_widget_destroy (GTK_WIDGET(pWidget));
+	g_return_val_if_fail(GTK_IS_BUILDER_WIDGET(user_data), FALSE);
+	gtk_builder_widget_destroy (GTK_BUILDER_WIDGET(user_data));
 
 	return FALSE;
 }

@@ -24,6 +24,8 @@
 
 #include <gtk/gtk.h>
 
+#include "gtk-builder-widget.h"
+
 G_BEGIN_DECLS
 
 #define GTK_TYPE_BUILDER_WINDOW             (gtk_builder_window_get_type ())
@@ -38,18 +40,18 @@ typedef struct _GtkBuilderWindow GtkBuilderWindow;
 
 struct _GtkBuilderWindowClass
 {
-	GtkWindowClass parent_class;
+	GtkBuilderWidgetClass parent_class;
 };
 
 struct _GtkBuilderWindow
 {
-	GtkWindow parent_instance;
+	GtkBuilderWidget parent_instance;
 };
 
 GType gtk_builder_window_get_type (void) G_GNUC_CONST;
 
-GtkBuilder*
-gtk_builder_window_get_builder(GtkBuilderWindow* dialog);
+GtkWindow*
+gtk_builder_window_get_top_window(GtkBuilderWindow* object);
 
 G_END_DECLS
 

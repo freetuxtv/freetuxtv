@@ -1522,13 +1522,8 @@ on_channels_added (
 	}
 }
 
-#if GTK_API_VERSION == 3
 static void
-on_window_add_channels_group_destroy (GtkWidget *widget, gpointer user_data)
-#else
-static void
-on_window_add_channels_group_destroy (GtkObject *object, gpointer user_data)
-#endif
+on_window_add_channels_group_destroy (GtkBuilderWidget *self, gpointer user_data)
 {
 	GtkTreePath** ppCurrentTreePath = (GtkTreePath**)user_data;
 
@@ -1553,13 +1548,16 @@ on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
 
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
 
+	GtkWindow* pWindow;
 	GtkWidget* pParent;
 	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
 	
-	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pParent), app, &error);
+	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (
+	    GTK_WINDOW(pParent), app, &error);
 
 	if(error == NULL){
-		gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
+		pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
+		gtk_widget_show(GTK_WIDGET(pWindow));
 
 		GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
 
