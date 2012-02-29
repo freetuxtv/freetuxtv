@@ -18,6 +18,10 @@ bin_PROGRAMS = freetuxtv
 freetuxtv_SOURCES = \
 	gtk-builder-dialog.c \
 	gtk-builder-dialog.h \
+	gtk-builder-object.c \
+	gtk-builder-object.h \
+	gtk-builder-widget.c \
+	gtk-builder-widget.h \
 	gtk-builder-window.c \
 	gtk-builder-window.h \
 	gtk-date-time-picker.c \
