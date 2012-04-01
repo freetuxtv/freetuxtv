@@ -98,6 +98,7 @@ channels_DATA = \
   ct2e.png \
   demaintv.png \
   direct8.png \
+  directstar.png \
   dubaitv.png \
   dwtv-deutschewelle.png \
   ekodesgarrigues.png \
@@ -189,6 +190,7 @@ channels_DATA = \
   libertytv.png \
   localesidf.png \
   luxetv.png \
+  m6.png \
   m6boutique.png \
   m6musicblack.png \
   m6musicclub.png \
@@ -347,6 +349,7 @@ channels_DATA = \
   telif.png \
   tempomix.png \
   teva.png \
+  tf1.png \
   tfou.png \
   tfouwebtv.png \
   tllteleloire.png \
@@ -394,6 +397,7 @@ channels_DATA = \
   virginradio.png \
   voltage.png \
   voxafrica.png \
+  w9.png \
   weo.png \
   worldfashion.png \
   xiamenstartv.png \
