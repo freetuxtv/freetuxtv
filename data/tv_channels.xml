@@ -317,6 +317,9 @@
 	<tvchannel name="Direct 8">
 		<logo_filename>direct8.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="DirectStar">
+		<logo_filename>directstar.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Dubai TV">
 		<logo_filename>dubaitv.png</logo_filename>
 	</tvchannel>
@@ -614,6 +617,7 @@
 		<label>La chaine parlementaire</label>
 		<label>LCP - Assemblée Nationale 24h/24</label>
 		<label>LCP/PS</label>
+		<label>LCP</label>
 	</tvchannel>
 	<tvchannel name="La Locale">
 		<logo_filename>lalocale.png</logo_filename>
@@ -642,6 +646,9 @@
 	<tvchannel name="Luxe.TV">
 		<logo_filename>luxetv.png</logo_filename>
 		<label>Luxe TV</label>
+	</tvchannel>
+	<tvchannel name="M6">
+		<logo_filename>m6.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="M6 Boutique">
 		<logo_filename>m6boutique.png</logo_filename>
@@ -1150,6 +1157,9 @@
 	<tvchannel name="TEVA">
 		<logo_filename>teva.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="TF1">
+		<logo_filename>tf1.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="TFou">
 		<logo_filename>tfou.png</logo_filename>
 	</tvchannel>
@@ -1301,6 +1311,9 @@
 	</tvchannel>
 	<tvchannel name="Vox Africa">
 		<logo_filename>voxafrica.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="W9">
+		<logo_filename>w9.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Wéo">
 		<logo_filename>weo.png</logo_filename>
