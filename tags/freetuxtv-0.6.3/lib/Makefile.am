@@ -1,0 +1,4 @@
+
+SUBDIRS = \
+	libdbevolution \
+	libvlc-gtk
