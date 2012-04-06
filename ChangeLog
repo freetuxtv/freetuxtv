@@ -1,4 +1,6 @@
-FreetuxTV 0.6.3 (2012-01-26)
+FreetuxTV 0.6.4 (2012-XX-XX)
+
+FreetuxTV 0.6.3 (2012-04-01)
   - Rename the menu to synchronize TV channel list.
   - Add zh_TW lang
   - Fix compilation with VLC 2.0.x
