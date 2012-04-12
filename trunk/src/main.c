@@ -1682,20 +1682,35 @@ static void
 show_help()
 {
 	g_print("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
-	g_print("Usage: freetuxtv [option...]\n");
+	g_print("Usage: freetuxtv [OPTION...]\n");
 	g_print("\n");
 	g_print("Options:\n");
-	g_print("-h, --help            show this help message and exit\n");
+	g_print("  -h, --help        display this help and exit\n");
+	g_print("      --version     output version information and exit\n");
 	g_print("\n");
 	g_print("Channel:\n");
-	g_print("--open-channel CHANNEL_NAME\n");
-	g_print("                      look for a channel corresponding to the name and \n");
-	g_print("                      play it if found (take first in the channels list)\n");
+	g_print("  --open-channel CHANNEL_NAME\n");
+	g_print("                    look for a channel corresponding to the name and \n");
+	g_print("                    play it if found (take first in the channels list)\n");
 	g_print("\n");
 	g_print("Debug options:\n");
-	g_print("--datadir DATA_DIR\n");
-	g_print("                      Set data directory\n");
-	g_print("-v, --verbose         display a more detailled trace\n");
+	g_print("      --datadir DATA_DIR\n");
+	g_print("                    set data directory\n");
+	g_print("  -v, --verbose     display a more detailled trace\n");
+	g_print("\n");
+	g_print("Report bugs to http://code.google.com/p/freetuxtv/issues/list.\n");
+}
+
+static void
+show_version()
+{
+	g_print("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+	g_print("\n");
+	g_print("Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>\n");
+	g_print("This is free software; see the source for copying conditions.  There is NO\n");
+	g_print("warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n");
+    g_print("\n");
+    g_print("Written by Eric Beuque\n");
 }
 
 static void
@@ -1718,6 +1733,7 @@ main (int argc, char *argv[])
 	gchar*   szErrMsg = NULL;
 	
 	gboolean bShowHelp = FALSE;
+	gboolean bShowVersion = FALSE;
 	gboolean bTraceDebug = FALSE;
 	gboolean bOpenChannel = FALSE;
 //	gchar* szUri;
@@ -1735,6 +1751,10 @@ main (int argc, char *argv[])
 				if(g_ascii_strcasecmp("-h", argv[p]) == 0 || g_ascii_strcasecmp("--help", argv[p]) == 0){
 					// Found the show help option
 					bShowHelp = TRUE;
+					bStopParseArgs = TRUE;
+				}else if(g_ascii_strcasecmp("--version", argv[p]) == 0){
+					// Found the version option
+					bShowVersion = TRUE;
 					bStopParseArgs = TRUE;
 				}else if(g_ascii_strcasecmp("-v", argv[p]) == 0 || g_ascii_strcasecmp("--verbose", argv[p]) == 0){
 					// Found the verbose option
@@ -1781,6 +1801,11 @@ main (int argc, char *argv[])
 
 	if(bShowHelp){
 		show_help();
+		bQuit = TRUE;
+	}
+
+	if(bShowVersion){
+		show_version();
 		bQuit = TRUE;
 	}
 
