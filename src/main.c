@@ -782,6 +782,8 @@ splashscreen_app_init(gpointer data)
 		}
 	}
 
+	GtkWindow* pWindow;
+	
 	// Display add group window if no channels group installed
 	if(error == NULL){
 		int nb_channelsgroup;
@@ -792,7 +794,8 @@ splashscreen_app_init(gpointer data)
 			pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pMainWindow), app, &error);
 
 			if(error == NULL){
-				gtk_widget_show(GTK_WIDGET(pWindowAddChannelsGroups));
+				pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
+				gtk_widget_show(GTK_WIDGET(pWindow));
 
 				GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
 
