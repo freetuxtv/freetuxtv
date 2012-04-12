@@ -207,8 +207,15 @@ freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app, G
 		"clicked",
 		G_CALLBACK(on_buttonclose_clicked),
 	    pWindowAddChannelsGroups);
-	
+
+	// We must load the interface event if the file is corrupted 
 	load_model_channels_group_from_file (priv->app, priv->pModel, error);
+	if(*error != NULL){
+		// So we just display the error message
+		windowmain_show_gerror (app, *error);
+		g_error_free (*error);
+		*error = NULL;
+	}
 
 	if(*error != NULL){
 		g_object_unref (G_OBJECT(pWindowAddChannelsGroups));
