@@ -1,6 +1,8 @@
 channelsdir   = $(datadir)/freetuxtv/images/channels
-channels_DATA = \
-  _none.png \
+
+channels_logodefault = _none.png
+
+channels_logos = \
   1onairconnect.png \
   100pourcentradio.png \
   2mmaroc.png \
@@ -406,4 +408,11 @@ channels_DATA = \
   zdf_de.png \
   zhejiangstartv.png \
   zona31.png
+
+if LOGOS_INSTALL
+channels_DATA = $(channels_logodefault) $(channels_logos)
+else
+channels_DATA = $(channels_logodefault)
+endif
+
 EXTRA_DIST   = $(channels_DATA)

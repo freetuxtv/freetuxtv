@@ -77,11 +77,12 @@ if test "$LIBVLC_FOUND" == "no"; then
   fi
 fi
 dnl Set variable for the config.h
+AC_MSG_CHECKING([which LibVLC version to compile against])
 if test "$LIBVLC_FOUND" == "yes"; then
   LIBVLC_VERSION_MAJOR=`echo $LIBVLC_VERSION | cut -d'.' -f1`
   LIBVLC_VERSION_MINOR=`echo $LIBVLC_VERSION | cut -d'.' -f2`
   LIBVLC_VERSION_REVISION=`echo $LIBVLC_VERSION | cut -d'.' -f3`
-  echo "compiling with LibVLC version $LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR.$LIBVLC_VERSION_REVISION"
+  AC_MSG_RESULT([$LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR.$LIBVLC_VERSION_REVISION])
   AC_DEFINE_UNQUOTED(LIBVLC_VERSION_MAJOR, $LIBVLC_VERSION_MAJOR, [LibVLC version major used for complication])
   AC_DEFINE_UNQUOTED(LIBVLC_VERSION_MINOR, $LIBVLC_VERSION_MINOR, [Current LibVLC version minor])
   AC_DEFINE_UNQUOTED(LIBVLC_VERSION_REVISION, $LIBVLC_VERSION_REVISION, [Current LibVLC version revision])
@@ -107,11 +108,12 @@ if test "$PKGCONFIG" == "yes"; then
   fi
 fi
 dnl Set variable for the config.h
+AC_MSG_CHECKING([which libnotify version to compile against])
 if test "$LIBNOTIFY_FOUND" == "yes"; then
   LIBNOTIFY_VERSION_MAJOR=`echo $LIBNOTIFY_VERSION | cut -d'.' -f1`
   LIBNOTIFY_VERSION_MINOR=`echo $LIBNOTIFY_VERSION | cut -d'.' -f2`
   LIBNOTIFY_VERSION_REVISION=`echo $LIBNOTIFY_VERSION | cut -d'.' -f3`
-  echo "compiling with libnotify version $LIBNOTIFY_VERSION_MAJOR.$LIBNOTIFY_VERSION_MINOR.$LIBNOTIFY_VERSION_REVISION"
+  AC_MSG_RESULT([$LIBNOTIFY_VERSION_MAJOR.$LIBNOTIFY_VERSION_MINOR.$LIBNOTIFY_VERSION_REVISION])
   AC_DEFINE_UNQUOTED(LIBNOTIFY_VERSION_MAJOR, $LIBNOTIFY_VERSION_MAJOR, [libnotify version major used for complication])
   AC_DEFINE_UNQUOTED(LIBNOTIFY_VERSION_MINOR, $LIBNOTIFY_VERSION_MINOR, [Current libnotify version minor])
   AC_DEFINE_UNQUOTED(LIBNOTIFY_VERSION_REVISION, $LIBNOTIFY_VERSION_REVISION, [Current libnotify version revision])
@@ -158,6 +160,20 @@ case "$with_gtk" in
        AC_DEFINE(GTK_API_VERSION, 2, [Have GTK+ 2.0])
        ;;
 esac
+
+dnl Check if logo must be installed
+AC_MSG_CHECKING([whether to install logos])
+AC_ARG_WITH([logos-install],
+  [AS_HELP_STRING([--without-logos-install],[disable logos installation])],
+  [],
+  [without_logos_install=yes])
+if test "x$without_logos_install" == xyes; then
+	AC_MSG_RESULT([yes])
+	AM_CONDITIONAL(LOGOS_INSTALL, true)
+else
+	AC_MSG_RESULT([no])
+	AM_CONDITIONAL(LOGOS_INSTALL, false)
+fi
 
 PKG_CHECK_MODULES(GTK, gtk+-$GTK_PKG_API_VERSION >= $GTK_REQUIRED)
 
