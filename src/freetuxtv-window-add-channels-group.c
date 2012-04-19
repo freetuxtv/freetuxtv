@@ -343,6 +343,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 	GError* error = NULL;
 	gchar *errmsg = NULL;
 
+	GtkWindow* pWindow;
 	GtkWidget* widget;
 	GtkProgressDialog* pProgressDialog = NULL;
 	
@@ -360,6 +361,8 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 
 	widget = (GtkWidget *) gtk_builder_get_object (builder,
 	    "notebook_dialogaddgroup");
+
+	pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowAddChannelsGroup));
 
 	if(error == NULL){
 		int page;
@@ -394,7 +397,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 
 			// Initialize the dialog progress
 			if(has_process){
-				pProgressDialog = gtk_progress_dialog_new (GTK_WINDOW(pWindowAddChannelsGroup));
+				pProgressDialog = gtk_progress_dialog_new (GTK_WINDOW(pWindow));
 				gtk_progress_dialog_set_title(pProgressDialog, _("Adding channels groups"));
 				gtk_widget_show(GTK_WIDGET(pProgressDialog));
 			}
@@ -542,7 +545,7 @@ on_buttonadd_clicked (GtkButton *button, gpointer user_data)
 			}
 			
 			if(errmsg == NULL){
-				pProgressDialog = gtk_progress_dialog_new (GTK_WINDOW(pWindowAddChannelsGroup));
+				pProgressDialog = gtk_progress_dialog_new (GTK_WINDOW(pWindow));
 				gtk_progress_dialog_set_title(pProgressDialog, _("Adding channels groups"));
 				gtk_widget_show(GTK_WIDGET(pProgressDialog));
 			
