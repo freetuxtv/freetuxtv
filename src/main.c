@@ -1633,7 +1633,7 @@ void
 freetuxtv_log (const gchar *log_domain, GLogLevelFlags log_level,
                const gchar *message, gpointer user_data)
 {
-	gboolean debug = (gboolean)user_data;
+	gboolean debug = (gboolean)(user_data ? *((gboolean*)user_data) : FALSE);
 	const gchar* levelmsg = "";
 	gchar* szDomain;
 
@@ -1813,7 +1813,7 @@ main (int argc, char *argv[])
 		// Initialize log handler
 		idLogHandler = g_log_set_handler (FREETUXTV_LOG_DOMAIN,
 			                              G_LOG_LEVEL_MASK,
-			                              freetuxtv_log, (gpointer)bTraceDebug);
+			                              freetuxtv_log, &bTraceDebug);
 
 #ifdef ENABLE_NLS
 		bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
