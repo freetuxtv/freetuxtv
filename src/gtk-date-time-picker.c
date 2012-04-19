@@ -17,10 +17,12 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#define _XOPEN_SOURCE /* For strptime */ 
+#include <time.h>
+
 #include "gtk-date-time-picker.h"
 
 #include <stdlib.h>
-#include <time.h>
 
 typedef struct _GtkDateTimePickerPrivate GtkDateTimePickerPrivate;
 struct _GtkDateTimePickerPrivate
