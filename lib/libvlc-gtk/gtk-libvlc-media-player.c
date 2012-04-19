@@ -42,6 +42,9 @@ struct _GtkLibvlcMediaPlayerPrivate
 	GtkWidget* pWigdetOriginalParent;
 	GtkWidget* pWindowFullscreen;
 
+	gint root_x;
+	gint root_y;
+
 	gboolean isModeFullscreen;
 
 	GtkAccelGroup *pAccelGroup;
@@ -1618,6 +1621,7 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean ful
 
 				GtkWidget *pTopLevel = gtk_widget_get_toplevel (priv->pWigdetOriginalParent);
 				if (gtk_widget_is_toplevel (pTopLevel)) {
+					gtk_window_get_position (GTK_WINDOW(pTopLevel), &priv->root_x, &priv->root_y); 
 					gtk_widget_hide(pTopLevel);
 				}
 					
@@ -1639,6 +1643,8 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean ful
 				GtkWidget *pTopLevel = gtk_widget_get_toplevel (priv->pWigdetOriginalParent);
 				if (gtk_widget_is_toplevel (pTopLevel)) {
 					gtk_widget_show(pTopLevel);
+					// Restore the previous position of the windows that was erased by gtk_widget_hide
+					gtk_window_move(GTK_WINDOW(pTopLevel), priv->root_x, priv->root_y); 
 				}
 
 				
