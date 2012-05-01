@@ -19,7 +19,9 @@
 
 #include "gtk-progress-dialog.h"
 
-#include <config.h>
+#include <gtk/gtkvbox.h>
+#include <gtk/gtklabel.h>
+#include <gtk/gtkprogressbar.h>
 
 typedef struct _GtkProgressDialogPrivate GtkProgressDialogPrivate;
 struct _GtkProgressDialogPrivate
@@ -33,10 +35,9 @@ struct _GtkProgressDialogPrivate
 
 #define GTK_PROGRESS_DIALOG_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), GTK_TYPE_PROGRESS_DIALOG, GtkProgressDialogPrivate))
 
-G_DEFINE_TYPE (GtkProgressDialog, gtk_progress_dialog, GTK_TYPE_DIALOG);
 
-static void 
-on_dialog_response (GtkDialog *dialog, gint response_id, gpointer user_data);
+
+G_DEFINE_TYPE (GtkProgressDialog, gtk_progress_dialog, GTK_TYPE_DIALOG);
 
 static void
 gtk_progress_dialog_init (GtkProgressDialog *object)
@@ -105,14 +106,7 @@ gtk_progress_dialog_new(GtkWindow* parent)
 
 	gtk_box_pack_start (GTK_BOX(vbox), priv->text_widget, TRUE, TRUE, 0);
 
-	GtkBox* pDialogVBox;
-#if GTK_API_VERSION == 3
-	pDialogVBox = GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG (dialog)));
-#else
-	pDialogVBox = GTK_BOX(GTK_DIALOG (dialog)->vbox);
-#endif
-
-	gtk_box_pack_start (pDialogVBox, vbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX(GTK_DIALOG (dialog)->vbox), vbox, FALSE, FALSE, 0);
 	gtk_widget_show_all(vbox);
 
 	// Initialize signals for dialogprogress
@@ -120,15 +114,9 @@ gtk_progress_dialog_new(GtkWindow* parent)
 	    "gtk-close", GTK_RESPONSE_CLOSE, NULL);
 
 	g_signal_connect(G_OBJECT(dialog), "response",
-	    G_CALLBACK(on_dialog_response), NULL);
-
-	gtk_window_set_deletable (GTK_WINDOW(dialog), FALSE);
-
-	gtk_progress_dialog_set_button_close_enabled(dialog, FALSE);
-
-	while (gtk_events_pending()) {
-	    gtk_main_iteration();
-	}
+	    G_CALLBACK(gtk_widget_hide_on_delete), NULL);
+	g_signal_connect(G_OBJECT(dialog), "delete-event",
+	    G_CALLBACK(gtk_widget_hide_on_delete), NULL);	
 	
 	return dialog;
 }
@@ -149,10 +137,6 @@ gtk_progress_dialog_set_title(GtkProgressDialog* dialog, gchar *title)
 	text = g_strdup_printf("<span size=\"large\"><b>%s</b></span>", title);
 	gtk_label_set_markup(GTK_LABEL(priv->title_widget), text);
 	g_free(text);
-	
-	while (gtk_events_pending()) {
-	    gtk_main_iteration();
-	}
 }
 
 void
@@ -165,10 +149,6 @@ gtk_progress_dialog_set_text(GtkProgressDialog* dialog, gchar *text)
 	priv = GTK_PROGRESS_DIALOG_PRIVATE(dialog);
 
 	gtk_label_set_markup(GTK_LABEL(priv->text_widget), text);
-	
-	while (gtk_events_pending()) {
-	    gtk_main_iteration();
-	}
 }
 
 void
@@ -187,41 +167,4 @@ gtk_progress_dialog_set_percent(GtkProgressDialog* dialog, gdouble percent)
 	text = g_strdup_printf("%0.0f %%", percent * 100);
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(priv->progress_widget), text);
 	g_free(text);
-	
-	while (gtk_events_pending()) {
-	    gtk_main_iteration();
-	}
-}
-
-void
-gtk_progress_dialog_set_button_close_enabled(GtkProgressDialog* dialog, gboolean enabled)
-{
-	g_return_if_fail(dialog!=NULL);
-	g_return_if_fail(GTK_IS_PROGRESS_DIALOG(dialog));
-
-	GtkWidget* widget;
-	widget = gtk_dialog_get_widget_for_response  (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
-	gtk_widget_set_sensitive (widget, enabled);
-	
-	while (gtk_events_pending()) {
-	    gtk_main_iteration();
-	}
-}
-
-static gboolean
-do_idle_destroy_window (gpointer user_data)
-{
-	GtkWidget* pWidget;
-
-	pWidget = (GtkWidget*)user_data;
-	gtk_widget_destroy (GTK_WIDGET(pWidget));
-
-	return FALSE;
-}
-
-static void 
-on_dialog_response (GtkDialog *dialog, gint response_id, gpointer user_data)
-{
-	// We do the destruction after the button clicked event is finished
-	g_idle_add (do_idle_destroy_window, (gpointer)dialog);
 }

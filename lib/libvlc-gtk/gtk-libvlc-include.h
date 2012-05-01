@@ -24,6 +24,21 @@
 #  include <config.h>
 #endif
 
+// Set default value for LIBVLC_VERSION_MAJOR
+#ifndef LIBVLC_VERSION_MAJOR
+#error "LIBVLC_VERSION_MAJOR must be defined."
+#endif
+
+// Set default value for LIBVLC_VERSION_MINOR
+#ifndef LIBVLC_VERSION_MINOR
+#error "LIBVLC_VERSION_MINOR must be defined."
+#endif
+
+// Set default value for LIBVLC_VERSION_REVISION
+#ifndef LIBVLC_VERSION_REVISION
+#error "LIBVLC_VERSION_REVISION must be defined."
+#endif
+
 // Max volume power for VLC
 #define LIBVLC_MAX_VOLUME_POWER 2.0 // Represent a percentage (2.0 = 200%)
 
@@ -38,20 +53,5 @@ typedef enum
 
 GQuark
 gtk_libvlc_error_quark ();
-
-// Enum
-typedef enum {
-	// Media player event
-	GTK_LIBVLC_EVENT_MP_NOTHINGSPECIAL,
-	GTK_LIBVLC_EVENT_MP_OPENING,
-	GTK_LIBVLC_EVENT_MP_BUFFERING,
-	GTK_LIBVLC_EVENT_MP_PLAYING,
-	GTK_LIBVLC_EVENT_MP_PAUSED,
-	GTK_LIBVLC_EVENT_MP_STOPPED,
-	GTK_LIBVLC_EVENT_MP_FORWARD,
-	GTK_LIBVLC_EVENT_MP_BACKWARD,
-	GTK_LIBVLC_EVENT_MP_ENDREACHED,
-	GTK_LIBVLC_EVENT_MP_ENCOUTEREDERROR,
-} GtkLibvlcEventType;
 
 #endif /* _GTK_LIBVLC_INCLUDE_H_ */

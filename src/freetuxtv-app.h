@@ -30,7 +30,6 @@
 #include <libvlc-gtk/gtk-libvlc-media-player.h>
 
 #include "freetuxtv-channel-infos.h"
-#include "freetuxtv-recording-infos.h"
 #include "freetuxtv-fileutils.h"
 
 G_BEGIN_DECLS
@@ -48,12 +47,10 @@ struct _FreetuxTVApp {
 
 	GtkLibvlcMediaPlayer *player;
 	GtkTreeModel *channelslist;
-	GtkTreeModel *pRecordingList;
 
 	struct {
 		gchar* datadir;
 		gchar* gladexmlfile;
-		gchar* szPathGladeXml;
 	} paths;
 
 	struct {		
@@ -71,7 +68,6 @@ struct _FreetuxTVApp {
 		gchar* transcoding_format;
 
 		// Prefs network
-		gint timeout;
 		GProxyStruct proxy;
 		
 	} prefs;
@@ -89,15 +85,17 @@ struct _FreetuxTVApp {
 	struct {
 		gchar* open_channel_name;
 		gint open_channel_id;
-		GtkTreePath *pPathChannel;
+		GtkTreePath *path_channel;
 		gboolean autoplay_channel;
 		NotifyNotification *notification;
 		gboolean bIsAccelGroupActivated;
 		
 		gboolean is_recording;
 		struct {
-			FreetuxTVRecordingInfos* pRecordingInfo;
+			gchar* dst_file;
 			GTimeVal time_begin;
+			gint max_duration;
+			GTimer *duration;
 		} recording;
 
 	} current;
@@ -114,8 +112,6 @@ struct _FreetuxTVApp {
 		GtkWidget* pMenuDeinterlaceLinear;
 		GtkWidget* pMenuDeinterlaceMean;
 		GtkWidget* pMenuDeinterlaceX;
-
-		GtkWidget* pPlayerErrorDialog;
 	} widget;
 };
 typedef struct _FreetuxTVApp FreetuxTVApp;
@@ -133,10 +129,7 @@ void
 freetuxtv_action_stop (FreetuxTVApp *app, GError** error);
 
 void
-freetuxtv_action_start_recording (FreetuxTVApp *app, FreetuxTVRecordingInfos* pRecordingInfos, GError** error);
-
-void
-freetuxtv_action_stop_recording (FreetuxTVApp *app, FreetuxTVRecordingInfos* pRecordingInfos, GError** error);
+freetuxtv_action_record (FreetuxTVApp *app, GError** error);
 
 void
 freetuxtv_action_prev (FreetuxTVApp *app, GError** error);

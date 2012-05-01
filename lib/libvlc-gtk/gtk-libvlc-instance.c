@@ -133,7 +133,7 @@ raise_error(GtkLibvlcInstance *self, GError** error, gpointer user_data)
 
 /**
  * gtk_libvlc_instance_new:
- * @vlc_args: a NULL terminated string array containing the vlc command line arguments. Can be NULL.
+ * @vlc_args: a string array containing the vlc command line arguments. Can be NULL.
  * @log_func: pointer to a Glib log function to send internal libvlc-gtk message.
  * @error: a pointer to an error object that will be initialized if an error happend.
  * Should be freed when it is no longer needed with g_error_free(). Can be NULL.
@@ -214,12 +214,6 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** er
 	raise_error(self, &pError, NULL);	
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
-	if(pError == NULL && !priv->libvlc_instance){
-		pError = g_error_new (GTK_LIBVLC_ERROR,
-		    GTK_LIBVLC_ERROR_LIBVLC,
-		    "%s", "Cannot initialize the LibVLC");
-	}
-	
 	if(pError){
 		if(error){
 			*error = pError;
@@ -227,8 +221,6 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** er
 			g_error_free (pError);
 			pError = NULL;
 		}
-		g_object_unref(self);
-		self = NULL;
 	}
 
 	return self;

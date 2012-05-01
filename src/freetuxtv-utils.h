@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
 /*
  * FreetuxTV is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,19 +33,7 @@ gchar*
 format_size(glong size);
 
 gchar*
-get_recording_options(FreetuxTVApp *app, gchar* szBaseFilename, gboolean from_preview, gchar **pszOutFilename);
-
-gint64
-g_time_val_to_int64 (GTimeVal *timeval);
-
-gchar*
-g_time_int64_to_string(gint64 time, const gchar* format);
-
-gint64
-g_string_to_time_int64(const gchar* strtime, const gchar* format);
-
-void
-g_time_int64_add_seconds (gint64 *time, glong seconds);
+get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_preview, gchar **out_filename);
 
 void
 g_time_val_add_seconds (GTimeVal *timeval, glong seconds);
@@ -61,9 +49,6 @@ g_time_val_to_string(GTimeVal *timeval, const gchar* format);
 
 gchar*
 g_utf8_removediacritics(const gchar *str, gssize len);
-
-void
-g_print_datetime (GDateTime *datetime);
 
 
 #endif /* FREETUXTV_UTILS_H */

@@ -21,7 +21,7 @@
 #define _GTK_PROGRESS_DIALOG_H_
 
 #include <glib-object.h>
-#include <gtk/gtk.h>
+#include <gtk/gtkdialog.h>
 
 G_BEGIN_DECLS
 
@@ -60,8 +60,5 @@ gtk_progress_dialog_set_text(GtkProgressDialog* dialog, gchar *text);
 
 void
 gtk_progress_dialog_set_percent(GtkProgressDialog* dialog, gdouble percent);
-
-void
-gtk_progress_dialog_set_button_close_enabled(GtkProgressDialog* dialog, gboolean enabled);
 
 #endif /* _GTK_PROGRESS_DIALOG_H_ */

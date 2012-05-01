@@ -25,7 +25,6 @@
 #include "freetuxtv-i18n.h"
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-tv-channel-infos.h"
-#include "freetuxtv-channels-list.h"
 
 typedef struct _CBXMLData
 {
@@ -100,78 +99,34 @@ tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 	windowmain_statusbar_pop (app, "UpdateMsg");
 }
 
-
-static gchar*
+gchar*
 tvchannels_list_get_tvchannel_logo_path(FreetuxTVApp *app, 
-    gchar* szLogoName, gboolean bNoneIcon)
+    FreetuxTVChannelInfos* channel_infos,
+    gboolean none_icon)
 {
-	gchar *szImgFile = NULL;
-	gchar *szUserImgChannelsDir;
-	gboolean bFound = FALSE;
-	
-	szUserImgChannelsDir = g_build_filename(g_get_user_data_dir(), 
+	gchar *imgfile = NULL;
+	gchar *user_img_channels_dir;
+	user_img_channels_dir = g_build_filename(g_get_user_data_dir(), 
 	    "freetuxtv", "images", "channels", NULL);
-	
-	if(szLogoName != NULL){
-		// We look in the user logo directory
-		szImgFile = g_build_filename(szUserImgChannelsDir, szLogoName, NULL);
-		if(g_file_test(szImgFile, G_FILE_TEST_EXISTS)){
-			bFound = TRUE;
-		}else{
-			g_free(szImgFile);
-			szImgFile = NULL;
-		}
-		if(!bFound){
-			szImgFile = g_build_filename(app->paths.datadir, "images", "channels", szLogoName, NULL);
-			if(g_file_test(szImgFile, G_FILE_TEST_EXISTS)){
-				bFound = TRUE;
-			}else{
-				g_free(szImgFile);
-				szImgFile = NULL;
+	if(channel_infos->logo_name == NULL){
+		if(none_icon){
+			imgfile = g_build_filename(user_img_channels_dir, "_none.png", NULL);	
+			if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
+				g_free(imgfile);
+				imgfile = g_build_filename(app->paths.datadir, "images", "channels", "_none.png", NULL);
 			}
 		}
-	}
-
-	if(!bFound){
-		if(bNoneIcon){
-			szImgFile = g_build_filename(szUserImgChannelsDir, "_none.png", NULL);	
-			if(g_file_test(szImgFile, G_FILE_TEST_EXISTS)){
-				szImgFile = NULL;
-			}else{
-				g_free(szImgFile);
-				szImgFile = g_build_filename(app->paths.datadir, "images", "channels", "_none.png", NULL);
-			}
+	}else{
+		imgfile = g_build_filename(user_img_channels_dir, channel_infos->logo_name, NULL);
+		if(!g_file_test(imgfile,G_FILE_TEST_EXISTS)){
+			g_free(imgfile);
+			imgfile = g_build_filename(app->paths.datadir, "images", "channels", channel_infos->logo_name, NULL);
 		}
 	}
 
-	g_free(szUserImgChannelsDir);
-	szUserImgChannelsDir = NULL;
+	g_free(user_img_channels_dir);
 
-	return szImgFile;
-}
-
-gchar*
-tvchannels_list_get_tvchannel_logo_path_for_channel(FreetuxTVApp *app, 
-    FreetuxTVChannelInfos* pChannelInfos,
-    gboolean bNoneIcon)
-{
-	gchar* szLogoName = NULL;
-	if(pChannelInfos){
-	    szLogoName = pChannelInfos->logo_name;
-	}
-	return tvchannels_list_get_tvchannel_logo_path(app, szLogoName, bNoneIcon);
-}
-
-gchar*
-tvchannels_list_get_tvchannel_logo_path_for_recording(FreetuxTVApp *app, 
-    FreetuxTVRecordingInfos* pRecordingInfos,
-    gboolean bNoneIcon)
-{
-	FreetuxTVChannelInfos* pChannelInfos = NULL;
-
-	pChannelInfos = channels_list_get_channel_by_id(app, pRecordingInfos->channel_id);
-	
-	return tvchannels_list_get_tvchannel_logo_path_for_channel(app, pChannelInfos, bNoneIcon);
+	return imgfile;
 }
 
 static void 

@@ -12,7 +12,7 @@ libdbevolution_la_LDFLAGS = \
 	$(AM_LDFLAGS)
 
 libdbevolution_la_LIBADD = \
-	$(LIBDBEVOLUTION_LDFLAGS)
+	$(LIBDBEVOLUTION_LIBS)
 
 libdbevolutionincludedir = $(includedir)/libdbevolution
 libdbevolutioninclude_HEADERS = \

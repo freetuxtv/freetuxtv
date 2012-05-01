@@ -162,24 +162,6 @@
 	<tvchannel name="Calais TV">
 		<logo_filename>calaistv.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="Canal10 Tucuman">
-		<logo_filename>canal10tucuman.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Canal26">
-		<logo_filename>canal26.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Canal4 SanJuan">
-		<logo_filename>canal4sanjuan.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Canal5 Tucuman">
-		<logo_filename>canal5tucuman.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Canal6 Posadas">
-		<logo_filename>canal6posadas.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Canal9 EntreRios">
-		<logo_filename>canal9entrerios.png</logo_filename>
-	</tvchannel>
 	<tvchannel name="Canal Académie">
 		<logo_filename>canalacademie.png</logo_filename>
 	</tvchannel>
@@ -198,9 +180,6 @@
 	</tvchannel>
 	<tvchannel name="Canal savoir">
 		<logo_filename>canalsavoir.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="CanalRural">
-		<logo_filename>canalrural.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="CanalTV">
 		<logo_filename>canaltv.png</logo_filename>
@@ -316,9 +295,6 @@
 	</tvchannel>
 	<tvchannel name="Direct 8">
 		<logo_filename>direct8.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="DirectStar">
-		<logo_filename>directstar.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Dubai TV">
 		<logo_filename>dubaitv.png</logo_filename>
@@ -513,9 +489,6 @@
 	<tvchannel name="HiScore TV">
 		<logo_filename>hiscore.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="Hit Music TV">
-		<logo_filename>hitmusictv.png</logo_filename>
-	</tvchannel>
 	<tvchannel name="Hit West">
 		<logo_filename>hitwest.png</logo_filename>
 	</tvchannel>
@@ -542,8 +515,8 @@
 	</tvchannel>
 	<tvchannel name="i&gt;TELE">
 		<logo_filename>itelevision.png</logo_filename>
-		<label>i&gt; TELE</label>
-		<label>i&gt;Tele</label>
+		<label>i> TELE</label>
+		<label>i>Tele</label>
 	</tvchannel>
 	<tvchannel name="Jamzine TV">
 		<logo_filename>jamzine.png</logo_filename>
@@ -617,7 +590,6 @@
 		<label>La chaine parlementaire</label>
 		<label>LCP - Assemblée Nationale 24h/24</label>
 		<label>LCP/PS</label>
-		<label>LCP</label>
 	</tvchannel>
 	<tvchannel name="La Locale">
 		<logo_filename>lalocale.png</logo_filename>
@@ -647,9 +619,6 @@
 		<logo_filename>luxetv.png</logo_filename>
 		<label>Luxe TV</label>
 	</tvchannel>
-	<tvchannel name="M6">
-		<logo_filename>m6.png</logo_filename>
-	</tvchannel>
 	<tvchannel name="M6 Boutique">
 		<logo_filename>m6boutique.png</logo_filename>
 	</tvchannel>
@@ -674,7 +643,6 @@
 	<tvchannel name="Ma Chaîne Etudiante">
 		<logo_filename>mce-ma_chaine_etudiante.png</logo_filename>
 		<label>Ma Chaine Etudiante</label>
-		<label>MCE</label>
 	</tvchannel>
 	<tvchannel name="MCM">
 		<logo_filename>mcm.png</logo_filename>
@@ -743,15 +711,6 @@
 	</tvchannel>
 	<tvchannel name="MTV Hits">
 		<logo_filename>mtvhits.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Music plus Classic Rock">
-		<logo_filename>musicplusclassicrock.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Music plus Hits">
-		<logo_filename>musicplushits.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Music plus pop rock">
-		<logo_filename>musicpluspoprock.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="MyZen.tv">
 		<logo_filename>myzentv.png</logo_filename>
@@ -992,9 +951,6 @@
 	<tvchannel name="Renault TV">
 		<logo_filename>renaulttv.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="Reservoir Films">
-		<logo_filename>reservoirfilms.png</logo_filename>
-	</tvchannel>
 	<tvchannel name="RFI">
 		<logo_filename>rfi.png</logo_filename>
 		<label>RFI Afrique</label>
@@ -1145,9 +1101,6 @@
 	<tvchannel name="Telesur">
 		<logo_filename>telesur.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="Télévision savoir">
-		<logo_filename>televisionsavoir.png</logo_filename>
-	</tvchannel>
 	<tvchannel name="Telif">
 		<logo_filename>telif.png</logo_filename>
 	</tvchannel>
@@ -1156,9 +1109,6 @@
 	</tvchannel>
 	<tvchannel name="TEVA">
 		<logo_filename>teva.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="TF1">
-		<logo_filename>tf1.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="TFou">
 		<logo_filename>tfou.png</logo_filename>
@@ -1185,9 +1135,6 @@
 	</tvchannel>
 	<tvchannel name="TNA">
 		<logo_filename>tna.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="TN">
-		<logo_filename>tn.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Top Music">
 		<logo_filename>topmusic.png</logo_filename>
@@ -1279,9 +1226,6 @@
 	<tvchannel name="TVVi">
 		<logo_filename>tvvi.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="UrbaniaTV">
-		<logo_filename>urbaniatv.png</logo_filename>
-	</tvchannel>
 	<tvchannel name="Vesti FM">
 		<logo_filename>vesti.png</logo_filename>
 	</tvchannel>
@@ -1312,9 +1256,6 @@
 	<tvchannel name="Vox Africa">
 		<logo_filename>voxafrica.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="W9">
-		<logo_filename>w9.png</logo_filename>
-	</tvchannel>
 	<tvchannel name="Wéo">
 		<logo_filename>weo.png</logo_filename>
 		<label>Weo</label>
@@ -1336,8 +1277,5 @@
 	</tvchannel>
 	<tvchannel name="Zhejiang Star TV">
 		<logo_filename>zhejiangstartv.png</logo_filename>
-	</tvchannel>
-	<tvchannel name="Zona 31">
-		<logo_filename>zona31.png</logo_filename>
 	</tvchannel>
 </tvchannels>

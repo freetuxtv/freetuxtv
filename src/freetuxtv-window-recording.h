@@ -16,17 +16,17 @@
  *
  */
 
-#ifndef FREETUXTV_RECORDINGS_LIST_H
-#define FREETUXTV_RECORDINGS_LIST_H
+#ifndef FREETUXTV_WINDOW_RECORDING_H
+#define FREETUXTV_WINDOW_RECORDING_H
 
 #include <gtk/gtk.h>
 
 #include "freetuxtv-app.h"
 
 void
-recordings_list_init(FreetuxTVApp *app);
+windowrecording_init(FreetuxTVApp *app);
 
 void
-recordings_list_load_recordings(FreetuxTVApp *app);
+windowrecording_updateinfos(FreetuxTVApp *app);
 
-#endif /* FREETUXTV_RECORDINGS_LIST_H */
+#endif /* FREETUXTV_WINDOW_RECORDING_H */

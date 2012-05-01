@@ -148,25 +148,3 @@ ALTER TABLE channel ADD COLUMN deinterlace_mode VARCHAR(15) NULL;
 -- @libdbevolution-dbversion=0.5.1.2
 
 ALTER TABLE channel ADD COLUMN updated BOOLEAN NULL DEFAULT 1;
-
--- @libdbevolution-dbversion=0.6.0.1
-
-CREATE TABLE IF NOT EXISTS recording (
-   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-   title VARCHAR(100) NOT NULL,
-   begin_date DATETIME NOT NULL,
-   end_date DATETIME NOT NULL,
-   filename TEXT NULL,
-   channel_id INTEGER NULL
-     CONSTRAINT fk_recording_channelid REFERENCES channel(id) ON DELETE SET NULL
-);
-
-CREATE TRIGGER fkd_delele_channel
-  BEFORE DELETE ON channel
-  FOR EACH ROW BEGIN
-      UPDATE recording SET channel_id = NULL WHERE channel_id = OLD.id;
-  END;
-  
--- @libdbevolution-dbversion=0.6.0.2
-
-ALTER TABLE recording ADD COLUMN status INTEGER NOT NULL DEFAULT 1;

@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4-*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8-*- */
 /*
  * FreetuxTV is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,11 +16,8 @@
  *
  */
 
-
-#define _GNU_SOURCE
-#include <time.h>
-
 #include <gtk/gtk.h>
+#include <time.h>
 
 #include "freetuxtv-utils.h"
 
@@ -64,20 +61,20 @@ format_size(glong size)
 }
 
 gchar*
-get_recording_options(FreetuxTVApp *app, gchar* szBaseFilename, gboolean from_preview, gchar **pszOutFilename)
+get_recording_options(FreetuxTVApp *app, gchar* base_filename, gboolean from_preview, gchar **out_filename)
 {
-	gchar *szText;
+	gchar *text;
 
-	gchar *szDir;
-	gchar *szMux;
+	gchar *dir;
+	gchar *mux;
 	gchar *transcode_options = NULL;
 	gchar *transcode = NULL;
-	gchar* szOutFileName = NULL;
 	
 	GtkWidget* widget;
 
 	gint transcoding_mode;
 	gchar *transcoding_format = NULL;
+
 
 	GtkTreeModel *model;
 	GtkTreeIter iter;
@@ -88,10 +85,10 @@ get_recording_options(FreetuxTVApp *app, gchar* szBaseFilename, gboolean from_pr
 
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 							       "dialogpreferences_directoryrecordings");	
-		szDir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER (widget));
+		dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER (widget));
 
-		if(szDir == NULL){
-			szDir = g_strdup(app->prefs.directoryrecordings);			
+		if(dir == NULL){
+			dir = g_strdup(app->prefs.directoryrecordings);			
 		}
 
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
@@ -114,7 +111,7 @@ get_recording_options(FreetuxTVApp *app, gchar* szBaseFilename, gboolean from_pr
 		}		
 
 	}else{
-		szDir = g_strdup(app->prefs.directoryrecordings);
+		dir = g_strdup(app->prefs.directoryrecordings);
 		transcoding_mode = app->prefs.transcoding_mode;
 		
 		if(transcoding_mode == 1){
@@ -124,13 +121,13 @@ get_recording_options(FreetuxTVApp *app, gchar* szBaseFilename, gboolean from_pr
 
 	switch(transcoding_mode){
 	case 0:
-		szMux = g_strdup("ts");
+		mux = g_strdup("ts");
 		transcode = g_strdup("");
 		break;
 	case 1:
 		gtk_tree_model_get_iter_from_string (model, &iter, transcoding_format);
 
-		gtk_tree_model_get (model, &iter, 1, &transcode_options, 2, &szMux, -1);
+		gtk_tree_model_get (model, &iter, 1, &transcode_options, 2, &mux, -1);
 		
 		transcode = g_strdup_printf("transcode{%s}:", transcode_options);
 		break;
@@ -145,46 +142,22 @@ get_recording_options(FreetuxTVApp *app, gchar* szBaseFilename, gboolean from_pr
 		transcoding_format = NULL;
 	}
 
-	szText = g_strdup_printf("%s.%s", szBaseFilename, szMux);
-	szOutFileName = g_build_filename(szDir, szText, NULL);
-	g_free(szText);
-	if(pszOutFilename != NULL){
-		*pszOutFilename = szOutFileName;
-	}else{
-		g_free(szOutFileName);
+	if(out_filename != NULL){
+		*out_filename = g_strdup_printf("%s.%s", base_filename, mux);	
 	}
 
-	szText = g_strdup_printf(":sout=#%sduplicate{dst=std{access=file,mux=%s,dst=\"%s/%s.%s\"},dst=display}",
-	    transcode, szMux, szDir, szBaseFilename, szMux);
+	text = g_strdup_printf(":sout=#%sduplicate{dst=std{access=file,mux=%s,dst=\"%s/%s.%s\"},dst=display}", transcode, mux, dir, base_filename, mux);
 
-	g_free(szDir);
-	g_free(szMux);
+	g_free(dir);
+	g_free(mux);
 	
-	return szText;
-}
-
-gint64
-g_time_val_to_int64 (GTimeVal *timeval)
-{
-	g_return_val_if_fail(timeval != NULL, 0);
-
-	return (((gint64)timeval->tv_sec) * G_USEC_PER_SEC) + ((gint64)timeval->tv_usec);
+	return text;
 }
 
 void
 g_time_val_add_seconds (GTimeVal *timeval, glong seconds)
 {
-	g_return_if_fail(timeval != NULL);
-	
 	timeval->tv_sec += seconds;
-}
-
-void
-g_time_int64_add_seconds (gint64 *time, glong seconds)
-{
-	g_return_if_fail(time != NULL);
-
-	*time = *time + (((gint64)seconds) * G_USEC_PER_SEC);
 }
 
 gint
@@ -211,36 +184,19 @@ g_time_val_copy (GTimeVal *timeval_src, GTimeVal *timeval_dest)
 }
 
 gchar*
-g_time_int64_to_string(gint64 time, const gchar* format)
+g_time_val_to_string(GTimeVal *timeval, const gchar* format)
 {
 	time_t tmp_time_t;
-	const struct tm* pTime;
+	struct tm* tmp_tm;
 	size_t tmp_size_t;
 	gchar buf[1000];
 
-	tmp_time_t = (time/G_USEC_PER_SEC);
+	tmp_time_t = timeval->tv_sec;
 
-	pTime = localtime (&tmp_time_t);
-	tmp_size_t = strftime (buf, 1000, format, pTime);
-	if(tmp_size_t > 0){
-		return g_strdup(buf);
-	}
-	return NULL;
-}
+	tmp_tm = localtime (&tmp_time_t);
+	tmp_size_t = strftime (buf, 1000, format, tmp_tm);
 
-gint64
-g_string_to_time_int64(const gchar* strtime, const gchar* format)
-{	
-	time_t rawtime;
-	struct tm * pTimeInfo;
-
-	time (&rawtime);
-	pTimeInfo = localtime (&rawtime);
-	
-	strptime(strtime, format, pTimeInfo);
-	rawtime = mktime(pTimeInfo);
-
-	return (gint64)(((gint64)rawtime) * G_USEC_PER_SEC);
+	return g_strdup(buf);
 }
 
 gchar*
@@ -275,14 +231,4 @@ g_utf8_removediacritics(const gchar *str, gssize len)
 	}
 
 	return szRes;
-}
-
-void
-g_print_datetime (GDateTime *datetime)
-{
-	gchar* szTmp;
-
-	szTmp = g_date_time_format (datetime, "%Y-%m-%d %H-%M-%S");
-	g_print("%s\n", szTmp);
-	g_free(szTmp);
 }

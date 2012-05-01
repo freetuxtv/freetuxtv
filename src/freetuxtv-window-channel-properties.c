@@ -20,102 +20,104 @@
 #include "freetuxtv-window-channel-properties.h"
 
 #include "freetuxtv-i18n.h"
-#include "freetuxtv-gladexml.h"
 
 typedef struct _FreetuxTVWindowChannelPropertiesPrivate FreetuxTVWindowChannelPropertiesPrivate;
 struct _FreetuxTVWindowChannelPropertiesPrivate
 {
 	FreetuxTVApp* app;
-	FreetuxTVChannelInfos* pChannelInfos;
 };
 
 #define FREETUXTV_WINDOW_CHANNEL_PROPERTIES_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), FREETUXTV_TYPE_WINDOW_CHANNEL_PROPERTIES, FreetuxTVWindowChannelPropertiesPrivate))
 
-G_DEFINE_TYPE (FreetuxTVWindowChannelProperties, freetuxtv_window_channel_properties, GTK_TYPE_BUILDER_DIALOG);
+G_DEFINE_TYPE (FreetuxTVWindowChannelProperties, freetuxtv_window_channel_properties, G_TYPE_OBJECT);
+
+static gboolean
+dialog_init (FreetuxTVWindowChannelProperties *pWindowChannelProperties);
 
 static void
-dialog_updateinfos(FreetuxTVWindowChannelProperties *pWindowChannelProperties, FreetuxTVChannelInfos* pChannelInfos);
+on_dialog_response (GtkDialog *dialog, gint response_id, gpointer user_data);
 
 static void
 freetuxtv_window_channel_properties_init (FreetuxTVWindowChannelProperties *object)
 {
-	FreetuxTVWindowChannelPropertiesPrivate* priv;
-	
-	priv = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_PRIVATE(object);
-	priv->app = NULL;
-	priv->pChannelInfos = NULL;
+	/* TODO: Add initialization code here */
 }
 
 static void
 freetuxtv_window_channel_properties_finalize (GObject *object)
 {
+	/* TODO: Add deinitalization code here */
+
+	G_OBJECT_CLASS (freetuxtv_window_channel_properties_parent_class)->finalize (object);
+
 	FreetuxTVWindowChannelPropertiesPrivate* priv;
+	FreetuxTVWindowChannelPropertiesClass* klass;
 	
 	priv = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_PRIVATE(object);
-	priv->app = NULL;
-
-	if(priv->pChannelInfos){
-		g_object_unref(priv->pChannelInfos);
-		priv->pChannelInfos = NULL;
-	}
+	klass = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_GET_CLASS(object);
 	
-	G_OBJECT_CLASS (freetuxtv_window_channel_properties_parent_class)->finalize (object);
+	GtkWidget* widget;
+	
+	if(klass->on_dialog_response_hid != -1){
+		widget = (GtkWidget *) gtk_builder_get_object (priv->app->gui, "dialogchannelproperties");
+		g_signal_handler_disconnect (widget, klass->on_dialog_response_hid);
+		klass->on_dialog_response_hid = -1;
+	}
+
+	priv->app = NULL;
 }
 
 static void
 freetuxtv_window_channel_properties_class_init (FreetuxTVWindowChannelPropertiesClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	//GObjectClass* parent_class = G_OBJECT_CLASS (klass);
 
 	g_type_class_add_private (klass, sizeof (FreetuxTVWindowChannelPropertiesPrivate));
 
 	object_class->finalize = freetuxtv_window_channel_properties_finalize;
+
+	klass->initialized = FALSE;
+	klass->on_dialog_response_hid = -1;
 }
 
 
 FreetuxTVWindowChannelProperties*
-freetuxtv_window_channel_properties_new (GtkWindow *parent, FreetuxTVApp* app, FreetuxTVChannelInfos* pChannelInfos)
+freetuxtv_window_channel_properties_new (FreetuxTVApp* app)
 {
-	g_return_val_if_fail(parent != NULL, NULL);
-	g_return_val_if_fail(GTK_IS_WINDOW(parent), NULL);
-	g_return_val_if_fail(app != NULL, NULL);
-	
 	FreetuxTVWindowChannelProperties* pWindowChannelProperties;
-	
-	gchar* szUiFile = NULL;
-	szUiFile = g_build_filename (app->paths.szPathGladeXml, FREETUXTV_GUIFILE_CHANNELPROPERTIES, NULL);
-	
-	pWindowChannelProperties = g_object_new (FREETUXTV_TYPE_WINDOW_CHANNEL_PROPERTIES,
-	    "ui-file", szUiFile,
-	    "toplevel-widget-name", "dialogchannelproperties",
-	    NULL);
-
-	if(szUiFile){
-		g_free(szUiFile);
-		szUiFile = NULL;
-	}
-
-	// Private members
 	FreetuxTVWindowChannelPropertiesPrivate* priv;
+	
+	pWindowChannelProperties = g_object_new (FREETUXTV_TYPE_WINDOW_CHANNEL_PROPERTIES, NULL);
+	
 	priv = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_PRIVATE(pWindowChannelProperties);
+
 	priv->app = app;
 
-	GtkWindow* pWindow = gtk_builder_window_get_top_window(GTK_BUILDER_WINDOW(pWindowChannelProperties));
-	gtk_dialog_add_buttons (GTK_DIALOG(pWindow),
-	    "gtk-close", GTK_RESPONSE_CLOSE, NULL);
-
-	// Update from channel
-	dialog_updateinfos (pWindowChannelProperties, pChannelInfos);
+	dialog_init (pWindowChannelProperties);
 
 	return pWindowChannelProperties;
 }
 
-
-static void
-dialog_updateinfos(FreetuxTVWindowChannelProperties *pWindowChannelProperties, FreetuxTVChannelInfos* pChannelInfos)
+gint
+freetuxtv_window_channel_properties_run (
+	FreetuxTVWindowChannelProperties* pWindowChannelProperties,
+    FreetuxTVChannelInfos* pChannelInfos,
+    GtkTreePath* pPath)
 {
-	GtkBuilder* builder;
-	builder = gtk_builder_object_get_builder(GTK_BUILDER_OBJECT(pWindowChannelProperties));
+	g_return_val_if_fail(pWindowChannelProperties != NULL, GTK_RESPONSE_NONE);
+	g_return_val_if_fail(FREETUXTV_IS_WINDOW_CHANNEL_PROPERTIES(pWindowChannelProperties), GTK_RESPONSE_NONE);
+
+	FreetuxTVWindowChannelPropertiesPrivate* priv;
+	priv = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_PRIVATE(pWindowChannelProperties);
+	
+	GtkBuilder *builder;
+	builder = priv->app->gui;
+
+	gint res;
+
+	GtkDialog *dialog;
+	dialog = (GtkDialog *) gtk_builder_get_object (builder, "dialogchannelproperties");
 
 	GtkWidget *widget;
 	GObject *object;
@@ -132,26 +134,18 @@ dialog_updateinfos(FreetuxTVWindowChannelProperties *pWindowChannelProperties, F
 		editable = FALSE;
 	}
 	*/
-
+	
 	// Set the value in the fields
-	widget = (GtkWidget *) gtk_builder_get_object (builder, "entry_channelname");
+	widget = (GtkWidget *) gtk_builder_get_object (builder, "dialogchannelproperties_name");
 	gtk_entry_set_text(GTK_ENTRY(widget), pChannelInfos->name);
 	if(!editable){
-#if GTK_API_VERSION == 3
-		gtk_editable_set_editable (GTK_EDITABLE(widget), FALSE);
-#else
 		gtk_entry_set_editable (GTK_ENTRY(widget), FALSE);
-#endif
 	}
 
-	widget = (GtkWidget *) gtk_builder_get_object (builder, "entry_channeluri");
+	widget = (GtkWidget *) gtk_builder_get_object (builder, "dialogchannelproperties_uri");
 	gtk_entry_set_text(GTK_ENTRY(widget), pChannelInfos->url);
 	if(!editable){
-#if GTK_API_VERSION == 3
-		gtk_editable_set_editable (GTK_EDITABLE(widget), FALSE);
-#else
 		gtk_entry_set_editable (GTK_ENTRY(widget), FALSE);
-#endif
 	}
 
 	// Display the VLC options of the channel
@@ -169,10 +163,79 @@ dialog_updateinfos(FreetuxTVWindowChannelProperties *pWindowChannelProperties, F
 		gtk_text_view_set_editable (GTK_TEXT_VIEW(widget), FALSE);
 	}
 
-	widget = (GtkWidget *) gtk_builder_get_object (builder, "label_channeldeinterlace");
+	widget = (GtkWidget *) gtk_builder_get_object (builder, "dialogchannelproperties_deinterlace");
 	if(pChannelInfos->deinterlace_mode){
 		gtk_label_set_text(GTK_LABEL(widget), pChannelInfos->deinterlace_mode);
 	}else{
 		gtk_label_set_text(GTK_LABEL(widget), _("none"));
 	}
+
+	// Display the dialog
+	res = gtk_dialog_run(dialog);
+
+	return res;
+}
+
+static gboolean
+dialog_init (FreetuxTVWindowChannelProperties *pWindowChannelProperties)
+{
+	gboolean res = TRUE;
+
+	FreetuxTVWindowChannelPropertiesPrivate* priv;
+	priv = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_PRIVATE(pWindowChannelProperties);
+
+	FreetuxTVWindowChannelPropertiesClass* klass;
+	
+	GtkDialog *dialog;
+	GtkWidget *widget;
+
+	GtkBuilder *builder;
+	builder = priv->app->gui;
+
+	klass = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_GET_CLASS(pWindowChannelProperties);
+
+	dialog = (GtkDialog *) gtk_builder_get_object (builder,
+	    "dialogchannelproperties");
+	
+	if(!klass->initialized){
+		// Initialize signals for dialogchannelproperties
+		widget = (GtkWidget *)gtk_builder_get_object (builder,
+		    "dialogchannelproperties");
+
+		gtk_dialog_add_buttons (GTK_DIALOG(widget),
+		    "gtk-close", GTK_RESPONSE_CLOSE, NULL);
+		/*
+		gtk_dialog_add_buttons (GTK_DIALOG(widget),
+		    "gtk-cancel", GTK_RESPONSE_CANCEL,
+		    "gtk-apply", GTK_RESPONSE_APPLY, NULL);
+		*/
+		
+		g_signal_connect(G_OBJECT(widget),
+		    "delete-event", G_CALLBACK(gtk_widget_hide_on_delete),
+		    NULL);
+		
+		klass->initialized = TRUE;
+	}
+	
+	klass->on_dialog_response_hid = g_signal_connect(G_OBJECT(dialog),
+	    "response",
+	    G_CALLBACK(on_dialog_response),
+	    pWindowChannelProperties);
+
+	return res;
+}
+
+static void
+on_dialog_response (GtkDialog *dialog, gint response_id, gpointer user_data)
+{
+	FreetuxTVWindowChannelProperties* pWindowChannelProperties;
+	FreetuxTVWindowChannelPropertiesPrivate* priv;
+
+	pWindowChannelProperties = (FreetuxTVWindowChannelProperties*)user_data;
+	priv = FREETUXTV_WINDOW_CHANNEL_PROPERTIES_PRIVATE(pWindowChannelProperties);
+
+	GtkBuilder *builder;
+	builder = priv->app->gui;
+
+	gtk_widget_hide(GTK_WIDGET(dialog));
 }

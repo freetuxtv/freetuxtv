@@ -17,13 +17,11 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
 #include <gtk/gtk.h>
 #include <sqlite3.h>
-#include <gdk/gdkx.h>
 
 #include "freetuxtv-window-main.h"
-#include "freetuxtv-window-add-recording.h"
+#include "freetuxtv-window-recording.h"
 #include "freetuxtv-window-add-channels-group.h"
 
 #include "freetuxtv-app.h"
@@ -32,7 +30,6 @@
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-tv-channels-list.h"
-#include "freetuxtv-recordings-list.h"
 #include "freetuxtv-db-sync.h"
 #include "freetuxtv-models.h"
 
@@ -228,14 +225,7 @@ on_accel_volumeup (GtkAccelGroup *accel_group, GObject *acceleratable, guint key
 
 static gboolean
 on_accel_volumedown (GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval,
-    GdkModifierType modifier, gpointer user_data);
-
-static void
-on_channels_group_added (
-	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
-	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-	    DBSync *dbsync, GError** error,
-	    gpointer user_data);
+                     GdkModifierType modifier, gpointer user_data);
 
 void
 windowmain_init(FreetuxTVApp *app)
@@ -300,16 +290,12 @@ windowmain_init(FreetuxTVApp *app)
 	pMenu = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pMenu);
 	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Add a group"));
-	gtk_widget_set_tooltip_text (GTK_WIDGET(pMenuItem),
-	                             _("Add/create a channels group from different sources"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
 	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
 	                 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
 	                 app);
-	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Synchronize TV channels database"));
-	gtk_widget_set_tooltip_text (GTK_WIDGET(pMenuItem),
-	                             _("Synchronize the TV channels list in the local database from the XML database"));
+	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Update TV channels list"));
 	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
 	g_signal_connect(G_OBJECT(pMenuItem),
 	                 "activate",
@@ -644,12 +630,8 @@ void
 windowmain_dispose(FreetuxTVApp *app)
 {
 	windowmain_enable_accelerators(app, FALSE);
-
-#if GTK_API_VERSION == 3
-	g_object_unref (app->widget.pAccelGroup);
-#else
+	
 	gtk_accel_group_unref (app->widget.pAccelGroup);
-#endif
 	app->widget.pAccelGroup = NULL;
 
 	if(app->widget.pTrayIcon){
@@ -669,7 +651,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 	                                               "windowmain_buttonprevious");
 	switch(mode){
 		case WINDOW_MODE_STOPPED :
-			if(app->current.pPathChannel != NULL){
+			if(app->current.path_channel != NULL){
 				sensitive = TRUE;		
 			}else{
 				sensitive = FALSE;	
@@ -692,7 +674,7 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 	                                               "windowmain_buttonnext");
 	switch(mode){
 		case WINDOW_MODE_STOPPED :
-			if(app->current.pPathChannel != NULL){
+			if(app->current.path_channel != NULL){
 				sensitive = TRUE;		
 			}else{
 				sensitive = FALSE;	
@@ -714,15 +696,12 @@ windowmain_display_buttons (FreetuxTVApp *app, FreetuxTVWindowMode mode)
 	                                               "windowmain_buttonplaypause");
 	switch(mode){
 		case WINDOW_MODE_STOPPED :
-			if(app->current.pPathChannel == NULL){
+		case WINDOW_MODE_PAUSED :
+			if(app->current.path_channel == NULL){
 				sensitive = FALSE;
 			}else{
 				sensitive = TRUE;
 			}
-			image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PLAY, GTK_ICON_SIZE_BUTTON);
-			break;
-		case WINDOW_MODE_PAUSED :
-			sensitive = TRUE;
 			image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PLAY, GTK_ICON_SIZE_BUTTON);
 			break;
 		case WINDOW_MODE_PLAYING :
@@ -811,7 +790,6 @@ windowmain_statusbar_push (FreetuxTVApp *app, gchar *context, gchar *msg)
 	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 
 	                    context_id,
 	                    msg);
-	
 	while (g_main_context_iteration(NULL, FALSE)){}
 }
 
@@ -828,8 +806,7 @@ windowmain_statusbar_pop (FreetuxTVApp *app, gchar *context)
 	                                          context);
 	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),
 	                   context_id);
-
-	while (g_main_context_iteration(NULL, FALSE)){}
+	// while (g_main_context_iteration(NULL, FALSE)){}		
 }
 
 void
@@ -874,58 +851,6 @@ windowmain_timebar_update (FreetuxTVApp *app, glong time_ms, glong length_ms, gf
 		gtk_widget_set_sensitive(widget, TRUE);
 	}else{
 		gtk_widget_set_sensitive(widget, FALSE);
-	}
-}
-
-void
-windowmain_show_dialog_addrecordings(FreetuxTVApp *app, FreetuxTVChannelInfos* pChannelInfos, GError** error)
-{
-	g_return_if_fail (error != NULL);
-	
-	GtkWidget* pParent;
-	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
-
-	DBSync dbsync;
-	
-	// Create and show the window
-	FreetuxTVWindowRecording* pWindowRecording;
-	FreetuxTVRecordingInfos* pRecordingInfos = NULL;
-	gint res;
-	
-	pWindowRecording = freetuxtv_window_recording_new (GTK_WINDOW(pParent), app, pChannelInfos);
-	res = gtk_builder_dialog_run (GTK_BUILDER_DIALOG(pWindowRecording));
-
-	if(res == GTK_RESPONSE_OK){
-		pRecordingInfos = freetuxtv_window_recording_get_recording_infos (pWindowRecording);
-	}
-
-	// Destroy the window
-	gtk_builder_widget_destroy(GTK_BUILDER_WIDGET(pWindowRecording));
-	pWindowRecording = NULL;
-
-	if(res == GTK_RESPONSE_OK){
-		dbsync_open_db (&dbsync, error);
-		if(*error == NULL){
-			freetuxtv_recording_infos_set_status(pRecordingInfos, FREETUXTV_RECORDING_STATUS_WAITING);
-
-			recordings_list_add_recording (app, &dbsync, pRecordingInfos, error);
-		}
-		dbsync_close_db(&dbsync);
-
-		if(*error == NULL){
-			GTimeVal now;
-			g_get_current_time (&now);
-			gint64 now64 = g_time_val_to_int64(&now);
-
-			if(freetuxtv_recording_infos_has_time(pRecordingInfos, now64)){
-				freetuxtv_action_start_recording (app, pRecordingInfos, error);
-			}
-		}
-	}
-
-	if(pRecordingInfos){
-		g_object_unref (pRecordingInfos);
-		pRecordingInfos = NULL;
 	}
 }
 
@@ -988,23 +913,19 @@ on_windowmain_trayicon_activate(GtkStatusIcon *status_icon, gpointer user_data)
 	                                                "windowmain");
 	widget =  gtk_widget_get_toplevel(GTK_WIDGET(app->player));
 
-	gboolean bIsVisible;
-
-#if GTK_API_VERSION == 3
-	bIsVisible = gtk_widget_get_visible(widget);
-	if(bIsVisible){
-		gtk_widget_set_visible(widget, FALSE);
-	}else{
-		gtk_widget_set_visible(widget, TRUE);
-	}
-#else
-	bIsVisible = GTK_WIDGET_FLAGS (widget) & GTK_VISIBLE;
-	if(bIsVisible){
+	if(GTK_WIDGET_FLAGS (widget) & GTK_VISIBLE){
 		gtk_widget_hide(widget);
 	}else{
 		gtk_widget_show(widget);
 	}
-#endif
+	/*
+	// TODO : Only since 2.20
+	if(gtk_widget_get_visible(widget)){
+		gtk_widget_set_visible(widget, FALSE);
+	}else{
+		gtk_widget_set_visible(widget, TRUE);
+	}
+	*/
 }
 
 static void
@@ -1026,10 +947,7 @@ on_windowmain_trayicon_popupmenu (GtkStatusIcon *status_icon, guint button,
 
 	/* Create the menu items */
 	pMenuItem = gtk_check_menu_item_new_with_label (_("Mute"));
-#if GTK_API_VERSION == 3
-#else
 	gtk_check_menu_item_set_show_toggle (GTK_CHECK_MENU_ITEM(pMenuItem), FALSE);
-#endif
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(pMenuItem), bVolumeDisabled);
 	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
 	g_signal_connect(G_OBJECT(pMenuItem),
@@ -1126,7 +1044,7 @@ on_windowmain_buttonclearfilter_clicked (GtkButton *button,
 	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
 
 	gtk_tree_view_collapse_all (GTK_TREE_VIEW(treeview));
-	channels_list_set_playing (app, app->current.pPathChannel);
+	channels_list_set_playing (app, app->current.path_channel);
 }
 
 static void
@@ -1135,7 +1053,7 @@ on_windowmain_buttongotocurrent_clicked (GtkButton *button,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	channels_list_set_playing(app, app->current.pPathChannel);
+	channels_list_set_playing(app, app->current.path_channel);
 }
 
 static void
@@ -1175,12 +1093,7 @@ on_windowmain_buttonstop_clicked (GtkButton *button,
 	GError* error = NULL;
 
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	if(app->current.is_recording){
-		freetuxtv_action_stop_recording(app, app->current.recording.pRecordingInfo, &error);
-	}else{
-		freetuxtv_action_stop (app, &error);
-	}
+	freetuxtv_action_stop (app, &error);
 
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
@@ -1194,14 +1107,21 @@ on_windowmain_buttonrecord_clicked (GtkButton *button,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
+	GtkWidget *widget;
 	GError* error = NULL;
-	FreetuxTVChannelInfos* pChannelInfos;
-	
-	// Show properties to the channel corresponding to the path
-	pChannelInfos = channels_list_get_channel (app, app->current.pPathChannel);
 
-	windowmain_show_dialog_addrecordings (app, pChannelInfos, &error);
-	
+	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                                "dialogrecording");
+
+	windowrecording_updateinfos(app);
+
+	if(gtk_dialog_run(GTK_DIALOG(widget)) == GTK_RESPONSE_OK){
+
+		g_get_current_time (&(app->current.recording.time_begin));
+
+		freetuxtv_action_record (app, &error);
+	}
+
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
 		g_error_free (error);
@@ -1289,7 +1209,7 @@ on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
 
 	if(g_ascii_strcasecmp(text, "") == 0){
 		gtk_tree_view_collapse_all (GTK_TREE_VIEW(treeview));
-		channels_list_set_playing (app, app->current.pPathChannel);
+		channels_list_set_playing (app, app->current.path_channel);
 	}else{
 		gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
 	}
@@ -1342,8 +1262,6 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-
-	gchar* szTmp = NULL;
 
 	// General
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
@@ -1406,14 +1324,6 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 	gtk_combo_box_set_active_iter (GTK_COMBO_BOX(widget), &iter);
 
 	// Network
-	
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                               "dialogpreferences_entrytimeout");
-	szTmp = g_strdup_printf("%d", app->prefs.timeout);
-	gtk_entry_set_text (GTK_ENTRY(widget), szTmp);
-	g_free(szTmp);
-	szTmp = NULL;
-
 	switch(app->prefs.proxy.proxy_mode){
 		case 0:
 			widget = (GtkWidget *) gtk_builder_get_object (app->gui,
@@ -1480,99 +1390,19 @@ on_windowmain_menuitempreferences_activate (GtkMenuItem *menuitem,
 }
 
 static void
-on_channels_group_added (
-	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
-	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-	    DBSync *dbsync, GError** error,
-	    gpointer user_data)
-{
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Received signal for channels group added '%s'\n", pChannelsGroupInfos->name);
-
-	FreetuxTVApp *app;
-	app = freetuxtv_window_add_channels_group_get_app(pWindowAddChannelsGroup);
-
-	GtkTreePath** ppTreePath = (GtkTreePath**)user_data;
-
-	if(ppTreePath){
-		gtk_tree_path_free (*ppTreePath);
-		*ppTreePath = NULL;
-	}
-		
-	channels_list_ui_add_channels_group (app, pChannelsGroupInfos, ppTreePath);
-}
-
-static void
-on_channels_added (
-	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
-	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-	    DBSync *dbsync, GError** error,
-	    gpointer user_data)
-{
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Received signal for channels added in group '%s'\n", pChannelsGroupInfos->name);
-
-	FreetuxTVApp *app;
-	app = freetuxtv_window_add_channels_group_get_app(pWindowAddChannelsGroup);
-
-	GtkTreePath** ppTreePath = (GtkTreePath**)user_data;
-
-	if(ppTreePath){
-		channels_list_reload_channels_of_channels_group (app, dbsync, *ppTreePath, error);
-	}
-}
-
-static void
-on_window_add_channels_group_destroy (GtkBuilderWidget *self, gpointer user_data)
-{
-	GtkTreePath** ppCurrentTreePath = (GtkTreePath**)user_data;
-
-	if(ppCurrentTreePath){
-		if(*ppCurrentTreePath){
-			gtk_tree_path_free (*ppCurrentTreePath);
-			*ppCurrentTreePath = NULL;
-		}
-		
-		g_free(ppCurrentTreePath);
-		ppCurrentTreePath = NULL;
-	}
-}
-
-static void
 on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
                                           gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	GError* error = NULL;
-
 	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
+	gint res;
 
-	GtkWindow* pWindow;
-	GtkWidget* pParent;
-	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
-	
-	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (
-	    GTK_WINDOW(pParent), app, &error);
+	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (app);
+	res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
 
-	if(error == NULL){
-		pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
-		gtk_widget_show(GTK_WIDGET(pWindow));
-
-		GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
-
-		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
-			G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
-		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
-			G_CALLBACK(on_channels_added), ppCurrentTreePath);
-		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
-			G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
+	g_object_unref(pWindowAddChannelsGroups);
+	pWindowAddChannelsGroups = NULL;
 }
 
 static void
@@ -1616,13 +1446,13 @@ on_windowmain_menuitemdeinterlace_change (GtkMenuItem *menuitem,
 	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
 		freetuxtv_action_deinterlace (app, mode, &error);
 
-		if(app->current.pPathChannel){
+		if(app->current.path_channel){
 			if(error == NULL){
 				dbsync_open_db (&dbsync, &error);
 			}
 
 			if(error == NULL){
-				pChannel = channels_list_get_channel (app, app->current.pPathChannel);
+				pChannel = channels_list_get_channel (app, app->current.path_channel);
 				dbsync_update_channel_deinterlace_mode (&dbsync, pChannel, (gchar*)mode, &error);		
 			}
 
@@ -1739,18 +1569,13 @@ on_windowminimode_buttonstayontop_clicked (GtkButton *button,
                                            gpointer user_data)
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	GtkWidget *widget;
-	gboolean bActive;
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-	    "windowminimode_buttonstayontop");
-	bActive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget));
-	
-	if(bActive){
-		app->config.windowminimode_stayontop = TRUE;	
+	if(app->config.windowminimode_stayontop){
+		app->config.windowminimode_stayontop = FALSE;	
 	}else{
-		app->config.windowminimode_stayontop = FALSE;
+		app->config.windowminimode_stayontop = TRUE;
 	}
+
+	GtkWidget *widget;	
 
 	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 	                                               "windowminimode");
@@ -1871,11 +1696,6 @@ on_dialogpreferences_response (GtkDialog *dialog,
 		app->prefs.transcoding_format = gtk_tree_model_get_string_from_iter (model, &iter);
 
 		// Get prefs network
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-		                                               "dialogpreferences_entrytimeout");
-		text = gtk_entry_get_text (GTK_ENTRY(widget));
-		app->prefs.timeout = atoi(text);
-
 		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
 		                                               "dialogpreferences_radioproxyno");
 		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
@@ -2210,7 +2030,7 @@ on_accel_volumedown (GtkAccelGroup *accel_group, GObject *acceleratable, guint k
 	}
 	gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
 	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, &error);
-	
+
 
 	if(error != NULL){
 		windowmain_show_gerror (app, error);

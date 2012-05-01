@@ -35,18 +35,6 @@ typedef enum
 GQuark
 freetuxtv_libm3uparse_error_quark ();
 
-// Callback function
-typedef void (*DBOnChannelsGroupAddedFunc) (
-    FreetuxTVApp *app, DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    gpointer user_data, GError** error);
-
-typedef void (*DBOnChannelsAddedFunc) (
-    FreetuxTVApp *app, DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    gpointer user_data, GError** error);
-
-
 void
 channels_list_init (FreetuxTVApp *app);
 
@@ -54,31 +42,12 @@ void
 channels_list_load_channels (FreetuxTVApp *app, DBSync* dbsync, GError** error);
 
 void
-channels_list_db_add_channels_group (
-    FreetuxTVApp *app, DBSync* dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    DBOnChannelsGroupAddedFunc funcGroupAdded,
-    DBOnChannelsAddedFunc funcChannelsAdded,
-    gpointer user_data,
-    GError** error
-    );
+channels_list_add_channels_group (FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+                                  GtkTreePath** ppChannelsGroupTreePath, DBSync* dbsync, GError** error);
 
 void
 channels_list_update_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
                                      FreetuxTVChannelsGroupInfos* channels_group_infos);
-
-void
-channels_list_db_refresh_channels_group (
-    FreetuxTVApp *app, DBSync* dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    GError** error
-    );
-
-void
-channels_list_reload_channels_of_channels_group (
-    FreetuxTVApp *app, DBSync* dbsync,
-    GtkTreePath *path_group,
-    GError** error);
 
 void
 channels_list_refresh_channels_group (FreetuxTVApp *app, GtkTreePath *path_group,
@@ -102,12 +71,6 @@ channels_list_switch_channel (FreetuxTVApp *app,
                               GtkTreePath *pPathChannelSrc, GtkTreePath *pPathChannelDest,
                               DBSync* dbsync, GError** error);
 
-void
-channels_list_ui_add_channels_group (
-    FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    GtkTreePath** ppChannelsGroupTreePath
-    );
-
 gboolean
 channels_list_get_prev_channel (FreetuxTVApp *app,
                                 GtkTreePath **path_prev_channel);
@@ -124,9 +87,6 @@ channels_list_set_playing(FreetuxTVApp *app, GtkTreePath *path_channel);
 
 FreetuxTVChannelInfos*
 channels_list_get_channel(FreetuxTVApp *app, GtkTreePath* path_channel);
-
-FreetuxTVChannelInfos*
-channels_list_get_channel_by_id(FreetuxTVApp *app, int channel_id);
 
 FreetuxTVChannelsGroupInfos*
 channels_list_get_group(FreetuxTVApp *app, GtkTreePath* path_group);

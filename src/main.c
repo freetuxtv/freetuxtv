@@ -22,21 +22,19 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <libnotify/notify.h>
-#include <locale.h>
-
-#include <libvlc-gtk/gtk-libvlc-media-player.h>
 
 #include "lib-gmmkeys.h"
 #include "freetuxtv-app.h"
 #include "freetuxtv-utils.h"
 #include "freetuxtv-i18n.h"
 #include "freetuxtv-window-main.h"
+#include "freetuxtv-window-recording.h"
 #include "freetuxtv-channels-list.h"
 #include "freetuxtv-recordings-list.h"
 #include "freetuxtv-tv-channels-list.h"
 #include "freetuxtv-models.h"
 #include "freetuxtv-window-add-channels-group.h"
-#include "freetuxtv-player-error-dialog.h"
+#include <libvlc-gtk/gtk-libvlc-media-player.h>
 
 static void
 list_options_add_options (gchar*** pOptions, gchar** options);
@@ -157,8 +155,8 @@ load_user_configuration(FreetuxTVApp *app)
 	keyfile = g_key_file_new ();
 	if (g_key_file_load_from_file (keyfile, filename, G_KEY_FILE_NONE, NULL) == FALSE)
 	{
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		      "Cannot load config file\n");
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+		      "Error when loading config file\n");
 		g_free (filename);
 	} else {
 		g_free (filename);
@@ -232,15 +230,6 @@ load_user_configuration(FreetuxTVApp *app)
 		}
 
 		i = g_key_file_get_integer (keyfile, "network",
-		                            "timeout", &err);
-		if (err != NULL) {
-			g_error_free (err);
-			err = NULL;
-		}else{
-			app->prefs.timeout = i;
-		}
-
-		i = g_key_file_get_integer (keyfile, "network",
 		                            "proxy_mode", &err);
 		if (err != NULL) {
 			g_error_free (err);
@@ -306,15 +295,15 @@ load_user_configuration(FreetuxTVApp *app)
 		}
 
 		// Load current config
-		// b = g_key_file_get_boolean (keyfile, "windowminimode",
-		//                             "stay_on_top", &err);
-		// if (err != NULL) {
-		// 	g_error_free (err);
-		// 	err = NULL;
-		// }else{
-		// 	app->config.windowminimode_stayontop = b;		
-		// }
-		
+		b = g_key_file_get_boolean (keyfile, "windowminimode",
+		                            "stay_on_top", &err);
+		if (err != NULL) {
+			g_error_free (err);
+			err = NULL;
+		}else{
+			app->config.windowminimode_stayontop = b;		
+		}
+
 		i = g_key_file_get_integer (keyfile, "windowminimode",
 		                            "width", &err);
 		if (err != NULL) {
@@ -374,63 +363,50 @@ increase_progress_timeout (FreetuxTVApp *app)
 {
 	GError* error = NULL;
 
-	GList *list = NULL;
-	FreetuxTVRecordingInfos* pRecordingInfos = NULL;
+	if(app->current.is_recording){	
+		if(app->current.recording.duration != NULL){
 
-	if(!app->current.is_recording){
+			FreetuxTVChannelInfos* channel;
+			channel = channels_list_get_channel (app, app->current.path_channel);
 
-		// Get the list of record to process
-		recordings_list_getrecordings_toprocess(app, &list, &error);
-		if(error == NULL && list){
-			pRecordingInfos = (FreetuxTVRecordingInfos*)list->data;
-			if(pRecordingInfos){
-				// We record only the first found
-				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
-					  "Staring recording %s\n", pRecordingInfos->szTitle);
-				pRecordingInfos = (FreetuxTVRecordingInfos*)list->data;
+			gint second;
+			second = (gint)g_timer_elapsed (app->current.recording.duration, NULL);
 
-				freetuxtv_action_start_recording (app, pRecordingInfos, &error);
-			}
-		}
-		g_list_free (list);
-	}else{
-		
-		GTimeVal now_time;
-		g_get_current_time (&now_time);
-		gint64 now64 = g_time_val_to_int64(&now_time);
-		
-		pRecordingInfos = app->current.recording.pRecordingInfo;
-		if(pRecordingInfos){
-
-			FreetuxTVChannelInfos* pChannelInfos;
-			pChannelInfos = channels_list_get_channel (app, app->current.pPathChannel);
-
-			gint second_elapsed;
-			second_elapsed = now_time.tv_sec - app->current.recording.time_begin.tv_sec;
 			// gtk_libvlc_media_player_set_time (app->player, second*1000);
 
 			struct stat buf;
 			long file_size = 0;
-			if(g_stat(pRecordingInfos->szFileName, &buf) == 0){
+			if(g_stat(app->current.recording.dst_file, &buf) == 0){
 				file_size = buf.st_size;
 			}
 
-			gchar *format = format_time(second_elapsed);
+			gchar *format = format_time(second);
 			gchar *size_text = format_size(file_size);
 			gchar *text;
-			gchar *szTmp;
-
-			szTmp = g_path_get_basename (pRecordingInfos->szFileName);
-			text = g_strdup_printf (_("Recording: %s (%s) -> %s (%s)"),
-			    pChannelInfos->name, format, szTmp, size_text);
-			g_free(szTmp);
+			text = g_strdup_printf (_("Recording: %s (%s) -> %s (%s)"), channel->name, 
+			                        format, app->current.recording.dst_file, size_text);
 			windowmain_statusbar_pop (app, "RecordChannelMsg");
 			windowmain_statusbar_push (app, "RecordChannelMsg", text);
 			g_free(text);
+		}
 
-			if(freetuxtv_recording_infos_is_time_greater(pRecordingInfos, now64)){
-				freetuxtv_action_stop_recording (app, app->current.recording.pRecordingInfo, &error);
+		if(app->current.recording.max_duration > 0){
+			GTimeVal max_time;
+			GTimeVal now_time;
+
+			g_get_current_time (&now_time);
+
+
+			g_time_val_copy(&(app->current.recording.time_begin), &max_time);
+
+			g_time_val_add_seconds(&max_time, app->current.recording.max_duration * 60);
+
+			if(g_time_val_compare(&now_time, &max_time) > 0){
+				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
+				      "Stopping recording\n");
+				freetuxtv_action_stop(app, &error);
 			}
+
 		}
 	}
 
@@ -438,10 +414,9 @@ increase_progress_timeout (FreetuxTVApp *app)
 	switch(state){
 		case GTK_LIBVLC_STATE_PAUSED :
 		case GTK_LIBVLC_STATE_PLAYING :
-			windowmain_timebar_update (app,
-			    gtk_libvlc_media_player_get_time(app->player, &error),
-			    gtk_libvlc_media_player_get_length(app->player, &error),
-			    gtk_libvlc_media_player_get_position(app->player, &error));
+			windowmain_timebar_update (app, gtk_libvlc_media_player_get_time(app->player, &error), 
+			                           gtk_libvlc_media_player_get_length(app->player, &error),
+			                           gtk_libvlc_media_player_get_position(app->player, &error));
 			break;
 		default:
 			break;	
@@ -484,121 +459,6 @@ splashscreen_statusbar_pop (FreetuxTVApp *app)
 	gtk_statusbar_pop (GTK_STATUSBAR(statusbar),  context_id);		
 }
 
-static void
-on_channels_group_added (
-	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
-	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-	    DBSync *dbsync, GError** error,
-	    gpointer user_data)
-{
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Received signal for channels group added '%s'\n", pChannelsGroupInfos->name);
-
-	FreetuxTVApp *app;
-	app = freetuxtv_window_add_channels_group_get_app(pWindowAddChannelsGroup);
-
-	GtkTreePath** ppTreePath = (GtkTreePath**)user_data;
-
-	if(ppTreePath){
-		gtk_tree_path_free (*ppTreePath);
-		*ppTreePath = NULL;
-	}
-		
-	channels_list_ui_add_channels_group (app, pChannelsGroupInfos, ppTreePath);
-}
-
-static void
-on_channels_added (
-	    FreetuxTVWindowAddChannelsGroup *pWindowAddChannelsGroup,
-	    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-	    DBSync *dbsync, GError** error,
-	    gpointer user_data)
-{
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Received signal for channels added in group '%s'\n", pChannelsGroupInfos->name);
-
-	FreetuxTVApp *app;
-	app = freetuxtv_window_add_channels_group_get_app(pWindowAddChannelsGroup);
-
-	GtkTreePath** ppTreePath = (GtkTreePath**)user_data;
-
-	if(ppTreePath){
-		channels_list_reload_channels_of_channels_group (app, dbsync, *ppTreePath, error);
-	}
-}
-
-#if GTK_API_VERSION == 3
-static void
-on_window_add_channels_group_destroy (GtkWidget *widget, gpointer user_data)
-#else
-static void
-on_window_add_channels_group_destroy (GtkObject *object, gpointer user_data)
-#endif
-{
-	GtkTreePath** ppCurrentTreePath = (GtkTreePath**)user_data;
-
-	if(ppCurrentTreePath){
-		if(*ppCurrentTreePath){
-			gtk_tree_path_free (*ppCurrentTreePath);
-			*ppCurrentTreePath = NULL;
-		}
-		
-		g_free(ppCurrentTreePath);
-		ppCurrentTreePath = NULL;
-	}
-}
-
-static gboolean
-showplayer_error (gpointer data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *)data;
-
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO, "Displaying error window\n");
-
-	GtkWidget* pParent;
-	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
-
-	GtkWidget* dialog = app->widget.pPlayerErrorDialog;
-	if(dialog == NULL){
-		dialog = freetuxtv_player_error_dialog_new (
-			GTK_WINDOW(pParent), GTK_DIALOG_DESTROY_WITH_PARENT, app);
-		app->widget.pPlayerErrorDialog = dialog;
-	}
-
-	
-	FreetuxTVChannelInfos *pChannelInfos;
-	pChannelInfos = channels_list_get_channel(app, app->current.pPathChannel);
-
-	gchar* message = "";
-
-	gchar* db_url = "http://database.freetuxtv.net/";
-	
-	if(pChannelInfos != NULL){
-		message = g_strdup_printf (_("An error occurred while playing channel '%s' : %s\n\n\
-If the problem persist, you can report that the link is dead at %s"),
-		    pChannelInfos->name, pChannelInfos->url, db_url);
-	}else{
-		message = _("An error occurred");
-	}
-	
-	freetuxtv_player_error_dialog_set_message (
-		FREETUXTV_PLAYER_ERROR_DIALOG(dialog), message);
-	gtk_widget_show(dialog);
-		
-	return FALSE;
-}
-
-static void on_mediaplayer_event_occurred (
-    GtkLibvlcMediaPlayer *self,
-    GtkLibvlcEventType type_event,
-    gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *)user_data;
-	
-	if(type_event == GTK_LIBVLC_EVENT_MP_ENCOUTEREDERROR){
-		g_idle_add (showplayer_error, app);
-	}
-}
 
 static gboolean
 splashscreen_app_init(gpointer data)
@@ -608,7 +468,6 @@ splashscreen_app_init(gpointer data)
 
 	GtkWidget *widget;
 	GtkWidget *eventboxplayer;
-	GtkWidget *pMainWindow = NULL;
 
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 		                                          "splashscreen_image");
@@ -636,67 +495,47 @@ splashscreen_app_init(gpointer data)
 		splashscreen_statusbar_pop (app);
 	}
 
-	// Add player to UI
-	if(error == NULL){
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Creating media player widget\n");
-		eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
-		    "windowmain_eventboxplayer");
-		GtkLibvlcInstance* instance;
-		gchar **options = NULL;
-		gchar* newoption;
-
-		// Initialize LibVLC instance
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Initializing LibVLC instance\n");
-
-		gint major, minor;
-		gtk_libvlc_get_libvlc_version(&major, &minor, NULL);
-		if(major>=1 || (major == 1 && minor>= 1)){
-			list_options_add_option(&options, "--no-xlib"); // Tell VLC to not use Xlib
-		}
-		if(app->prefs.libvlcconfigfile_mode == 0){
-			// No config file
-			list_options_add_option(&options, "--ignore-config");
-			list_options_add_option(&options, "--no-video-title-show");
-		}else if(app->prefs.libvlcconfigfile_mode == 1){
-			// Custom config file
-			list_options_add_option(&options, "--no-ignore-config");
-			newoption = g_strdup_printf("--config=%s/vlcrc", szConfigDir);
-			list_options_add_option(&options, newoption);
-			g_free(newoption);
-			newoption = NULL;
-		}else if(app->prefs.libvlcconfigfile_mode == 2){
-			// VLC config file
-			list_options_add_option(&options, "--no-ignore-config");
-		}
-
-		instance = gtk_libvlc_instance_new((const gchar**)options, freetuxtv_log, &error);
-		if(error == NULL){
-			app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance, NULL));
-			g_signal_connect(G_OBJECT(app->player),
-                 "event-occurred",
-                 G_CALLBACK(on_mediaplayer_event_occurred),
-                 app);
-
-			gtk_widget_show(GTK_WIDGET(app->player));
-			g_object_unref(G_OBJECT(instance));
-			gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
-
-			gtk_libvlc_media_player_set_accel_group (app->player, app->widget.pAccelGroup);
-		}
-
-		list_options_free(options);
-		options = NULL;
+	// Add player to UI	
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Creating media player widget\n");
+	eventboxplayer = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                                      "windowmain_eventboxplayer");
+	GtkLibvlcInstance* instance;
+	gchar **options = NULL;
+	gchar* newoption;
+	if(app->prefs.libvlcconfigfile_mode == 0){
+		// No config file
+		list_options_add_option(&options, "--ignore-config");
+		list_options_add_option(&options, "--no-video-title-show");
+	}else if(app->prefs.libvlcconfigfile_mode == 1){
+		// Custom config file
+		list_options_add_option(&options, "--no-ignore-config");
+		newoption = g_strdup_printf("--config=%s/vlcrc", szConfigDir);
+		list_options_add_option(&options, newoption);
+		g_free(newoption);
+		newoption = NULL;
+	}else if(app->prefs.libvlcconfigfile_mode == 2){
+		// VLC config file
+		list_options_add_option(&options, "--no-ignore-config");
 	}
+
+	instance = gtk_libvlc_instance_new((const gchar**)options, freetuxtv_log, &error);
+	if(error == NULL){
+		app->player = GTK_LIBVLC_MEDIA_PLAYER(gtk_libvlc_media_player_new(instance, NULL));
+	}
+
+	list_options_free(options);
+	options = NULL;
+
+	gtk_widget_show(GTK_WIDGET(app->player));
+	g_object_unref(G_OBJECT(instance));
+	gtk_container_add (GTK_CONTAINER(eventboxplayer), GTK_WIDGET(app->player));
+
+	gtk_libvlc_media_player_set_accel_group (app->player, app->widget.pAccelGroup);
 
 	// Open database
 	DBSync dbsync;
-	gboolean bDbOpen = FALSE;
-	if(error == NULL){
-		dbsync_open_db (&dbsync, &error);
-		bDbOpen = TRUE;
-	}
+	dbsync_open_db (&dbsync, &error);
 
 	// Synchronizing the list of tv channels if file modified
 	if(error == NULL){
@@ -724,100 +563,79 @@ splashscreen_app_init(gpointer data)
 	if(error == NULL){
 		if(app->current.open_channel_name){
 			app->current.open_channel_id = dbsync_get_channel_id_by_name (&dbsync,
-			    app->current.open_channel_name, &error);
+			         app->current.open_channel_name, &error);
 		}
 	}
 
+	// Loading the models
+	if(error == NULL){
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		      "Loading models\n");
+		splashscreen_statusbar_push (app, _("Loading models..."));
+		load_all_models (app, &error);
+		splashscreen_statusbar_pop (app);
+	}
 
 	// Loading the list of channels
 	if(error == NULL){
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Loading the list of channels\n");
+		      "Loading the list of channels\n");
 		splashscreen_statusbar_push (app, _("Loading the list of channels..."));
 		channels_list_load_channels (app, &dbsync, &error);
 		splashscreen_statusbar_pop (app);
 	}
 
 	// Loading the list of recordings
-	if(error == NULL){
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Loading the list of recordings\n");
-		splashscreen_statusbar_push (app, _("Loading the list of recordings..."));
-		recordings_list_load_recordings (app, &dbsync, &error);
-		recordings_list_updatestatus(app, &dbsync, &error);
-		splashscreen_statusbar_pop (app);
-	}
-	
-	// Close database
-	if(bDbOpen){
-		dbsync_close_db(&dbsync);
-	}
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Loading the list of recordings\n");
+	splashscreen_statusbar_push (app, _("Loading the list of recordings..."));
+	recordings_list_load_recordings (app);
+	splashscreen_statusbar_pop (app);
 
 	// Showing the main window
-	if(error == NULL){
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Showing the main window, hide splashscreen\n");
-		widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-		    "splashscreen");
-		gtk_widget_hide(widget);
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Showing the main window, hide splashscreen\n");
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                              "splashscreen");
+	gtk_widget_hide(widget);
 
-		widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-		    "windowmain");
-		gtk_widget_show(widget);
-		pMainWindow = widget;
-	}
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                              "windowmain");
+	gtk_widget_show(widget);
 
 	// Set the sound level of the media player
-	if(error == NULL){
-		widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-		    "windowmain_volumecontrol");
-		gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
-		gtk_libvlc_media_player_set_volume (app->player, app->config.volume, NULL);
-	}
+	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
+	                                              "windowmain_volumecontrol");
+	gtk_range_set_value (GTK_RANGE(widget), app->config.volume);
+	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, NULL);
 
 	// Play the last channel if needed
-	if(error == NULL){
-		if(app->current.pPathChannel != NULL){
-			freetuxtv_play_channel (app, app->current.pPathChannel, &error);
-		}
+	if(app->current.path_channel != NULL){
+		freetuxtv_play_channel (app, app->current.path_channel, &error);
 	}
 
-	GtkWindow* pWindow;
-	
 	// Display add group window if no channels group installed
-	if(error == NULL){
-		int nb_channelsgroup;
-		nb_channelsgroup = gtk_tree_model_iter_n_children (app->channelslist, NULL);
-		if(nb_channelsgroup == 0){	
-			FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
+	int nb_channelsgroup;
+	nb_channelsgroup = gtk_tree_model_iter_n_children (app->channelslist, NULL);
+	if(nb_channelsgroup == 0){	
+		FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
+		gint res;
 
-			pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (GTK_WINDOW(pMainWindow), app, &error);
+		pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (app);
+		res = freetuxtv_window_add_channels_group_run (pWindowAddChannelsGroups);
 
-			if(error == NULL){
-				pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
-				gtk_widget_show(GTK_WIDGET(pWindow));
-
-				GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
-
-				g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
-					G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
-				g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
-					G_CALLBACK(on_channels_added), ppCurrentTreePath);
-				g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
-					G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);
-			}
-		}
+		g_object_unref(pWindowAddChannelsGroups);
+		pWindowAddChannelsGroups = NULL;
 	}
 
 	// Update statut bar
-	if(error == NULL){
-		windowmain_update_statusbar_infos (app);
-	}
+	windowmain_update_statusbar_infos (app);
+
+	// Close database
+	dbsync_close_db(&dbsync);
 
 	// Start internal timer
-	if(error == NULL){
-		g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
-	}
+	g_timeout_add(1000, (GSourceFunc) increase_progress_timeout, app);
 
 	g_free(szConfigDir);
 	szConfigDir = NULL;
@@ -825,16 +643,11 @@ splashscreen_app_init(gpointer data)
 	if(error != NULL){
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
 		      "Error : %s\n", error->message);
-		windowmain_show_gerror(app, error);
-		g_error_free(error);		
+		g_error_free(error);
 		return FALSE;
 	}
-	
-#if GTK_API_VERSION == 3
-	return FALSE;
-#else
+
 	return TRUE;
-#endif
 }
 
 static FreetuxTVApp *
@@ -845,7 +658,6 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	app = g_new0 (FreetuxTVApp, 1);
 
 	app->name = "FreetuxTV";
-	app->player = NULL;
 
 	// Set app paths
 	if(szDataDir){
@@ -854,7 +666,6 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 		app->paths.datadir = g_strdup(FREETUXTV_DIR);
 	}
 	app->paths.gladexmlfile = g_build_filename(app->paths.datadir, "ui", "freetuxtv.glade", NULL);
-	app->paths.szPathGladeXml = g_build_filename(app->paths.datadir, "ui", NULL);
 	
 	// Loads default configuration
 	app->prefs.channelonstartup = TRUE;
@@ -864,7 +675,6 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	app->prefs.directoryrecordings = g_strdup(g_get_home_dir());
 	app->prefs.transcoding_mode = 0;
 	app->prefs.transcoding_format = g_strdup("0");
-	app->prefs.timeout = 20;
 	app->prefs.proxy.proxy_mode = G_PROXY_MODE_NONE;
 	app->prefs.proxy.proxy_server = g_strdup("");
 	app->prefs.proxy.proxy_port = g_strdup("");
@@ -882,15 +692,16 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 
 	app->current.open_channel_name = NULL;
 	app->current.open_channel_id = -1;
-	app->current.pPathChannel = NULL;
+	app->current.path_channel = NULL;
 	app->current.autoplay_channel = FALSE;
 	app->current.is_recording = FALSE;
-	app->current.recording.pRecordingInfo = NULL;
+	app->current.recording.dst_file = NULL;
+	app->current.recording.duration = NULL;
 	app->current.bIsAccelGroupActivated = FALSE;
 
 	// Create UI from file
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Loading user interface from path %s\n", app->paths.szPathGladeXml);
+	      "Loading user interface from file %s\n", app->paths.gladexmlfile);
 	app->gui = gtk_builder_new ();
 	gtk_builder_add_from_file (app->gui, app->paths.gladexmlfile, NULL);
 
@@ -898,12 +709,9 @@ freetuxtv_app_create_app (const gchar* szDataDir)
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "Initializing user interface\n");
 	windowmain_init(app);
-	//windowrecording_init(app);
+	windowrecording_init(app);
 	channels_list_init(app);
 	recordings_list_init(app);
-
-	// Player error dialog
-	app->widget.pPlayerErrorDialog = NULL;
 
 	return app;
 
@@ -965,11 +773,6 @@ freetuxtv_app_destroy_app (FreetuxTVApp** pApp)
 		app->gui = NULL;
 	}
 
-	if(app->widget.pPlayerErrorDialog){
-		gtk_widget_destroy (app->widget.pPlayerErrorDialog);
-		app->widget.pPlayerErrorDialog = NULL;
-	}
-	
 	g_free(app);
 	app = NULL;
 }
@@ -1066,7 +869,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 
 		// Send notification to desktop
 		gchar *imgfile;
-		imgfile = tvchannels_list_get_tvchannel_logo_path_for_channel(app, pChannelInfos, TRUE);
+		imgfile = tvchannels_list_get_tvchannel_logo_path(app, pChannelInfos, TRUE);
 
 		if(app->prefs.enable_notifications){
 			notify_notification_update (app->current.notification, pChannelInfos->name,
@@ -1207,35 +1010,36 @@ freetuxtv_action_playpause (FreetuxTVApp *app, GError** error)
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
 	      "freetuxtv_action_playpause()\n");
 
-	FreetuxTVChannelInfos* pChannelInfos;
+	if(app->current.path_channel != NULL){
 
-	GtkLibvlcState state = gtk_libvlc_media_player_get_state(app->player, error);
-	switch(state){
-		case GTK_LIBVLC_STATE_PAUSED :
-			gtk_libvlc_media_player_pause(app->player, NULL);
-			windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
-			break;
-		case GTK_LIBVLC_STATE_PLAYING :
-			if(gtk_libvlc_media_player_can_pause(app->player, NULL)){
+		FreetuxTVChannelInfos* channel_infos;
+
+		GtkLibvlcState state = gtk_libvlc_media_player_get_state(app->player, error);
+		switch(state){
+			case GTK_LIBVLC_STATE_PAUSED :
 				gtk_libvlc_media_player_pause(app->player, NULL);
-			}
-			windowmain_display_buttons (app, WINDOW_MODE_PAUSED);
-			break;
-		default:
-			if(app->current.pPathChannel != NULL){
-				pChannelInfos = channels_list_get_channel (app, app->current.pPathChannel);
+				windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
+				break;
+			case GTK_LIBVLC_STATE_PLAYING :
+				if(gtk_libvlc_media_player_can_pause(app->player, NULL)){
+					gtk_libvlc_media_player_pause(app->player, NULL);
+				}
+				windowmain_display_buttons (app, WINDOW_MODE_PAUSED);
+				break;
+			default:
+				channel_infos = channels_list_get_channel (app, app->current.path_channel);
 
 				g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-					  "Current channel %s\n", pChannelInfos->name);
+				      "Current channel %s\n", channel_infos->name);
 				GtkLibvlcMedia *media;
-				media = gtk_libvlc_media_new(pChannelInfos->url);
+				media = gtk_libvlc_media_new(channel_infos->url);
 				gtk_libvlc_media_player_clear_media_list(app->player);
 				gtk_libvlc_media_player_add_media(app->player, media);
 				g_object_unref(media);
 				gtk_libvlc_media_player_play(app->player, NULL, error);
 
-				windowmain_display_buttons (app, WINDOW_MODE_PLAYING);
-			}
+				windowmain_display_buttons (app, WINDOW_MODE_PLAYING);	
+		}
 	}
 
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
@@ -1249,12 +1053,11 @@ freetuxtv_action_stop (FreetuxTVApp *app, GError** error)
 	      "freetuxtv_action_stop()\n");
 
 	gchar *text;
+	if(app->current.path_channel != NULL){
+		FreetuxTVChannelInfos* channel_infos;
+		channel_infos = channels_list_get_channel (app, app->current.path_channel);
 
-	GtkLibvlcState state = gtk_libvlc_media_player_get_state(app->player, error);
-	if(state == GTK_LIBVLC_STATE_PLAYING || state == GTK_LIBVLC_STATE_PAUSED){
-		if(app->current.pPathChannel != NULL){
-			FreetuxTVChannelInfos* channel_infos;
-			channel_infos = channels_list_get_channel (app, app->current.pPathChannel);
+		if(gtk_libvlc_media_player_is_playing(app->player, error)){
 
 			if(app->current.is_recording){
 				text = g_strdup_printf (_("Playing: %s"), channel_infos->name);
@@ -1263,10 +1066,15 @@ freetuxtv_action_stop (FreetuxTVApp *app, GError** error)
 			}
 			windowmain_statusbar_push (app, "PlayChannelMsg", text);
 			g_free(text);
-		}
 
-		windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
-		gtk_libvlc_media_player_stop (app->player, error);
+			windowmain_display_buttons (app, WINDOW_MODE_STOPPED);
+			gtk_libvlc_media_player_stop (app->player, error);			
+
+			if(app->current.is_recording){
+				app->current.is_recording = FALSE;
+				freetuxtv_action_playpause (app, error);				
+			}
+		}
 	}
 
 	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
@@ -1274,135 +1082,75 @@ freetuxtv_action_stop (FreetuxTVApp *app, GError** error)
 }
 
 void
-freetuxtv_action_start_recording (FreetuxTVApp *app, FreetuxTVRecordingInfos* pRecordingInfos, GError** error)
+freetuxtv_action_record (FreetuxTVApp *app, GError** error)
 {
-	g_return_if_fail(error != NULL);
-	g_return_if_fail(*error == NULL);
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+	      "freetuxtv_action_record()\n");
 
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
-	      "Starting recording => %s\n", pRecordingInfos->szTitle);
+	gchar *text;
 
-	DBSync dbsync;
-	
-//	FREETUXTV_RECORDING_STATUS oldstatus;
-	FreetuxTVChannelInfos* pChannelInfos;
-
-	gchar *szTmp;
-	gchar *szText;
-	gchar *szImgFile;
-	gchar *szBaseFilename;
-	gchar *szDstFilename;
-
-	if(!app->current.is_recording) {
-		g_get_current_time (&(app->current.recording.time_begin));
-
-		pChannelInfos = channels_list_get_channel_by_id(app, pRecordingInfos->channel_id);
+	if(gtk_libvlc_media_player_is_playing(app->player, error)
+	   && !app->current.is_recording)
+	{
+		FreetuxTVChannelInfos* channel_infos;
+		channel_infos = channels_list_get_channel (app, app->current.path_channel);
 
 		// Send notification to desktop
-		szImgFile = tvchannels_list_get_tvchannel_logo_path_for_channel(app, pChannelInfos, TRUE);
+		gchar *imgfile;
+		imgfile = tvchannels_list_get_tvchannel_logo_path(app, channel_infos, TRUE);
 
 		if(app->prefs.enable_notifications){
-		   notify_notification_update (app->current.notification, pChannelInfos->name,
-		       _("is recording"), szImgFile);
+		   notify_notification_update (app->current.notification, channel_infos->name,
+				                       _("is recording"), imgfile);
 		   if (!notify_notification_show (app->current.notification, NULL)) {
 			   g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_WARNING,
-			       "Failed to send notification\n");
+					 "Failed to send notification\n");
 		   }
 		}
-		g_free(szImgFile);
 
+		g_free(imgfile);
 		windowmain_display_buttons (app, WINDOW_MODE_RECORDING);
 
-		// File name
+		// Timer and file name
+		if(app->current.recording.duration != NULL){
+		   g_timer_stop (app->current.recording.duration);
+		   g_timer_destroy (app->current.recording.duration);
+		}
+		app->current.recording.duration = g_timer_new ();
 
 		// Get the current date string
 		time_t rawtime;
 		struct tm * timeinfo;
 		char buffer [80];
 
-		time (&rawtime);
+		time ( &rawtime );
 		timeinfo = localtime ( &rawtime );
 
 		strftime (buffer, 80, "%a %Y-%m-%d %H:%M:%S", timeinfo);
-		
-		szBaseFilename = g_strconcat(pChannelInfos->name, " - ", buffer, NULL);
+
+		if(app->current.recording.dst_file != NULL){
+		   g_free(app->current.recording.dst_file);
+		   app->current.recording.dst_file = NULL;
+		}
+
+		gchar *base_filename;
+		base_filename = g_strconcat(channel_infos->name, " - ", buffer, NULL);
 
 		gchar *options[2];
-		options[0] = get_recording_options(app, szBaseFilename, FALSE, &szDstFilename);
+		options[0] = get_recording_options(app, base_filename, FALSE, &app->current.recording.dst_file);
 		options[1] = NULL;
 
-		// TODO : if not the current channel, we create a new media 
-		if(TRUE){
-			GtkLibvlcMedia *media;
-			media = gtk_libvlc_media_new(pChannelInfos->url);
-			gtk_libvlc_media_player_clear_media_list(app->player);
-			gtk_libvlc_media_player_add_media(app->player, media);
-			g_object_unref(media);
-	    }
-		
 		gtk_libvlc_media_player_play (app->player, options, error);
 
-		g_free(szBaseFilename);
+		g_free(base_filename);
 		g_free(options[0]);
 
-		// Mark the recording as the current recording
 		app->current.is_recording = TRUE;
-		app->current.recording.pRecordingInfo = pRecordingInfos;
 
-		szTmp = g_path_get_basename (szDstFilename);
-		szText = g_strdup_printf (_("Recording: %s"), szTmp);
-		windowmain_statusbar_push (app, "PlayChannelMsg", szText);
-		g_free(szTmp);
-		g_free(szText);
-
-		// Update recording in database
-		dbsync_open_db (&dbsync, error);
-		if(*error == NULL){
-			freetuxtv_recording_infos_set_filename (pRecordingInfos, szDstFilename);
-			freetuxtv_recording_infos_set_status (pRecordingInfos, FREETUXTV_RECORDING_STATUS_PROCESSING);
-			dbsync_update_recording (&dbsync, pRecordingInfos, error);
-		}
-		if(*error == NULL){
-			recordings_list_refresh (app);
-		}
-		dbsync_close_db(&dbsync);
-
-		g_free(szDstFilename);
-		szDstFilename = NULL;
+		text = g_strdup_printf (_("Recording: %s"), app->current.recording.dst_file);
+		windowmain_statusbar_push (app, "PlayChannelMsg", text);
+		g_free(text);
 	}
-}
-
-
-void
-freetuxtv_action_stop_recording (FreetuxTVApp *app, FreetuxTVRecordingInfos* pRecordingInfos, GError** error)
-{
-	g_return_if_fail(error != NULL);
-	g_return_if_fail(*error == NULL);
-
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
-	      "Stopping recording => %s\n", pRecordingInfos->szTitle);
-
-	DBSync dbsync;
-	
-	freetuxtv_action_stop(app, error);
-
-	// Update recording in database
-	if(*error == NULL){
-		dbsync_open_db (&dbsync, error);
-		if(*error == NULL){
-			freetuxtv_recording_infos_set_status (pRecordingInfos, FREETUXTV_RECORDING_STATUS_FINISHED);
-			dbsync_update_recording (&dbsync, pRecordingInfos, error);
-		}
-		if(*error == NULL){
-			recordings_list_refresh (app);
-		}
-		dbsync_close_db(&dbsync);
-	}
-
-	app->current.recording.pRecordingInfo = NULL;
-	app->current.is_recording = FALSE;
-
-	freetuxtv_action_playpause (app, error);
 }
 
 void
@@ -1413,7 +1161,7 @@ freetuxtv_action_prev (FreetuxTVApp *app, GError** error)
 
 	gboolean ret;
 	GtkTreePath* path_prev_channel;
-	if (app->current.pPathChannel != NULL) {
+	if (app->current.path_channel != NULL) {
 		if(!app->current.is_recording){
 			ret = channels_list_get_prev_channel (app, &path_prev_channel);
 			if(ret){			
@@ -1431,7 +1179,7 @@ freetuxtv_action_next (FreetuxTVApp *app, GError** error)
 
 	gboolean ret;
 	GtkTreePath* path_next_channel;
-	if (app->current.pPathChannel != NULL) {
+	if (app->current.path_channel != NULL) {
 		if(!app->current.is_recording){
 			ret = channels_list_get_next_channel (app, &path_next_channel);
 			if(ret){
@@ -1469,7 +1217,7 @@ freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 	gboolean bIsPlaying;
 	bIsPlaying = (gtk_libvlc_media_player_get_state(app->player, &error) == GTK_LIBVLC_STATE_PLAYING);
 
-	if(bIsPlaying && app->current.is_recording){
+	if(bIsPlaying){
 		bQuit = FALSE;
 
 		dialog = gtk_message_dialog_new (parent,
@@ -1519,9 +1267,6 @@ freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 			                   app->prefs.transcoding_format);
 
 		g_key_file_set_integer (keyfile, "network",
-			                    "timeout",
-			                    app->prefs.timeout);
-		g_key_file_set_integer (keyfile, "network",
 			                    "proxy_mode",
 			                    app->prefs.proxy.proxy_mode);
 		g_key_file_set_string (keyfile, "network",
@@ -1549,21 +1294,21 @@ freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 			                   app->config.volume);
 
 
-		if(app->current.pPathChannel != NULL && bIsPlaying){
+		if(app->current.path_channel != NULL && bIsPlaying){
 			FreetuxTVChannelInfos* channel_infos;
-			channel_infos = channels_list_get_channel(app, app->current.pPathChannel);
+			channel_infos = channels_list_get_channel(app, app->current.path_channel);
 			g_key_file_set_integer (keyfile, "general",
 				                    "last_channel",
 				                    channel_infos->id);
-			gtk_tree_path_free(app->current.pPathChannel);
+			gtk_tree_path_free(app->current.path_channel);
 		}
 		g_key_file_set_integer (keyfile, "general",
 			                    "logos_file_date",
 			                    app->config.logosfiledate);
 
-		//g_key_file_set_boolean (keyfile, "windowminimode",
-		//    "stay_on_top",
-		//    app->config.windowminimode_stayontop);
+		g_key_file_set_boolean (keyfile, "windowminimode",
+			                    "stay_on_top",
+			                    app->config.windowminimode_stayontop);
 		g_key_file_set_integer (keyfile, "windowminimode",
 			                    "width",
 			                    app->config.windowminimode_width);
@@ -1633,7 +1378,7 @@ void
 freetuxtv_log (const gchar *log_domain, GLogLevelFlags log_level,
                const gchar *message, gpointer user_data)
 {
-	gboolean debug = (gboolean)(user_data ? *((gboolean*)user_data) : FALSE);
+	gboolean debug = (gboolean)user_data;
 	const gchar* levelmsg = "";
 	gchar* szDomain;
 
@@ -1682,35 +1427,20 @@ static void
 show_help()
 {
 	g_print("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
-	g_print("Usage: freetuxtv [OPTION...]\n");
+	g_print("Usage: freetuxtv [option...]\n");
 	g_print("\n");
 	g_print("Options:\n");
-	g_print("  -h, --help        display this help and exit\n");
-	g_print("      --version     output version information and exit\n");
+	g_print("-h, --help            show this help message and exit\n");
 	g_print("\n");
 	g_print("Channel:\n");
-	g_print("  --open-channel CHANNEL_NAME\n");
-	g_print("                    look for a channel corresponding to the name and \n");
-	g_print("                    play it if found (take first in the channels list)\n");
+	g_print("--open-channel CHANNEL_NAME\n");
+	g_print("                      look for a channel corresponding to the name and \n");
+	g_print("                      play it if found (take first in the channels list)\n");
 	g_print("\n");
 	g_print("Debug options:\n");
-	g_print("      --datadir DATA_DIR\n");
-	g_print("                    set data directory\n");
-	g_print("  -v, --verbose     display a more detailled trace\n");
-	g_print("\n");
-	g_print("Report bugs to http://code.google.com/p/freetuxtv/issues/list.\n");
-}
-
-static void
-show_version()
-{
-	g_print("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
-	g_print("\n");
-	g_print("Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>\n");
-	g_print("This is free software; see the source for copying conditions.  There is NO\n");
-	g_print("warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n");
-    g_print("\n");
-    g_print("Written by Eric Beuque\n");
+	g_print("--datadir DATA_DIR\n");
+	g_print("                      Set data directory\n");
+	g_print("-v, --verbose         display a more detailled trace\n");
 }
 
 static void
@@ -1733,10 +1463,9 @@ main (int argc, char *argv[])
 	gchar*   szErrMsg = NULL;
 	
 	gboolean bShowHelp = FALSE;
-	gboolean bShowVersion = FALSE;
 	gboolean bTraceDebug = FALSE;
 	gboolean bOpenChannel = FALSE;
-//	gchar* szUri;
+	gchar* szUri;
 	gchar* szChannelName = NULL;
 	gchar* szDataDir = NULL;
 
@@ -1751,10 +1480,6 @@ main (int argc, char *argv[])
 				if(g_ascii_strcasecmp("-h", argv[p]) == 0 || g_ascii_strcasecmp("--help", argv[p]) == 0){
 					// Found the show help option
 					bShowHelp = TRUE;
-					bStopParseArgs = TRUE;
-				}else if(g_ascii_strcasecmp("--version", argv[p]) == 0){
-					// Found the version option
-					bShowVersion = TRUE;
 					bStopParseArgs = TRUE;
 				}else if(g_ascii_strcasecmp("-v", argv[p]) == 0 || g_ascii_strcasecmp("--verbose", argv[p]) == 0){
 					// Found the verbose option
@@ -1783,8 +1508,7 @@ main (int argc, char *argv[])
 			}else{
 				if(p == argc-1){
 					// If the last args isn't an option, it should be an URI 
-					// TODO : Allow to play the URI
-					// szUri = argv[p];
+					szUri = argv[p];
 				}else{
 					szErrMsg = g_strdup_printf("invalid option '%s'", argv[p]);
 				}
@@ -1804,16 +1528,11 @@ main (int argc, char *argv[])
 		bQuit = TRUE;
 	}
 
-	if(bShowVersion){
-		show_version();
-		bQuit = TRUE;
-	}
-
 	if(!bQuit){
 		// Initialize log handler
 		idLogHandler = g_log_set_handler (FREETUXTV_LOG_DOMAIN,
 			                              G_LOG_LEVEL_MASK,
-			                              freetuxtv_log, &bTraceDebug);
+			                              freetuxtv_log, (gpointer*)bTraceDebug);
 
 #ifdef ENABLE_NLS
 		bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -1822,32 +1541,19 @@ main (int argc, char *argv[])
 #endif
 
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Compiled with GTK%d\n", GTK_API_VERSION);		
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Compiled with libnotify version %d.%d.%d\n", LIBNOTIFY_VERSION_MAJOR, LIBNOTIFY_VERSION_MINOR, LIBNOTIFY_VERSION_REVISION);
+			  "Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
 
-#if GTK_API_VERSION == 3
-		setlocale(LC_ALL, "");
-#else
 		gtk_set_locale ();
-#endif
 		gtk_init (&argc, &argv);
 
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Loading FreetuxTV %s\n", VERSION);
+			  "Loading FreetuxTV %s\n", VERSION);
 		app = freetuxtv_app_create_app (szDataDir);
 		if (app != NULL) {
 
 			// Initialize notifications
 			notify_init("FreetuxTV");
-
-#if LIBNOTIFY_VERSION_MAJOR == 0 && LIBNOTIFY_VERSION_MINOR < 7
 			app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL, NULL);
-#else
-			app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL);
-#endif
 
 			mmkeys = g_mmkeys_new ("FreetuxTV", freetuxtv_log);
 			g_mmkeys_activate (mmkeys);
@@ -1861,12 +1567,8 @@ main (int argc, char *argv[])
 			if(bOpenChannel){
 				app->current.open_channel_name = szChannelName;
 			}
-			
-#if GTK_API_VERSION == 3
-			g_idle_add(splashscreen_app_init, app);
-#else
+
 			gtk_init_add (splashscreen_app_init, app);
-#endif
 
 			gtk_main ();
 

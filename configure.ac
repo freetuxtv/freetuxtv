@@ -1,9 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(freetuxtv, 0.6.4,
-	http://code.google.com/p/freetuxtv/issues/list,,
-	http://code.google.com/p/freetuxtv/)
+AC_INIT(freetuxtv, 0.5.2, http://code.google.com/p/freetuxtv/)
 
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AC_CONFIG_HEADERS([config.h])
@@ -79,12 +77,11 @@ if test "$LIBVLC_FOUND" == "no"; then
   fi
 fi
 dnl Set variable for the config.h
-AC_MSG_CHECKING([which LibVLC version to compile against])
 if test "$LIBVLC_FOUND" == "yes"; then
   LIBVLC_VERSION_MAJOR=`echo $LIBVLC_VERSION | cut -d'.' -f1`
   LIBVLC_VERSION_MINOR=`echo $LIBVLC_VERSION | cut -d'.' -f2`
   LIBVLC_VERSION_REVISION=`echo $LIBVLC_VERSION | cut -d'.' -f3`
-  AC_MSG_RESULT([$LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR.$LIBVLC_VERSION_REVISION])
+  echo "compiling with LibVLC version $LIBVLC_VERSION_MAJOR.$LIBVLC_VERSION_MINOR.$LIBVLC_VERSION_REVISION"
   AC_DEFINE_UNQUOTED(LIBVLC_VERSION_MAJOR, $LIBVLC_VERSION_MAJOR, [LibVLC version major used for complication])
   AC_DEFINE_UNQUOTED(LIBVLC_VERSION_MINOR, $LIBVLC_VERSION_MINOR, [Current LibVLC version minor])
   AC_DEFINE_UNQUOTED(LIBVLC_VERSION_REVISION, $LIBVLC_VERSION_REVISION, [Current LibVLC version revision])
@@ -98,114 +95,20 @@ else
   exit 1
 fi
 
-dnl Get libnotify version
-LIBNOTIFY_VERSION=""
-LIBNOTIFY_PKGCONFIG=""
-LIBNOTIFY_FOUND=no
-if test "$PKGCONFIG" == "yes"; then
-  if pkg-config --exists libvlc; then
-    LIBNOTIFY_VERSION=`pkg-config --modversion libnotify | sed 's/[[a-zA-Z\-]].*$//'`
-    LIBNOTIFY_PKGCONFIG="libnotify"
-    LIBNOTIFY_FOUND=yes
-  fi
-fi
-dnl Set variable for the config.h
-AC_MSG_CHECKING([which libnotify version to compile against])
-if test "$LIBNOTIFY_FOUND" == "yes"; then
-  LIBNOTIFY_VERSION_MAJOR=`echo $LIBNOTIFY_VERSION | cut -d'.' -f1`
-  LIBNOTIFY_VERSION_MINOR=`echo $LIBNOTIFY_VERSION | cut -d'.' -f2`
-  LIBNOTIFY_VERSION_REVISION=`echo $LIBNOTIFY_VERSION | cut -d'.' -f3`
-  AC_MSG_RESULT([$LIBNOTIFY_VERSION_MAJOR.$LIBNOTIFY_VERSION_MINOR.$LIBNOTIFY_VERSION_REVISION])
-  AC_DEFINE_UNQUOTED(LIBNOTIFY_VERSION_MAJOR, $LIBNOTIFY_VERSION_MAJOR, [libnotify version major used for complication])
-  AC_DEFINE_UNQUOTED(LIBNOTIFY_VERSION_MINOR, $LIBNOTIFY_VERSION_MINOR, [Current libnotify version minor])
-  AC_DEFINE_UNQUOTED(LIBNOTIFY_VERSION_REVISION, $LIBNOTIFY_VERSION_REVISION, [Current libnotify version revision])
-  if test "$LIBNOTIFY_PKGCONFIG" != ""; then
-    LIBNOTIFY_PKGCONFIG="libnotify >= $LIBNOTIFY_VERSION_MAJOR.$LIBNOTIFY_VERSION_MINOR.$LIBNOTIFY_VERSION_REVISION"
-  fi
-else
-  echo
-  echo "**Error**: Cannot detect libnotify version."
-  echo "Do you have installed the libnotify development (libnotify-dev) package?"
-  exit 1
-fi
-
-dnl Checking librarie with pkg-config
 dnl Use "pkg-config --modversion module" to find version.
+PKG_CHECK_MODULES(FREETUXTV, gtk+-2.0 >= 2.12
+                             glib-2.0 >= 2.16.0
+                             gio-2.0 >= 2.16.0
+                             dbus-glib-1 >= 0.74
+                             libnotify >= 0.4
+                             sqlite3 >= 3.4
+                             libcurl >= 7.18)
 
-dnl Select the gtk version to use
-AC_MSG_CHECKING([which gtk+ version to compile against])
-AC_ARG_WITH([gtk],
-  [AS_HELP_STRING([--with-gtk=2.0|3.0],[which gtk+ version to compile against (default: 2.0)])],
-  [case "$with_gtk" in
-     2.0|3.0) ;;
-     *) AC_MSG_ERROR([invalid gtk version specified]) ;;
-   esac],
-  [])
-if test "$with_gtk" == ""; then
-	dnl If not precised we try to detect it automatically
-	if pkg-config --exists gtk+-3.0; then
-	   with_gtk=3.0
-	else
-	   with_gtk=2.0
-	fi
-fi
-  
-AC_MSG_RESULT([$with_gtk])
+PKG_CHECK_MODULES(LIBDBEVOLUTION, glib-2.0 >= 2.16.0
+                             gobject-2.0 >= 2.16.0)
 
-case "$with_gtk" in
-  3.0) GTK_PKG_API_VERSION=3.0
-       GTK_REQUIRED=2.90.4
-       AC_DEFINE(GTK_API_VERSION, 3, [Have GTK+ 3.0])
-       ;;
-  2.0) GTK_PKG_API_VERSION=2.0
-       GTK_REQUIRED=2.22.0
-       AC_DEFINE(GTK_API_VERSION, 2, [Have GTK+ 2.0])
-       ;;
-esac
-
-dnl Check if logo must be installed
-AC_MSG_CHECKING([whether to install logos])
-AC_ARG_WITH([logos-install],
-  [AS_HELP_STRING([--without-logos-install],[disable logos installation])],
-  [],
-  [without_logos_install=yes])
-if test "x$without_logos_install" == xyes; then
-	AC_MSG_RESULT([yes])
-	AM_CONDITIONAL(LOGOS_INSTALL, true)
-else
-	AC_MSG_RESULT([no])
-	AM_CONDITIONAL(LOGOS_INSTALL, false)
-fi
-
-PKG_CHECK_MODULES(GTK, gtk+-$GTK_PKG_API_VERSION >= $GTK_REQUIRED)
-
-PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.26.0)
-PKG_CHECK_MODULES(GOBJECT, gobject-2.0 >= 2.26.0)
-PKG_CHECK_MODULES(GIO, gio-2.0 >= 2.26.0)
-PKG_CHECK_MODULES(DBUS_GLIB, dbus-glib-1 >= 0.74)
-
-PKG_CHECK_MODULES(LIBNOTIFY, libnotify >= 0.4)
-PKG_CHECK_MODULES(SQLITE3, sqlite3 >= 3.4)
-PKG_CHECK_MODULES(LIBCURL, libcurl >= 7.18)
-
-if test "$LIBVLC_PKGCONFIG" != ""; then
-	PKG_CHECK_MODULES(LIBVLC, $LIBVLC_PKGCONFIG)
-fi
-
-LIBDBEVOLUTION_CFLAGS="$GTK_CFLAGS $GLIB_CFLAGS $GOBJECT_CFLAGS"
-LIBDBEVOLUTION_LDFLAGS="$GTK_LIBS $GLIB_LIBS $GOBJECT_LIBS"
-AC_SUBST(LIBDBEVOLUTION_CFLAGS)
-AC_SUBST(LIBDBEVOLUTION_LDFLAGS)
-                             
-LIBVLCGTK_CFLAGS="$GTK_CFLAGS $LIBVLC_CFLAGS"
-LIBVLCGTK_LDFLAGS="$GTK_LIBS $LIBVLC_LIBS"
-AC_SUBST(LIBVLCGTK_CFLAGS)
-AC_SUBST(LIBVLCGTK_LDFLAGS)
-                             
-FREETUXTV_CFLAGS="$GTK_CFLAGS $GLIB_CFLAGS $GIO_CFLAGS $DBUS_GLIB_CFLAGS $LIBNOTIFY_CFLAGS $SQLITE3_CFLAGS $LIBCURL_CFLAGS"
-FREETUXTV_LDFLAGS="$GTK_LIBS $GLIB_LIBS $GIO_LIBS $DBUS_GLIB_LIBS $LIBNOTIFY_LIBS $SQLITE3_LIBS $LIBCURL_LIBS"
-AC_SUBST(FREETUXTV_CFLAGS)
-AC_SUBST(FREETUXTV_LDFLAGS)
+PKG_CHECK_MODULES(LIBVLCGTK, gtk+-2.0 >= 2.12
+                             $LIBVLC_PKGCONFIG)
 
 AC_CHECK_LIB(vlc, libvlc_new)
 AC_CHECK_LIB(gthread-2.0, g_thread_init)

@@ -28,7 +28,6 @@
 #include "freetuxtv-channel-infos.h"
 #include "freetuxtv-channels-group-infos.h"
 #include "freetuxtv-tv-channel-infos.h"
-#include "freetuxtv-recording-infos.h"
 
 typedef struct _DBSync DBSync;
 struct _DBSync
@@ -46,8 +45,6 @@ typedef enum
 GQuark
 freetuxtv_dbsync_error_quark ();
 
-// Database manipulation function
-
 void
 dbsync_open_db (DBSync *dbsync, GError** error);
 
@@ -62,8 +59,6 @@ dbsync_create_db (DBSync *dbsync, gchar* szScriptFilename, GError** error);
 
 void
 dbsync_update_db (DBSync *dbsync, gchar* szScriptFilename, GError** error);
-
-// Channels groups manipulation function
 
 void
 dbsync_select_channels_groups (DBSync *dbsync,
@@ -80,33 +75,6 @@ dbsync_select_channels_of_channels_group (DBSync *dbsync,
 	    FreetuxTVChannelInfos* pChannelInfos,
 	    DBSync *dbsync, gpointer user_data, GError** error),
     gpointer user_data, GError** error);
-
-void
-dbsync_update_channels_group_last_update (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    GError** error);
-
-void
-dbsync_delete_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    GError** error);
-
-void
-dbsync_delete_channels_of_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    GError** error);
-
-void
-dbsync_start_update_channels_of_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    GError** error);
-
-void
-dbsync_end_update_channels_of_channels_group (DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    GError** error);
-
-// Channels manipulation function
 
 void
 dbsync_add_channel (DBSync *dbsync,
@@ -152,37 +120,36 @@ dbsync_switch_position_channel (DBSync *dbsync,
     FreetuxTVChannelInfos* pChannelInfosB,
     GError** error);
 
-// TVChannels manipulation function
+void
+dbsync_update_channels_group_last_update (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error);
+
+void
+dbsync_delete_channels_group (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error);
+
+void
+dbsync_delete_channels_of_channels_group (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error);
+
+void
+dbsync_start_update_channels_of_channels_group (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error);
+
+void
+dbsync_end_update_channels_of_channels_group (DBSync *dbsync,
+    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
+    GError** error);
 
 void
 dbsync_delete_tvchannels (DBSync *dbsync, GError** error);
 
 void
 dbsync_add_tvchannel (DBSync *dbsync, FreetuxTVTvChannelInfos* pTvChannelInfos,
-    GError** error);
-
-// Recordings manipulation function
-
-void
-dbsync_add_recording (DBSync *dbsync, FreetuxTVRecordingInfos* pRecordingInfos,
-    GError** error);
-
-void
-dbsync_select_recordings (DBSync *dbsync,
-    FreetuxTVApp *app,
-    int (*callback)(FreetuxTVApp *app, 
-	    FreetuxTVRecordingInfos* pRecordingInfos,
-	    DBSync *dbsync, gpointer user_data, GError** error),
-    gpointer user_data, GError** error);
-
-void
-dbsync_update_recording (DBSync *dbsync,
-    FreetuxTVRecordingInfos* pRecordingInfos,
-    GError** error);
-
-void
-dbsync_delete_recording (DBSync *dbsync,
-    FreetuxTVRecordingInfos* pRecordingInfos,
     GError** error);
 
 #endif /* FREETUXTV_DB_SYNC_H */

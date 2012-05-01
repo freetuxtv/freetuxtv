@@ -1,8 +1,6 @@
 channelsdir   = $(datadir)/freetuxtv/images/channels
-
-channels_logodefault = _none.png
-
-channels_logos = \
+channels_DATA = \
+  _none.png \
   1onairconnect.png \
   100pourcentradio.png \
   2mmaroc.png \
@@ -53,18 +51,11 @@ channels_logos = \
   bulgariatv.png \
   c9.png \
   calaistv.png \
-  canal10tucuman.png \
-  canal26.png \
-  canal4sanjuan.png \
-  canal5tucuman.png \
-  canal6posadas.png \
-  canal9entrerios.png \
   canalacademie.png \
   canalalgerie.png \
   canalinfonews.png \
   canalmoza.png \
   canalplus.png \
-  canalrural.png \
   canalsavoir.png \
   canaltv.png \
   cap24-paris.png \
@@ -100,7 +91,6 @@ channels_logos = \
   ct2e.png \
   demaintv.png \
   direct8.png \
-  directstar.png \
   dubaitv.png \
   dwtv-deutschewelle.png \
   ekodesgarrigues.png \
@@ -151,7 +141,6 @@ channels_logos = \
   heilongjiangtv.png \
   hilaltv.png \
   hiscore.png \
-  hitmusictv.png \
   hitwest.png \
   hunansatellitetv.png \
   idf1.png \
@@ -192,7 +181,6 @@ channels_logos = \
   libertytv.png \
   localesidf.png \
   luxetv.png \
-  m6.png \
   m6boutique.png \
   m6musicblack.png \
   m6musicclub.png \
@@ -223,9 +211,6 @@ channels_logos = \
   mtv2.png \
   mtvdance.png \
   mtvhits.png \
-  musicplusclassicrock.png \
-  musicplushits.png \
-  musicpluspoprock.png \
   myzentv.png \
   nasatv.png \
   natgeomusic.png \
@@ -300,7 +285,6 @@ channels_logos = \
   recordinternacional.png \
   relaxtv.png \
   renaulttv.png \
-  reservoirfilms.png \
   rfi.png \
   rfm.png \
   rfo.png \
@@ -347,11 +331,9 @@ channels_logos = \
   teleplaisance.png \
   telessonne.png \
   telesur.png \
-  televisionsavoir.png \
   telif.png \
   tempomix.png \
   teva.png \
-  tf1.png \
   tfou.png \
   tfouwebtv.png \
   tllteleloire.png \
@@ -359,7 +341,6 @@ channels_logos = \
   tlt-toulouse.png \
   tmc.png \
   tna.png \
-  tn.png \
   topmusic.png \
   tracetropical.png \
   tracetv.png \
@@ -388,7 +369,6 @@ channels_logos = \
   tvt.png \
   tvtours.png \
   tvvi.png \
-  urbaniatv.png \
   vesti.png \
   vh1.png \
   vh1classic.png \
@@ -399,20 +379,11 @@ channels_logos = \
   virginradio.png \
   voltage.png \
   voxafrica.png \
-  w9.png \
   weo.png \
   worldfashion.png \
   xiamenstartv.png \
   yementv.png \
   zahratv.png \
   zdf_de.png \
-  zhejiangstartv.png \
-  zona31.png
-
-if LOGOS_INSTALL
-channels_DATA = $(channels_logodefault) $(channels_logos)
-else
-channels_DATA = $(channels_logodefault)
-endif
-
+  zhejiangstartv.png
 EXTRA_DIST   = $(channels_DATA)

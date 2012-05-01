@@ -10,6 +10,7 @@ Icon=freetuxtv
 Exec=freetuxtv
 Terminal=false
 StartupNotify=true
+Encoding=UTF-8
 X-DCOP-ServiceType=
 X-KDE-SubstituteUID=false
 X-KDE-Username=

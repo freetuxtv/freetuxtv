@@ -21,7 +21,6 @@
 #include "gtk-libvlc-private.h"
 
 #include <gdk/gdkx.h>
-#include <string.h>
 
 typedef struct _GtkLibvlcMediaPlayerPrivate GtkLibvlcMediaPlayerPrivate;
 struct _GtkLibvlcMediaPlayerPrivate
@@ -42,9 +41,6 @@ struct _GtkLibvlcMediaPlayerPrivate
 	GtkWidget* pWigdetOriginalParent;
 	GtkWidget* pWindowFullscreen;
 
-	gint root_x;
-	gint root_y;
-
 	gboolean isModeFullscreen;
 
 	GtkAccelGroup *pAccelGroup;
@@ -53,13 +49,6 @@ struct _GtkLibvlcMediaPlayerPrivate
 #define GTK_LIBVLC_MEDIA_PLAYER_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), GTK_TYPE_LIBVLC_MEDIA_PLAYER, GtkLibvlcMediaPlayerPrivate))
 
 G_DEFINE_TYPE (GtkLibvlcMediaPlayer, gtk_libvlc_media_player, GTK_TYPE_WIDGET);
-
-enum {
-   SIGNAL_EVENT_OCCURRED,
-   NB_SIGNALS
-};
-
-static guint g_signals [NB_SIGNALS] = { 0 };
 
 #ifndef LIBVLC_DEPRECATED_PLAYLIST
 static void 
@@ -137,46 +126,6 @@ gtk_libvlc_media_player_init (GtkLibvlcMediaPlayer *object)
 	priv->pAccelGroup = NULL;
 }
 
-#if GTK_API_VERSION == 3
-
-static GtkSizeRequestMode
-gtk_libvlc_media_player_get_request_mode (GtkWidget *widget)
-{
-	return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
-}
-
-static void
-gtk_libvlc_media_player_get_preferred_width (
-	GtkWidget *widget,
-    gint *minimum_width,
-    gint *natural_width)
-{
-	if(minimum_width){
-		*minimum_width = 240;
-	}
-	if(natural_width){
-		*natural_width = 640;
-	}
-}
-
-static void
-gtk_libvlc_media_player_get_preferred_height_for_width (
-	GtkWidget *widget,
-	gint width,
-	gint *minimum_height,
-	gint *natural_height)
-{
-	float ratio = 16/9;
-	if(minimum_height){
-		*minimum_height = 160;
-	}
-	if(natural_height){
-		*natural_height = (int)(width * ratio);
-	}
-}
-
-#else
-
 static void
 gtk_libvlc_media_player_size_request(GtkWidget *widget, GtkRequisition *requisition)
 {
@@ -188,8 +137,6 @@ gtk_libvlc_media_player_size_request(GtkWidget *widget, GtkRequisition *requisit
 	requisition->height = 160;
 }
 
-#endif
-
 static void
 gtk_libvlc_media_player_size_allocate(GtkWidget *widget, GtkAllocation *allocation)
 {
@@ -197,23 +144,10 @@ gtk_libvlc_media_player_size_allocate(GtkWidget *widget, GtkAllocation *allocati
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(widget));
 	g_return_if_fail(allocation != NULL);
 
-	GdkWindow* pWindow = NULL;
-	gboolean bIsRealized;
-
-#if GTK_API_VERSION == 3
-	gtk_widget_set_allocation(widget, allocation);
-	pWindow = gtk_widget_get_window(widget);
-
-	bIsRealized = gtk_widget_get_realized(widget);
-#else
 	widget->allocation = *allocation;
-	pWindow = widget->window;
 
-	bIsRealized = (GTK_WIDGET_REALIZED(widget));
-#endif
-
-	if(bIsRealized){
-		gdk_window_move_resize(pWindow,
+	if (GTK_WIDGET_REALIZED(widget)) {
+		gdk_window_move_resize(widget->window,
 		                       allocation->x, allocation->y,
 		                       allocation->width, allocation->height);
 	}
@@ -222,87 +156,37 @@ gtk_libvlc_media_player_size_allocate(GtkWidget *widget, GtkAllocation *allocati
 static void
 gtk_libvlc_media_player_realize(GtkWidget *widget)
 {
-	GtkLibvlcMediaPlayer *libvlc_mediaplayer = GTK_LIBVLC_MEDIA_PLAYER (widget);
+	GtkLibvlcMediaPlayer *libvlcmp = GTK_LIBVLC_MEDIA_PLAYER (widget);
+	GdkWindowAttr attributes;
+	guint attributes_mask;
 
 	g_return_if_fail(widget != NULL);
 	g_return_if_fail(GTK_IS_LIBVLC_MEDIA_PLAYER(widget));
 
-#if GTK_API_VERSION == 3
-	gboolean bHasWindow = gtk_widget_get_has_window(widget);
-#else
-	gboolean bHasWindow = !GTK_WIDGET_NO_WINDOW (widget);
-#endif
-
-	if (!bHasWindow){
+	if (GTK_WIDGET_NO_WINDOW (widget)){
 		GTK_WIDGET_CLASS (gtk_libvlc_media_player_parent_class)->realize (widget);
 	}else{
-
-		GdkWindow *window, *parent;
-		GdkWindowAttr attributes;
-		guint attributes_mask;
-		GtkAllocation allocation;
-#if GTK_API_VERSION == 3
-		GtkStyleContext *context;
-#else
-		GtkStyle *style;
-#endif
-
-#if GTK_API_VERSION == 3
-        gtk_widget_set_realized(widget, TRUE);
-        gtk_widget_get_allocation(widget, &allocation);
-#else
-        GTK_WIDGET_SET_FLAGS(widget, GTK_REALIZED);
-        memcpy(&allocation, &(widget->allocation), sizeof(GtkAllocation));
-#endif
-		
-#if GTK_API_VERSION == 3
-		gtk_widget_set_realized (widget, TRUE);
-		gtk_widget_get_allocation (widget, &allocation);
-#else
-		GtkStyle* pStyle;
 		GTK_WIDGET_SET_FLAGS(widget, GTK_REALIZED);
-		allocation = widget->allocation;
-		pStyle = widget->style;
-#endif
 
-		attributes.x = allocation.x;
-		attributes.y = allocation.y;
-		attributes.width = allocation.width;
-		attributes.height = allocation.height;		
-		attributes.wclass = GDK_INPUT_OUTPUT;
 		attributes.window_type = GDK_WINDOW_CHILD;
-		attributes.event_mask = gtk_widget_get_events(widget) | GDK_EXPOSURE_MASK;
+		attributes.x = widget->allocation.x;
+		attributes.y = widget->allocation.y;
+		attributes.width = widget->allocation.width;
+		attributes.height = widget->allocation.height;		
+		attributes.wclass = GDK_INPUT_OUTPUT;
 		attributes.visual = gtk_widget_get_visual (widget);
-#if GTK_API_VERSION == 3
-		attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
-        gtk_widget_set_has_window(widget, TRUE);
-#else
-		attributes.colormap = gtk_widget_get_colormap (widget);
+		attributes.colormap = gtk_widget_get_colormap (widget);		
+		attributes.event_mask = gtk_widget_get_events(widget) | GDK_EXPOSURE_MASK;
+
 		attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
-        GTK_WIDGET_SET_FLAGS(widget, !GTK_NO_WINDOW);
-#endif
 
-		parent = gtk_widget_get_parent_window(widget);
-		window = gdk_window_new(parent, &attributes, attributes_mask);
-#if GTK_API_VERSION == 3
-        gtk_widget_set_window(widget, window);
-#else
-        widget->window = window;
-#endif
-		
-		gdk_window_set_user_data(window, libvlc_mediaplayer);
+		widget->window = gdk_window_new(gtk_widget_get_parent_window (widget),
+		                                & attributes, attributes_mask);
 
-		// Setting the style will set the background to black by default
-#if GTK_API_VERSION == 3
-        gdk_window_set_background_pattern(window, NULL);
-        context = gtk_widget_get_style_context(widget);
-        gtk_style_context_set_background(context, window);
-#else
-        style = gtk_widget_get_style(widget);
-        widget->style = gtk_style_attach(widget->style, widget->window);
-        //gtk_style_set_background(style, window, GTK_STATE_NORMAL);
-        //gdk_window_set_back_pixmap(window, NULL, TRUE);
-#endif
+		gdk_window_set_user_data(widget->window, libvlcmp);
+
+		widget->style = gtk_style_attach(widget->style, widget->window);
+		// gtk_style_set_background(widget->style, widget->window, GTK_STATE_ACTIVE);
 	}
 }
 
@@ -404,11 +288,7 @@ gtk_libvlc_media_player_finalize (GObject *object)
 #endif // LIBVLC_OLD_FULLSCREEN_MODE
 
 	if(priv->pAccelGroup){
-#if GTK_API_VERSION == 3
-		g_object_unref (priv->pAccelGroup);
-#else
-		gtk_accel_group_unref (priv->pAccelGroup);
-#endif
+		gtk_accel_group_unref(priv->pAccelGroup);
 		priv->pAccelGroup = NULL;
 	}
 
@@ -431,27 +311,8 @@ gtk_libvlc_media_player_class_init (GtkLibvlcMediaPlayerClass *klass)
 	object_class->finalize = gtk_libvlc_media_player_finalize;
 
 	parent_class->realize = gtk_libvlc_media_player_realize;
-
-#if GTK_API_VERSION == 3
-	parent_class->get_request_mode = gtk_libvlc_media_player_get_request_mode;
-	parent_class->get_preferred_width = gtk_libvlc_media_player_get_preferred_width;
-	parent_class->get_preferred_height_for_width = gtk_libvlc_media_player_get_preferred_height_for_width;
-#else
 	parent_class->size_request = gtk_libvlc_media_player_size_request;
-#endif
 	parent_class->size_allocate = gtk_libvlc_media_player_size_allocate;
-	
-	g_signals [SIGNAL_EVENT_OCCURRED] = g_signal_new (
-	    "event-occurred",
-	    G_TYPE_FROM_CLASS (klass),
-	    G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
-	    G_STRUCT_OFFSET (GtkLibvlcMediaPlayerClass, event_occurred),
-	    NULL, NULL,
-	    g_cclosure_marshal_VOID__ENUM,
-	    G_TYPE_NONE,
-	    1,
-	    G_TYPE_INT
-	    );
 }
 
 static void
@@ -476,18 +337,9 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self, GError **error)
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
 	gboolean bIsRealized = FALSE;
-#if GTK_API_VERSION == 3
-	bIsRealized = gtk_widget_get_realized(GTK_WIDGET(self));
-#else
 	bIsRealized = (GTK_WIDGET_FLAGS (self) & GTK_REALIZED) ? TRUE : FALSE;
-#endif
-
-	GdkWindow *pWindow;
-#if GTK_API_VERSION == 3
-	pWindow = gtk_widget_get_window(GTK_WIDGET(self));
-#else
-	pWindow = GTK_WIDGET(self)->window;
-#endif
+	// TODO : Only since 2.20
+	// bIsRealized = gtk_widget_get_realized(GTK_WIDGET(self);
 
 	if(priv->initialized == FALSE && bIsRealized){
 
@@ -496,16 +348,12 @@ gtk_libvlc_media_player_initialize(GtkLibvlcMediaPlayer *self, GError **error)
 		g_signal_connect(self, "button-press-event", G_CALLBACK(on_buttonpress_event), NULL);
 #endif // LIBVLC_OLD_FULLSCREEN_MODE
 
-#if GTK_API_VERSION == 3
-		XID xid = gdk_x11_window_get_xid(pWindow);
-#else
-		XID xid = gdk_x11_drawable_get_xid(pWindow);
-#endif
-		
 #ifdef LIBVLC_DEPRECATED_PLAYLIST
+		XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
 		libvlc_video_set_parent(libvlc_instance, xid, &_vlcexcep);
 		raise_error(self, error, &_vlcexcep);
-#else  
+#else
+		XID xid = gdk_x11_drawable_get_xid(GTK_WIDGET(self)->window);
 
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 		priv->libvlc_mediaplayer = libvlc_media_player_new (libvlc_instance, &_vlcexcep);
@@ -845,54 +693,6 @@ on_vlc_event(const libvlc_event_t *event, void *user_data)
 			g_idle_add (idle_play_next_function, (gpointer)self);
 		}
 	}
-
-	// Emit signal
-	gboolean bEmitSignal = TRUE;
-	GtkLibvlcEventType gtkevent;
-
-	switch(event->type){
-		case libvlc_MediaPlayerNothingSpecial:
-			gtkevent = GTK_LIBVLC_EVENT_MP_NOTHINGSPECIAL;
-			break;
-		case libvlc_MediaPlayerOpening:
-			gtkevent = GTK_LIBVLC_EVENT_MP_OPENING;
-			break;
-		case libvlc_MediaPlayerBuffering:
-			gtkevent = GTK_LIBVLC_EVENT_MP_BUFFERING;
-			break;
-		case libvlc_MediaPlayerPlaying:
-			gtkevent = GTK_LIBVLC_EVENT_MP_PLAYING;
-			break;
-		case libvlc_MediaPlayerPaused:
-			gtkevent = GTK_LIBVLC_EVENT_MP_PAUSED;
-			break;
-		case libvlc_MediaPlayerStopped:
-			gtkevent = GTK_LIBVLC_EVENT_MP_STOPPED;
-			break;
-		case libvlc_MediaPlayerForward:
-			gtkevent = GTK_LIBVLC_EVENT_MP_FORWARD;
-			break;
-		case libvlc_MediaPlayerBackward:
-			gtkevent = GTK_LIBVLC_EVENT_MP_BACKWARD;
-			break;
-		case libvlc_MediaPlayerEndReached:
-			gtkevent = GTK_LIBVLC_EVENT_MP_ENDREACHED;
-			break;
-		case libvlc_MediaPlayerEncounteredError:
-			gtkevent = GTK_LIBVLC_EVENT_MP_ENCOUTEREDERROR;
-			break;
-		default:
-			// Signal not handled
-			bEmitSignal = FALSE;
-	}
-
-	if(bEmitSignal){
-		g_signal_emit (
-			G_OBJECT (self),
-			g_signals [SIGNAL_EVENT_OCCURRED],
-			0, gtkevent
-			);
-	}
 }
 
 #endif // LIBVLC_DEPRECATED_PLAYLIST
@@ -907,7 +707,7 @@ on_buttonpress_event (GtkWidget *widget, GdkEventButton *event, gpointer user_da
 
 	gtk_widget_grab_focus (widget);
 
-	// If double click, toggle fullscreen mode
+	// If doulbe click, toggle fullscreen mode
 	if (event->type==GDK_2BUTTON_PRESS && event->button == 1) {
 		gtk_libvlc_media_player_toggle_fullscreen (self, &error);
 	}
@@ -929,40 +729,16 @@ gtk_libvlc_media_player_new (GtkLibvlcInstance* libvlc_instance, GError** error)
 	g_return_if_fail(GTK_IS_LIBVLC_INSTANCE(libvlc_instance));
 
 	GtkLibvlcMediaPlayer *self = NULL;
+	self = gtk_type_new (GTK_TYPE_LIBVLC_MEDIA_PLAYER);
 
-#if GTK_API_VERSION == 3
-	self = (GtkLibvlcMediaPlayer*)g_object_new (GTK_TYPE_LIBVLC_MEDIA_PLAYER, NULL);
-#else
-	self = (GtkLibvlcMediaPlayer*)gtk_type_new (GTK_TYPE_LIBVLC_MEDIA_PLAYER);
-#endif
-	
 	self->libvlc_instance = libvlc_instance;
 	g_object_ref(G_OBJECT(self->libvlc_instance));
 
 	self->media_list = gtk_tree_store_new(GTK_LIBVLC_MODEL_NB_COLUMN, GTK_TYPE_LIBVLC_MEDIA);
 
-#if GTK_API_VERSION == 3
-	gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
-#else
 	GTK_WIDGET_SET_FLAGS(GTK_WIDGET(self), GTK_CAN_FOCUS);
-#endif
-
-#if GTK_API_VERSION == 3
-	// Set the background color
-	GdkRGBA color;
-	color.red = 0.0F;
-	color.green = 0.0F;
-	color.blue = 0.0F;
-	color.alpha = 1.0F;
-
-	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_NORMAL, &color);
-	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_ACTIVE, &color);
-	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_PRELIGHT, &color);
-	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_SELECTED, &color);
-	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_INSENSITIVE, &color);
-	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_INCONSISTENT, &color);
-	gtk_widget_override_background_color (GTK_WIDGET(self), GTK_STATE_FLAG_FOCUSED, &color);
-#endif
+	// TODO : Only since 2.20 
+	// gtk_widget_set_can_focus(GTK_WIDGET(self), TRUE);
 
 	return GTK_WIDGET(self);
 }
@@ -1618,13 +1394,6 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean ful
 					gtk_window_add_accel_group (GTK_WINDOW(priv->pWindowFullscreen), priv->pAccelGroup);
 				}
 				priv->pWigdetOriginalParent = gtk_widget_get_parent (GTK_WIDGET(self));
-
-				GtkWidget *pTopLevel = gtk_widget_get_toplevel (priv->pWigdetOriginalParent);
-				if (gtk_widget_is_toplevel (pTopLevel)) {
-					gtk_window_get_position (GTK_WINDOW(pTopLevel), &priv->root_x, &priv->root_y); 
-					gtk_widget_hide(pTopLevel);
-				}
-					
        			gtk_widget_show (priv->pWindowFullscreen);
 
 				gtk_widget_reparent (GTK_WIDGET(self), priv->pWindowFullscreen);
@@ -1639,14 +1408,6 @@ gtk_libvlc_media_player_set_fullscreen (GtkLibvlcMediaPlayer *self, gboolean ful
 #ifndef LIBVLC_OLD_FULLSCREEN_MODE
 				gtk_window_unfullscreen(GTK_WINDOW(priv->pWindowFullscreen));
 				gtk_widget_reparent (GTK_WIDGET(self), priv->pWigdetOriginalParent);
-
-				GtkWidget *pTopLevel = gtk_widget_get_toplevel (priv->pWigdetOriginalParent);
-				if (gtk_widget_is_toplevel (pTopLevel)) {
-					gtk_widget_show(pTopLevel);
-					// Restore the previous position of the windows that was erased by gtk_widget_hide
-					gtk_window_move(GTK_WINDOW(pTopLevel), priv->root_x, priv->root_y); 
-				}
-
 				
 				gtk_widget_hide (priv->pWindowFullscreen);
 #endif // LIBVLC_OLD_FULLSCREEN_MODE
@@ -1719,11 +1480,7 @@ gtk_libvlc_media_player_set_accel_group (GtkLibvlcMediaPlayer *self,
 	}
 	
 	if(priv->pAccelGroup){
-#if GTK_API_VERSION == 3
-		g_object_unref (priv->pAccelGroup);
-#else
-		gtk_accel_group_unref (priv->pAccelGroup);
-#endif
+		gtk_accel_group_unref(priv->pAccelGroup);
 		priv->pAccelGroup = NULL;
 	}
 

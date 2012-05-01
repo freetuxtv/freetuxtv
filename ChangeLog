@@ -1,36 +1,3 @@
-FreetuxTV 0.6.4 (2012-XX-XX)
-  - Issue 145: Fix dialog add group loading with corrupted XML file
-  - Improve help to be compatible with help2man
-  - Issue 131: Restore the original window position after fullscreen mode
-
-FreetuxTV 0.6.3 (2012-04-01)
-  - Rename the menu to synchronize TV channel list.
-  - Add zh_TW lang
-  - Fix compilation with VLC 2.0.x
-  - Add logo: TF1, M6, W9, DirectStar
-
-FreetuxTV 0.6.2 (2012-01-25)
-  - Issue 136: Fix GTK theme support
-  - Issue 137: Restore the black background
-  - Issue 140: Update zh_CN lang
-
-FreetuxTV 0.6.1 (2011-11-24)
-  - Add missing file in POTFILE.in (blocking package creation)
-
-FreetuxTV 0.6.0 (2011-11-22)
-  - Alert on exit only when a channel is recording
-  - Preference to set timeout when downloading with curl
-  - Compilation with libnotify 0.7.x
-  - Compilation with gtk3
-  - Better display for recording list
-  - Issue 23: Hide original window when switching fullscreen mode
-  - Show message dialog for player error
-  - Issue 86: Ability to program recording
-  - Added TV channel logos:
-      WebTV: Canal26, CanalRural, Canal4 SanJuan, Canal5 Tucuman, Canal10 Tucuman,
-      	Canal6 Posadas, Canal9 EntreRios, Hit Music TV, Music plus Classic Rock, Music plus Hits,
-        Music plus pop rock, Reservoir Films, Télévision savoir, TN, UrbaniaTV, Zona 31
-
 FreetuxTV 0.5.2 (2011-01-10)
   - Added new official icon and splashcreen for FreetuxTV
   - Added proxy support: configuration in preferences window.
@@ -47,7 +14,7 @@ FreetuxTV 0.5.2 (2011-01-10)
   - Preference to ignore diacritics.
   - Added TV channel logos:
       WebTV: Orange Sport Infos, R King TV, Zahra TV, TV8 Moselle Est, Clap TV, Archeo TV,
-         Canalmoza, CT2E, Hit Music TV, HiScore TV, Info Sport, Soleil TV, TVSF
+         Canalmoza, CT2E, HiScore TV, Info Sport, Soleil TV, TVSF
       WebRadio: BBC, RNE, RAI, ChanteFrance, Radio O
   - Updating and adding playlists (See http://code.google.com/p/freetuxtv/wiki/MajListesChaines)
 
