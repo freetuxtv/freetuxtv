@@ -10,8 +10,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/lib/
 
 AM_CFLAGS =\
-	 -Wall\
-	 -g
+	 -Wall
 
 bin_PROGRAMS = freetuxtv
 
@@ -75,8 +74,7 @@ freetuxtv_SOURCES = \
 	lib-m3uparser.h \
 	main.c
 
-freetuxtv_LDFLAGS = \
-	-Wl
+freetuxtv_LDFLAGS = 
 
 freetuxtv_LDADD = $(FREETUXTV_LDFLAGS) \
 	../lib/libvlc-gtk/libvlc-gtk.la \
