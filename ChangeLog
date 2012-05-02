@@ -1,7 +1,10 @@
-FreetuxTV 0.6.4 (2012-XX-XX)
+FreetuxTV 0.6.4 (2012-05-02)
   - Issue 145: Fix dialog add group loading with corrupted XML file
   - Improve help to be compatible with help2man
   - Issue 131: Restore the original window position after fullscreen mode
+  - Fix compilation with GCC 4.7
+  - Add configure option to disable logo installation
+  - Clean warnings and some deprecated tokens.
 
 FreetuxTV 0.6.3 (2012-04-01)
   - Rename the menu to synchronize TV channel list.
