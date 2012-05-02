@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+_Name=FreetuxTV
+_GenericName=Television Channels Player
+_X-GNOME-FullName=FreetuxTV Television Channels Player
+_Comment=Watch television channels from internet
+Categories=AudioVideo;Video;TV;
+Icon=freetuxtv
+Exec=freetuxtv
+Terminal=false
+StartupNotify=true
+X-DCOP-ServiceType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

@@ -1,0 +1,1343 @@
+<tvchannels>
+	<!--
+	<tvchannel name="NT1">
+        <lang>fr</lang> <= ID from ISO_639-1 : http://fr.wikipedia.org/wiki/Liste_des_codes_ISO_639-2
+        <country>fr</country> <= ID from ISO_3166-1 : http://fr.wikipedia.org/wiki/ISO_3166-1
+        <label>NT 1</label> 
+        <logo_filename>nt1.jpg</logo_filename>
+        <website>http://www.nt1.tv/ </website>
+        <guide_url>http://www.nt1.tv/programmes.aspx </guide_url>
+    </tvchannel>
+    -->
+	<tvchannel name="100 %">
+		<logo_filename>100pourcentradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="1onAir Connect">
+		<logo_filename>1onairconnect.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="2M Maroc">
+		<logo_filename>2mmaroc.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="AB 1">
+		<logo_filename>ab1.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="AB Moteurs">
+		<logo_filename>abmoteurs.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Abu Dhabi TV">
+		<logo_filename>abudhabitv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="AccroTV">
+		<logo_filename>accrotv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Antenne Caraïbes International">
+		<logo_filename>aci.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Action">
+		<logo_filename>action.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Ado FM">
+		<logo_filename>adofm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Al Jazeera">
+		<logo_filename>aljazeera.png</logo_filename>
+		<label>Aljazeera</label>
+	</tvchannel>
+	<tvchannel name="Al Jazeera Children">
+		<logo_filename>aljazeerachildren.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Al Jazeera International">
+		<logo_filename>aljazeerainternational.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Al Masriya">
+		<logo_filename>almasriya.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Alouette FM">
+		<logo_filename>alouettefm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Alsatic TV">
+		<logo_filename>alsatictv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Alsace 20">
+		<logo_filename>alsace20.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="AmericaFree TV">
+		<logo_filename>america-free-tv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Apsara TV">
+		<logo_filename>apsaratv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Archeo TV">
+		<logo_filename>archeotv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="APTV Martinique">
+		<logo_filename>aptv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal argent Québec">
+		<logo_filename>argentquebec.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Armenia Public TV">
+		<logo_filename>armeniapublictv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Armenia TV">
+		<logo_filename>armeniatv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Arretsurimages.tv">
+		<logo_filename>arretsurimages.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Art Channel">
+		<logo_filename>artchannel.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Arte">
+		<logo_filename>arte.png</logo_filename>
+		<label>Arte Allemand</label>
+	</tvchannel>
+	<tvchannel name="Artpla tv">
+		<logo_filename>artplatv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Astro Center TV">
+		<logo_filename>astrocentertv.png</logo_filename>
+		<label>Astrocenter</label>
+	</tvchannel>
+	<tvchannel name="ASTV">
+		<logo_filename>astv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Aup Radio">
+		<logo_filename>aupradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Babylon tv">
+		<logo_filename>babylontv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Bamboch TV">
+		<logo_filename>bambochtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Baraem">
+		<logo_filename>baraem.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Bastille TV">
+		<logo_filename>bastilletv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="BBC">
+		<logo_filename>bbc.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="BBC World">
+		<logo_filename>bbcworld.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="BBC World News">
+		<logo_filename>bbcworldnews.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Beur FM">
+		<logo_filename>beurfm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Beur TV">
+		<logo_filename>beurtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Beijing TV">
+		<logo_filename>beijingtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Best of Shopping">
+		<logo_filename>bestofshopping.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="BFM">
+		<logo_filename>bfmradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="BFM TV">
+		<logo_filename>bfmtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Biscotte TV">
+		<logo_filename>biscottetv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Bloomberg TV">
+		<logo_filename>bloombergtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Boardriders TV">
+		<logo_filename>boardriderstv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Bulgaria TV">
+		<logo_filename>bulgariatv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="C9">
+		<logo_filename>c9.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Calais TV">
+		<logo_filename>calaistv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal10 Tucuman">
+		<logo_filename>canal10tucuman.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal26">
+		<logo_filename>canal26.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal4 SanJuan">
+		<logo_filename>canal4sanjuan.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal5 Tucuman">
+		<logo_filename>canal5tucuman.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal6 Posadas">
+		<logo_filename>canal6posadas.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal9 EntreRios">
+		<logo_filename>canal9entrerios.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal Académie">
+		<logo_filename>canalacademie.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal Algérie">
+		<logo_filename>canalalgerie.png</logo_filename>
+		<label>Canal Algerie</label>
+	</tvchannel>
+	<tvchannel name="Canal Info News">
+		<logo_filename>canalinfonews.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canalmoza">
+		<logo_filename>canalmoza.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal+">
+		<logo_filename>canalplus.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Canal savoir">
+		<logo_filename>canalsavoir.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CanalRural">
+		<logo_filename>canalrural.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CanalTV">
+		<logo_filename>canaltv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CAP 24">
+		<logo_filename>cap24-paris.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Cash TV">
+		<logo_filename>cashtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CCTV 1">
+		<logo_filename>cctv1.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CCTV 2">
+		<logo_filename>cctv2.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CCTV4">
+		<logo_filename>cctv4.png</logo_filename>
+		<label>CCTV 4</label>
+	</tvchannel>
+	<tvchannel name="CCTV 7">
+		<logo_filename>cctv7.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CCTV 9">
+		<logo_filename>cctv9.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CCTV 10">
+		<logo_filename>cctv10.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CCTV 11">
+		<logo_filename>cctv11.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CCTV 12">
+		<logo_filename>cctv12.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CCTV Divertissement">
+		<logo_filename>cctvdivertissement.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CCTV-E">
+		<logo_filename>cctv_e.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CCTV F">
+		<logo_filename>cctvf.png</logo_filename>
+		<label>CCTV-F</label>
+	</tvchannel>
+	<tvchannel name="Chante France">
+		<logo_filename>chantefrance.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Chérie FM">
+		<logo_filename>cheriefm.png</logo_filename>
+		<label>Chérie</label>
+	</tvchannel>
+	<tvchannel name="Channel One Russia (ORTi)">
+		<logo_filename>channelonerussia-orti.png</logo_filename>
+		<label>ORTi</label>
+		<label>1TV</label>
+		<label>1TV Channel 3</label>
+		<label>1TV Documentary</label>
+	</tvchannel>
+	<tvchannel name="CCQTV 1 (Chongqing)">
+		<logo_filename>chongqing_tv.png</logo_filename>
+		<label>CCQTV 2 (Chongqing)</label>
+		<label>CCQTV 3 (Chongqing)</label>
+		<label>CCQTV 4 (Chongqing)</label>
+		<label>CCQTV 5 (Chongqing)</label>
+		<label>CCQTV 6 (Chongqing)</label>
+		<label>CCQTV 7 (Chongqing)</label>
+	</tvchannel>
+	<tvchannel name="Ciné First">
+		<logo_filename>cinefirst.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Ciné FX">
+		<logo_filename>cinefx.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Ciné Polar">
+		<logo_filename>cinepolar.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CKIA FM">
+		<logo_filename>ckiafm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Clap TV">
+		<logo_filename>claptv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Clermont Première">
+		<logo_filename>clermontpremiere.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Clubbing TV">
+		<logo_filename>clubbingtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="C Music">
+		<logo_filename>cmusictv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CNBC">
+		<logo_filename>cnbc.png</logo_filename>
+		<label>CNBC Europe</label>
+	</tvchannel>
+	<tvchannel name="Contact FM">
+		<logo_filename>contactfm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Corriland TV">
+		<logo_filename>corriland.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CPAC">
+		<logo_filename>cpac.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="CT2E">
+		<logo_filename>ct2e.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Demain.tv">
+		<logo_filename>demaintv.png</logo_filename>
+		<label>Demain</label>
+		<label>Demain TV</label>
+	</tvchannel>
+	<tvchannel name="Direct 8">
+		<logo_filename>direct8.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="DirectStar">
+		<logo_filename>directstar.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Dubai TV">
+		<logo_filename>dubaitv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="DW-TV">
+		<logo_filename>dwtv-deutschewelle.png</logo_filename>
+		<label>Deutsche Welle</label>
+	</tvchannel>
+	<tvchannel name="Eko des Garrigues">
+		<logo_filename>ekodesgarrigues.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Equidia">
+		<logo_filename>equidia.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ERT World">
+		<logo_filename>ertworld.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Espace FM">
+		<logo_filename>espacefm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ETB Sat">
+		<logo_filename>etbsat.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Euronews">
+		<logo_filename>euronews.png</logo_filename>
+		<label>Euronews Arabe</label>
+		<label>Euronews English</label>
+		<label>Euronews Deutsch</label>
+		<label>Euronews Portugais</label>
+		<label>Euronews Russe</label>
+		<label>Euronews Espagnol</label>
+		<label>Euronews Italien</label>
+		<label>Euronews (en francais)</label>
+		<label>Euronews (en anglais)</label>
+	</tvchannel>
+	<tvchannel name="Europe 1">
+		<logo_filename>europe1.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Evasion FM">
+		<logo_filename>evasionfm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Extra 3 Channel">
+		<logo_filename>extra3channel.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Fashion TV">
+		<logo_filename>fashiontv.png</logo_filename>
+		<label>FTV HD HD</label>
+	</tvchannel>
+	<tvchannel name="Fazz music">
+		<logo_filename>fazzmusic.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="FC RADIO L&apos;essentiel">
+		<logo_filename>fcradiolessentiel.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="FIP">
+		<logo_filename>fip.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="FLY FM">
+		<logo_filename>flyfm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="F Men">
+		<logo_filename>fmen.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Fox Life">
+		<logo_filename>foxlife.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="France 2">
+		<logo_filename>france2.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="France 24">
+		<logo_filename>france24.png</logo_filename>
+		<label>France 24 FR</label>
+		<label>France 24 English</label>
+		<label>France 24 Arab</label>
+	</tvchannel>
+	<tvchannel name="France 3">
+		<logo_filename>france3.png</logo_filename>
+		<label>France 3 national</label>
+		<label>France 3 National</label>
+		<label>France 3 Alsace</label>
+		<label>France 3 Alpes</label>
+		<label>France 3 Aquitaine</label>
+		<label>France 3 Auvergne</label>
+		<label>France 3 Bourgogne</label>
+		<label>France 3 Bretagne</label>
+		<label>France 3 Centre</label>
+		<label>France 3 Champagne-Ardenne</label>
+		<label>France 3 Corse</label>
+		<label>France 3 Côte-d'Azur</label>
+		<label>France 3 Franche-Comté</label>
+		<label>France 3 Languedoc-Roussillon</label>
+		<label>France 3 Limousin</label>
+		<label>France 3 Lorraine</label>
+		<label>France 3 Midi Pyrénées</label>
+		<label>France 3 Nord Pas-de-Calais</label>
+		<label>France 3 Haute-Normandie</label>
+		<label>France 3 Basse-Normandie</label>
+		<label>France 3 Paris Ile-de-France</label>
+		<label>France 3 Pays de Loire</label>
+		<label>France 3 Picardie</label>
+		<label>France 3 Poitou-Charentes</label>
+		<label>France 3 Provence-Alpes</label>
+		<label>France 3 Rhône-Alpes</label>
+	</tvchannel>
+	<tvchannel name="France 4">
+		<logo_filename>france4.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="France 5">
+		<logo_filename>france5.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="France Bleu">
+		<logo_filename>francebleu.png</logo_filename>
+		<label>France BLEU - la CityRadio</label>
+	</tvchannel>
+	<tvchannel name="France Culture">
+		<logo_filename>franceculture.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="France Info">
+		<logo_filename>franceinfo.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="France Inter">
+		<logo_filename>franceinter.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="France Musique">
+		<logo_filename>francemusique.png</logo_filename>
+		<label>France Musiques</label>
+	</tvchannel>
+	<tvchannel name="France O">
+		<logo_filename>franceo.png</logo_filename>
+		<label>France o</label>
+		<label>France Ô</label>
+		<label>France ô</label>
+	</tvchannel>
+	<tvchannel name="France Teleachat">
+		<logo_filename>franceteleachat.png</logo_filename>
+		<label>France Teleachat HD</label>
+	</tvchannel>
+	<tvchannel name="France Vivace">
+		<logo_filename>francevivace.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Freenews TV">
+		<logo_filename>freenewstv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Fréquence 3">
+		<logo_filename>frequence3.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Fréquence India">
+		<logo_filename>frequenceindia.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Fun Radio">
+		<logo_filename>funradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Fun TV">
+		<logo_filename>funtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Game One">
+		<logo_filename>gameone.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Game One Music HD HD">
+		<logo_filename>gameonemusichd.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="God TV">
+		<logo_filename>godtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="GONG">
+		<logo_filename>gong.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Grand Lille TV">
+		<logo_filename>grandlille_tv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Grosse Caisse TV">
+		<logo_filename>grossecaisse.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Guangdong Southern TV">
+		<logo_filename>guangdongsoutherntv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Gulli">
+		<logo_filename>gulli.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Guysen TV">
+		<logo_filename>guysentv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="HB TV 2 (Hebei)">
+		<logo_filename>hebei_tv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="HLJTV HeiLongJiang (Harbin)">
+		<logo_filename>heilongjiangtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Hilal TV">
+		<logo_filename>hilaltv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="HiScore TV">
+		<logo_filename>hiscore.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Hit Music TV">
+		<logo_filename>hitmusictv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Hit West">
+		<logo_filename>hitwest.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Hunan Satellite TV">
+		<logo_filename>hunansatellitetv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="IDF 1">
+		<logo_filename>idf1.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="IMED TV">
+		<logo_filename>imedtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Info Sport">
+		<logo_filename>infosport.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Inraci">
+		<logo_filename>inraci.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Inspiration Network">
+		<logo_filename>inspirationnetwork.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Ishtar TV">
+		<logo_filename>ishtartv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="i&gt;TELE">
+		<logo_filename>itelevision.png</logo_filename>
+		<label>i&gt; TELE</label>
+		<label>i&gt;Tele</label>
+	</tvchannel>
+	<tvchannel name="Jamzine TV">
+		<logo_filename>jamzine.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Fréquence Jazz">
+		<logo_filename>jazzradio-exfrequencejazz.png</logo_filename>
+		<label>Jazz Radio (ex-Fréquence Jazz)</label>
+	</tvchannel>
+	<tvchannel name="Jazz Radio Black Music">
+		<logo_filename>jazzradioblack.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Jazz Radio Blues">
+		<logo_filename>jazzradioblues.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Jazz Radio Ladies and Crooners">
+		<logo_filename>jazzradioladies.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Jazz Radio Lounge">
+		<logo_filename>jazzradiolounge.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Jazz Radio Reprises">
+		<logo_filename>jazzradioreprises.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="JET">
+		<logo_filename>jet.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Jordan Satellite Channel">
+		<logo_filename>jordansatellitechannel.png</logo_filename>
+		<label>Jordan TV</label>
+	</tvchannel>
+	<tvchannel name="jPopsuki TV">
+		<logo_filename>jpopsukitv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Jukebox">
+		<logo_filename>jukebox.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Kanal 7 INT">
+		<logo_filename>kanal7int.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Kanal 24">
+		<logo_filename>kanal24.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Kanal Avrupa">
+		<logo_filename>kanalavrupa.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="KISS FM">
+		<logo_filename>kiss-fm.png</logo_filename>
+		<label>Kiss FM</label>
+		<label>Kiss West Coast</label>
+	</tvchannel>
+	<tvchannel name="KTO">
+		<logo_filename>kto.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Kuwait TV">
+		<logo_filename>kuwaittv1.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Kuwait TV2">
+		<logo_filename>kuwaittv2.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="LabelleTV">
+		<logo_filename>labelletv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="La chaîne chinoise">
+		<logo_filename>lachainechinoise.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="La chaîne internationale de Jiangsu">
+		<logo_filename>lachainedejiangsu.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="La Chaîne Parlementaire">
+		<logo_filename>lachaineparlementaire.png</logo_filename>
+		<label>La chaine parlementaire</label>
+		<label>LCP - Assemblée Nationale 24h/24</label>
+		<label>LCP/PS</label>
+		<label>LCP</label>
+	</tvchannel>
+	<tvchannel name="La Locale">
+		<logo_filename>lalocale.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="La radio de la mer">
+		<logo_filename>laradiodelamer.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="La Chaîne Marseille">
+		<logo_filename>lcm-marseille.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="LCN Québec">
+		<logo_filename>lcnquebec.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Le Mouv&apos;">
+		<logo_filename>lemouv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="L&apos;équipe TV">
+		<logo_filename>lequipetv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Liberty TV">
+		<logo_filename>libertytv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Locales Ile de France">
+		<logo_filename>localesidf.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Luxe.TV">
+		<logo_filename>luxetv.png</logo_filename>
+		<label>Luxe TV</label>
+	</tvchannel>
+	<tvchannel name="M6">
+		<logo_filename>m6.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="M6 Boutique">
+		<logo_filename>m6boutique.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="M6 Music Black">
+		<logo_filename>m6musicblack.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="M6 Music Club">
+		<logo_filename>m6musicclub.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="M6 Music Hits">
+		<logo_filename>m6musichits.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="M6 Music Rock">
+		<logo_filename>m6musicrock.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Mangas">
+		<logo_filename>mangas.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MBOA TV">
+		<logo_filename>mboatv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Ma Chaîne Etudiante">
+		<logo_filename>mce-ma_chaine_etudiante.png</logo_filename>
+		<label>Ma Chaine Etudiante</label>
+		<label>MCE</label>
+	</tvchannel>
+	<tvchannel name="MCM">
+		<logo_filename>mcm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MCM POP">
+		<logo_filename>mcmpop.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MCM TOP">
+		<logo_filename>mcmtop.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Medi 1 sat">
+		<logo_filename>medi1sat.png</logo_filename>
+		<label>Medi 1 Sat</label>
+	</tvchannel>
+	<tvchannel name="Metropolys">
+		<logo_filename>metropolys.png</logo_filename>
+		<label>Radio Metropolys</label>
+	</tvchannel>
+	<tvchannel name="Mezzo">
+		<logo_filename>mezzo.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MFM">
+		<logo_filename>mfm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MFM Flashback">
+		<logo_filename>mfmflashback.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MFM Sérénité">
+		<logo_filename>mfmserenite.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MFM Sexy">
+		<logo_filename>mfmsexy.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MFM Sexy">
+		<logo_filename>mfmsexy.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MIXXRADIO">
+		<logo_filename>mixxradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MJC Apt TV">
+		<logo_filename>mjcapt.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Modem Radio">
+		<logo_filename>modem-radio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Monte-Carlo Doualiya">
+		<logo_filename>montecarlodoualiya.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Mosaique FM">
+		<logo_filename>mosaiquefm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Monterey Bay Aquarium">
+		<logo_filename>montereybayaquarium.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MplusM">
+		<logo_filename>mplusm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MTV">
+		<logo_filename>mtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MTV 2">
+		<logo_filename>mtv2.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MTV Dance">
+		<logo_filename>mtvdance.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MTV Hits">
+		<logo_filename>mtvhits.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Music plus Classic Rock">
+		<logo_filename>musicplusclassicrock.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Music plus Hits">
+		<logo_filename>musicplushits.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Music plus pop rock">
+		<logo_filename>musicpluspoprock.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="MyZen.tv">
+		<logo_filename>myzentv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="NASA TV (Public Channel)">
+		<logo_filename>nasatv.png</logo_filename>
+		<label>NASA TV (Media Channel)</label>
+		<label>NASA TV (Education Channel)</label>
+	</tvchannel>
+	<tvchannel name="NatGeo Music">
+		<logo_filename>natgeomusic.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="National Geographic HD">
+		<logo_filename>nationalgeographic.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="NHK">
+		<logo_filename>nhk.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Night-mag.com">
+		<logo_filename>nightmagcom.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Nolife">
+		<logo_filename>nolife.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Normandie TV">
+		<logo_filename>normandietv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Nostalgie">
+		<logo_filename>nostalgie.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="NRJ">
+		<logo_filename>nrj.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="NRJ 12">
+		<logo_filename>nrj12.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="NRJ Hits">
+		<logo_filename>nrjhits.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="NRJ Nouveautés">
+		<logo_filename>nrjnouveautes.png</logo_filename>
+		<label>NRJ Fresh (ex-Nouveautés)</label>
+	</tvchannel>
+	<tvchannel name="NRJ Paris">
+		<logo_filename>nrjparis.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="NT1">
+		<logo_filename>nt1.png</logo_filename>
+		<label>NT 1</label>
+	</tvchannel>
+	<tvchannel name="NTI">
+		<logo_filename>nti.png</logo_filename>
+		<label>Radio NTI</label>
+	</tvchannel>
+	<tvchannel name="Orange Sport Infos">
+		<logo_filename>orangesportinfos.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Orleans tv">
+		<logo_filename>orleanstv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Ouest tv">
+		<logo_filename>ouesttv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Ouï FM">
+		<logo_filename>ouifm.png</logo_filename>
+		<label>Ouï FM Alternative Rock</label>
+		<label>Ouï FM Classic Rock</label>
+	</tvchannel>
+	<tvchannel name="Oxyradio">
+		<logo_filename>oxyradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OZ Radio">
+		<logo_filename>ozradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Parenthèse Radio">
+		<logo_filename>parentheseradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Paris Première">
+		<logo_filename>parispremiere.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Phoenix Chinese News and Entertainment">
+		<logo_filename>phoenixchinesenewsandentertainment.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Phoenix Infonews">
+		<logo_filename>phoenixinfonews.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Physique TV">
+		<logo_filename>physiquetv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Poker Channel">
+		<logo_filename>pokerchannel.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Powertürk TV">
+		<logo_filename>powerturktv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Press TV">
+		<logo_filename>presstv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Public Sénat">
+		<logo_filename>publicsenat.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Purescreens HD NATURE HD">
+		<logo_filename>purescreens.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio 8">
+		<logo_filename>radio8.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Canada">
+		<logo_filename>radiocanada.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Canada - Espace Musique">
+		<logo_filename>espacemusique.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Canada - RDI - (audio)">
+		<logo_filename>rdicanada.png</logo_filename>
+		<label>RDI CANADA</label>
+	</tvchannel>
+	<tvchannel name="Radio Clapas">
+		<logo_filename>radioclapas.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Classique">
+		<logo_filename>radioclassique.png</logo_filename>
+		<label>Radio Classique Cinéma</label>
+	</tvchannel>
+	<tvchannel name="Corsica Radio">
+		<logo_filename>radio-corsica.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Ethic">
+		<logo_filename>radioethic.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio FG">
+		<logo_filename>radiofg.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio FG America">
+		<logo_filename>radiofgamerica.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio FG Chic">
+		<logo_filename>radiofgchic.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio FG Classics">
+		<logo_filename>radiofgclassics.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio FG Dance">
+		<logo_filename>radiofgdance.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio FG Underground">
+		<logo_filename>radiofgunderground.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RFO">
+		<logo_filename>rfo.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Ici et Maintenant">
+		<logo_filename>radioicietmaintenant.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Junior">
+		<logo_filename>radiojunior.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Latina">
+		<logo_filename>radiolatina.png</logo_filename>
+		<label>Latina (ex-Radio Latina)</label>
+	</tvchannel>
+	<tvchannel name="Radio libertaire">
+		<logo_filename>radiolibertaire.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Mélodie">
+		<logo_filename>radiomelodie.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Mont Blanc">
+		<logo_filename>radiomontblanc.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Néo">
+		<logo_filename>radioneo.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Notre-Dame">
+		<logo_filename>radionotredame.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Nova">
+		<logo_filename>radionova.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio O">
+		<logo_filename>radioo.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Ocean">
+		<logo_filename>radiocean.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Public Santé">
+		<logo_filename>radiopublicsante.png</logo_filename>
+		<label>Public Sante</label>
+	</tvchannel>
+	<tvchannel name="Radio Scoop">
+		<logo_filename>radioscoop.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Scoop Années 80">
+		<logo_filename>radioscoop80s.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Scoop Music Pod">
+		<logo_filename>radioscoopmusicpod.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Scoop Power Dance">
+		<logo_filename>radio-scoop-powerdance.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Sing Sing">
+		<logo_filename>radiosingsing.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Star">
+		<logo_filename>radiostar.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Tropicale">
+		<logo_filename>radio-tropicale.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="SUN">
+		<logo_filename>radiosun.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RAI">
+		<logo_filename>rai.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Railtv">
+		<logo_filename>railtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Rai Uno">
+		<logo_filename>raiuno.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Rai Due">
+		<logo_filename>raidue.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Rai Tre">
+		<logo_filename>raitre.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Bro Gwened">
+		<logo_filename>rbg.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Record Internacional">
+		<logo_filename>recordinternacional.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Relax TV">
+		<logo_filename>relaxtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Renault TV">
+		<logo_filename>renaulttv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Reservoir Films">
+		<logo_filename>reservoirfilms.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RFI">
+		<logo_filename>rfi.png</logo_filename>
+		<label>RFI Afrique</label>
+		<label>RFI Monde</label>
+		<label>RFI Multilingues</label>
+		<label>RFI Musique</label>
+	</tvchannel>
+	<tvchannel name="RFM">
+		<logo_filename>rfm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Rire et Chansons">
+		<logo_filename>rireetchansons.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RKINGTV">
+		<logo_filename>rkingtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RMC Info">
+		<logo_filename>rmc.png</logo_filename>
+		<label>RMC (ex-RMC Info)</label>
+	</tvchannel>
+	<tvchannel name="RMN FM">
+		<logo_filename>rmn.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RNE">
+		<logo_filename>rne.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Rock TV">
+		<logo_filename>rocktv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Rossija 24 (ex Vesti)">
+		<logo_filename>rossija24.png</logo_filename>
+		<label>Vesti</label>
+	</tvchannel>
+	<tvchannel name="RTCG Sat">
+		<logo_filename>rtcgsat.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Journal RTC TV Liège">
+		<logo_filename>rtcteleliege.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RSR">
+		<logo_filename>rsr-suisse.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RSR - Couleur 3">
+		<logo_filename>couleur3-rsr.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RTBF">
+		<logo_filename>rtbf.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RTL">
+		<logo_filename>rtl.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RTL 2">
+		<logo_filename>rtl2.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RTL9">
+		<logo_filename>rtl9.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RTPi">
+		<logo_filename>rtpi.png</logo_filename>
+		<label>RTP Internacional</label>
+		<label>RTP</label>
+	</tvchannel>
+	<tvchannel name="RTR Planeta">
+		<logo_filename>rtrplaneta.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Rts FM">
+		<logo_filename>rtsfm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Russia Today">
+		<logo_filename>russiatoday.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="RVE">
+		<logo_filename>rve.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="SABC news">
+		<logo_filename>sabcnews.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Samanyolu TV">
+		<logo_filename>samanyolutv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Seebit TV">
+		<logo_filename>seebittv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Shanghai Dragon TV">
+		<logo_filename>shanghaidragontv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="SZTV (Shenzhen)">
+		<logo_filename>shenzhen_tv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Sky News">
+		<logo_filename>skynews.png</logo_filename>
+		<label>Skynews</label>
+	</tvchannel>
+	<tvchannel name="Sky News International">
+		<logo_filename>skynewsinternational.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Skyrock">
+		<logo_filename>skyrock.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Soleil La Radio">
+		<logo_filename>soleil_la_radio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Soleil TV">
+		<logo_filename>soleiltv.png</logo_filename>
+		<label>Tvcaraibe (Soleil TV)</label>
+	</tvchannel>
+	<tvchannel name="Souvenirs from Earth">
+		<logo_filename>souvenirfromearth.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="STL FM">
+		<logo_filename>stlfm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Sud Radio">
+		<logo_filename>sudradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Suroyo TV">
+		<logo_filename>suroyotv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Tele 102">
+		<logo_filename>tele102.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Teleblagon">
+		<logo_filename>teleblagon.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="téléGrenoble">
+		<logo_filename>telegrenoble.png</logo_filename>
+		<label>TéléGrenoble</label>
+		<label>TV Grenoble</label>
+	</tvchannel>
+	<tvchannel name="Télé Mélody">
+		<logo_filename>telemelody.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Télénantes Nantes 7">
+		<logo_filename>telenantes.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Tele night">
+		<logo_filename>telenight.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Telenova">
+		<logo_filename>telenova.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Teleplaisance">
+		<logo_filename>teleplaisance.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Telessonne">
+		<logo_filename>telessonne.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Telesur">
+		<logo_filename>telesur.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Télévision savoir">
+		<logo_filename>televisionsavoir.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Telif">
+		<logo_filename>telif.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TEMPOMIX">
+		<logo_filename>tempomix.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TEVA">
+		<logo_filename>teva.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TF1">
+		<logo_filename>tf1.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TFou">
+		<logo_filename>tfou.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TFOU WebTV">
+		<logo_filename>tfouwebtv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TLL Tele Loire">
+		<logo_filename>tllteleloire.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TLM">
+		<logo_filename>tlm-lyon.png</logo_filename>
+		<label>TLM Television Lyon Metropole</label>
+	</tvchannel>
+	<tvchannel name="TLT - Toulouse">
+		<logo_filename>tlt-toulouse.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TCM">
+		<logo_filename>turnerclassicmovies.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TMC">
+		<logo_filename>tmc.png</logo_filename>
+		<label>TMC (bas débit)</label>
+	</tvchannel>
+	<tvchannel name="TNA">
+		<logo_filename>tna.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TN">
+		<logo_filename>tn.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Top Music">
+		<logo_filename>topmusic.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Trace Tropical">
+		<logo_filename>tracetropical.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Trace TV">
+		<logo_filename>tracetv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Tropiques FM">
+		<logo_filename>tropiquesfm.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TRT1">
+		<logo_filename>trt1.png</logo_filename>
+		<label>TRT 1</label>	
+	</tvchannel>
+	<tvchannel name="TRT Cocuk">
+		<logo_filename>trtcocuk.png</logo_filename>
+		<label>TRT 4 (Çocuk)</label>	
+	</tvchannel>
+	<tvchannel name="TRT INT">
+		<logo_filename>trtint.png</logo_filename>
+		<label>TRT International</label>
+		<label>TRT İnt</label>
+	</tvchannel>
+	<tvchannel name="TSF Jazz">
+		<logo_filename>tsfjazz.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TV34">
+		<logo_filename>tv34.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TVCi">
+		<logo_filename>tv3cat-extvci.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TV5">
+		<logo_filename>tv5.png</logo_filename>
+		<label>TV 5 Monde</label>
+	</tvchannel>
+	<tvchannel name="TV7 Bordeaux">
+		<logo_filename>tv7bordeaux.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TV7 Tunisia">
+		<logo_filename>tv7tunisia.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TV8 Mont-Blanc">
+		<logo_filename>tv8montblanc.png</logo_filename>
+		<label>TV8 Mont Blanc</label>
+	</tvchannel>
+	<tvchannel name="TV8 Moselle Est">
+		<logo_filename>tv8moselleest.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TVA Québec">
+		<logo_filename>tvaquebec.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TV Biznes">
+		<logo_filename>tvbiznes.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TVE I">
+		<logo_filename>tveint.png</logo_filename>
+		<label>TVE Internacional</label>
+		<label>TVE</label>
+	</tvchannel>
+	<tvchannel name="TV Fil 78">
+		<logo_filename>tvfil78.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TVM Europe">
+		<logo_filename>tvmeurope-exrtm1-rtmmaroc.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Tvpi">
+		<logo_filename>tvpi.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TV Polonia">
+		<logo_filename>tvpolonia-tvp.png</logo_filename>
+		<label>TVP Polonia</label>
+	</tvchannel>
+	<tvchannel name="TV Romania">
+		<logo_filename>tvromania.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TVSF">
+		<logo_filename>tvsf.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TVT">
+		<logo_filename>tvt.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TV Tours">
+		<logo_filename>tvtours.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="TVVi">
+		<logo_filename>tvvi.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="UrbaniaTV">
+		<logo_filename>urbaniatv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Vesti FM">
+		<logo_filename>vesti.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="VH1">
+		<logo_filename>vh1.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="VH1 Classic">
+		<logo_filename>vh1classic.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Vibration">
+		<logo_filename>vibration.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Video Click">
+		<logo_filename>videoclick.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Vietnam VTV4">
+		<logo_filename>vietnam-vtv4.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Virgin 17">
+		<logo_filename>virgin17.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Virgin Radio">
+		<logo_filename>virginradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Voltage">
+		<logo_filename>voltage.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Vox Africa">
+		<logo_filename>voxafrica.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="W9">
+		<logo_filename>w9.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Wéo">
+		<logo_filename>weo.png</logo_filename>
+		<label>Weo</label>
+	</tvchannel>
+	<tvchannel name="World Fashion">
+		<logo_filename>worldfashion.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Xiamen Star TV">
+		<logo_filename>xiamenstartv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Yemen TV">
+		<logo_filename>yementv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Zahra TV">
+		<logo_filename>zahratv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ZDF">
+		<logo_filename>zdf_de.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Zhejiang Star TV">
+		<logo_filename>zhejiangstartv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Zona 31">
+		<logo_filename>zona31.png</logo_filename>
+	</tvchannel>
+</tvchannels>
