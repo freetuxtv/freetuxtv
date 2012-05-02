@@ -17,7 +17,7 @@ Voici la liste des distributions ayant inclu le paquet dans leur dépot :
 
 || *Distribution* || *Inclusion* || *Installation* ||
 || Ubuntu || - || ||
-|| Debian || - || ||
+|| Debian (sid) || Oui || ||
 || Mandriva || Oui || ||
 || openSUSE || - || ||
 || Pardus || Oui || ||
