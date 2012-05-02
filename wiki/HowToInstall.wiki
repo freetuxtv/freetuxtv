@@ -5,36 +5,52 @@
 
 Cette page présente les différentes méthode d'installer FreetuxTV.
 
-= Via les dépots =
+= Via les dépôts =
 
-Le plus simple pour installer FreetuxTV est de l'installer via un dépot de logiciel. De ce fait, vous n'aurez pas à vous préoccuper des dépendances.
+Le plus simple pour installer FreetuxTV est de l'installer via un dépôt de logiciel. De ce fait, vous n'aurez pas à vous préoccuper des dépendances.
 
-== Via les dépots officiels ==
+== Via les dépôts officiels ==
 
-Le plus simple pour installer FreetuxTV est d'utiliser le paquet inclus par défaut dans votre distribution. Cepandant, seule une petite parti des distrutions on inclut FreetuxTV dans leur dépot.
+Le plus simple pour installer FreetuxTV est d'utiliser le paquet inclus par défaut dans votre distribution. Cependant, seule une petite parti des distributions ont inclut FreetuxTV dans leur dépôts.
 
-Voici la liste des distributions ayant inclu le paquet dans leur dépot :
+Voici la liste des distributions ayant inclus le paquet dans leur dépôt :
 
 || *Distribution* || *Inclusion* || *Installation* ||
 || Ubuntu || - || ||
-|| Debian (sid) || Oui || ||
+|| Debian (sid) || Oui || aptitude install freetuxtv ||
 || Mandriva || Oui || ||
 || openSUSE || - || ||
 || Pardus || Oui || ||
 || Frugalware || Oui || ||
 
-== Via les dépots non officiels ==
+== Via les dépôts non officiels ==
 
-Des dépots non officiel existe pour certaines distributions. Ceci permet aussi d'avoir des versions plus à jour que celle inclu dans les dépots officiel.
+Des dépôts non officiel existe pour certaines distributions. Ceci permet aussi d'avoir des versions plus à jour que celle inclus dans les dépôts officiel.
 
 === Ubuntu ===
 
-Vous pouvez utiliser le PPA (Personal Package Archive) de l'équipe de FreetuxTV : https://launchpad.net/~freetuxtv/+archive/freetuxtv
+Vous pouvez utiliser les PPA (Personal Package Archive) de l'équipe de FreetuxTV : 
 
-Pour utiliser le PPA, réaliser les commandes suivante :
+* PPA Stable (recommandé) *
+
+Ce PPA contient les paquets des dernières versions stable de FreetuxTV. 
+
+  * https://launchpad.net/~freetuxtv/+archive/freetuxtv
+
 {{{
 sudo add-apt-repository ppa:freetuxtv/freetuxtv
-sudo aptitude update && sudo apt-get install freetuxtv
+sudo aptitude update && sudo aptitude install freetuxtv
+}}}
+
+* PPA Non-stable *
+
+Ce PPA contient des paquets mis à jour quotidiennement avec les dernières sources du logiciel. Attention! Ces versions peuvent ne pas être complètement fonctionnelles.
+
+  * https://launchpad.net/~freetuxtv/+archive/freetuxtv-dev
+
+{{{
+sudo add-apt-repository ppa:freetuxtv/freetuxtv-dev 
+sudo aptitude update && sudo aptitude install freetuxtv
 }}}
 
 = Via les paquets logiciel =
