@@ -1698,7 +1698,7 @@ show_help()
 	g_print("                    set data directory\n");
 	g_print("  -v, --verbose     display a more detailled trace\n");
 	g_print("\n");
-	g_print("Report bugs to http://code.google.com/p/freetuxtv/issues/list.\n");
+	g_print("Report bugs to %s.\n", PACKAGE_BUGREPORT);
 }
 
 static void
