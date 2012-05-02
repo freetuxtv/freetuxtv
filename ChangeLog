@@ -1,3 +1,5 @@
+FreetuxTV 0.6.5 (2012-XX-XX)
+
 FreetuxTV 0.6.4 (2012-05-02)
   - Issue 145: Fix dialog add group loading with corrupted XML file
   - Improve help to be compatible with help2man
