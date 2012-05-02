@@ -17,7 +17,7 @@ Here is the list of the distribution including a package in their repositories :
 
 || *Distribution* || *Included* || *Installation* ||
 || Ubuntu || - || ||
-|| Debian || - || ||
+|| Debian || Yes || aptitude install freetuxtv ||
 || Mandriva || Yes || ||
 || openSUSE || - || ||
 || Pardus || Yes || ||
@@ -29,12 +29,28 @@ Some non official repositories exists for some distributions. This allow to get 
 
 === Ubuntu ===
 
-You can use the PPA (Personal Package Archive) of FreetuxTV team's : https://launchpad.net/~freetuxtv/+archive/freetuxtv
+You can use the PPA (Personal Package Archive) of FreetuxTV team's
 
-To use the PPA, just use the following commands:
+* PPA Stable (recommended) *
+
+This PPA contains packages of the last stable version of FreetuxTV. 
+
+  * https://launchpad.net/~freetuxtv/+archive/freetuxtv
+
 {{{
 sudo add-apt-repository ppa:freetuxtv/freetuxtv
 sudo aptitude update && sudo apt-get install freetuxtv
+}}}
+
+* PPA Unstable *
+
+This PPA contains daily built packages with the last sources of FreetuxTV. Be careful! These versions may not work correctly.
+
+  * https://launchpad.net/~freetuxtv/+archive/freetuxtv-dev 
+
+{{{
+sudo add-apt-repository ppa:freetuxtv/freetuxtv-dev 
+sudo aptitude update && sudo aptitude install freetuxtv
 }}}
 
 = From software packages =
