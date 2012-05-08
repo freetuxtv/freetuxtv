@@ -726,9 +726,12 @@ channels_list_ui_add_channels_group (
 
 	// Add group in the treeview
 	GtkTreeIter iter_channelsgroup;
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, "Creating row in treestore '%s'\n", pChannelsGroupInfos->name);
 	gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup, NULL);
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, "Setting data in treestore row '%s'\n", pChannelsGroupInfos->name);
 	gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup,
 	                    CHANNELSGROUP_COLUMN, pChannelsGroupInfos, -1);
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, "Added in treestore '%s'\n", pChannelsGroupInfos->name);
 
 	// Get the path of the new group
 	GtkTreePath* path;
@@ -1092,21 +1095,31 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 {
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	
-	FreetuxTVChannelsGroupInfos* channels_group_infos = NULL;
-	FreetuxTVChannelInfos* channel_infos = NULL;
-	
-	// GdkPixbuf* logo;
-	// GdkColor color;	
+	FreetuxTVChannelsGroupInfos* pChannelsGroupInfos = NULL;
+	FreetuxTVChannelInfos* pChannelInfos = NULL;
 
 	// Si on veut afficher un groupe
-	gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &channels_group_infos, -1);
-	if(channels_group_infos != NULL){
-		g_object_set(renderer, "type", CELLRENDERER_TYPE_CHANNELS_GROUP, "name", channels_group_infos->name, "visible", TRUE, NULL);
+	gtk_tree_model_get(model, iter, CHANNELSGROUP_COLUMN, &pChannelsGroupInfos, -1);
+	if(pChannelsGroupInfos != NULL){
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		    "Rendering channels group %s\n", pChannelsGroupInfos->name);
+		
+		g_object_set(renderer,
+		    "type", CELLRENDERER_TYPE_CHANNELS_GROUP, "name", pChannelsGroupInfos->name,
+		    "visible", TRUE, NULL);
 	}else{
-		gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &channel_infos, -1);  
+		gtk_tree_model_get(model, iter, CHANNEL_COLUMN, &pChannelInfos, -1);
+	}
 
-		gchar *imgfile;
-		imgfile = tvchannels_list_get_tvchannel_logo_path_for_channel(app, channel_infos, TRUE);
+	if(pChannelInfos != NULL){
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		    "Rendering channel %s\n", pChannelInfos->name);
+
+		gchar *szImgFilePath;
+		szImgFilePath = tvchannels_list_get_tvchannel_logo_path_for_channel(app, pChannelInfos, TRUE);
+		
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+		    "Using channel logo %s\n", szImgFilePath);
 
 		gboolean is_playing = FALSE;
 		if(app->current.pPathChannel != NULL){
@@ -1121,11 +1134,11 @@ on_row_displayed_channels_list(GtkTreeViewColumn *col,
 		}
 
 		g_object_set(renderer,
-			     "type", CELLRENDERER_TYPE_CHANNEL, "name", channel_infos->name,
-			     "logo", imgfile, "isplaying", is_playing,
+			     "type", CELLRENDERER_TYPE_CHANNEL, "name", pChannelInfos->name,
+			     "logo", szImgFilePath, "isplaying", is_playing,
 			     "visible", TRUE, NULL);
 		
-		g_free(imgfile);
+		g_free(szImgFilePath);
 	}
 }
 
