@@ -8,9 +8,13 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 * 20/05/2012 - Liste Web Radio (Français)
 
+- Ajout de : Radio Blagon Festif, Radio Dinozore, 
+
 - Correction lien hors-service pour : Radio Scoop Années 80, Corsica Radio, Evasion FM, FLY FM, MFM, ACTIV'RADIO, Radio Classique (Bas débit), RFI Afrique, RFI Monde, RFI Musique
 
-- Suppression de : France Vivace (radio fermée 08/2010), Fréquence India (site web http://www.frequenceindia.fr/ n'existe plus), Flux OGG de Fréquence 3, Radio Classique Cinéma. 
+- Suppression de : France Vivace (radio fermée 08/2010), Fréquence India (site web http://www.frequenceindia.fr/ n'existe plus), Flux OGG de Fréquence 3, Radio Classique Cinéma, RADIO BLAGON CANAL HARD, TENDANCE OUEST (liens m3u HS alors que player flash OK), RMC (ex-RMC Info) (WMA), RFM Night Fever, La radio de la mer, MFM Flashback, MFM Sérénité, MFM Sexy, OZ Radio, Parenthèse Radio.
+
+- Ajouter depuis fin 2010 : ACTIV'RADIO, BEL RTL, Bide et Musique, Classic 21, Cocktail FM, EuradioNantes, Europe 2 (?), Génération FM, KIF Radio, La Grosse Radio, Magic Radio, Plein Air, Radio Blagon, RFM2. 
 
 * 26/01/2011  - Plus de mise à jour de listes de WebTV et WebRadio pour les versions antérieures à FreetuxTV 0.5.2 à cause du changement des URLs et l'outil de gestion des listes de chaines.
 
