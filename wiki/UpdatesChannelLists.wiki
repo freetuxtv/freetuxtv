@@ -8,7 +8,7 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 * 20/05/2012 - Liste Web Radio (Français)
 
-- Ajout de : Radio Blagon Festif, Radio Dinozore, des radios et webradios manquantes de la RTBF belge
+- Ajout de : Radio Blagon Festif, Radio Dinozore, des radios et webradios manquantes de la RTBF belge, des radios nationales et locales de Radio Canada
 
 - Correction lien hors-service pour : Radio Scoop Années 80, Corsica Radio, Evasion FM, FLY FM, MFM, ACTIV'RADIO, Radio Classique (Bas débit), RFI Afrique, RFI Monde, RFI Musique
 
