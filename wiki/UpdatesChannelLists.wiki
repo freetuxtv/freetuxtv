@@ -8,9 +8,9 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 * 20/05/2012 - Liste Web Radio (Français)
 
-- Correction lien hors-service pour : Radio Scoop Années 80, Corsica Radio, Evasion FM, FLY FM, MFM
+- Correction lien hors-service pour : Radio Scoop Années 80, Corsica Radio, Evasion FM, FLY FM, MFM, ACTIV'RADIO, Radio Classique (Bas débit)
 
-- Suppression de : France Vivace (radio fermée 08/2010), Fréquence India (site web http://www.frequenceindia.fr/ n'existe plus), Flux OGG de Fréquence 3. 
+- Suppression de : France Vivace (radio fermée 08/2010), Fréquence India (site web http://www.frequenceindia.fr/ n'existe plus), Flux OGG de Fréquence 3, Radio Classique Cinéma. 
 
 * 26/01/2011  - Plus de mise à jour de listes de WebTV et WebRadio pour les versions antérieures à FreetuxTV 0.5.2 à cause du changement des URLs et l'outil de gestion des listes de chaines.
 
