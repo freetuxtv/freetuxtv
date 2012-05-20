@@ -8,7 +8,7 @@ Cette partie détaille les mises à jour (ajout/suppression) des chaines fournie
 
 * 20/05/2012 - Liste Web Radio (Français)
 
-- Correction lien hors-service pour : Radio Scoop Années 80, Corsica Radio, Evasion FM, FLY FM, MFM, ACTIV'RADIO, Radio Classique (Bas débit)
+- Correction lien hors-service pour : Radio Scoop Années 80, Corsica Radio, Evasion FM, FLY FM, MFM, ACTIV'RADIO, Radio Classique (Bas débit), RFI Afrique, RFI Monde, RFI Musique
 
 - Suppression de : France Vivace (radio fermée 08/2010), Fréquence India (site web http://www.frequenceindia.fr/ n'existe plus), Flux OGG de Fréquence 3, Radio Classique Cinéma. 
 
