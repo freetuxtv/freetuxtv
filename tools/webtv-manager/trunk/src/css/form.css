@@ -159,6 +159,17 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	padding-left: 110px;
 }
 
+/* div for warnings */
+
+div.warning
+{
+	border: 2px solid #FEE000;
+	padding: 7px 7px 12px 7px;
+	margin: 0 0 20px 0;
+	background: #FEECCC;
+	font-size: 0.9em;
+}
+
 /* div for table */
 
 div.table {

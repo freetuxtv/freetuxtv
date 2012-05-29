@@ -77,6 +77,18 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 
 <br/>
 
+<h3>Play the stream:</h3>
+
+<p align="left">
+	You can try this link with the following commands on GNU/Linux:
+	<ul>
+		<li>vlc --open "<?php echo $model->Url ?>"</li>
+		<li>mplayer "<?php echo $model->Url ?>"</li>
+	</ul>
+</p>
+
+<br/>
+
 <?php echo $this->renderPartial('_actions', array('model'=>$model)); ?>
 
 <?php

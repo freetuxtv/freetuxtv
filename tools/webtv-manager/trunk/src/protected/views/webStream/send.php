@@ -58,6 +58,12 @@ The link you are sending doesn't exits in our database.
 <br/><br/>
 Please complete the following information about the link before sending it :
 
+<br/><br/>
+<div class="warning">
+	<b>WARNING!</b> Before sumitting a link, please be sure it is working. To be accepted by moderator, the link must be work with VLC on GNU/Linux. You can test this link with the following command:<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;<i>vlc --open "<?php echo $model->Url ?>"</i>
+</div>
+
 <div class="wide form">
 
 <?php
