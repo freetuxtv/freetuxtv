@@ -11,15 +11,15 @@
         ),
         array(
             'name'=>'Language',
-			'type'=>'image',
+			'type'=>'html',
 			'htmlOptions' => array('style'=>'text-align:center', 'class' => 'flag'),
-            'value'=>'Yii::app()->request->baseUrl."/images/lang/languageicons/flags/".strtolower($data->LangCode).".png"',
+            'value'=>'CHtml::image(Yii::app()->request->baseUrl."/images/lang/languageicons/flags/".strtolower($data->LangCode).".png", ($data->LangCode ? $data->LangCode : ""))',
         ),
         array(
             'name'=>'Country',
-			'type'=>'image',
+			'type'=>'html',
 			'htmlOptions' => array('style'=>'text-align:center', 'class' => 'flag'),
-            'value'=>'Yii::app()->request->baseUrl."/images/country/softclean/".strtoupper($data->CountryCode).".png"',
+            'value'=>'CHtml::image(Yii::app()->request->baseUrl."/images/country/softclean/".strtoupper($data->CountryCode).".png", ($data->CountryCode ? $data->CountryCode : ""))',
         ),
         array(
             'name'=>'Type',
