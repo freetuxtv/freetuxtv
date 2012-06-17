@@ -632,3 +632,9 @@ UPDATE wtvmT_WebStreamRelationType SET ReverseRelationTypeCode = 1 WHERE Code = 
 UPDATE wtvmT_WebStreamRelationType SET ReverseRelationTypeCode = 3 WHERE Code = 2;
 UPDATE wtvmT_WebStreamRelationType SET ReverseRelationTypeCode = 2 WHERE Code = 3;
 UPDATE wtvmT_WebStreamRelationType SET ReverseRelationTypeCode = 4 WHERE Code = 4;
+
+-- Version 17/06/2012
+
+ALTER TABLE wtvmT_EditRequest ADD COLUMN UpdateHistoryId INTEGER NULL;
+ALTER TABLE wtvmT_EditRequest ADD CONSTRAINT FK_EditRequest_UpdateHistoryId FOREIGN KEY (UpdateHistoryId) REFERENCES wtvmT_History(Id);
+

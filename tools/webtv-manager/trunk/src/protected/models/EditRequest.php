@@ -7,6 +7,10 @@
  */
 class EditRequest extends CActiveRecord
 {
+	const FIELD_STATUS_SUBMITTED = 0;
+	const FIELD_STATUS_APPROVED = 1;
+	const FIELD_STATUS_REJECTED = 2;
+
 	const FIELD_WEBSTREAM_STATUS = 1;
 
 	/**
@@ -47,7 +51,8 @@ class EditRequest extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'History'=>array(self::BELONGS_TO, 'History', 'HistoryId')
+            'History'=>array(self::BELONGS_TO, 'History', 'HistoryId'),
+			'UpdateHistory'=>array(self::BELONGS_TO, 'History', 'HistoryId'),
 		);
 	}
 
@@ -90,11 +95,11 @@ class EditRequest extends CActiveRecord
 	public function getStatusName()
 	{
 		switch($this->Status){
-		case 0:
+		case EditRequest::FIELD_STATUS_SUBMITTED:
 			return 'Submitted';
-		case 1:
-			return 'Approuved';
-		case 2:
+		case EditRequest::FIELD_STATUS_APPROVED:
+			return 'Approved';
+		case EditRequest::FIELD_STATUS_REJECTED:
 			return 'Rejected';
 		}
 	}

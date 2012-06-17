@@ -12,6 +12,7 @@ class WebStreamSearchForm extends CFormModel
 	public $Country;
 	public $Status;
 	public $RequiredISP = 'all';
+	public $EditPending = false;
 
 	/**
 	 * Declares the validation rules.
@@ -27,6 +28,7 @@ class WebStreamSearchForm extends CFormModel
 			array('Country', 'length', 'max'=>'4'),
 			array('Status', 'numerical', 'integerOnly'=>true),
 			array('RequiredISP', 'length', 'max'=>'255'),
+			array('EditPending', 'boolean'),
 		);
 	}
 
@@ -42,6 +44,7 @@ class WebStreamSearchForm extends CFormModel
 			'Country'=>'Country',
 			'Status'=>'Status',
 			'RequiredISP'=>'Required ISP',
+			'EditPending'=>'Edit pending',
 		);
 	}
 

@@ -40,7 +40,7 @@ class WebStreamController extends Controller
 				'roles'=>array('sendWebStream'),
 			),
 			array('allow',
-				'actions'=>array('update'),
+				'actions'=>array('update', 'updateEditRequest'),
 				'roles'=>array('editWebStream'),
 			),
 			array('allow',
@@ -71,6 +71,37 @@ class WebStreamController extends Controller
 			'dataHistory'=>$dataHistory,
 			'dataEditRequests'=>$dataEditRequests,
 		));
+	}
+
+	public function updateWebStream($model, $saveModel, $action, $actionDetails, $editRequest, $comment)
+	{
+		if(!$saveModel || $model->save()){
+			$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, $action, $model->Id, $actionDetails);
+			if($history->save()){
+				if($editRequest != null){
+					if($editRequest->HistoryId == null){
+						$editRequest->HistoryId = $history->Id;
+					}else if($editRequest->UpdateHistoryId == null){
+						$editRequest->UpdateHistoryId = $history->Id;
+					}
+					if(!$editRequest->save()){
+						throw new CException("Error when saving the edit request");
+					}
+				}
+
+				if($comment != null){
+					$comment->HistoryId = $history->Id;
+					if(!$comment->save()){
+						throw new CException("Error when saving the comment");
+					}
+				}
+			}else{
+				throw new CException("Error when saving the history");
+			}
+		}else{
+			throw new CException("Error when saving the history");
+		}
+		return true;
 	}
 
 	/**
@@ -202,23 +233,82 @@ class WebStreamController extends Controller
 
 			$model->attributes=$_POST['WebStream'];
 			if($oldStreamStatusCode != $model->StreamStatusCode){
-				if($model->save()){
+				
+				$transaction=$model->dbConnection->beginTransaction();
+				try
+				{
 					$newStreamStatus=StreamStatus::model()->findbyPk($model->StreamStatusCode);
-
 					$actionDetails = $oldStreamStatusLabel.' => '.$newStreamStatus->Label;
-					$history = History::createNew(History::ENTITYTYPE_WEBSTREAM, History::ACTIONTYPE_WEBSTREAM_CHANGESTATUS, $model->Id, $actionDetails);
-					if($history->save()){
-						$this->redirect(array('view','id'=>$model->Id));
+					$res = $this->updateWebStream($model, true, History::ACTIONTYPE_WEBSTREAM_CHANGESTATUS, $actionDetails, null, null);
+					if($res){
+						$transaction->commit();
+					}else{
+						throw new CException("Error when saving the web stream");
 					}
+				} catch(Exception $e) {
+					$transaction->rollBack();
+					throw new CHttpException(400, $e->getMessage());
 				}
-			}else{
-				$this->redirect(array('view','id'=>$model->Id));
 			}
+			$this->redirect(array('view','id'=>$model->Id));
 		}
 
 		$this->render('changestatus',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionUpdateEditRequest()
+	{
+		if(isset($_GET["edit_id"]) && isset($_GET["status"])){
+			$model=$this->loadModel();
+			$modelEditRequest=EditRequest::model()->findbyPk($_GET["edit_id"]);
+
+			$transaction=$model->dbConnection->beginTransaction();
+			try
+			{
+				$update = false;
+				$action = History::ACTIONTYPE_WEBSTREAM_EDITREQUESTREJECT;
+				if($_GET["status"] == "accept"){
+					$modelEditRequest->Status = EditRequest::FIELD_STATUS_APPROVED;
+					$update=true;
+				}else if($_GET["status"] == "reject"){
+					$modelEditRequest->Status = EditRequest::FIELD_STATUS_REJECTED;
+				}else{
+					throw new CException("Invalid request");
+				}
+
+				if($update){
+					switch($modelEditRequest->Field){
+					case EditRequest::FIELD_WEBSTREAM_STATUS:
+						$modelChange['StreamStatusCode'] = $modelEditRequest->NewValue;
+						$action = History::ACTIONTYPE_WEBSTREAM_CHANGESTATUS;
+						break;
+					default:
+						throw new CException("Invalid request");
+					}
+		
+					$actionDetails = $model->getModelDiffMsg($modelChange);
+					$model->attributes=$modelChange;
+				}else{
+					$actionDetails = "";
+				}
+
+				$res = $this->updateWebStream($model, $update, $action, $actionDetails, $modelEditRequest, null);
+				if($res){
+					$transaction->commit();
+				}else{
+					throw new CException("Error when saving the web stream");
+				}
+
+				$this->redirect(array('view','id'=>$model->Id));
+			} catch(Exception $e) {
+				$transaction->rollBack();
+				throw new CHttpException(400, $e->getMessage());
+			}
+				
+		}else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -253,7 +343,9 @@ class WebStreamController extends Controller
 			$modelSearchForm->attributes=$_GET['WebStreamSearchForm'];
 		}
 		
+		$distinct = false;
 		$conditions = "";
+		$join = "";
 		$params = array();
 		$playlist_params = array();
 
@@ -322,9 +414,22 @@ class WebStreamController extends Controller
 			}
 		}
 
+		if(isset($modelSearchForm->EditPending)){
+			if($modelSearchForm->EditPending != ""){
+				if($modelSearchForm->EditPending == true){
+					$join='INNER JOIN wtvmT_History ON wtvmT_History.EntityType='.History::ENTITYTYPE_WEBSTREAM.' AND WebStream.Id=wtvmT_History.EntityId
+						INNER JOIN wtvmT_EditRequest ON wtvmT_History.Id=wtvmT_EditRequest.HistoryId AND Status='.EditRequest::FIELD_STATUS_SUBMITTED;
+					$distinct = true;
+				}
+			}
+		}
+
 		$dataProvider=new CActiveDataProvider('WebStream',array(
 			'criteria'=>array(
+				'alias'=>"WebStream",
+				'distinct' => $distinct,
 				'condition'=>$conditions,
+				'join'=>$join,
 				'params'=>$params,
 				'order'=>'Name',
 			),

@@ -42,6 +42,14 @@
 					echo $form->error($modelSearchForm, 'Language');
 				?>
 			</div>
+					
+			<div class="td">
+				<?php
+					echo $form->labelEx($modelSearchForm, 'EditPending');
+					echo $form->checkBox($modelSearchForm, 'EditPending');
+					echo $form->error($modelSearchForm, 'EditPending');
+				?>
+			</div>
 		</div>
 		<div class="tr">
 					
