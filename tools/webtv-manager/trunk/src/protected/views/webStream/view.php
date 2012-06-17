@@ -77,6 +77,10 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 
 <br/>
 
+<h3>Change status:</h3>
+
+<?php echo $this->renderPartial('_changestatus', array('model'=>$model, 'nofield'=>true)); ?>
+
 <h3>Play the stream:</h3>
 
 <p align="left">
