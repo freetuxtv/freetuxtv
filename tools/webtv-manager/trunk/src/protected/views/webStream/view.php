@@ -77,9 +77,16 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 
 <br/>
 
+<?php
+	if($model->StreamStatusCode != StreamStatus::STREAM_STATUS_WORKING){
+		if(Yii::app()->user->checkAccess('changeStatusWebStream')){
+?>
 <h3>Change status:</h3>
-
-<?php echo $this->renderPartial('_changestatus', array('model'=>$model, 'nofield'=>true)); ?>
+<?php
+			echo $this->renderPartial('_changestatus', array('model'=>$model, 'nofield'=>true));
+		}
+	}
+?>
 
 <h3>Play the stream:</h3>
 
