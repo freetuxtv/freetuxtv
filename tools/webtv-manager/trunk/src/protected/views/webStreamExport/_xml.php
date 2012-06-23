@@ -23,8 +23,9 @@
 	$writer->endElement();
 	
 	$writer->endDocument();
+	
+	// Write the content
 	$writer->flush();
-	print $writer->getXml();
 ?>
 
 
