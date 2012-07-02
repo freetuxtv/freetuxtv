@@ -53,6 +53,27 @@ sudo add-apt-repository ppa:freetuxtv/freetuxtv-dev
 sudo aptitude update && sudo aptitude install freetuxtv
 }}}
 
+=== openSUSE ===
+
+Exécuter les commandes ci-dessous, pour installer les dépôts openSUSE.
+
+* 12.1 *
+{{{
+zypper ar -n packman-multimedia http://packman.inode.at/suse/openSUSE_12.1/Multimedia packman-multimedia
+}}}
+
+* 11.4 *
+{{{
+zypper ar -n packman-multimedia http://packman.inode.at/suse/openSUSE_11.4/Multimedia packman-multimedia
+}}}
+
+Puis pour installer freetuxtv:
+
+{{{
+zypper refresh
+zypper install freetuxtv
+}}}
+
 = Via les paquets logiciel =
 
 Vous pouvez télécharger directement des paquets sans passez par les dépots.
