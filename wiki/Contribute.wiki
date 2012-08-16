@@ -29,7 +29,7 @@ Aidez FreetuxTV à ce développer en le faisant connaître autour de vous.
 
 == Soumettre des nouveaux liens ==
 
-Si vous avez des nouveaux liens de WebTV ou WebRadio a nous transmettre, vous pouvez poster ici : http://freetuxtv.eric-beuque.com/webtv-manager/.
+Si vous avez des nouveaux liens de WebTV ou WebRadio a nous transmettre, vous pouvez poster ici : http://database.freetuxtv.net/.
 
 Ces liens seront alors automatiquement disponible dans FreetuxTV après modération.
 
