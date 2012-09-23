@@ -175,13 +175,16 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** er
 	libvlc_exception_init (&_vlcexcep);
 #endif // LIBVLC_OLD_VLCEXCEPTION
 
+	int iVlcArgsCount = 0;
+	
 	if(vlc_args){
 		szListOptions = g_strjoinv(" ", (gchar**)vlc_args);
+		iVlcArgsCount = g_strv_length((gchar**)vlc_args);
 	}
 	
 	if(szListOptions){
 		g_log(GTK_LIBVLC_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Using instance vlc options [%s]\n", szListOptions);
+	      "Using instance vlc with %d options [%s]\n", iVlcArgsCount, szListOptions);
 		g_free(szListOptions);
 		szListOptions = NULL;
 	}
@@ -190,20 +193,20 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** er
 	if(vlc_args == NULL){
 		priv->libvlc_instance = libvlc_new(0, NULL, &_vlcexcep);
 	}else{
-		priv->libvlc_instance = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), (gchar**)vlc_args, &_vlcexcep);
+		priv->libvlc_instance = libvlc_new(iVlcArgsCount, (gchar**)vlc_args, &_vlcexcep);
 	}	
 #else
 #ifdef LIBVLC_OLD_VLCEXCEPTION
 	if(vlc_args == NULL){
 		priv->libvlc_instance = libvlc_new(0, NULL, &_vlcexcep);
 	}else{
-		priv->libvlc_instance = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args, &_vlcexcep);
+		priv->libvlc_instance = libvlc_new(iVlcArgsCount, vlc_args, &_vlcexcep);
 	}
 #else
 	if(vlc_args == NULL){
 		priv->libvlc_instance = libvlc_new(0, NULL);
 	}else{
-		priv->libvlc_instance = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args);
+		priv->libvlc_instance = libvlc_new(iVlcArgsCount, vlc_args);
 	}
 #endif // LIBVLC_OLD_VLCEXCEPTION
 #endif // LIBVLC_OLD_INSTANCE
