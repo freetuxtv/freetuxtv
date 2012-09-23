@@ -652,6 +652,7 @@ splashscreen_app_init(gpointer data)
 
 		gint major, minor;
 		gtk_libvlc_get_libvlc_version(&major, &minor, NULL);
+		//list_options_add_option(&options, "-vvv"); // verbose mode
 		if(major>=1 || (major == 1 && minor>= 1)){
 			list_options_add_option(&options, "--no-xlib"); // Tell VLC to not use Xlib
 		}
