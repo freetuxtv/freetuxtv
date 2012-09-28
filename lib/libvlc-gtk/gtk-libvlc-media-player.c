@@ -708,7 +708,7 @@ gtk_libvlc_media_player_play_media(GtkLibvlcMediaPlayer *self, GtkLibvlcMedia *m
 	raise_error(self, error, &_vlcexcep);
 #else 
 	libvlc_media_t *m;
-	m = libvlc_media_new_path (libvlc_instance, media->mrl);
+	m = libvlc_media_new_location (libvlc_instance, media->mrl);
 	raise_error(self, error, NULL);
 
 	if(list_options != NULL){
