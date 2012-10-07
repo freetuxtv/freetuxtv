@@ -141,9 +141,24 @@
 
 <br/>
 
-<p><b>Playlist by ISP :</b></p>
+<b>Playlists :</b>
 
 <table>
+	<tr>
+		<th colspan="2">Free acess</th>
+	</tr>
+	<tr>
+		<td nowrap><u>XML Export</u></td>
+		<td>
+<?php
+			$link = $this->createUrl("playlists/list?format=xml");
+			echo CHtml::link(Yii::app()->getRequest()->getHostInfo().$link, $link);
+?>
+		</td>
+	</tr>
+	<tr>
+		<th colspan="2">By IPS</th>
+	</tr>
 <?php
 	foreach($ISPs as $ISP){
 		$url = Yii::app()->createUrl("WebStream/index",
