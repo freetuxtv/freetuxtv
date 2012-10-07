@@ -11,7 +11,11 @@ class WebStream extends CActiveRecord
 	const WEBSTREAM_STATUS_SUBMITTED		= 1;
 	const WEBSTREAM_STATUS_WORKING			= 2;
 
-	const WEBSTREAM_TYPE_WEBLINK			= 5;
+	const TypeWebTV				= 1;
+	const TypeWebRadio			= 2;
+	const TypeWebCam			= 3;
+	const TypeWebProgram		= 4;
+	const TypeWebLink			= 5;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -131,7 +135,7 @@ class WebStream extends CActiveRecord
 
 	public function getTypeStreamList()
 	{
-		return array(1=>"WebTV", 2=>"WebRadio", 3=>"WebCam", 4=>"WebProgramme", 5=>"WebLink");
+		return array(WebStream::TypeWebTV=>"WebTV", WebStream::TypeWebRadio=>"WebRadio", WebStream::TypeWebCam=>"WebCam", WebStream::TypeWebProgram=>"WebProgramme", WebStream::TypeWebLink=>"WebLink");
 	}
 
 	public function getTypeStreamName()
@@ -222,7 +226,7 @@ class WebStream extends CActiveRecord
 
 	public function getPlaylistTypeStreamList()
 	{
-		return array(1=>"webtv", 2=>"webradio", 3=>"webcam", 4=>"programmes", WebStream::WEBSTREAM_TYPE_WEBLINK=>"weblink");
+		return array(1=>"webtv", 2=>"webradio", 3=>"webcam", 4=>"programmes", WebStream::TypeWebLink=>"weblink");
 	}
 
 	public function getPlaylistTypeStreamNameById($typeStream)

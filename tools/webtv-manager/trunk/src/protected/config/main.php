@@ -30,6 +30,7 @@ return array(
 			'rules'=>array(
 				'playlists/playlist\.m3u'=>'Playlist/index',
 				'playlists/playlist_<type:\w+>_<lng:\w+>\.m3u'=>'Playlist/index',
+				'playlists/list'=>'Playlist/list',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

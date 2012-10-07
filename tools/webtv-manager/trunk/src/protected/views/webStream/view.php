@@ -103,7 +103,7 @@ Here you can see the detail of the channel <?php echo $model->Name; ?> :
 <?php echo $this->renderPartial('_actions', array('model'=>$model)); ?>
 
 <?php
-	if($model->TypeStream == WebStream::WEBSTREAM_TYPE_WEBLINK){
+	if($model->TypeStream == WebStream::TypeWebLink){
 ?>
 		<p align="center">
 			<font color="red">WARNING :<br/>This link have been marked as WebLink, that means it's not a video/audio stream and cannot be played in FreetuxTV.<br/>This is just a link containing a stream that can be played in your browser (usually with flashplayer), so don't be surprised if you don't find this link in FreetuxTV.<br/><br/>If you're courageous you can try to find the real stream URL, by analysing the HTML source code of the targeted URL, but sometimes, this is not possible. Nevertheless, if you find it, please send us the new link.</font>
