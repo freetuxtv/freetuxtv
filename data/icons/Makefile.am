@@ -10,6 +10,8 @@ public_icons = \
 	hicolor_apps_22x22_freetuxtv.png \
 	hicolor_apps_32x32_freetuxtv.png \
 	hicolor_apps_48x48_freetuxtv.png \
+	hicolor_apps_64x64_freetuxtv.png \
+	hicolor_apps_128x128_freetuxtv.png \
 	hicolor_apps_scalable_freetuxtv.svg \
 	$(NULL)
 
@@ -21,6 +23,8 @@ noinst_DATA = \
 	hicolor_apps_22x22_freetuxtv.svg \
 	hicolor_apps_32x32_freetuxtv.svg \
 	hicolor_apps_48x48_freetuxtv.svg \
+	hicolor_apps_64x64_freetuxtv.svg \
+	hicolor_apps_128x128_freetuxtv.svg \
 	$(NULL)
 
 EXTRA_DIST = \
