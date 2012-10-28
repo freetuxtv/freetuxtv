@@ -1,3 +1,6 @@
+FreetuxTV 0.6.6 (2012-XX-XX)
+  - Add Turkish translation
+
 FreetuxTV 0.6.5 (2012-05-08)
   - Fix crash when displaying channels group
   - Use defined bug tracker URL in configure.ac
