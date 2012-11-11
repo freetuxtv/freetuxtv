@@ -25,6 +25,7 @@
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-window-add-recording.h"
 #include "freetuxtv-window-add-channels-group.h"
+#include "freetuxtv-window-tv-channels-database.h"
 
 #include "freetuxtv-app.h"
 #include "freetuxtv-i18n.h"
@@ -1582,19 +1583,18 @@ on_windowmain_menuitemupdatetvchannels_activate (GtkMenuItem *menuitem,
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
 	GError* error = NULL;
+	
+	GtkWindow* pWindow;
+	GtkWidget* pParent;
+	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
 
-	DBSync dbsync;
-	dbsync_open_db (&dbsync, &error);
+	FreetuxTVWindowTVChannelsDatabase* pWindowTVChannelsDatabase;
+	pWindowTVChannelsDatabase = freetuxtv_window_tv_channels_database_new(GTK_WINDOW(pParent), app);
 
 	if(error == NULL){
-		tvchannels_list_synchronize (app, &dbsync, &error);			
+		pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowTVChannelsDatabase));
+		gtk_widget_show(GTK_WIDGET(pWindow));
 	}
-
-	if(error == NULL){
-		channels_list_load_channels (app, &dbsync, &error);
-	}
-
-	dbsync_close_db(&dbsync);
 
 	if(error != NULL){
 		windowmain_show_gerror (app, error);
