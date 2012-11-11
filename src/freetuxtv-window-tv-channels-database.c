@@ -127,6 +127,8 @@ freetuxtv_window_tv_channels_database_new (GtkWindow *parent, FreetuxTVApp* app)
 	g_return_val_if_fail(app != NULL, NULL);
 	
 	FreetuxTVWindowTVChannelsDatabase* pWindowTVChannelsDatabase;
+	GtkWidget *widget;
+	GtkWindow *pWindow;
 	
 	gchar* szUiFile = NULL;
 	szUiFile = g_build_filename (app->paths.szPathGladeXml, FREETUXTV_GUIFILE_TVCHANNELSDATABASE, NULL);
@@ -146,8 +148,14 @@ freetuxtv_window_tv_channels_database_new (GtkWindow *parent, FreetuxTVApp* app)
 	priv = FREETUXTV_WINDOW_TV_CHANNELS_DATABASE_PRIVATE(pWindowTVChannelsDatabase);
 	priv->app = app;
 
+	pWindow = gtk_builder_window_get_top_window (
+	    GTK_BUILDER_WINDOW(pWindowTVChannelsDatabase));
+	
+	// Set the parent
+	gtk_window_set_transient_for (pWindow, parent);
+	gtk_window_set_position (pWindow, GTK_WIN_POS_CENTER_ON_PARENT);
+
 	// Signal to connect instance
-	GtkWidget *widget;
 	widget = (GtkWidget *)gtk_builder_object_get_object (
 	    GTK_BUILDER_OBJECT(pWindowTVChannelsDatabase),
 	    "button_apply");
