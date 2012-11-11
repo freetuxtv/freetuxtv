@@ -62,12 +62,14 @@ freetuxtv_SOURCES = \
 	freetuxtv-utils.h \
 	freetuxtv-window-add-channels-group.c \
 	freetuxtv-window-add-channels-group.h \
+	freetuxtv-window-add-recording.c \
+	freetuxtv-window-add-recording.h \
 	freetuxtv-window-channel-properties.c \
 	freetuxtv-window-channel-properties.h \
 	freetuxtv-window-main.c \
 	freetuxtv-window-main.h \
-	freetuxtv-window-add-recording.c \
-	freetuxtv-window-add-recording.h \
+	freetuxtv-window-tv-channels-database.c \
+	freetuxtv-window-tv-channels-database.h \
 	lib-gmmkeys.c \
 	lib-gmmkeys.h \
 	lib-m3uparser.c \
