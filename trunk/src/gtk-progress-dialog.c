@@ -96,6 +96,7 @@ gtk_progress_dialog_new(GtkWindow* parent)
 
 	priv->progress_widget = gtk_progress_bar_new();
 	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(priv->progress_widget), 0.0);
+	gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(priv->progress_widget), 1.0);
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(priv->progress_widget), "0 %");
 	gtk_box_pack_start (GTK_BOX(vbox), priv->progress_widget, FALSE, FALSE, 0);
 
@@ -187,6 +188,22 @@ gtk_progress_dialog_set_percent(GtkProgressDialog* dialog, gdouble percent)
 	text = g_strdup_printf("%0.0f %%", percent * 100);
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(priv->progress_widget), text);
 	g_free(text);
+	
+	while (gtk_events_pending()) {
+	    gtk_main_iteration();
+	}
+}
+
+void
+gtk_progress_dialog_pulse(GtkProgressDialog* dialog)
+{
+	g_return_if_fail(dialog!=NULL);
+	g_return_if_fail(GTK_IS_PROGRESS_DIALOG(dialog));
+
+	GtkProgressDialogPrivate* priv;
+	priv = GTK_PROGRESS_DIALOG_PRIVATE(dialog);
+	
+	gtk_progress_bar_pulse (GTK_PROGRESS_BAR(priv->progress_widget));
 	
 	while (gtk_events_pending()) {
 	    gtk_main_iteration();

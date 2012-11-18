@@ -62,6 +62,9 @@ void
 gtk_progress_dialog_set_percent(GtkProgressDialog* dialog, gdouble percent);
 
 void
+gtk_progress_dialog_pulse(GtkProgressDialog* dialog);
+
+void
 gtk_progress_dialog_set_button_close_enabled(GtkProgressDialog* dialog, gboolean enabled);
 
 #endif /* _GTK_PROGRESS_DIALOG_H_ */
