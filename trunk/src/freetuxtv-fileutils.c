@@ -35,7 +35,7 @@ freetuxtv_curl_error_quark () {
 }
 
 void
-freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, const GProxyStruct* pProxySctruct, int timeout, GError **error)
+freetuxtv_fileutils_get_file (const gchar* url, const gchar* dst_file, const GProxyStruct* pProxySctruct, int timeout, GError **error)
 {
 	g_return_if_fail(url != NULL);
 	g_return_if_fail(dst_file != NULL);

@@ -46,7 +46,7 @@ typedef struct _GProxyStruct {
 } GProxyStruct;
 
 void
-freetuxtv_fileutils_get_file (gchar* url, gchar* dst_file, const GProxyStruct* pProxySctruct, int timeout, GError **error);
+freetuxtv_fileutils_get_file (const gchar* url, const gchar* dst_file, const GProxyStruct* pProxySctruct, int timeout, GError **error);
 
 gchar*
 gproxystruct_to_string(const GProxyStruct* pProxySctruct, gboolean protocol, gboolean server, gboolean auth);

@@ -25,6 +25,8 @@ freetuxtv is free software: you can redistribute it and/or modify it
 #include "freetuxtv-tv-channels-list.h"
 #include "freetuxtv-window-main.h"
 
+#include "freetuxtv-fileutils.h"
+
 #include "gtk-progress-dialog.h"
 
 typedef struct _FreetuxTVWindowTVChannelsDatabasePrivate FreetuxTVWindowTVChannelsDatabasePrivate;
@@ -107,14 +109,26 @@ on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 	
 	DBSync dbsync;
 
+	gchar* szTmp = NULL;
+	
 	gboolean bSynchronize = FALSE;
+	gboolean bDownloadFile = FALSE;
 
-	// Check if must synchronize
+	const gchar *szUrl;
+	gchar *szDstFile = NULL;
+
 	GtkWidget* pWidget;
-	pWidget = (GtkWidget *) gtk_builder_get_object (builder, "checkbutton_synchronize");
 	GtkWindow* pParent;
-
+	
+	// Check if must synchronize
+	pWidget = (GtkWidget *) gtk_builder_get_object (builder, "checkbutton_synchronize");
 	bSynchronize = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pWidget));
+	
+	// Check if must update file
+	pWidget = (GtkWidget *) gtk_builder_get_object (builder, "checkbutton_download");
+	bDownloadFile = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pWidget));
+	pWidget = (GtkWidget *) gtk_builder_get_object (builder, "entry_url");
+	szUrl = gtk_entry_get_text(GTK_ENTRY(pWidget));
 
 	pParent = gtk_builder_window_get_top_window(GTK_BUILDER_WINDOW(pWindowTVChannelsDatabase));
 
@@ -128,8 +142,25 @@ on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 		gtk_widget_show(GTK_WIDGET(pProgressDialog));
 	}
 
+	// Do download file
+	if(bDownloadFile && (error == NULL)){
+		szDstFile = g_build_filename(g_get_user_cache_dir(), "freetuxtv", "tv_channels.dat", NULL);
+
+		szTmp = g_strdup_printf(_("Downloading the file '%s'"), szUrl);
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		    "Downloading the file '%s'\n", szUrl);
+		
+		gtk_progress_dialog_set_text(pProgressDialog, szTmp);
+		if(szTmp){
+			g_free(szTmp);
+			szTmp = NULL;
+		}
+
+		freetuxtv_fileutils_get_file (szUrl, szDstFile, &(priv->app->prefs.proxy), priv->app->prefs.timeout, &error);
+	}
+
 	// Do synchronize
-	if(bSynchronize){
+	if(bSynchronize && (error == NULL)){
 		gtk_progress_dialog_set_text(pProgressDialog, _("Synchronizing TV channels from file"));
 		dbsync_open_db (&dbsync, &error);
 
@@ -143,13 +174,24 @@ on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 
 		dbsync_close_db(&dbsync);
 
-		progress += 0.33;
-		gtk_progress_dialog_set_percent(pProgressDialog, progress);
+		gtk_progress_dialog_set_percent(pProgressDialog, 0.90);
 	}
 
-	progress = 1.0;
-	gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
-	gtk_progress_dialog_set_button_close_enabled(pProgressDialog, TRUE);
+	if(szDstFile){
+		g_free(szDstFile);
+		szDstFile = NULL;
+	}
+	
+	// On error we destroy the progress dialog view
+	if(pProgressDialog){
+		if(error != NULL){
+			gtk_widget_destroy (GTK_WIDGET(pProgressDialog));
+			pProgressDialog = NULL;
+		}else{
+			gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
+			gtk_progress_dialog_set_button_close_enabled(pProgressDialog, TRUE);
+		}
+	}
 
 	if(error != NULL){
 		windowmain_show_gerror (priv->app, error);
