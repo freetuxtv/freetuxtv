@@ -76,13 +76,14 @@ on_buttonclose_clicked (GtkButton *button, gpointer user_data)
 	g_idle_add (do_idle_destroy_window, user_data);
 }
 
-void synchronize_progress_cb(gchar* szTVChannelName, void* user_data)
+static void synchronize_progress_cb(gchar* szTVChannelName, void* user_data)
 {
 	GtkProgressDialog* pProgressDialog = (GtkProgressDialog*)user_data;
 
 	gchar* szTmp = g_strdup_printf(_("Updating TV channel: %s"), szTVChannelName);
 	
 	gtk_progress_dialog_set_text(pProgressDialog, szTmp);
+	gtk_progress_dialog_pulse(pProgressDialog);
 
 	if(szTmp){
 		g_free(szTmp);

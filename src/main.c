@@ -600,6 +600,21 @@ static void on_mediaplayer_event_occurred (
 	}
 }
 
+static void synchronize_progress_cb(gchar* szTVChannelName, void* user_data)
+{
+	FreetuxTVApp* app = (FreetuxTVApp*)user_data;
+
+	gchar* szTmp = g_strdup_printf(_("Synchronizing the list of tv channels: %s..."), szTVChannelName);
+	
+	splashscreen_statusbar_pop (app);
+	splashscreen_statusbar_push (app, szTmp);
+
+	if(szTmp){
+		g_free(szTmp);
+		szTmp = NULL;
+	}
+}
+
 static gboolean
 splashscreen_app_init(gpointer data)
 {
@@ -707,7 +722,7 @@ splashscreen_app_init(gpointer data)
 		filename = g_build_filename(app->paths.datadir, "tv_channels.xml", NULL);
 		if(g_stat (filename, &file_stat) == 0){
 			if(app->config.logosfiledate < (gint)file_stat.st_mtime){
-				tvchannels_list_synchronize(app, &dbsync, NULL, NULL, &error);
+				tvchannels_list_synchronize(app, &dbsync, &synchronize_progress_cb, app, &error);
 				if(error == NULL){
 					app->config.logosfiledate = (gint)file_stat.st_mtime;	
 				}
