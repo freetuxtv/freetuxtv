@@ -93,11 +93,21 @@ tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 		    G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG,
 		    &cbxmldata, NULL);
 		gchar *xml_data;
-		gchar *filename;
-		filename = g_build_filename(app->paths.datadir, "tv_channels.xml", NULL);
-		g_file_get_contents (filename, &xml_data, &filelen, NULL);
-		g_free(filename);
-		filename = NULL;
+		gchar *szFileName = NULL;
+
+		szFileName = g_build_filename(g_get_user_cache_dir(), "freetuxtv", "tv_channels.dat", NULL);
+		if(szFileName){
+			if(!g_file_test(szFileName, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_REGULAR)){
+				g_free(szFileName);
+				szFileName = NULL;
+			}
+		}
+		if(!szFileName){
+			szFileName = g_build_filename(app->paths.datadir, "tv_channels.xml", NULL);
+		}
+		g_file_get_contents (szFileName, &xml_data, &filelen, NULL);
+		g_free(szFileName);
+		szFileName = NULL;
 		g_markup_parse_context_parse (context, xml_data, -1, error);
 	}
 

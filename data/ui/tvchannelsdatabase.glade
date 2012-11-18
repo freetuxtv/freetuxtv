@@ -107,11 +107,10 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <child>
-                                      <object class="GtkCheckButton" id="checkbutton2">
+                                      <object class="GtkCheckButton" id="checkbutton_download">
                                         <property name="label" translatable="yes">Update database from file:</property>
                                         <property name="use_action_appearance">False</property>
                                         <property name="visible">True</property>
-                                        <property name="sensitive">False</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
                                         <property name="use_action_appearance">False</property>
@@ -125,9 +124,8 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkEntry" id="entry1">
+                                      <object class="GtkEntry" id="entry_url">
                                         <property name="visible">True</property>
-                                        <property name="sensitive">False</property>
                                         <property name="can_focus">True</property>
                                         <property name="invisible_char">●</property>
                                         <property name="text" translatable="yes">http://freetuxtv.googlecode.com/svn/trunk/data/tv_channels.xml</property>
