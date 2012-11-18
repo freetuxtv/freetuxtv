@@ -38,6 +38,8 @@ src/freetuxtv-window-add-recording.c
 src/freetuxtv-window-add-recording.h
 src/freetuxtv-window-channel-properties.c
 src/freetuxtv-window-channel-properties.h
+src/freetuxtv-window-tv-channels-database.c
+src/freetuxtv-window-tv-channels-database.h
 src/freetuxtv-window-main.c
 src/freetuxtv-window-main.h
 src/lib-m3uparser.c

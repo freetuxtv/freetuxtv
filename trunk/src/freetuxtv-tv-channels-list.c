@@ -32,6 +32,8 @@ typedef struct _CBXMLData
 	FreetuxTVApp *app;
 	DBSync *dbsync;
 	FreetuxTVTvChannelInfos *tv_channels_infos;
+	SynchronizeProgressCB progressCB;
+	void* progressCBUserData;
 } CBXMLData;
 
 static void 
@@ -57,7 +59,7 @@ xml_text_cb(GMarkupParseContext *context,
 
 void
 tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
-    GError** error)
+    SynchronizeProgressCB funcCB, void* user_data, GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
 	g_return_if_fail(error != NULL);
@@ -79,6 +81,8 @@ tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 		cbxmldata.app = app;
 		cbxmldata.dbsync = dbsync;
 		cbxmldata.tv_channels_infos = NULL;
+		cbxmldata.progressCB = funcCB;
+		cbxmldata.progressCBUserData = user_data;
 
 		gsize filelen;
 		static GMarkupParser parser = { xml_start_cb, xml_end_cb, xml_text_cb, 
@@ -188,6 +192,7 @@ xml_start_cb(GMarkupParseContext *context,
 
 	if(g_ascii_strcasecmp(element_name, "tvchannel") == 0){
 		name = (gchar*)attribute_values[0];
+		cbxmldata->progressCB(name, cbxmldata->progressCBUserData);
 		cbxmldata->tv_channels_infos = freetuxtv_tv_channel_infos_new(name);
 	}
 	
