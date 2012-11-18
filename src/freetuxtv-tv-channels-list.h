@@ -23,8 +23,11 @@
 #include "freetuxtv-app.h"
 #include "freetuxtv-db-sync.h"
 
+typedef void (*SynchronizeProgressCB)(gchar* szTVChannelName, void* user_data);
+
 void
 tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
+    SynchronizeProgressCB funcCB, void* user_data,
     GError** error);
 
 gchar*

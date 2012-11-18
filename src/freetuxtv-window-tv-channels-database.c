@@ -25,6 +25,8 @@ freetuxtv is free software: you can redistribute it and/or modify it
 #include "freetuxtv-tv-channels-list.h"
 #include "freetuxtv-window-main.h"
 
+#include "gtk-progress-dialog.h"
+
 typedef struct _FreetuxTVWindowTVChannelsDatabasePrivate FreetuxTVWindowTVChannelsDatabasePrivate;
 struct _FreetuxTVWindowTVChannelsDatabasePrivate
 {
@@ -74,6 +76,20 @@ on_buttonclose_clicked (GtkButton *button, gpointer user_data)
 	g_idle_add (do_idle_destroy_window, user_data);
 }
 
+void synchronize_progress_cb(gchar* szTVChannelName, void* user_data)
+{
+	GtkProgressDialog* pProgressDialog = (GtkProgressDialog*)user_data;
+
+	gchar* szTmp = g_strdup_printf(_("Updating TV channel: %s"), szTVChannelName);
+	
+	gtk_progress_dialog_set_text(pProgressDialog, szTmp);
+
+	if(szTmp){
+		g_free(szTmp);
+		szTmp = NULL;
+	}
+}
+
 static void
 on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 {
@@ -95,15 +111,29 @@ on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 	// Check if must synchronize
 	GtkWidget* pWidget;
 	pWidget = (GtkWidget *) gtk_builder_get_object (builder, "checkbutton_synchronize");
+	GtkWindow* pParent;
 
 	bSynchronize = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pWidget));
 
+	pParent = gtk_builder_window_get_top_window(GTK_BUILDER_WINDOW(pWindowTVChannelsDatabase));
+
+	// Start progress dialog
+	GtkProgressDialog* pProgressDialog = NULL;
+	gdouble progress = 0.0;
+	if(bSynchronize){
+		pProgressDialog = gtk_progress_dialog_new(pParent);
+		gtk_progress_dialog_set_title(pProgressDialog, _("TV channels synchronisation"));
+		gtk_progress_dialog_set_percent(pProgressDialog, progress);
+		gtk_widget_show(GTK_WIDGET(pProgressDialog));
+	}
+
 	// Do synchronize
 	if(bSynchronize){
+		gtk_progress_dialog_set_text(pProgressDialog, _("Synchronizing TV channels from file"));
 		dbsync_open_db (&dbsync, &error);
 
 		if(error == NULL){
-			tvchannels_list_synchronize (priv->app, &dbsync, &error);			
+			tvchannels_list_synchronize (priv->app, &dbsync, synchronize_progress_cb, (void*)pProgressDialog, &error);			
 		}
 
 		if(error == NULL){
@@ -111,7 +141,14 @@ on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 		}
 
 		dbsync_close_db(&dbsync);
+
+		progress += 0.33;
+		gtk_progress_dialog_set_percent(pProgressDialog, progress);
 	}
+
+	progress = 1.0;
+	gtk_progress_dialog_set_percent(pProgressDialog, 1.0);
+	gtk_progress_dialog_set_button_close_enabled(pProgressDialog, TRUE);
 
 	if(error != NULL){
 		windowmain_show_gerror (priv->app, error);
