@@ -7,6 +7,9 @@
 	<language lang="Bouygues" id="bouygues">
 		<channels_group uri="http://bbox-news.com/documents/tv_sur_pc_bbox.m3u" required_isp="Bouygues" name="Bouygues TV"/>
 	</language>
+	<language lang="Darty" id="darty">
+		<channels_group uri="http://dartybox-news.fr/ftp/dartyboxtvpc.m3u" required_isp="Darty" name="Darty TV"/>
+	</language>
 	<language lang="Free (FreeBox)" id="free">
 		<channels_group uri="http://mafreebox.freebox.fr/freeboxtv/playlist.m3u" required_isp="Free" name="FreeboxTV" bregex="[0-9]* - "/>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_freeboxtv_mirror.m3u" required_isp="Free" name="FreeboxTV (miroir)" bregex="[0-9]* - "/>
@@ -19,8 +22,8 @@
 		<channels_group uri="http://tv.sfr.fr/tv-pc/televisionsurpc.m3u" required_isp="SFR" name="SFR TV"/>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_sfrtv_unofficial.m3u" required_isp="SFR" name="SFR TV (Unofficial)"></channels_group>
 	</language>
-	<language lang="Darty" id="darty">
-		<channels_group uri="http://dartybox-news.fr/ftp/dartyboxtvpc.m3u" required_isp="Darty" name="Darty TV"/>
+	<language lang="WebPlus" id="webplus">
+		<channels_group uri="http://giant.wplus.net/QUICK_START/broadcast/tv/channels_tv_http_utf8.m3u" required_isp="WebPlus" name="WebPlus TV" bregex="ТВ HTTP  [0-9][0-9][0-9]  " eregex="h264"></channels_group>
 	</language>
 	<language id="af" lang="Afrikaans Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_af.m3u" name="Web TV (Afrikaans)"></channels_group>
