@@ -505,34 +505,28 @@ msgid "SFR TV (Unofficial)"
 msgstr "SFR TV (Non Officiel)"
 
 #: ../data/channels_groups.xml.in.h:3
-#, fuzzy
 msgid "Afrikaans Web TV and Radio"
-msgstr "Persan : WebTV et WebRadio"
+msgstr "Afrikaans : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:4
-#, fuzzy
 msgid "Web TV (Afrikaans)"
-msgstr "Web TV (Persan)"
+msgstr "Web TV (Afrikaans)"
 
 #: ../data/channels_groups.xml.in.h:5
-#, fuzzy
 msgid "Albanian Web TV and Radio"
-msgstr "Roumain : WebTV et WebRadio"
+msgstr "Albanais : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:6
-#, fuzzy
 msgid "Web TV (Albanian)"
-msgstr "Web TV (Roumain)"
+msgstr "Web TV (Albanais)"
 
 #: ../data/channels_groups.xml.in.h:7
-#, fuzzy
 msgid "Amharic Web TV and Radio"
-msgstr "Arabe : WebTV et WebRadio"
+msgstr "Amharique : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:8
-#, fuzzy
 msgid "Web TV (Amharic)"
-msgstr "Web TV (Arabe)"
+msgstr "Web TV (Amharique)"
 
 #: ../data/channels_groups.xml.in.h:9
 msgid "Arabic Web TV and Radio"
@@ -547,59 +541,48 @@ msgid "Web Radio (Arabic)"
 msgstr "Web Radio (Arabe)"
 
 #: ../data/channels_groups.xml.in.h:12
-#, fuzzy
 msgid "Web Cam (Arabic)"
-msgstr "Web TV (Arabe)"
+msgstr "Webcam (Arabe)"
 
 #: ../data/channels_groups.xml.in.h:13
-#, fuzzy
 msgid "Armenian Web TV and Radio"
-msgstr "Roumain : WebTV et WebRadio"
+msgstr "Arménien : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:14
-#, fuzzy
 msgid "Web TV (Armenian)"
-msgstr "Web TV (Roumain)"
+msgstr "Web TV (Arménien)"
 
 #: ../data/channels_groups.xml.in.h:15
-#, fuzzy
 msgid "Azerbaijani Web TV and Radio"
-msgstr "Persan : WebTV et WebRadio"
+msgstr "Azerbaïdjanais : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:16
-#, fuzzy
 msgid "Web TV (Azerbaijani)"
-msgstr "Web TV (Persan)"
+msgstr "Web TV (Azerbaïdjanais)"
 
 #: ../data/channels_groups.xml.in.h:17
-#, fuzzy
 msgid "Bengali/Bangla Web TV and Radio"
-msgstr "Hongrois : WebTV et WebRadio"
+msgstr "Bengali/Bangla : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:18
-#, fuzzy
 msgid "Web TV (Bengali/Bangla)"
-msgstr "Web TV (Hongrois)"
+msgstr "Web TV (Bengali/Bangla)"
 
 #: ../data/channels_groups.xml.in.h:19
-#, fuzzy
 msgid "Bulgarian Web TV and Radio"
-msgstr "Hongrois : WebTV et WebRadio"
+msgstr "Bulgare : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:20
-#, fuzzy
 msgid "Web TV (Bulgarian)"
-msgstr "Web TV (Hongrois)"
+msgstr "Web TV (Bulgare)"
 
 #: ../data/channels_groups.xml.in.h:21
-#, fuzzy
 msgid "Cambodian Web TV and Radio"
-msgstr "Italien : WebTV et WebRadio"
+msgstr "Cambodgien : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:22
-#, fuzzy
 msgid "Web TV (Cambodian)"
-msgstr "Web TV (Catalan)"
+msgstr "Web TV (Cambodgien)"
 
 #: ../data/channels_groups.xml.in.h:23
 msgid "Catalan Web TV and Radio"
@@ -626,19 +609,16 @@ msgid "Web Radio (Chinese)"
 msgstr "Web Radio (Chinois)"
 
 #: ../data/channels_groups.xml.in.h:29
-#, fuzzy
 msgid "Croatian Web TV and Radio"
-msgstr "Catalan : WebTV et WebRadio"
+msgstr "Croate : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:30
-#, fuzzy
 msgid "Web TV (Croatian)"
-msgstr "Web TV (Catalan)"
+msgstr "Web TV (Croate)"
 
 #: ../data/channels_groups.xml.in.h:31
-#, fuzzy
 msgid "Web Radio (Croatian)"
-msgstr "Web Radio (Catalan)"
+msgstr "Web Radio (Croate)"
 
 #: ../data/channels_groups.xml.in.h:32
 msgid "Czech Web TV and Radio"
@@ -649,19 +629,16 @@ msgid "Web TV (Czech)"
 msgstr "Web TV (Tchèque)"
 
 #: ../data/channels_groups.xml.in.h:34
-#, fuzzy
 msgid "Web Radio (Czech)"
-msgstr "Web Radio (Français)"
+msgstr "Web Radio (Tchèque)"
 
 #: ../data/channels_groups.xml.in.h:35
-#, fuzzy
 msgid "Danish Web TV and Radio"
-msgstr "Espagnol : WebTV et WebRadio"
+msgstr "Danois : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:36
-#, fuzzy
 msgid "Web TV (Danish)"
-msgstr "Web TV (Espagnol)"
+msgstr "Web TV (Danois)"
 
 #: ../data/channels_groups.xml.in.h:37
 msgid "Dutch Web TV and Radio"
@@ -672,14 +649,12 @@ msgid "Web TV (Dutch)"
 msgstr "Web TV (Néerlandais)"
 
 #: ../data/channels_groups.xml.in.h:39
-#, fuzzy
 msgid "Web Radio (Dutch)"
-msgstr "Web Radio (Français)"
+msgstr "Web Radio (Néerlandais)"
 
 #: ../data/channels_groups.xml.in.h:40
-#, fuzzy
 msgid "Web Cam (Dutch)"
-msgstr "Web TV (Néerlandais)"
+msgstr "Webcam (Néerlandais)"
 
 #: ../data/channels_groups.xml.in.h:41
 msgid "English Web TV and Radio"
@@ -698,29 +673,24 @@ msgid "Web Programmes (English)"
 msgstr "Emissions TV/Radio sur le Web (Anglais)"
 
 #: ../data/channels_groups.xml.in.h:45
-#, fuzzy
 msgid "Web Cam (English)"
-msgstr "Web TV (Anglais)"
+msgstr "Webcam (Anglais)"
 
 #: ../data/channels_groups.xml.in.h:46
-#, fuzzy
 msgid "Estonian Web TV and Radio"
-msgstr "Roumain : WebTV et WebRadio"
+msgstr "Estonien : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:47
-#, fuzzy
 msgid "Web TV (Estonian)"
-msgstr "Web TV (Roumain)"
+msgstr "Web TV (Estonien)"
 
 #: ../data/channels_groups.xml.in.h:48
-#, fuzzy
 msgid "Finnish Web TV and Radio"
-msgstr "Espagnol : WebTV et WebRadio"
+msgstr "Finnois : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:49
-#, fuzzy
 msgid "Web TV (Finnish)"
-msgstr "Web TV (Espagnol)"
+msgstr "Web TV (Finnois)"
 
 #: ../data/channels_groups.xml.in.h:50
 msgid "French Web TV and Radio"
@@ -739,14 +709,12 @@ msgid "Web Programmes (French)"
 msgstr "Emissions TV/Radio sur le Web (Français)"
 
 #: ../data/channels_groups.xml.in.h:54
-#, fuzzy
 msgid "Georgian Web TV and Radio"
-msgstr "Allemand : WebTV et WebRadio"
+msgstr "Géorgien : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:55
-#, fuzzy
 msgid "Web TV (Georgian)"
-msgstr "Web TV (Allemand)"
+msgstr "Web TV (Géorgien)"
 
 #: ../data/channels_groups.xml.in.h:56
 msgid "German Web TV and Radio"
@@ -769,44 +737,36 @@ msgid "Web TV (Greek)"
 msgstr "Web TV (Grec)"
 
 #: ../data/channels_groups.xml.in.h:61
-#, fuzzy
 msgid "Web Radio (Greek)"
-msgstr "Web Radio (Allemand)"
+msgstr "Web Radio (Grec)"
 
 #: ../data/channels_groups.xml.in.h:62
-#, fuzzy
 msgid "Hebrew Web TV and Radio"
-msgstr "Grec : WebTV et WebRadio"
+msgstr "Hébreu : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:63
-#, fuzzy
 msgid "Web TV (Hebrew)"
-msgstr "Web TV (Grec)"
+msgstr "Web TV (Hébreu)"
 
 #: ../data/channels_groups.xml.in.h:64
-#, fuzzy
 msgid "Web Radio (Hebrew)"
-msgstr "Web Radio (Français)"
+msgstr "Web Radio (Hébreu)"
 
 #: ../data/channels_groups.xml.in.h:65
-#, fuzzy
 msgid "Web Cam (Hebrew)"
-msgstr "Web TV (Grec)"
+msgstr "Webcam (Hébreu)"
 
 #: ../data/channels_groups.xml.in.h:66
-#, fuzzy
 msgid "Hindi Web TV and Radio"
-msgstr "Latin : WebTV et WebRadio"
+msgstr "Hindi : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:67
-#, fuzzy
 msgid "Web TV (Hindi)"
-msgstr "Web TV (Latin)"
+msgstr "Web TV (Hindi)"
 
 #: ../data/channels_groups.xml.in.h:68
-#, fuzzy
 msgid "Web Radio (Hindi)"
-msgstr "Web Radio (Chinois)"
+msgstr "Web Radio (Hindi)"
 
 #: ../data/channels_groups.xml.in.h:69
 msgid "Hungarian Web TV and Radio"
@@ -817,49 +777,40 @@ msgid "Web TV (Hungarian)"
 msgstr "Web TV (Hongrois)"
 
 #: ../data/channels_groups.xml.in.h:71
-#, fuzzy
 msgid "Icelandic Web TV and Radio"
-msgstr "Italien : WebTV et WebRadio"
+msgstr "Islandais : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:72
-#, fuzzy
 msgid "Web TV (Icelandic)"
-msgstr "Web TV (Italien)"
+msgstr "Web TV (Islandais)"
 
 #: ../data/channels_groups.xml.in.h:73
-#, fuzzy
 msgid "Indonesian Web TV and Radio"
-msgstr "Persan : WebTV et WebRadio"
+msgstr "Indonésien : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:74
-#, fuzzy
 msgid "Web TV (Indonesian)"
-msgstr "Web TV (Persan)"
+msgstr "Web TV (Indonésien)"
 
 #: ../data/channels_groups.xml.in.h:75
-#, fuzzy
 msgid "Interlingua Web TV and Radio"
-msgstr "Italien : WebTV et WebRadio"
+msgstr "Interlingua : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:76
-#, fuzzy
 msgid "Web Radio (Interlingua)"
-msgstr "Web Radio (Italien)"
+msgstr "Web Radio (Interlingua)"
 
 #: ../data/channels_groups.xml.in.h:77
-#, fuzzy
 msgid "Irish Web TV and Radio"
-msgstr "Turc : WebTV et WebRadio"
+msgstr "Irlandais : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:78
-#, fuzzy
 msgid "Web TV (Irish)"
-msgstr "Web TV (Turc)"
+msgstr "Web TV (Irlandais)"
 
 #: ../data/channels_groups.xml.in.h:79
-#, fuzzy
 msgid "Web Radio (Irish)"
-msgstr "Web Radio (Anglais)"
+msgstr "Web Radio (Irlandais)"
 
 #: ../data/channels_groups.xml.in.h:80
 msgid "Italian Web TV and Radio"
@@ -882,24 +833,20 @@ msgid "Web TV (Japanese)"
 msgstr "Web TV (Japonais)"
 
 #: ../data/channels_groups.xml.in.h:85
-#, fuzzy
 msgid "Web Radio (Japanese)"
-msgstr "Web Radio (Chinois)"
+msgstr "Web Radio (Japonais)"
 
 #: ../data/channels_groups.xml.in.h:86
-#, fuzzy
 msgid "Web Cam (Japanese)"
-msgstr "Web TV (Japonais)"
+msgstr "Webcam (Japonais)"
 
 #: ../data/channels_groups.xml.in.h:87
-#, fuzzy
 msgid "Kazakh Web TV and Radio"
-msgstr "Tchèque : WebTV et WebRadio"
+msgstr "Kazakh : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:88
-#, fuzzy
 msgid "Web TV (Kazakh)"
-msgstr "Web TV (Tchèque)"
+msgstr "Web TV (Kazakh)"
 
 #: ../data/channels_groups.xml.in.h:89
 msgid "Korean Web TV and Radio"
@@ -910,14 +857,12 @@ msgid "Web TV (Korean)"
 msgstr "Web TV (Coréen)"
 
 #: ../data/channels_groups.xml.in.h:91
-#, fuzzy
 msgid "Kurdish Web TV and Radio"
-msgstr "Turc : WebTV et WebRadio"
+msgstr "Kurde : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:92
-#, fuzzy
 msgid "Web TV (Kurdish)"
-msgstr "Web TV (Turc)"
+msgstr "Web TV (Kurde)"
 
 #: ../data/channels_groups.xml.in.h:93
 msgid "Latin Web TV and Radio"
@@ -928,94 +873,76 @@ msgid "Web TV (Latin)"
 msgstr "Web TV (Latin)"
 
 #: ../data/channels_groups.xml.in.h:95
-#, fuzzy
 msgid "Latvian/Lettish Web TV and Radio"
-msgstr "Latin : WebTV et WebRadio"
+msgstr "Letton/Lette : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:96
-#, fuzzy
 msgid "Web TV (Latvian/Lettish)"
-msgstr "Web TV (Latin)"
+msgstr "Web TV (Letton/Lette)"
 
 #: ../data/channels_groups.xml.in.h:97
-#, fuzzy
 msgid "Lithuanian Web TV and Radio"
-msgstr "Italien : WebTV et WebRadio"
+msgstr "Lituanien : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:98
-#, fuzzy
 msgid "Web TV (Lithuanian)"
-msgstr "Web TV (Italien)"
+msgstr "Web TV (Lituanien)"
 
 #: ../data/channels_groups.xml.in.h:99
-#, fuzzy
 msgid "Macedonian Web TV and Radio"
-msgstr "Roumain : WebTV et WebRadio"
+msgstr "Macédonienne : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:100
-#, fuzzy
 msgid "Web TV (Macedonian)"
-msgstr "Web TV (Roumain)"
+msgstr "Web TV (Macédonienne)"
 
 #: ../data/channels_groups.xml.in.h:101
-#, fuzzy
 msgid "Web Radio (Macedonian)"
-msgstr "Web Radio (Italien)"
+msgstr "Web Radio (Macédonienne)"
 
 #: ../data/channels_groups.xml.in.h:102
-#, fuzzy
 msgid "Malay Web TV and Radio"
-msgstr "Catalan : WebTV et WebRadio"
+msgstr "Malais : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:103
-#, fuzzy
 msgid "Web TV (Malay)"
-msgstr "Web TV (Catalan)"
+msgstr "Web TV (Malais)"
 
 #: ../data/channels_groups.xml.in.h:104
-#, fuzzy
 msgid "Malayalam Web TV and Radio"
-msgstr "Catalan : WebTV et WebRadio"
+msgstr "Malayalam : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:105
-#, fuzzy
 msgid "Web TV (Malayalam)"
-msgstr "Web TV (Catalan)"
+msgstr "Web TV (Malayalam)"
 
 #: ../data/channels_groups.xml.in.h:106
-#, fuzzy
 msgid "Maltese Web TV and Radio"
-msgstr "Japonais : WebTV et WebRadio"
+msgstr "Maltais : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:107
-#, fuzzy
 msgid "Web TV (Maltese)"
-msgstr "Web TV (Japonais)"
+msgstr "Web TV (Maltais)"
 
 #: ../data/channels_groups.xml.in.h:108
-#, fuzzy
 msgid "Web Radio (Maltese)"
-msgstr "Web Radio (Chinois)"
+msgstr "Web Radio (Maltais)"
 
 #: ../data/channels_groups.xml.in.h:109
-#, fuzzy
 msgid "Moldavian Web TV and Radio"
-msgstr "Roumain : WebTV et WebRadio"
+msgstr "Moldave : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:110
-#, fuzzy
 msgid "Web TV (Moldavian)"
-msgstr "Web TV (Roumain)"
+msgstr "Web TV (Moldave)"
 
 #: ../data/channels_groups.xml.in.h:111
-#, fuzzy
 msgid "Mongolian Web TV and Radio"
-msgstr "Roumain : WebTV et WebRadio"
+msgstr "Mongol : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:112
-#, fuzzy
 msgid "Web TV (Mongolian)"
-msgstr "Web TV (Roumain)"
+msgstr "Web TV (Mongol)"
 
 #: ../data/channels_groups.xml.in.h:113
 msgid "Norwegian Web TV and Radio"
@@ -1042,14 +969,12 @@ msgid "Web TV (Polish)"
 msgstr "Web TV (Polonais)"
 
 #: ../data/channels_groups.xml.in.h:119
-#, fuzzy
 msgid "Web Radio (Polish)"
-msgstr "Web Radio (Anglais)"
+msgstr "Web Radio (Polonais)"
 
 #: ../data/channels_groups.xml.in.h:120
-#, fuzzy
 msgid "Web Cam (Polish)"
-msgstr "Web TV (Polonais)"
+msgstr "Webcam (Polonais)"
 
 #: ../data/channels_groups.xml.in.h:121
 msgid "Portuguese Web TV and Radio"
@@ -1060,19 +985,16 @@ msgid "Web TV (Portuguese)"
 msgstr "Web TV (Portugais)"
 
 #: ../data/channels_groups.xml.in.h:123
-#, fuzzy
 msgid "Web Radio (Portuguese)"
-msgstr "Web TV (Portugais)"
+msgstr "Web Radio (Portugais)"
 
 #: ../data/channels_groups.xml.in.h:124
-#, fuzzy
 msgid "Punjabi Web TV and Radio"
-msgstr "Arabe : WebTV et WebRadio"
+msgstr "Panjābī : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:125
-#, fuzzy
 msgid "Web TV (Punjabi)"
-msgstr "Web TV (Arabe)"
+msgstr "Web TV (Panjābī)"
 
 #: ../data/channels_groups.xml.in.h:126
 msgid "Romanian Web TV and Radio"
@@ -1083,9 +1005,8 @@ msgid "Web TV (Romanian)"
 msgstr "Web TV (Roumain)"
 
 #: ../data/channels_groups.xml.in.h:128
-#, fuzzy
 msgid "Web Radio (Romanian)"
-msgstr "Web Radio (Russe)"
+msgstr "Web Radio (Roumain)"
 
 #: ../data/channels_groups.xml.in.h:129
 msgid "Russian Web TV and Radio"
@@ -1100,34 +1021,28 @@ msgid "Web Radio (Russian)"
 msgstr "Web Radio (Russe)"
 
 #: ../data/channels_groups.xml.in.h:132
-#, fuzzy
 msgid "Serbian Web TV and Radio"
-msgstr "Persan : WebTV et WebRadio"
+msgstr "Serbe : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:133
-#, fuzzy
 msgid "Web TV (Serbian)"
-msgstr "Web TV (Persan)"
+msgstr "Web TV (Serbe)"
 
 #: ../data/channels_groups.xml.in.h:134
-#, fuzzy
 msgid "Web Radio (Serbian)"
-msgstr "Web Radio (Allemand)"
+msgstr "Web Radio (Serbe)"
 
 #: ../data/channels_groups.xml.in.h:135
-#, fuzzy
 msgid "Serbo-Croatian Web TV and Radio"
-msgstr "Persan : WebTV et WebRadio"
+msgstr "Serbo-croate : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:136
-#, fuzzy
 msgid "Web TV (Serbo-Croatian)"
-msgstr "Web TV (Persan)"
+msgstr "Web TV (Serbo-croate)"
 
 #: ../data/channels_groups.xml.in.h:137
-#, fuzzy
 msgid "Web Radio (Serbo-Croatian)"
-msgstr "Web Radio (Catalan)"
+msgstr "Web Radio (Serbo-croate)"
 
 #: ../data/channels_groups.xml.in.h:138
 msgid "Slovak Web TV and Radio"
@@ -1138,24 +1053,20 @@ msgid "Web TV (Slovak)"
 msgstr "Web TV (Slovaque)"
 
 #: ../data/channels_groups.xml.in.h:140
-#, fuzzy
 msgid "Web Radio (Slovak)"
-msgstr "Web TV (Slovaque)"
+msgstr "Web Radio (Slovaque)"
 
 #: ../data/channels_groups.xml.in.h:141
-#, fuzzy
 msgid "Slovenian Web TV and Radio"
-msgstr "Slovaque : WebTV et WebRadio"
+msgstr "Slovène : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:142
-#, fuzzy
 msgid "Web TV (Slovenian)"
-msgstr "Web TV (Slovaque)"
+msgstr "Web TV (Slovène)"
 
 #: ../data/channels_groups.xml.in.h:143
-#, fuzzy
 msgid "Web Radio (Slovenian)"
-msgstr "Web Radio (Italien)"
+msgstr "Web Radio (Slovène)"
 
 #: ../data/channels_groups.xml.in.h:144
 msgid "Spanish Web TV and Radio"
@@ -1170,14 +1081,12 @@ msgid "Web Radio (Spanish)"
 msgstr "Web Radio (Espagnol)"
 
 #: ../data/channels_groups.xml.in.h:147
-#, fuzzy
 msgid "Web Programmes (Spanish)"
-msgstr "Emissions TV/Radio sur le Web (Anglais)"
+msgstr "Emissions TV/Radio sur le Web (Espagnol)"
 
 #: ../data/channels_groups.xml.in.h:148
-#, fuzzy
 msgid "Web Cam (Spanish)"
-msgstr "Web TV (Espagnol)"
+msgstr "Webcam (Espagnol)"
 
 #: ../data/channels_groups.xml.in.h:149
 msgid "Swedish Web TV and Radio"
@@ -1188,24 +1097,20 @@ msgid "Web TV (Swedish)"
 msgstr "Web TV (Suédois)"
 
 #: ../data/channels_groups.xml.in.h:151
-#, fuzzy
 msgid "Tagalog Web TV and Radio"
-msgstr "Thai : WebTV et WebRadio"
+msgstr "Tagalog : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:152
-#, fuzzy
 msgid "Web TV (Tagalog)"
-msgstr "Web TV (Thai)"
+msgstr "Web TV (Tagalog)"
 
 #: ../data/channels_groups.xml.in.h:153
-#, fuzzy
 msgid "Tamil Web TV and Radio"
-msgstr "Thai : WebTV et WebRadio"
+msgstr "Tamoul : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:154
-#, fuzzy
 msgid "Web TV (Tamil)"
-msgstr "Web TV (Thai)"
+msgstr "Web TV (Tamoul)"
 
 #: ../data/channels_groups.xml.in.h:155
 msgid "Thai Web TV and Radio"
@@ -1224,69 +1129,56 @@ msgid "Web TV (Turkish)"
 msgstr "Web TV (Turc)"
 
 #: ../data/channels_groups.xml.in.h:159
-#, fuzzy
 msgid "Web Radio (Turkish)"
-msgstr "Web TV (Turc)"
+msgstr "Web Radio (Turc)"
 
 #: ../data/channels_groups.xml.in.h:160
-#, fuzzy
 msgid "Turkmen Web TV and Radio"
-msgstr "Turc : WebTV et WebRadio"
+msgstr "Turkmène : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:161
-#, fuzzy
 msgid "Web TV (Turkmen)"
-msgstr "Web TV (Turc)"
+msgstr "Web TV (Turkmène)"
 
 #: ../data/channels_groups.xml.in.h:162
-#, fuzzy
 msgid "Ukrainian Web TV and Radio"
-msgstr "Roumain : WebTV et WebRadio"
+msgstr "Ukrainien : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:163
-#, fuzzy
 msgid "Web TV (Ukrainian)"
-msgstr "Web TV (Roumain)"
+msgstr "Web TV (Ukrainien)"
 
 #: ../data/channels_groups.xml.in.h:164
-#, fuzzy
 msgid "Web Cam (Ukrainian)"
-msgstr "Web TV (Roumain)"
+msgstr "Webcam (Ukrainien)"
 
 #: ../data/channels_groups.xml.in.h:165
-#, fuzzy
 msgid "Urdu Web TV and Radio"
-msgstr "Néerlandais : WebTV et WebRadio"
+msgstr "Ourdou : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:166
-#, fuzzy
 msgid "Web TV (Urdu)"
-msgstr "Web TV (Néerlandais)"
+msgstr "Web TV (Ourdou)"
 
 #: ../data/channels_groups.xml.in.h:167
-#, fuzzy
 msgid "Uzbek Web TV and Radio"
-msgstr "Grec : WebTV et WebRadio"
+msgstr "Ouzbek : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:168
-#, fuzzy
 msgid "Web TV (Uzbek)"
-msgstr "Web TV (Tchèque)"
+msgstr "Web TV (Ouzbek)"
 
 #: ../data/channels_groups.xml.in.h:169
-#, fuzzy
 msgid "Vietnamese Web TV and Radio"
-msgstr "Chinois : WebTV et WebRadio"
+msgstr "Vietnamien : WebTV et WebRadio"
 
 #: ../data/channels_groups.xml.in.h:170
-#, fuzzy
 msgid "Web TV (Vietnamese)"
-msgstr "Web TV (Chinois)"
+msgstr "Web TV (Vietnamien)"
 
 #: ../data/channels_groups.xml.in.h:171
-#, fuzzy
 msgid "Web Radio (Vietnamese)"
-msgstr "Web Radio (Chinois)"
+msgstr "Web Radio (Vietnamien)"
 
 #: ../data/channels_groups.xml.in.h:172
 msgid "No lang Web TV and Radio"
@@ -1301,14 +1193,12 @@ msgid "Web Radio (No lang)"
 msgstr "Web Radio (Sans langue)"
 
 #: ../data/channels_groups.xml.in.h:175
-#, fuzzy
 msgid "Web Programmes (No lang)"
-msgstr "Emissions TV/Radio sur le Web (Anglais)"
+msgstr "Emissions TV/Radio sur le Web (Sans langue)"
 
 #: ../data/channels_groups.xml.in.h:176
-#, fuzzy
 msgid "Web Cam (No lang)"
-msgstr "Web TV (Sans langue)"
+msgstr "Webcam (Sans langue)"
 
 #: ../data/channels_groups.xml.in.h:177
 msgid "WebCam"
@@ -1327,9 +1217,9 @@ msgid "Watch television channels from internet"
 msgstr "Visionnez les chaînes de télévision sur internet"
 
 #: ../src/freetuxtv-cellrenderer-recordingslist.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "%ld min"
-msgstr "%lld min"
+msgstr "%ld min"
 
 #. Update status bar
 #: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
@@ -1810,23 +1700,22 @@ msgid "Please enter the group's URI !"
 msgstr "Veuillez remplir l'URI du groupe !"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Updating TV channel: %s"
-msgstr "_Mettre à jour la liste des chaînes TV"
+msgstr "Mise à jour de la chaîne TV: %s"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:140
 msgid "TV channels synchronisation"
-msgstr ""
+msgstr "Synchronisation des chaînes TV"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:149
-#, fuzzy, c-format
+#, c-format
 msgid "Downloading the file '%s'"
-msgstr "Récupération du fichier : \"%s\""
+msgstr "Récupération du fichier '%s'"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:164
-#, fuzzy
 msgid "Synchronizing TV channels from file"
-msgstr "Synchronisation de la liste des chaînes TV"
+msgstr "Synchronisation de la liste des chaînes TV du fichier"
 
 #. Menu : FreetuxTV
 #: ../src/freetuxtv-window-main.c:278
@@ -1848,14 +1737,13 @@ msgid "Add/create a channels group from different sources"
 msgstr ""
 
 #: ../src/freetuxtv-window-main.c:311
-#, fuzzy
 msgid "_Synchronize TV channels database"
-msgstr "Synchronisation de la liste des chaînes TV"
+msgstr "_Synchroniser la base de donnée des chaînes TV"
 
 #: ../src/freetuxtv-window-main.c:313
 msgid ""
 "Synchronize the TV channels list in the local database from the XML database"
-msgstr ""
+msgstr "Synchroniser la liste des chaînes TV dans la base locale depuis le fichier XML"
 
 #. End Menu : Channels
 #. Menu : Video
@@ -1929,9 +1817,9 @@ msgid "An error occurred"
 msgstr "Une erreur s'est produite"
 
 #: ../src/main.c:607
-#, fuzzy, c-format
+#, c-format
 msgid "Synchronizing the list of tv channels: %s..."
-msgstr "Synchronisation de la liste des chaînes TV..."
+msgstr "Synchronisation de la liste des chaînes TV: %s..."
 
 #: ../src/main.c:642
 msgid "Initializing user configuration..."
