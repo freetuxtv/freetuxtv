@@ -1,0 +1,1705 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-28 11:07+0200\n"
+"PO-Revision-Date: 2013-02-28 13:43+0200\n"
+"Last-Translator: Algimantas Margevičius <margevicius.algimantas@gmail.com>\n"
+"Language-Team: Lietuvių <>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2)\n"
+"X-Generator: Gtranslator 2.91.5\n"
+
+#: ../data/ui/addrecording.glade.h:1
+msgid "Add a recording"
+msgstr "Pridėti įrašą"
+
+#: ../data/ui/addrecording.glade.h:2
+msgid "Selected channel:"
+msgstr "Pasirinktas kanalas:"
+
+#: ../data/ui/addrecording.glade.h:3
+msgid "Title:"
+msgstr "Pavadinimas:"
+
+#: ../data/ui/addrecording.glade.h:4
+msgid "Start time:"
+msgstr "Pradžios laikas:"
+
+#: ../data/ui/addrecording.glade.h:5
+msgid "Duration:"
+msgstr "Trukmė:"
+
+#: ../data/ui/addrecording.glade.h:6
+msgid "End time:"
+msgstr "Pabaigos laikas:"
+
+#: ../data/ui/addrecording.glade.h:7
+msgid "minutes"
+msgstr "minutės"
+
+#: ../data/ui/addrecording.glade.h:8
+msgid "<b>Recording period</b>"
+msgstr "<b>Įrašymo laikotarpis</b>"
+
+#: ../data/ui/addchannelsgroups.glade.h:1
+msgid "Add a group"
+msgstr "Pridėti grupę"
+
+#: ../data/ui/addchannelsgroups.glade.h:2
+msgid "Channels groups file:"
+msgstr "Kanalų grupės failas:"
+
+#: ../data/ui/addchannelsgroups.glade.h:3
+msgid "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
+msgstr "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
+
+#: ../data/ui/addchannelsgroups.glade.h:4
+msgid ""
+"Select one or several channels group you want to add and click on the add "
+"button."
+msgstr ""
+"Pasirinkite vieną ar kelias kanalų grupes, kurias norite pridėti ir "
+"paspauskite mygtuką pridėti."
+
+#: ../data/ui/addchannelsgroups.glade.h:5
+msgid "Languages/Channels group"
+msgstr "Kalbos/Kanalų grupė"
+
+#: ../data/ui/addchannelsgroups.glade.h:6
+msgid "Required ISP"
+msgstr "Reikalingas ISP"
+
+#: ../data/ui/addchannelsgroups.glade.h:7
+msgid "URI"
+msgstr "URI"
+
+#: ../data/ui/addchannelsgroups.glade.h:8
+msgid "Existing channels group"
+msgstr "Esamos kanalų grupės"
+
+#: ../data/ui/addchannelsgroups.glade.h:9 ../data/ui/freetuxtv.glade.h:7
+msgid "Group's name:"
+msgstr "Grupės pavadinimas:"
+
+#: ../data/ui/addchannelsgroups.glade.h:10 ../data/ui/freetuxtv.glade.h:9
+msgid "Name of the group which will be added"
+msgstr "Pridedamos grupės pavadinimas"
+
+#: ../data/ui/addchannelsgroups.glade.h:11 ../data/ui/freetuxtv.glade.h:8
+msgid "Playlist's URI:"
+msgstr "Grojaraščio URI:"
+
+#: ../data/ui/addchannelsgroups.glade.h:12 ../data/ui/freetuxtv.glade.h:10
+msgid "Playlist's URI of the group which will be added"
+msgstr "Pridedamos grupės grojaraščio URI"
+
+#: ../data/ui/addchannelsgroups.glade.h:13 ../data/ui/freetuxtv.glade.h:11
+msgid "Delete this text before the name:"
+msgstr "Prieš pavadinimą pašalinti šį tekstą:"
+
+#: ../data/ui/addchannelsgroups.glade.h:14 ../data/ui/freetuxtv.glade.h:13
+msgid "Text or regexp which must be deleted at the end of the channel's name"
+msgstr ""
+"Kanalo pavadinimo pabaigoje tekstas ar regexp išraiška kuri turi būti "
+"pašalinta"
+
+#: ../data/ui/addchannelsgroups.glade.h:15 ../data/ui/freetuxtv.glade.h:12
+msgid "Delete this text behind the name:"
+msgstr "Pašalinti šį tekstą pavadinimo pradžioje:"
+
+#: ../data/ui/addchannelsgroups.glade.h:16 ../data/ui/freetuxtv.glade.h:14
+msgid ""
+"Text or regexp which must be deleted at the beginning of the channel's name"
+msgstr ""
+"Kanalo pavadinimo pradžioje tekstas ar regexp išraiška kuri turi būti "
+"pašalinta"
+
+#: ../data/ui/addchannelsgroups.glade.h:17 ../data/ui/freetuxtv.glade.h:15
+msgid ""
+"You can easily use regular expressions to delete some text in the channel's "
+"name of the groupe. For example, if in your playlist, you have a name like "
+"\"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV is able to remove the channel's "
+"number before the name, by using the regular expression \"[0-9]* - \"."
+msgstr ""
+"Galite naudoti reguliariąsias išraiškas ir be didelio vargo pašalinti tekstą "
+"iš kanalo ar grupės pavadinimo. Pvz. jei jūsų grojaraštis pavadintas \"11 - "
+"NT1\" or \"12 - NRJ 12\", FreeetuxTV gali pašalinti kanalo numerį, naudojant "
+"reguliariąją išraišką „[0-9]* - “."
+
+#: ../data/ui/addchannelsgroups.glade.h:18 ../data/ui/freetuxtv.glade.h:16
+msgid "<b>Processing of channels' name</b>"
+msgstr "<b>Apdorojamas kanalo pavadinimas</b>"
+
+#: ../data/ui/addchannelsgroups.glade.h:19
+msgid "Custom channels group"
+msgstr "Pasirinktinė kanalų grupė"
+
+#: ../data/ui/addchannelsgroups.glade.h:20
+msgid "Favourites"
+msgstr "Mėgstamiausi"
+
+#: ../data/ui/addchannelsgroups.glade.h:21
+msgid "<b>Special group type:</b>"
+msgstr "<b>Specialios grupės tipas:</b>"
+
+#: ../data/ui/addchannelsgroups.glade.h:22
+msgid "Special group"
+msgstr "Speciali grupė"
+
+#: ../data/ui/channelproperties.glade.h:1
+msgid "Channel properties"
+msgstr "Kanalo savybės"
+
+#: ../data/ui/channelproperties.glade.h:2
+msgid "Channel's name:"
+msgstr "Kanalo pavadinimas:"
+
+#: ../data/ui/channelproperties.glade.h:3
+msgid "Channel's URI:"
+msgstr "Kanalo URI:"
+
+#: ../data/ui/channelproperties.glade.h:4
+msgid "<b>Channel VLC options:</b>"
+msgstr "<b>Kanalo VLC parinktys:</b>"
+
+#: ../data/ui/channelproperties.glade.h:5 ../data/ui/freetuxtv.glade.h:17
+msgid "General"
+msgstr "Bendra"
+
+#: ../data/ui/channelproperties.glade.h:6
+msgid "Deinterlacement:"
+msgstr "Deinterliacija:"
+
+#: ../data/ui/channelproperties.glade.h:7
+#: ../src/freetuxtv-window-channel-properties.c:176
+msgid "none"
+msgstr "joks"
+
+#: ../data/ui/channelproperties.glade.h:8
+msgid "Options"
+msgstr "Parinktys"
+
+#: ../data/ui/freetuxtv.glade.h:1
+msgid "GNU General Public License v3"
+msgstr "GNU bendroji viešoji licencija, 3 versija"
+
+#: ../data/ui/freetuxtv.glade.h:2
+msgid "Web TV channels player"
+msgstr "Internetinės televizijos grotuvas"
+
+#: ../data/ui/freetuxtv.glade.h:3
+msgid "Project's Web Site"
+msgstr "Projekto tinklapis"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: ../data/ui/freetuxtv.glade.h:5
+msgid "translator-credits"
+msgstr "Algimantas Margevičius <margevicius.algimantas@gmail.com>"
+
+#: ../data/ui/freetuxtv.glade.h:6
+msgid "Group properties"
+msgstr "Grupės savybės"
+
+#: ../data/ui/freetuxtv.glade.h:18
+msgid "Number of channels:"
+msgstr "Kanalų skaičius:"
+
+#: ../data/ui/freetuxtv.glade.h:19
+msgid "0"
+msgstr "0"
+
+#: ../data/ui/freetuxtv.glade.h:20
+msgid "Details"
+msgstr "Detalės"
+
+#: ../data/ui/freetuxtv.glade.h:21
+msgid "View file"
+msgstr "Peržiūrėti failą"
+
+#: ../data/ui/freetuxtv.glade.h:22
+msgid "Preferences"
+msgstr "Nustatymai"
+
+#: ../data/ui/freetuxtv.glade.h:23
+msgid "Play last channel on startup"
+msgstr "Paleidžiant atkurti paskutinį kanalą"
+
+#: ../data/ui/freetuxtv.glade.h:24
+msgid "<b>Startup</b>"
+msgstr "<b>Paleidimas</b>"
+
+#: ../data/ui/freetuxtv.glade.h:25
+msgid "Enable desktop notifications"
+msgstr "Įjungti darbastalio pranešimus"
+
+#: ../data/ui/freetuxtv.glade.h:26
+msgid "<b>Notifications</b>"
+msgstr "<b>Pranešimai</b>"
+
+#: ../data/ui/freetuxtv.glade.h:27
+msgid "Ignore diacritics"
+msgstr "Nepaisyti diakritikų"
+
+#: ../data/ui/freetuxtv.glade.h:28
+msgid "<b>Search of channels</b>"
+msgstr "<b>Kanalų paieška</b>"
+
+#: ../data/ui/freetuxtv.glade.h:29
+msgid "None"
+msgstr "Joks"
+
+#: ../data/ui/freetuxtv.glade.h:30
+msgid "Use a custom configuration file"
+msgstr "Naudoti pasirinktinį konfigūracijos failą"
+
+#: ../data/ui/freetuxtv.glade.h:31
+msgid "Use the VLC configuration file"
+msgstr "Naudoti VLC konfigūracijos failą"
+
+#: ../data/ui/freetuxtv.glade.h:32
+msgid "<i>Restart the application after changing this option.</i>"
+msgstr "<i>Pakeitus šią parinkty, programą paleiskite iš naujo.</i>"
+
+#: ../data/ui/freetuxtv.glade.h:33
+msgid "<b>Configuration file (vlcrc)</b>"
+msgstr "<b>Konfigūracijos failas (vlcrc)</b>"
+
+#: ../data/ui/freetuxtv.glade.h:34
+msgid "LibVLC"
+msgstr "LibVLC"
+
+#: ../data/ui/freetuxtv.glade.h:35
+msgid "Directory Record:"
+msgstr "Įrašymo aplankas:"
+
+#: ../data/ui/freetuxtv.glade.h:36
+msgid "Select a directory"
+msgstr "Pasirinkti aplanką"
+
+#: ../data/ui/freetuxtv.glade.h:37
+msgid "<b>Destination</b>"
+msgstr "<b>Paskirties vieta</b>"
+
+#: ../data/ui/freetuxtv.glade.h:38
+msgid "No transcoding"
+msgstr "Neperkoduoti"
+
+#: ../data/ui/freetuxtv.glade.h:39
+msgid "Predefined transcoding formats"
+msgstr "Numatyti kodavimo formatai"
+
+#: ../data/ui/freetuxtv.glade.h:40
+msgid "Format:"
+msgstr "Formatas:"
+
+#: ../data/ui/freetuxtv.glade.h:41
+msgid "<b>Transcoding options</b>"
+msgstr "<b>Perkodavimo nustatymai</b>"
+
+#: ../data/ui/freetuxtv.glade.h:42
+msgid "Recordings"
+msgstr "Įrašai"
+
+#: ../data/ui/freetuxtv.glade.h:43
+msgid "Download timeout (seconds) :"
+msgstr "Parsiuntimo galiojimo laikas (sekundėmis):"
+
+#: ../data/ui/freetuxtv.glade.h:44
+msgid "<b>Connection</b>"
+msgstr "<b>Prisijungimas</b>"
+
+#: ../data/ui/freetuxtv.glade.h:45
+msgid "No proxy"
+msgstr "Be tarpinio serverio"
+
+#: ../data/ui/freetuxtv.glade.h:46
+msgid "Manual proxy configuration"
+msgstr "Rankinis tarpinio serverio konfigūravimas"
+
+#: ../data/ui/freetuxtv.glade.h:47
+msgid "Proxy server:"
+msgstr "Tarpinis serveris:"
+
+#: ../data/ui/freetuxtv.glade.h:48
+msgid "Proxy port:"
+msgstr "Tarpinio serverio prievadas:"
+
+#: ../data/ui/freetuxtv.glade.h:49
+msgid "Proxy type:"
+msgstr "Tarpinio serverio tipas:"
+
+#: ../data/ui/freetuxtv.glade.h:50
+msgid "Use authentification"
+msgstr "Naudoti tapatybės nustatymą"
+
+#: ../data/ui/freetuxtv.glade.h:51
+msgid "Username:"
+msgstr "Naudojo vardas:"
+
+#: ../data/ui/freetuxtv.glade.h:52
+msgid "Password:"
+msgstr "Slaptažodis:"
+
+#: ../data/ui/freetuxtv.glade.h:53
+msgid "<b>Proxy</b>"
+msgstr "<b>Tarpinis serveris</b>"
+
+#: ../data/ui/freetuxtv.glade.h:54
+msgid "Network"
+msgstr "Tinklas"
+
+#: ../data/ui/freetuxtv.glade.h:55
+msgid "HTTP"
+msgstr "HTTP"
+
+#: ../data/ui/freetuxtv.glade.h:56
+msgid "SOCKS"
+msgstr "SOCKS"
+
+#: ../data/ui/freetuxtv.glade.h:57
+msgid "Video - Theora + Vorbis (OGG)"
+msgstr "Video - Theora + Vorbis (OGG)"
+
+#: ../data/ui/freetuxtv.glade.h:58
+msgid "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2"
+msgstr "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2"
+
+#: ../data/ui/freetuxtv.glade.h:59
+msgid "ogg"
+msgstr "ogg"
+
+#: ../data/ui/freetuxtv.glade.h:60
+msgid "Video - H.264 + MPGA (MP4)"
+msgstr "Video - H.264 + MPGA (MP4)"
+
+#: ../data/ui/freetuxtv.glade.h:61
+msgid ""
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
+"channels=2"
+msgstr ""
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
+"channels=2"
+
+#: ../data/ui/freetuxtv.glade.h:62
+msgid "mp4"
+msgstr "mp4"
+
+#: ../data/ui/freetuxtv.glade.h:63
+msgid "Video - MPEG-2 + MPGA (TS)"
+msgstr "Video - MPEG-2 + MPGA (TS)"
+
+#: ../data/ui/freetuxtv.glade.h:64
+msgid "vcodec=mp2v,vb=800,scale=1,acodec=mpga,ab=128,channels=2"
+msgstr "vcodec=mp2v,vb=800,scale=1,acodec=mpga,ab=128,channels=2"
+
+#: ../data/ui/freetuxtv.glade.h:65
+msgid "ts"
+msgstr "ts"
+
+#: ../data/ui/freetuxtv.glade.h:66 ../data/menu/freetuxtv.desktop.in.h:1
+msgid "FreetuxTV"
+msgstr "FreetuxTV"
+
+#: ../data/ui/freetuxtv.glade.h:67
+msgid "Search:"
+msgstr "Ieškoti:"
+
+#: ../data/ui/freetuxtv.glade.h:68
+msgid "Channels' search text area"
+msgstr "Kanalo teksto paieškos vieta"
+
+#: ../data/ui/freetuxtv.glade.h:69
+msgid "Delete the search text area"
+msgstr "Išvalyti paieškos teksto lauką"
+
+#: ../data/ui/freetuxtv.glade.h:70
+msgid "Jump to current channel"
+msgstr "Peršokti į esamą kanalą"
+
+#: ../data/ui/freetuxtv.glade.h:71
+msgid "Go to the current channel playing"
+msgstr "Eiti į šiuo metu rodomą kanalą"
+
+#: ../data/ui/freetuxtv.glade.h:72
+msgid "Channels"
+msgstr "Kanalai"
+
+#: ../data/ui/freetuxtv.glade.h:73
+msgid "In progress"
+msgstr "Vykdoma"
+
+#: ../data/ui/freetuxtv.glade.h:74
+msgid "Terminated"
+msgstr "Nutraukta"
+
+#: ../data/ui/freetuxtv.glade.h:75
+msgid "00:00:00"
+msgstr "00:00:00"
+
+#: ../data/ui/freetuxtv.glade.h:76
+msgid "Previous channel"
+msgstr "Ankstesnis kanalas"
+
+#: ../data/ui/freetuxtv.glade.h:77
+msgid "Play the current channel"
+msgstr "Groti esamą kanalą"
+
+#: ../data/ui/freetuxtv.glade.h:78
+msgid "Stop playing the current channel"
+msgstr "Sustabdyti dabartinio kanalo atkūrimą"
+
+#: ../data/ui/freetuxtv.glade.h:79
+msgid "Record the current channel"
+msgstr "Įrašyti dabartinį kanalą"
+
+#: ../data/ui/freetuxtv.glade.h:80
+msgid "Next channel"
+msgstr "Sekantis kanalas"
+
+#: ../data/ui/freetuxtv.glade.h:81
+msgid "Vol:"
+msgstr "Garsas:"
+
+#: ../data/ui/freetuxtv.glade.h:82
+msgid "-"
+msgstr "-"
+
+#: ../data/ui/freetuxtv.glade.h:83
+msgid "+"
+msgstr "+"
+
+#: ../data/ui/freetuxtv.glade.h:84
+msgid "Fullscreen mode"
+msgstr "Viso ekrano režimas"
+
+#: ../data/ui/freetuxtv.glade.h:85
+msgid "Small mode"
+msgstr "Sumažintas režimas"
+
+#: ../data/ui/freetuxtv.glade.h:86
+msgid " channels"
+msgstr " kanalai"
+
+#: ../data/ui/freetuxtv.glade.h:87
+msgid "Go back to the normal mode"
+msgstr "Grįžti į įprastą režimą"
+
+#: ../data/ui/freetuxtv.glade.h:88
+msgid "Activate/Deactivate the window always on top"
+msgstr "Įjungti/Išjungti lango „visada viršuje“ būseną"
+
+#: ../data/channels_groups.xml.in.h:1
+msgid "Alice (Unofficial)"
+msgstr "Alice (Neoficiali)"
+
+#: ../data/channels_groups.xml.in.h:2
+msgid "SFR TV (Unofficial)"
+msgstr "SFR TV (Neoficiali)"
+
+#: ../data/channels_groups.xml.in.h:3
+msgid "Afrikaans Web TV and Radio"
+msgstr "Afrikiečių internetinė televizija ir radija"
+
+#: ../data/channels_groups.xml.in.h:4
+msgid "Web TV (Afrikaans)"
+msgstr "Internetinė televizija (afrikiečių)"
+
+#: ../data/channels_groups.xml.in.h:5
+msgid "Albanian Web TV and Radio"
+msgstr "Albanų internetinė televizija ir radija"
+
+msgid "Web TV (Albanian)"
+msgstr "Internetinė televizija (Albanų)"
+
+msgid "Amharic Web TV and Radio"
+msgstr "Amharų Internetinė televizija ir radijas"
+
+msgid "Web TV (Amharic)"
+msgstr "Internetinė televizija (Amharų)"
+
+msgid "Arabic Web TV and Radio"
+msgstr "Arabų Internetinė televizija ir radijas"
+
+msgid "Web TV (Arabic)"
+msgstr "Internetinė televizija (Arabų)"
+
+msgid "Web Radio (Arabic)"
+msgstr "Internetinė radija (Arabų)"
+
+msgid "Web Cam (Arabic)"
+msgstr "Interneto kamera (Arabų)"
+
+msgid "Armenian Web TV and Radio"
+msgstr "Armėnų Internetinė televizija ir radija"
+
+msgid "Web TV (Armenian)"
+msgstr "Internetinė televizija (Armėnų kalba)"
+
+msgid "Azerbaijani Web TV and Radio"
+msgstr "Azerbaidžano Internetinė televizija ir radija"
+
+msgid "Web TV (Azerbaijani)"
+msgstr "Internetinė televizija (Azerbaidžano)"
+
+msgid "Bengali/Bangla Web TV and Radio"
+msgstr "Bengalų / Bangalija interneto TV ir radijas"
+
+msgid "Web TV (Bengali/Bangla)"
+msgstr "Internetinė televizija (Bengalų / Bangalija)"
+
+msgid "Bulgarian Web TV and Radio"
+msgstr "Bulgarų Internetinė televizija ir radijas"
+
+msgid "Web TV (Bulgarian)"
+msgstr "Internetinė televizija (Bulgarų)"
+
+msgid "Cambodian Web TV and Radio"
+msgstr "Kambodžos Internetinė televizija ir radijas"
+
+msgid "Web TV (Cambodian)"
+msgstr "Internetinė televizija (Kambodžos)"
+
+msgid "Catalan Web TV and Radio"
+msgstr "Katalonų Internetinė televizija ir radija"
+
+msgid "Web TV (Catalan)"
+msgstr "Internetinė televizija (Katalonų)"
+
+msgid "Web Radio (Catalan)"
+msgstr "Internetinė radija (Katalonų)"
+
+msgid "Chinese Web TV and Radio"
+msgstr "Kinijos Internetinė televizija ir radija"
+
+msgid "Web TV (Chinese)"
+msgstr "Internetinė televizija (Kinų)"
+
+msgid "Web Radio (Chinese)"
+msgstr "Interneto radijo (Kinų)"
+
+msgid "Croatian Web TV and Radio"
+msgstr "Kroatijos Internetinė televizija ir radija"
+
+msgid "Web TV (Croatian)"
+msgstr "Internetinė televizija (Kroatų)"
+
+msgid "Web Radio (Croatian)"
+msgstr "Interneto radijo (Kroatų)"
+
+msgid "Czech Web TV and Radio"
+msgstr "Čekijos Internetinė televizija ir radija"
+
+msgid "Web TV (Czech)"
+msgstr "Internetinė televizija (Čekija)"
+
+msgid "Web Radio (Czech)"
+msgstr "Internetinė radija (Čekų)"
+
+msgid "Danish Web TV and Radio"
+msgstr "Danijos internetinė televizija ir radijas"
+
+msgid "Web TV (Danish)"
+msgstr "Internetinė televizija (Danų kalba)"
+
+msgid "Dutch Web TV and Radio"
+msgstr "Olandų Internetinė televizija ir radijas"
+
+msgid "Web TV (Dutch)"
+msgstr "Internetinė televizija (Olandų)"
+
+msgid "Web Radio (Dutch)"
+msgstr "Internetinė radija (Olandų)"
+
+msgid "Web Cam (Dutch)"
+msgstr "Interneto kamera (Olandų)"
+
+msgid "English Web TV and Radio"
+msgstr "Anglų Internetinė televizija ir radija"
+
+msgid "Web TV (English)"
+msgstr "Internetinė televizija (Anglų kalba)"
+
+msgid "Web Radio (English)"
+msgstr "Internetinė radija (Anglų kalba)"
+
+msgid "Web Programmes (English)"
+msgstr "Interneto programos (Anglų kalba)"
+
+msgid "Web Cam (English)"
+msgstr "Interneto kamera (Anglų k.)"
+
+msgid "Estonian Web TV and Radio"
+msgstr "Estijos Internetinė televizija ir radija"
+
+msgid "Web TV (Estonian)"
+msgstr "Internetinė televizija (Estų)"
+
+msgid "Finnish Web TV and Radio"
+msgstr "Suomijos Internetinė televizija ir radija"
+
+msgid "Web TV (Finnish)"
+msgstr "Internetinė televizija (Suomių kalba)"
+
+msgid "French Web TV and Radio"
+msgstr "Prancūzijos Internetinė televizija ir radija"
+
+msgid "Web TV (French)"
+msgstr "Internetinė televizija (Prancūzų kalba)"
+
+msgid "Web Radio (French)"
+msgstr "Interneto radijo (Prancūzų kalba)"
+
+msgid "Web Programmes (French)"
+msgstr "Tinklinės programos (Prancūzijoje)"
+
+msgid "Georgian Web TV and Radio"
+msgstr "Gruzijos Internetinė televizija ir radija"
+
+msgid "Web TV (Georgian)"
+msgstr "Internetinė televizija (Gruzinų)"
+
+msgid "German Web TV and Radio"
+msgstr "Vokietijos interneto TV ir radijas"
+
+msgid "Web TV (German)"
+msgstr "Internetinė televizija (Vokiečių kalba)"
+
+msgid "Web Radio (German)"
+msgstr "Interneto radijo (Vokiečių kalba)"
+
+msgid "Greek Web TV and Radio"
+msgstr "Graikijos Internetinė televizija ir radija"
+
+msgid "Web TV (Greek)"
+msgstr "Internetinė televizija (Graikų)"
+
+msgid "Web Radio (Greek)"
+msgstr "Internetinė radija (Graikų)"
+
+msgid "Hebrew Web TV and Radio"
+msgstr "Hebrajų Internetinė televizija ir radija"
+
+msgid "Web TV (Hebrew)"
+msgstr "Internetinė televizija (Hebrajų)"
+
+msgid "Web Radio (Hebrew)"
+msgstr "Internetinė radija (Hebrajų)"
+
+msgid "Web Cam (Hebrew)"
+msgstr "Interneto kamera (Hebrajų)"
+
+msgid "Hindi Web TV and Radio"
+msgstr "Hindi Internetinė televizija ir radija"
+
+msgid "Web TV (Hindi)"
+msgstr "Internetinė televizija (Hindi)"
+
+msgid "Web Radio (Hindi)"
+msgstr "Internetinė radija (Hindi)"
+
+msgid "Hungarian Web TV and Radio"
+msgstr "Vengrijos Internetinė televizija ir radijas"
+
+msgid "Web TV (Hungarian)"
+msgstr "Internetinė televizija (Vengrijos)"
+
+msgid "Icelandic Web TV and Radio"
+msgstr "Islandijos Internetinė televizija ir radija"
+
+msgid "Web TV (Icelandic)"
+msgstr "Internetinė televizija (Islandų)"
+
+msgid "Indonesian Web TV and Radio"
+msgstr "Indonezijos Internetinė televizija ir radijas"
+
+msgid "Web TV (Indonesian)"
+msgstr "Internetinė televizija (Indoneziečių)"
+
+msgid "Interlingua Web TV and Radio"
+msgstr "Interlingva Internetinė televizija ir radijas"
+
+msgid "Web Radio (Interlingua)"
+msgstr "Interneto radijo (Tarpinė kalba)"
+
+msgid "Irish Web TV and Radio"
+msgstr "Airijos Internetinė televizija ir radijas"
+
+msgid "Web TV (Irish)"
+msgstr "Internetinė televizija (Airija)"
+
+msgid "Web Radio (Irish)"
+msgstr "Interneto radijo (Airija)"
+
+msgid "Italian Web TV and Radio"
+msgstr "Italijos interneto TV ir radijas"
+
+msgid "Web TV (Italian)"
+msgstr "Internetinė televizija (Italų)"
+
+msgid "Web Radio (Italian)"
+msgstr "Internetinė radija (Italija)"
+
+msgid "Japanese Web TV and Radio"
+msgstr "Japonijos Internetinė televizija ir radija"
+
+msgid "Web TV (Japanese)"
+msgstr "Internetinė televizija (Japonų kalba)"
+
+msgid "Web Radio (Japanese)"
+msgstr "Internetinė radija (Japonų)"
+
+msgid "Web Cam (Japanese)"
+msgstr "Interneto kamera (Japonų kalba)"
+
+msgid "Kazakh Web TV and Radio"
+msgstr "Kazachų Internetinė televizija ir radijas"
+
+msgid "Web TV (Kazakh)"
+msgstr "Internetinė televizija (Kazachstanas)"
+
+msgid "Korean Web TV and Radio"
+msgstr "Korėjos interneto TV ir radijas"
+
+msgid "Web TV (Korean)"
+msgstr "Internetinė televizija (Korėjiečių)"
+
+msgid "Kurdish Web TV and Radio"
+msgstr "Kurdų Internetinė televizija ir radijas"
+
+msgid "Web TV (Kurdish)"
+msgstr "Internetinė televizija (Kurdų)"
+
+msgid "Latin Web TV and Radio"
+msgstr "Lotynų Internetinė televizija ir radijas"
+
+msgid "Web TV (Latin)"
+msgstr "Internetinė televizija (Lotynų)"
+
+msgid "Latvian/Lettish Web TV and Radio"
+msgstr "Latvijos / latvių Internetinė televizija ir radijas"
+
+msgid "Web TV (Latvian/Lettish)"
+msgstr "Internetinė televizija (Latvių / Latviešu valoda)"
+
+msgid "Lithuanian Web TV and Radio"
+msgstr "Lietuvos Internetinė televizija ir radijas"
+
+msgid "Web TV (Lithuanian)"
+msgstr "Internetinė televizija (Lietuvių)"
+
+msgid "Macedonian Web TV and Radio"
+msgstr "Makedonų Internetinė televizija ir radijas"
+
+msgid "Web TV (Macedonian)"
+msgstr "Internetinė televizija (Makedonijos)"
+
+msgid "Web Radio (Macedonian)"
+msgstr "Interneto radijo (Makedonijos)"
+
+msgid "Malay Web TV and Radio"
+msgstr "Malajų Internetinė televizija ir radijas"
+
+msgid "Web TV (Malay)"
+msgstr "Internetinė televizija (Malajų)"
+
+msgid "Malayalam Web TV and Radio"
+msgstr "Malajalių Internetinė televizija ir radijas"
+
+msgid "Web TV (Malayalam)"
+msgstr "Internetinė televizija (Malayalam)"
+
+msgid "Maltese Web TV and Radio"
+msgstr "Maltos Internetinė televizija ir radijas"
+
+msgid "Web TV (Maltese)"
+msgstr "Internetinė televizija (Maltiečių)"
+
+msgid "Web Radio (Maltese)"
+msgstr "Interneto radijo (Maltiečių)"
+
+msgid "Moldavian Web TV and Radio"
+msgstr "Moldavų Internetinė televizija ir radijas"
+
+msgid "Web TV (Moldavian)"
+msgstr "Internetinė televizija (Moldavijos)"
+
+msgid "Mongolian Web TV and Radio"
+msgstr "Mongolų Internetinė televizija ir radija"
+
+msgid "Web TV (Mongolian)"
+msgstr "Internetinė televizija (Mongolų)"
+
+msgid "Norwegian Web TV and Radio"
+msgstr "Norvegijos Internetinė televizija ir radija"
+
+msgid "Web TV (Norwegian)"
+msgstr "Internetinė televizija (Norvegų kalba)"
+
+msgid "Persian Web TV and Radio"
+msgstr "Persijos Internetinė televizija ir radija"
+
+msgid "Web TV (Persian)"
+msgstr "Internetinė televizija (Persian)"
+
+msgid "Polish Web TV and Radio"
+msgstr "Lenkijos Internetinė televizija ir radijas"
+
+msgid "Web TV (Polish)"
+msgstr "Internetinė televizija (Lenkų)"
+
+msgid "Web Radio (Polish)"
+msgstr "Interneto radijo (Lenkų)"
+
+msgid "Web Cam (Polish)"
+msgstr "Interneto kamera (Lenkų)"
+
+msgid "Portuguese Web TV and Radio"
+msgstr "Portugalijos Internetinė televizija ir radija"
+
+msgid "Web TV (Portuguese)"
+msgstr "Internetinė televizija (Portugalų)"
+
+msgid "Web Radio (Portuguese)"
+msgstr "Interneto radijo (Portugalų)"
+
+msgid "Punjabi Web TV and Radio"
+msgstr "Pandžabi Internetinė televizija ir radija"
+
+msgid "Web TV (Punjabi)"
+msgstr "Internetinė televizija (Pandžabų)"
+
+msgid "Romanian Web TV and Radio"
+msgstr "Rumunijos Internetinė televizija ir radija"
+
+msgid "Web TV (Romanian)"
+msgstr "Internetinė televizija (Rumunų)"
+
+msgid "Web Radio (Romanian)"
+msgstr "Interneto radijo (Rumunų)"
+
+msgid "Russian Web TV and Radio"
+msgstr "Rusijos Internetinė televizija ir radija"
+
+msgid "Web TV (Russian)"
+msgstr "Internetinė televizija (Rusų k.)"
+
+msgid "Web Radio (Russian)"
+msgstr "Web Radijas (Rusų k.)"
+
+msgid "Serbian Web TV and Radio"
+msgstr "Serbijos Internetinė televizija ir radija"
+
+msgid "Web TV (Serbian)"
+msgstr "Internetinė televizija (Serbijos)"
+
+msgid "Web Radio (Serbian)"
+msgstr "Internetinė radija (Indeksas)"
+
+msgid "Serbo-Croatian Web TV and Radio"
+msgstr "Serbų-horvatų Internetinė televizija ir radijas"
+
+msgid "Web TV (Serbo-Croatian)"
+msgstr "Internetinė televizija (Serbų-horvatų)"
+
+msgid "Web Radio (Serbo-Croatian)"
+msgstr "Internetinė radija (Serbų-horvatų)"
+
+msgid "Slovak Web TV and Radio"
+msgstr "Slovakijos Internetinė televizija ir radija"
+
+msgid "Web TV (Slovak)"
+msgstr "Internetinė televizija (Slovakijos)"
+
+msgid "Web Radio (Slovak)"
+msgstr "Internetinė radija (Slovakijos)"
+
+msgid "Slovenian Web TV and Radio"
+msgstr "Slovėnijos Internetinė televizija ir radija"
+
+msgid "Web TV (Slovenian)"
+msgstr "Internetinė televizija (Slovėnų)"
+
+msgid "Web Radio (Slovenian)"
+msgstr "Internetinė radija (Slovėnų)"
+
+msgid "Spanish Web TV and Radio"
+msgstr "Spanish Internetinė televizija ir radija"
+
+msgid "Web TV (Spanish)"
+msgstr "Internetinė televizija (Ispanų)"
+
+msgid "Web Radio (Spanish)"
+msgstr "Internetinė radija (Ispanų)"
+
+msgid "Web Programmes (Spanish)"
+msgstr "Interneto programos (Ispanų)"
+
+msgid "Web Cam (Spanish)"
+msgstr "Interneto kamera (Ispanų)"
+
+msgid "Swedish Web TV and Radio"
+msgstr "Švedijos Internetinė televizija ir radija"
+
+msgid "Web TV (Swedish)"
+msgstr "Internetinė televizija (Švedų kalba)"
+
+msgid "Tagalog Web TV and Radio"
+msgstr "Tagalų Internetinė televizija ir radijas"
+
+msgid "Web TV (Tagalog)"
+msgstr "Internetinė televizija (Tagalog)"
+
+msgid "Tamil Web TV and Radio"
+msgstr "Tamil Internetinė televizija ir radija"
+
+msgid "Web TV (Tamil)"
+msgstr "Internetinė televizija (Tamil)"
+
+msgid "Thai Web TV and Radio"
+msgstr "Tailando Internetinė televizija ir radija"
+
+msgid "Web TV (Thai)"
+msgstr "Internetinė televizija (Tajų)"
+
+msgid "Turkish Web TV and Radio"
+msgstr "Turkijos Internetinė televizija ir radija"
+
+msgid "Web TV (Turkish)"
+msgstr "Internetinė televizija (Turkish)"
+
+msgid "Web Radio (Turkish)"
+msgstr "Internetinė radija (Turkish)"
+
+msgid "Turkmen Web TV and Radio"
+msgstr "Turkmėnų Internetinė televizija ir radijas"
+
+msgid "Web TV (Turkmen)"
+msgstr "Internetinė televizija (Turkmėnų)"
+
+msgid "Ukrainian Web TV and Radio"
+msgstr "Ukrainos Internetinė televizija ir radija"
+
+msgid "Web TV (Ukrainian)"
+msgstr "Internetinė televizija (Ukrainiečių)"
+
+msgid "Web Cam (Ukrainian)"
+msgstr "Interneto kamera (Ukrainiečių)"
+
+msgid "Urdu Web TV and Radio"
+msgstr "Urdu Internetinė televizija ir radijas"
+
+msgid "Web TV (Urdu)"
+msgstr "Internetinė televizija (Urdu)"
+
+msgid "Uzbek Web TV and Radio"
+msgstr "Uzbekų Internetinė televizija ir radija"
+
+msgid "Web TV (Uzbek)"
+msgstr "Internetinė televizija (Uzbek)"
+
+msgid "Vietnamese Web TV and Radio"
+msgstr "Vietnamo Internetinė televizija ir radijas"
+
+msgid "Web TV (Vietnamese)"
+msgstr "Internetinė televizija (Vietnamese)"
+
+msgid "Web Radio (Vietnamese)"
+msgstr "Internetinė radija (Vietnamiečių)"
+
+#: ../data/channels_groups.xml.in.h:172
+msgid "No lang Web TV and Radio"
+msgstr "Internetinės televizijos ir radijas be kalbos"
+
+#: ../data/channels_groups.xml.in.h:173
+msgid "Web TV (No lang)"
+msgstr "Internetinė televizija (be kalbos)"
+
+#: ../data/channels_groups.xml.in.h:174
+msgid "Web Radio (No lang)"
+msgstr "Internetinė radija (be kalbos)"
+
+#: ../data/channels_groups.xml.in.h:175
+msgid "Web Programmes (No lang)"
+msgstr "Interneto programos (be kalbos)"
+
+#: ../data/channels_groups.xml.in.h:176
+msgid "Web Cam (No lang)"
+msgstr "Internetinė kamera (be kalbos)"
+
+#: ../data/channels_groups.xml.in.h:177
+msgid "WebCam"
+msgstr "Internetinė kamera"
+
+#: ../data/menu/freetuxtv.desktop.in.h:2
+msgid "Television Channels Player"
+msgstr "Televizijos kanalų grotuvas"
+
+#: ../data/menu/freetuxtv.desktop.in.h:3
+msgid "FreetuxTV Television Channels Player"
+msgstr "FreetuxTV televizijos kanalų grotuvas"
+
+#: ../data/menu/freetuxtv.desktop.in.h:4
+msgid "Watch television channels from internet"
+msgstr "Žiūrėkite televiziją internete"
+
+#: ../src/freetuxtv-cellrenderer-recordingslist.c:339
+#, c-format
+msgid "%ld min"
+msgstr "%ld min"
+
+#. Update status bar
+#: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
+#, c-format
+msgid "Update \"%s\" channels list"
+msgstr "Atnaujinamas „%s“ kanalų sąrašas"
+
+#. Get the file of the playlist
+#: ../src/freetuxtv-channels-list.c:327 ../src/freetuxtv-channels-list.c:447
+#, c-format
+msgid "Getting the file: \"%s\""
+msgstr "Gaunamas failas: „%s“"
+
+#: ../src/freetuxtv-channels-list.c:358 ../src/freetuxtv-channels-list.c:478
+#, c-format
+msgid ""
+"Error when adding the channels.\n"
+"\n"
+"M3UParser has returned error:\n"
+"%s."
+msgstr ""
+"Klaida pridedant kanalą.\n"
+"\n"
+"M3UParser grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-channels-list.c:1335
+msgid "Delete group's channels"
+msgstr "Pašalinti grupės kanalus"
+
+#. Add to favourite is only for channels
+#: ../src/freetuxtv-channels-list.c:1385
+msgid "Add to favourites"
+msgstr "Pridėti į mėgstamus"
+
+#. Add favourites to a new group
+#: ../src/freetuxtv-channels-list.c:1401
+msgid "New group"
+msgstr "Nauja grupė"
+
+#: ../src/freetuxtv-db-sync.c:160
+#, c-format
+msgid ""
+"Cannot open database.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Atverti duomenų bazės nepavyko.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:317 ../src/freetuxtv-db-sync.c:420
+#: ../src/freetuxtv-db-sync.c:1446
+#, c-format
+msgid ""
+"Error when displaying the channels.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida atvaizduojant kanalus.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:478
+#, c-format
+msgid ""
+"Error when getting the channel.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida gaunant kanalus.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:552
+#, c-format
+msgid ""
+"Error when adding the channel \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida pridedant kanalą „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:593
+#, c-format
+msgid ""
+"Error when deleting the channel \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida šalinant kanalą „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:616
+#, c-format
+msgid ""
+"Error when updating the position of the channels in group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida atanujinant kanalo vietą grupėje „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:669 ../src/freetuxtv-db-sync.c:708
+#, c-format
+msgid ""
+"Error when getting the channel by name.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida gaunant kanalą pagal vardą.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:748 ../src/freetuxtv-db-sync.c:991
+#: ../src/freetuxtv-db-sync.c:1014
+#, c-format
+msgid ""
+"Error when updating the channel \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida atnaujinant kanalą „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:803 ../src/freetuxtv-db-sync.c:837
+#, c-format
+msgid ""
+"Error when adding the group \"%s\" in database.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida pridedant grupę „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:881 ../src/freetuxtv-db-sync.c:922
+#: ../src/freetuxtv-db-sync.c:945
+#, c-format
+msgid ""
+"Error when updating the group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida atnaujinant grupę „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1057
+#, c-format
+msgid ""
+"Error when updating the last update date of the group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida atnaujinant paskutinio grupės „%s“ atnaujinimo datą.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1091
+#, c-format
+msgid ""
+"Error when deleting the group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida šalinant grupę „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1112
+#, c-format
+msgid ""
+"Error when updating the position of the groups.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida atnaujinant grupės vietą.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1147
+#, c-format
+msgid ""
+"Error when deleting the channels of the group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida šalinant kanalą iš grupės „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1184 ../src/freetuxtv-db-sync.c:1220
+#, c-format
+msgid ""
+"Error when updating the channels of the group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida atnaujinant grupės „%s“ kanalus.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1246
+#, c-format
+msgid ""
+"Error when deleting the tv channels list.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida šalinant tv kanalų sąrašą.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1290
+#, c-format
+msgid ""
+"Error when adding the tv channel '%s'.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida pridedant tv kanalą „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1354
+#, c-format
+msgid ""
+"Error when adding the recording '%s'.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida pridedant įrašą „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1480
+#, c-format
+msgid ""
+"Error when adding the label of channel logo '%s'.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida pridedant kanalo grupės logotipo antraštę „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1514
+#, c-format
+msgid ""
+"Error when linking the TV channel '%s' to channel.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida siejant tv kanalą „%s“ su kanalu.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1553
+#, c-format
+msgid ""
+"Error when getting the database version.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida gaunant duomenų bazės versiją.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1585
+#, c-format
+msgid ""
+"Error when updating the database version.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida atnaujinant duomenų bazės versiją.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1650
+#, c-format
+msgid ""
+"Error when migrating the database.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida migruojant duomenų bazę.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1693
+#, c-format
+msgid ""
+"Error when updating the status of the recording \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida atnaujinant įrašo „%s“ būseną.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1727
+#, c-format
+msgid ""
+"Error when deleting the recording \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Klaida šalinant įrašą „%s“.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-fileutils.c:87
+#, c-format
+msgid ""
+"Error when downloading the file from URL -> %s.\n"
+"\n"
+"CURL has returned error:\n"
+"%s."
+msgstr ""
+"Klaida atsiunčiant failą iš URL -> %s.\n"
+"\n"
+"SQLite grąžino klaidą:\n"
+"%s."
+
+#: ../src/freetuxtv-i18n.h:49
+msgid "%m/%d/%y"
+msgstr "%m/%d/%y"
+
+#: ../src/freetuxtv-i18n.h:50
+msgid "%m/%d/%Y"
+msgstr "%m/%d/%Y"
+
+#: ../src/freetuxtv-i18n.h:51
+msgid "%m/%d/%Y %H:%M"
+msgstr "%m/%d/%Y %H:%M"
+
+#: ../src/freetuxtv-recordings-list.c:448
+msgid "Do you want to move the related file on the hard disk to the trash?"
+msgstr "Ar norite susijusius failus, kietajame diske perkelti į šiukšlinę?"
+
+#: ../src/freetuxtv-tv-channels-list.c:69
+#, c-format
+msgid "Synchronizing the tv channels list"
+msgstr "Sinchronizuojamas tv kanalų sąrašas"
+
+#: ../src/freetuxtv-utils.c:37
+#, c-format
+msgid "%02dh%02dm%02ds"
+msgstr "%02dh%02dm%02ds"
+
+#: ../src/freetuxtv-utils.c:47
+#, c-format
+msgid "%02d:%02d:%02d"
+msgstr "%02d:%02d:%02d"
+
+#: ../src/freetuxtv-utils.c:54
+#, c-format
+msgid "%ld byte"
+msgstr "%ld byte"
+
+#: ../src/freetuxtv-utils.c:56
+#, c-format
+msgid "%ld bytes"
+msgstr "%ld bytes"
+
+#: ../src/freetuxtv-utils.c:58
+#, c-format
+msgid "%1.1f kB"
+msgstr "%1.1f kB"
+
+#: ../src/freetuxtv-utils.c:60
+#, c-format
+msgid "%1.1f MB"
+msgstr "%1.1f MB"
+
+#: ../src/freetuxtv-utils.c:62
+#, c-format
+msgid "%1.1f GB"
+msgstr "%1.1f GB"
+
+#: ../src/freetuxtv-window-add-channels-group.c:395
+#, c-format
+msgid "Please select a least one group !"
+msgstr "Pasirinkite bent vieną grupę!"
+
+#: ../src/freetuxtv-window-add-channels-group.c:401
+#: ../src/freetuxtv-window-add-channels-group.c:549
+#: ../src/freetuxtv-window-add-channels-group.c:603
+msgid "Adding channels groups"
+msgstr "Pridedamos kanalų grupės"
+
+#. Update progress dialog
+#: ../src/freetuxtv-window-add-channels-group.c:441
+#: ../src/freetuxtv-window-add-channels-group.c:485
+#: ../src/freetuxtv-window-add-channels-group.c:567
+#: ../src/freetuxtv-window-add-channels-group.c:611
+#, c-format
+msgid "Adding channels group: <i>%s</i>"
+msgstr "Pridedamos kanalų grupės: <i>%s</i>"
+
+#: ../src/freetuxtv-window-add-channels-group.c:513
+#: ../src/freetuxtv-window-add-channels-group.c:580
+#: ../src/freetuxtv-window-add-channels-group.c:624
+#, c-format
+msgid "%d channels group(s) have been successfully added."
+msgstr "%d kanalų grupė (-ės) sėkmingai pridėtos."
+
+#: ../src/freetuxtv-window-add-channels-group.c:541
+#: ../src/freetuxtv-window-add-channels-group.c:598
+#: ../src/freetuxtv-window-main.c:1982
+#, c-format
+msgid "Please enter the group's name !"
+msgstr "Prašome įvesti grupės pavadinimą!"
+
+#: ../src/freetuxtv-window-add-channels-group.c:544
+#: ../src/freetuxtv-window-main.c:1987
+#, c-format
+msgid "Please enter the group's URI !"
+msgstr "Prašome įvesti grupės URI!"
+
+#: ../src/freetuxtv-window-tv-channels-database.c:85
+#, c-format
+msgid "Updating TV channel: %s"
+msgstr "Atnaujinami tv kanalai: %s"
+
+#: ../src/freetuxtv-window-tv-channels-database.c:140
+msgid "TV channels synchronisation"
+msgstr "TV kanalų sinchronizacija"
+
+#: ../src/freetuxtv-window-tv-channels-database.c:149
+#, c-format
+msgid "Downloading the file '%s'"
+msgstr "Atsiunčiamas failas „%s“"
+
+#: ../src/freetuxtv-window-tv-channels-database.c:164
+msgid "Synchronizing TV channels from file"
+msgstr "TV kanalai sinchronizuojami su failu"
+
+#. Menu : FreetuxTV
+#: ../src/freetuxtv-window-main.c:278
+msgid "_FreetuxTV"
+msgstr "_FreetuxTV"
+
+#. End Menu : FreetuxTV
+#. Menu : Channels
+#: ../src/freetuxtv-window-main.c:299
+msgid "_Channels"
+msgstr "_Kanalai"
+
+#: ../src/freetuxtv-window-main.c:303
+msgid "_Add a group"
+msgstr "_Pridėti grupę"
+
+#: ../src/freetuxtv-window-main.c:305
+msgid "Add/create a channels group from different sources"
+msgstr "Pridėti/sukurti kanalų grupes iš skirtingų šaltinių"
+
+#: ../src/freetuxtv-window-main.c:311
+msgid "_Synchronize TV channels database"
+msgstr "_Sinchronizuoti TV kanalų duomenų bazę"
+
+#: ../src/freetuxtv-window-main.c:313
+msgid ""
+"Synchronize the TV channels list in the local database from the XML database"
+msgstr ""
+"Sinchronizuoti TV kanalų sąrašą vietinėje duomenų bazėje iš XML duomenų bazės"
+
+#. End Menu : Channels
+#. Menu : Video
+#: ../src/freetuxtv-window-main.c:322
+msgid "_Video"
+msgstr "_Video"
+
+#. SubMenu : Deinterlace
+#: ../src/freetuxtv-window-main.c:327
+msgid "_Deinterlace"
+msgstr "_Deinterliacija"
+
+#: ../src/freetuxtv-window-main.c:332
+msgid "Disable"
+msgstr "Išjungti"
+
+#: ../src/freetuxtv-window-main.c:344
+msgid "Blend"
+msgstr "Maišyti"
+
+#: ../src/freetuxtv-window-main.c:353
+msgid "Bob"
+msgstr "Bob"
+
+#: ../src/freetuxtv-window-main.c:362
+msgid "Discard"
+msgstr "Atmesti"
+
+#: ../src/freetuxtv-window-main.c:371
+msgid "Linear"
+msgstr "Linijinis"
+
+#: ../src/freetuxtv-window-main.c:380
+msgid "Mean"
+msgstr "Vidutinis"
+
+#: ../src/freetuxtv-window-main.c:389
+msgid "X"
+msgstr "X"
+
+#. End SubMenu : Deinterlace
+#. End Menu : Video
+#. Menu : Help
+#: ../src/freetuxtv-window-main.c:401
+msgid "_Help"
+msgstr "Ž_inynas"
+
+#. Create the menu items
+#: ../src/freetuxtv-window-main.c:1029
+msgid "Mute"
+msgstr "Nutildyti"
+
+#: ../src/main.c:424
+#, c-format
+msgid "Recording: %s (%s) -> %s (%s)"
+msgstr "Įrašoma: %s (%s) -> %s (%s)"
+
+#: ../src/main.c:577
+#, c-format
+msgid ""
+"An error occurred while playing channel '%s' : %s\n"
+"\n"
+"If the problem persist, you can report that the link is dead at %s"
+msgstr ""
+"Atkuriant kanalą „%s“ įvyko klaida: %s\n"
+"\n"
+"Jei problema išlieka, jog nuoroda nebeveikia į %s"
+
+#: ../src/main.c:581
+msgid "An error occurred"
+msgstr "Įvyko klaida"
+
+#: ../src/main.c:607
+#, c-format
+msgid "Synchronizing the list of tv channels: %s..."
+msgstr "Sinchronizuojamas tv kanalų sąrašas: %s..."
+
+#: ../src/main.c:642
+msgid "Initializing user configuration..."
+msgstr "Inicijuojama naudotojo konfigūracija..."
+
+#: ../src/main.c:649
+msgid "Loading user configuration..."
+msgstr "Įkeliama naudotojo konfigūracija..."
+
+#: ../src/main.c:719
+msgid "Synchronizing the list of tv channels..."
+msgstr "Sinchronizuojamas tv kanalų sąrašas..."
+
+#: ../src/main.c:752
+msgid "Loading the list of channels..."
+msgstr "Įkeliamas kanalų sąrašas..."
+
+#: ../src/main.c:761
+msgid "Loading the list of recordings..."
+msgstr "Įkeliamas įrašų sąrašas..."
+
+#: ../src/main.c:1080 ../src/main.c:1276
+#, c-format
+msgid "Playing: %s"
+msgstr "Atkuriama: %s"
+
+#: ../src/main.c:1089
+msgid "is playing"
+msgstr "atkuriama"
+
+#: ../src/main.c:1278
+#, c-format
+msgid "Stopping channel: %s"
+msgstr "Sustabdomas kanalas: %s"
+
+#: ../src/main.c:1322
+msgid "is recording"
+msgstr "įrašinėjama"
+
+#: ../src/main.c:1369
+#, c-format
+msgid "Recording: %s"
+msgstr "Įrašoma: %s"
+
+#: ../src/main.c:1494
+msgid "Are you sure you want to quit?"
+msgstr "Ar tikrai norite išeiti?"
