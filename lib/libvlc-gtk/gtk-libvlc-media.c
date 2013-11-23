@@ -88,7 +88,7 @@ gtk_libvlc_media_class_init (GtkLibvlcMediaClass *klass)
 GtkLibvlcMedia*
 gtk_libvlc_media_new (gchar* mrl)
 {
-	g_return_if_fail(mrl != NULL);
+	g_return_val_if_fail(mrl != NULL, NULL);
 
 	GtkLibvlcMedia *self = NULL;
 	self = g_object_new (GTK_TYPE_LIBVLC_MEDIA, NULL);
@@ -229,8 +229,8 @@ gtk_libvlc_media_add_options (GtkLibvlcMedia* media, gchar** options)
 const gchar**
 gtk_libvlc_media_get_options (GtkLibvlcMedia* media)
 {
-	g_return_if_fail(media != NULL);
-	g_return_if_fail(GTK_IS_LIBVLC_MEDIA(media));
+	g_return_val_if_fail(media != NULL, NULL);
+	g_return_val_if_fail(GTK_IS_LIBVLC_MEDIA(media), NULL);
 	
 	GtkLibvlcMediaPrivate* priv;
 	gchar** options = NULL;
