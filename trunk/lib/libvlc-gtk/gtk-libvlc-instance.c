@@ -149,7 +149,7 @@ GtkLibvlcInstance*
 gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** error)
 {
 	if(error != NULL){
-		g_return_if_fail(*error == NULL);
+		g_return_val_if_fail(*error == NULL, NULL);
 	}
 
 	GError* pError = NULL;
@@ -254,9 +254,9 @@ gtk_libvlc_instance_new (const gchar* vlc_args[], GLogFunc log_func, GError** er
 LIBVLC_INSTANCE_HANDLE
 gtk_libvlc_instance_get_libvlc_instance(GtkLibvlcInstance* pLibvlcInstance, GError** error)
 {
-	g_return_if_fail(pLibvlcInstance != NULL);
+	g_return_val_if_fail(pLibvlcInstance != NULL, NULL);
 	if(error != NULL){
-		g_return_if_fail(*error == NULL);
+		g_return_val_if_fail(*error == NULL, NULL);
 	}
 
 	LIBVLC_INSTANCE_HANDLE handle;
