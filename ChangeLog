@@ -1,8 +1,9 @@
-FreetuxTV 0.6.6 (2012-XX-XX)
+FreetuxTV 0.6.6 (2014-01-18)
   - Use correctly libvlc options
   - Add Turkish translation
   - Add Spanish translation
   - Add missing logo size
+  - Download icons options
 
 FreetuxTV 0.6.5 (2012-05-08)
   - Fix crash when displaying channels group
