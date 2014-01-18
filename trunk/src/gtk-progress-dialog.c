@@ -87,7 +87,7 @@ gtk_progress_dialog_new(GtkWindow* parent)
 
 	// Construct the dialog
 	GtkWidget* vbox;
-	vbox = gtk_vbox_new(FALSE, 5);
+	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 	gtk_container_set_border_width (GTK_CONTAINER(vbox), 10);
 
 	priv->title_widget = gtk_label_new("");

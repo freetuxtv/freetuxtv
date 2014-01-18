@@ -1117,17 +1117,17 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 				szMode = NULL;
 			}
 
-			if(g_strcasecmp (pChannelInfos->deinterlace_mode, "blend") == 0){
+			if(g_ascii_strcasecmp (pChannelInfos->deinterlace_mode, "blend") == 0){
 				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceBlend), TRUE);
-			}else if(g_strcasecmp (pChannelInfos->deinterlace_mode, "bob") == 0){
+			}else if(g_ascii_strcasecmp (pChannelInfos->deinterlace_mode, "bob") == 0){
 				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceBob), TRUE);
-			}else if(g_strcasecmp (pChannelInfos->deinterlace_mode, "discard") == 0){
+			}else if(g_ascii_strcasecmp (pChannelInfos->deinterlace_mode, "discard") == 0){
 				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceDiscard), TRUE);
-			}else if(g_strcasecmp (pChannelInfos->deinterlace_mode, "linear") == 0){
+			}else if(g_ascii_strcasecmp (pChannelInfos->deinterlace_mode, "linear") == 0){
 				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceLinear), TRUE);
-			}else if(g_strcasecmp (pChannelInfos->deinterlace_mode, "mean") == 0){
+			}else if(g_ascii_strcasecmp (pChannelInfos->deinterlace_mode, "mean") == 0){
 				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceMean), TRUE);
-			}else if(g_strcasecmp (pChannelInfos->deinterlace_mode, "x") == 0){
+			}else if(g_ascii_strcasecmp (pChannelInfos->deinterlace_mode, "x") == 0){
 				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(app->widget.pMenuDeinterlaceX), TRUE);
 			}
 		}else{
@@ -1147,7 +1147,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 		if(app->prefs.proxy.proxy_mode == G_PROXY_MODE_MANUAL){
 			gchar* szUser = NULL;
 
-			if(g_strcasecmp ("0", app->prefs.proxy.proxy_type) == 0){
+			if(g_ascii_strcasecmp ("0", app->prefs.proxy.proxy_type) == 0){
 				// Mode HTTP
 				if(app->prefs.proxy.proxy_use_auth){
 					szUser = g_strconcat(app->prefs.proxy.proxy_username, "@", NULL);
@@ -1169,7 +1169,7 @@ freetuxtv_play_channel (FreetuxTVApp *app, GtkTreePath* path_channel, GError** e
 					g_free(text);
 					text = NULL;
 				}	
-			}else if(g_strcasecmp ("1", app->prefs.proxy.proxy_type) == 0){
+			}else if(g_ascii_strcasecmp ("1", app->prefs.proxy.proxy_type) == 0){
 				// Mode SOCK
 				text = g_strdup_printf(":socks=%s:%s", app->prefs.proxy.proxy_server, app->prefs.proxy.proxy_port);
 				list_options_add_option(&options, text);

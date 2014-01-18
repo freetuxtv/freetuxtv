@@ -123,7 +123,7 @@ gtk_date_time_picker_init (GtkDateTimePicker *object)
 	    NULL);*/
 
 	// Hour
-	hbox_time = gtk_hbox_new(FALSE, 0);
+	hbox_time = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_widget_show(hbox_time);
 	gtk_box_pack_start(GTK_BOX(object), hbox_time, FALSE, FALSE, 0);
 	
