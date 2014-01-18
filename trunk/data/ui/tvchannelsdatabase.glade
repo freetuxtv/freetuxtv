@@ -215,9 +215,9 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkEntry" id="entry2">
+                                      <object class="GtkEntry" id="entry_logosurl">
                                         <property name="visible">True</property>
-                                        <property name="sensitive">False</property>
+                                        <property name="sensitive">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="invisible_char">●</property>
                                         <property name="text" translatable="yes">http://freetuxtv.googlecode.com/svn/trunk/data/images/channels/</property>
@@ -240,11 +240,11 @@
                           </object>
                         </child>
                         <child type="label">
-                          <object class="GtkCheckButton" id="checkbutton3">
+                          <object class="GtkCheckButton" id="checkbutton_logos">
                             <property name="label" translatable="yes">Update logos list</property>
                             <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
-                            <property name="sensitive">False</property>
+                            <property name="sensitive">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>

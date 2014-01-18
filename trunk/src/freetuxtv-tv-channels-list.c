@@ -26,12 +26,14 @@
 #include "freetuxtv-window-main.h"
 #include "freetuxtv-tv-channel-infos.h"
 #include "freetuxtv-channels-list.h"
+#include "freetuxtv-utils.h"
 
 typedef struct _CBXMLData
 {
 	FreetuxTVApp *app;
 	DBSync *dbsync;
 	FreetuxTVTvChannelInfos *tv_channels_infos;
+	const gchar* szLogosURL;
 	SynchronizeProgressCB progressCB;
 	void* progressCBUserData;
 } CBXMLData;
@@ -59,6 +61,7 @@ xml_text_cb(GMarkupParseContext *context,
 
 void
 tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
+    const gchar* szLogosURL,
     SynchronizeProgressCB funcCB, void* user_data, GError** error)
 {
 	g_return_if_fail(dbsync != NULL);
@@ -81,6 +84,7 @@ tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 		cbxmldata.app = app;
 		cbxmldata.dbsync = dbsync;
 		cbxmldata.tv_channels_infos = NULL;
+		cbxmldata.szLogosURL = szLogosURL,
 		cbxmldata.progressCB = funcCB;
 		cbxmldata.progressCBUserData = user_data;
 
@@ -114,6 +118,10 @@ tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
 	windowmain_statusbar_pop (app, "UpdateMsg");
 }
 
+static gchar* tvchannels_list_get_usr_img_path()
+{
+	return g_build_filename(g_get_user_data_dir(), "freetuxtv", "images", "channels", NULL);
+}
 
 static gchar*
 tvchannels_list_get_tvchannel_logo_path(FreetuxTVApp *app, 
@@ -123,8 +131,7 @@ tvchannels_list_get_tvchannel_logo_path(FreetuxTVApp *app,
 	gchar *szUserImgChannelsDir;
 	gboolean bFound = FALSE;
 	
-	szUserImgChannelsDir = g_build_filename(g_get_user_data_dir(), 
-	    "freetuxtv", "images", "channels", NULL);
+	szUserImgChannelsDir = tvchannels_list_get_usr_img_path();
 	
 	if(szLogoName != NULL){
 		// We look in the user logo directory
@@ -187,6 +194,27 @@ tvchannels_list_get_tvchannel_logo_path_for_recording(FreetuxTVApp *app,
 	
 	return tvchannels_list_get_tvchannel_logo_path_for_channel(app, pChannelInfos, bNoneIcon);
 }
+static void tvchannels_list_download_logos(FreetuxTVApp *app, const gchar* szLogosDirectoryURL, const gchar* szUserImgChannelsDir, const char* szLogoName)
+{
+	gchar* szLogoURL = NULL;
+	gchar* szDstFile = NULL;
+	if(g_str_has_suffix(szLogosDirectoryURL, "/")){
+		szLogoURL = g_strconcat (szLogosDirectoryURL, szLogoName, NULL);
+	}else{
+		szLogoURL = g_strconcat (szLogosDirectoryURL, "/", szLogoName, NULL);
+	}
+
+	GError* error = NULL;
+	szDstFile = g_build_filename(szUserImgChannelsDir, szLogoName, NULL);
+	   
+	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO, "Downloading file : %s\n", szLogoURL);
+	freetuxtv_fileutils_get_file (szLogoURL, szDstFile, &(app->prefs.proxy), app->prefs.timeout, &error);
+	
+	if(error != NULL){
+		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_WARNING, "Error : %s\n", error->message);
+		g_error_free(error);
+	}
+}
 
 static void 
 xml_start_cb(GMarkupParseContext *context,
@@ -221,12 +249,27 @@ xml_end_cb(GMarkupParseContext *context,
 	CBXMLData* cbxmldata = (CBXMLData*)user_data;
 
 	FreetuxTVTvChannelInfos *tv_channels_infos = NULL;
+	gchar* szUserImgChannelsDir;
 
 	if(g_ascii_strcasecmp(element_name, "tvchannel") == 0){
 		tv_channels_infos = cbxmldata->tv_channels_infos;
 		if(tv_channels_infos){
 			// We have a channel pending, we add it in database
 			dbsync_add_tvchannel (cbxmldata->dbsync, tv_channels_infos, error);
+
+			const gchar* szLogoName = freetuxtv_tv_channel_infos_get_logo_filename(tv_channels_infos);
+
+			// Download logo for the channel if required
+			if(szLogoName && cbxmldata->szLogosURL){
+				szUserImgChannelsDir = tvchannels_list_get_usr_img_path();
+
+				tvchannels_list_download_logos(cbxmldata->app, cbxmldata->szLogosURL, szUserImgChannelsDir, szLogoName);
+
+				if(szUserImgChannelsDir){
+					g_free(szUserImgChannelsDir);
+					szUserImgChannelsDir = NULL;
+				}
+			}
 
 			g_object_unref(cbxmldata->tv_channels_infos);
 			cbxmldata->tv_channels_infos = NULL;
