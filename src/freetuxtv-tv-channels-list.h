@@ -27,6 +27,7 @@ typedef void (*SynchronizeProgressCB)(gchar* szTVChannelName, void* user_data);
 
 void
 tvchannels_list_synchronize (FreetuxTVApp *app, DBSync *dbsync,
+    const gchar* szLogosURL,
     SynchronizeProgressCB funcCB, void* user_data,
     GError** error);
 

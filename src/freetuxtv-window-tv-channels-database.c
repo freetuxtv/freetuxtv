@@ -113,8 +113,10 @@ on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 	
 	gboolean bSynchronize = FALSE;
 	gboolean bDownloadFile = FALSE;
+	gboolean bUpdateLogos = FALSE;
 
-	const gchar *szUrl;
+	const gchar *szDatabaseUrl;
+	const gchar *szLogosUrl;
 	gchar *szDstFile = NULL;
 
 	GtkWidget* pWidget;
@@ -128,7 +130,13 @@ on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 	pWidget = (GtkWidget *) gtk_builder_get_object (builder, "checkbutton_download");
 	bDownloadFile = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pWidget));
 	pWidget = (GtkWidget *) gtk_builder_get_object (builder, "entry_url");
-	szUrl = gtk_entry_get_text(GTK_ENTRY(pWidget));
+	szDatabaseUrl = gtk_entry_get_text(GTK_ENTRY(pWidget));
+
+	// Check if must update logos
+	pWidget = (GtkWidget *) gtk_builder_get_object (builder, "checkbutton_logos");
+	bUpdateLogos = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pWidget));
+	pWidget = (GtkWidget *) gtk_builder_get_object (builder, "entry_logosurl");
+	szLogosUrl = gtk_entry_get_text(GTK_ENTRY(pWidget));
 
 	pParent = gtk_builder_window_get_top_window(GTK_BUILDER_WINDOW(pWindowTVChannelsDatabase));
 
@@ -146,9 +154,9 @@ on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 	if(bDownloadFile && (error == NULL)){
 		szDstFile = g_build_filename(g_get_user_cache_dir(), "freetuxtv", "tv_channels.dat", NULL);
 
-		szTmp = g_strdup_printf(_("Downloading the file '%s'"), szUrl);
+		szTmp = g_strdup_printf(_("Downloading the file '%s'"), szDatabaseUrl);
 		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Downloading the file '%s'\n", szUrl);
+		    "Downloading the file '%s'\n", szDatabaseUrl);
 		
 		gtk_progress_dialog_set_text(pProgressDialog, szTmp);
 		if(szTmp){
@@ -156,7 +164,7 @@ on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 			szTmp = NULL;
 		}
 
-		freetuxtv_fileutils_get_file (szUrl, szDstFile, &(priv->app->prefs.proxy), priv->app->prefs.timeout, &error);
+		freetuxtv_fileutils_get_file (szDatabaseUrl, szDstFile, &(priv->app->prefs.proxy), priv->app->prefs.timeout, &error);
 	}
 
 	// Do synchronize
@@ -165,7 +173,9 @@ on_buttonapply_clicked (GtkButton *button, gpointer user_data)
 		dbsync_open_db (&dbsync, &error);
 
 		if(error == NULL){
-			tvchannels_list_synchronize (priv->app, &dbsync, synchronize_progress_cb, (void*)pProgressDialog, &error);			
+			tvchannels_list_synchronize (priv->app, &dbsync,
+			                             (bUpdateLogos ? szLogosUrl : NULL),
+			                             synchronize_progress_cb, (void*)pProgressDialog, &error);			
 		}
 
 		if(error == NULL){

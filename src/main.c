@@ -722,7 +722,7 @@ splashscreen_app_init(gpointer data)
 		filename = g_build_filename(app->paths.datadir, "tv_channels.xml", NULL);
 		if(g_stat (filename, &file_stat) == 0){
 			if(app->config.logosfiledate < (gint)file_stat.st_mtime){
-				tvchannels_list_synchronize(app, &dbsync, &synchronize_progress_cb, app, &error);
+				tvchannels_list_synchronize(app, &dbsync, NULL, &synchronize_progress_cb, app, &error);
 				if(error == NULL){
 					app->config.logosfiledate = (gint)file_stat.st_mtime;	
 				}
