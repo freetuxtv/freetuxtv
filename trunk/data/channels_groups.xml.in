@@ -113,6 +113,7 @@
 	</language>
 	<language id="hu" _lang="Hungarian Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_hu.m3u" _name="Web TV (Hungarian)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_hu.m3u" _name="Web Radio (Hungarian)"></channels_group>
 	</language>
 	<language id="is" _lang="Icelandic Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_is.m3u" _name="Web TV (Icelandic)"></channels_group>
