@@ -62,7 +62,7 @@
 
     1) Install needed packages to compile according to your distribution
       a) Ubuntu
-        $> sudo apt-get install subversion gcc make autoconf automake intltool libtool gettext libgtk2.0-dev libdbus-glib-1-dev libsqlite3-0 libsqlite3-dev libcurl3 libcurl4-openssl-dev vlc libvlc-dev libnotify-dev
+        $> sudo apt-get install subversion gcc make autoconf automake intltool libtool gettext libgtk-3-dev libdbus-glib-1-dev libsqlite3-0 libsqlite3-dev libcurl3 libcurl4-openssl-dev vlc libvlc-dev libnotify-dev
       b) Mandriva Linux
         $> su root
         $> urpmi subversion gcc autoconf automake make gettext-devel libgtk+2.0_0-devel vlc libvlc-devel libsqlite3-devel libcurl-devel libnotify-devel
