@@ -1819,7 +1819,7 @@ gtk_libvlc_media_player_get_state (GtkLibvlcMediaPlayer *self, GError** error)
 
 	// Create the media player if not initialized
 	gtk_libvlc_media_player_initialize (self, &pError);
-	g_return_if_fail(priv->initialized == TRUE);
+	g_return_val_if_fail(priv->initialized == TRUE, gtkstate);
 
 	if(pError == NULL){
 
