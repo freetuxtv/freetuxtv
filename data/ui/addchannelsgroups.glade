@@ -22,6 +22,7 @@
     <property name="title" translatable="yes">Add a group</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
+    <property name="default_width">800</property>
     <property name="default_height">450</property>
     <property name="icon_name">freetuxtv</property>
     <property name="type_hint">dialog</property>
