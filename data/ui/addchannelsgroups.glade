@@ -104,7 +104,7 @@
                       <object class="GtkEntry" id="dialogaddgroup_entrychannelsgroupfile">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="text" translatable="yes">http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml</property>
+                        <property name="text" translatable="no">https://raw.githubusercontent.com/freetuxtv/freetuxtv/master/data/channels_groups.xml</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
                       </object>

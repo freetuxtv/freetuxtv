@@ -128,7 +128,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="invisible_char">●</property>
-                                        <property name="text" translatable="yes">http://freetuxtv.googlecode.com/svn/trunk/data/tv_channels.xml</property>
+                                        <property name="text" translatable="no">https://raw.githubusercontent.com/freetuxtv/freetuxtv/master/data/tv_channels.xml</property>
                                         <property name="invisible_char_set">True</property>
                                       </object>
                                       <packing>
@@ -220,7 +220,7 @@
                                         <property name="sensitive">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="invisible_char">●</property>
-                                        <property name="text" translatable="yes">http://freetuxtv.googlecode.com/svn/trunk/data/images/channels/</property>
+                                        <property name="text" translatable="no">https://raw.githubusercontent.com/freetuxtv/freetuxtv/master/data/images/channels/</property>
                                       </object>
                                       <packing>
                                         <property name="expand">True</property>

@@ -12,7 +12,7 @@
     <property name="program_name">FreetuxTV</property>
     <property name="copyright" translatable="yes">GNU General Public License v3</property>
     <property name="comments" translatable="yes">Web TV channels player</property>
-    <property name="website">http://code.google.com/p/freetuxtv/</property>
+    <property name="website">https://github.com/freetuxtv/freetuxtv/</property>
     <property name="website_label" translatable="yes">Project's Web Site</property>
     <property name="license">FreetuxTV is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
     
