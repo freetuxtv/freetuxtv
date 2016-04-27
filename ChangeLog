@@ -1,3 +1,8 @@
+FreetuxTV 0.6.7 (2016-04-27)
+  - Fix crash at startup
+  - Update to github
+  - Fix bad freetuxtv icon
+
 FreetuxTV 0.6.6 (2014-01-18)
   - Use correctly libvlc options
   - Add Turkish translation
