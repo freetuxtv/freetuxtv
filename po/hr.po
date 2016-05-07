@@ -1,0 +1,1893 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-07 15:38+0200\n"
+"PO-Revision-Date: 2016-05-07 15:39+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../data/ui/addrecording.glade.h:1
+msgid "Add a recording"
+msgstr "Dodaj snimanje"
+
+#: ../data/ui/addrecording.glade.h:2
+msgid "Selected channel:"
+msgstr "Odabrani program:"
+
+#: ../data/ui/addrecording.glade.h:3
+msgid "Title:"
+msgstr "Naslov:"
+
+#: ../data/ui/addrecording.glade.h:4
+msgid "Start time:"
+msgstr "Vrijeme početka:"
+
+#: ../data/ui/addrecording.glade.h:5
+msgid "Duration:"
+msgstr "Trajanje:"
+
+#: ../data/ui/addrecording.glade.h:6
+msgid "End time:"
+msgstr "Vrijeme završetka:"
+
+#: ../data/ui/addrecording.glade.h:7
+msgid "minutes"
+msgstr " minuta"
+
+#: ../data/ui/addrecording.glade.h:8
+msgid "<b>Recording period</b>"
+msgstr "<b>Razdoblje snimanja</b>"
+
+#: ../data/ui/addchannelsgroups.glade.h:1
+msgid "Add a group"
+msgstr "Dodaj grupu"
+
+#: ../data/ui/addchannelsgroups.glade.h:2
+msgid "Channels groups file:"
+msgstr "Datoteka grupa programa:"
+
+#: ../data/ui/addchannelsgroups.glade.h:3
+msgid ""
+"Select one or several channels group you want to add and click on the add "
+"button."
+msgstr ""
+"Odaberite jednu ili više grupa programa koje želite dodati i kliknite na "
+"tipku 'Dodaj'."
+
+#: ../data/ui/addchannelsgroups.glade.h:4
+msgid "Languages/Channels group"
+msgstr "Jezici/Programi grupe"
+
+#: ../data/ui/addchannelsgroups.glade.h:5
+msgid "Required ISP"
+msgstr "Potreban ISP"
+
+#: ../data/ui/addchannelsgroups.glade.h:6
+msgid "URI"
+msgstr "URI"
+
+#: ../data/ui/addchannelsgroups.glade.h:7
+msgid "Existing channels group"
+msgstr "Postojeće grupe programa"
+
+#: ../data/ui/addchannelsgroups.glade.h:8 ../data/ui/freetuxtv.glade.h:7
+msgid "Group's name:"
+msgstr "Naziv grupe:"
+
+#: ../data/ui/addchannelsgroups.glade.h:9 ../data/ui/freetuxtv.glade.h:9
+msgid "Name of the group which will be added"
+msgstr "Naziv grupe koja će biti dodana"
+
+#: ../data/ui/addchannelsgroups.glade.h:10 ../data/ui/freetuxtv.glade.h:8
+msgid "Playlist's URI:"
+msgstr "URI popisa izvođenja:"
+
+#: ../data/ui/addchannelsgroups.glade.h:11 ../data/ui/freetuxtv.glade.h:10
+msgid "Playlist's URI of the group which will be added"
+msgstr "URI popisa izvođenja grupe koja će biti dodana"
+
+#: ../data/ui/addchannelsgroups.glade.h:12 ../data/ui/freetuxtv.glade.h:11
+msgid "Delete this text before the name:"
+msgstr "Obriši ovaj tekst prije naziva:"
+
+#: ../data/ui/addchannelsgroups.glade.h:13 ../data/ui/freetuxtv.glade.h:13
+msgid "Text or regexp which must be deleted at the end of the channel's name"
+msgstr ""
+"Tekst ili uobičajeni izraz koji mora biti obrisan na kraju naziva pograma"
+
+#: ../data/ui/addchannelsgroups.glade.h:14 ../data/ui/freetuxtv.glade.h:12
+msgid "Delete this text behind the name:"
+msgstr "Obriši ovaj tekst iza naziva:"
+
+#: ../data/ui/addchannelsgroups.glade.h:15 ../data/ui/freetuxtv.glade.h:14
+msgid ""
+"Text or regexp which must be deleted at the beginning of the channel's name"
+msgstr ""
+"Tekst ili uobičajeni izraz koji mora biti obrisan na početku naziva pograma"
+
+#: ../data/ui/addchannelsgroups.glade.h:16 ../data/ui/freetuxtv.glade.h:15
+msgid ""
+"You can easily use regular expressions to delete some text in the channel's "
+"name of the groupe. For example, if in your playlist, you have a name like "
+"\"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV is able to remove the channel's "
+"number before the name, by using the regular expression \"[0-9]* - \"."
+msgstr ""
+"S lakoćom možete koristiti uobičajene izraze za brisanje određenog teksta u "
+"nazivu programa grupe. Npr, ako u vašem popisu izvođenja, imate nazive poput "
+"\"11 - NT1\" ili \"12 - NRJ 12\", FreetuxTV može ukloniti brojeve programa "
+"prije naziva, koristeći uobičajene izraze \"[0-9]* - \"."
+
+#: ../data/ui/addchannelsgroups.glade.h:17 ../data/ui/freetuxtv.glade.h:16
+msgid "<b>Processing of channels' name</b>"
+msgstr "<b>Obrada naziva programa</b>"
+
+#: ../data/ui/addchannelsgroups.glade.h:18
+msgid "Custom channels group"
+msgstr "Prilagođena grupa programa"
+
+#: ../data/ui/addchannelsgroups.glade.h:19
+msgid "Favourites"
+msgstr "Omiljeni"
+
+#: ../data/ui/addchannelsgroups.glade.h:20
+msgid "<b>Special group type:</b>"
+msgstr "<b>Posebne vrste grupa:</b>"
+
+#: ../data/ui/addchannelsgroups.glade.h:21
+msgid "Special group"
+msgstr "Posebna grupa"
+
+#: ../data/ui/channelproperties.glade.h:1
+msgid "Channel properties"
+msgstr "Svojstva programa"
+
+#: ../data/ui/channelproperties.glade.h:2
+msgid "Channel's name:"
+msgstr "Naziv programa:"
+
+#: ../data/ui/channelproperties.glade.h:3
+msgid "Channel's URI:"
+msgstr "URI programa:"
+
+#: ../data/ui/channelproperties.glade.h:4
+msgid "<b>Channel VLC options:</b>"
+msgstr "<b>Mogućnosti VLC programa:</b>"
+
+#: ../data/ui/channelproperties.glade.h:5 ../data/ui/freetuxtv.glade.h:17
+msgid "General"
+msgstr "Općenito"
+
+#: ../data/ui/channelproperties.glade.h:6
+msgid "Deinterlacement:"
+msgstr "Raspletanje:"
+
+#: ../data/ui/channelproperties.glade.h:7
+#: ../src/freetuxtv-window-channel-properties.c:176
+msgid "none"
+msgstr "nepoznato"
+
+#: ../data/ui/channelproperties.glade.h:8
+msgid "Options"
+msgstr "Mogućnosti"
+
+#: ../data/ui/freetuxtv.glade.h:1
+msgid "GNU General Public License v3"
+msgstr "GNU Opća Javna Licenca v3"
+
+#: ../data/ui/freetuxtv.glade.h:2
+msgid "Web TV channels player"
+msgstr "Reproduktor Web TV programa"
+
+#: ../data/ui/freetuxtv.glade.h:3
+msgid "Project's Web Site"
+msgstr "Web stranica projekta"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: ../data/ui/freetuxtv.glade.h:5
+msgid "translator-credits"
+msgstr "zasluge-prevoditelja"
+
+#: ../data/ui/freetuxtv.glade.h:6
+msgid "Group properties"
+msgstr "Svojstva grupe"
+
+#: ../data/ui/freetuxtv.glade.h:18
+msgid "Number of channels:"
+msgstr "Broj programa:"
+
+#: ../data/ui/freetuxtv.glade.h:19
+msgid "0"
+msgstr "0"
+
+#: ../data/ui/freetuxtv.glade.h:20
+msgid "Details"
+msgstr "Pojedinosti"
+
+#: ../data/ui/freetuxtv.glade.h:21
+msgid "View file"
+msgstr "Pogled datoteke"
+
+#: ../data/ui/freetuxtv.glade.h:22
+msgid "Preferences"
+msgstr "Osobitosti"
+
+#: ../data/ui/freetuxtv.glade.h:23
+msgid "Play last channel on startup"
+msgstr "Reproduciraj posljednji program pri pokretanju"
+
+#: ../data/ui/freetuxtv.glade.h:24
+msgid "<b>Startup</b>"
+msgstr "<b>Pokretanje</b>"
+
+#: ../data/ui/freetuxtv.glade.h:25
+msgid "Enable desktop notifications"
+msgstr "Omogući obavijesti radne površine"
+
+#: ../data/ui/freetuxtv.glade.h:26
+msgid "<b>Notifications</b>"
+msgstr "<b>Obavijesti</b>"
+
+#: ../data/ui/freetuxtv.glade.h:27
+msgid "Ignore diacritics"
+msgstr "Zanemari dijakritičke znakove"
+
+#: ../data/ui/freetuxtv.glade.h:28
+msgid "<b>Search of channels</b>"
+msgstr "<b>Pretraga programa</b>"
+
+#: ../data/ui/freetuxtv.glade.h:29
+msgid "None"
+msgstr "Nepoznato"
+
+#: ../data/ui/freetuxtv.glade.h:30
+msgid "Use a custom configuration file"
+msgstr "Koristi prilagođenu datoteku podešavanja"
+
+#: ../data/ui/freetuxtv.glade.h:31
+msgid "Use the VLC configuration file"
+msgstr "Koristi VLC datoteku podešavanja"
+
+#: ../data/ui/freetuxtv.glade.h:32
+msgid "<i>Restart the application after changing this option.</i>"
+msgstr "<i>Ponovno pokrenite aplikaciju nakon promjene ove mogućnosti.</i>"
+
+#: ../data/ui/freetuxtv.glade.h:33
+msgid "<b>Configuration file (vlcrc)</b>"
+msgstr "<b>Datoteka podešavanja (vlcrc)</b>"
+
+#: ../data/ui/freetuxtv.glade.h:34
+msgid "LibVLC"
+msgstr "LibVLC"
+
+#: ../data/ui/freetuxtv.glade.h:35
+msgid "Directory Record:"
+msgstr "Direktorij snimanja:"
+
+#: ../data/ui/freetuxtv.glade.h:36
+msgid "Select a directory"
+msgstr "Odaberite direktorij"
+
+#: ../data/ui/freetuxtv.glade.h:37
+msgid "<b>Destination</b>"
+msgstr "<b>Odredište</b>"
+
+#: ../data/ui/freetuxtv.glade.h:38
+msgid "No transcoding"
+msgstr "Bez enkôdiranja"
+
+#: ../data/ui/freetuxtv.glade.h:39
+msgid "Predefined transcoding formats"
+msgstr "Unaprijed određeni format enkôdiranja"
+
+#: ../data/ui/freetuxtv.glade.h:40
+msgid "Format:"
+msgstr "Format:"
+
+#: ../data/ui/freetuxtv.glade.h:41
+msgid "<b>Transcoding options</b>"
+msgstr "<b>Mogućnosti enkôdiranja</b>"
+
+#: ../data/ui/freetuxtv.glade.h:42
+msgid "Recordings"
+msgstr "Snimanja"
+
+#: ../data/ui/freetuxtv.glade.h:43
+msgid "Download timeout (seconds) :"
+msgstr "Čekanje preuzimanja (sekundi):"
+
+#: ../data/ui/freetuxtv.glade.h:44
+msgid "<b>Connection</b>"
+msgstr "<b>Povezivanje</b>"
+
+#: ../data/ui/freetuxtv.glade.h:45
+msgid "No proxy"
+msgstr "Bez proxya"
+
+#: ../data/ui/freetuxtv.glade.h:46
+msgid "Manual proxy configuration"
+msgstr "Ručno podešavanje proxya"
+
+#: ../data/ui/freetuxtv.glade.h:47
+msgid "Proxy server:"
+msgstr "Proxy poslužitelj:"
+
+#: ../data/ui/freetuxtv.glade.h:48
+msgid "Proxy port:"
+msgstr "Proxy ulaz:"
+
+#: ../data/ui/freetuxtv.glade.h:49
+msgid "Proxy type:"
+msgstr "Vrsta proxya:"
+
+#: ../data/ui/freetuxtv.glade.h:50
+msgid "Use authentification"
+msgstr "Koristi autentifikaciju"
+
+#: ../data/ui/freetuxtv.glade.h:51
+msgid "Username:"
+msgstr "Korisničko ime:"
+
+#: ../data/ui/freetuxtv.glade.h:52
+msgid "Password:"
+msgstr "Lozinka:"
+
+#: ../data/ui/freetuxtv.glade.h:53
+msgid "<b>Proxy</b>"
+msgstr "<b>Proxy</b>"
+
+#: ../data/ui/freetuxtv.glade.h:54
+msgid "Network"
+msgstr "Mreža"
+
+#: ../data/ui/freetuxtv.glade.h:55
+msgid "HTTP"
+msgstr "HTTP"
+
+#: ../data/ui/freetuxtv.glade.h:56
+msgid "SOCKS"
+msgstr "SOCKS"
+
+#: ../data/ui/freetuxtv.glade.h:57
+msgid "Video - Theora + Vorbis (OGG)"
+msgstr "Video - Theora + Vorbis (OGG)"
+
+#: ../data/ui/freetuxtv.glade.h:58
+msgid "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2"
+msgstr "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2"
+
+#: ../data/ui/freetuxtv.glade.h:59
+msgid "ogg"
+msgstr "ogg"
+
+#: ../data/ui/freetuxtv.glade.h:60
+msgid "Video - H.264 + MPGA (MP4)"
+msgstr "Video - H.264 + MPGA (MP4)"
+
+#: ../data/ui/freetuxtv.glade.h:61
+msgid ""
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
+"channels=2"
+msgstr ""
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
+"channels=2"
+
+#: ../data/ui/freetuxtv.glade.h:62
+msgid "mp4"
+msgstr "mp4"
+
+#: ../data/ui/freetuxtv.glade.h:63
+msgid "Video - MPEG-2 + MPGA (TS)"
+msgstr "Video - MPEG-2 + MPGA (TS)"
+
+#: ../data/ui/freetuxtv.glade.h:64
+msgid "vcodec=mp2v,vb=800,scale=1,acodec=mpga,ab=128,channels=2"
+msgstr "vcodec=mp2v,vb=800,scale=1,acodec=mpga,ab=128,channels=2"
+
+#: ../data/ui/freetuxtv.glade.h:65
+msgid "ts"
+msgstr "ts"
+
+#: ../data/ui/freetuxtv.glade.h:66 ../data/menu/freetuxtv.desktop.in.h:1
+msgid "FreetuxTV"
+msgstr "FreetuxTV"
+
+#: ../data/ui/freetuxtv.glade.h:67
+msgid "Search:"
+msgstr "Pretraži:"
+
+#: ../data/ui/freetuxtv.glade.h:68
+msgid "Channels' search text area"
+msgstr "Polje teksta pretraživanja programa"
+
+#: ../data/ui/freetuxtv.glade.h:69
+msgid "Delete the search text area"
+msgstr "Obriši tekst u polju pretraživanja programa"
+
+#: ../data/ui/freetuxtv.glade.h:70
+msgid "Jump to current channel"
+msgstr "Vrati se na trenutni program"
+
+#: ../data/ui/freetuxtv.glade.h:71
+msgid "Go to the current channel playing"
+msgstr "Vrati se na trenutni reproducirani program"
+
+#: ../data/ui/freetuxtv.glade.h:72
+msgid "Channels"
+msgstr "Programi"
+
+#: ../data/ui/freetuxtv.glade.h:73
+msgid "In progress"
+msgstr "U tijeku"
+
+#: ../data/ui/freetuxtv.glade.h:74
+msgid "Terminated"
+msgstr "Završeno"
+
+#: ../data/ui/freetuxtv.glade.h:75
+msgid "00:00:00"
+msgstr "00:00:00"
+
+#: ../data/ui/freetuxtv.glade.h:76
+msgid "Previous channel"
+msgstr "Prijašnji program"
+
+#: ../data/ui/freetuxtv.glade.h:77
+msgid "Play the current channel"
+msgstr "Reproduciraj/Pauziraj trenutni program"
+
+#: ../data/ui/freetuxtv.glade.h:78
+msgid "Stop playing the current channel"
+msgstr "Zaustavi reprodukciju trenutnog programa"
+
+#: ../data/ui/freetuxtv.glade.h:79
+msgid "Record the current channel"
+msgstr "Snimaj trenutni program"
+
+#: ../data/ui/freetuxtv.glade.h:80
+msgid "Next channel"
+msgstr "Sljedeći program"
+
+#: ../data/ui/freetuxtv.glade.h:81
+msgid "Vol:"
+msgstr "Glasnoća:"
+
+#: ../data/ui/freetuxtv.glade.h:82
+msgid "-"
+msgstr "-"
+
+#: ../data/ui/freetuxtv.glade.h:83
+msgid "+"
+msgstr "+"
+
+#: ../data/ui/freetuxtv.glade.h:84
+msgid "Fullscreen mode"
+msgstr "Cjelozaslonski prikaz"
+
+#: ../data/ui/freetuxtv.glade.h:85
+msgid "Small mode"
+msgstr "Jednostavniji prikaz"
+
+#: ../data/ui/freetuxtv.glade.h:86
+msgid " channels"
+msgstr " programa"
+
+#: ../data/ui/freetuxtv.glade.h:87
+msgid "Go back to the normal mode"
+msgstr "Vrati natag na normalan prikaz"
+
+#: ../data/ui/freetuxtv.glade.h:88
+msgid "Activate/Deactivate the window always on top"
+msgstr "Prozor je uvijek na vrhu"
+
+#: ../data/channels_groups.xml.in.h:1
+msgid "Alice (Unofficial)"
+msgstr "Alice (neslužbeno)"
+
+#: ../data/channels_groups.xml.in.h:2
+msgid "SFR TV (Unofficial)"
+msgstr "SFR TV (neslužbeno)"
+
+#: ../data/channels_groups.xml.in.h:3
+msgid "Afrikaans Web TV and Radio"
+msgstr "Afrički Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:4
+msgid "Web TV (Afrikaans)"
+msgstr "Web TV (afrički)"
+
+#: ../data/channels_groups.xml.in.h:5
+msgid "Albanian Web TV and Radio"
+msgstr "Albanski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:6
+msgid "Web TV (Albanian)"
+msgstr "Web TV (albanski)"
+
+#: ../data/channels_groups.xml.in.h:7
+msgid "Amharic Web TV and Radio"
+msgstr "Amharski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:8
+msgid "Web TV (Amharic)"
+msgstr "Web TV (amharski)"
+
+#: ../data/channels_groups.xml.in.h:9
+msgid "Arabic Web TV and Radio"
+msgstr "Arapski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:10
+msgid "Web TV (Arabic)"
+msgstr "Web TV (arapski)"
+
+#: ../data/channels_groups.xml.in.h:11
+msgid "Web Radio (Arabic)"
+msgstr "Web radio (arapski)"
+
+#: ../data/channels_groups.xml.in.h:12
+msgid "Web Cam (Arabic)"
+msgstr "Web kamera (arapski)"
+
+#: ../data/channels_groups.xml.in.h:13
+msgid "Armenian Web TV and Radio"
+msgstr "Armenski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:14
+msgid "Web TV (Armenian)"
+msgstr "Web TV (armenski)"
+
+#: ../data/channels_groups.xml.in.h:15
+msgid "Azerbaijani Web TV and Radio"
+msgstr "Azerbajdžanski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:16
+msgid "Web TV (Azerbaijani)"
+msgstr "Web TV (azerbajdžanski)"
+
+#: ../data/channels_groups.xml.in.h:17
+msgid "Bengali/Bangla Web TV and Radio"
+msgstr "Bengalski/Bangla Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:18
+msgid "Web TV (Bengali/Bangla)"
+msgstr "Web TV (bengalski/Bangla)"
+
+#: ../data/channels_groups.xml.in.h:19
+msgid "Bulgarian Web TV and Radio"
+msgstr "Bugarski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:20
+msgid "Web TV (Bulgarian)"
+msgstr "Web TV (bugarski)"
+
+#: ../data/channels_groups.xml.in.h:21
+msgid "Cambodian Web TV and Radio"
+msgstr "Kambodžanski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:22
+msgid "Web TV (Cambodian)"
+msgstr "Web TV (kambodžanski)"
+
+#: ../data/channels_groups.xml.in.h:23
+msgid "Catalan Web TV and Radio"
+msgstr "Katalonski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:24
+msgid "Web TV (Catalan)"
+msgstr "Web TV (katalonski)"
+
+#: ../data/channels_groups.xml.in.h:25
+msgid "Web Radio (Catalan)"
+msgstr "Web radio (katalonski)"
+
+#: ../data/channels_groups.xml.in.h:26
+msgid "Chinese Web TV and Radio"
+msgstr "Kineski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:27
+msgid "Web TV (Chinese)"
+msgstr "Web TV (kineski)"
+
+#: ../data/channels_groups.xml.in.h:28
+msgid "Web Radio (Chinese)"
+msgstr "Web radio (kineski)"
+
+#: ../data/channels_groups.xml.in.h:29
+msgid "Croatian Web TV and Radio"
+msgstr "Hrvatski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:30
+msgid "Web TV (Croatian)"
+msgstr "Web TV (hrvatski)"
+
+#: ../data/channels_groups.xml.in.h:31
+msgid "Web Radio (Croatian)"
+msgstr "Web radio (hrvatski)"
+
+#: ../data/channels_groups.xml.in.h:32
+msgid "Czech Web TV and Radio"
+msgstr "Češki Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:33
+msgid "Web TV (Czech)"
+msgstr "Web TV (češki)"
+
+#: ../data/channels_groups.xml.in.h:34
+msgid "Web Radio (Czech)"
+msgstr "Web radio (češki)"
+
+#: ../data/channels_groups.xml.in.h:35
+msgid "Danish Web TV and Radio"
+msgstr "Danski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:36
+msgid "Web TV (Danish)"
+msgstr "Web TV (danski)"
+
+#: ../data/channels_groups.xml.in.h:37
+msgid "Dutch Web TV and Radio"
+msgstr "Nizozemski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:38
+msgid "Web TV (Dutch)"
+msgstr "Web TV (nizozemski)"
+
+#: ../data/channels_groups.xml.in.h:39
+msgid "Web Radio (Dutch)"
+msgstr "Web radio (nizozemski)"
+
+#: ../data/channels_groups.xml.in.h:40
+msgid "Web Cam (Dutch)"
+msgstr "Web kamera (nizozemski)"
+
+#: ../data/channels_groups.xml.in.h:41
+msgid "English Web TV and Radio"
+msgstr "Engleski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:42
+msgid "Web TV (English)"
+msgstr "Web TV (engleski)"
+
+#: ../data/channels_groups.xml.in.h:43
+msgid "Web Radio (English)"
+msgstr "Web radio (engleski)"
+
+#: ../data/channels_groups.xml.in.h:44
+msgid "Web Programmes (English)"
+msgstr "Web programi (engleski)"
+
+#: ../data/channels_groups.xml.in.h:45
+msgid "Web Cam (English)"
+msgstr "Web kamera (engleski)"
+
+#: ../data/channels_groups.xml.in.h:46
+msgid "Estonian Web TV and Radio"
+msgstr "Estonski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:47
+msgid "Web TV (Estonian)"
+msgstr "Web TV (estonski)"
+
+#: ../data/channels_groups.xml.in.h:48
+msgid "Finnish Web TV and Radio"
+msgstr "Finski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:49
+msgid "Web TV (Finnish)"
+msgstr "Web TV (finski)"
+
+#: ../data/channels_groups.xml.in.h:50
+msgid "French Web TV and Radio"
+msgstr "Francuski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:51
+msgid "Web TV (French)"
+msgstr "Web TV (francuski)"
+
+#: ../data/channels_groups.xml.in.h:52
+msgid "Web Radio (French)"
+msgstr "Web radio (francuski)"
+
+#: ../data/channels_groups.xml.in.h:53
+msgid "Web Programmes (French)"
+msgstr "Web programi (francuski)"
+
+#: ../data/channels_groups.xml.in.h:54
+msgid "Georgian Web TV and Radio"
+msgstr "Gruzijski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:55
+msgid "Web TV (Georgian)"
+msgstr "Web TV (gruzijski)"
+
+#: ../data/channels_groups.xml.in.h:56
+msgid "German Web TV and Radio"
+msgstr "Njemački Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:57
+msgid "Web TV (German)"
+msgstr "Web TV (njemački)"
+
+#: ../data/channels_groups.xml.in.h:58
+msgid "Web Radio (German)"
+msgstr "Web radio (njemački)"
+
+#: ../data/channels_groups.xml.in.h:59
+msgid "Greek Web TV and Radio"
+msgstr "Grčki Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:60
+msgid "Web TV (Greek)"
+msgstr "Web TV (grčki)"
+
+#: ../data/channels_groups.xml.in.h:61
+msgid "Web Radio (Greek)"
+msgstr "Web radio (grčki)"
+
+#: ../data/channels_groups.xml.in.h:62
+msgid "Hebrew Web TV and Radio"
+msgstr "Hebrejski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:63
+msgid "Web TV (Hebrew)"
+msgstr "Web TV (hebrejski)"
+
+#: ../data/channels_groups.xml.in.h:64
+msgid "Web Radio (Hebrew)"
+msgstr "Web radio (hebrejski)"
+
+#: ../data/channels_groups.xml.in.h:65
+msgid "Web Cam (Hebrew)"
+msgstr "Web kamera (hebrejski)"
+
+#: ../data/channels_groups.xml.in.h:66
+msgid "Hindi Web TV and Radio"
+msgstr "Hindski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:67
+msgid "Web TV (Hindi)"
+msgstr "Web TV (hindski)"
+
+#: ../data/channels_groups.xml.in.h:68
+msgid "Web Radio (Hindi)"
+msgstr "Web radio (hindski)"
+
+#: ../data/channels_groups.xml.in.h:69
+msgid "Hungarian Web TV and Radio"
+msgstr "Mađarski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:70
+msgid "Web TV (Hungarian)"
+msgstr "Web TV (mađarski)"
+
+#: ../data/channels_groups.xml.in.h:71
+msgid "Web Radio (Hungarian)"
+msgstr "Web radio (mađarski)"
+
+#: ../data/channels_groups.xml.in.h:72
+msgid "Icelandic Web TV and Radio"
+msgstr "Islandski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:73
+msgid "Web TV (Icelandic)"
+msgstr "Web TV (islandski)"
+
+#: ../data/channels_groups.xml.in.h:74
+msgid "Indonesian Web TV and Radio"
+msgstr "Indonezijski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:75
+msgid "Web TV (Indonesian)"
+msgstr "Web TV (indonezijski)"
+
+#: ../data/channels_groups.xml.in.h:76
+msgid "Interlingua Web TV and Radio"
+msgstr "Međunarodni Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:77
+msgid "Web Radio (Interlingua)"
+msgstr "Web radio (međunarodni)"
+
+#: ../data/channels_groups.xml.in.h:78
+msgid "Irish Web TV and Radio"
+msgstr "Irski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:79
+msgid "Web TV (Irish)"
+msgstr "Web TV (irski)"
+
+#: ../data/channels_groups.xml.in.h:80
+msgid "Web Radio (Irish)"
+msgstr "Web radio (irski)"
+
+#: ../data/channels_groups.xml.in.h:81
+msgid "Italian Web TV and Radio"
+msgstr "Talijanski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:82
+msgid "Web TV (Italian)"
+msgstr "Web TV (talijanski)"
+
+#: ../data/channels_groups.xml.in.h:83
+msgid "Web Radio (Italian)"
+msgstr "Web radio (talijanski)"
+
+#: ../data/channels_groups.xml.in.h:84
+msgid "Japanese Web TV and Radio"
+msgstr "Japanski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:85
+msgid "Web TV (Japanese)"
+msgstr "Web TV (japanski)"
+
+#: ../data/channels_groups.xml.in.h:86
+msgid "Web Radio (Japanese)"
+msgstr "Web radio (japanski)"
+
+#: ../data/channels_groups.xml.in.h:87
+msgid "Web Cam (Japanese)"
+msgstr "Web kamera (japanski)"
+
+#: ../data/channels_groups.xml.in.h:88
+msgid "Kazakh Web TV and Radio"
+msgstr "Kazački Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:89
+msgid "Web TV (Kazakh)"
+msgstr "Web TV (kazački)"
+
+#: ../data/channels_groups.xml.in.h:90
+msgid "Korean Web TV and Radio"
+msgstr "Korejski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:91
+msgid "Web TV (Korean)"
+msgstr "Web TV (korejski)"
+
+#: ../data/channels_groups.xml.in.h:92
+msgid "Kurdish Web TV and Radio"
+msgstr "Kurdski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:93
+msgid "Web TV (Kurdish)"
+msgstr "Web TV (kurdski)"
+
+#: ../data/channels_groups.xml.in.h:94
+msgid "Latin Web TV and Radio"
+msgstr "Latinski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:95
+msgid "Web TV (Latin)"
+msgstr "Web TV (latinski)"
+
+#: ../data/channels_groups.xml.in.h:96
+msgid "Latvian/Lettish Web TV and Radio"
+msgstr "Letonski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:97
+msgid "Web TV (Latvian/Lettish)"
+msgstr "Web TV (letonski)"
+
+#: ../data/channels_groups.xml.in.h:98
+msgid "Lithuanian Web TV and Radio"
+msgstr "Litavski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:99
+msgid "Web TV (Lithuanian)"
+msgstr "Web TV (litavski)"
+
+#: ../data/channels_groups.xml.in.h:100
+msgid "Macedonian Web TV and Radio"
+msgstr "Makedonski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:101
+msgid "Web TV (Macedonian)"
+msgstr "Web TV (makedonski)"
+
+#: ../data/channels_groups.xml.in.h:102
+msgid "Web Radio (Macedonian)"
+msgstr "Web radio (makedonski)"
+
+#: ../data/channels_groups.xml.in.h:103
+msgid "Malay Web TV and Radio"
+msgstr "Malajski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:104
+msgid "Web TV (Malay)"
+msgstr "Web TV (malajski)"
+
+#: ../data/channels_groups.xml.in.h:105
+msgid "Malayalam Web TV and Radio"
+msgstr "Malajalamski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:106
+msgid "Web TV (Malayalam)"
+msgstr "Web TV (malajalamski)"
+
+#: ../data/channels_groups.xml.in.h:107
+msgid "Maltese Web TV and Radio"
+msgstr "Malteški Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:108
+msgid "Web TV (Maltese)"
+msgstr "Web TV (malteški)"
+
+#: ../data/channels_groups.xml.in.h:109
+msgid "Web Radio (Maltese)"
+msgstr "Web radio (malteški)"
+
+#: ../data/channels_groups.xml.in.h:110
+msgid "Moldavian Web TV and Radio"
+msgstr "Moldavski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:111
+msgid "Web TV (Moldavian)"
+msgstr "Web TV (moldavski)"
+
+#: ../data/channels_groups.xml.in.h:112
+msgid "Mongolian Web TV and Radio"
+msgstr "Mongolski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:113
+msgid "Web TV (Mongolian)"
+msgstr "Web TV (mongolski)"
+
+#: ../data/channels_groups.xml.in.h:114
+msgid "Norwegian Web TV and Radio"
+msgstr "Norveški Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:115
+msgid "Web TV (Norwegian)"
+msgstr "Web TV (norveški)"
+
+#: ../data/channels_groups.xml.in.h:116
+msgid "Persian Web TV and Radio"
+msgstr "Perzijski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:117
+msgid "Web TV (Persian)"
+msgstr "Web TV (perzijski)"
+
+#: ../data/channels_groups.xml.in.h:118
+msgid "Polish Web TV and Radio"
+msgstr "Poljski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:119
+msgid "Web TV (Polish)"
+msgstr "Web TV (poljski)"
+
+#: ../data/channels_groups.xml.in.h:120
+msgid "Web Radio (Polish)"
+msgstr "Web radio (poljski)"
+
+#: ../data/channels_groups.xml.in.h:121
+msgid "Web Cam (Polish)"
+msgstr "Web kamera (poljski)"
+
+#: ../data/channels_groups.xml.in.h:122
+msgid "Portuguese Web TV and Radio"
+msgstr "Portugalski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:123
+msgid "Web TV (Portuguese)"
+msgstr "Web TV (portugalski)"
+
+#: ../data/channels_groups.xml.in.h:124
+msgid "Web Radio (Portuguese)"
+msgstr "Web radio (portugalski)"
+
+#: ../data/channels_groups.xml.in.h:125
+msgid "Punjabi Web TV and Radio"
+msgstr "Panđapski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:126
+msgid "Web TV (Punjabi)"
+msgstr "Web TV (panđapski)"
+
+#: ../data/channels_groups.xml.in.h:127
+msgid "Romanian Web TV and Radio"
+msgstr "Rumunjski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:128
+msgid "Web TV (Romanian)"
+msgstr "Web TV (rumunjski)"
+
+#: ../data/channels_groups.xml.in.h:129
+msgid "Web Radio (Romanian)"
+msgstr "Web radio (rumunjski)"
+
+#: ../data/channels_groups.xml.in.h:130
+msgid "Russian Web TV and Radio"
+msgstr "Ruski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:131
+msgid "Web TV (Russian)"
+msgstr "Web TV (ruski)"
+
+#: ../data/channels_groups.xml.in.h:132
+msgid "Web Radio (Russian)"
+msgstr "Web radio (ruski)"
+
+#: ../data/channels_groups.xml.in.h:133
+msgid "Serbian Web TV and Radio"
+msgstr "Srpski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:134
+msgid "Web TV (Serbian)"
+msgstr "Web TV (srpski)"
+
+#: ../data/channels_groups.xml.in.h:135
+msgid "Web Radio (Serbian)"
+msgstr "Web radio (srpski)"
+
+#: ../data/channels_groups.xml.in.h:136
+msgid "Serbo-Croatian Web TV and Radio"
+msgstr "Srpsko-Hrvatski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:137
+msgid "Web TV (Serbo-Croatian)"
+msgstr "Web TV (srpsko-hrvatski)"
+
+#: ../data/channels_groups.xml.in.h:138
+msgid "Web Radio (Serbo-Croatian)"
+msgstr "Web radio (srpsko-hrvatski)"
+
+#: ../data/channels_groups.xml.in.h:139
+msgid "Slovak Web TV and Radio"
+msgstr "Slovački Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:140
+msgid "Web TV (Slovak)"
+msgstr "Web TV (slovački)"
+
+#: ../data/channels_groups.xml.in.h:141
+msgid "Web Radio (Slovak)"
+msgstr "Web radio (slovački)"
+
+#: ../data/channels_groups.xml.in.h:142
+msgid "Slovenian Web TV and Radio"
+msgstr "Slovenski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:143
+msgid "Web TV (Slovenian)"
+msgstr "Web TV (slovenski)"
+
+#: ../data/channels_groups.xml.in.h:144
+msgid "Web Radio (Slovenian)"
+msgstr "Web radio (slovenski)"
+
+#: ../data/channels_groups.xml.in.h:145
+msgid "Spanish Web TV and Radio"
+msgstr "Španjolski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:146
+msgid "Web TV (Spanish)"
+msgstr "Web TV (španjolski)"
+
+#: ../data/channels_groups.xml.in.h:147
+msgid "Web Radio (Spanish)"
+msgstr "Web radio (španjolski)"
+
+#: ../data/channels_groups.xml.in.h:148
+msgid "Web Programmes (Spanish)"
+msgstr "Web programi (španjolski)"
+
+#: ../data/channels_groups.xml.in.h:149
+msgid "Web Cam (Spanish)"
+msgstr "Web kamera (španjolski)"
+
+#: ../data/channels_groups.xml.in.h:150
+msgid "Swedish Web TV and Radio"
+msgstr "Švedski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:151
+msgid "Web TV (Swedish)"
+msgstr "Web TV (švedski)"
+
+#: ../data/channels_groups.xml.in.h:152
+msgid "Tagalog Web TV and Radio"
+msgstr "Tagaloški Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:153
+msgid "Web TV (Tagalog)"
+msgstr "Web TV (tagaloški)"
+
+#: ../data/channels_groups.xml.in.h:154
+msgid "Tamil Web TV and Radio"
+msgstr "Tamilski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:155
+msgid "Web TV (Tamil)"
+msgstr "Web TV (tamilski)"
+
+#: ../data/channels_groups.xml.in.h:156
+msgid "Thai Web TV and Radio"
+msgstr "Tajlandski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:157
+msgid "Web TV (Thai)"
+msgstr "Web TV (tajlandski)"
+
+#: ../data/channels_groups.xml.in.h:158
+msgid "Turkish Web TV and Radio"
+msgstr "Turski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:159
+msgid "Web TV (Turkish)"
+msgstr "Web TV (turski)"
+
+#: ../data/channels_groups.xml.in.h:160
+msgid "Web Radio (Turkish)"
+msgstr "Web radio (turski)"
+
+#: ../data/channels_groups.xml.in.h:161
+msgid "Turkmen Web TV and Radio"
+msgstr "Turkmenistanski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:162
+msgid "Web TV (Turkmen)"
+msgstr "Web TV (turkmenistanski)"
+
+#: ../data/channels_groups.xml.in.h:163
+msgid "Ukrainian Web TV and Radio"
+msgstr "Ukrajinski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:164
+msgid "Web TV (Ukrainian)"
+msgstr "Web TV (ukrajinski)"
+
+#: ../data/channels_groups.xml.in.h:165
+msgid "Web Cam (Ukrainian)"
+msgstr "Web kamera (ukrajinski)"
+
+#: ../data/channels_groups.xml.in.h:166
+msgid "Urdu Web TV and Radio"
+msgstr "Urdski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:167
+msgid "Web TV (Urdu)"
+msgstr "Web TV (urdski)"
+
+#: ../data/channels_groups.xml.in.h:168
+msgid "Uzbek Web TV and Radio"
+msgstr "Uzbečki Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:169
+msgid "Web TV (Uzbek)"
+msgstr "Web TV (uzbečki)"
+
+#: ../data/channels_groups.xml.in.h:170
+msgid "Vietnamese Web TV and Radio"
+msgstr "Vijetnamski Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:171
+msgid "Web TV (Vietnamese)"
+msgstr "Web TV (vijetnamski)"
+
+#: ../data/channels_groups.xml.in.h:172
+msgid "Web Radio (Vietnamese)"
+msgstr "Web radio (vijetnamski)"
+
+#: ../data/channels_groups.xml.in.h:173
+msgid "No lang Web TV and Radio"
+msgstr "Bezjezični Web TV i radio"
+
+#: ../data/channels_groups.xml.in.h:174
+msgid "Web TV (No lang)"
+msgstr "Web TV (bezjezični)"
+
+#: ../data/channels_groups.xml.in.h:175
+msgid "Web Radio (No lang)"
+msgstr "Web radio (bezjezični)"
+
+#: ../data/channels_groups.xml.in.h:176
+msgid "Web Programmes (No lang)"
+msgstr "Web programi (bezjezični)"
+
+#: ../data/channels_groups.xml.in.h:177
+msgid "Web Cam (No lang)"
+msgstr "Web kamera (bezjezični)"
+
+#: ../data/channels_groups.xml.in.h:178
+msgid "WebCam"
+msgstr "Web kamera"
+
+#: ../data/menu/freetuxtv.desktop.in.h:2
+msgid "Television Channels Player"
+msgstr "Reproduktor televizijskih programa"
+
+#: ../data/menu/freetuxtv.desktop.in.h:3
+msgid "FreetuxTV Television Channels Player"
+msgstr "FreetuxTV reproduktor televizijskih programa"
+
+#: ../data/menu/freetuxtv.desktop.in.h:4
+msgid "Watch television channels from internet"
+msgstr "Gledajte televizijske programa s interneta"
+
+#: ../src/freetuxtv-cellrenderer-recordingslist.c:339
+#, c-format
+msgid "%ld min"
+msgstr "%ld min"
+
+#. Update status bar
+#: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
+#, c-format
+msgid "Update \"%s\" channels list"
+msgstr "Nadopuni \"%s\" popis programa"
+
+#. Get the file of the playlist
+#: ../src/freetuxtv-channels-list.c:327 ../src/freetuxtv-channels-list.c:447
+#, c-format
+msgid "Getting the file: \"%s\""
+msgstr "Preuzimam datoteku: \"%s\""
+
+#: ../src/freetuxtv-channels-list.c:358 ../src/freetuxtv-channels-list.c:478
+#, c-format
+msgid ""
+"Error when adding the channels.\n"
+"\n"
+"M3UParser has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri dodavanju programa.\n"
+"\n"
+"M3U rasčlanjivač je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-channels-list.c:1335
+msgid "Delete group's channels"
+msgstr "Obriši grupe programa"
+
+#. Add to favourite is only for channels
+#: ../src/freetuxtv-channels-list.c:1385
+msgid "Add to favourites"
+msgstr "Dodaj u omiljene"
+
+#. Add favourites to a new group
+#: ../src/freetuxtv-channels-list.c:1401
+msgid "New group"
+msgstr "Nova grupa"
+
+#: ../src/freetuxtv-db-sync.c:160
+#, c-format
+msgid ""
+"Cannot open database.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Nemoguće otvaranje baze podataka.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:317 ../src/freetuxtv-db-sync.c:420
+#: ../src/freetuxtv-db-sync.c:1446
+#, c-format
+msgid ""
+"Error when displaying the channels.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri prikazivanju programa.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:478
+#, c-format
+msgid ""
+"Error when getting the channel.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri dobavljanju programa.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:552
+#, c-format
+msgid ""
+"Error when adding the channel \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri dodavanju programa \"%s\".\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:593
+#, c-format
+msgid ""
+"Error when deleting the channel \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri dodavanju programa \"%s\".\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:616
+#, c-format
+msgid ""
+"Error when updating the position of the channels in group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri nadopuni položaja programa u grupi \"%s\".\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:669 ../src/freetuxtv-db-sync.c:708
+#, c-format
+msgid ""
+"Error when getting the channel by name.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri dobavljanju programa prema nazivu.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:748 ../src/freetuxtv-db-sync.c:991
+#: ../src/freetuxtv-db-sync.c:1014
+#, c-format
+msgid ""
+"Error when updating the channel \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri nadopuni programa \"%s\".\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:803 ../src/freetuxtv-db-sync.c:837
+#, c-format
+msgid ""
+"Error when adding the group \"%s\" in database.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri dodavanju grupe \"%s\" u bazu podataka.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:881 ../src/freetuxtv-db-sync.c:922
+#: ../src/freetuxtv-db-sync.c:945
+#, c-format
+msgid ""
+"Error when updating the group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri nadopuni grupe \"%s\".\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1057
+#, c-format
+msgid ""
+"Error when updating the last update date of the group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri nadopuni posljednjeg datuma ažuriranja grupe \"%s\".\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1091
+#, c-format
+msgid ""
+"Error when deleting the group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri brisanju grupe \"%s\".\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1112
+#, c-format
+msgid ""
+"Error when updating the position of the groups.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri nadopuni položaja grupa.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1147
+#, c-format
+msgid ""
+"Error when deleting the channels of the group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri brisanju programa grupe \"%s\".\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1184 ../src/freetuxtv-db-sync.c:1220
+#, c-format
+msgid ""
+"Error when updating the channels of the group \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri nadopuni programa grupe \"%s\".\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1246
+#, c-format
+msgid ""
+"Error when deleting the tv channels list.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri brisnju popisa TV programa.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1290
+#, c-format
+msgid ""
+"Error when adding the tv channel '%s'.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri dodavanju '%s' TV programa.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1354
+#, c-format
+msgid ""
+"Error when adding the recording '%s'.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri dodavanju '%s' snimanja.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1480
+#, c-format
+msgid ""
+"Error when adding the label of channel logo '%s'.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri dodavanju naziva logotipa programa '%s'.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1514
+#, c-format
+msgid ""
+"Error when linking the TV channel '%s' to channel.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri povezivanju TV programa '%s' na program.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1553
+#, c-format
+msgid ""
+"Error when getting the database version.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri nabavljanju inačice baze podataka.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1585
+#, c-format
+msgid ""
+"Error when updating the database version.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri nadopuni inačice baze podataka.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1650
+#, c-format
+msgid ""
+"Error when migrating the database.\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri prelasku baze podataka.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1693
+#, c-format
+msgid ""
+"Error when updating the status of the recording \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri nadopuni statusa \"%s\" snimanja.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-db-sync.c:1727
+#, c-format
+msgid ""
+"Error when deleting the recording \"%s\".\n"
+"\n"
+"SQLite has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri brisanju \"%s\" snimanja.\n"
+"\n"
+"SQLite je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-fileutils.c:87
+#, c-format
+msgid ""
+"Error when downloading the file from URL -> %s.\n"
+"\n"
+"CURL has returned error:\n"
+"%s."
+msgstr ""
+"Greška pri preuzimanju datoteke s URL-a -> %s.\n"
+"\n"
+"CURL je vratio grešku:\n"
+"%s."
+
+#: ../src/freetuxtv-i18n.h:49
+msgid "%m/%d/%y"
+msgstr "%d/%m/%y"
+
+#: ../src/freetuxtv-i18n.h:50
+msgid "%m/%d/%Y"
+msgstr "%d/%m/%Y"
+
+#: ../src/freetuxtv-i18n.h:51
+msgid "%m/%d/%Y %H:%M"
+msgstr "%d/%m/%Y %H:%M"
+
+#: ../src/freetuxtv-recordings-list.c:448
+msgid "Do you want to move the related file on the hard disk to the trash?"
+msgstr "Želite li premjestiti povezanu datoteku na tvrdom disku u smeće?"
+
+#: ../src/freetuxtv-tv-channels-list.c:72
+#, c-format
+msgid "Synchronizing the tv channels list"
+msgstr "Usklađivanje popisa TV pograma"
+
+#: ../src/freetuxtv-utils.c:37
+#, c-format
+msgid "%02dh%02dm%02ds"
+msgstr "%02dh%02dm%02ds"
+
+#: ../src/freetuxtv-utils.c:47
+#, c-format
+msgid "%02d:%02d:%02d"
+msgstr "%02d:%02d:%02d"
+
+#: ../src/freetuxtv-utils.c:54
+#, c-format
+msgid "%ld byte"
+msgstr "%ld bajt"
+
+#: ../src/freetuxtv-utils.c:56
+#, c-format
+msgid "%ld bytes"
+msgstr "%ld bajta"
+
+#: ../src/freetuxtv-utils.c:58
+#, c-format
+msgid "%1.1f kB"
+msgstr "%1.1f kB"
+
+#: ../src/freetuxtv-utils.c:60
+#, c-format
+msgid "%1.1f MB"
+msgstr "%1.1f MB"
+
+#: ../src/freetuxtv-utils.c:62
+#, c-format
+msgid "%1.1f GB"
+msgstr "%1.1f GB"
+
+#: ../src/freetuxtv-window-add-channels-group.c:395
+#, c-format
+msgid "Please select a least one group !"
+msgstr "Odaberite barem jednu grupu!"
+
+#: ../src/freetuxtv-window-add-channels-group.c:401
+#: ../src/freetuxtv-window-add-channels-group.c:549
+#: ../src/freetuxtv-window-add-channels-group.c:603
+msgid "Adding channels groups"
+msgstr "Dodavanje grupa programa"
+
+#. Update progress dialog
+#: ../src/freetuxtv-window-add-channels-group.c:441
+#: ../src/freetuxtv-window-add-channels-group.c:485
+#: ../src/freetuxtv-window-add-channels-group.c:567
+#: ../src/freetuxtv-window-add-channels-group.c:611
+#, c-format
+msgid "Adding channels group: <i>%s</i>"
+msgstr "Dodavanje grupe programa: <i>%s</i>"
+
+#: ../src/freetuxtv-window-add-channels-group.c:513
+#: ../src/freetuxtv-window-add-channels-group.c:580
+#: ../src/freetuxtv-window-add-channels-group.c:624
+#, c-format
+msgid "%d channels group(s) have been successfully added."
+msgstr "%d grupa programa je uspješno dodano."
+
+#: ../src/freetuxtv-window-add-channels-group.c:541
+#: ../src/freetuxtv-window-add-channels-group.c:598
+#: ../src/freetuxtv-window-main.c:1982
+#, c-format
+msgid "Please enter the group's name !"
+msgstr "Upišite naziv grupe!"
+
+#: ../src/freetuxtv-window-add-channels-group.c:544
+#: ../src/freetuxtv-window-main.c:1987
+#, c-format
+msgid "Please enter the group's URI !"
+msgstr "Upišite URI grupe!"
+
+#: ../src/freetuxtv-window-tv-channels-database.c:85
+#, c-format
+msgid "Updating TV channel: %s"
+msgstr "Ažuriranje ТV programa: %s"
+
+#: ../src/freetuxtv-window-tv-channels-database.c:148
+msgid "TV channels synchronisation"
+msgstr "Usklađivanje TV programa"
+
+#: ../src/freetuxtv-window-tv-channels-database.c:157
+#, c-format
+msgid "Downloading the file '%s'"
+msgstr "Preuzimanje datoteke '%s'"
+
+#: ../src/freetuxtv-window-tv-channels-database.c:172
+msgid "Synchronizing TV channels from file"
+msgstr "Usklađivanje TV programa iz datoteke"
+
+#. Menu : FreetuxTV
+#: ../src/freetuxtv-window-main.c:278
+msgid "_FreetuxTV"
+msgstr "_FreetuxTV"
+
+#. End Menu : FreetuxTV
+#. Menu : Channels
+#: ../src/freetuxtv-window-main.c:299
+msgid "_Channels"
+msgstr "_Programi"
+
+#: ../src/freetuxtv-window-main.c:303
+msgid "_Add a group"
+msgstr "_Dodaj grupu"
+
+#: ../src/freetuxtv-window-main.c:305
+msgid "Add/create a channels group from different sources"
+msgstr "Dodaj/Stvori grupu programa iz različitih izvora"
+
+#: ../src/freetuxtv-window-main.c:311
+msgid "_Synchronize TV channels database"
+msgstr "_Uskladi bazu podataka TV programa"
+
+#: ../src/freetuxtv-window-main.c:313
+msgid ""
+"Synchronize the TV channels list in the local database from the XML database"
+msgstr ""
+"Uskladite TV popis programa u lokalnoj bazi podataka s XML bazom podataka"
+
+#. End Menu : Channels
+#. Menu : Video
+#: ../src/freetuxtv-window-main.c:322
+msgid "_Video"
+msgstr "_Slika"
+
+#. SubMenu : Deinterlace
+#: ../src/freetuxtv-window-main.c:327
+msgid "_Deinterlace"
+msgstr "_Raspletanje"
+
+#: ../src/freetuxtv-window-main.c:332
+msgid "Disable"
+msgstr "Onemogućeno"
+
+#: ../src/freetuxtv-window-main.c:344
+msgid "Blend"
+msgstr "Blend"
+
+#: ../src/freetuxtv-window-main.c:353
+msgid "Bob"
+msgstr "Bob"
+
+#: ../src/freetuxtv-window-main.c:362
+msgid "Discard"
+msgstr "Discard"
+
+#: ../src/freetuxtv-window-main.c:371
+msgid "Linear"
+msgstr "Linearno"
+
+#: ../src/freetuxtv-window-main.c:380
+msgid "Mean"
+msgstr "Mean"
+
+#: ../src/freetuxtv-window-main.c:389
+msgid "X"
+msgstr "X"
+
+#. End SubMenu : Deinterlace
+#. End Menu : Video
+#. Menu : Help
+#: ../src/freetuxtv-window-main.c:401
+msgid "_Help"
+msgstr "_Pomoć"
+
+#. Create the menu items
+#: ../src/freetuxtv-window-main.c:1029
+msgid "Mute"
+msgstr "Utišaj"
+
+#: ../src/main.c:424
+#, c-format
+msgid "Recording: %s (%s) -> %s (%s)"
+msgstr "Snimanje: %s (%s) -> %s (%s)"
+
+#: ../src/main.c:577
+#, c-format
+msgid ""
+"An error occurred while playing channel '%s' : %s\n"
+"\n"
+"If the problem persist, you can report that the link is dead at %s"
+msgstr ""
+"Greška se dogodila tijekom reprodukcija programa '%s' : %s\n"
+"\n"
+"Ako se problem nastavi pojavljivati, možete prijaviti da je poveznica "
+"neispravna %s"
+
+#: ../src/main.c:581
+msgid "An error occurred"
+msgstr "Dogodila se greška"
+
+#: ../src/main.c:607
+#, c-format
+msgid "Synchronizing the list of tv channels: %s..."
+msgstr "Usklađivanje popisa TV programa: %s..."
+
+#: ../src/main.c:642
+msgid "Initializing user configuration..."
+msgstr "Pokretanje podešavanja korisnika..."
+
+#: ../src/main.c:649
+msgid "Loading user configuration..."
+msgstr "Učitavanje podešavanja korisnika..."
+
+#: ../src/main.c:719
+msgid "Synchronizing the list of tv channels..."
+msgstr "Usklađivanje popisa TV programa..."
+
+#: ../src/main.c:752
+msgid "Loading the list of channels..."
+msgstr "Učitavanje popisa programa..."
+
+#: ../src/main.c:761
+msgid "Loading the list of recordings..."
+msgstr "Učitavanje popisa snimanja..."
+
+#: ../src/main.c:1080 ../src/main.c:1276
+#, c-format
+msgid "Playing: %s"
+msgstr "Reprodukcija: %s"
+
+#: ../src/main.c:1089
+msgid "is playing"
+msgstr "se reproducira"
+
+#: ../src/main.c:1278
+#, c-format
+msgid "Stopping channel: %s"
+msgstr "Zaustavljanje programa: %s"
+
+#: ../src/main.c:1322
+msgid "is recording"
+msgstr "se snima"
+
+#: ../src/main.c:1369
+#, c-format
+msgid "Recording: %s"
+msgstr "Snimanje: %s"
+
+#: ../src/main.c:1494
+msgid "Are you sure you want to quit?"
+msgstr "Sigurno želite prekinuti?"
+
+#~ msgid "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
+#~ msgstr "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
+
+#~ msgid "_Record"
+#~ msgstr "_Snimaj"
+
+#~ msgid "_Up"
+#~ msgstr "_Gore"
+
+#~ msgid "_Down"
+#~ msgstr "_Dolje"
+
+#~ msgid "_Delete"
+#~ msgstr "_Obriši"
+
+#~ msgid "_Preferences"
+#~ msgstr "_Osobitosti"
+
+#~ msgid "_Quit"
+#~ msgstr "_Zatvori"
+
+#~ msgid "_About"
+#~ msgstr "_O programu"
