@@ -61,7 +61,11 @@ freetuxtv_player_error_dialog_init (FreetuxTVPlayerErrorDialog *object)
 	//gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(pScroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
 	GtkWidget* vbox;
+#if GTK_API_VERSION == 3
 	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+#else
+	vbox = gtk_vbox_new(FALSE, 5);
+#endif
 	gtk_box_pack_start (GTK_BOX (vbox),
 	    GTK_WIDGET(pScroll), TRUE, TRUE, 5);
 
