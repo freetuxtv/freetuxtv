@@ -77,13 +77,6 @@
                            gettext libgtk-3-dev libdbus-glib-1-dev libsqlite3-0 libsqlite3-dev libcurl4 \
                            libcurl4-openssl-dev vlc libvlc-dev libnotify-dev
         ```
-      - Mandriva Linux
-        ```
-        su root
-        urpmi git gcc autoconf automake make gettext-devel libgtk+2.0_0-devel vlc libvlc-devel \
-                libsqlite3-devel libcurl-devel libnotify-devel
-        exit
-        ```
       - openSUSE
         ```
         su root
