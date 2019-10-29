@@ -97,6 +97,7 @@
 	<language id="de" _lang="German Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_de.m3u" _name="Web TV (German)"></channels_group>
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_de.m3u" _name="Web Radio (German)"></channels_group>
+		<channels_group uri="https://raw.githubusercontent.com/jnk22/kodinerds-iptv/master/iptv/clean/clean.m3u" _name="Kodinerds (German)"></channels_group>
 	</language>
 	<language id="el" _lang="Greek Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_el.m3u" _name="Web TV (Greek)"></channels_group>
