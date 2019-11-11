@@ -14,7 +14,7 @@
    - Support for keyboard multimedia keys
    - Timer recording
 
-![Main Window](https://github.com/muzena/freetuxtv/blob/Convert_to_README.md/data/freetuxtv.png)
+![Main Window](https://github.com/freetuxtv/freetuxtv/blob/master/data/freetuxtv.png)
 
    ### Requirements
    - gtk+ (>= 2.12.0)
