@@ -16,7 +16,7 @@
 
 ![Main Window](https://github.com/freetuxtv/freetuxtv/blob/master/data/freetuxtv.png)
 
-   ### Requirements
+### Requirements
    - gtk+ (>= 2.12.0)
    - glib (>= 2.16.0)
    - dbus-glib-1 (>= 0.74)
