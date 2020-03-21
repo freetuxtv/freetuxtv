@@ -18,8 +18,7 @@
 
 ### Requirements
    - gtk+ (>= 2.12.0)
-   - glib (>= 2.16.0)
-   - dbus-glib-1 (>= 0.74)
+   - glib (>= 2.26.0)
    - libsqlite3 (>= 3.4.0)
    - libvlc (>= 0.8.6)
    - libcurl (>= 7.18.0)
@@ -74,14 +73,14 @@
       - Ubuntu
         ```
         sudo apt install git gcc make autoconf automake intltool libtool libtool-bin \
-                           gettext libgtk-3-dev libdbus-glib-1-dev libsqlite3-0 libsqlite3-dev libcurl4 \
+                           gettext libgtk-3-dev libsqlite3-0 libsqlite3-dev libcurl4 \
                            libcurl4-openssl-dev vlc libvlc-dev libnotify-dev
         ```
       - openSUSE
         ```
         su root
         zypper install git gcc autoconf automake make gettext-tools gtk2-devel vlc vlc-devel \
-                         sqlite3-devel libcurl-devel dbus-1-glib-devel libnotify-devel
+                         sqlite3-devel libcurl-devel libnotify-devel
         exit
         ```
    2) Clone sources from GitHub and enter into cloned freetuxtv folder

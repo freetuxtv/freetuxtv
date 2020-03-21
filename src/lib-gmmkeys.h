@@ -26,7 +26,7 @@
 #ifndef G_MMEYS_H
 #define G_MMEYS_H
 
-#include <dbus/dbus-glib.h>
+#include <gio/gio.h>
 #include <glib.h>
 #include <glib-object.h>
 
@@ -55,7 +55,7 @@ typedef struct
 	} grab_type;
 
 	gchar *application;
-	DBusGProxy *proxy;
+	GDBusProxy *proxy;
 
 	int idLogFuncHandler;
 

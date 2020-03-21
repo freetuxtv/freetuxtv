@@ -48,17 +48,10 @@
 G_DEFINE_TYPE (GMMKeys, g_mmkeys, G_TYPE_OBJECT);
 
 static void
-g_marshal_VOID__STRING_STRING (GClosure     *closure,
-                               GValue       *return_value,
-                               guint         n_param_values,
-                               const GValue *param_values,
-                               gpointer      invocation_hint,
-                               gpointer      marshal_data);
-
-static void
-media_player_key_pressed (DBusGProxy *proxy,
-                          const gchar *application,
-                          const gchar *key,
+media_player_key_pressed (GDBusProxy *proxy,
+                          const gchar *sender,
+                          const gchar *signal,
+                          GVariant *parameters,
                           GMMKeys *data);
 
 enum {
@@ -117,87 +110,82 @@ g_mmkeys_new (gchar *application, GLogFunc log_func)
 	return self;
 }
 
+static void
+g_mmkeys_activate_complete (GObject *proxy, GAsyncResult *res, GMMKeys *self)
+{
+	GVariant *result;
+	GError *error = NULL;
+
+	result = g_dbus_proxy_call_finish (G_DBUS_PROXY (proxy), res, &error);
+	if (error != NULL) {
+		g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+		      "Unable to grab media player keys: %s\n", error->message);
+		g_clear_error (&error);
+#ifdef HAVE_MMKEYS
+		g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+		      "Attempting old-style key grabs\n");
+		mmkeys_grab (self, TRUE);
+		self->grab_type = X_KEY_GRAB;
+#endif // HAVE_MMKEYS
+		return;
+	}
+
+	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
+	      "Created dbus proxy for org.gnome.SettingsDaemon.MediaKeys; grabbing keys\n");
+	g_signal_connect_object (self->proxy, "g-signal", G_CALLBACK (media_player_key_pressed), self, 0);
+
+	g_variant_unref (result);
+}
+
+static void
+g_mmkeys_activate_dbus (GMMKeys *self)
+{
+	GDBusConnection *bus;
+	GError *error = NULL;
+
+	bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+	if (self->grab_type != NONE || bus == NULL) {
+		g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_WARNING,
+		      "Couldn't get dbus session bus: %s\n", error->message);
+		g_clear_error (&error);
+		return;
+	}
+
+	self->proxy = g_dbus_proxy_new_sync (bus,
+	                                     G_DBUS_PROXY_FLAGS_NONE,
+	                                     NULL,
+	                                     "org.gnome.SettingsDaemon.MediaKeys",
+	                                     "/org/gnome/SettingsDaemon/MediaKeys",
+	                                     "org.gnome.SettingsDaemon.MediaKeys",
+	                                     NULL,
+	                                     &error);
+	if (self->proxy == NULL) {
+		g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+		      "Unable to grab media player keys: %s\n", error->message);
+		g_clear_error (&error);
+		return;
+	}
+
+	g_dbus_proxy_call (self->proxy,
+	                   "GrabMediaPlayerKeys",
+	                   g_variant_new ("(su)", self->application, 0),
+	                   G_DBUS_CALL_FLAGS_NONE,
+	                   -1,
+	                   NULL,
+	                   (GAsyncReadyCallback) g_mmkeys_activate_complete,
+	                   self);
+
+	self->grab_type = SETTINGS_DAEMON;
+}
+
 void
 g_mmkeys_activate (GMMKeys *self)
 {
-	DBusGConnection *bus;
-
 	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "Activating media player keys\n");
 
-	bus = dbus_g_bus_get (DBUS_BUS_SESSION, NULL);
-	if (self->grab_type == NONE && bus != NULL) {
+	g_mmkeys_activate_dbus (self);
 
-		GError *error = NULL;
-
-		self->proxy = dbus_g_proxy_new_for_name_owner (bus,
-		                                               "org.gnome.SettingsDaemon",
-		                                               "/org/gnome/SettingsDaemon/MediaKeys",
-		                                               "org.gnome.SettingsDaemon.MediaKeys",
-		                                               &error);
-		if (self->proxy == NULL) {
-			g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
-			      "Unable to grab media player keys: %s\n", error->message);
-			g_error_free (error);
-		} else {
-			dbus_g_proxy_call (self->proxy,
-			                   "GrabMediaPlayerKeys", &error,
-			                   G_TYPE_STRING, self->application,
-			                   G_TYPE_UINT, 0,
-			                   G_TYPE_INVALID,
-			                   G_TYPE_INVALID);
-
-			// if the method doesn't exist, try the old interface/path
-			if (error != NULL &&
-			    error->domain == DBUS_GERROR &&
-			    error->code == DBUS_GERROR_UNKNOWN_METHOD) {
-					g_clear_error (&error);
-					g_object_unref (self->proxy);
-
-					g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-					      "Trying old dbus interface/path");
-					self->proxy = dbus_g_proxy_new_for_name_owner (bus,
-					                                               "org.gnome.SettingsDaemon",
-					                                               "/org/gnome/SettingsDaemon",
-					                                               "org.gnome.SettingsDaemon",
-					                                               &error);
-					if (self->proxy != NULL) {
-						dbus_g_proxy_call (self->proxy,
-						                   "GrabMediaPlayerKeys", &error,
-						                   G_TYPE_STRING, self->application,
-						                   G_TYPE_UINT, 0,
-						                   G_TYPE_INVALID,
-						                   G_TYPE_INVALID);
-					}
-				}
-
-			if (error == NULL) {
-
-				g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-				      "Created dbus proxy for org.gnome.SettingsDaemon.MediaKeys; grabbing keys\n");
-				dbus_g_object_register_marshaller (g_marshal_VOID__STRING_STRING,
-				                                   G_TYPE_NONE, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INVALID);
-
-				dbus_g_proxy_add_signal (self->proxy,
-				                         "MediaPlayerKeyPressed",
-				                         G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INVALID);
-
-				dbus_g_proxy_connect_signal (self->proxy,
-				                             "MediaPlayerKeyPressed",
-				                             G_CALLBACK (media_player_key_pressed),
-				                             self, NULL);
-
-				self->grab_type = SETTINGS_DAEMON;
-			} else {
-				g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
-				      "Unable to grab media player keys: %s\n", error->message);
-				g_error_free (error);
-			}
-		}
-	} else {
-		g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_WARNING,
-		      "Couldn't get dbus session bus\n");
-	}
 #ifdef HAVE_MMKEYS
 	if (self->grab_type == NONE) {
 		g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
@@ -208,24 +196,38 @@ g_mmkeys_activate (GMMKeys *self)
 #endif // HAVE_MMKEYS
 }
 
+static void
+g_mmkeys_deactivate_complete (GObject *proxy, GAsyncResult *res, G_GNUC_UNUSED gpointer unused)
+{
+	GVariant *result;
+	GError *error = NULL;
+
+	result = g_dbus_proxy_call_finish (G_DBUS_PROXY (proxy), res, &error);
+	if (error != NULL) {
+		g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
+		      "Could not release media player keys: %s\n", error->message);
+		g_clear_error (&error);
+		return;
+	}
+
+	g_variant_unref (result);
+}
+
 void
 g_mmkeys_deactivate (GMMKeys *self)
 {
 	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_INFO,
 	      "Deactivating media player keys\n");
 	if (self->proxy != NULL) {
-		GError *error = NULL;
-
 		if (self->grab_type == SETTINGS_DAEMON) {
-			dbus_g_proxy_call (self->proxy,
-			                   "ReleaseMediaPlayerKeys", &error,
-			                   G_TYPE_STRING, self->application,
-			                   G_TYPE_INVALID, G_TYPE_INVALID);
-			if (error != NULL) {
-				g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL,
-				      "Could not release media player keys: %s\n", error->message);
-				g_error_free (error);
-			}
+			g_dbus_proxy_call (self->proxy,
+			                   "ReleaseMediaPlayerKeys",
+			                   g_variant_new ("(s)", self->application),
+			                   G_DBUS_CALL_FLAGS_NONE,
+			                   -1,
+			                   NULL,
+			                   (GAsyncReadyCallback) g_mmkeys_deactivate_complete,
+			                   NULL);
 			self->grab_type = NONE;
 		}
 
@@ -244,44 +246,55 @@ g_mmkeys_deactivate (GMMKeys *self)
 
 
 static void
-media_player_key_pressed (DBusGProxy *proxy,
-                          const gchar *application,
-                          const gchar *key,
+media_player_key_pressed (GDBusProxy *proxy,
+                          const gchar *sender,
+                          const gchar *signal,
+                          GVariant *parameters,
                           GMMKeys *data)
 {
+	gchar *application;
+	gchar *key;
+
+	if (g_strcmp0 (signal, "MediaPlayerKeyPressed") != 0)
+		return;
+
+	g_variant_get (parameters, "(ss)", &application, &key);
+
 	g_log(GMMKEYS_LOG_DOMAIN, G_LOG_LEVEL_MESSAGE,
 	      "Got media key '%s' for application '%s'\n",
 	      key, application);
 
-	if (strcmp (application, data->application))
-		return;
-
-	if (strcmp (key, "Play") == 0) {		
-		g_signal_emit (G_OBJECT (data),
-		               signals [MM_KEY_PRESSED],
-		               0, GMMKEYS_BUTTON_PLAY
-		               );
-	} else if (strcmp (key, "Pause") == 0) {			
-		g_signal_emit (G_OBJECT (data),
-		               signals [MM_KEY_PRESSED],
-		               0, GMMKEYS_BUTTON_PAUSE
-		               );
-	} else if (strcmp (key, "Stop") == 0) {	
-		g_signal_emit (G_OBJECT (data),
-		               signals [MM_KEY_PRESSED],
-		               0,GMMKEYS_BUTTON_STOP
-		               );
-	} else if (strcmp (key, "Previous") == 0) {	
-		g_signal_emit (G_OBJECT (data),
-		               signals [MM_KEY_PRESSED],
-		               0,GMMKEYS_BUTTON_PREV
-		               );
-	} else if (strcmp (key, "Next") == 0) {	
-		g_signal_emit (G_OBJECT (data),
-		               signals [MM_KEY_PRESSED],
-		               0,GMMKEYS_BUTTON_NEXT
-		               );
+	if (strcmp (application, data->application) == 0) {
+		if (strcmp (key, "Play") == 0) {
+			g_signal_emit (G_OBJECT (data),
+			               signals [MM_KEY_PRESSED],
+			               0, GMMKEYS_BUTTON_PLAY
+			               );
+		} else if (strcmp (key, "Pause") == 0) {
+			g_signal_emit (G_OBJECT (data),
+			               signals [MM_KEY_PRESSED],
+			               0, GMMKEYS_BUTTON_PAUSE
+			               );
+		} else if (strcmp (key, "Stop") == 0) {
+			g_signal_emit (G_OBJECT (data),
+			               signals [MM_KEY_PRESSED],
+			               0,GMMKEYS_BUTTON_STOP
+			               );
+		} else if (strcmp (key, "Previous") == 0) {
+			g_signal_emit (G_OBJECT (data),
+			               signals [MM_KEY_PRESSED],
+			               0,GMMKEYS_BUTTON_PREV
+			               );
+		} else if (strcmp (key, "Next") == 0) {
+			g_signal_emit (G_OBJECT (data),
+			               signals [MM_KEY_PRESSED],
+			               0,GMMKEYS_BUTTON_NEXT
+			               );
+		}
 	}
+
+	g_free (key);
+	g_free (application);
 }
 
 #ifdef HAVE_MMKEYS
@@ -450,39 +463,6 @@ mmkeys_grab (GMMKeys *self, gboolean grab)
 }
 
 #endif
-
-static void
-g_marshal_VOID__STRING_STRING (GClosure     *closure,
-                               GValue       *return_value,
-                               guint         n_param_values,
-                               const GValue *param_values,
-                               gpointer      invocation_hint,
-                               gpointer      marshal_data)
-{
-	typedef void (*GMarshalFunc_VOID__STRING_STRING) (gpointer     data1,
-	                                                  gpointer     arg_1,
-	                                                  gpointer     arg_2,
-	                                                  gpointer     data2);
-	register GMarshalFunc_VOID__STRING_STRING callback;
-	register GCClosure *cc = (GCClosure*) closure;
-	register gpointer data1, data2;
-
-	g_return_if_fail (n_param_values == 3);
-
-	if (G_CCLOSURE_SWAP_DATA (closure)) {
-		data1 = closure->data;
-		data2 = g_value_peek_pointer (param_values + 0);
-	}else{
-		data1 = g_value_peek_pointer (param_values + 0);
-		data2 = closure->data;
-	}
-	callback = (GMarshalFunc_VOID__STRING_STRING) (marshal_data ? marshal_data : cc->callback);
-
-	callback (data1,
-	          g_marshal_value_peek_string (param_values + 1),
-	          g_marshal_value_peek_string (param_values + 2),
-	          data2);
-}
 
 static void
 g_mmkeys_finalize (GObject *object)
