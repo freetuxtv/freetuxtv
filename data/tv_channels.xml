@@ -347,6 +347,11 @@
 		<label>DW-TV Deutsch</label>
 		<label>DW-TV Deutsch+</label>
 	</tvchannel>
+	<tvchannel name="EbS">
+		<logo_filename>ebs.png</logo_filename>
+		<label>EbS Live (Europe by Satellite)</label>
+		<label>EbS+ Live (Europe by Satellite)</label>
+	</tvchannel>
 	<tvchannel name="Eko des Garrigues">
 		<logo_filename>ekodesgarrigues.png</logo_filename>
 	</tvchannel>
@@ -886,6 +891,9 @@
 	<tvchannel name="Paris Première">
 		<logo_filename>parispremiere.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Parlamentsfernsehen">
+		<logo_filename>parlament.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="phoenix">
 		<logo_filename>phoenix.png</logo_filename>
 	</tvchannel>
@@ -1128,6 +1136,9 @@
 	</tvchannel>
 	<tvchannel name="Russia Today">
 		<logo_filename>russiatoday.png</logo_filename>
+		<label>RT HD</label>
+		<label>RT Spanish HD</label>
+		<label>RT Documentary</label>
 	</tvchannel>
 	<tvchannel name="RVE">
 		<logo_filename>rve.png</logo_filename>
