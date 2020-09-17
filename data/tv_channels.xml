@@ -785,8 +785,9 @@
 	<tvchannel name="MyZen.tv">
 		<logo_filename>myzentv.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="NASA TV (Public Channel)">
+	<tvchannel name="NASA TV">
 		<logo_filename>nasatv.png</logo_filename>
+		<label>NASA TV (Public Channel)</label>
 		<label>NASA TV (Media Channel)</label>
 		<label>NASA TV (Education Channel)</label>
 	</tvchannel>
@@ -840,6 +841,9 @@
 	<tvchannel name="NTI">
 		<logo_filename>nti.png</logo_filename>
 		<label>Radio NTI</label>
+	</tvchannel>
+	<tvchannel name="oe24 TV">
+		<logo_filename>oe24tv.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="One HD">
 		<logo_filename>onehd.png</logo_filename>
@@ -1382,6 +1386,9 @@
 	</tvchannel>
 	<tvchannel name="W9">
 		<logo_filename>w9.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="W24 TV">
+		<logo_filename>w24tv.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="WDR">
 		<logo_filename>wdrhd.png</logo_filename>
