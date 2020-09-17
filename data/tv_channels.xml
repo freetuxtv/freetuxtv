@@ -335,6 +335,9 @@
 	<tvchannel name="DirectStar">
 		<logo_filename>directstar.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="dorf tv">
+		<logo_filename>dorftv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Dubai TV">
 		<logo_filename>dubaitv.png</logo_filename>
 	</tvchannel>
@@ -827,6 +830,9 @@
 	<tvchannel name="NRJ Paris">
 		<logo_filename>nrjparis.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="NRWision HD">
+		<logo_filename>nrwision.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="NT1">
 		<logo_filename>nt1.png</logo_filename>
 		<label>NT 1</label>
@@ -840,6 +846,18 @@
 	</tvchannel>
 	<tvchannel name="Orange Sport Infos">
 		<logo_filename>orangesportinfos.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ORF eins HD">
+		<logo_filename>orf1hd.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ORF 2 HD">
+		<logo_filename>orf2hd.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ORF III HD">
+		<logo_filename>orf3hd.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ORF SPORT +">
+		<logo_filename>orfsportplushd.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Orleans tv">
 		<logo_filename>orleanstv.png</logo_filename>
@@ -916,6 +934,9 @@
 	</tvchannel>
 	<tvchannel name="Corsica Radio">
 		<logo_filename>radio-corsica.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Bremen TV">
+		<logo_filename>rbtv.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Radio Ethic">
 		<logo_filename>radioethic.png</logo_filename>
@@ -1364,6 +1385,9 @@
 	</tvchannel>
 	<tvchannel name="WDR">
 		<logo_filename>wdrhd.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="WELT">
+		<logo_filename>welt.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Wéo">
 		<logo_filename>weo.png</logo_filename>
