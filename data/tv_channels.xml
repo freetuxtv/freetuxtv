@@ -46,6 +46,9 @@
 		<logo_filename>aljazeera.png</logo_filename>
 		<label>Aljazeera</label>
 	</tvchannel>
+	<tvchannel name="ALEX Berlin">
+		<logo_filename>alexberlin.png</logo_filename>
+	</tvchannel>	
 	<tvchannel name="Al Jazeera Children">
 		<logo_filename>aljazeerachildren.png</logo_filename>
 	</tvchannel>
@@ -858,6 +861,66 @@
 	</tvchannel>
 	<tvchannel name="oe24 TV">
 		<logo_filename>oe24tv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK4 (Adenau Andernach Koblenz Neuwied)">
+		<logo_filename>okkoblenz.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK54 (Trier)">
+		<logo_filename>oktrier.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Kaiserslautern">
+		<logo_filename>okkaiserslautern.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK naheTV">
+		<logo_filename>oknahetv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK RheinLokal">
+		<logo_filename>okrheinlokal.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Suedwestpfalz">
+		<logo_filename>oksuedwestpfalz.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Weinstraße">
+		<logo_filename>okweinstrasse.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Rhein-Main">
+		<logo_filename>okrheinmain.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Fulda">
+		<logo_filename>okfulda.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Gießen">
+		<logo_filename>okgiessen.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Kassel">
+		<logo_filename>okkassel.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Okto">
+		<logo_filename>okto.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Magdeburg">
+		<logo_filename>okmagdeburg.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Merseburg">
+		<logo_filename>okmerseburg.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Salzwedel">
+		<logo_filename>oksalzwedel.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Stendal">
+		<logo_filename>okstendal.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Wernigerode">
+		<logo_filename>okwernigerode.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Kiel">
+		<logo_filename>kieltv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Dessau">
+		<logo_filename>okdessau.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Wettin">
+		<logo_filename>okwettin.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="One HD">
 		<logo_filename>onehd.png</logo_filename>
