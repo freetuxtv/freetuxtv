@@ -344,6 +344,9 @@
 	<tvchannel name="Dubai TV">
 		<logo_filename>dubaitv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Dubai One">
+		<logo_filename>dubaione.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="DW-TV">
 		<logo_filename>dwtv-deutschewelle.png</logo_filename>
 		<label>Deutsche Welle</label>
@@ -725,6 +728,9 @@
 	<tvchannel name="Medi 1 sat">
 		<logo_filename>medi1sat.png</logo_filename>
 		<label>Medi 1 Sat</label>
+	</tvchannel>
+	<tvchannel name="Mello TV">
+		<logo_filename>mellotv.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Metropolys">
 		<logo_filename>metropolys.png</logo_filename>
@@ -1154,6 +1160,9 @@
 	</tvchannel>
 	<tvchannel name="Seebit TV">
 		<logo_filename>seebittv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ServusTV HD">
+		<logo_filename>servustvhd.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Shanghai Dragon TV">
 		<logo_filename>shanghaidragontv.png</logo_filename>
