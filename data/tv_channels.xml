@@ -223,6 +223,9 @@
 	<tvchannel name="Cash TV">
 		<logo_filename>cashtv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="CBN News">
+		<logo_filename>cbnnews.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="CCTV 1">
 		<logo_filename>cctv1.png</logo_filename>
 	</tvchannel>
@@ -1297,6 +1300,9 @@
 		<label>TRT International</label>
 		<label>TRT İnt</label>
 	</tvchannel>
+	<tvchannel name="TRT World">
+		<logo_filename>trtworld.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="TSF Jazz">
 		<logo_filename>tsfjazz.png</logo_filename>
 	</tvchannel>
@@ -1388,6 +1394,9 @@
 	</tvchannel>
 	<tvchannel name="Virgin Radio">
 		<logo_filename>virginradio.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Voice of America">
+		<logo_filename>voiceofamerica.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Voltage">
 		<logo_filename>voltage.png</logo_filename>
