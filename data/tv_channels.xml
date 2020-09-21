@@ -46,6 +46,9 @@
 		<logo_filename>aljazeera.png</logo_filename>
 		<label>Aljazeera</label>
 	</tvchannel>
+	<tvchannel name="ALEX Berlin">
+		<logo_filename>alexberlin.png</logo_filename>
+	</tvchannel>	
 	<tvchannel name="Al Jazeera Children">
 		<logo_filename>aljazeerachildren.png</logo_filename>
 	</tvchannel>
@@ -223,6 +226,9 @@
 	<tvchannel name="Cash TV">
 		<logo_filename>cashtv.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="CBN News">
+		<logo_filename>cbnnews.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="CCTV 1">
 		<logo_filename>cctv1.png</logo_filename>
 	</tvchannel>
@@ -335,14 +341,25 @@
 	<tvchannel name="DirectStar">
 		<logo_filename>directstar.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="dorf tv">
+		<logo_filename>dorftv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Dubai TV">
 		<logo_filename>dubaitv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Dubai One">
+		<logo_filename>dubaione.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="DW-TV">
 		<logo_filename>dwtv-deutschewelle.png</logo_filename>
 		<label>Deutsche Welle</label>
 		<label>DW-TV Deutsch</label>
 		<label>DW-TV Deutsch+</label>
+	</tvchannel>
+	<tvchannel name="EbS">
+		<logo_filename>ebs.png</logo_filename>
+		<label>EbS Live (Europe by Satellite)</label>
+		<label>EbS+ Live (Europe by Satellite)</label>
 	</tvchannel>
 	<tvchannel name="Eko des Garrigues">
 		<logo_filename>ekodesgarrigues.png</logo_filename>
@@ -715,6 +732,9 @@
 		<logo_filename>medi1sat.png</logo_filename>
 		<label>Medi 1 Sat</label>
 	</tvchannel>
+	<tvchannel name="Mello TV">
+		<logo_filename>mellotv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Metropolys">
 		<logo_filename>metropolys.png</logo_filename>
 		<label>Radio Metropolys</label>
@@ -782,8 +802,9 @@
 	<tvchannel name="MyZen.tv">
 		<logo_filename>myzentv.png</logo_filename>
 	</tvchannel>
-	<tvchannel name="NASA TV (Public Channel)">
+	<tvchannel name="NASA TV">
 		<logo_filename>nasatv.png</logo_filename>
+		<label>NASA TV (Public Channel)</label>
 		<label>NASA TV (Media Channel)</label>
 		<label>NASA TV (Education Channel)</label>
 	</tvchannel>
@@ -827,6 +848,9 @@
 	<tvchannel name="NRJ Paris">
 		<logo_filename>nrjparis.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="NRWision HD">
+		<logo_filename>nrwision.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="NT1">
 		<logo_filename>nt1.png</logo_filename>
 		<label>NT 1</label>
@@ -835,11 +859,86 @@
 		<logo_filename>nti.png</logo_filename>
 		<label>Radio NTI</label>
 	</tvchannel>
+	<tvchannel name="oe24 TV">
+		<logo_filename>oe24tv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK4 (Adenau Andernach Koblenz Neuwied)">
+		<logo_filename>okkoblenz.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK54 (Trier)">
+		<logo_filename>oktrier.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Kaiserslautern">
+		<logo_filename>okkaiserslautern.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK naheTV">
+		<logo_filename>oknahetv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK RheinLokal">
+		<logo_filename>okrheinlokal.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Suedwestpfalz">
+		<logo_filename>oksuedwestpfalz.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Weinstraße">
+		<logo_filename>okweinstrasse.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Rhein-Main">
+		<logo_filename>okrheinmain.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Fulda">
+		<logo_filename>okfulda.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Gießen">
+		<logo_filename>okgiessen.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Kassel">
+		<logo_filename>okkassel.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Okto">
+		<logo_filename>okto.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Magdeburg">
+		<logo_filename>okmagdeburg.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Merseburg">
+		<logo_filename>okmerseburg.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Salzwedel">
+		<logo_filename>oksalzwedel.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Stendal">
+		<logo_filename>okstendal.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Wernigerode">
+		<logo_filename>okwernigerode.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Kiel">
+		<logo_filename>kieltv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Dessau">
+		<logo_filename>okdessau.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="OK Wettin">
+		<logo_filename>okwettin.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="One HD">
 		<logo_filename>onehd.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Orange Sport Infos">
 		<logo_filename>orangesportinfos.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ORF eins HD">
+		<logo_filename>orf1hd.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ORF 2 HD">
+		<logo_filename>orf2hd.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ORF III HD">
+		<logo_filename>orf3hd.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ORF SPORT +">
+		<logo_filename>orfsportplushd.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Orleans tv">
 		<logo_filename>orleanstv.png</logo_filename>
@@ -863,6 +962,9 @@
 	</tvchannel>
 	<tvchannel name="Paris Première">
 		<logo_filename>parispremiere.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Parlamentsfernsehen">
+		<logo_filename>parlament.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="phoenix">
 		<logo_filename>phoenix.png</logo_filename>
@@ -916,6 +1018,9 @@
 	</tvchannel>
 	<tvchannel name="Corsica Radio">
 		<logo_filename>radio-corsica.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="Radio Bremen TV">
+		<logo_filename>rbtv.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Radio Ethic">
 		<logo_filename>radioethic.png</logo_filename>
@@ -1103,6 +1208,9 @@
 	</tvchannel>
 	<tvchannel name="Russia Today">
 		<logo_filename>russiatoday.png</logo_filename>
+		<label>RT HD</label>
+		<label>RT Spanish HD</label>
+		<label>RT Documentary</label>
 	</tvchannel>
 	<tvchannel name="RVE">
 		<logo_filename>rve.png</logo_filename>
@@ -1115,6 +1223,9 @@
 	</tvchannel>
 	<tvchannel name="Seebit TV">
 		<logo_filename>seebittv.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="ServusTV HD">
+		<logo_filename>servustvhd.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Shanghai Dragon TV">
 		<logo_filename>shanghaidragontv.png</logo_filename>
@@ -1261,6 +1372,9 @@
 		<label>TRT International</label>
 		<label>TRT İnt</label>
 	</tvchannel>
+	<tvchannel name="TRT World">
+		<logo_filename>trtworld.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="TSF Jazz">
 		<logo_filename>tsfjazz.png</logo_filename>
 	</tvchannel>
@@ -1353,6 +1467,9 @@
 	<tvchannel name="Virgin Radio">
 		<logo_filename>virginradio.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="Voice of America">
+		<logo_filename>voiceofamerica.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="Voltage">
 		<logo_filename>voltage.png</logo_filename>
 	</tvchannel>
@@ -1362,8 +1479,14 @@
 	<tvchannel name="W9">
 		<logo_filename>w9.png</logo_filename>
 	</tvchannel>
+	<tvchannel name="W24 TV">
+		<logo_filename>w24tv.png</logo_filename>
+	</tvchannel>
 	<tvchannel name="WDR">
 		<logo_filename>wdrhd.png</logo_filename>
+	</tvchannel>
+	<tvchannel name="WELT">
+		<logo_filename>welt.png</logo_filename>
 	</tvchannel>
 	<tvchannel name="Wéo">
 		<logo_filename>weo.png</logo_filename>
