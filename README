@@ -1,0 +1,16 @@
+FreetuxTV
+=========
+
+FreetuxTV is a Linux media player based on GTK+ and LibVLC for watching and recording free WebTV, WebRadio and WebCam channels on a PC.
+It can also be used for importing, watching and recording TV channels from Tvheadend streaming server.(https://github.com/tvheadend/tvheadend)
+   
+Features :
+  - Add new groups of channels from M3U playlists 
+  - Import and play TV and Radio channels from Tvheadend
+  - Listen WebRadio services
+  - Play TV (Free, SFR and WebTV)
+  - Play in fullscreen mode
+  - Play in mini mode
+  - Record selected channel
+  - Support for keyboard multimedia keys
+  - Timer recording
