@@ -1,0 +1,10 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+/* Export plateform */
+#cmakedefine UNIX @UNIX@
+#cmakedefine WIN32 @WIN32@
+#cmakedefine MSVC @MSVC@
+#cmakedefine APPLE @APPLE@
+
+#endif /* CONFIG_H */
