@@ -21,7 +21,18 @@ set (APPLICATION_PACKAGE_NAME "freetuxtv")
 set (APPLICATION_EXE_NAME freetuxtv)
 set (APPLICATION_BUGREPORT "https://github.com/freetuxtv/freetuxtv/issues")
 
-project (freetuxtv)
+project (freetuxtv C)
+
+if(WIN32)
+    set(AUTO_NEWLINE_STYLE WIN32)
+else()
+    set(AUTO_NEWLINE_STYLE UNIX)
+endif()
+if(CMAKE_HOST_SYSTEM MATCHES Windows)
+    set(HOST_WIN32 TRUE)
+else()
+    set(HOST_WIN32 FALSE)
+endif()
 
 # Define install paths
 if(WIN32)
@@ -44,6 +55,25 @@ else(WIN32)
     set(INSTALL_PATH_APPLICATIONS "share/applications")
     set(INSTALL_PATH_ICONS "share/icons/")
 endif(WIN32)
+
+####################
+# Macro definition
+####################
+
+macro(JOINLIST list_name sep output)
+    # create empty list - necessary?
+    # prefix and suffix elements
+    foreach(l ${${list_name}})
+        if(NOT DEFINED list_name_TMP)
+            SET(list_name_TMP ${l})
+        else()
+            SET(list_name_TMP ${list_name_TMP}${sep}${l})
+        endif()
+    endforeach()
+    # replace list by tmp list
+    SET(${output} ${list_name_TMP})
+    UNSET(list_name_TMP)
+endmacro(JOINLIST)
 
 ####################
 # Library checking
@@ -223,5 +253,168 @@ set(FREETUXTV_SRC
 # Create Executable
 ####################
 
-add_executable(freetuxtv ${LIBDBEVOLUTION_SRC} ${LIBVLCGTK_SRC} ${FREETUXTV_LIB_SRC} ${FREETUXTV_SRC})
+add_executable(${APPLICATION_EXE_NAME} ${LIBDBEVOLUTION_SRC} ${LIBVLCGTK_SRC} ${FREETUXTV_LIB_SRC} ${FREETUXTV_SRC})
 target_link_libraries(freetuxtv ${GTK3_LIBRARIES} ${LIBNOTIFY_LIBRARIES} ${LIBVLC_LIBRARIES} ${SQLITE3_LIBRARIES} ${CURL_LIBRARIES})
+install(TARGETS ${APPLICATION_EXE_NAME} DESTINATION ${INSTALL_PATH_BIN})
+
+############################
+# Common files installation
+############################
+
+# Documentation file
+set(DOCFILES_EXT "")
+if(WIN32)
+    set(DOCFILES_EXT ".txt")
+endif(WIN32)
+
+# README file
+configure_file (
+        "${PROJECT_SOURCE_DIR}/README"
+        "${PROJECT_BINARY_DIR}/README${DOCFILES_EXT}"
+        NEWLINE_STYLE ${AUTO_NEWLINE_STYLE}
+)
+install(FILES "${PROJECT_BINARY_DIR}/README${DOCFILES_EXT}" DESTINATION ${INSTALL_PATH_DOC})
+
+# COPYING file
+configure_file (
+        "${PROJECT_SOURCE_DIR}/COPYING"
+        "${PROJECT_BINARY_DIR}/COPYING${DOCFILES_EXT}"
+        NEWLINE_STYLE ${AUTO_NEWLINE_STYLE}
+)
+install(FILES "${PROJECT_BINARY_DIR}/COPYING${DOCFILES_EXT}" DESTINATION ${INSTALL_PATH_DOC})
+
+# AUTHORS file
+configure_file (
+        "${PROJECT_SOURCE_DIR}/AUTHORS"
+        "${PROJECT_BINARY_DIR}/AUTHORS${DOCFILES_EXT}"
+        NEWLINE_STYLE ${AUTO_NEWLINE_STYLE}
+)
+install(FILES "${PROJECT_BINARY_DIR}/AUTHORS${DOCFILES_EXT}" DESTINATION ${INSTALL_PATH_DOC})
+
+# ChangeLog file
+configure_file (
+        "${PROJECT_SOURCE_DIR}/ChangeLog"
+        "${PROJECT_BINARY_DIR}/ChangeLog${DOCFILES_EXT}"
+        NEWLINE_STYLE ${AUTO_NEWLINE_STYLE}
+)
+install(FILES "${PROJECT_BINARY_DIR}/ChangeLog${DOCFILES_EXT}" DESTINATION ${INSTALL_PATH_DOC})
+
+# INSTALL file
+configure_file (
+        "${PROJECT_SOURCE_DIR}/INSTALL"
+        "${PROJECT_BINARY_DIR}/INSTALL${DOCFILES_EXT}"
+        NEWLINE_STYLE ${AUTO_NEWLINE_STYLE}
+)
+install(FILES "${PROJECT_BINARY_DIR}/INSTALL${DOCFILES_EXT}" DESTINATION ${INSTALL_PATH_DOC})
+
+###############################
+# Resources files installation
+###############################
+
+# Desktop file
+configure_file (
+        "${PROJECT_SOURCE_DIR}/data/menu/freetuxtv.desktop.in"
+        "${PROJECT_BINARY_DIR}/data/menu/${APPLICATION_PACKAGE_NAME}.desktop"
+)
+if(UNIX AND NOT WIN32)
+    install(FILES ${PROJECT_BINARY_DIR}/data/menu/${APPLICATION_PACKAGE_NAME}.desktop DESTINATION ${INSTALL_PATH_APPLICATIONS})
+endif(UNIX AND NOT WIN32)
+
+# Splashscreen
+install(FILES "${PROJECT_SOURCE_DIR}/data/splashscreen.png" DESTINATION ${INSTALL_PATH_SHARE})
+
+# Database file
+install(FILES "${PROJECT_SOURCE_DIR}/data/sqlite3-create-tables.sql" DESTINATION ${INSTALL_PATH_SHARE})
+
+# UI files
+install(DIRECTORY "${PROJECT_SOURCE_DIR}/data/ui/" DESTINATION ${INSTALL_PATH_SHARE}/ui FILES_MATCHING PATTERN "*.glade")
+
+# Data files
+install(FILES "${PROJECT_SOURCE_DIR}/data/channels_groups.xml" DESTINATION ${INSTALL_PATH_SHARE})
+install(FILES "${PROJECT_SOURCE_DIR}/data/tv_channels.xml" DESTINATION ${INSTALL_PATH_SHARE})
+
+# Channels logos
+install(DIRECTORY "${PROJECT_SOURCE_DIR}/data/images/channels/" DESTINATION ${INSTALL_PATH_SHARE}/images/channels/ FILES_MATCHING PATTERN "*.png")
+
+
+#################
+# Build package
+#################
+
+INCLUDE(InstallRequiredSystemLibraries)
+
+# CPack confile file
+configure_file(${PROJECT_SOURCE_DIR}/CPackOptions.cmake.in
+        ${PROJECT_BINARY_DIR}/CPackOptions.cmake
+        @ONLY)
+set(CPACK_PROJECT_CONFIG_FILE ${CMAKE_BINARY_DIR}/CPackOptions.cmake)
+
+if(WIN32)
+    if(CMAKE_BUILD_TYPE MATCHES Debug)
+        SET(CPACK_GENERATOR ZIP)
+    else()
+        SET(CPACK_GENERATOR ZIP NSIS)
+    endif()
+elseif(APPLE)
+    configure_file(${PROJECT_SOURCE_DIR}/platforms/osx/Info.plist.in
+            ${PROJECT_BINARY_DIR}/platforms/osx/Info.plist
+            @ONLY)
+    configure_file(${PROJECT_SOURCE_DIR}/platforms/osx/run.sh.in
+            ${PROJECT_BINARY_DIR}/platforms/osx/${APPLICATION_NAME}
+            @ONLY)
+    SET(CPACK_GENERATOR Bundle)
+else()
+    SET(CPACK_GENERATOR TGZ DEB)
+endif(WIN32)
+
+SET(CPACK_PACKAGE_NAME ${APPLICATION_PACKAGE_NAME})
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${APPLICATION_DESCRIPTION_SUMMARY})
+SET(CPACK_PACKAGE_VENDOR ${APPLICATION_VENDOR_NAME})
+SET(CPACK_PACKAGE_CONTACT ${APPLICATION_CONTACT})
+SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README${DOCFILES_EXT}")
+SET(CPACK_PACKAGE_VERSION_MAJOR ${APPLICATION_VERSION_MAJOR})
+SET(CPACK_PACKAGE_VERSION_MINOR ${APPLICATION_VERSION_MINOR})
+SET(CPACK_PACKAGE_VERSION_PATCH ${APPLICATION_VERSION_PATCH}${APPLICATION_VERSION_BUILD})
+SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING${DOCFILES_EXT}")
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY ${APPLICATION_PACKAGE_NAME}) # Useful for registry key and NSIS auto uninstaller
+
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    SET(CPACK_STRIP_FILES FALSE)
+    SET(CPACK_SOURCE_STRIP_FILES FALSE)
+else()
+    SET(CPACK_STRIP_FILES TRUE)
+    SET(CPACK_SOURCE_STRIP_FILES TRUE)
+endif()
+
+if(WIN32)
+    # NSIS
+    SET(CPACK_NSIS_DISPLAY_NAME "${APPLICATION_NAME}")
+elseif(APPLE)
+    if (NOT CPACK_SYSTEM_NAME)
+        IF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+            SET(CPACK_SYSTEM_NAME amd64)
+        ELSEIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i686")
+            SET(CPACK_SYSTEM_NAME i386)
+        ENDIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+    endif()
+
+    SET(CPACK_BUNDLE_NAME "${APPLICATION_NAME}")
+else()
+    if (NOT CPACK_SYSTEM_NAME)
+        IF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+            SET(CPACK_SYSTEM_NAME amd64)
+        ELSEIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i686")
+            SET(CPACK_SYSTEM_NAME i386)
+        ENDIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+    endif()
+
+    JOINLIST(PACKAGE_DEPS ", " DEBIAN_DEPS)
+
+    SET(CPACK_DEBIAN_PACKAGE_NAME ${APPLICATION_PACKAGE_NAME})
+    SET(CPACK_DEBIAN_PACKAGE_VERSION ${APPLICATION_VERSION})
+    SET(CPACK_DEBIAN_PACKAGE_DEPENDS ${DEBIAN_DEPS})
+    SET(CPACK_DEBIAN_PACKAGE_SECTION "misc")
+    # SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${DEB_ARCH})
+ENDIF()
+SET(CPACK_PACKAGE_EXECUTABLES "${APPLICATION_EXE_NAME}" "${APPLICATION_NAME}")
+include(CPack)
