@@ -401,13 +401,13 @@ install(FILES "${PROJECT_SOURCE_DIR}/data/tv_channels.xml" DESTINATION ${INSTALL
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/data/images/channels/" DESTINATION ${INSTALL_PATH_SHARE}/images/channels/ FILES_MATCHING PATTERN "*.png")
 
 # Icons
-install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_16x16_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/16x16/apps/freetuxtv.png)
-install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_22x22_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/22x22/apps/freetuxtv.png)
-install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_32x32_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/32x32/apps/freetuxtv.png)
-install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_48x48_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/48x48/apps/freetuxtv.png)
-install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_64x64_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/64x64/apps/freetuxtv.png)
-install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_scalable_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/scalable/apps/freetuxtv.png)
-
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_16x16_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/16x16/apps/ RENAME freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_22x22_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/22x22/apps/ RENAME freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_32x32_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/32x32/apps/ RENAME freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_48x48_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/48x48/apps/ RENAME freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_64x64_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/64x64/apps/ RENAME freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_128x128_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/128x128/apps/ RENAME freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_scalable_freetuxtv.svg" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/scalable/apps/ RENAME freetuxtv.svg)
 
 #################
 # Build package
