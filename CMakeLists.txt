@@ -49,11 +49,13 @@ elseif(APPLE)
     set(INSTALL_PATH_APPLICATIONS ".")
     set(INSTALL_PATH_ICONS ".")
 else(WIN32)
-    set(INSTALL_PATH_BIN "bin/")
-    set(INSTALL_PATH_SHARE "share/${APPLICATION_PACKAGE_NAME}")
-    set(INSTALL_PATH_DOC "share/${APPLICATION_PACKAGE_NAME}/doc")
-    set(INSTALL_PATH_APPLICATIONS "share/applications")
-    set(INSTALL_PATH_ICONS "share/icons/")
+    set(CMAKE_INSTALL_PREFIX "/usr")
+    set(INSTALL_PATH_BIN "${CMAKE_INSTALL_PREFIX}/bin/")
+    set(INSTALL_PATH_SHARE "${CMAKE_INSTALL_PREFIX}/share/${APPLICATION_PACKAGE_NAME}")
+    set(INSTALL_PATH_DOC "${CMAKE_INSTALL_PREFIX}/share/${APPLICATION_PACKAGE_NAME}/doc")
+    set(INSTALL_PATH_APPLICATIONS "${CMAKE_INSTALL_PREFIX}/share/applications")
+    set(INSTALL_PATH_ICONS "${CMAKE_INSTALL_PREFIX}/share/icons/")
+    set(INSTALL_PATH_LOCALE "${CMAKE_INSTALL_PREFIX}/share/locale/")
 endif(WIN32)
 
 ####################
@@ -138,12 +140,19 @@ if(CURL_FOUND)
     list(APPEND PACKAGE_DEPS "libcurl4 (>= ${CURL_VERSION})")
 endif()
 
+# Setting up Intl
+find_package (Intl REQUIRED)
+find_package(Gettext REQUIRED)
+include_directories(${INTL_INCLUDE_DIRS})
+link_directories(${INTL_LIBRARY_DIRS})
+
+
 ####################
 # Config file
 ####################
 
 set(PACKAGE_LOCALE_DIR "${CMAKE_INSTALL_PREFIX}/share/locale")
-set(PACKAGE_DATA_DIR "${CMAKE_INSTALL_PREFIX}/${INSTALL_PATH_SHARE}")
+set(PACKAGE_DATA_DIR "${CMAKE_INSTALL_PREFIX}/share")
 
 # Configure a header file to pass some of the CMake settings
 # to the source code
@@ -163,6 +172,7 @@ include_directories (${PROJECT_BINARY_DIR})
 # Add sources
 ####################
 
+include_directories (${PROJECT_SOURCE_DIR}/lib)
 include_directories (${PROJECT_SOURCE_DIR}/src)
 
 # Compatiblity with autotools
@@ -255,6 +265,45 @@ set(FREETUXTV_SRC
 )
 
 ####################
+# Translations
+####################
+
+FIND_PROGRAM(GETTEXT_MSGFMT_EXECUTABLE msgfmt)
+
+IF(NOT GETTEXT_MSGFMT_EXECUTABLE)
+    MESSAGE("------
+    NOTE: msgfmt not found. Translations will *not* be installed
+------")
+ELSE(NOT GETTEXT_MSGFMT_EXECUTABLE)
+
+    SET(catalogname ${APPLICATION_PACKAGE_NAME})
+
+    FILE(GLOB PO_FILES po/*.po)
+    SET(GMO_FILES)
+
+    FOREACH(_poFile ${PO_FILES})
+        GET_FILENAME_COMPONENT(_poFileName ${_poFile} NAME)
+        STRING(REGEX REPLACE "^${catalogname}_?" "" _langCode ${_poFileName} )
+        STRING(REGEX REPLACE "\\.po$" "" _langCode ${_langCode} )
+
+        IF( _langCode )
+            GET_FILENAME_COMPONENT(_lang ${_poFile} NAME_WE)
+            SET(_gmoFile ${CMAKE_CURRENT_BINARY_DIR}/${_lang}.gmo)
+
+            ADD_CUSTOM_COMMAND(OUTPUT ${_gmoFile}
+                    COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} --check -o ${_gmoFile} ${_poFile}
+                    DEPENDS ${_poFile})
+            INSTALL(FILES ${_gmoFile} DESTINATION ${INSTALL_PATH_LOCALE}/${_langCode}/LC_MESSAGES/ RENAME ${catalogname}.mo)
+            LIST(APPEND GMO_FILES ${_gmoFile})
+        ENDIF( _langCode )
+
+    ENDFOREACH(_poFile ${PO_FILES})
+
+    ADD_CUSTOM_TARGET(translations ALL DEPENDS ${GMO_FILES})
+
+ENDIF(NOT GETTEXT_MSGFMT_EXECUTABLE)
+
+####################
 # Create Executable
 ####################
 
@@ -340,6 +389,14 @@ install(FILES "${PROJECT_SOURCE_DIR}/data/tv_channels.xml" DESTINATION ${INSTALL
 
 # Channels logos
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/data/images/channels/" DESTINATION ${INSTALL_PATH_SHARE}/images/channels/ FILES_MATCHING PATTERN "*.png")
+
+# Icons
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_16x16_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/16x16/apps/freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_22x22_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/22x22/apps/freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_32x32_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/32x32/apps/freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_48x48_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/48x48/apps/freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_64x64_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/64x64/apps/freetuxtv.png)
+install(FILES "${PROJECT_SOURCE_DIR}/data/icons/hicolor_apps_scalable_freetuxtv.png" DESTINATION ${INSTALL_PATH_ICONS}/hicolor/scalable/apps/freetuxtv.png)
 
 
 #################
