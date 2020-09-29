@@ -88,12 +88,19 @@
        git clone https://github.com/freetuxtv/freetuxtv.git
        cd freetuxtv
        ```
-   3) Build and install FreetuxTV
+   3-a) Build and install FreetuxTV (usign autotools)
        ```
        ./autogen.sh
        ./configure --prefix=/usr
        make
        sudo make install
+       ```
+   3-b) Build and install FreetuxTV (using cmake)
+       ```
+       cmake -G "Unix Makefiles" .
+       make
+       cpack -G DEB
+       gdebi freetuxtv-[...].deb
        ```
    4) Run FreetuxTV
       ```
