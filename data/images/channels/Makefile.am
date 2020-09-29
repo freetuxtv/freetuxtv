@@ -6,6 +6,7 @@ channels_logos = \
   1onairconnect.png \
   100pourcentradio.png \
   2mmaroc.png \
+  3sat.png \
   ab1.png \
   abmoteurs.png \
   abudhabitv.png \
@@ -13,6 +14,7 @@ channels_logos = \
   aci.png \
   action.png \
   adofm.png \
+  alexberlin.png \
   aljazeera.png \
   aljazeerachildren.png \
   aljazeerainternational.png \
@@ -24,12 +26,14 @@ channels_logos = \
   apsaratv.png \
   aptv.png \
   archeotv.png \
+  ardalpha.png \
   argentquebec.png \
   armeniapublictv.png \
   armeniatv.png \
   arretsurimages.png \
   artchannel.png \
   arte.png \
+  artehd.png \
   artplatv.png \
   astrocentertv.png \
   astv.png \
@@ -47,9 +51,11 @@ channels_logos = \
   beurtv.png \
   bfmradio.png \
   bfmtv.png \
+  bibeltv.png \
   biscottetv.png \
   bloombergtv.png \
   boardriderstv.png \
+  brhd.png \
   bulgariatv.png \
   c9.png \
   calaistv.png \
@@ -69,6 +75,7 @@ channels_logos = \
   canaltv.png \
   cap24-paris.png \
   cashtv.png \
+  cbnnews.png \
   cctv1.png \
   cctv2.png \
   cctv4.png \
@@ -98,11 +105,15 @@ channels_logos = \
   couleur3-rsr.png \
   cpac.png \
   ct2e.png \
+  daserstehd.png \
   demaintv.png \
   direct8.png \
   directstar.png \
+  dorftv.png \
+  dubaione.png \
   dubaitv.png \
   dwtv-deutschewelle.png \
+  ebs.png \
   ekodesgarrigues.png \
   equidia.png \
   ertworld.png \
@@ -153,6 +164,7 @@ channels_logos = \
   hiscore.png \
   hitmusictv.png \
   hitwest.png \
+  hr.png \
   hunansatellitetv.png \
   idf1.png \
   imedtv.png \
@@ -175,6 +187,8 @@ channels_logos = \
   kanal7int.png \
   kanal24.png \
   kanalavrupa.png \
+  kieltv.png \
+  kika.png \
   kiss-fm.png \
   kto.png \
   kuwaittv1.png \
@@ -205,6 +219,8 @@ channels_logos = \
   mcmpop.png \
   mcmtop.png \
   medi1sat.png \
+  mdr.png \
+  mellotv.png \
   metropolys.png \
   mezzo.png \
   mfm.png \
@@ -230,6 +246,7 @@ channels_logos = \
   nasatv.png \
   natgeomusic.png \
   nationalgeographic.png \
+  ndr.png \
   nhk.png \
   nightmagcom.png \
   nolife.png \
@@ -240,9 +257,35 @@ channels_logos = \
   nrjhits.png \
   nrjnouveautes.png \
   nrjparis.png \
+  nrwision.png \
   nt1.png \
   nti.png \
+  oe24tv.png \
+  okdessau.png \
+  okfulda.png \
+  okgiessen.png \
+  okkaiserslautern.png \
+  okkassel.png \
+  okkoblenz.png \
+  okmagdeburg.png \
+  okmerseburg.png \
+  oknahetv.png \
+  okrheinlokal.png \
+  okrheinmain.png \
+  oksalzwedel.png \
+  okstendal.png \
+  oksuedwestpfalz.png \
+  okto.png \
+  oktrier.png \
+  okweinstrasse.png \
+  okwernigerode.png \
+  okwettin.png \
+  onehd.png \
   orangesportinfos.png \
+  orf1hd.png \
+  orf2hd.png \
+  orf3hd.png \
+  orfsportplushd.png \
   orleanstv.png \
   ouesttv.png \
   ouifm.png \
@@ -250,6 +293,8 @@ channels_logos = \
   ozradio.png \
   parispremiere.png \
   parentheseradio.png \
+  parlament.png \
+  phoenix.png \
   phoenixchinesenewsandentertainment.png \
   phoenixinfonews.png \
   physiquetv.png \
@@ -295,7 +340,9 @@ channels_logos = \
   railtv.png \
   raitre.png \
   raiuno.png \
+  rbb.png \
   rbg.png \
+  rbtv.png \
   rdicanada.png \
   recordinternacional.png \
   relaxtv.png \
@@ -326,6 +373,7 @@ channels_logos = \
   sabcnews.png \
   samanyolutv.png \
   seebittv.png \
+  servustvhd.png \
   shanghaidragontv.png \
   shenzhen_tv.png \
   skynews.png \
@@ -334,9 +382,12 @@ channels_logos = \
   soleil_la_radio.png \
   soleiltv.png \
   souvenirfromearth.png \
+  srhd.png \
   stlfm.png \
   sudradio.png \
   suroyotv.png \
+  swrhd.png \
+  tagesschau24.png \
   tele102.png \
   teleblagon.png \
   telegrenoble.png \
@@ -367,6 +418,7 @@ channels_logos = \
   trt1.png \
   trtcocuk.png \
   trtint.png \
+  trtworld.png \
   tsfjazz.png \
   tv34.png \
   tv3cat-extvci.png \
@@ -397,15 +449,21 @@ channels_logos = \
   vietnam-vtv4.png \
   virgin17.png \
   virginradio.png \
+  voiceofamerica.png \
   voltage.png \
   voxafrica.png \
+  w24tv.png \
   w9.png \
+  wdrhd.png \
+  welt.png \
   weo.png \
   worldfashion.png \
   xiamenstartv.png \
   yementv.png \
   zahratv.png \
   zdf_de.png \
+  zdfinfohd.png \
+  zdfneohd.png \
   zhejiangstartv.png \
   zona31.png
 
