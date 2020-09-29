@@ -89,6 +89,7 @@ if(GTK3_FOUND)
     include_directories(${GTK3_INCLUDE_DIRS})
     link_directories(${GTK3_LIBRARY_DIRS})
     add_definitions(${GTK3_CFLAGS_OTHER} -DGTK_API_VERSION=3)
+    list(APPEND PACKAGE_DEPS "libgtk-3-0 (>= ${GTK3_VERSION})")
 endif()
 
 # Check for libnotify
@@ -102,6 +103,7 @@ if(LIBNOTIFY_FOUND)
     list(GET LIBNOTIFY_VERSION_LIST 1 LIBNOTIFY_VERSION_MINOR)
     list(GET LIBNOTIFY_VERSION_LIST 2 LIBNOTIFY_VERSION_REVISION)
     add_definitions(-DLIBNOTIFY_VERSION_MAJOR=${LIBNOTIFY_VERSION_MAJOR} -DLIBNOTIFY_VERSION_MINOR=${LIBNOTIFY_VERSION_MINOR} -DLIBNOTIFY_VERSION_REVISION=${LIBNOTIFY_VERSION_REVISION})
+    list(APPEND PACKAGE_DEPS "libnotify4 (>= ${LIBNOTIFY_VERSION})")
 endif()
 
 # Check for libvlc
@@ -115,6 +117,7 @@ if(LIBVLC_FOUND)
     list(GET LIBVLC_VERSION_LIST 1 LIBVLC_VERSION_MINOR)
     list(GET LIBVLC_VERSION_LIST 2 LIBVLC_VERSION_REVISION)
     add_definitions(-DLIBVLC_VERSION_MAJOR=${LIBVLC_VERSION_MAJOR} -DLIBVLC_VERSION_MINOR=${LIBVLC_VERSION_MINOR} -DLIBVLC_VERSION_REVISION=${LIBVLC_VERSION_REVISION})
+    list(APPEND PACKAGE_DEPS "libvlc5 (>= ${LIBVLC_VERSION})")
 endif()
 
 # Check for sqlite3
@@ -123,6 +126,7 @@ if(SQLITE3_FOUND)
     message(STATUS "Found sqlite3 ${SQLITE3_VERSION}")
     include_directories(${SQLITE3_INCLUDE_DIRS})
     link_directories(${SQLITE3_LIBRARY_DIRS})
+    list(APPEND PACKAGE_DEPS "libsqlite3-0 (>= ${SQLITE3_VERSION})")
 endif()
 
 # Check for curl
@@ -131,6 +135,7 @@ if(CURL_FOUND)
     message(STATUS "Found curl ${CURL_VERSION}")
     include_directories(${CURL_INCLUDE_DIRS})
     link_directories(${CURL_LIBRARY_DIRS})
+    list(APPEND PACKAGE_DEPS "libcurl4 (>= ${CURL_VERSION})")
 endif()
 
 ####################
