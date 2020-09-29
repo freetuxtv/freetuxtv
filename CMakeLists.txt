@@ -268,13 +268,11 @@ set(FREETUXTV_SRC
 # Translations
 ####################
 
-FIND_PROGRAM(GETTEXT_MSGFMT_EXECUTABLE msgfmt)
+find_program(GETTEXT_MSGFMT_EXECUTABLE msgfmt)
 
-IF(NOT GETTEXT_MSGFMT_EXECUTABLE)
-    MESSAGE("------
-    NOTE: msgfmt not found. Translations will *not* be installed
-------")
-ELSE(NOT GETTEXT_MSGFMT_EXECUTABLE)
+if(NOT GETTEXT_MSGFMT_EXECUTABLE)
+    message(FATAL "msgfmt not found")
+else(NOT GETTEXT_MSGFMT_EXECUTABLE)
 
     SET(catalogname ${APPLICATION_PACKAGE_NAME})
 
@@ -288,9 +286,10 @@ ELSE(NOT GETTEXT_MSGFMT_EXECUTABLE)
 
         IF( _langCode )
             GET_FILENAME_COMPONENT(_lang ${_poFile} NAME_WE)
-            SET(_gmoFile ${CMAKE_CURRENT_BINARY_DIR}/${_lang}.gmo)
+            SET(_gmoFile ${CMAKE_CURRENT_BINARY_DIR}/po/${_lang}.gmo)
 
             ADD_CUSTOM_COMMAND(OUTPUT ${_gmoFile}
+                    COMMAND mkdir -p ${CMAKE_CURRENT_BINARY_DIR}/po
                     COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} --check -o ${_gmoFile} ${_poFile}
                     DEPENDS ${_poFile})
             INSTALL(FILES ${_gmoFile} DESTINATION ${INSTALL_PATH_LOCALE}/${_langCode}/LC_MESSAGES/ RENAME ${catalogname}.mo)
@@ -303,12 +302,27 @@ ELSE(NOT GETTEXT_MSGFMT_EXECUTABLE)
 
 ENDIF(NOT GETTEXT_MSGFMT_EXECUTABLE)
 
+find_program(INTLTOOL_MERGE_EXECUTABLE intltool-merge)
+if(NOT INTLTOOL_MERGE_EXECUTABLE)
+    message(FATAL "intltool-merge not found")
+else(NOT INTLTOOL_MERGE_EXECUTABLE)
+    set(DESKTOP_FILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/data/menu/freetuxtv.desktop.in)
+    set(DESKTOP_FILE ${CMAKE_CURRENT_BINARY_DIR}/data/menu/freetuxtv.desktop)
+    ADD_CUSTOM_COMMAND(
+            OUTPUT ${DESKTOP_FILE}
+            COMMAND mkdir -p ${CMAKE_CURRENT_BINARY_DIR}/data/menu/
+            COMMAND ${INTLTOOL_MERGE_EXECUTABLE} -d ${CMAKE_CURRENT_SOURCE_DIR}/po/ ${DESKTOP_FILE_IN} ${DESKTOP_FILE}
+            DEPENDS ${DESKTOP_FILE_IN})
+
+    ADD_CUSTOM_TARGET(desktop_file ALL DEPENDS ${DESKTOP_FILE})
+endif()
+
 ####################
 # Create Executable
 ####################
 
 add_executable(${APPLICATION_EXE_NAME} ${LIBDBEVOLUTION_SRC} ${LIBVLCGTK_SRC} ${FREETUXTV_LIB_SRC} ${FREETUXTV_SRC})
-target_link_libraries(freetuxtv ${GTK3_LIBRARIES} ${LIBNOTIFY_LIBRARIES} ${LIBVLC_LIBRARIES} ${SQLITE3_LIBRARIES} ${CURL_LIBRARIES})
+target_link_libraries(${APPLICATION_EXE_NAME} ${GTK3_LIBRARIES} ${LIBNOTIFY_LIBRARIES} ${LIBVLC_LIBRARIES} ${SQLITE3_LIBRARIES} ${CURL_LIBRARIES})
 install(TARGETS ${APPLICATION_EXE_NAME} DESTINATION ${INSTALL_PATH_BIN})
 
 ############################
@@ -366,12 +380,8 @@ install(FILES "${PROJECT_BINARY_DIR}/INSTALL${DOCFILES_EXT}" DESTINATION ${INSTA
 ###############################
 
 # Desktop file
-configure_file (
-        "${PROJECT_SOURCE_DIR}/data/menu/freetuxtv.desktop.in"
-        "${PROJECT_BINARY_DIR}/data/menu/${APPLICATION_PACKAGE_NAME}.desktop"
-)
 if(UNIX AND NOT WIN32)
-    install(FILES ${PROJECT_BINARY_DIR}/data/menu/${APPLICATION_PACKAGE_NAME}.desktop DESTINATION ${INSTALL_PATH_APPLICATIONS})
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/freetuxtv.desktop DESTINATION ${INSTALL_PATH_APPLICATIONS})
 endif(UNIX AND NOT WIN32)
 
 # Splashscreen
