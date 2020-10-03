@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 15:38+0200\n"
-"PO-Revision-Date: 2016-05-07 15:39+0200\n"
-"Last-Translator: gogo <trebelnik2@gmail.com>\n"
+"POT-Creation-Date: 2020-10-03 22:27+0200\n"
+"PO-Revision-Date: 2020-10-03 22:28+0200\n"
+"Last-Translator: gogo <linux.hr@protonmail.com>\n"
 "Language-Team: hr@li.org\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -334,7 +334,7 @@ msgstr "Vrsta proxya:"
 
 #: ../data/ui/freetuxtv.glade.h:50
 msgid "Use authentification"
-msgstr "Koristi autentifikaciju"
+msgstr "Koristi ovjeru"
 
 #: ../data/ui/freetuxtv.glade.h:51
 msgid "Username:"
@@ -617,590 +617,598 @@ msgid "Web Radio (Croatian)"
 msgstr "Web radio (hrvatski)"
 
 #: ../data/channels_groups.xml.in.h:32
+msgid "Radio Browser Service (Croatian)"
+msgstr "Radio Browser usluga (hrvatski)"
+
+#: ../data/channels_groups.xml.in.h:33
 msgid "Czech Web TV and Radio"
 msgstr "Češki Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:33
+#: ../data/channels_groups.xml.in.h:34
 msgid "Web TV (Czech)"
 msgstr "Web TV (češki)"
 
-#: ../data/channels_groups.xml.in.h:34
+#: ../data/channels_groups.xml.in.h:35
 msgid "Web Radio (Czech)"
 msgstr "Web radio (češki)"
 
-#: ../data/channels_groups.xml.in.h:35
+#: ../data/channels_groups.xml.in.h:36
 msgid "Danish Web TV and Radio"
 msgstr "Danski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:36
+#: ../data/channels_groups.xml.in.h:37
 msgid "Web TV (Danish)"
 msgstr "Web TV (danski)"
 
-#: ../data/channels_groups.xml.in.h:37
+#: ../data/channels_groups.xml.in.h:38
 msgid "Dutch Web TV and Radio"
 msgstr "Nizozemski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:38
+#: ../data/channels_groups.xml.in.h:39
 msgid "Web TV (Dutch)"
 msgstr "Web TV (nizozemski)"
 
-#: ../data/channels_groups.xml.in.h:39
+#: ../data/channels_groups.xml.in.h:40
 msgid "Web Radio (Dutch)"
 msgstr "Web radio (nizozemski)"
 
-#: ../data/channels_groups.xml.in.h:40
+#: ../data/channels_groups.xml.in.h:41
 msgid "Web Cam (Dutch)"
 msgstr "Web kamera (nizozemski)"
 
-#: ../data/channels_groups.xml.in.h:41
+#: ../data/channels_groups.xml.in.h:42
 msgid "English Web TV and Radio"
 msgstr "Engleski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:42
+#: ../data/channels_groups.xml.in.h:43
 msgid "Web TV (English)"
 msgstr "Web TV (engleski)"
 
-#: ../data/channels_groups.xml.in.h:43
+#: ../data/channels_groups.xml.in.h:44
 msgid "Web Radio (English)"
 msgstr "Web radio (engleski)"
 
-#: ../data/channels_groups.xml.in.h:44
+#: ../data/channels_groups.xml.in.h:45
 msgid "Web Programmes (English)"
 msgstr "Web programi (engleski)"
 
-#: ../data/channels_groups.xml.in.h:45
+#: ../data/channels_groups.xml.in.h:46
 msgid "Web Cam (English)"
 msgstr "Web kamera (engleski)"
 
-#: ../data/channels_groups.xml.in.h:46
+#: ../data/channels_groups.xml.in.h:47
 msgid "Estonian Web TV and Radio"
 msgstr "Estonski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:47
+#: ../data/channels_groups.xml.in.h:48
 msgid "Web TV (Estonian)"
 msgstr "Web TV (estonski)"
 
-#: ../data/channels_groups.xml.in.h:48
+#: ../data/channels_groups.xml.in.h:49
 msgid "Finnish Web TV and Radio"
 msgstr "Finski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:49
+#: ../data/channels_groups.xml.in.h:50
 msgid "Web TV (Finnish)"
 msgstr "Web TV (finski)"
 
-#: ../data/channels_groups.xml.in.h:50
+#: ../data/channels_groups.xml.in.h:51
 msgid "French Web TV and Radio"
 msgstr "Francuski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:51
+#: ../data/channels_groups.xml.in.h:52
 msgid "Web TV (French)"
 msgstr "Web TV (francuski)"
 
-#: ../data/channels_groups.xml.in.h:52
+#: ../data/channels_groups.xml.in.h:53
 msgid "Web Radio (French)"
 msgstr "Web radio (francuski)"
 
-#: ../data/channels_groups.xml.in.h:53
+#: ../data/channels_groups.xml.in.h:54
 msgid "Web Programmes (French)"
 msgstr "Web programi (francuski)"
 
-#: ../data/channels_groups.xml.in.h:54
+#: ../data/channels_groups.xml.in.h:55
 msgid "Georgian Web TV and Radio"
 msgstr "Gruzijski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:55
+#: ../data/channels_groups.xml.in.h:56
 msgid "Web TV (Georgian)"
 msgstr "Web TV (gruzijski)"
 
-#: ../data/channels_groups.xml.in.h:56
+#: ../data/channels_groups.xml.in.h:57
 msgid "German Web TV and Radio"
 msgstr "Njemački Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:57
+#: ../data/channels_groups.xml.in.h:58
 msgid "Web TV (German)"
 msgstr "Web TV (njemački)"
 
-#: ../data/channels_groups.xml.in.h:58
+#: ../data/channels_groups.xml.in.h:59
 msgid "Web Radio (German)"
 msgstr "Web radio (njemački)"
 
-#: ../data/channels_groups.xml.in.h:59
+#: ../data/channels_groups.xml.in.h:60
+msgid "Kodinerds (German)"
+msgstr "Kodinerds (njemački)"
+
+#: ../data/channels_groups.xml.in.h:61
 msgid "Greek Web TV and Radio"
 msgstr "Grčki Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:60
+#: ../data/channels_groups.xml.in.h:62
 msgid "Web TV (Greek)"
 msgstr "Web TV (grčki)"
 
-#: ../data/channels_groups.xml.in.h:61
+#: ../data/channels_groups.xml.in.h:63
 msgid "Web Radio (Greek)"
 msgstr "Web radio (grčki)"
 
-#: ../data/channels_groups.xml.in.h:62
+#: ../data/channels_groups.xml.in.h:64
 msgid "Hebrew Web TV and Radio"
 msgstr "Hebrejski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:63
+#: ../data/channels_groups.xml.in.h:65
 msgid "Web TV (Hebrew)"
 msgstr "Web TV (hebrejski)"
 
-#: ../data/channels_groups.xml.in.h:64
+#: ../data/channels_groups.xml.in.h:66
 msgid "Web Radio (Hebrew)"
 msgstr "Web radio (hebrejski)"
 
-#: ../data/channels_groups.xml.in.h:65
+#: ../data/channels_groups.xml.in.h:67
 msgid "Web Cam (Hebrew)"
 msgstr "Web kamera (hebrejski)"
 
-#: ../data/channels_groups.xml.in.h:66
+#: ../data/channels_groups.xml.in.h:68
 msgid "Hindi Web TV and Radio"
 msgstr "Hindski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:67
+#: ../data/channels_groups.xml.in.h:69
 msgid "Web TV (Hindi)"
 msgstr "Web TV (hindski)"
 
-#: ../data/channels_groups.xml.in.h:68
+#: ../data/channels_groups.xml.in.h:70
 msgid "Web Radio (Hindi)"
 msgstr "Web radio (hindski)"
 
-#: ../data/channels_groups.xml.in.h:69
+#: ../data/channels_groups.xml.in.h:71
 msgid "Hungarian Web TV and Radio"
 msgstr "Mađarski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:70
+#: ../data/channels_groups.xml.in.h:72
 msgid "Web TV (Hungarian)"
 msgstr "Web TV (mađarski)"
 
-#: ../data/channels_groups.xml.in.h:71
+#: ../data/channels_groups.xml.in.h:73
 msgid "Web Radio (Hungarian)"
 msgstr "Web radio (mađarski)"
 
-#: ../data/channels_groups.xml.in.h:72
+#: ../data/channels_groups.xml.in.h:74
 msgid "Icelandic Web TV and Radio"
 msgstr "Islandski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:73
+#: ../data/channels_groups.xml.in.h:75
 msgid "Web TV (Icelandic)"
 msgstr "Web TV (islandski)"
 
-#: ../data/channels_groups.xml.in.h:74
+#: ../data/channels_groups.xml.in.h:76
 msgid "Indonesian Web TV and Radio"
 msgstr "Indonezijski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:75
+#: ../data/channels_groups.xml.in.h:77
 msgid "Web TV (Indonesian)"
 msgstr "Web TV (indonezijski)"
 
-#: ../data/channels_groups.xml.in.h:76
+#: ../data/channels_groups.xml.in.h:78
 msgid "Interlingua Web TV and Radio"
 msgstr "Međunarodni Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:77
+#: ../data/channels_groups.xml.in.h:79
 msgid "Web Radio (Interlingua)"
 msgstr "Web radio (međunarodni)"
 
-#: ../data/channels_groups.xml.in.h:78
+#: ../data/channels_groups.xml.in.h:80
 msgid "Irish Web TV and Radio"
 msgstr "Irski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:79
+#: ../data/channels_groups.xml.in.h:81
 msgid "Web TV (Irish)"
 msgstr "Web TV (irski)"
 
-#: ../data/channels_groups.xml.in.h:80
+#: ../data/channels_groups.xml.in.h:82
 msgid "Web Radio (Irish)"
 msgstr "Web radio (irski)"
 
-#: ../data/channels_groups.xml.in.h:81
+#: ../data/channels_groups.xml.in.h:83
 msgid "Italian Web TV and Radio"
 msgstr "Talijanski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:82
+#: ../data/channels_groups.xml.in.h:84
 msgid "Web TV (Italian)"
 msgstr "Web TV (talijanski)"
 
-#: ../data/channels_groups.xml.in.h:83
+#: ../data/channels_groups.xml.in.h:85
 msgid "Web Radio (Italian)"
 msgstr "Web radio (talijanski)"
 
-#: ../data/channels_groups.xml.in.h:84
+#: ../data/channels_groups.xml.in.h:86
 msgid "Japanese Web TV and Radio"
 msgstr "Japanski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:85
+#: ../data/channels_groups.xml.in.h:87
 msgid "Web TV (Japanese)"
 msgstr "Web TV (japanski)"
 
-#: ../data/channels_groups.xml.in.h:86
+#: ../data/channels_groups.xml.in.h:88
 msgid "Web Radio (Japanese)"
 msgstr "Web radio (japanski)"
 
-#: ../data/channels_groups.xml.in.h:87
+#: ../data/channels_groups.xml.in.h:89
 msgid "Web Cam (Japanese)"
 msgstr "Web kamera (japanski)"
 
-#: ../data/channels_groups.xml.in.h:88
+#: ../data/channels_groups.xml.in.h:90
 msgid "Kazakh Web TV and Radio"
 msgstr "Kazački Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:89
+#: ../data/channels_groups.xml.in.h:91
 msgid "Web TV (Kazakh)"
 msgstr "Web TV (kazački)"
 
-#: ../data/channels_groups.xml.in.h:90
+#: ../data/channels_groups.xml.in.h:92
 msgid "Korean Web TV and Radio"
 msgstr "Korejski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:91
+#: ../data/channels_groups.xml.in.h:93
 msgid "Web TV (Korean)"
 msgstr "Web TV (korejski)"
 
-#: ../data/channels_groups.xml.in.h:92
+#: ../data/channels_groups.xml.in.h:94
 msgid "Kurdish Web TV and Radio"
 msgstr "Kurdski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:93
+#: ../data/channels_groups.xml.in.h:95
 msgid "Web TV (Kurdish)"
 msgstr "Web TV (kurdski)"
 
-#: ../data/channels_groups.xml.in.h:94
+#: ../data/channels_groups.xml.in.h:96
 msgid "Latin Web TV and Radio"
 msgstr "Latinski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:95
+#: ../data/channels_groups.xml.in.h:97
 msgid "Web TV (Latin)"
 msgstr "Web TV (latinski)"
 
-#: ../data/channels_groups.xml.in.h:96
+#: ../data/channels_groups.xml.in.h:98
 msgid "Latvian/Lettish Web TV and Radio"
 msgstr "Letonski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:97
+#: ../data/channels_groups.xml.in.h:99
 msgid "Web TV (Latvian/Lettish)"
 msgstr "Web TV (letonski)"
 
-#: ../data/channels_groups.xml.in.h:98
+#: ../data/channels_groups.xml.in.h:100
 msgid "Lithuanian Web TV and Radio"
 msgstr "Litavski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:99
+#: ../data/channels_groups.xml.in.h:101
 msgid "Web TV (Lithuanian)"
 msgstr "Web TV (litavski)"
 
-#: ../data/channels_groups.xml.in.h:100
+#: ../data/channels_groups.xml.in.h:102
 msgid "Macedonian Web TV and Radio"
 msgstr "Makedonski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:101
+#: ../data/channels_groups.xml.in.h:103
 msgid "Web TV (Macedonian)"
 msgstr "Web TV (makedonski)"
 
-#: ../data/channels_groups.xml.in.h:102
+#: ../data/channels_groups.xml.in.h:104
 msgid "Web Radio (Macedonian)"
 msgstr "Web radio (makedonski)"
 
-#: ../data/channels_groups.xml.in.h:103
+#: ../data/channels_groups.xml.in.h:105
 msgid "Malay Web TV and Radio"
 msgstr "Malajski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:104
+#: ../data/channels_groups.xml.in.h:106
 msgid "Web TV (Malay)"
 msgstr "Web TV (malajski)"
 
-#: ../data/channels_groups.xml.in.h:105
+#: ../data/channels_groups.xml.in.h:107
 msgid "Malayalam Web TV and Radio"
 msgstr "Malajalamski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:106
+#: ../data/channels_groups.xml.in.h:108
 msgid "Web TV (Malayalam)"
 msgstr "Web TV (malajalamski)"
 
-#: ../data/channels_groups.xml.in.h:107
+#: ../data/channels_groups.xml.in.h:109
 msgid "Maltese Web TV and Radio"
 msgstr "Malteški Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:108
+#: ../data/channels_groups.xml.in.h:110
 msgid "Web TV (Maltese)"
 msgstr "Web TV (malteški)"
 
-#: ../data/channels_groups.xml.in.h:109
+#: ../data/channels_groups.xml.in.h:111
 msgid "Web Radio (Maltese)"
 msgstr "Web radio (malteški)"
 
-#: ../data/channels_groups.xml.in.h:110
+#: ../data/channels_groups.xml.in.h:112
 msgid "Moldavian Web TV and Radio"
 msgstr "Moldavski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:111
+#: ../data/channels_groups.xml.in.h:113
 msgid "Web TV (Moldavian)"
 msgstr "Web TV (moldavski)"
 
-#: ../data/channels_groups.xml.in.h:112
+#: ../data/channels_groups.xml.in.h:114
 msgid "Mongolian Web TV and Radio"
 msgstr "Mongolski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:113
+#: ../data/channels_groups.xml.in.h:115
 msgid "Web TV (Mongolian)"
 msgstr "Web TV (mongolski)"
 
-#: ../data/channels_groups.xml.in.h:114
+#: ../data/channels_groups.xml.in.h:116
 msgid "Norwegian Web TV and Radio"
 msgstr "Norveški Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:115
+#: ../data/channels_groups.xml.in.h:117
 msgid "Web TV (Norwegian)"
 msgstr "Web TV (norveški)"
 
-#: ../data/channels_groups.xml.in.h:116
+#: ../data/channels_groups.xml.in.h:118
 msgid "Persian Web TV and Radio"
 msgstr "Perzijski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:117
+#: ../data/channels_groups.xml.in.h:119
 msgid "Web TV (Persian)"
 msgstr "Web TV (perzijski)"
 
-#: ../data/channels_groups.xml.in.h:118
+#: ../data/channels_groups.xml.in.h:120
 msgid "Polish Web TV and Radio"
 msgstr "Poljski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:119
+#: ../data/channels_groups.xml.in.h:121
 msgid "Web TV (Polish)"
 msgstr "Web TV (poljski)"
 
-#: ../data/channels_groups.xml.in.h:120
+#: ../data/channels_groups.xml.in.h:122
 msgid "Web Radio (Polish)"
 msgstr "Web radio (poljski)"
 
-#: ../data/channels_groups.xml.in.h:121
+#: ../data/channels_groups.xml.in.h:123
 msgid "Web Cam (Polish)"
 msgstr "Web kamera (poljski)"
 
-#: ../data/channels_groups.xml.in.h:122
+#: ../data/channels_groups.xml.in.h:124
 msgid "Portuguese Web TV and Radio"
 msgstr "Portugalski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:123
+#: ../data/channels_groups.xml.in.h:125
 msgid "Web TV (Portuguese)"
 msgstr "Web TV (portugalski)"
 
-#: ../data/channels_groups.xml.in.h:124
+#: ../data/channels_groups.xml.in.h:126
 msgid "Web Radio (Portuguese)"
 msgstr "Web radio (portugalski)"
 
-#: ../data/channels_groups.xml.in.h:125
+#: ../data/channels_groups.xml.in.h:127
 msgid "Punjabi Web TV and Radio"
 msgstr "Panđapski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:126
+#: ../data/channels_groups.xml.in.h:128
 msgid "Web TV (Punjabi)"
 msgstr "Web TV (panđapski)"
 
-#: ../data/channels_groups.xml.in.h:127
+#: ../data/channels_groups.xml.in.h:129
 msgid "Romanian Web TV and Radio"
 msgstr "Rumunjski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:128
+#: ../data/channels_groups.xml.in.h:130
 msgid "Web TV (Romanian)"
 msgstr "Web TV (rumunjski)"
 
-#: ../data/channels_groups.xml.in.h:129
+#: ../data/channels_groups.xml.in.h:131
 msgid "Web Radio (Romanian)"
 msgstr "Web radio (rumunjski)"
 
-#: ../data/channels_groups.xml.in.h:130
+#: ../data/channels_groups.xml.in.h:132
 msgid "Russian Web TV and Radio"
 msgstr "Ruski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:131
+#: ../data/channels_groups.xml.in.h:133
 msgid "Web TV (Russian)"
 msgstr "Web TV (ruski)"
 
-#: ../data/channels_groups.xml.in.h:132
+#: ../data/channels_groups.xml.in.h:134
 msgid "Web Radio (Russian)"
 msgstr "Web radio (ruski)"
 
-#: ../data/channels_groups.xml.in.h:133
+#: ../data/channels_groups.xml.in.h:135
 msgid "Serbian Web TV and Radio"
 msgstr "Srpski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:134
+#: ../data/channels_groups.xml.in.h:136
 msgid "Web TV (Serbian)"
 msgstr "Web TV (srpski)"
 
-#: ../data/channels_groups.xml.in.h:135
+#: ../data/channels_groups.xml.in.h:137
 msgid "Web Radio (Serbian)"
 msgstr "Web radio (srpski)"
 
-#: ../data/channels_groups.xml.in.h:136
+#: ../data/channels_groups.xml.in.h:138
 msgid "Serbo-Croatian Web TV and Radio"
 msgstr "Srpsko-Hrvatski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:137
+#: ../data/channels_groups.xml.in.h:139
 msgid "Web TV (Serbo-Croatian)"
 msgstr "Web TV (srpsko-hrvatski)"
 
-#: ../data/channels_groups.xml.in.h:138
+#: ../data/channels_groups.xml.in.h:140
 msgid "Web Radio (Serbo-Croatian)"
 msgstr "Web radio (srpsko-hrvatski)"
 
-#: ../data/channels_groups.xml.in.h:139
+#: ../data/channels_groups.xml.in.h:141
 msgid "Slovak Web TV and Radio"
 msgstr "Slovački Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:140
+#: ../data/channels_groups.xml.in.h:142
 msgid "Web TV (Slovak)"
 msgstr "Web TV (slovački)"
 
-#: ../data/channels_groups.xml.in.h:141
+#: ../data/channels_groups.xml.in.h:143
 msgid "Web Radio (Slovak)"
 msgstr "Web radio (slovački)"
 
-#: ../data/channels_groups.xml.in.h:142
+#: ../data/channels_groups.xml.in.h:144
 msgid "Slovenian Web TV and Radio"
 msgstr "Slovenski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:143
+#: ../data/channels_groups.xml.in.h:145
 msgid "Web TV (Slovenian)"
 msgstr "Web TV (slovenski)"
 
-#: ../data/channels_groups.xml.in.h:144
+#: ../data/channels_groups.xml.in.h:146
 msgid "Web Radio (Slovenian)"
 msgstr "Web radio (slovenski)"
 
-#: ../data/channels_groups.xml.in.h:145
+#: ../data/channels_groups.xml.in.h:147
 msgid "Spanish Web TV and Radio"
 msgstr "Španjolski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:146
+#: ../data/channels_groups.xml.in.h:148
 msgid "Web TV (Spanish)"
 msgstr "Web TV (španjolski)"
 
-#: ../data/channels_groups.xml.in.h:147
+#: ../data/channels_groups.xml.in.h:149
 msgid "Web Radio (Spanish)"
 msgstr "Web radio (španjolski)"
 
-#: ../data/channels_groups.xml.in.h:148
+#: ../data/channels_groups.xml.in.h:150
 msgid "Web Programmes (Spanish)"
 msgstr "Web programi (španjolski)"
 
-#: ../data/channels_groups.xml.in.h:149
+#: ../data/channels_groups.xml.in.h:151
 msgid "Web Cam (Spanish)"
 msgstr "Web kamera (španjolski)"
 
-#: ../data/channels_groups.xml.in.h:150
+#: ../data/channels_groups.xml.in.h:152
 msgid "Swedish Web TV and Radio"
 msgstr "Švedski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:151
+#: ../data/channels_groups.xml.in.h:153
 msgid "Web TV (Swedish)"
 msgstr "Web TV (švedski)"
 
-#: ../data/channels_groups.xml.in.h:152
+#: ../data/channels_groups.xml.in.h:154
 msgid "Tagalog Web TV and Radio"
 msgstr "Tagaloški Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:153
+#: ../data/channels_groups.xml.in.h:155
 msgid "Web TV (Tagalog)"
 msgstr "Web TV (tagaloški)"
 
-#: ../data/channels_groups.xml.in.h:154
+#: ../data/channels_groups.xml.in.h:156
 msgid "Tamil Web TV and Radio"
 msgstr "Tamilski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:155
+#: ../data/channels_groups.xml.in.h:157
 msgid "Web TV (Tamil)"
 msgstr "Web TV (tamilski)"
 
-#: ../data/channels_groups.xml.in.h:156
+#: ../data/channels_groups.xml.in.h:158
 msgid "Thai Web TV and Radio"
 msgstr "Tajlandski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:157
+#: ../data/channels_groups.xml.in.h:159
 msgid "Web TV (Thai)"
 msgstr "Web TV (tajlandski)"
 
-#: ../data/channels_groups.xml.in.h:158
+#: ../data/channels_groups.xml.in.h:160
 msgid "Turkish Web TV and Radio"
 msgstr "Turski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:159
+#: ../data/channels_groups.xml.in.h:161
 msgid "Web TV (Turkish)"
 msgstr "Web TV (turski)"
 
-#: ../data/channels_groups.xml.in.h:160
+#: ../data/channels_groups.xml.in.h:162
 msgid "Web Radio (Turkish)"
 msgstr "Web radio (turski)"
 
-#: ../data/channels_groups.xml.in.h:161
+#: ../data/channels_groups.xml.in.h:163
 msgid "Turkmen Web TV and Radio"
 msgstr "Turkmenistanski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:162
+#: ../data/channels_groups.xml.in.h:164
 msgid "Web TV (Turkmen)"
 msgstr "Web TV (turkmenistanski)"
 
-#: ../data/channels_groups.xml.in.h:163
+#: ../data/channels_groups.xml.in.h:165
 msgid "Ukrainian Web TV and Radio"
 msgstr "Ukrajinski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:164
+#: ../data/channels_groups.xml.in.h:166
 msgid "Web TV (Ukrainian)"
 msgstr "Web TV (ukrajinski)"
 
-#: ../data/channels_groups.xml.in.h:165
+#: ../data/channels_groups.xml.in.h:167
 msgid "Web Cam (Ukrainian)"
 msgstr "Web kamera (ukrajinski)"
 
-#: ../data/channels_groups.xml.in.h:166
+#: ../data/channels_groups.xml.in.h:168
 msgid "Urdu Web TV and Radio"
 msgstr "Urdski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:167
+#: ../data/channels_groups.xml.in.h:169
 msgid "Web TV (Urdu)"
 msgstr "Web TV (urdski)"
 
-#: ../data/channels_groups.xml.in.h:168
+#: ../data/channels_groups.xml.in.h:170
 msgid "Uzbek Web TV and Radio"
 msgstr "Uzbečki Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:169
+#: ../data/channels_groups.xml.in.h:171
 msgid "Web TV (Uzbek)"
 msgstr "Web TV (uzbečki)"
 
-#: ../data/channels_groups.xml.in.h:170
+#: ../data/channels_groups.xml.in.h:172
 msgid "Vietnamese Web TV and Radio"
 msgstr "Vijetnamski Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:171
+#: ../data/channels_groups.xml.in.h:173
 msgid "Web TV (Vietnamese)"
 msgstr "Web TV (vijetnamski)"
 
-#: ../data/channels_groups.xml.in.h:172
+#: ../data/channels_groups.xml.in.h:174
 msgid "Web Radio (Vietnamese)"
 msgstr "Web radio (vijetnamski)"
 
-#: ../data/channels_groups.xml.in.h:173
+#: ../data/channels_groups.xml.in.h:175
 msgid "No lang Web TV and Radio"
 msgstr "Bezjezični Web TV i radio"
 
-#: ../data/channels_groups.xml.in.h:174
+#: ../data/channels_groups.xml.in.h:176
 msgid "Web TV (No lang)"
 msgstr "Web TV (bezjezični)"
 
-#: ../data/channels_groups.xml.in.h:175
+#: ../data/channels_groups.xml.in.h:177
 msgid "Web Radio (No lang)"
 msgstr "Web radio (bezjezični)"
 
-#: ../data/channels_groups.xml.in.h:176
+#: ../data/channels_groups.xml.in.h:178
 msgid "Web Programmes (No lang)"
 msgstr "Web programi (bezjezični)"
 
-#: ../data/channels_groups.xml.in.h:177
+#: ../data/channels_groups.xml.in.h:179
 msgid "Web Cam (No lang)"
 msgstr "Web kamera (bezjezični)"
 
-#: ../data/channels_groups.xml.in.h:178
+#: ../data/channels_groups.xml.in.h:180
 msgid "WebCam"
 msgstr "Web kamera"
 
@@ -1867,6 +1875,9 @@ msgstr "Snimanje: %s"
 #: ../src/main.c:1494
 msgid "Are you sure you want to quit?"
 msgstr "Sigurno želite prekinuti?"
+
+#~ msgid "Web Radio Playlist (Croatian)"
+#~ msgstr "Web radio popis izvođenja (hrvatski)"
 
 #~ msgid "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
 #~ msgstr "http://freetuxtv.googlecode.com/svn/trunk/data/channels_groups.xml"
