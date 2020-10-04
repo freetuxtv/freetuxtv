@@ -65,6 +65,7 @@
 	<language id="hr" lang="Croatian Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_hr.m3u" name="Web TV (Croatian)"></channels_group>
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_hr.m3u" name="Web Radio (Croatian)"></channels_group>
+		<channels_group uri="https://raw.githubusercontent.com/muzena/freetuxtv/radio_playlists/croatian_radios.m3u" name="Radio Browser Service (Croatian)"></channels_group>
 	</language>
 	<language id="cs" lang="Czech Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_cs.m3u" name="Web TV (Czech)"></channels_group>
