@@ -1519,4 +1519,3079 @@
 	<tvchannel name="Zona 31">
 		<logo_filename>zona31.png</logo_filename>
 	</tvchannel>
+<!-- ####################     CROATIAN TV-CHANNELS/RADIOS START   ########################### -->
+<!-- ######################################################################################## -->
+<!-- #############     TV CHANNELS START   ################# -->
+	<tvchannel name="3sat">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>3sattv_hrv.png</logo_filename>
+		<website>https://www.3sat.de/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/97/3sat.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="24Kitchen">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>24kitchentv_hrv.png</logo_filename>
+		<website>https://www.24kitchen.com.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/247/24kitchen.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="A1 Info Kanal">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1infokanaltv_hrv.png</logo_filename>
+		<label>Infokanal</label>
+		<label>A1 INFO KANAL</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="A1 Kanal mjeseca">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1kanalmjesecatv_hrv.png</logo_filename>
+		<label>Kanal mjeseca</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="A1 Mozaik">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1mozaiktv_hrv.png</logo_filename>
+		<label>Mozaik</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="A1 Test 1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1test1tv_hrv.png</logo_filename>
+		<label>Test 01</label>
+		<label>Test 1</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="A1 Test 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1test2tv_hrv.png</logo_filename>
+		<label>Test 02</label>
+		<label>Test 2</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="A1 Test 3">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1test3tv_hrv.png</logo_filename>
+		<label>Test 21</label>
+		<label>Test 3</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="A1 Test 4">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1test4tv_hrv.png</logo_filename>
+		<label>Test 22</label>
+		<label>Test 4</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="A1 Test 5">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1test5tv_hrv.png</logo_filename>
+		<label>Test 05</label>
+		<label>Test 5</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="A1 Test 6">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1test6tv_hrv.png</logo_filename>
+		<label>Test 06</label>
+		<label>Test 6</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="A1 Test 7">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1test7tv_hrv.png</logo_filename>
+		<label>Test 07</label>
+		<label>Test 7</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="A1 Test 8">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>a1test8tv_hrv.png</logo_filename>
+		<label>Test 08</label>
+		<label>Test 8</label>
+		<website>https://www.a1.hr/privatni/televizija/popis-programa/ </website>
+	</tvchannel>
+	<tvchannel name="Adult Channel">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>adultchanneltv_hrv.png</logo_filename>
+		<!-- <website> </website> -->
+		<guide_url>https://mojtv.hr/kanal/tv-program/131/adult-channel.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Al Jazeera Balkans">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>aljazeerabalkanstv_hrv.png</logo_filename>
+		<website>http://balkans.aljazeera.net/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/270/al-jazeera-balkans.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Al Jazeera English">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>aljazeeraenglishtv_hrv.png</logo_filename>
+		<website>https://www.aljazeera.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/271/al-jazeera-int.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="AMC">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>amctv_hrv.png</logo_filename>
+		<label>AMC HD</label>
+		<label>amc</label>
+		<label>amc hd</label>
+		<website>https://www.amc.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/529/amc.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Arena Sport 1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>arenasport1tv_hrv.png</logo_filename>
+		<label>ARENA SPORT 1</label>
+		<website>https://www.tvarenasport.hr/tv-program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/179/arena-sport-1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Arena Sport 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>arenasport2tv_hrv.png</logo_filename>
+		<label>ARENA SPORT 2</label>
+		<website>https://www.tvarenasport.hr/tv-program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/180/arena-sport-2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Arena Sport 3">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>arenasport3tv_hrv.png</logo_filename>
+		<label>ARENA SPORT 3</label>
+		<website>https://www.tvarenasport.hr/tv-program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/253/arena-sport-3.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Arena Sport 4">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>arenasport4tv_hrv.png</logo_filename>
+		<label>ARENA SPORT 4</label>
+		<website>https://www.tvarenasport.hr/tv-program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/264/arena-sport-4.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Arena Sport 5">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>arenasport5tv_hrv.png</logo_filename>
+		<label>ARENA SPORT 5</label>
+		<website>https://www.tvarenasport.hr/tv-program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/460/arena-sport-5.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Arena Sport 6">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>arenasport6tv_hrv.png</logo_filename>
+		<label>ARENA SPORT 6</label>
+		<website>https://www.tvarenasport.hr/tv-program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/533/arena-sport-6.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="arte">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>artetv_hrv.png</logo_filename>
+		<website>https://www.arte.tv/en/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/126/arte.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="arte HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>artehdtv_hrv.png</logo_filename>
+		<website>https://www.arte.tv/en/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/157/arte-hd.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Auto Motor und Sport">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>automotorundsporttv_hrv.png</logo_filename>
+		<website>https://www.auto-motor-und-sport.de/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/660/auto-motor-und-sport.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="AXN">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>axntv_hrv.png</logo_filename>
+		<label>Axn</label>
+		<label>axn</label>
+		<website>https://www.axn.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/112/axn.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="AXN Spin">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>axnspintv_hrv.png</logo_filename>
+		<label>Axn Spin</label>
+		<label>AXN SPIN</label>
+		<label>axn spin</label>
+		<website>https://www.axnspin.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/528/axn-spin.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Baby TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>babytv_hrv.png</logo_filename>
+		<website>https://www.babytv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/167/baby-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Balkanika TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>balkanikatv_hrv.png</logo_filename>
+		<label>Balkanika TV HD</label>
+		<website>https://balkanika.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/605/balkanika-tv-hd.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Bang U">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>bangutv_hrv.png</logo_filename>
+		<website>http://www.bangutv.com/ </website>
+		<!-- <guide_url> </guide_url> -->
+	</tvchannel>
+	<tvchannel name="BBC First">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>bbcfirsttv_hrv.png</logo_filename>
+		<label>BBC FIRST</label>
+		<website>https://www.bbcchannels.com/bbc-europe/tv-guide/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/678/bbc-first.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="BBC Entertainment">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>bbcentertainmenttv_hrv.png</logo_filename>
+		<label>BBC ENTERTAINMENT</label>
+		<website>https://www.bbcchannels.com/bbc-europe/tv-guide/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/44/bbc-entertainment.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="BBC World News">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>bbcworldnewstv_hrv.png</logo_filename>
+		<label>BBC WORLD NEWS</label>
+		<website>https://www.bbc.com/news/world/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/266/bbc-world.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Babes TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>purebabestv_hrv.png</logo_filename>
+		<!-- <website> </website>
+		<guide_url> </guide_url> -->
+	</tvchannel>
+	<tvchannel name="Pure Babes">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>purebabestv_hrv.png</logo_filename>
+		<!-- <website> </website>
+		<guide_url> </guide_url> -->
+	</tvchannel>
+	<tvchannel name="Body in Balance">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>bodyinbalancetv_hrv.png</logo_filename>
+		<label>BODY IN BALANCE</label>
+		<website>https://bodyinbalance.tv/tv-channel/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/149/body-in-balance.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Boomerang">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>boomerangtv_hrv.png</logo_filename>
+		<website>https://www.boomerangtv.co.uk/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/54/boomerang.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Box Hits">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>boxhitstv_hrv.png</logo_filename>
+		<website>https://www.boxplus.com/ </website>
+		<!-- <guide_url>https://mojtv.hr/kanal/tv-program/54/boomerang.aspx </guide_url> -->
+	</tvchannel>
+	<tvchannel name="Brazzers TV Europe">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>brazzerstveuropetv_hrv.png</logo_filename>
+		<website>http://www.brazzerstv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/130/brazzers-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Carli TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>carlitv_hrv.png</logo_filename>
+		<label>Čarli TV</label>
+		<!-- <website> </website> -->
+		<guide_url>https://mojtv.hr/kanal/tv-program/333/carli-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Cartoon Network">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cartoonnetworktv_hrv.png</logo_filename>
+		<website>https://www.cartoonnetworkhq.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/248/cartoon-network-rse.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CBS Reality">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cbsrealitytv_hrv.png</logo_filename>
+		<website>http://www.cbsreality.tv/eu/tv_guide.php/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/76/cbs-reality.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Cinemax">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinemaxtv_hrv.png</logo_filename>
+		<label>CINEMAX</label>
+		<website>http://www.cinemax.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/105/cinemax.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Cinemax HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinemaxhdtv_hrv.png</logo_filename>
+		<label>CINEMAX HD</label>
+		<website>http://www.cinemax.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/105/cinemax.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Cinemax 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinemax2tv_hrv.png</logo_filename>
+		<label>CINEMAX 2</label>
+		<website>http://www.cinemax.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/136/cinemax-2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Cinemax 2 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinemax2hdtv_hrv.png</logo_filename>
+		<label>CINEMAX 2 HD</label>
+		<website>http://www.cinemax.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/136/cinemax-2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CineStar TV 1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestartv_hrv.png</logo_filename>
+		<label>CINESTAR TV 1</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/106/cinestar-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Cinestar TV 1 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestarhdtv_hrv.png</logo_filename>
+		<label>CINESTAR TV HD</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/106/cinestar-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CineStar TV Action and Thriller">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestaractionandthriller_hrv.png</logo_filename>
+		<label>CINESTAR ACTION AND THRILLER</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/218/cinestar-action-thriller.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CineStar TV Action and Thriller HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestaractionandthrillerhd_hrv.png</logo_filename>
+		<label>CINESTAR ACTION AND THRILLER HD</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/218/cinestar-action-thriller.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Cinestar Comedy">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestarcomedytv_hrv.png</logo_filename>
+		<label>CINESTAR COMEDY</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/664/cinestar-tv-comedy.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Cinestar Comedy HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestarcomedyhdtv_hrv.png</logo_filename>
+		<label>CINESTAR COMEDY HD</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/664/cinestar-tv-comedy.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Cinestar Fantasy">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestarfantasytv_hrv.png</logo_filename>
+		<label>CINESTAR FANTASY</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/599/cinestar-fantasy.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Cinestar Fantasy HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestarfantasyhdtv_hrv.png</logo_filename>
+		<label>CINESTAR FANTASY HD</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/599/cinestar-fantasy.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CineStar Premiere">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestarpremieretv_hrv.png</logo_filename>
+		<label>CINESTAR PREMIERE</label>
+		<label>CineStar TV Premiere 1</label>
+		<label>CINESTAR PREMIERE 1</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/361/cinestar-premiere-1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CineStar Premiere HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestarpremierehdtv_hrv.png</logo_filename>
+		<label>CINESTAR PREIMERE HD</label>
+		<label>CineStar TV Premiere 1 HD</label>
+		<label>CINESTAR PREIMERE 1 HD</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/361/cinestar-premiere-1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CineStar Premiere 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestarpremiere2tv_hrv.png</logo_filename>
+		<label>CineStar TV Premiere 2</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/362/cinestar-premiere-2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CineStar Premiere 2 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cinestarpremiere2hdtv_hrv.png</logo_filename>
+		<label>CineStar TV Premiere 2 HD</label>
+		<label>CINESTAR PREIMERE 2 HD</label>
+		<website>https://cinestartvchannels.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/362/cinestar-premiere-2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CGTN">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cgtntv_hrv.png</logo_filename>
+		<website>https://www.cgtn.com/ </website>
+		<!-- <guide_url>https://mojtv.hr/kanal/tv-program/436/cnn.aspx </guide_url> -->
+	</tvchannel>
+	<tvchannel name="CMC">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cmctv_hrv.png</logo_filename>
+		<label>CMC TV</label>
+		<label>CMCTV</label>
+		<website>http://cmc.com.hr/program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/32/cmc.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CNBC">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cnbctv_hrv.png</logo_filename>
+		<website>https://www.cnbc.com/world/?region=world </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/79/cnbc.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="CNN">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cnntv_hrv.png</logo_filename>
+		<website>https://edition.cnn.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/436/cnn.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Comedy Central Extra">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>comedycentralextratv_hrv.png</logo_filename>
+		<label>COMEDY CENTRAL EXTRA</label>
+		<website>http://www.comedycentral.co.uk/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/323/comedy-central-extra.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Das Erste HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>daserstehdtv_hrv.png</logo_filename>
+		<label>DAS ERSTE HD</label>
+		<website>https://live.daserste.de/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/170/das-erste-hd.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Da Vinci">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>davincitv_hrv.png</logo_filename>
+		<label>Da Vinci Learning</label>
+		<website>https://www.davincikids.tv/tv-schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/269/da-vinci-learning.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Diadora TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>diadoratv_hrv.png</logo_filename>
+		<website>https://www.diadora.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/676/diadora-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="DIVA">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>divatv_hrv.png</logo_filename>
+		<label>Diva</label>
+		<website>https://hr-hr.facebook.com/divaadriatv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/40/diva.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Dizi">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>dizi_hrv.png</logo_filename>
+		<website>http://timelessdramachannel.com/ </website>
+		<!-- <guide_url> </guide_url> -->
+	</tvchannel>
+	<tvchannel name="DM SAT">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>dmsattv_hrv.png</logo_filename>
+		<website>https://www.dmsat.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/249/dm-sat.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="DMC">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>dmctv_hrv.png</logo_filename>
+		<website>http://dmc.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/343/dmc.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Dorcel TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>dorceltv_hrv.png</logo_filename>
+		<website>https://www.dorceltv.com/?aff=9436 </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/259/dorcel-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Dorcel HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>dorcelhdtv_hrv.png</logo_filename>
+		<website>https://www.dorceltv.com/?aff=9436 </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/259/dorcel-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Dusk! TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>dusktv_hrv.png</logo_filename>
+		<website>https://www.dusk-tv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/482/dusk.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Dr. Fit">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>drfittv_hrv.png</logo_filename>
+		<website>https://www.intheboxtv.eu/channel/dr-fit/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/506/dr-fit.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="DocuBox">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>docuboxtv_hrv.png</logo_filename>
+		<label>DocuBox HD</label>
+		<website>https://www.docuboxlive.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/499/docubox.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Doku TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>dokutv_hrv.png</logo_filename>
+		<label>DOKU TV</label>
+		<website>https://www.dokutv.net/hr/epg/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/614/doku-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="DOMA TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>domatv_hrv.png</logo_filename>
+		<label>DOMA </label>
+		<label>Doma </label>
+		<label>Doma TV</label>
+		<website>https://domatv.dnevnik.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/1/htv1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="DOMA TV HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>domahdtv_hrv.png</logo_filename>
+		<label>DOMA HD</label>
+		<label>Doma HD</label>
+		<label>Doma TV HD</label>
+		<website>https://domatv.dnevnik.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/1/htv1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Duck TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>ducktv_hrv.png</logo_filename>
+		<website>https://www.ducktv.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/144/duck-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Duna TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>dunatv_hrv.png</logo_filename>
+		<website>https://mediaklikk.hu/duna/ </website>
+		<!-- <guide_url>https://mojtv.hr/kanal/tv-program/144/duck-tv.aspx </guide_url> -->
+	</tvchannel>
+	<tvchannel name="DUTV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>dutv_hrv.png</logo_filename>
+		<label>DU TV</label>
+		<website>https://dutv.hr/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/313/dubrovacka-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Deutsche Welle">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>deutschewelletv_hrv.png</logo_filename>
+		<website>https://www.dw.com/hr/teme/s-9747 </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/288/deutsche-welle.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="E!">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>entertainmenttv_hrv.png</logo_filename>
+		<label>E entertainment</label>
+		<website>https://www.eonline.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/82/e-entertainment.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Epic Drama">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>epicdramatv_hrv.png</logo_filename>
+		<website>https://www.epicdrama.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/634/epic-drama.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="ESports">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>esportstv_hrv.png</logo_filename>
+		<label>ESPORTS</label>
+		<website>https://www.esportstv.org/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/536/esportstv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Eurochannel">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>eurochanneltv_hrv.png</logo_filename>
+		<label>Eurochannel HD</label>
+		<label>EUROCHANNEL</label>
+		<label>EUROCHANNEL HD</label>
+		<website>http://www.eurochannel.com/en/ </website>
+	</tvchannel>
+	<tvchannel name="Euronews">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>euronewstv_hrv.png</logo_filename>
+		<website>https://www.euronews.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/78/euronews.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Eurosport">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>eurosport1tv_hrv.png</logo_filename>
+		<label>Eurosport 1</label>
+		<label>EUROSPORT</label>
+		<label>EUROSPORT 1</label>
+		<website>https://www.eurosport.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/50/eurosport.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Eurosport 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>eurosport2tv_hrv.png</logo_filename>
+		<label>EUROSPORT 2</label>
+		<website>https://www.eurosport.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/51/eurosport-2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Extra TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>extratv_hrv.png</logo_filename>
+		<website>https://extrafm.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/671/extra-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Extreme Sports">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>extremesportstv_hrv.png</logo_filename>
+		<label>EUROSPORT 2</label>
+		<website>http://extreme.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/66/extreme-sports.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fashion TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>fashiontelevisiontv_hrv.png</logo_filename>
+		<label>Fashion Television</label>
+		<label>Fashion One</label>
+		<website>https://fashiontelevision.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/679/fashion-one.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fast and Fun Box">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>fastandfuntv_hrv.png</logo_filename>
+		<label>FAST AND FUN BOX</label>
+		<website>http://fastandfunbox.com/program/fastandfunbox,2019-06-05,pl,69956#seans_69956/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/500/fastfun-box.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Federalna TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>federalnatv_hrv.png</logo_filename>
+		<website>http://www.rtvfbih.ba/loc/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/25/ftv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fight Channel">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>fightchanneltv_hrv.png</logo_filename>
+		<label>FIGHT CHANNEL</label>
+		<label>FC</label>
+		<website>http://fightchannel.hr/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/280/fight-channel.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fight Channel World">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>fightchannelworldtv_hrv.png</logo_filename>
+		<label>FC World</label>
+		<label>FC WORLD</label>
+		<guide_url>https://mojtv.hr/kanal/tv-program/473/fight-channel-world.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fight Channel World HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>fightchannelworldtv_hrv.png</logo_filename>
+		<label>FIGHT CHANNEL WORLD HD</label>
+		<label>FC World HD</label>
+		<label>FC WORLD HD</label>
+		<guide_url>https://mojtv.hr/kanal/tv-program/473/fight-channel-world.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Filmbox Arthouse">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>filmboxarthousetv_hrv.png</logo_filename>
+		<label>FilmBox ArtHouse</label>
+		<label>FILMBOX ARTHOUSE</label>
+		<label>Filmbox Arthouse HD</label>
+		<label>FilmBox ArtHouse HD</label>
+		<label>FILMBOX ARTHOUSE HD</label>
+		<website>https://www.filmboxlive.com/hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/497/arthouse.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Filmbox Extra">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>filmboxextratv_hrv.png</logo_filename>
+		<label>FilmBox Extra</label>
+		<label>FILMBOX EXTRA</label>
+		<website>https://www.filmboxlive.com/hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/496/filmbox-extra-hd.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Filmbox Extra HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>filmboxextrahdtv_hrv.png</logo_filename>
+		<label>FilmBox Extra HD</label>
+		<label>FILMBOX EXTRA HD</label>
+		<website>https://www.filmboxlive.com/hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/496/filmbox-extra-hd.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Filmbox Plus">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>filmboxplustv_hrv.png</logo_filename>
+		<label>FilmBox Plus</label>
+		<label>FILMBOX PLUS</label>
+		<label>Filmbox Plus HD</label>
+		<label>FilmBox Plus HD</label>
+		<label>FILMBOX PLUS HD</label>
+		<website>https://www.filmboxlive.com/hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/495/filmbox-plus.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Filmbox Plus HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>filmboxplushdtv_hrv.png</logo_filename>
+		<label>FilmBox Plus HD</label>
+		<label>FILMBOX PLUS HD</label>
+		<label>Filmbox Plus HD</label>
+		<label>FILMBOX PLUS HD</label>
+		<website>https://www.filmboxlive.com/hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/495/filmbox-plus.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Filmbox Premium">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>filmboxpremiumtv_hrv.png</logo_filename>
+		<label>FilmBox Premium</label>
+		<label>FILMBOX Premium</label>
+		<website>https://www.filmboxlive.com/hr/ </website>
+	</tvchannel>
+	<tvchannel name="Filmbox Premium HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>filmboxpremiumhdtv_hrv.png</logo_filename>
+		<label>FilmBox Premium HD</label>
+		<label>FILMBOX Premium HD</label>
+		<website>https://www.filmboxlive.com/hr/ </website>
+	</tvchannel>
+	<tvchannel name="Film Box Stars">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>filmboxstars_hrv.png</logo_filename>
+		<website>https://www.filmboxlive.com/hr/ </website>
+	</tvchannel>
+	<tvchannel name="Fine Living">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>finelivingtv_hrv.png</logo_filename>
+		<website>http://www.finelivingnetwork.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/318/fine-living-network.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fox">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>foxtv_hrv.png</logo_filename>
+		<label>FOX</label>
+		<website>https://www.foxtv.hr/raspored/fox/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/319/fox.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fox Crime">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>foxcrimetv_hrv.png</logo_filename>
+		<label>FOX CRIME</label>
+		<website>https://www.foxtv.hr/raspored/foxcrime/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/70/fox-crime.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fox Life">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>foxlifetv_hrv.png</logo_filename>
+		<label>FOX LIFE</label>
+		<website>https://www.foxtv.hr/raspored/foxlife/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/69/fox-life.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fox Movies">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>foxmoviestv_hrv.png</logo_filename>
+		<label>FOX MOVIES</label>
+		<website>https://www.foxtv.hr/raspored/fox-movies/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/286/fox-movies.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fox News">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>foxnewstv_hrv.png</logo_filename>
+		<label>FOX NEWS</label>
+		<website>https://www.foxnews.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/334/fox-news.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="France 24 (fra)">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>francetv_hrv.png</logo_filename>
+		<label>France 24 HD (fra)</label>
+		<website>https://www.france24.com/en/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/272/france-24.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="France 24 (eng)">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>franceenglishtv_hrv.png</logo_filename>
+		<label>France 24 HD (eng)</label>
+		<website>https://www.france24.com/en/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/272/france-24.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Food Network">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>foodnetworktv_hrv.png</logo_filename>
+		<website>http://www.foodnetwork.co.uk/tv-guide.html/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/265/food-network.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Fuel TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>fueltv_hrv.png</logo_filename>
+		<label>FUEL TV</label>
+		<website>https://fuel.tv/schedule/today/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/359/fuel-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="FullTV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>fulltv_hrv.png</logo_filename>
+		<label>Full TV</label>
+		<label>FULL TV</label>
+		<label>FULLTV</label>
+		<website>https://fulltv.fullbusiness.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/254/full-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="GameBar">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>gamebartv_hrv.png</logo_filename>
+		<website>http://www.gamebar.hr/ </website>
+		<!-- <guide_url> </guide_url> -->
+	</tvchannel>
+	<tvchannel name="Gametoon">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>gametoontv_hrv.png</logo_filename>
+		<label>GAMETOON</label>
+		<website>http://www.gametoon.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/630/gametoon.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Gametoon HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>gametoonhdtv_hrv.png</logo_filename>
+		<label>GAMETOON HD</label>
+		<website>http://www.gametoon.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/630/gametoon.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Ginx">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>ginxtv_hrv.png</logo_filename>
+		<website>https://ginx.tv/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/311/ginx.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Golica TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>golicatv_hrv.png</logo_filename>
+		<website>https://golica.si/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/332/tv-golica.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Grand TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>grandtv_hrv.png</logo_filename>
+		<website>https://hr-hr.facebook.com/GrandTelevizija/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/456/grand-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Happy TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>happytv_hrv.png</logo_filename>
+		<website>http://happytv.rs/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/278/happy-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Hayat PLUS">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hayatplustv_hrv.png</logo_filename>
+		<website>https://hayat.ba/hayat-na-satelitu/ </website>
+		<!-- <guide_url>https://mojtv.hr/kanal/tv-program/41/hbo.aspx </guide_url> -->
+	</tvchannel>
+	<tvchannel name="HBO">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hbotv_hrv.png</logo_filename>
+		<website>https://www.hbo.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/41/hbo.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HBO HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hbohdtv_hrv.png</logo_filename>
+		<website>https://www.hbo.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/41/hbo.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HBO 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hbo2tv_hrv.png</logo_filename>
+		<website>https://www.hbo.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/42/hbo2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HBO 2 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hbo2hdtv_hrv.png</logo_filename>
+		<website>https://www.hbo.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/42/hbo2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HBO 3">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hbo3tv_hrv.png</logo_filename>
+		<label>HBO 3 HD</label>
+		<website>https://www.hbo.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/514/hbo3.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HBO 3 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hbo3hdtv_hrv.png</logo_filename>
+		<website>https://www.hbo.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/514/hbo3.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="History">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>historytv_hrv.png</logo_filename>
+		<label>HISTORY</label>
+		<website>https://www.history.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/140/history-channel.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="History HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>historyhdtv_hrv.png</logo_filename>
+		<label>HISTORY HD</label>
+		<website>https://www.history.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/140/history-channel.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HNTV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hntvtv_hrv.png</logo_filename>
+		<label>hntv</label>
+		<website>https://www.hntv.hr/tv-program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/524/hntv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Horror Channel">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>horrorchanneltv_hrv.png</logo_filename>
+		<label>HORROR CHANNEL</label>
+		<website>http://www.horrorchannel.co.uk/tv_guide.php/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/382/horror-channel.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HRT 1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrt1tv_hrv.png</logo_filename>
+		<label>HRT1</label>
+		<label>HTV 1</label>
+		<label>HTV1</label>
+		<label>HTV1</label>
+		<website>https://raspored.hrt.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/1/htv1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HRT 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrt2tv_hrv.png</logo_filename>
+		<label>HRT2</label>
+		<label>HTV 2</label>
+		<label>HTV2</label>
+		<website>https://raspored.hrt.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/2/htv2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HRT 3">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrt3tv_hrv.png</logo_filename>
+		<label>HRT3</label>
+		<label>HTV 3</label>
+		<label>HTV3</label>
+		<website>https://raspored.hrt.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/310/htv3.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HRT 4">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrt4tv_hrv.png</logo_filename>
+		<label>HRT4</label>
+		<label>HTV 4</label>
+		<label>HTV4</label>
+		<website>https://raspored.hrt.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/341/htv-4.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="HRT Int">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>HRTinttv_hrv.png</logo_filename>
+		<label>HRT INT</label>
+		<label>HTV INT</label>
+		<label>HTV Int</label>
+		<label>HRTINT</label>
+		<label>HTVINT</label>
+		<label>HTVInt</label>
+		<label>HTV 5</label>
+		<label>HTV5</label>
+		<website>https://raspored.hrt.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Hustler TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hustlertvtv_hrv.png</logo_filename>
+		<website>https://hustlertv.eu/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/128/hustler.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Hustler HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hustlerhdtv_hrv.png</logo_filename>
+		<website>https://hustlerhd.eu/ </website>
+		<!-- <guide_url>https://mojtv.hr/kanal/tv-program/128/hustler.aspx </guide_url> -->
+	</tvchannel>
+	<tvchannel name="IDJ">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>idjtv_hrv.png</logo_filename>
+		<label>IDJ TV</label>
+		<website>https://idjtv.com/tv/uzivo-tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/677/idj.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Jabuka TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>jabukatv_hrv.png</logo_filename>
+		<label>JabukaTV</label>
+		<label>JABUKA TV</label>
+		<website>http://jabukatv.hr/danas/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/6/jabuka-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Jugoton TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>jugotontv_hrv.png</logo_filename>
+		<label>Jugoton</label>
+		<website>http://cmc.com.hr/category/jugotontv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/308/jugoton-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Jim Jam">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>jimjamtv_hrv.png</logo_filename>
+		<website>http://pe.jimjam.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/154/jimjam.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Kanal 5">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kanal5tv_hrv.png</logo_filename>
+		<label>KANAL 5</label>
+		<website>https://www.facebook.com/kanal5split/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/124/kanal-5.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="KanalRi">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kanalritv_hrv.png</logo_filename>
+		<label>Kanal Ri</label>
+		<website>http://www.kanal-ri.hr/hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/8/kanalri.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="KCN Music 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kcn2musictv_hrv.png</logo_filename>
+		<website>http://tvkcn.net/tv-uzivo/tv-kcn-2-uzivo/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/302/kcn-music.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="KCN Svet +3">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kcn3svettv_hrv.png</logo_filename>
+		<website>http://tvkcn.net/tv-uzivo/tv-kcn-3-uzivo/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/303/kcn-svet-.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Kerrang!">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kerrangtv_hrv.png</logo_filename>
+		<label>Kanal Ri</label>
+		<website>https://www.kerrang.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/478/kerrang.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="KI.KA">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kikatv_hrv.png</logo_filename>
+		<website>https://www.kika.de/index.html </website>
+		<guide_url>https://mojtv.net/kanal/tv-program/99/kika </guide_url>
+	</tvchannel>
+	<tvchannel name="Kino TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kinotv_hrv.png</logo_filename>
+		<label>KinoTV</label>
+		<label>KINO TV</label>
+		<website>http://www.kinotv.hr/hr/epg/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/344/kinotv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Kino TV HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kinohdtv_hrv.png</logo_filename>
+		<label>KinoTV HD</label>
+		<label>KINO TV HD</label>
+		<website>http://www.kinotv.hr/hr/epg/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/344/kinotv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Kiss TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kisstv_hrv.png</logo_filename>
+		<website>https://en.wikipedia.org/wiki/Kiss_Network </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/479/kiss.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Klasik TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>klasiktv_hrv.png</logo_filename>
+		<label>KlasikTV</label>
+		<label>KLASIK TV</label>
+		<website>https://www.klasiktv.com/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/184/klasik-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Klape i Tambure">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>klapeitamburetv_hrv.png</logo_filename>
+		<website>http://cmc.com.hr/klape-i-tambure-tv-stream/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/639/klape-i-tambure.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Kreator TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kreatortv_hrv.png</logo_filename>
+		<label>Kreator TV HD</label>
+		<label>KREATOR TV</label>
+		<label>KREATOR TV HD</label>
+		<website>http://tv.kreator.tv/?page_id=36/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/357/kreator-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Kucni ljubimci TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>kucniljubimci_hrv.png</logo_filename>
+		<label>Kučni ljubimci TV</label>
+		<website>http://kucniljubimci.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/666/kucni-ljubimci-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Laudato TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>laudatotv_hrv.png</logo_filename>
+		<label>LAUDATO TV</label>
+		<website>https://laudato.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/504/laudato-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Libertas TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>libertastv_hrv.png</logo_filename>
+		<label>LIBERTAS TV</label>
+		<label>LTV</label>
+		<website>http://libertas.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/601/libertas-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Lov i Ribolov">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>loviribolovtv_hrv.png</logo_filename>
+		<label>LOV I RIBOLOV</label>
+		<website>https://hr-hr.facebook.com/Loviribolovtv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/409/lov-i-ribolov.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Luxe.tv HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>luxetv_hrv.png</logo_filename>
+		<website>https://luxe.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/289/luxetv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Magic">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>magictv_hrv.png</logo_filename>
+		<website>http://www.magic.co.uk/tv </website>
+		<!-- <guide_url>https://mojtv.hr/kanal/tv-program/356/m1-film.aspx </guide_url> -->
+	</tvchannel>
+	<tvchannel name="M1 Film">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>m1filmtv_hrv.png</logo_filename>
+		<label>M1 FILM</label>
+		<website>https://www.m1film.hr/hr/epg/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/356/m1-film.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="M1 Gold">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>m1goldtv_hrv.png</logo_filename>
+		<label>M1 GOLD</label>
+		<website>https://www.m1film.hr/gold/ </website>
+		<!-- <guide_url> </guide_url> -->
+	</tvchannel>
+	<tvchannel name="M1 Family">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>m1familytv_hrv.png</logo_filename>
+		<label>M1 FAMILY</label>
+		<website>https://www.m1film.hr/family/ </website>
+		<!-- <guide_url> </guide_url> -->
+	</tvchannel>
+	<tvchannel name="Mediaset Italia">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mediasetitaliatv_hrv.png</logo_filename>
+		<website>https://www.mediasetplay.mediaset.it/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/330/mediaset-italia.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Mezzo">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mezzotv_hrv.png</logo_filename>
+		<website>https://www.mezzo.tv/en </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/227/mezzo.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MG Movie Generation">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mgmoviegenerationtv_hrv.png</logo_filename>
+		<website>http://www.movie-generation.tv/program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/668/mg-movie-generation.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MiniTV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>minitv_hrv.png</logo_filename>
+		<label>Mini TV</label>
+		<label>MINITV</label>
+		<label>MINI TV</label>
+		<guide_url>https://mojtv.hr/kanal/tv-program/89/mini-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MKTV Sat">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mktvsattv_hrv.png</logo_filename>
+		<website>http://www.mrt.com.mk/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/328/mktv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MrežaZG">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mrezazgtv_hrv.png</logo_filename>
+		<label>MREŽA TV</label>
+		<label>MrežaTV</label>
+		<label>MrezaZG</label>
+		<label>Mreza ZG</label>
+		<website>https://www.mreza.tv/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/7/mrezazg.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MrežaST">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mrezasttv_hrv.png</logo_filename>
+		<label>MrezaST</label>
+		<label>Mreza ST</label>
+		<website>https://www.mreza.tv/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/181/mrezast.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MTV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mtvtv_hrv.png</logo_filename>
+		<website>http://www.mtv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/165/mtv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MTV Club">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mtvclubtv_hrv.png</logo_filename>
+		<label>Club MTV</label>
+		<website>http://www.mtv.co.uk/club-mtv </website>
+		<!-- <guide_url>https://mojtv.hr/kanal/tv-program/121/mtv-dance.aspx </guide_url> -->
+	</tvchannel>
+	<tvchannel name="MTV Dance International">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mtvdanceinternationaltv_hrv.png</logo_filename>
+		<label>MTV Dance</label>
+		<website>http://www.mtv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/121/mtv-dance.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MTV Hits International">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mtvhitsinternationaltv_hrv.png</logo_filename>
+		<label>MTV Hits</label>
+		<website>http://www.mtv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/46/mtv-hits.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MTV Music">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mtvmusictv_hrv.png</logo_filename>
+		<website>http://www.mtv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/267/mtv-music.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MTV Rocks International">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mtvrocksinternationaltv_hrv.png</logo_filename>
+		<label>MTV Rocks</label>
+		<website>http://www.mtv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/127/mtv-rocks.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="myZen.tv HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>myzentv_hrv.png</logo_filename>
+		<website>https://www.myzen.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/134/myzentv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="N1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>n1hrtv_hrv.png</logo_filename>
+		<label>N1 HR</label>
+		<website>http://hr.n1info.com/TV/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/77/n1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="N24">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>n24tv_hrv.png</logo_filename>
+		<website>https://www.welt.de/tv-programm-live-stream/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/258/welt.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Narodni">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>narodnitv_hrv.png</logo_filename>
+		<label>Narodni HD</label>
+		<website>https://narodni.hr/index.php/tag/narodni-tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/395/narodni-radio.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="National Geographic">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>nationalgeotv_hrv.png</logo_filename>
+		<label>NATIONAL GEOGRAPHIC</label>
+		<website>https://www.nationalgeographic.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/48/national-geographic.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="National Geographic HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>nationalgeohdtv_hrv.png</logo_filename>
+		<label>NATIONAL GEOGRAPHIC HD</label>
+		<website>https://www.nationalgeographic.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/48/national-geographic.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="NatGeo Wild">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>nationalwildtv_hrv.png</logo_filename>
+		<label>NATGEO WILD</label>
+		<label>National Geographic Wild</label>
+		<label>NATIONAL GEOGRAPHIC WILD</label>
+		<website>https://www.nationalgeographic.org/education/channel/nat-geo-wild/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/120/natgeo-wild.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="NatGeo Wild HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>nationalwildhdtv_hrv.png</logo_filename>
+		<label>NATGEO WILD HD</label>
+		<label>National Geographic Wild HD</label>
+		<label>NATIONAL GEOGRAPHIC WILD HD</label>
+		<website>https://www.nationalgeographic.org/education/channel/nat-geo-wild/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/120/natgeo-wild.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Nickelodeon">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>nicktv_hrv.png</logo_filename>
+		<label>Nick</label>
+		<website>http://www.nick.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/88/nickelodeon.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Nick Jr (HR)">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>nickjrtv_hrv.png</logo_filename>
+		<label>Nickelodeon Jr (HR)</label>
+		<label>Nickelodeon Jr</label>
+		<label>Nick Jr</label>
+		<website>http://www.nick.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/315/nick-jr.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Nicktoons">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>nicktoonstv_hrv.png</logo_filename>
+		<website>http://www.nick.tv/ </website>
+		<!-- <guide_url>https://mojtv.hr/kanal/tv-program/315/nick-jr.aspx </guide_url> -->
+	</tvchannel>
+	<tvchannel name="Nautical Channel">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>nauticalchanneltv_hrv.png</logo_filename>
+		<website>http://nauticalchannel.com/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/85/nautical-channel.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="NOVA Cinema">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>novacinematv_hrv.png</logo_filename>
+		<label>NOVA CINEMA</label>
+		<website>http://novaplus.dnevnik.hr/product/kanali/4316-oyo-cinema/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/354/nova-cinema.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="NOVA Family">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>novafamilytv_hrv.png</logo_filename>
+		<label>NOVA FAMILY</label>
+		<website>http://novaplus.dnevnik.hr/product/kanali/4316-oyo-cinema/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/353/nova-family.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="NOVA TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>novatv_hrv.png</logo_filename>
+		<label>NOVATV</label>
+		<website>https://novatv.dnevnik.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/3/nova-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="NOVA TV HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>novahdtv_hrv.png</logo_filename>
+		<label>NOVATV</label>
+		<website>https://novatv.dnevnik.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/3/nova-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="NOVA WORLD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>novaworldtv_hrv.png</logo_filename>
+		<label>Nova World</label>
+		<website>https://novatv.dnevnik.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/3/nova-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="O Kanal HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>okanaltv_hrv.png</logo_filename>
+		<website>https://okanal.oslobodjenje.ba/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/217/o-kanal.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Osječka TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>osjeckatv_hrv.png</logo_filename>
+		<label>OSJECKA TV</label>
+		<label>Osjecka TV</label>
+		<website>http://osjecka.com/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/113/osjecka-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="OTV Valentino">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>otvvalentinotv_hrv.png</logo_filename>
+		<website>http://valentinobh.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/667/otv-valentino.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Pickbox TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>pickboxtv_hrv.png</logo_filename>
+		<website>https://www.pickbox.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/647/pickbox-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Pink Plus">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>pinkplustv_hrv.png</logo_filename>
+		<website>http://www.pinkmediagroup.net/cable-television </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/29/pink-plus.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Planet Earth">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>planetearthtv_hrv.png</logo_filename>
+		<website>https://www.intheboxtv.eu/channel/planet-earth/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/508/planet-earth.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Private TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>privatetv_hrv.png</logo_filename>
+		<website>https://www.privatetelevision.com/channels.php </website>
+		<!-- <guide_url> </guide_url> -->
+	</tvchannel>
+	<tvchannel name="Gledaj PlanetSport">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>planetsportgledajtv_hrv.png</logo_filename>
+		<label>Gledaj Planet Sport</label>
+		<website>https://planetsport.a1.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/650/planetsport-1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="PlanetSport 1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>planetsport1tv_hrv.png</logo_filename>
+		<label>Planetsport 1</label>
+		<label>PLANETSPORT 1</label>
+		<label>PlanetSport 1 PPV</label>
+		<website>https://planetsport.a1.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/650/planetsport-1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="PlanetSport 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>planetsport2tv_hrv.png</logo_filename>
+		<label>Planetsport 2</label>
+		<label>PLANETSPORT 2</label>
+		<label>PlanetSport 2 PPV</label>
+		<website>https://planetsport.a1.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/651/planetsport-2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="PlanetSport 3">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>planetsport3tv_hrv.png</logo_filename>
+		<label>Planetsport 3</label>
+		<label>PLANETSPORT 3</label>
+		<label>PlanetSport 3 PPV</label>
+		<website>https://planetsport.a1.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/652/planetsport-3.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="PlanetSport 4">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>planetsport4tv_hrv.png</logo_filename>
+		<label>Planetsport 4</label>
+		<label>PLANETSPORT 4</label>
+		<label>PlanetSport 4 PPV</label>
+		<website>https://planetsport.a1.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/653/planetsport-4.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="PlanetSport 5">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>planetsport5tv_hrv.png</logo_filename>
+		<label>Planetsport 5</label>
+		<label>PLANETSPORT 5</label>
+		<label>PlanetSport 5 PPV</label>
+		<website>https://planetsport.a1.hr/raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/654/planetsport-5.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="PlanetSport Promo">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>planetsportpromohdtv_hrv.png</logo_filename>
+		<label>Planetsport Promo</label>
+		<label>PLANETSPORT PROMO</label>
+		<label>PlanetSport Promo PPV</label>
+		<website>https://planetsport.a1.hr/raspored/ </website>
+	</tvchannel>
+	<tvchannel name="Plava Vinkovačka">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>vktv_hrv.png</logo_filename>
+		<label>Plava Vinkovacka</label>
+		<label>vktv</label>
+		<label>VKTV</label>
+		<website>http://vktv.tv/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/12/plava-vinkovacka.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Pikaboo">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>pikabootv_hrv.png</logo_filename>
+		<guide_url>https://mojtv.hr/kanal/tv-program/250/pikaboo.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Pickbox TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>pickboxtv_hrv.png</logo_filename>
+		<label>PICKBOX TV</label>
+		<label>PICKBOXTV</label>
+		<label>PickboxTV</label>
+		<website>https://www.pickbox.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/647/pickbox-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Playboy TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>playboytv_hrv.png</logo_filename>
+		<website>https://www.playboytv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/132/playboy-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Poljoprivredna TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>poljoprivrednatv_hrv.png</logo_filename>
+		<label>POLJOPRIVREDNA TV</label>
+		<website>http://www.poljoprivredna.tv/poljoprivredna-tv-uzivo/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/477/poljoprivredna-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Pozitiv TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>pozitivtv_hrv.png</logo_filename>
+		<label>POZITIV TV</label>
+		<website>http://www.pozitivtv.eu/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/505/pozitiv-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Pro7">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>pro7tv_hrv.png</logo_filename>
+		<website>https://www.prosieben.de/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/95/pro7.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RAI Uno">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>raiunotv_hrv.png</logo_filename>
+		<website>http://www.rai.it/rai1/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/102/rai-uno.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RAI Due">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>raiduetv_hrv.png</logo_filename>
+		<website>http://www.rai.it/rai2/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/103/rai-due.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RAI Tre">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>raitretv_hrv.png</logo_filename>
+		<website>http://www.rai.it/rai3/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/104/rai-tre.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RAI News 24">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rainews24tv_hrv.png</logo_filename>
+		<website>https://www.rainews.it/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/539/rai-news.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RAI Scuola">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>raiscuolatv_hrv.png</logo_filename>
+		<website>http://www.raiscuola.rai.it/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/537/rai-scuola.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RAI Storia">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>raistoriatv_hrv.png</logo_filename>
+		<website>http://www.rai.it/raistoria/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/538/rai-storia.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Reality Kings">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>realitykingstv_hrv.png</logo_filename>
+		<website>https://www.realitykings.com/ </website>
+		<!-- <guide_url> </guide_url> -->
+	</tvchannel>
+	<tvchannel name="Radio 101">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radio101_hrv.png</logo_filename>
+		<label>RADIO 101</label>
+		<label>Radio101</label>
+		<website>http://radio101.hr/show-schedule/ </website>
+	</tvchannel>
+	<tvchannel name="RTB TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtbtv_hrv.png</logo_filename>
+		<label>RTBTV</label>
+		<website>https://www.radio-banovina.hr/televizija/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/299/rtb-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTCG">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtcgtv_hrv.png</logo_filename>
+		<website>http://www.rtcg.me/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/173/rtcg1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTL">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtltv_hrv.png</logo_filename>
+		<label>RTL Televizija</label>
+		<website>https://www.rtl.hr/televizija/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/4/rtl.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTL 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtl2tv_hrv.png</logo_filename>
+		<label>RTL2</label>
+		<website>https://www.rtl.hr/televizija/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/186/rtl2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTL Crime">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtlcrimetv_hrv.png</logo_filename>
+		<label>RTL CRIME</label>
+		<website>https://www.rtl.hr/televizija/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/458/rtl-crime.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTL Kockica">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtlkockicatv_hrv.png</logo_filename>
+		<label>RTL KOCKICA</label>
+		<website>https://www.rtl.hr/televizija/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/370/rtl-kockica.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTL Living">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtllivingtv_hrv.png</logo_filename>
+		<label>RTL LIVING</label>
+		<website>https://www.rtl.hr/televizija/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/459/rtl-living.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTL Passion">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtlpassiontv_hrv.png</logo_filename>
+		<label>RTL PASSION</label>
+		<website>https://www.rtl.hr/televizija/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/457/rtl-passion.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTS 1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rts1tv_hrv.png</logo_filename>
+		<website>https://www.rts.rs/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/33/rts1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTS 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rts2tv_hrv.png</logo_filename>
+		<website>https://www.rts.rs/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/34/rts2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTS Svet">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtssvettv_hrv.png</logo_filename>
+		<website>https://www.rts.rs/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/65/rts-sat.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTV1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtv1tv_hrv.png</logo_filename>
+		<label>RTB1</label>
+		<website>https://www.rtv.rs/sr_ci/program/prvi-program </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/182/rtv-1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTV2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rtv2tv_hrv.png</logo_filename>
+		<label>RTB2</label>
+		<website>https://www.rtv.rs/sr_ci/program/drugi-program </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/183/rtv-2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SLO1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>slo1tv_hrv.png</logo_filename>
+		<label>SLO 1</label>
+		<website>https://www.rtvslo.si/tv/vzivo/tvs1 </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/19/tv-slovenija-1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SLO2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>slo2tv_hrv.png</logo_filename>
+		<label>SLO 2</label>
+		<website>https://www.rtvslo.si/tv/vzivo/tvs2 </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/20/tv-slovenija-2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SLO3">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>slo3tv_hrv.png</logo_filename>
+		<label>SLO 3</label>
+		<website>https://www.rtvslo.si/tv/vzivo/tvs3 </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/221/tv-slovenija-3.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="RTV Banovina">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>banovinatv_hrv.png</logo_filename>
+		<label>Banovina</label>
+		<website>https://www.radio-banovina.hr/televizija/ </website>
+	</tvchannel>
+	<tvchannel name="Russia Today TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>russiatodaytv_hrv.png</logo_filename>
+		<website>https://www.rt.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/279/russia-today.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Saborska TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>saborskatv_hrv.png</logo_filename>
+		<website>https://itv.sabor.hr/video/ </website>
+	</tvchannel>
+	<tvchannel name="Samobor TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>samobortv_hrv.png</logo_filename>
+		<label>Samobor</label>
+		<website>https://www.samobor.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/682/samobor-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SBTV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sbtv_hrv.png</logo_filename>
+		<label>sbtv</label>
+		<label>Slavonskobrodska televizija</label>
+		<website>https://sbtv.hr/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/245/slavonskobrodska-televizija.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SciFi">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>scifitv_hrv.png</logo_filename>
+		<label>SCIFI</label>
+		<guide_url>https://mojtv.hr/kanal/tv-program/119/scifi-channel.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Scoop">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>scooptv_hrv.png</logo_filename>
+		<website>http://www.scoop.network/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/611/scoop.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk1tv_hrv.png</logo_filename>
+		<label>sk1</label>
+		<label>SK 1</label>
+		<label>SK1</label>
+		<label>Sport Klub 1</label>
+		<label>SPORT KLUB 1</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/62/sk1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 1 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk1hdtv_hrv.png</logo_filename>
+		<label>sk1 HD</label>
+		<label>SK 1 HD</label>
+		<label>SK1 HD</label>
+		<label>Sport Klub 1 HD</label>
+		<label>SPORT KLUB 1 HD</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/62/sk1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk2tv_hrv.png</logo_filename>
+		<label>sk2</label>
+		<label>SK 2</label>
+		<label>SK2</label>
+		<label>Sport Klub 2</label>
+		<label>SPORT KLUB 2</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/63/sk2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 2 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk2hdtv_hrv.png</logo_filename>
+		<label>sk2 HD</label>
+		<label>SK 2 HD</label>
+		<label>SK2 HD</label>
+		<label>Sport Klub 2 HD</label>
+		<label>SPORT KLUB 2 HD</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/63/sk2.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 3">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk3tv_hrv.png</logo_filename>
+		<label>sk3</label>
+		<label>SK 3</label>
+		<label>SK3</label>
+		<label>Sport Klub 3</label>
+		<label>SPORT KLUB 3</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/296/sk3.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 3 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk3hdtv_hrv.png</logo_filename>
+		<label>sk3 HD</label>
+		<label>SK 3 HD</label>
+		<label>SK3 HD</label>
+		<label>Sport Klub 3 HD</label>
+		<label>SPORT KLUB 3 HD</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/296/sk3.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 4">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk4tv_hrv.png</logo_filename>
+		<label>sk4</label>
+		<label>SK 4</label>
+		<label>SK4</label>
+		<label>Sport Klub 4</label>
+		<label>SPORT KLUB 4</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/240/sk4.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 4 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk4hdtv_hrv.png</logo_filename>
+		<label>sk4 HD</label>
+		<label>SK 4 HD</label>
+		<label>SK4 HD</label>
+		<label>Sport Klub 4 HD</label>
+		<label>SPORT KLUB 4 HD</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/240/sk4.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 5">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk5tv_hrv.png</logo_filename>
+		<label>sk5</label>
+		<label>SK 5</label>
+		<label>SK5</label>
+		<label>Sport Klub 5</label>
+		<label>SPORT KLUB 5</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/241/sk5.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 5 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk5hdtv_hrv.png</logo_filename>
+		<label>sk5 HD</label>
+		<label>SK 5 HD</label>
+		<label>SK5 HD</label>
+		<label>Sport Klub 5 HD</label>
+		<label>SPORT KLUB 5 HD</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/241/sk5.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 6">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk6tv_hrv.png</logo_filename>
+		<label>sk6</label>
+		<label>SK 6</label>
+		<label>SK6</label>
+		<label>Sport Klub 6</label>
+		<label>SPORT KLUB 6</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/242/sk6.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 6 HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk6hdtv_hrv.png</logo_filename>
+		<label>sk6 HD</label>
+		<label>SK 6 HD</label>
+		<label>SK6 HD</label>
+		<label>Sport Klub 6 HD</label>
+		<label>SPORT KLUB 6 HD</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/242/sk6.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>skhdtv_hrv.png</logo_filename>
+		<label>skhd</label>
+		<label>SK HD</label>
+		<label>SKHD</label>
+		<label>Sport Klub HD</label>
+		<label>SPORT KLUB HD</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/294/sk-hd.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK Golf">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>skgolftv_hrv.png</logo_filename>
+		<label>sk golf</label>
+		<label>Sport Klub Golf</label>
+		<label>SPORT Klub GOLF</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/143/sk-golf.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK Golf HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>skgolfhdtv_hrv.png</logo_filename>
+		<label>sk golf HD</label>
+		<label>Sport Klub Golf HD</label>
+		<label>SPORT Klub GOLF HD</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/143/sk-golf.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="SK 4K">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sk6tv_hrv.png</logo_filename>
+		<label>sk4k</label>
+		<label>Sk 4K</label>
+		<label>SK4K</label>
+		<label>Sport Klub 4K</label>
+		<label>SPORT KLUB 4K</label>
+		<website>http://sportklub.hr/TV-Program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/62/sk1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Sky News">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>skynewstv_hrv.png</logo_filename>
+		<label>SKY NEWS</label>
+		<website>https://news.sky.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/261/sky-news.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Slavonska TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>stv_hrv.png</logo_filename>
+		<label>stv</label>
+		<label>STV</label>
+		<website>https://www.stv.hr/tvraspored.html/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/116/slavonska-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Smile of a Child">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>smileofachildtv_hrv.png</logo_filename>
+		<website>https://www.smileofachildtv.org/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/155/smile-of-a-child.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Sport 1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sport1tv_hrv.png</logo_filename>
+		<label>SPORT 1</label>
+		<guide_url>https://mojtv.hr/kanal/tv-program/52/sport-1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Sportskool">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sportskooltv_hrv.png</logo_filename>
+		<label>SPORTSKOOL</label>
+		<website>http://www.sportskool.com/</website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/360/sportskool.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Sportska TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sportskatelevizijatv_hrv.png</logo_filename>
+		<label>SPORTSKA TV</label>
+		<label>Sportska Televizija</label>
+		<label>SPORTSKA TELEVIZIJA</label>
+		<label>SPTV</label>
+		<label>sptv</label>
+		<website>https://sptv.hr/program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/244/sportska-televizija.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Srce TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>srcetv_hrv.png</logo_filename>
+		<label>SRCE TV</label>
+		<website>http://srce.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/291/srce-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Stop TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>stoptv_hrv.png</logo_filename>
+		<website>https://www.facebook.com/stopmusictv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/629/stop-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Stingray">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>stingray_hrv.png</logo_filename>
+		<label>STINGRAY</label>
+		<website>http://www.stingray.com/products/audio-channels/ </website>
+	</tvchannel>
+	<tvchannel name="TCM/Cartoon">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tcmcntv_hrv.png</logo_filename>
+		<label>TCM/CN</label>
+		<label>TCM/CARTOON</label>
+		<guide_url>https://mojtv.hr/kanal/tv-program/125/tcmcartoon.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="TDC">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tdctv_hrv.png</logo_filename>
+		<label>tdc tv</label>
+		<label>Timeless Drama Channel</label>
+		<label>TIMELESS DRAMA CHANNEL</label>
+		<website>http://timelessdramachannel.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/681/tdc.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="TIJI">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tijitv_hrv.png</logo_filename>
+		<label>tiji</label>
+		<website>https://www.tiji.fr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/153/tiji.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Trace Urban">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>traceurbantv_hrv.png</logo_filename>
+		<website>https://trace.tv/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/146/trace-urban.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Travel Channel">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>travelchanneltv_hrv.png</logo_filename>
+		<website>http://www.travelchanneltv.eu/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/365/travel-channel.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Travel XP">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>travelxptv_hrv.png</logo_filename>
+		<label>Travel XP HD</label>
+		<website>https://www.travelxp.tv/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/641/travel-xp.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Trend TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>trendtv_hrv.png</logo_filename>
+		<label>TREND TV</label>
+		<website>https://trend.com.hr/live/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/178/tv4r.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="TV BN Sat">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tvbnsattv_hrv.png</logo_filename>
+		<website>https://www.rtvbn.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/283/bn-sat.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="TV Espana">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tvespanatv_hrv.png</logo_filename>
+		<website>https://www.rtve.es/television/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/335/tv-espana.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="TV Istra">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tvistratv_hrv.png</logo_filename>
+		<label>TV ISTRA</label>
+		<website>http://tvistra.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/15/tv-istra.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="TV Jadran">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>jadrantv_hrv.png</logo_filename>
+		<label>TV JADRAN</label>
+		<website>http://www.tvjadran.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/114/tv-jadran.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="TV5 Monde">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tv5mondetv_hrv.png</logo_filename>
+		<website>http://www.tv5monde.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/327/tv5monde.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="TV Nova">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tvnovatv_hrv.png</logo_filename>
+		<label>TV NOVA</label>
+		<website>https://tvnova.hr/tv-program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/9/tv-nova.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="TV Šibenik">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tvsibeniktv_hrv.png</logo_filename>
+		<label>TV Sibenik</label>
+		<label>TVS</label>
+		<website>http://tvs.hr/pregled-programa/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/628/tv-sibenik.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="TV Zapad">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tvzapadtv_hrv.png</logo_filename>
+		<label>TV ZAPAD</label>
+		<website>http://www.zapad.tv/tv-raspored/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/633/televizija-zapad.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Z1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>z1tv_hrv.png</logo_filename>
+		<label>Z1 Televizija</label>
+		<label>Z 1</label>
+		<website>http://z1tv.hr/hr/tv-program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/5/z1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Vavoom">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>vavoomtv_hrv.png</logo_filename>
+		<guide_url>https://mojtv.hr/kanal/tv-program/648/vavoom.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="VH1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>vh1tv_hrv.png</logo_filename>
+		<website>http://www.vh1.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/87/vh1.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="VH1 Classic">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>vh1classictv_hrv.png</logo_filename>
+		<website>http://www.vh1.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/133/vh1-classic.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="VOX">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>voxtv_hrv.png</logo_filename>
+		<website>https://www.vox.de/cms/index.html </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/98/vox/sutra.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="WNESS TV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>wnesstv_hrv.png</logo_filename>
+		<website>https://www.wnesstv.com/en/schedule-2/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/640/wellness-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Viasat History">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>viasathistorytv_hrv.png</logo_filename>
+		<website>https://viasathistory.com.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/73/viasat-history.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Viasat Explore">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>viasatexploretv_hrv.png</logo_filename>
+		<website>https://viasatexplore.com.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/74/viasat-explore.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Viasat Nature">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>viasatnaturetv_hrv.png</logo_filename>
+		<label>VIASAT NAUTURE</label>
+		<website>https://viasatnature.com.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/321/viasat-nature.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Viasat TV 1000">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>tv1000_hrv.png</logo_filename>
+		<label>VIASAT TV 1000</label>
+		<label>TV1000</label>
+		<label>TV 1000</label>
+		<website>https://tv1000.com.hr/schedule/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/43/tv1000.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="VTV Varaždin">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>vtv_hrv.png</logo_filename>
+		<label>VTV Varazdin</label>
+		<label>VTV</label>
+		<website>http://www.vtv.hr/raspored-emitiranja/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/11/varazdinska-tv.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Woman">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>womantv_hrv.png</logo_filename>
+		<website>https://www.intheboxtv.eu/channel/woman/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/507/woman.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="ZDF HD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>zdfhdtv_hrv.png</logo_filename>
+		<website>https://www.zdf.de/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/156/zdf-hd.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="Zdrava TV-7">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>zdravatv_hrv.png</logo_filename>
+		<website>http://hr.zdrava-televizija.com/page/159/tv-program/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/187/zdrava-tv.aspx </guide_url>
+	</tvchannel>
+	<!--  Other channels  -->
+	<tvchannel name="Nova BH">
+		<lang>ba</lang>
+		<country>ba</country>
+		<logo_filename>novabatv_hrv.png</logo_filename>
+		<label>NOVA BH</label>
+	</tvchannel>
+	<tvchannel name="Nova M">
+		<lang>me</lang>
+		<country>me</country>
+		<logo_filename>novamtv_hrv.png</logo_filename>
+		<label>NOVA M</label>
+	</tvchannel>
+	<tvchannel name="Nova S">
+		<lang>rs</lang>
+		<country>rs</country>
+		<logo_filename>novastv_hrv.png</logo_filename>
+		<label>NOVA S</label>
+	</tvchannel>
+	<tvchannel name="Virgin TV">
+		<lang>ba</lang>
+		<country>ba</country>
+		<logo_filename>virgintv_hrv.png</logo_filename>
+		<label>Virgin 1</label>
+	</tvchannel>
+<!-- #############     CROATIAN RADIOS START    ################# -->
+	<tvchannel name="Antena Zadar">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>antenazadar_hrv.png</logo_filename>
+		<label>Antena ZD</label>
+		<website>https://www.antenazadar.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Antena Zagreb">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>antenazagreb_hrv.png</logo_filename>
+		<website>https://www.antenazagreb.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Braniteljski Radio RH">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>braniteljskiradio_hrv.png</logo_filename>
+		<website>https://www.braniteljski-radio.com/ </website>
+	</tvchannel>
+	<tvchannel name="City Radio">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>cityradio_hrv.png</logo_filename>
+		<label>City-radio 88.6</label>
+		<website>https://hr-hr.facebook.com/Cityradio886 </website>
+	</tvchannel>
+	<tvchannel name="Digital Impulse">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>digitalimpulse_hrv.png</logo_filename>
+		<label>Nature Sounds</label>
+		<website>https://www.di-radio.com/ </website>
+	</tvchannel>
+	<tvchannel name="Enter Zagreb">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>enterzagreb_hrv.png</logo_filename>
+		<website>https://enterzagreb.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Extra FM">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>extrafm_hrv.png</logo_filename>
+		<website>https://extrafm.hr/dio_trogir/ </website>
+	</tvchannel>
+	<tvchannel name="Gold FM">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>goldfm_hrv.png</logo_filename>
+		<label>GoldFM</label>
+		<label>Gold Oldies</label>
+		<website>https://goldfm.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Gradski Radio Trogir">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiotrogir_hrv.png</logo_filename>
+		<website>https://trogirskiportal.hr/radio_trogir/ </website>
+	</tvchannel>
+	<tvchannel name="Hit Radio Sinj">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hitradosinj_hrv.png</logo_filename>
+		<label>Hit Rado Sinj</label>
+		<website>http://www.hitradio.hr/ </website>
+	</tvchannel>
+	<tvchannel name="HKR">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hkr_hrv.png</logo_filename>
+		<label>Hrvatski katolički radio</label>
+		<website>https://hkr.hkm.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Hrvatski radio Čakovec">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrcak_hrv.png</logo_filename>
+		<label>HrCak - Hrvatski radio Cakovec</label>
+		<label>HrČak - Hrvatski radio Čakovec</label>
+		<label>Hrvatski radio Cakovec</label>
+		<label>Radio Hrčak</label>
+		<label>Radio Hrcak</label>
+		<website>http://www.radio-cakovec.hr/index.php </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR Dubrovnik">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthrdubrovnik_hrv.png</logo_filename>
+		<label>Radio Dubrovnik</label>
+		<label>HRT Radio Dubrovnik</label>
+		<website>https://radio.hrt.hr/radio-dubrovnik/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthr1_hrv.png</logo_filename>
+		<label>HRT HR 1 - Prvi program</label>
+		<website>https://radio.hrt.hr/prvi-program/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR Glas Hrvatske">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthrglashrv_hrv.png</logo_filename>
+		<label>Glas Hrvatske</label>
+		<label>Voice of Croatia</label>
+		<label>HRT Glas Hrvatske</label>
+		<website>https://glashrvatske.hrt.hr/hr/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR2">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthr2_hrv.png</logo_filename>
+		<label>HRT HR 2 - Drugi program</label>
+		<website>https://radio.hrt.hr/drugi-program/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR3">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthr3_hrv.png</logo_filename>
+		<label>HRT HR 3 - Treći program</label>
+		<website>https://radio.hrt.hr/treci-program/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR Knin">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthrknin_hrv.png</logo_filename>
+		<label>Radio Knin</label>
+		<label>HRT Radio Knin</label>
+		<website>https://radio.hrt.hr/radio-knin/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR Osijek">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthrosijek_hrv.png</logo_filename>
+		<label>Radio Osijek</label>
+		<label>HRT Radio Osijek</label>
+		<website>https://radio.hrt.hr/radio-osijek/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR Pula">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthrpula_hrv.png</logo_filename>
+		<label>Radio Pula</label>
+		<label>HRT Radio Pula</label>
+		<website>https://radio.hrt.hr/radio-pula/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR Rijeka">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthrrijeka_hrv.png</logo_filename>
+		<label>Radio Rijeka</label>
+		<label>HRT Radio Rijeka</label>
+		<website>https://radio.hrt.hr/radio-rijeka/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR Sljeme">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthrsljeme_hrv.png</logo_filename>
+		<label>Radio sljeme</label>
+		<label>HRT Radio Sljeme</label>
+		<website>https://radio.hrt.hr/radio-sljeme/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR Split">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthrsplit_hrv.png</logo_filename>
+		<label>Radio Split</label>
+		<label>HRT Radio Split</label>
+		<website>https://radio.hrt.hr/radio-split/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR Zadar">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrthrzadar_hrv.png</logo_filename>
+		<label>Radio Zadar</label>
+		<label>HRT Radio Zadar</label>
+		<website>https://radio.hrt.hr/radio-zadar/ </website>
+	</tvchannel>
+	<tvchannel name="HRT-HR Govorni Program">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrtradio_hrv.png</logo_filename>
+		<label>Hrvatski Radio - Govorni Program</label>
+		<website>https://radio.hrt.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Hrvatski Radio Vukovar">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrradiovukovar_hrv.png</logo_filename>
+		<label>HRT Radio Vukovar</label>
+		<website>http://www.hrv.hr/ </website>
+	</tvchannel>
+	<tvchannel name="KLFM">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>klfm_hrv.png</logo_filename>
+		<website>http://klfm.org/ </website>
+	</tvchannel>
+	<tvchannel name="Krugoval">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>krugoval_hrv.png</logo_filename>
+		<label>Garešnički radio</label>
+		<website>https://garesnica.eu/index.php/krugoval.html </website>
+	</tvchannel>
+	<tvchannel name="Laganini FM Zagreb">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>laganinifm_hrv.png</logo_filename>
+		<label>Laganini FM</label>
+		<website>http://laganini.fm/ </website>
+	</tvchannel>
+	<tvchannel name="Mediaservis">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mediaservis_hrv.png</logo_filename>
+		<website>http://mediaservis.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Naxi 80">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>naxi80radio_hrv.png</logo_filename>
+		<website>https://www.naxi.rs/80e </website>
+	</tvchannel>
+	<tvchannel name="Novi Radio ZD">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>noviradiozd_hrv.png</logo_filename>
+		<label>Novi Radio Zadar</label>
+		<website>https://www.noviradio.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Obiteljski Radio Ivanić">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>ori_hrv.png</logo_filename>
+		<website>https://ori.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Otvoreni Radio">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>otvoreniradio_hrv.png</logo_filename>
+		<label>Otvoreni Chill</label>
+		<label>Otvoreni Fitness</label>
+		<label>Otvoreni Hot</label>
+		<label>Otvoreni Live</label>
+		<label>Otvoreni Love</label>
+		<label>Radio Dubrovnik</label>
+		<label>Radio Dubrovnik</label>
+		<website>https://www.otvoreni.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Petrinjski radio">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>petrinjskiradio_hrv.png</logo_filename>
+		<website>https://petrinjskiradio.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Podravski radio">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>podravskiradio_hrv.png</logo_filename>
+		<website>https://podravskiradio.net/ </website>
+	</tvchannel>
+	<tvchannel name="Radio 101">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radio101_hrv.png</logo_filename>
+		<label>RADIO 101</label>
+		<label>Radio101</label>
+		<website>http://radio101.hr/show-schedule/ </website>
+	</tvchannel>
+	<tvchannel name="Radio 808">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radio808_hrv.png</logo_filename>
+		<website>https://radio808.com/ </website>
+	</tvchannel>
+	<tvchannel name="Radio 057">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radio057_hrv.png</logo_filename>
+		<website>http://057info.hr/radio057/ </website>
+	</tvchannel>
+	<tvchannel name="Radio 051">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radio051_hrv.png</logo_filename>
+		<website>http://radio051.com/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Banovina">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>banovinatv_hrv.png</logo_filename>
+		<website>https://www.radio-banovina.hr/radio-banovina/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Baranja">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiobaranja_hrv.png</logo_filename>
+		<website>https://www.radio-baranja.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio BBR">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiobbr_hrv.png</logo_filename>
+		<label>BBR Bjelovarsko Bilogorski Radio</label>
+		<!-- <website> </website> -->
+	</tvchannel>
+	<tvchannel name="Radio Blagovesti">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioblagovest_hrv.png</logo_filename>
+		<website>http://www.manastir-lepavina.org/radioblagovesti/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Brac">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiobrac_hrv.png</logo_filename>
+		<label>Radio Brač</label>
+		<website>http://www.radio-brac.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Crash">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiocrash_hrv.png</logo_filename>
+		<website>http://radiocrash.net/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Dalmacija">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiodalmacija_hrv.png</logo_filename>
+		<website>https://www.radiodalmacija.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Deejay">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiodeejay_hrv.png</logo_filename>
+		<website>https://www.deejay.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Djakovo">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiodjakovo_hrv.png</logo_filename>
+		<label>Radio Đakovo</label>
+		<website>https://www.radio-djakovo.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Glas Podravine">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioglaspodravine_hrv.png</logo_filename>
+		<website>https://radio.glaspodravine.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Gorski Kotar">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiogorkot_hrv.png</logo_filename>
+		<website>https://rgk.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Istra">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioistra_hrv.png</logo_filename>
+		<website>https://www.radioistra.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Kaj">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiokaj_hrv.png</logo_filename>
+		<website>https://www.kaj.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Koprivnica">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiokoprivnica_hrv.png</logo_filename>
+		<website>https://rkc.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Korzo">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiokorzo_hrv.png</logo_filename>
+		<website>https://rkc.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Labin">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiolabin_hrv.png</logo_filename>
+		<website>https://www.radiolabin.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Ludbreg">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioludbreg_hrv.png</logo_filename>
+		<website>https://www.radio-ludbreg.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Maestral">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiomaestral_hrv.png</logo_filename>
+		<website>https://www.radio-maestral.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Marija">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiomarija_hrv.png</logo_filename>
+		<label>RADIO MARIA CROATIA</label>
+		<website>https://www.radiomarija.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Martin">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiomartin_hrv.png</logo_filename>
+		<website>https://www.radio-martin.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Max">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiomax_hrv.png</logo_filename>
+		<website>http://www.radiomax.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio MIR">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiomir_hrv.png</logo_filename>
+		<website>https://radio-medjugorje.com/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Moslavina">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiomoslavina_hrv.png</logo_filename>
+		<website>http://www.radiomoslavina.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Mozaik">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiomozaik_hrv.png</logo_filename>
+		<website>http://www.radiomozaik.com.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Mrežnica">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiomreznica_hrv.png</logo_filename>
+		<website>https://radio-mreznica.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Novska">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radionovska_hrv.png</logo_filename>
+		<website>https://www.radionovska.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Otočac">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiootocac_hrv.png</logo_filename>
+		<website>https://hrvatski-radio-otocac.hr/radio/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Quirinus">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioquirinus_hrv.png</logo_filename>
+		<label>Radio Quirinus 91.7</label>
+		<website>https://quirinusportal.com/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Ritam">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioritam_hrv.png</logo_filename>
+		<website>https://www.radioritam.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Sisak">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiosisak_hrv.png</logo_filename>
+		<label>Radio Sisak 89,4 FM</label>
+		<label>Radio Sisak 89.4</label>
+		<website>https://radiosisak.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Sjeverozapad">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiosjeverozapad_hrv.png</logo_filename>
+		<website>http://www.sjeverozapad.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Skaut">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioskaut_hrv.png</logo_filename>
+		<website>https://radioskaut.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Slatina">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioslatina_hrv.png</logo_filename>
+		<website>https://www.radioslatina.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Slavonija">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioslavonija_hrv.png</logo_filename>
+		<website>http://www.radioslavonija.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Slunj">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioslunj_hrv.png</logo_filename>
+		<website>http://radio-slunj.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Stubica">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiostubica_hrv.png</logo_filename>
+		<website>http://www.radio-stubica.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Student">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiostudent_hrv.png</logo_filename>
+		<label>Radio100.5 Student Zagreb</label>
+		<website>http://www.radiostudent.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Sunce">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiosunce_hrv.png</logo_filename>
+		<website>https://www.radiosunce.com.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Terezija">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioterezija_hrv.png</logo_filename>
+		<website>https://www.terezija.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Vrbovec">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiovrbovec_hrv.png</logo_filename>
+		<website>https://radiovrbovec.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Zlatar">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiozlatar_hrv.png</logo_filename>
+		<website>https://www.radio-zlatar.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Slavonski Radio">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>slavonskiradio_hrv.png</logo_filename>
+		<website>https://www.slavonskiradio.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Soundset Ragusa">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>soundsetragusa_hrv.png</logo_filename>
+		<website>https://www.soundsetragusa.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Yammat FM">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>yammatfm_hrv.png</logo_filename>
+		<label>Yammat</label>
+		<label>YammatFM</label>
+		<label>YAMMAT FM</label>
+		<website>http://yammat.fm/ </website>
+	</tvchannel>
+	<tvchannel name="Ultra Split">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>ultrasplit_hrv.png</logo_filename>
+		<website>https://ultrasplit.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Z fm">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>zfm_hrv.png</logo_filename>
+		<website>https://zfm.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Županijski Radio Šibenik">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiosibenik_hrv.png</logo_filename>
+		<website>http://radiosibenik.hr/ </website>
+	</tvchannel>
+<!-- ####################     CROATIAN TV-CHANNELS/RADIOS END   ########################### -->
+<!-- ###################################################################################### -->
 </tvchannels>
