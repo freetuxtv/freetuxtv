@@ -4,7 +4,8 @@ freetuxtvui_DATA = \
 	addchannelsgroups.glade \
 	addrecording.glade \
 	channelproperties.glade \
-	freetuxtv.glade
+	freetuxtv.glade \
+    tvchannelsdatabase.glade
 freetuxtvuidir = $(pkgdatadir)/ui
 
 EXTRA_DIST = \
