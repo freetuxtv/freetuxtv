@@ -18,14 +18,17 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#  include <config.h>
+#include <config.h>
 #endif
 
 #ifndef FREETUXTV_APP_H
 #define FREETUXTV_APP_H
 
 #include <gtk/gtk.h>
+
+#ifdef USE_LIBNOTIFY
 #include <libnotify/notification.h>
+#endif
 
 #include <libvlc-gtk/gtk-libvlc-media-player.h>
 

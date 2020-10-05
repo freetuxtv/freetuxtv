@@ -7,4 +7,6 @@
 #cmakedefine MSVC @MSVC@
 #cmakedefine APPLE @APPLE@
 
+#cmakedefine USE_LIBNOTIFY @USE_LIBNOTIFY@
+
 #endif /* CONFIG_H */

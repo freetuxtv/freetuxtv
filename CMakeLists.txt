@@ -21,7 +21,7 @@ set (APPLICATION_PACKAGE_NAME "freetuxtv")
 set (APPLICATION_EXE_NAME freetuxtv)
 set (APPLICATION_BUGREPORT "https://github.com/freetuxtv/freetuxtv/issues")
 
-project (freetuxtv C)
+project (freetuxtv C CXX)
 
 if(WIN32)
     set(AUTO_NEWLINE_STYLE WIN32)
@@ -81,18 +81,33 @@ endmacro(JOINLIST)
 # Library checking
 ####################
 
+set(QT_COMPONENTS Core Gui Widgets Network Xml Sql)
+set(QT_LIBRARIES "")
+find_package (Qt5 5.1.0 REQUIRED ${QT_COMPONENTS})
+if(Qt5_FOUND)
+    message(STATUS "Found Qt5 ${Qt5_VERSION}")
+    include_directories(${Qt5_INCLUDE_DIRS})
+    link_directories(${Qt5_LIBRARY_DIRS})
+    if (Qt5_POSITION_INDEPENDENT_CODE)
+        set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+    endif()
+
+    # Qt Components
+    foreach(TMP_COMPONENT ${QT_COMPONENTS})
+        add_definitions (${Qt5${TMP_COMPONENT}_DEFINITIONS})
+        include_directories(${Qt5${TMP_COMPONENT}_INCLUDE_DIRS})
+        set(QT_LIBRARIES ${QT_LIBRARIES} ${Qt5${TMP_COMPONENT}_LIBRARIES})
+    endforeach(TMP_COMPONENT)
+endif()
+
+find_package(Qt5LinguistTools REQUIRED)
+if(Qt5LinguistTools_FOUND)
+    message(STATUS "Found Qt5LinguistTools ${Qt5LinguistTools_VERSION}")
+endif()
+
+
 # Check for pkg-config
 find_package(PkgConfig REQUIRED)
-
-# Check for GTK 3
-pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
-if(GTK3_FOUND)
-    message(STATUS "Found gtk3 ${GTK3_VERSION}")
-    include_directories(${GTK3_INCLUDE_DIRS})
-    link_directories(${GTK3_LIBRARY_DIRS})
-    add_definitions(${GTK3_CFLAGS_OTHER} -DGTK_API_VERSION=3)
-    list(APPEND PACKAGE_DEPS "libgtk-3-0 (>= ${GTK3_VERSION})")
-endif()
 
 # Check for libnotify
 pkg_check_modules(LIBNOTIFY libnotify>=0.7.6 REQUIRED)
@@ -106,6 +121,7 @@ if(LIBNOTIFY_FOUND)
     list(GET LIBNOTIFY_VERSION_LIST 2 LIBNOTIFY_VERSION_REVISION)
     add_definitions(-DLIBNOTIFY_VERSION_MAJOR=${LIBNOTIFY_VERSION_MAJOR} -DLIBNOTIFY_VERSION_MINOR=${LIBNOTIFY_VERSION_MINOR} -DLIBNOTIFY_VERSION_REVISION=${LIBNOTIFY_VERSION_REVISION})
     list(APPEND PACKAGE_DEPS "libnotify4 (>= ${LIBNOTIFY_VERSION})")
+    #set(USE_LIBNOTIFY 1)
 endif()
 
 # Check for libvlc
@@ -262,7 +278,10 @@ set(FREETUXTV_SRC
     src/freetuxtv-window-main.h
     src/freetuxtv-window-tv-channels-database.c
     src/freetuxtv-window-tv-channels-database.h
-    src/main.c
+)
+
+set(FREETUXTV_SRC
+    src/main.cpp
 )
 
 ####################
@@ -322,8 +341,10 @@ endif()
 # Create Executable
 ####################
 
-add_executable(${APPLICATION_EXE_NAME} ${LIBDBEVOLUTION_SRC} ${LIBVLCGTK_SRC} ${FREETUXTV_LIB_SRC} ${FREETUXTV_SRC})
-target_link_libraries(${APPLICATION_EXE_NAME} ${GTK3_LIBRARIES} ${LIBNOTIFY_LIBRARIES} ${LIBVLC_LIBRARIES} ${SQLITE3_LIBRARIES} ${CURL_LIBRARIES})
+#add_executable(${APPLICATION_EXE_NAME} ${LIBDBEVOLUTION_SRC} ${LIBVLCGTK_SRC} ${FREETUXTV_LIB_SRC} ${FREETUXTV_SRC})
+#target_link_libraries(${APPLICATION_EXE_NAME} ${QT_LIBRARIES} ${LIBNOTIFY_LIBRARIES} ${LIBVLC_LIBRARIES} ${SQLITE3_LIBRARIES} ${CURL_LIBRARIES})
+add_executable(${APPLICATION_EXE_NAME} ${FREETUXTV_SRC})
+target_link_libraries(${APPLICATION_EXE_NAME} ${QT_LIBRARIES})
 install(TARGETS ${APPLICATION_EXE_NAME} DESTINATION ${INSTALL_PATH_BIN})
 
 ############################

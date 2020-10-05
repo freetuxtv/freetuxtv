@@ -17,27 +17,42 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <glib/gstdio.h>
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include <stdlib.h>
-#include <gtk/gtk.h>
+
+#include <QApplication>
+#include <QIcon>
+#include <QTranslator>
+#include <QLibraryInfo>
+
+#ifdef USE_LIBNOTIFY
 #include <libnotify/notify.h>
-#include <locale.h>
+#endif
 
-#include <libvlc-gtk/gtk-libvlc-media-player.h>
+//#include <locale.h>
+//
+//#include <libvlc-gtk/gtk-libvlc-media-player.h>
+//
+//#include "lib-gmmkeys.h"
+//#include "freetuxtv-app.h"
+//#include "freetuxtv-utils.h"
+//#include "freetuxtv-i18n.h"
+//#include "freetuxtv-window-main.h"
+//#include "freetuxtv-channels-list.h"
+//#include "freetuxtv-recordings-list.h"
+//#include "freetuxtv-tv-channels-list.h"
+//#include "freetuxtv-models.h"
+//#include "freetuxtv-window-add-channels-group.h"
+//#include "freetuxtv-player-error-dialog.h"
 
-#include "lib-gmmkeys.h"
-#include "freetuxtv-app.h"
-#include "freetuxtv-utils.h"
-#include "freetuxtv-i18n.h"
-#include "freetuxtv-window-main.h"
-#include "freetuxtv-channels-list.h"
-#include "freetuxtv-recordings-list.h"
-#include "freetuxtv-tv-channels-list.h"
-#include "freetuxtv-models.h"
-#include "freetuxtv-window-add-channels-group.h"
-#include "freetuxtv-player-error-dialog.h"
-
+/*
 static void
 list_options_add_options (gchar*** pOptions, gchar** options);
 
@@ -1693,108 +1708,120 @@ freetuxtv_log (const gchar *log_domain, GLogLevelFlags log_level,
 		}
 	}
 }
+*/
 
 static void
 show_help()
 {
-	g_print("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
-	g_print("Usage: freetuxtv [OPTION...]\n");
-	g_print("\n");
-	g_print("Options:\n");
-	g_print("  -h, --help        display this help and exit\n");
-	g_print("      --version     output version information and exit\n");
-	g_print("\n");
-	g_print("Channel:\n");
-	g_print("  --open-channel CHANNEL_NAME\n");
-	g_print("                    look for a channel corresponding to the name and \n");
-	g_print("                    play it if found (take first in the channels list)\n");
-	g_print("\n");
-	g_print("Debug options:\n");
-	g_print("      --datadir DATA_DIR\n");
-	g_print("                    set data directory\n");
-	g_print("  -v, --verbose     display a more detailled trace\n");
-	g_print("\n");
-	g_print("Report bugs to %s.\n", PACKAGE_BUGREPORT);
+	//qInfo("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+	qInfo("Usage: freetuxtv [OPTION...]\n");
+	qInfo("\n");
+	qInfo("Options:\n");
+	qInfo("  -h, --help        display this help and exit\n");
+	qInfo("      --version     output version information and exit\n");
+	qInfo("\n");
+	qInfo("Channel:\n");
+	qInfo("  --open-channel CHANNEL_NAME\n");
+	qInfo("                    look for a channel corresponding to the name and \n");
+	qInfo("                    play it if found (take first in the channels list)\n");
+	qInfo("\n");
+	qInfo("Debug options:\n");
+	qInfo("      --datadir DATA_DIR\n");
+	qInfo("                    set data directory\n");
+	qInfo("  -v, --verbose     display a more detailled trace\n");
+	qInfo("\n");
+	qInfo("Report bugs to %s.\n", PACKAGE_BUGREPORT);
 }
 
 static void
 show_version()
 {
-	g_print("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
-	g_print("\n");
-	g_print("Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>\n");
-	g_print("This is free software; see the source for copying conditions.  There is NO\n");
-	g_print("warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n");
-    g_print("\n");
-    g_print("Written by Eric Beuque\n");
+	//qInfo("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+	qInfo("\n");
+	qInfo("Copyright (C) Eric Beuque 2010 <eric.beuque@gmail.com>\n");
+	qInfo("This is free software; see the source for copying conditions.  There is NO\n");
+	qInfo("warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n");
+	qInfo("\n");
+	qInfo("Written by Eric Beuque\n");
 }
 
 static void
-show_error(gchar *szErrMsg)
+show_error(const QString& szErrMsg)
 {
-	g_printerr("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
-	g_printerr("freetuxtv: %s\n", szErrMsg);
-	g_printerr("Try `freetuxtv --help' for more information.\n");
+	//qCritical("FreetuxTV %s (Compiled with LibVLC version %s)\n", VERSION, gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+	qCritical("freetuxtv: %s\n", qPrintable(szErrMsg));
+	qCritical("Try `freetuxtv --help' for more information.\n");
 }
 
 int
 main (int argc, char *argv[])
-{	
-	FreetuxTVApp *app;
+{
+	QApplication app(argc, argv);
+	QApplication::setApplicationName(APPLICATION_NAME);
+	QApplication::setApplicationVersion(APPLICATION_VERSION);
+	QApplication::setOrganizationName(APPLICATION_VENDOR_NAME);
+	QApplication::setOrganizationDomain(APPLICATION_VENDOR_DOMAIN);
+	QApplication::setWindowIcon(QIcon(":/" APPLICATION_PACKAGE_NAME ".png"));
 
-	GMMKeys* mmkeys;
+	qDebug("[Main] Starting application");
 
-	gboolean bStopParseArgs = FALSE;
-	gboolean bQuit = FALSE;
-	gchar*   szErrMsg = NULL;
-	
-	gboolean bShowHelp = FALSE;
-	gboolean bShowVersion = FALSE;
-	gboolean bTraceDebug = FALSE;
-	gboolean bOpenChannel = FALSE;
-//	gchar* szUri;
-	gchar* szChannelName = NULL;
-	gchar* szDataDir = NULL;
+	//FreetuxTVApp *app;
+
+	//GMMKeys* mmkeys;
+
+	bool bStopParseArgs = false;
+	bool bQuit = false;
+	QString szErrMsg;
+
+	bool bShowHelp = false;
+	bool bShowVersion = false;
+	bool bTraceDebug = false;
+	bool bOpenChannel = false;
+//	char* szUri;
+	char* szChannelName = NULL;
+	char* szDataDir = NULL;
 
 	int p;
 	int idLogHandler;
 
 	// Process programs args
+	QString szArg;
 	if(argc>1){
 		for(p=1; p<argc && !bStopParseArgs; p++){
-			if(argv[p][0] == '-'){
+			szArg = QString(argv[p]);
+			if(szArg.startsWith("-")){
 				// This should be an option
-				if(g_ascii_strcasecmp("-h", argv[p]) == 0 || g_ascii_strcasecmp("--help", argv[p]) == 0){
+				if((szArg == "-h")|| (szArg == "--help")){
 					// Found the show help option
-					bShowHelp = TRUE;
-					bStopParseArgs = TRUE;
-				}else if(g_ascii_strcasecmp("--version", argv[p]) == 0){
+					bShowHelp = true;
+					bStopParseArgs = true;
+				}else if((szArg == "--version")){
 					// Found the version option
-					bShowVersion = TRUE;
-					bStopParseArgs = TRUE;
-				}else if(g_ascii_strcasecmp("-v", argv[p]) == 0 || g_ascii_strcasecmp("--verbose", argv[p]) == 0){
+					bShowVersion = true;
+					bStopParseArgs = true;
+				}else if((szArg == "-v") || (szArg == "--verbose")){
 					// Found the verbose option
-					bTraceDebug = TRUE;
-				}else if(g_ascii_strcasecmp("--open-channel", argv[p]) == 0){
+					bTraceDebug = true;
+				}else if(szArg == "--open-channel"){
 					// Found the open channel option
 					if(p+1<argc){
-						bOpenChannel = TRUE;
+						bOpenChannel = true;
 						szChannelName = argv[p+1];
 					}else{
-						szErrMsg = g_strdup_printf("missing mandatory argument to '%s", argv[p]);
-						bStopParseArgs = FALSE;
+						szErrMsg = QObject::tr("missing mandatory argument to '%s", argv[p]);
+						bStopParseArgs = false;
 					}
-				}else if(g_ascii_strcasecmp("--datadir", argv[p]) == 0){
+				}else if((szArg == "--datadir")){
 					// Found the datadir option
 					if(p+1<argc){
 						szDataDir = argv[p+1];
 					}else{
-						szErrMsg = g_strdup_printf("missing mandatory argument to '%s", argv[p]);
-						bStopParseArgs = FALSE;
+						szErrMsg = QObject::tr("missing mandatory argument to '%s", argv[p]);
+						bStopParseArgs = false;
 					}
 				}else{
-					szErrMsg = g_strdup_printf("unknown option '%s'", argv[p]);
-					bStopParseArgs = FALSE;
+					szErrMsg =QObject::tr("unknown option '%s'", argv[p]);
+					bStopParseArgs = false;
 				}
 			}else{
 				if(p == argc-1){
@@ -1802,68 +1829,61 @@ main (int argc, char *argv[])
 					// TODO : Allow to play the URI
 					// szUri = argv[p];
 				}else{
-					szErrMsg = g_strdup_printf("invalid option '%s'", argv[p]);
+					szErrMsg = QObject::tr("invalid option '%s'", argv[p]);
 				}
 			}
 		}
 	}
 
-	if(szErrMsg){
-		bQuit = TRUE;
+	if(!szErrMsg.isEmpty()){
+		bQuit = true;
 		show_error (szErrMsg);
-		g_free(szErrMsg);
-		szErrMsg = NULL;
 	}
 
 	if(bShowHelp){
 		show_help();
-		bQuit = TRUE;
+		bQuit = true;
 	}
 
 	if(bShowVersion){
 		show_version();
-		bQuit = TRUE;
+		bQuit = true;
 	}
 
 	if(!bQuit){
-		// Initialize log handler
-		idLogHandler = g_log_set_handler (FREETUXTV_LOG_DOMAIN,
-			                              G_LOG_LEVEL_MASK,
-			                              freetuxtv_log, &bTraceDebug);
+		// Initialize translation
+		QTranslator qtTranslator;
+		qInfo("[Main] Current locale is %s", qPrintable(QLocale::system().name()));
+		// qDebug("[Main] Current locale path is %s", qPrintable(QLibraryInfo::location(QLibraryInfo::TranslationsPath)));
+		qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+		app.installTranslator(&qtTranslator);
+		QTranslator appTranslator;
+		appTranslator.load(QLocale::system().name(), ":/ts/");
+		app.installTranslator(&appTranslator);
 
-#ifdef ENABLE_NLS
-		bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
-		bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-		textdomain (GETTEXT_PACKAGE);
+		qInfo("[Main] Compiled with Qt %s", QT_VERSION_STR);
+		//qInfo("[Main] Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+#ifdef USE_LIBNOTIFY
+		qInfo("[Main] Compiled with libnotify version %d.%d.%d\n", LIBNOTIFY_VERSION_MAJOR, LIBNOTIFY_VERSION_MINOR, LIBNOTIFY_VERSION_REVISION);
 #endif
 
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Compiled with GTK%d\n", GTK_API_VERSION);		
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Compiled with libnotify version %d.%d.%d\n", LIBNOTIFY_VERSION_MAJOR, LIBNOTIFY_VERSION_MINOR, LIBNOTIFY_VERSION_REVISION);
 
-#if GTK_API_VERSION == 3
-		setlocale(LC_ALL, "");
-#else
-		gtk_set_locale ();
-#endif
-		gtk_init (&argc, &argv);
-
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-		    "Loading FreetuxTV %s\n", VERSION);
+		qInfo("[Main] Loading FreetuxTV %s", APPLICATION_VERSION);
+		/*
 		app = freetuxtv_app_create_app (szDataDir);
 		if (app != NULL) {
 
+#ifdef USE_LIBNOTIFY
 			// Initialize notifications
 			notify_init("FreetuxTV");
 
-#if LIBNOTIFY_VERSION_MAJOR == 0 && LIBNOTIFY_VERSION_MINOR < 7
+	#if LIBNOTIFY_VERSION_MAJOR == 0 && LIBNOTIFY_VERSION_MINOR < 7
 			app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL, NULL);
-#else
+	#else
 			app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL);
+	#endif
 #endif
+
 
 			mmkeys = g_mmkeys_new ("FreetuxTV", freetuxtv_log);
 			g_mmkeys_activate (mmkeys);
@@ -1888,14 +1908,16 @@ main (int argc, char *argv[])
 
 			g_mmkeys_deactivate (mmkeys);
 			g_object_unref(G_OBJECT(app->current.notification));
+#ifdef USE_LIBNOTIFY
 			notify_uninit();
+#endif
 
 			freetuxtv_app_destroy_app (&app);
 			app = NULL;
 		}
 
 		g_log_remove_handler (FREETUXTV_LOG_DOMAIN, idLogHandler);
+		 */
 	}
-
 	return 0;
 }
