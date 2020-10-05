@@ -7,6 +7,8 @@
 
 #include <QObject>
 
+class QAction;
+
 class QApplicationMainWindow;
 
 class QApplicationMainWindowController: public QObject
@@ -23,6 +25,10 @@ public:
 private slots:
 	void onPreferencesTriggered();
 	void onQuitTriggered();
+	void onAddGroupTriggered();
+	void onSynchronizeTVChannelsTriggered();
+	void onDeinterlaceModeTriggered(QAction *action);
+	void onAboutTriggered();
 
 private:
 	QApplicationMainWindow* m_pMainWindow;

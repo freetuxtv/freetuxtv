@@ -22,6 +22,8 @@
 
 #include <QMainWindow>
 
+class QActionGroup;
+
 //#include "freetuxtv-app.h"
 
 typedef enum {
@@ -60,6 +62,19 @@ public:
  */
 	QAction* getActionPreferences() const;
 	QAction* getActionQuit() const;
+	QAction* getActionAddGroup() const;
+	QAction* getActionSynchronizeTVChannels() const;
+
+	QActionGroup* getActionGroupDeinterlace() const;
+	QAction* getActionDeinterlaceDisable() const;
+	QAction* getActionDeinterlaceBlend() const;
+	QAction* getActionDeinterlaceBob() const;
+	QAction* getActionDeinterlaceDiscard() const;
+	QAction* getActionDeinterlaceLinear() const;
+	QAction* getActionDeinterlaceMean() const;
+	QAction* getActionDeinterlaceX() const;
+
+	QAction* getActionAbout() const;
 
 private:
 	QMenuBar* createMenuBar(QWidget* parent);
@@ -68,6 +83,23 @@ private:
 	// Menu FreetuxTV
 	QAction* m_pActionPreferences;
 	QAction* m_pActionQuit;
+
+	// Menu Channels
+	QAction* m_pActionAddGroup;
+	QAction* m_pActionSynchronizeTVChannels;
+
+	// Menu Video
+	QActionGroup* m_pActionGroupDeinterlace;
+	QAction* m_pActionDeinterlaceDisable;
+	QAction* m_pActionDeinterlaceBlend;
+	QAction* m_pActionDeinterlaceBob;
+	QAction* m_pActionDeinterlaceDiscard;
+	QAction* m_pActionDeinterlaceLinear;
+	QAction* m_pActionDeinterlaceMean;
+	QAction* m_pActionDeinterlaceX;
+
+	// Menu Help
+	QAction* m_pActionAbout;
 };
 
 #endif /* FREETUXTV_WINDOW_MAIN_H */

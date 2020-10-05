@@ -310,148 +310,78 @@ QMenuBar* QApplicationMainWindow::createMenuBar(QWidget* parent)
 	// Initialize menu bar
 	pMenuBar = new QMenuBar (this);
 	QMenu *pMenu;
-	//GtkWidget *pMenuItem = NULL;
-	//GtkWidget *pSubmenu = NULL;
+	QMenu *pSubmenu;
 
 	//GSList* pRadioGroup = NULL;
 
-	// Menu : FreetuxTV
-	pMenu = pMenuBar->addMenu(tr("&FreetuxTV"));
+	// Menu FreetuxTV
+	{
+		pMenu = pMenuBar->addMenu(tr("&FreetuxTV"));
 
-	m_pActionPreferences = new QAction(QIcon("preferences"), tr("&Preferences"));
-	pMenu->addAction(m_pActionPreferences);
+		m_pActionPreferences = new QAction(QIcon::fromTheme("document-properties"), tr("&Preferences"));
+		pMenu->addAction(m_pActionPreferences);
 
-	pMenu->addSeparator();
+		pMenu->addSeparator();
 
-	m_pActionQuit = new QAction(QIcon("application-exit"), tr("&Quit"));
-	pMenu->addAction(m_pActionQuit);
+		m_pActionQuit = new QAction(QIcon::fromTheme("application-exit"), tr("&Quit"));
+		pMenu->addAction(m_pActionQuit);
+	}
 
-	/*
-	pMenuItem = gtk_separator_menu_item_new();
-	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
-	pMenuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL);
-	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemquit_activate),
-					 app);
-	// End Menu : FreetuxTV
+	// Menu Channels
+	{
+		pMenu = pMenuBar->addMenu(tr("&Channels"));
 
-	// Menu : Channels
-	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Channels"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pMenuBar), pMenuItem);
-	pMenu = gtk_menu_new ();
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pMenu);
-	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Add a group"));
-	gtk_widget_set_tooltip_text (GTK_WIDGET(pMenuItem),
-								 _("Add/create a channels group from different sources"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemgroupsadd_activate),
-					 app);
-	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Synchronize TV channels database"));
-	gtk_widget_set_tooltip_text (GTK_WIDGET(pMenuItem),
-								 _("Synchronize the TV channels list in the local database from the XML database"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemupdatetvchannels_activate),
-					 app);
-	// End Menu : Channels
+		m_pActionAddGroup = new QAction(tr("&Add a group"));
+		m_pActionAddGroup->setToolTip(tr("Add/create a channels group from different sources"));
+		pMenu->addAction(m_pActionAddGroup);
 
-	// Menu : Video
-	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Video"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pMenuBar), pMenuItem);
-	pMenu = gtk_menu_new ();
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pMenu);
-	// SubMenu : Deinterlace
-	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Deinterlace"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
-	pSubmenu = gtk_menu_new ();
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pSubmenu);
+		m_pActionSynchronizeTVChannels = new QAction(QIcon::fromTheme("view-refresh"), tr("&Synchronize TV channels database"));
+		m_pActionSynchronizeTVChannels->setToolTip(
+				tr("Synchronize the TV channels list in the local database from the XML database"));
+		pMenu->addAction(m_pActionSynchronizeTVChannels);
+	}
 
-	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Disable"));
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemdeinterlacedisable_activate),
-					 app);
-	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
-	app->widget.pMenuDeinterlaceDisable = pMenuItem;
+	// Menu Video
+	{
+		pMenu = pMenuBar->addMenu(tr("&Video"));
 
-	pMenuItem = gtk_separator_menu_item_new();
-	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
+		// SubMenu : Deinterlace
+		pSubmenu = pMenu->addMenu(tr("&Deinterlace"));
 
-	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Blend"));
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemdeinterlaceblend_activate),
-					 app);
-	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
-	app->widget.pMenuDeinterlaceBlend = pMenuItem;
+		m_pActionGroupDeinterlace = new QActionGroup(parent);
 
-	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Bob"));
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemdeinterlacebob_activate),
-					 app);
-	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
-	app->widget.pMenuDeinterlaceBob = pMenuItem;
+		m_pActionDeinterlaceDisable = m_pActionGroupDeinterlace->addAction(tr("Disable"));
+		m_pActionDeinterlaceDisable->setCheckable(true);
+		m_pActionDeinterlaceDisable->setChecked(true);
+		pSubmenu->addAction(m_pActionDeinterlaceDisable);
+		pSubmenu->addSeparator();
+		m_pActionDeinterlaceBlend = m_pActionGroupDeinterlace->addAction(tr("Blend"));
+		m_pActionDeinterlaceBlend->setCheckable(true);
+		pSubmenu->addAction(m_pActionDeinterlaceBlend);
+		m_pActionDeinterlaceBob = m_pActionGroupDeinterlace->addAction(tr("Bob"));
+		m_pActionDeinterlaceBob->setCheckable(true);
+		pSubmenu->addAction(m_pActionDeinterlaceBob);
+		m_pActionDeinterlaceDiscard = m_pActionGroupDeinterlace->addAction(tr("Discard"));
+		m_pActionDeinterlaceDiscard->setCheckable(true);
+		pSubmenu->addAction(m_pActionDeinterlaceDiscard);
+		m_pActionDeinterlaceLinear = m_pActionGroupDeinterlace->addAction(tr("Linear"));
+		m_pActionDeinterlaceLinear->setCheckable(true);
+		pSubmenu->addAction(m_pActionDeinterlaceLinear);
+		m_pActionDeinterlaceMean = m_pActionGroupDeinterlace->addAction(tr("Mean"));
+		m_pActionDeinterlaceMean->setCheckable(true);
+		pSubmenu->addAction(m_pActionDeinterlaceMean);
+		m_pActionDeinterlaceX = m_pActionGroupDeinterlace->addAction(tr("X"));
+		m_pActionDeinterlaceX->setCheckable(true);
+		pSubmenu->addAction(m_pActionDeinterlaceX);
+	}
 
-	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Discard"));
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemdeinterlacediscard_activate),
-					 app);
-	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
-	app->widget.pMenuDeinterlaceDiscard = pMenuItem;
+	// Menu Help
+	{
+		pMenu = pMenuBar->addMenu(tr("&Help"));
 
-	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Linear"));
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemdeinterlacelinear_activate),
-					 app);
-	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
-	app->widget.pMenuDeinterlaceLinear = pMenuItem;
-
-	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("Mean"));
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemdeinterlacemean_activate),
-					 app);
-	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
-	app->widget.pMenuDeinterlaceMean = pMenuItem;
-
-	pMenuItem = gtk_radio_menu_item_new_with_label (pRadioGroup, _("X"));
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemdeinterlacex_activate),
-					 app);
-	pRadioGroup = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(pMenuItem));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pSubmenu), pMenuItem);
-	app->widget.pMenuDeinterlaceX = pMenuItem;
-	// End SubMenu : Deinterlace
-	// End Menu : Video
-
-	// Menu : Help
-	pMenuItem = gtk_menu_item_new_with_mnemonic (_("_Help"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (pMenuBar), pMenuItem);
-	pMenu = gtk_menu_new ();
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (pMenuItem), pMenu);
-	pMenuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);
-	gtk_menu_shell_append (GTK_MENU_SHELL (pMenu), pMenuItem);
-	g_signal_connect(G_OBJECT(pMenuItem),
-					 "activate",
-					 G_CALLBACK(on_windowmain_menuitemaboutdialog_activate),
-					 app);
-	// End Menu : Help
-	 */
+		m_pActionAbout = new QAction(QIcon::fromTheme("help-about"), tr("&About"));
+		pMenu->addAction(m_pActionAbout);
+	}
 
 	return pMenuBar;
 }
@@ -464,6 +394,61 @@ QAction* QApplicationMainWindow::getActionPreferences() const
 QAction* QApplicationMainWindow::getActionQuit() const
 {
 	return m_pActionQuit;
+}
+
+QAction* QApplicationMainWindow::getActionAddGroup() const
+{
+	return m_pActionAddGroup;
+}
+
+QAction* QApplicationMainWindow::getActionSynchronizeTVChannels() const
+{
+	return m_pActionSynchronizeTVChannels;
+}
+
+QActionGroup* QApplicationMainWindow::getActionGroupDeinterlace() const
+{
+	return m_pActionGroupDeinterlace;
+}
+
+QAction* QApplicationMainWindow::getActionDeinterlaceDisable() const
+{
+	return m_pActionDeinterlaceDisable;
+}
+
+QAction* QApplicationMainWindow::getActionDeinterlaceBlend() const
+{
+	return m_pActionDeinterlaceBlend;
+}
+
+QAction* QApplicationMainWindow::getActionDeinterlaceBob() const
+{
+	return m_pActionDeinterlaceBob;
+}
+
+QAction* QApplicationMainWindow::getActionDeinterlaceDiscard() const
+{
+	return m_pActionDeinterlaceDiscard;
+}
+
+QAction* QApplicationMainWindow::getActionDeinterlaceLinear() const
+{
+	return m_pActionDeinterlaceLinear;
+}
+
+QAction* QApplicationMainWindow::getActionDeinterlaceMean() const
+{
+	return m_pActionDeinterlaceMean;
+}
+
+QAction* QApplicationMainWindow::getActionDeinterlaceX() const
+{
+	return m_pActionDeinterlaceX;
+}
+
+QAction* QApplicationMainWindow::getActionAbout() const
+{
+	return m_pActionAbout;
 }
 
 /*

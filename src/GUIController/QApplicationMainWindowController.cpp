@@ -32,6 +32,17 @@ void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow)
 	pAction = m_pMainWindow->getActionQuit();
 	connect(pAction, SIGNAL(triggered(bool)), this, SLOT(onQuitTriggered()));
 
+	pAction = m_pMainWindow->getActionAddGroup();
+	connect(pAction, SIGNAL(triggered(bool)), this, SLOT(onAddGroupTriggered()));
+
+	pAction = m_pMainWindow->getActionSynchronizeTVChannels();
+	connect(pAction, SIGNAL(triggered(bool)), this, SLOT(onSynchronizeTVChannelsTriggered()));
+
+	connect(m_pMainWindow->getActionGroupDeinterlace(), SIGNAL(triggered(QAction*)), this, SLOT(onDeinterlaceModeTriggered(QAction*)));
+
+	pAction = m_pMainWindow->getActionAbout();
+	connect(pAction, SIGNAL(triggered(bool)), this, SLOT(onAboutTriggered()));
+
 /*
 	app->widget.pTrayIcon = gtk_status_icon_new_from_icon_name ("freetuxtv");
 	gtk_status_icon_set_visible(app->widget.pTrayIcon, TRUE);
@@ -213,10 +224,140 @@ void QApplicationMainWindowController::onPreferencesTriggered()
 	*/
 }
 
-
 void QApplicationMainWindowController::onQuitTriggered()
 {
 	QCoreApplication::exit();
+}
+
+void QApplicationMainWindowController::onAddGroupTriggered()
+{
+	qDebug("onAddGroupTriggered");
+	/*
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+
+	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
+
+	GtkWindow* pWindow;
+	GtkWidget* pParent;
+	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
+
+	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (
+			GTK_WINDOW(pParent), app, &error);
+
+	if(error == NULL){
+		pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
+		gtk_widget_show(GTK_WIDGET(pWindow));
+
+		GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
+
+		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
+						 G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
+		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
+						 G_CALLBACK(on_channels_added), ppCurrentTreePath);
+		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
+						 G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	*/
+}
+
+void QApplicationMainWindowController::onSynchronizeTVChannelsTriggered()
+{
+	qDebug("onSynchronizeTVChannelsTriggered");
+	/*
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+
+	GtkWindow* pWindow;
+	GtkWidget* pParent;
+	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
+
+	FreetuxTVWindowTVChannelsDatabase* pWindowTVChannelsDatabase;
+	pWindowTVChannelsDatabase = freetuxtv_window_tv_channels_database_new(GTK_WINDOW(pParent), app);
+
+	if(error == NULL){
+		pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowTVChannelsDatabase));
+		gtk_widget_show(GTK_WIDGET(pWindow));
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	*/
+}
+
+void QApplicationMainWindowController::onDeinterlaceModeTriggered(QAction *action)
+{
+	qDebug("onDeinterlaceModeTriggered");
+
+	const char* szMode = NULL;
+	if(action == m_pMainWindow->getActionDeinterlaceDisable()){
+		szMode = NULL;
+	}else if(action == m_pMainWindow->getActionDeinterlaceBlend()){
+		szMode = "blenc";
+	}else if(action == m_pMainWindow->getActionDeinterlaceBob()){
+		szMode = "bob";
+	}else if(action == m_pMainWindow->getActionDeinterlaceDiscard()){
+		szMode = "discard";
+	}else if(action == m_pMainWindow->getActionDeinterlaceLinear()){
+		szMode = "linear";
+	}else if(action == m_pMainWindow->getActionDeinterlaceMean()){
+		szMode = "mean";
+	}else if(action == m_pMainWindow->getActionDeinterlaceX()){
+		szMode = "x";
+	}
+
+/*
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+	DBSync dbsync;
+	FreetuxTVChannelInfos* pChannel;
+
+	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
+		freetuxtv_action_deinterlace (app, mode, &error);
+
+		if(app->current.pPathChannel){
+			if(error == NULL){
+				dbsync_open_db (&dbsync, &error);
+			}
+
+			if(error == NULL){
+				pChannel = channels_list_get_channel (app, app->current.pPathChannel);
+				dbsync_update_channel_deinterlace_mode (&dbsync, pChannel, (gchar*)mode, &error);
+			}
+
+			dbsync_close_db(&dbsync);
+		}
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+*/
+
+}
+
+void QApplicationMainWindowController::onAboutTriggered()
+{
+	qDebug("onAboutTriggered");
+
+	/*
+		FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+		GtkWidget *widget;
+		widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
+														"aboutdialog");
+		gtk_widget_show(widget);
+	*/
 }
 
 /*
@@ -236,54 +377,10 @@ on_windowmain_trayicon_popupmenu(GtkStatusIcon *status_icon, guint button,
 static gboolean
 on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data);
 
-static void
-on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
-                                          gpointer user_data);
-
-static void
-on_windowmain_menuitemupdatetvchannels_activate (GtkMenuItem *menuitem,
-                                                 gpointer user_data);
 
 static void
 on_windowmain_menuitemmute_activate (GtkMenuItem *menuitem,
                                      gpointer user_data);
-
-static void
-on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
-                                            gpointer user_data);
-
-static void
-on_windowmain_menuitemdeinterlace_change (GtkMenuItem *menuitem,
-                                          const gchar* mode,
-                                          gpointer user_data);
-
-static void
-on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
-                                                   gpointer user_data);
-
-static void
-on_windowmain_menuitemdeinterlaceblend_activate (GtkMenuItem *menuitem,
-                                                 gpointer user_data);
-
-static void
-on_windowmain_menuitemdeinterlacebob_activate (GtkMenuItem *menuitem,
-                                               gpointer user_data);
-
-static void
-on_windowmain_menuitemdeinterlacediscard_activate (GtkMenuItem *menuitem,
-                                                   gpointer user_data);
-
-static void
-on_windowmain_menuitemdeinterlacelinear_activate (GtkMenuItem *menuitem,
-                                                  gpointer user_data);
-
-static void
-on_windowmain_menuitemdeinterlacemean_activate (GtkMenuItem *menuitem,
-                                                gpointer user_data);
-
-static void
-on_windowmain_menuitemdeinterlacex_activate (GtkMenuItem *menuitem,
-                                             gpointer user_data);
 
 static gboolean
 on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
@@ -518,17 +615,6 @@ on_windowmain_menuitemmute_activate (GtkMenuItem *menuitem,
 		windowmain_show_gerror (app, error);
 		g_error_free (error);
 	}
-}
-
-static void
-on_windowmain_menuitemaboutdialog_activate (GtkMenuItem *menuitem,
-                                            gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	GtkWidget *widget;
-	widget =  (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                                "aboutdialog");
-	gtk_widget_show(widget);
 }
 
 static void
@@ -810,152 +896,6 @@ on_window_add_channels_group_destroy (GtkBuilderWidget *self, gpointer user_data
 		g_free(ppCurrentTreePath);
 		ppCurrentTreePath = NULL;
 	}
-}
-
-static void
-on_windowmain_menuitemgroupsadd_activate (GtkMenuItem *menuitem,
-                                          gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-
-	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
-
-	GtkWindow* pWindow;
-	GtkWidget* pParent;
-	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
-
-	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (
-	    GTK_WINDOW(pParent), app, &error);
-
-	if(error == NULL){
-		pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
-		gtk_widget_show(GTK_WIDGET(pWindow));
-
-		GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
-
-		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
-			G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
-		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
-			G_CALLBACK(on_channels_added), ppCurrentTreePath);
-		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
-			G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-}
-
-static void
-on_windowmain_menuitemupdatetvchannels_activate (GtkMenuItem *menuitem,
-                                                 gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-
-	GtkWindow* pWindow;
-	GtkWidget* pParent;
-	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
-
-	FreetuxTVWindowTVChannelsDatabase* pWindowTVChannelsDatabase;
-	pWindowTVChannelsDatabase = freetuxtv_window_tv_channels_database_new(GTK_WINDOW(pParent), app);
-
-	if(error == NULL){
-		pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowTVChannelsDatabase));
-		gtk_widget_show(GTK_WIDGET(pWindow));
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-}
-
-static void
-on_windowmain_menuitemdeinterlace_change (GtkMenuItem *menuitem,
-                                          const gchar* mode,
-                                          gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-	DBSync dbsync;
-	FreetuxTVChannelInfos* pChannel;
-
-	if(gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem))){
-		freetuxtv_action_deinterlace (app, mode, &error);
-
-		if(app->current.pPathChannel){
-			if(error == NULL){
-				dbsync_open_db (&dbsync, &error);
-			}
-
-			if(error == NULL){
-				pChannel = channels_list_get_channel (app, app->current.pPathChannel);
-				dbsync_update_channel_deinterlace_mode (&dbsync, pChannel, (gchar*)mode, &error);
-			}
-
-			dbsync_close_db(&dbsync);
-		}
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-}
-
-static void
-on_windowmain_menuitemdeinterlacedisable_activate (GtkMenuItem *menuitem,
-                                                   gpointer user_data)
-{
-	on_windowmain_menuitemdeinterlace_change (menuitem, NULL, user_data);
-}
-
-static void
-on_windowmain_menuitemdeinterlacebob_activate (GtkMenuItem *menuitem,
-                                                    gpointer user_data)
-{
-	on_windowmain_menuitemdeinterlace_change (menuitem, "bob", user_data);
-}
-
-static void
-on_windowmain_menuitemdeinterlaceblend_activate (GtkMenuItem *menuitem,
-                                                    gpointer user_data)
-{
-	on_windowmain_menuitemdeinterlace_change (menuitem, "blend", user_data);
-}
-
-static void
-on_windowmain_menuitemdeinterlacediscard_activate (GtkMenuItem *menuitem,
-                                                   gpointer user_data)
-{
-	on_windowmain_menuitemdeinterlace_change (menuitem, "discard", user_data);
-}
-
-static void
-on_windowmain_menuitemdeinterlacelinear_activate (GtkMenuItem *menuitem,
-                                                    gpointer user_data)
-{
-	on_windowmain_menuitemdeinterlace_change (menuitem, "linear", user_data);
-}
-
-static void
-on_windowmain_menuitemdeinterlacemean_activate (GtkMenuItem *menuitem,
-                                                gpointer user_data)
-{
-	on_windowmain_menuitemdeinterlace_change (menuitem, "mean", user_data);
-}
-
-static void
-on_windowmain_menuitemdeinterlacex_activate (GtkMenuItem *menuitem,
-                                                  gpointer user_data)
-{
-	on_windowmain_menuitemdeinterlace_change (menuitem, "x", user_data);
 }
 
 static gboolean
