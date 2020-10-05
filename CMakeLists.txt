@@ -145,6 +145,7 @@ find_package (Intl REQUIRED)
 find_package(Gettext REQUIRED)
 include_directories(${INTL_INCLUDE_DIRS})
 link_directories(${INTL_LIBRARY_DIRS})
+add_definitions(-DENABLE_NLS -DGETTEXT_PACKAGE=\"${APPLICATION_PACKAGE_NAME}\")
 
 
 ####################
