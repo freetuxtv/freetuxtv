@@ -24,7 +24,10 @@
 #include <gdk/gdkx.h>
 */
 #include <QMenuBar>
-#include <GUIController/QApplicationMainWindowController.h>
+#include <QStatusBar>
+#include <QHBoxLayout>
+
+#include "GUIController/QApplicationMainWindowController.h"
 
 #include "QApplicationMainWindow.h"
 /*
@@ -45,10 +48,16 @@
 
 QApplicationMainWindow::QApplicationMainWindow(QWidget * parent) : QMainWindow(parent)
 {
-	QWidget *widget;
+	QWidget *pWidget;
 
 	QMenuBar *pMenuBar = createMenuBar(this);
 	setMenuBar(pMenuBar);
+
+	pWidget = createCentralWidget(this);
+	setCentralWidget(pWidget);
+
+	QStatusBar* pStatusBar = new QStatusBar();
+	setStatusBar(pStatusBar);
 
 	/*
 
@@ -384,6 +393,36 @@ QMenuBar* QApplicationMainWindow::createMenuBar(QWidget* parent)
 	}
 
 	return pMenuBar;
+}
+
+
+QWidget* QApplicationMainWindow::createCentralWidget(QWidget* parent)
+{
+	QWidget* pMainWidget = new QWidget(parent);
+
+	QBoxLayout* pLayout = new QHBoxLayout();
+	pMainWidget->setLayout(pLayout);
+
+	// Tabs
+	{
+		QTabWidget *pTab = new QTabWidget();
+		pTab->setTabPosition(QTabWidget::West);
+
+		pTab->addTab(new QWidget(), tr("Channels"));
+		pTab->addTab(new QWidget(), tr("Recordings"));
+
+		pLayout->addWidget(pTab, 1);
+
+	}
+
+	// Video
+	{
+		QWidget* pTmp = new QWidget();
+		pTmp->setStyleSheet("background-color:black;");
+		pLayout->addWidget(pTmp, 3);
+	}
+
+	return pMainWidget;
 }
 
 QAction* QApplicationMainWindow::getActionPreferences() const

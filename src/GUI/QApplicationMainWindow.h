@@ -78,6 +78,7 @@ public:
 
 private:
 	QMenuBar* createMenuBar(QWidget* parent);
+	QWidget* createCentralWidget(QWidget* parent);
 
 private:
 	// Menu FreetuxTV
