@@ -39,12 +39,15 @@
 //#include <locale.h>
 //
 //#include <libvlc-gtk/gtk-libvlc-media-player.h>
-//
+
+#include "GUI/QApplicationMainWindow.h"
+
+#include "GUIController/QApplicationMainWindowController.h"
+
 //#include "lib-gmmkeys.h"
 //#include "freetuxtv-app.h"
 //#include "freetuxtv-utils.h"
 //#include "freetuxtv-i18n.h"
-//#include "freetuxtv-window-main.h"
 //#include "freetuxtv-channels-list.h"
 //#include "freetuxtv-recordings-list.h"
 //#include "freetuxtv-tv-channels-list.h"
@@ -1513,12 +1516,12 @@ freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 
 		gtk_widget_destroy(dialog);
 		dialog = NULL;
-		
+
 	}
 
 	if(bQuit){
 		// Stop the current channel
-		freetuxtv_action_stop(app, &error);	
+		freetuxtv_action_stop(app, &error);
 
 		keyfile = g_key_file_new ();
 
@@ -1536,7 +1539,7 @@ freetuxtv_quit (FreetuxTVApp *app, GtkWindow* parent)
 		g_key_file_set_integer (keyfile, "libvlc",
 			                    "configfile_mode",
 			                    app->prefs.libvlcconfigfile_mode);
-		
+
 		g_key_file_set_string (keyfile, "general",
 			                   "directory_record",
 			                   app->prefs.directoryrecordings);
@@ -1867,8 +1870,17 @@ main (int argc, char *argv[])
 		qInfo("[Main] Compiled with libnotify version %d.%d.%d\n", LIBNOTIFY_VERSION_MAJOR, LIBNOTIFY_VERSION_MINOR, LIBNOTIFY_VERSION_REVISION);
 #endif
 
-
 		qInfo("[Main] Loading FreetuxTV %s", APPLICATION_VERSION);
+
+		QApplicationMainWindow* pMainWindow = new QApplicationMainWindow();
+
+		QApplicationMainWindowController* pMainWindowController = new QApplicationMainWindowController();
+		pMainWindowController->init(pMainWindow);
+
+
+		pMainWindow->resize(1200, 800);
+		pMainWindow->show();
+
 		/*
 		app = freetuxtv_app_create_app (szDataDir);
 		if (app != NULL) {
@@ -1903,21 +1915,37 @@ main (int argc, char *argv[])
 #else
 			gtk_init_add (splashscreen_app_init, app);
 #endif
+		 */
 
-			gtk_main ();
+		app.exec();
 
+		qInfo("[Main] Exit event loop");
+
+		//freetuxtv_quit (app, GTK_WINDOW(widget));
+/*
 			g_mmkeys_deactivate (mmkeys);
 			g_object_unref(G_OBJECT(app->current.notification));
+		 */
 #ifdef USE_LIBNOTIFY
 			notify_uninit();
 #endif
 
-			freetuxtv_app_destroy_app (&app);
+		pMainWindowController->dispose();
+		delete pMainWindowController;
+		pMainWindowController = NULL;
+
+		delete pMainWindow;
+		pMainWindow = NULL;
+
+		/*	freetuxtv_app_destroy_app (&app);
 			app = NULL;
 		}
 
 		g_log_remove_handler (FREETUXTV_LOG_DOMAIN, idLogHandler);
 		 */
+
+		qInfo("[Main] Closing application");
+
 	}
 	return 0;
 }

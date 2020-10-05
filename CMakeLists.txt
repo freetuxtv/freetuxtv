@@ -274,14 +274,25 @@ set(FREETUXTV_SRC
     src/freetuxtv-window-add-recording.h
     src/freetuxtv-window-channel-properties.c
     src/freetuxtv-window-channel-properties.h
-    src/freetuxtv-window-main.c
-    src/freetuxtv-window-main.h
     src/freetuxtv-window-tv-channels-database.c
     src/freetuxtv-window-tv-channels-database.h
 )
 
 set(FREETUXTV_SRC
+    src/GUI/QApplicationMainWindow.cpp
+    src/GUI/QApplicationMainWindow.h
+    src/GUIController/QApplicationMainWindowController.cpp
+    src/GUIController/QApplicationMainWindowController.h
     src/main.cpp
+)
+
+# Creating MOC file for sources file using "slots" or Q_OBJECT macro
+set(APPLICATION_MOC_HEADERS
+    src/GUIController/QApplicationMainWindowController.h
+)
+qt5_wrap_cpp(
+    APPLICATION_MOC_OUTFILES
+    ${APPLICATION_MOC_HEADERS}
 )
 
 ####################
@@ -343,7 +354,7 @@ endif()
 
 #add_executable(${APPLICATION_EXE_NAME} ${LIBDBEVOLUTION_SRC} ${LIBVLCGTK_SRC} ${FREETUXTV_LIB_SRC} ${FREETUXTV_SRC})
 #target_link_libraries(${APPLICATION_EXE_NAME} ${QT_LIBRARIES} ${LIBNOTIFY_LIBRARIES} ${LIBVLC_LIBRARIES} ${SQLITE3_LIBRARIES} ${CURL_LIBRARIES})
-add_executable(${APPLICATION_EXE_NAME} ${FREETUXTV_SRC})
+add_executable(${APPLICATION_EXE_NAME} ${FREETUXTV_SRC} ${APPLICATION_MOC_OUTFILES})
 target_link_libraries(${APPLICATION_EXE_NAME} ${QT_LIBRARIES})
 install(TARGETS ${APPLICATION_EXE_NAME} DESTINATION ${INSTALL_PATH_BIN})
 
