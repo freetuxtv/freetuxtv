@@ -71,6 +71,121 @@ QPushButton* QPreferencesDialog::getButtonValid() const
 	return m_pButtonValid;
 }
 
+QCheckBox* QPreferencesDialog::getCheckBoxPlayLastChannelOnStartup() const
+{
+	return m_pCheckBoxPlayLastChannelOnStartup;
+}
+
+QCheckBox* QPreferencesDialog::getCheckBoxDesktopNotification() const
+{
+	return m_pCheckBoxDesktopNotification;
+}
+
+QCheckBox* QPreferencesDialog::getCheckBoxIgnoreDiacritics() const
+{
+	return m_pCheckBoxIgnoreDiacritics;
+}
+
+QButtonGroup* QPreferencesDialog::getButtonGroupConfigFile() const
+{
+	return m_pButtonGroupConfigFile;
+}
+
+QRadioButton* QPreferencesDialog::getButtonConfigFileNone() const
+{
+	return m_pButtonConfigFileNone;
+}
+
+QRadioButton* QPreferencesDialog::getButtonConfigFileCustom() const
+{
+	return m_pButtonConfigFileCustom;
+}
+
+QRadioButton* QPreferencesDialog::getButtonConfigFileVLCFile() const
+{
+	return m_pButtonConfigFileVLCFile;
+}
+
+QLineEdit* QPreferencesDialog::getLineEditDirectoryRecording() const
+{
+	return m_pLineEditDirectoryRecording;
+}
+
+QButtonGroup* QPreferencesDialog::getButtonGroupTranscode() const
+{
+	return m_pButtonGroupTranscode;
+}
+
+QRadioButton* QPreferencesDialog::getButtonTranscodeNone() const
+{
+	return m_pButtonTranscodeNone;
+}
+
+QRadioButton* QPreferencesDialog::getButtonTranscodeCustom() const
+{
+	return m_pButtonTranscodeCustom;
+}
+
+QComboBox* QPreferencesDialog::getComboBoxTranscodeCustom() const
+{
+	return m_pComboBoxTranscodeCustom;
+}
+
+QLabel* QPreferencesDialog::getLabelTranscodeCmd() const
+{
+	return m_pLabelTranscodeCmd;
+}
+
+QLineEdit* QPreferencesDialog::getLineEditDownloadTimeOut() const
+{
+	return m_pLineEditDownloadTimeOut;
+}
+
+QButtonGroup* QPreferencesDialog::getButtonProxyMode() const
+{
+	return m_pButtonProxyMode;
+}
+
+QRadioButton* QPreferencesDialog::getButtonProxyNone() const
+{
+	return m_pButtonProxyNone;
+}
+
+QRadioButton* QPreferencesDialog::getButtonProxyCustom() const
+{
+	return m_pButtonProxyCustom;
+}
+
+QLineEdit* QPreferencesDialog::getLineEditProxyServer() const
+{
+	return m_pLineEditProxyServer;
+}
+
+QLineEdit* QPreferencesDialog::getLineEditProxyPort() const
+{
+	return m_pLineEditProxyPort;
+}
+
+QComboBox* QPreferencesDialog::getComboBoxProxyType() const
+{
+	return m_pComboBoxProxyType;
+}
+
+QCheckBox* QPreferencesDialog::getCheckBoxProxyAuth() const
+{
+	return m_pCheckBoxProxyAuth;
+}
+
+QLineEdit* QPreferencesDialog::getLineEditProxyUsername() const
+{
+	return m_pLineEditProxyUsername;
+}
+
+QLineEdit* QPreferencesDialog::getLineEditProxyPassword() const
+{
+	return m_pLineEditProxyPassword;
+}
+
 QWidget* QPreferencesDialog::createTabGeneral(QWidget* pParent)
 {
 	QWidget* pMainWidget = new QWidget(pParent);

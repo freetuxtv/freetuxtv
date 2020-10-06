@@ -24,6 +24,33 @@ public:
 	QPushButton* getButtonCancel() const;
 	QPushButton* getButtonValid() const;
 
+	QCheckBox* getCheckBoxPlayLastChannelOnStartup() const;
+	QCheckBox* getCheckBoxDesktopNotification() const;
+	QCheckBox* getCheckBoxIgnoreDiacritics() const;
+
+	QButtonGroup* getButtonGroupConfigFile() const;
+	QRadioButton* getButtonConfigFileNone() const;
+	QRadioButton* getButtonConfigFileCustom() const;
+	QRadioButton* getButtonConfigFileVLCFile() const;
+
+	QLineEdit* getLineEditDirectoryRecording() const;
+	QButtonGroup* getButtonGroupTranscode() const;
+	QRadioButton* getButtonTranscodeNone() const;
+	QRadioButton* getButtonTranscodeCustom() const;
+	QComboBox* getComboBoxTranscodeCustom() const;
+	QLabel* getLabelTranscodeCmd() const;
+
+	QLineEdit* getLineEditDownloadTimeOut() const;
+	QButtonGroup* getButtonProxyMode() const;
+	QRadioButton* getButtonProxyNone() const;
+	QRadioButton* getButtonProxyCustom() const;
+	QLineEdit* getLineEditProxyServer() const;
+	QLineEdit* getLineEditProxyPort() const;
+	QComboBox* getComboBoxProxyType() const;
+	QCheckBox* getCheckBoxProxyAuth() const;
+	QLineEdit* getLineEditProxyUsername() const;
+	QLineEdit* getLineEditProxyPassword() const;
+
 private:
 	QWidget* createTabGeneral(QWidget* pParent);
 	QWidget* createTabLibVLC(QWidget* pParent);

@@ -27,6 +27,7 @@ private slots:
 
 private:
 	void loadPreferences(Preferences* pPreferences);
+	void updateCtrl();
 
 private:
 	QPreferencesDialog* m_pPreferencesDialog;
