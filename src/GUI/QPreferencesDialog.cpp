@@ -141,7 +141,7 @@ QLineEdit* QPreferencesDialog::getLineEditDownloadTimeOut() const
 	return m_pLineEditDownloadTimeOut;
 }
 
-QButtonGroup* QPreferencesDialog::getButtonProxyMode() const
+QButtonGroup* QPreferencesDialog::getButtonGroupProxyMode() const
 {
 	return m_pButtonProxyMode;
 }

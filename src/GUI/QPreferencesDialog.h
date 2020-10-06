@@ -41,7 +41,7 @@ public:
 	QLabel* getLabelTranscodeCmd() const;
 
 	QLineEdit* getLineEditDownloadTimeOut() const;
-	QButtonGroup* getButtonProxyMode() const;
+	QButtonGroup* getButtonGroupProxyMode() const;
 	QRadioButton* getButtonProxyNone() const;
 	QRadioButton* getButtonProxyCustom() const;
 	QLineEdit* getLineEditProxyServer() const;

@@ -24,6 +24,11 @@ public:
 
 private slots:
 	void onValidButtonClicked();
+	void onDirectoryRecordingsChanged ();
+	void onTranscodingModeToggled ();
+	void onTranscodingFormatsChanged ();
+	void onProxyModeToggled ();
+	void onProxyAuthToggled ();
 
 private:
 	void loadPreferences(Preferences* pPreferences);
