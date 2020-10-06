@@ -16,6 +16,20 @@ public:
 	QCtrlBarView(QWidget * parent = NULL);
 	virtual ~QCtrlBarView();
 
+public:
+	// Time row
+	QSlider* getSliderTime() const;
+
+	// Ctrl row
+	QToolButton* getButtonBackward() const;
+	QToolButton* getButtonPlay() const;
+	QToolButton* getButtonStop() const;
+	QToolButton* getButtonRecord() const;
+	QToolButton* getButtonForward() const;
+	QSlider* getSliderVolume() const;
+	QToolButton* getButtonFullScreen() const;
+	QToolButton* getButtonModeMini() const;
+
 private:
 	QWidget* createTimeRow(QWidget * parent);
 	QWidget* createCtrlRow(QWidget * parent);

@@ -66,6 +66,7 @@ public:
 
 	void show_dialog_addrecordings(FreetuxTVApp *app, FreetuxTVChannelInfos* pChannelInfos, GError** error);
  */
+	// Menu Actions
 	QAction* getActionPreferences() const;
 	QAction* getActionQuit() const;
 	QAction* getActionAddGroup() const;
@@ -82,10 +83,14 @@ public:
 
 	QAction* getActionAbout() const;
 
+	// Tab channels
 	QLineEdit* getLineEditSearch() const;
 	QToolButton* getButtonSearchReset() const;
 	QTreeView* getTreeviewChannels() const;
 	QPushButton* getButtonJumpToChannel() const;
+
+	// Ctrl bar
+	QCtrlBarView* getCtrlBarView() const;
 
 protected:
 	virtual void closeEvent(QCloseEvent *event);

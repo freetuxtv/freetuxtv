@@ -4,8 +4,13 @@
 
 #include <QCoreApplication>
 #include <QAction>
+#include <QLineEdit>
+#include <QToolButton>
+#include <QPushButton>
+#include <QSlider>
 
 #include "GUI/QApplicationMainWindow.h"
+#include "GUI/QCtrlBarView.h"
 
 #include "QApplicationMainWindowController.h"
 
@@ -24,24 +29,74 @@ void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow)
 {
 	m_pMainWindow = pMainWindow;
 
+	QCtrlBarView* pCtrlBarView = m_pMainWindow->getCtrlBarView();
+
 	QAction* pAction;
 
+	// Menu action
 	pAction = m_pMainWindow->getActionPreferences();
 	connect(pAction, SIGNAL(triggered(bool)), this, SLOT(onPreferencesTriggered()));
-
 	pAction = m_pMainWindow->getActionQuit();
 	connect(pAction, SIGNAL(triggered(bool)), this, SLOT(onQuitTriggered()));
-
 	pAction = m_pMainWindow->getActionAddGroup();
 	connect(pAction, SIGNAL(triggered(bool)), this, SLOT(onAddGroupTriggered()));
-
 	pAction = m_pMainWindow->getActionSynchronizeTVChannels();
 	connect(pAction, SIGNAL(triggered(bool)), this, SLOT(onSynchronizeTVChannelsTriggered()));
-
 	connect(m_pMainWindow->getActionGroupDeinterlace(), SIGNAL(triggered(QAction*)), this, SLOT(onDeinterlaceModeTriggered(QAction*)));
-
 	pAction = m_pMainWindow->getActionAbout();
 	connect(pAction, SIGNAL(triggered(bool)), this, SLOT(onAboutTriggered()));
+
+	// Tabs channels
+	connect(m_pMainWindow->getLineEditSearch(), SIGNAL(textChanged(const QString&)), this, SLOT(onSearchTextChanged(const QString&)));
+	connect(m_pMainWindow->getButtonSearchReset(), SIGNAL(clicked()), this, SLOT(onSearchTextResetClicked()));
+	connect(m_pMainWindow->getButtonJumpToChannel(), SIGNAL(clicked()), this, SLOT(onJumpCurrentChannelClicked()));
+
+	// Ctrl bar
+	connect(pCtrlBarView->getSliderTime(), SIGNAL(valueChanged(int)), this, SLOT(onSliderTimeChanged(int)));
+	connect(pCtrlBarView->getButtonBackward(), SIGNAL(clicked()), this, SLOT(onCtrlBackwardClicked()));
+	connect(pCtrlBarView->getButtonPlay(), SIGNAL(clicked()), this, SLOT(onCtrlPlayClicked()));
+	connect(pCtrlBarView->getButtonStop(), SIGNAL(clicked()), this, SLOT(onCtrlStopClicked()));
+	connect(pCtrlBarView->getButtonRecord(), SIGNAL(clicked()), this, SLOT(onCtrlRecordClicked()));
+	connect(pCtrlBarView->getButtonForward(), SIGNAL(clicked()), this, SLOT(onCtrlForwardClicked()));
+	connect(pCtrlBarView->getSliderVolume(), SIGNAL(valueChanged(int)), this, SLOT(onSliderVolumeChanged(int)));
+	connect(pCtrlBarView->getButtonFullScreen(), SIGNAL(clicked()), this, SLOT(onCtrlFullScreenClicked()));
+	connect(pCtrlBarView->getButtonModeMini(), SIGNAL(clicked()), this, SLOT(onCtrlModeMiniClicked()));
+
+	/*
+	 * g_signal_connect(G_OBJECT(widget),
+					 "focus-in-event",
+					 G_CALLBACK(on_windowmain_entryfilter_focusin),
+					 app);
+	g_signal_connect(G_OBJECT(widget),
+					 "focus-out-event",
+					 G_CALLBACK(on_windowmain_entryfilter_focusout),
+					 app);
+					 */
+
+/*
+	// Initialize signals for windowminimode
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+												   "windowminimode");
+	g_signal_connect(G_OBJECT(widget),
+					 "delete-event",
+					 G_CALLBACK(on_windowmain_deleteevent),
+					 app);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+												   "windowminimode_buttonnormalmode");
+	g_signal_connect(G_OBJECT(widget),
+					 "clicked",
+					 G_CALLBACK(on_windowminimode_buttonnormalmode_clicked),
+					 app);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+												   "windowminimode_buttonstayontop");
+	g_signal_connect(G_OBJECT(widget),
+					 "clicked",
+					 G_CALLBACK(on_windowminimode_buttonstayontop_clicked),
+					 app);
+	 */
+
 
 /*
 	app->widget.pTrayIcon = gtk_status_icon_new_from_icon_name ("freetuxtv");
@@ -360,6 +415,271 @@ void QApplicationMainWindowController::onAboutTriggered()
 	*/
 }
 
+
+void QApplicationMainWindowController::onSearchTextChanged(const QString& szText)
+{
+	qDebug("onSearchTextChanged");
+
+	/*
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GtkWidget *treeview;
+	GtkTreeModel *model;
+	treeview = (GtkWidget *) gtk_builder_get_object (app->gui,
+	                                                 "windowmain_treeviewchannelslist");
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
+	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
+
+	const gchar* text;
+	text = gtk_entry_get_text (entry);
+
+	if(g_ascii_strcasecmp(text, "") == 0){
+		gtk_tree_view_collapse_all (GTK_TREE_VIEW(treeview));
+		channels_list_set_playing (app, app->current.pPathChannel);
+	}else{
+		gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
+	}
+	*/
+}
+
+void QApplicationMainWindowController::onSearchTextResetClicked()
+{
+	m_pMainWindow->getLineEditSearch()->clear();
+
+	/*
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GtkWidget *treeview;
+	GtkTreeModel *model;
+	treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
+													  "windowmain_treeviewchannelslist");
+
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
+	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
+
+	gtk_tree_view_collapse_all (GTK_TREE_VIEW(treeview));
+	channels_list_set_playing (app, app->current.pPathChannel);
+	 */
+
+}
+
+void QApplicationMainWindowController::onJumpCurrentChannelClicked()
+{
+	qDebug("onJumpCurrentChannelClicked");
+	/*
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	channels_list_set_playing(app, app->current.pPathChannel);
+	*/
+}
+
+void QApplicationMainWindowController::onSliderTimeChanged(int value)
+{
+	qDebug("onSliderTimeChanged");
+	/*
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+
+	//g_print("change %f\n", value); // TODO
+	if(!gtk_libvlc_media_player_is_playing(app->player, &error)){
+		gtk_libvlc_media_player_play(app->player, NULL, &error);
+	}
+	if(value >= 0.0 && value <= 1.0){
+		gtk_libvlc_media_player_set_position(app->player, value, &error);
+	}
+
+	if(error != NULL){
+		g_error_free (error);
+		error = NULL;
+	}
+	return FALSE;
+	 */
+}
+
+void QApplicationMainWindowController::onCtrlPlayClicked()
+{
+	qDebug("onCtrlPlayClicked");
+
+	/*
+	GError* error = NULL;
+
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	freetuxtv_action_playpause (app, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	*/
+}
+
+void QApplicationMainWindowController::onCtrlStopClicked()
+{
+	qDebug("onCtrlStopClicked");
+	/*
+	GError* error = NULL;
+
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	if(app->current.is_recording){
+		freetuxtv_action_stop_recording(app, app->current.recording.pRecordingInfo, &error);
+	}else{
+		freetuxtv_action_stop (app, &error);
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	 */
+}
+
+void QApplicationMainWindowController::onCtrlRecordClicked()
+{
+	qDebug("onCtrlRecordClicked");
+	/*
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+	FreetuxTVChannelInfos* pChannelInfos;
+
+	// Show properties to the channel corresponding to the path
+	pChannelInfos = channels_list_get_channel (app, app->current.pPathChannel);
+
+	windowmain_show_dialog_addrecordings (app, pChannelInfos, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	 */
+}
+
+void QApplicationMainWindowController::onCtrlBackwardClicked()
+{
+	qDebug("onCtrlBackwardClicked");
+	/*
+	GError* error = NULL;
+
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	freetuxtv_action_prev (app, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	 */
+}
+
+void QApplicationMainWindowController::onCtrlForwardClicked()
+{
+	qDebug("onCtrlForwardClicked");
+/*
+	GError* error = NULL;
+
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	freetuxtv_action_next (app, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	*/
+}
+
+void QApplicationMainWindowController::onSliderVolumeChanged(int value)
+{
+	qDebug("onSliderVolumeChanged");
+	/*
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GError* error = NULL;
+
+	app->config.volume = gtk_range_get_value (range);
+	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, NULL);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	 */
+}
+
+void QApplicationMainWindowController::onCtrlFullScreenClicked()
+{
+	qDebug("onCtrlFullScreenClicked");
+
+/*
+	GError* error = NULL;
+
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	gtk_libvlc_media_player_set_fullscreen (app->player, TRUE, &error);
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+	*/
+}
+
+void QApplicationMainWindowController::onCtrlModeMiniClicked()
+{
+	qDebug("onCtrlModeMiniClicked");
+
+	/*
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+
+	GtkWidget *widget;
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+												   "windowmain");
+	gtk_widget_hide(widget);
+
+	// Display the mini mode window
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+												   "windowminimode");
+	gtk_widget_show(widget);
+	gtk_window_set_keep_above (GTK_WINDOW(widget),
+							   app->config.windowminimode_stayontop);
+
+	gtk_window_resize (GTK_WINDOW(widget),
+					   app->config.windowminimode_width,
+					   app->config.windowminimode_height);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+												   "windowminimode_buttonstayontop");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget),
+								  app->config.windowminimode_stayontop);
+
+	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
+												   "windowminimode_eventboxplayer");
+	gtk_widget_reparent (GTK_WIDGET(app->player), widget);
+	 */
+}
+
+/*
+static void
+on_windowmain_menuitemmute_activate (GtkMenuItem *menuitem,
+									 gpointer user_data)
+{
+	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	GError* error = NULL;
+	gboolean mute;
+
+	mute = gtk_libvlc_media_player_get_mute (app->player, NULL);
+	if(!error){
+		gtk_libvlc_media_player_set_mute (app->player, !mute, NULL);
+	}
+
+	if(error != NULL){
+		windowmain_show_gerror (app, error);
+		g_error_free (error);
+	}
+}
+ */
+
+
 /*
 
 static void
@@ -380,60 +700,12 @@ on_windowmain_menuitemmute_activate (GtkMenuItem *menuitem,
                                      gpointer user_data);
 
 static gboolean
-on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
-                            gdouble value, gpointer user_data);
-
-static void
-on_windowmain_buttonclearfilter_clicked (GtkButton *button,
-                                         gpointer user_data);
-
-static void
-on_windowmain_buttongotocurrent_clicked (GtkButton *button,
-                                         gpointer user_data);
-
-static void
-on_windowmain_buttonprevious_clicked (GtkButton *button,
-                                      gpointer user_data);
-
-static void
-on_windowmain_buttonnext_clicked (GtkButton *button,
-                                  gpointer user_data);
-
-static void
-on_windowmain_buttonstop_clicked (GtkButton *button,
-                                  gpointer user_data);
-
-static void
-on_windowmain_buttonrecord_clicked (GtkButton *button,
-                                    gpointer user_data);
-
-static void
-on_windowmain_buttonplaypause_clicked (GtkButton *button,
-                                       gpointer user_data);
-
-static void
-on_windowmain_buttonfullscreen_clicked (GtkButton *button,
-                                        gpointer user_data);
-
-static void
-on_windowmain_buttonminimode_clicked (GtkButton *button,
-                                      gpointer user_data);
-
-static void
-on_windowmain_entryfilter_changed (GtkEntry *entry,
-                                   gpointer user_data);
-
-static gboolean
 on_windowmain_entryfilter_focusin (GtkWidget *widget, GdkEventFocus *event,
                                    gpointer user_data);
 
 static gboolean
 on_windowmain_entryfilter_focusout (GtkWidget *widget, GdkEventFocus *event,
                                     gpointer user_data);
-
-static void
-on_windowmain_volumecontrol_value_changed (GtkRange *range,
-                                           gpointer user_data);
 
 static void
 on_windowminimode_buttonnormalmode_clicked (GtkButton *button,
@@ -586,213 +858,6 @@ on_windowmain_trayicon_popupmenu (GtkStatusIcon *status_icon, guint button,
 	gtk_menu_popup (GTK_MENU(pMenu), NULL, NULL, gtk_status_icon_position_menu, status_icon, button, activate_time);
 }
 
-static void
-on_windowmain_menuitemmute_activate (GtkMenuItem *menuitem,
-                                     gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	GError* error = NULL;
-	gboolean mute;
-
-	mute = gtk_libvlc_media_player_get_mute (app->player, NULL);
-	if(!error){
-		gtk_libvlc_media_player_set_mute (app->player, !mute, NULL);
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-}
-
-static void
-on_windowmain_buttonclearfilter_clicked (GtkButton *button,
-                                         gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	GtkWidget *entryfilter;
-	entryfilter =  (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                                     "windowmain_entryfilter");
-	gtk_entry_set_text(GTK_ENTRY(entryfilter), "");
-
-	GtkWidget *treeview;
-	GtkTreeModel *model;
-	treeview =  (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                                  "windowmain_treeviewchannelslist");
-
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
-	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
-
-	gtk_tree_view_collapse_all (GTK_TREE_VIEW(treeview));
-	channels_list_set_playing (app, app->current.pPathChannel);
-}
-
-static void
-on_windowmain_buttongotocurrent_clicked (GtkButton *button,
-                                         gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	channels_list_set_playing(app, app->current.pPathChannel);
-}
-
-static void
-on_windowmain_buttonprevious_clicked (GtkButton *button,
-                                      gpointer user_data)
-{
-	GError* error = NULL;
-
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_prev (app, &error);
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-}
-
-static void
-on_windowmain_buttonnext_clicked (GtkButton *button,
-                                  gpointer user_data)
-{
-	GError* error = NULL;
-
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_next (app, &error);
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-}
-
-static void
-on_windowmain_buttonstop_clicked (GtkButton *button,
-                                  gpointer user_data)
-{
-	GError* error = NULL;
-
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	if(app->current.is_recording){
-		freetuxtv_action_stop_recording(app, app->current.recording.pRecordingInfo, &error);
-	}else{
-		freetuxtv_action_stop (app, &error);
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-}
-
-static void
-on_windowmain_buttonrecord_clicked (GtkButton *button,
-                                    gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-	FreetuxTVChannelInfos* pChannelInfos;
-
-	// Show properties to the channel corresponding to the path
-	pChannelInfos = channels_list_get_channel (app, app->current.pPathChannel);
-
-	windowmain_show_dialog_addrecordings (app, pChannelInfos, &error);
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-}
-
-static void
-on_windowmain_buttonplaypause_clicked (GtkButton *button,
-                                       gpointer user_data)
-{
-	GError* error = NULL;
-
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	freetuxtv_action_playpause (app, &error);
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-}
-
-static void
-on_windowmain_buttonfullscreen_clicked (GtkButton *button,
-                                        gpointer user_data)
-{
-	GError* error = NULL;
-
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-	gtk_libvlc_media_player_set_fullscreen (app->player, TRUE, &error);
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-}
-
-static void
-on_windowmain_buttonminimode_clicked (GtkButton *button,
-                                      gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GtkWidget *widget;
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                               "windowmain");
-	gtk_widget_hide(widget);
-
-	// Display the mini mode window
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                               "windowminimode");
-	gtk_widget_show(widget);
-	gtk_window_set_keep_above (GTK_WINDOW(widget),
-	                           app->config.windowminimode_stayontop);
-
-	gtk_window_resize (GTK_WINDOW(widget),
-	                   app->config.windowminimode_width,
-	                   app->config.windowminimode_height);
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                               "windowminimode_buttonstayontop");
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget),
-	                              app->config.windowminimode_stayontop);
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                               "windowminimode_eventboxplayer");
-	gtk_widget_reparent (GTK_WIDGET(app->player), widget);
-}
-
-static void
-on_windowmain_entryfilter_changed (GtkEntry *entry, gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GtkWidget *treeview;
-	GtkTreeModel *model;
-	treeview = (GtkWidget *) gtk_builder_get_object (app->gui,
-	                                                 "windowmain_treeviewchannelslist");
-
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(treeview));
-	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(model));
-
-	const gchar* text;
-	text = gtk_entry_get_text (entry);
-
-	if(g_ascii_strcasecmp(text, "") == 0){
-		gtk_tree_view_collapse_all (GTK_TREE_VIEW(treeview));
-		channels_list_set_playing (app, app->current.pPathChannel);
-	}else{
-		gtk_tree_view_expand_all (GTK_TREE_VIEW(treeview));
-	}
-}
-
 static gboolean
 on_windowmain_entryfilter_focusin (GtkWidget *widget, GdkEventFocus *event,
                                    gpointer user_data)
@@ -809,22 +874,6 @@ on_windowmain_entryfilter_focusout (GtkWidget *widget, GdkEventFocus *event,
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	windowmain_enable_accelerators (app, TRUE);
 	return FALSE;
-}
-
-static void
-on_windowmain_volumecontrol_value_changed (GtkRange *range, gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-
-	app->config.volume = gtk_range_get_value (range);
-	gtk_libvlc_media_player_set_volume (app->player, app->config.volume, NULL);
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
 }
 
 static void
@@ -884,29 +933,6 @@ on_window_add_channels_group_destroy (GtkBuilderWidget *self, gpointer user_data
 		g_free(ppCurrentTreePath);
 		ppCurrentTreePath = NULL;
 	}
-}
-
-static gboolean
-on_windowmain_valuechanged (GtkRange *range, GtkScrollType scroll,
-                            gdouble value, gpointer user_data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
-
-	GError* error = NULL;
-
-	//g_print("change %f\n", value); // TODO
-	if(!gtk_libvlc_media_player_is_playing(app->player, &error)){
-		gtk_libvlc_media_player_play(app->player, NULL, &error);
-	}
-	if(value >= 0.0 && value <= 1.0){
-		gtk_libvlc_media_player_set_position(app->player, value, &error);
-	}
-
-	if(error != NULL){
-		g_error_free (error);
-		error = NULL;
-	}
-	return FALSE;
 }
 
 static void

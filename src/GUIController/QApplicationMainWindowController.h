@@ -23,12 +23,29 @@ public:
 	void dispose();
 
 private slots:
+	// Menu actions
 	void onPreferencesTriggered();
 	void onQuitTriggered();
 	void onAddGroupTriggered();
 	void onSynchronizeTVChannelsTriggered();
 	void onDeinterlaceModeTriggered(QAction *action);
 	void onAboutTriggered();
+
+	// Tab channels
+	void onSearchTextChanged(const QString& szText);
+	void onSearchTextResetClicked();
+	void onJumpCurrentChannelClicked();
+
+	// Ctrl bar
+	void onSliderTimeChanged(int value);
+	void onCtrlPlayClicked();
+	void onCtrlStopClicked();
+	void onCtrlRecordClicked();
+	void onCtrlBackwardClicked();
+	void onCtrlForwardClicked();
+	void onSliderVolumeChanged(int value);
+	void onCtrlFullScreenClicked();
+	void onCtrlModeMiniClicked();
 
 private:
 	QApplicationMainWindow* m_pMainWindow;

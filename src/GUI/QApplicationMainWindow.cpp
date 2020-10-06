@@ -66,126 +66,7 @@ QApplicationMainWindow::QApplicationMainWindow(QWidget * parent) : QMainWindow(p
 	setStatusBar(pStatusBar);
 
 	/*
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_buttonclearfilter");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowmain_buttonclearfilter_clicked),
-					 app);
 
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_entryfilter");
-	g_signal_connect(G_OBJECT(widget),
-					 "changed",
-					 G_CALLBACK(on_windowmain_entryfilter_changed),
-					 app);
-	g_signal_connect(G_OBJECT(widget),
-					 "focus-in-event",
-					 G_CALLBACK(on_windowmain_entryfilter_focusin),
-					 app);
-	g_signal_connect(G_OBJECT(widget),
-					 "focus-out-event",
-					 G_CALLBACK(on_windowmain_entryfilter_focusout),
-					 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_scaletime");
-	g_signal_connect(G_OBJECT(widget),
-					 "change-value",
-					 G_CALLBACK(on_windowmain_valuechanged),
-					 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_buttongotocurrent");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowmain_buttongotocurrent_clicked),
-					 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_buttonprevious");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowmain_buttonprevious_clicked),
-					 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_buttonnext");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowmain_buttonnext_clicked),
-					 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_buttonplaypause");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowmain_buttonplaypause_clicked),
-					 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_buttonstop");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowmain_buttonstop_clicked),
-					 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_buttonrecord");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowmain_buttonrecord_clicked),
-					 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_volumecontrol");
-	g_signal_connect(G_OBJECT(widget),
-					 "value-changed",
-					 G_CALLBACK(on_windowmain_volumecontrol_value_changed),
-					 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_buttonfullscreen");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowmain_buttonfullscreen_clicked),
-					 app);
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_buttonminimode");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowmain_buttonminimode_clicked),
-					 app);
-
-	// Initialize signals for windowminimode
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-												   "windowminimode");
-	g_signal_connect(G_OBJECT(widget),
-					 "delete-event",
-					 G_CALLBACK(on_windowmain_deleteevent),
-					 app);
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-												   "windowminimode_buttonnormalmode");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowminimode_buttonnormalmode_clicked),
-					 app);
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-												   "windowminimode_buttonstayontop");
-	g_signal_connect(G_OBJECT(widget),
-					 "clicked",
-					 G_CALLBACK(on_windowminimode_buttonstayontop_clicked),
-					 app);
-
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-												   "windowminimode_volumecontrol");
-	g_signal_connect(G_OBJECT(widget),
-					 "value-changed",
-					 G_CALLBACK(on_windowmain_volumecontrol_value_changed),
-					 app);
 
 	// Initialize signals for dialogpreferences
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
@@ -559,6 +440,11 @@ QTreeView* QApplicationMainWindow::getTreeviewChannels() const
 QPushButton* QApplicationMainWindow::getButtonJumpToChannel() const
 {
 	return m_pButtonJumpToChannel;
+}
+
+QCtrlBarView* QApplicationMainWindow::getCtrlBarView() const
+{
+	return m_pCtrlBarView;
 }
 
 void QApplicationMainWindow::closeEvent(QCloseEvent *event)

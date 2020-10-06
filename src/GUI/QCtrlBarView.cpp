@@ -101,3 +101,48 @@ QWidget* QCtrlBarView::createCtrlRow(QWidget * parent)
 
 	return pMainWidget;
 }
+
+QSlider* QCtrlBarView::getSliderTime() const
+{
+	return m_pSliderTime;
+}
+
+QToolButton* QCtrlBarView::getButtonBackward() const
+{
+	return m_pButtonBackward;
+}
+
+QToolButton* QCtrlBarView::getButtonPlay() const
+{
+	return m_pButtonPlay;
+}
+
+QToolButton* QCtrlBarView::getButtonStop() const
+{
+	return m_pButtonStop;
+}
+
+QToolButton* QCtrlBarView::getButtonRecord() const
+{
+	return m_pButtonRecord;
+}
+
+QToolButton* QCtrlBarView::getButtonForward() const
+{
+	return m_pButtonForward;
+}
+
+QSlider* QCtrlBarView::getSliderVolume() const
+{
+	return m_pSliderVolume;
+}
+
+QToolButton* QCtrlBarView::getButtonFullScreen() const
+{
+	return m_pButtonFullScreen;
+}
+
+QToolButton* QCtrlBarView::getButtonModeMini() const
+{
+	return m_pButtonModeMini;
+}
