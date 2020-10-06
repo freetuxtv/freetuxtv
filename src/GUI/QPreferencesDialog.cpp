@@ -328,7 +328,7 @@ QWidget* QPreferencesDialog::createTabRecordings(QWidget* pParent)
 			pTmpFormLayout->addRow(tr("Format:"), m_pComboBoxTranscodeCustom);
 		}
 
-		m_pLabelTranscodeCmd = new QLabel("sout:");
+		m_pLabelTranscodeCmd = new QLabel();
 		pTmpLayout->addWidget(m_pLabelTranscodeCmd);
 	}
 

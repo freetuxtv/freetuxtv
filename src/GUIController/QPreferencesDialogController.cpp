@@ -43,6 +43,8 @@ void QPreferencesDialogController::dispose()
 
 void QPreferencesDialogController::loadPreferences(Preferences* pPreferences)
 {
+	QString szTmp;
+
 	// General
 	m_pPreferencesDialog->getCheckBoxPlayLastChannelOnStartup()->setChecked(pPreferences->m_bChannelOnStartup);
 	m_pPreferencesDialog->getCheckBoxDesktopNotification()->setChecked(pPreferences->m_bEnableNotifications);
@@ -92,7 +94,10 @@ void QPreferencesDialogController::loadPreferences(Preferences* pPreferences)
 			break;
 	}
 	m_pPreferencesDialog->getLineEditProxyServer()->setText(pPreferences->m_szProxyServer);
-	m_pPreferencesDialog->getLineEditProxyPort()->setText(QString::number(pPreferences->m_iProxyPort));
+	if(pPreferences->m_iProxyPort != -1){
+		szTmp = QString::number(pPreferences->m_iProxyPort);
+	}
+	m_pPreferencesDialog->getLineEditProxyPort()->setText(szTmp);
 	m_pPreferencesDialog->getComboBoxProxyType()->setCurrentText(pPreferences->m_szProxyType);
 	m_pPreferencesDialog->getCheckBoxProxyAuth()->setChecked(pPreferences->m_bProxyAuth);
 	m_pPreferencesDialog->getLineEditProxyUsername()->setText(pPreferences->m_szProxyUser);
