@@ -283,14 +283,19 @@ set(FREETUXTV_SRC
     src/GUI/QApplicationMainWindow.h
     src/GUI/QCtrlBarView.cpp
     src/GUI/QCtrlBarView.h
+    src/GUI/QPreferencesDialog.cpp
+    src/GUI/QPreferencesDialog.h
     src/GUIController/QApplicationMainWindowController.cpp
     src/GUIController/QApplicationMainWindowController.h
+    src/GUIController/QPreferencesDialogController.cpp
+    src/GUIController/QPreferencesDialogController.h
     src/main.cpp
 )
 
 # Creating MOC file for sources file using "slots" or Q_OBJECT macro
 set(APPLICATION_MOC_HEADERS
     src/GUIController/QApplicationMainWindowController.h
+    src/GUIController/QPreferencesDialogController.h
 )
 qt5_wrap_cpp(
     APPLICATION_MOC_OUTFILES

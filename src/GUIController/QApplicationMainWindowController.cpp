@@ -11,6 +11,9 @@
 
 #include "GUI/QApplicationMainWindow.h"
 #include "GUI/QCtrlBarView.h"
+#include "GUI/QPreferencesDialog.h"
+
+#include "GUIController/QPreferencesDialogController.h"
 
 #include "QApplicationMainWindowController.h"
 
@@ -131,14 +134,17 @@ void QApplicationMainWindowController::dispose()
 
 void QApplicationMainWindowController::onPreferencesTriggered()
 {
-	qDebug("onPreferencesTriggered");
-	/*
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
+	QPreferencesDialog dialog;
 
-	GtkWidget *widget;
-	widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-												   "dialogpreferences");
-	gtk_widget_show(widget);
+	QPreferencesDialogController dialogController;
+
+	dialogController.init(&dialog);
+
+	dialog.exec();
+
+	dialogController.dispose();
+
+	/*
 
 	GtkTreeModel *model;
 	GtkTreeIter iter;
