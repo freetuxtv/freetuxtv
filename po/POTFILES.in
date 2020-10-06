@@ -4,6 +4,7 @@ data/ui/addrecording.glade
 data/ui/addchannelsgroups.glade
 data/ui/channelproperties.glade
 data/ui/freetuxtv.glade
+data/ui/tvchannelsdatabase.glade
 data/channels_groups.xml.in
 data/menu/freetuxtv.desktop.in
 src/freetuxtv-app.h
