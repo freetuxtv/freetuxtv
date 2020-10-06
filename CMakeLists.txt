@@ -281,6 +281,8 @@ set(FREETUXTV_SRC
 set(FREETUXTV_SRC
     src/GUI/QApplicationMainWindow.cpp
     src/GUI/QApplicationMainWindow.h
+    src/GUI/QCtrlBarView.cpp
+    src/GUI/QCtrlBarView.h
     src/GUIController/QApplicationMainWindowController.cpp
     src/GUIController/QApplicationMainWindowController.h
     src/main.cpp

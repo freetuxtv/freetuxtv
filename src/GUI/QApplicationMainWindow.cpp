@@ -23,11 +23,17 @@
 #include <sqlite3.h>
 #include <gdk/gdkx.h>
 */
+#include <QCoreApplication>
+#include <QLabel>
+#include <QToolButton>
+#include <QLineEdit>
+#include <QTreeView>
+#include <QPushButton>
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QHBoxLayout>
 
-#include "GUIController/QApplicationMainWindowController.h"
+#include "GUI/QCtrlBarView.h"
 
 #include "QApplicationMainWindow.h"
 /*
@@ -60,20 +66,6 @@ QApplicationMainWindow::QApplicationMainWindow(QWidget * parent) : QMainWindow(p
 	setStatusBar(pStatusBar);
 
 	/*
-
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain_menubox");
-	gtk_box_pack_start (GTK_BOX (widget), GTK_WIDGET (pMenuBar), TRUE, TRUE, 0);
-	gtk_widget_show_all(pMenuBar);
-
-	// Initialize signals for windowmain
-	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
-												  "windowmain");
-	g_signal_connect(G_OBJECT(widget),
-					 "delete-event",
-					 G_CALLBACK(on_windowmain_deleteevent),
-					 app);
-
 	widget = (GtkWidget *)gtk_builder_get_object (app->gui,
 												  "windowmain_buttonclearfilter");
 	g_signal_connect(G_OBJECT(widget),
@@ -401,26 +393,85 @@ QWidget* QApplicationMainWindow::createCentralWidget(QWidget* parent)
 	QWidget* pMainWidget = new QWidget(parent);
 
 	QBoxLayout* pLayout = new QHBoxLayout();
+	//pLayout->setContentsMargins(2, 2, 2, 2);
 	pMainWidget->setLayout(pLayout);
+
+	QWidget* pTmpWidget;
 
 	// Tabs
 	{
 		QTabWidget *pTab = new QTabWidget();
 		pTab->setTabPosition(QTabWidget::West);
 
-		pTab->addTab(new QWidget(), tr("Channels"));
+		pTmpWidget = createTabChannelsView(pTab);
+		pTab->addTab(pTmpWidget, tr("Channels"));
 		pTab->addTab(new QWidget(), tr("Recordings"));
 
 		pLayout->addWidget(pTab, 1);
-
 	}
 
 	// Video
 	{
-		QWidget* pTmp = new QWidget();
-		pTmp->setStyleSheet("background-color:black;");
-		pLayout->addWidget(pTmp, 3);
+		pTmpWidget = createVideoView(pMainWidget);
+		pLayout->addWidget(pTmpWidget, 4);
 	}
+
+	return pMainWidget;
+}
+
+
+QWidget* QApplicationMainWindow::createTabChannelsView(QWidget* parent)
+{
+	QWidget* pMainWidget = new QWidget(parent);
+
+	QBoxLayout* pMainLayout = new QVBoxLayout();
+	pMainWidget->setLayout(pMainLayout);
+
+	QBoxLayout* pTmpLayout;
+	{
+		pTmpLayout = new QHBoxLayout();
+		pMainLayout->addLayout(pTmpLayout);
+
+		pTmpLayout->addWidget(new QLabel(tr("Search:")));
+
+		// Search area
+		m_pLineEditSearch = new QLineEdit(pMainWidget);
+		pTmpLayout->addWidget(m_pLineEditSearch);
+
+		// Search button
+		m_pButtonSearchReset = new QToolButton(pMainWidget);
+		m_pButtonSearchReset->setIcon(QIcon::fromTheme("edit-clear"));
+		pTmpLayout->addWidget(m_pButtonSearchReset);
+	}
+
+	{
+		m_pTreeviewChannels = new QTreeView(pMainWidget);
+		pMainLayout->addWidget(m_pTreeviewChannels);
+	}
+
+	{
+		m_pButtonJumpToChannel = new QPushButton(tr("Jump to current channel"), pMainWidget);
+		pMainLayout->addWidget(m_pButtonJumpToChannel);
+	}
+
+	return pMainWidget;
+}
+
+QWidget* QApplicationMainWindow::createVideoView(QWidget* parent)
+{
+	QWidget* pMainWidget = new QWidget(parent);
+
+	QBoxLayout* pMainLayout = new QVBoxLayout();
+	pMainLayout->setContentsMargins(0,0,0,0);
+	pMainWidget->setLayout(pMainLayout);
+
+	m_pVideoView = new QWidget(pMainWidget);
+	m_pVideoView->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+	m_pVideoView->setStyleSheet("background-color:black;");
+	pMainLayout->addWidget(m_pVideoView);
+
+	m_pCtrlBarView = new QCtrlBarView(pMainWidget);
+	pMainLayout->addWidget(m_pCtrlBarView);
 
 	return pMainWidget;
 }
@@ -488,6 +539,31 @@ QAction* QApplicationMainWindow::getActionDeinterlaceX() const
 QAction* QApplicationMainWindow::getActionAbout() const
 {
 	return m_pActionAbout;
+}
+
+QLineEdit* QApplicationMainWindow::getLineEditSearch() const
+{
+	return m_pLineEditSearch;
+}
+
+QToolButton* QApplicationMainWindow::getButtonSearchReset() const
+{
+	return m_pButtonSearchReset;
+}
+
+QTreeView* QApplicationMainWindow::getTreeviewChannels() const
+{
+	return m_pTreeviewChannels;
+}
+
+QPushButton* QApplicationMainWindow::getButtonJumpToChannel() const
+{
+	return m_pButtonJumpToChannel;
+}
+
+void QApplicationMainWindow::closeEvent(QCloseEvent *event)
+{
+	QCoreApplication::quit();
 }
 
 /*

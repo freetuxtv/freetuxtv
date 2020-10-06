@@ -23,6 +23,12 @@
 #include <QMainWindow>
 
 class QActionGroup;
+class QLineEdit;
+class QToolButton;
+class QTreeView;
+class QPushButton;
+
+class QCtrlBarView;
 
 //#include "freetuxtv-app.h"
 
@@ -76,9 +82,19 @@ public:
 
 	QAction* getActionAbout() const;
 
+	QLineEdit* getLineEditSearch() const;
+	QToolButton* getButtonSearchReset() const;
+	QTreeView* getTreeviewChannels() const;
+	QPushButton* getButtonJumpToChannel() const;
+
+protected:
+	virtual void closeEvent(QCloseEvent *event);
+
 private:
 	QMenuBar* createMenuBar(QWidget* parent);
 	QWidget* createCentralWidget(QWidget* parent);
+	QWidget* createTabChannelsView(QWidget* parent);
+	QWidget* createVideoView(QWidget* parent);
 
 private:
 	// Menu FreetuxTV
@@ -101,6 +117,18 @@ private:
 
 	// Menu Help
 	QAction* m_pActionAbout;
+
+	// Tab channels
+	QLineEdit* m_pLineEditSearch;
+	QToolButton* m_pButtonSearchReset;
+	QTreeView* m_pTreeviewChannels;
+	QPushButton* m_pButtonJumpToChannel;
+
+	// Video view
+	QWidget* m_pVideoView;
+
+	// Ctrl bar view
+	QCtrlBarView* m_pCtrlBarView;
 };
 
 #endif /* FREETUXTV_WINDOW_MAIN_H */

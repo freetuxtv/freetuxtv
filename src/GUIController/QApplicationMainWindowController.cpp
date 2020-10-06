@@ -226,7 +226,7 @@ void QApplicationMainWindowController::onPreferencesTriggered()
 
 void QApplicationMainWindowController::onQuitTriggered()
 {
-	QCoreApplication::exit();
+	QCoreApplication::quit();
 }
 
 void QApplicationMainWindowController::onAddGroupTriggered()
@@ -373,9 +373,6 @@ on_windowmain_trayicon_activate(GtkStatusIcon *status_icon, gpointer user_data);
 static void
 on_windowmain_trayicon_popupmenu(GtkStatusIcon *status_icon, guint button,
                                  guint activate_time, gpointer user_data);
-
-static gboolean
-on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data);
 
 
 static void
@@ -587,15 +584,6 @@ on_windowmain_trayicon_popupmenu (GtkStatusIcon *status_icon, guint button,
 	gtk_widget_show(pMenu);
 
 	gtk_menu_popup (GTK_MENU(pMenu), NULL, NULL, gtk_status_icon_position_menu, status_icon, button, activate_time);
-}
-
-
-static gboolean
-on_windowmain_deleteevent (GtkWidget *widget, GdkEvent *event, gpointer *data)
-{
-	FreetuxTVApp *app = (FreetuxTVApp *) data;
-	freetuxtv_quit (app, GTK_WINDOW(widget));
-	return TRUE;
 }
 
 static void
