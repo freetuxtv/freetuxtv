@@ -20,6 +20,10 @@ public:
 	QPreferencesDialog();
 	virtual ~QPreferencesDialog();
 
+public:
+	QPushButton* getButtonCancel() const;
+	QPushButton* getButtonValid() const;
+
 private:
 	QWidget* createTabGeneral(QWidget* pParent);
 	QWidget* createTabLibVLC(QWidget* pParent);

@@ -59,26 +59,6 @@ struct _FreetuxTVApp {
 		gchar* szPathGladeXml;
 	} paths;
 
-	struct {		
-		// Prefs general
-		gboolean channelonstartup;
-		gboolean enable_notifications;
-		gboolean ignore_diacritics;
-
-		// Prefs LibVLC
-		gint libvlcconfigfile_mode;
-		
-		// Prefs recordings
-		gchar* directoryrecordings;
-		gint transcoding_mode;
-		gchar* transcoding_format;
-
-		// Prefs network
-		gint timeout;
-		GProxyStruct proxy;
-		
-	} prefs;
-
 	struct {
 		gdouble volume;
 

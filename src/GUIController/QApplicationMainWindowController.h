@@ -11,6 +11,8 @@ class QAction;
 
 class QApplicationMainWindow;
 
+class Preferences;
+
 class QApplicationMainWindowController: public QObject
 {
 	Q_OBJECT
@@ -19,7 +21,7 @@ public:
 	virtual ~QApplicationMainWindowController();
 
 public:
-	void init(QApplicationMainWindow* pMainWindow);
+	void init(QApplicationMainWindow* pMainWindow, Preferences* pPreferences);
 	void dispose();
 
 private slots:
@@ -49,6 +51,7 @@ private slots:
 
 private:
 	QApplicationMainWindow* m_pMainWindow;
+	Preferences* m_pPreferences;
 };
 
 

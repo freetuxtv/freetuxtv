@@ -40,6 +40,8 @@
 //
 //#include <libvlc-gtk/gtk-libvlc-media-player.h>
 
+#include "Model/Preferences.h"
+
 #include "GUI/QApplicationMainWindow.h"
 
 #include "GUIController/QApplicationMainWindowController.h"
@@ -1768,8 +1770,6 @@ main (int argc, char *argv[])
 
 	qDebug("[Main] Starting application");
 
-	//FreetuxTVApp *app;
-
 	//GMMKeys* mmkeys;
 
 	bool bStopParseArgs = false;
@@ -1872,10 +1872,12 @@ main (int argc, char *argv[])
 
 		qInfo("[Main] Loading FreetuxTV %s", APPLICATION_VERSION);
 
+		Preferences* pPreferences = new Preferences();
+
 		QApplicationMainWindow* pMainWindow = new QApplicationMainWindow();
 
 		QApplicationMainWindowController* pMainWindowController = new QApplicationMainWindowController();
-		pMainWindowController->init(pMainWindow);
+		pMainWindowController->init(pMainWindow, pPreferences);
 
 
 		pMainWindow->resize(1200, 800);
@@ -1937,15 +1939,20 @@ main (int argc, char *argv[])
 		delete pMainWindow;
 		pMainWindow = NULL;
 
+		if(pPreferences){
+			delete pPreferences;
+			pPreferences = NULL;
+		}
+
 		/*	freetuxtv_app_destroy_app (&app);
 			app = NULL;
 		}
 
 		g_log_remove_handler (FREETUXTV_LOG_DOMAIN, idLogHandler);
 		 */
-
-		qInfo("[Main] Closing application");
-
 	}
+
+	qInfo("[Main] Closing application");
+
 	return 0;
 }

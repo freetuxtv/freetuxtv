@@ -61,6 +61,15 @@ QPreferencesDialog::~QPreferencesDialog()
 
 }
 
+QPushButton* QPreferencesDialog::getButtonCancel() const
+{
+	return m_pButtonCancel;
+}
+
+QPushButton* QPreferencesDialog::getButtonValid() const
+{
+	return m_pButtonValid;
+}
 
 QWidget* QPreferencesDialog::createTabGeneral(QWidget* pParent)
 {
