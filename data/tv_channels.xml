@@ -2918,6 +2918,20 @@
 		<website>http://www.mtv.com/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/165/mtv.aspx </guide_url>
 	</tvchannel>
+	<tvchannel name="MTV 90s">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mtvdevedesettv_hrv.png</logo_filename>
+		<website>http://www.mtv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/127/mtv-rocks.aspx </guide_url>
+	</tvchannel>
+	<tvchannel name="MTV 80s">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>mtvosamdesettv_hrv.png</logo_filename>
+		<website>http://www.mtv.com/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/133/vh1-classic.aspx </guide_url>
+	</tvchannel>
 	<tvchannel name="MTV Club">
 		<lang>hr</lang>
 		<country>hr</country>
@@ -3318,14 +3332,6 @@
 		<website>https://www.realitykings.com/ </website>
 		<!-- <guide_url> </guide_url> -->
 	</tvchannel>
-	<tvchannel name="Radio 101">
-		<lang>hr</lang>
-		<country>hr</country>
-		<logo_filename>radio101_hrv.png</logo_filename>
-		<label>RADIO 101</label>
-		<label>Radio101</label>
-		<website>http://radio101.hr/show-schedule/ </website>
-	</tvchannel>
 	<tvchannel name="RTB TV">
 		<lang>hr</lang>
 		<country>hr</country>
@@ -3415,6 +3421,7 @@
 		<country>hr</country>
 		<logo_filename>rtv1tv_hrv.png</logo_filename>
 		<label>RTB1</label>
+		<label>RT Vojvodina 1</label>
 		<website>https://www.rtv.rs/sr_ci/program/prvi-program </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/182/rtv-1.aspx </guide_url>
 	</tvchannel>
@@ -3423,6 +3430,7 @@
 		<country>hr</country>
 		<logo_filename>rtv2tv_hrv.png</logo_filename>
 		<label>RTB2</label>
+		<label>RT Vojvodina 2</label>
 		<website>https://www.rtv.rs/sr_ci/program/drugi-program </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/183/rtv-2.aspx </guide_url>
 	</tvchannel>
@@ -3815,6 +3823,7 @@
 		<country>hr</country>
 		<logo_filename>trendtv_hrv.png</logo_filename>
 		<label>TREND TV</label>
+		<label>Trend Radio</label>
 		<website>https://trend.com.hr/live/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/178/tv4r.aspx </guide_url>
 	</tvchannel>
@@ -4070,6 +4079,12 @@
 		<logo_filename>radiotrogir_hrv.png</logo_filename>
 		<website>https://trogirskiportal.hr/radio_trogir/ </website>
 	</tvchannel>
+	<tvchannel name="Gradski radio Virovitica">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>grradvirovitica_hrv.png</logo_filename>
+		<website>https://hr-hr.facebook.com/GradskiRadioVirovitica/ </website>
+	</tvchannel>
 	<tvchannel name="Hit Radio Sinj">
 		<lang>hr</lang>
 		<country>hr</country>
@@ -4196,6 +4211,18 @@
 		<label>Hrvatski Radio - Govorni Program</label>
 		<website>https://radio.hrt.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Hrvatski radio Karlovac">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrradiokarlovac_hrv.png</logo_filename>
+		<website>https://karlovacki.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Hrvatski Radio Valpovština">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>hrradiovalpovstina_hrv.png</logo_filename>
+		<website>http://www.hrv89.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Hrvatski Radio Vukovar">
 		<lang>hr</lang>
 		<country>hr</country>
@@ -4229,11 +4256,24 @@
 		<logo_filename>mediaservis_hrv.png</logo_filename>
 		<website>http://mediaservis.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Megamix Radio Hvar">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>megamixradiohvar_hrv.png</logo_filename>
+		<website>http://www.megamixradiohvar.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Naxi 80">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>naxi80radio_hrv.png</logo_filename>
 		<website>https://www.naxi.rs/80e </website>
+	</tvchannel>
+	<tvchannel name="Novi Radio Đakovo">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>noviradiodjakovo_hrv.png</logo_filename>
+		<label>Novi Radio</label>
+		<website>https://novi-radio.hr/ </website>
 	</tvchannel>
 	<tvchannel name="Novi Radio ZD">
 		<lang>hr</lang>
@@ -4267,37 +4307,67 @@
 		<logo_filename>petrinjskiradio_hrv.png</logo_filename>
 		<website>https://petrinjskiradio.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Pitomi Radio">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>pitomiradio_hrv.png</logo_filename>
+		<website>https://www.pitomi.hr/93-5-mhz/ </website>
+	</tvchannel>
 	<tvchannel name="Podravski radio">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>podravskiradio_hrv.png</logo_filename>
 		<website>https://podravskiradio.net/ </website>
 	</tvchannel>
-	<tvchannel name="Radio 101">
+	<tvchannel name="Pomorski Radio Bakar">
 		<lang>hr</lang>
 		<country>hr</country>
-		<logo_filename>radio101_hrv.png</logo_filename>
-		<label>RADIO 101</label>
-		<label>Radio101</label>
-		<website>http://radio101.hr/show-schedule/ </website>
+		<logo_filename>pomorskiradio_hrv.png</logo_filename>
+		<website>http://www.pomorskiradio.hr/ </website>
 	</tvchannel>
 	<tvchannel name="Radio 808">
 		<lang>hr</lang>
 		<country>hr</country>
-		<logo_filename>radio808_hrv.png</logo_filename>
+		<logo_filename>radioosamnulosam_hrv.png</logo_filename>
 		<website>https://radio808.com/ </website>
+	</tvchannel>
+	<tvchannel name="Radio 105">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiostopet_hrv.png</logo_filename>
+		<website>http://www.radio105.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio 101">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiostojedan_hrv.png</logo_filename>
+		<label>Radio101</label>
+		<label>Radio101 rock</label>
+		<website>http://radio101.hr/show-schedule/ </website>
+	</tvchannel>
+	<tvchannel name="Radio 92 FM">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiodevetdva_hrv.png</logo_filename>
+		<website>https://www.facebook.com/radio92eu/ </website>
 	</tvchannel>
 	<tvchannel name="Radio 057">
 		<lang>hr</lang>
 		<country>hr</country>
-		<logo_filename>radio057_hrv.png</logo_filename>
+		<logo_filename>radionulpetsedam_hrv.png</logo_filename>
 		<website>http://057info.hr/radio057/ </website>
 	</tvchannel>
 	<tvchannel name="Radio 051">
 		<lang>hr</lang>
 		<country>hr</country>
-		<logo_filename>radio051_hrv.png</logo_filename>
+		<logo_filename>radionulpetjedan_hrv.png</logo_filename>
 		<website>http://radio051.com/ </website>
+	</tvchannel>
+	<tvchannel name="Radio 1">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiojedan_hrv.png</logo_filename>
+		<website>http://radio1.hr </website>
 	</tvchannel>
 	<tvchannel name="Radio Banovina">
 		<lang>hr</lang>
@@ -4318,11 +4388,29 @@
 		<label>BBR Bjelovarsko Bilogorski Radio</label>
 		<!-- <website> </website> -->
 	</tvchannel>
+	<tvchannel name="Radio Benkovac">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiobenkovac_hrv.png</logo_filename>
+		<website>http://radiobenkovac.com/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Biograd na Moru">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiobiogradnamoru_hrv.png</logo_filename>
+		<website>https://www.radio-bnm.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Radio Blagovesti">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radioblagovest_hrv.png</logo_filename>
 		<website>http://www.manastir-lepavina.org/radioblagovesti/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Borovo">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioborovo_hrv.png</logo_filename>
+		<website>http://radio-borovo.hr/ </website>
 	</tvchannel>
 	<tvchannel name="Radio Brac">
 		<lang>hr</lang>
@@ -4330,6 +4418,12 @@
 		<logo_filename>radiobrac_hrv.png</logo_filename>
 		<label>Radio Brač</label>
 		<website>http://www.radio-brac.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Centar Studio Poreč">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiocentporec_hrv.png</logo_filename>
+		<website>https://www.radiocentar.hr/ </website>
 	</tvchannel>
 	<tvchannel name="Radio Crash">
 		<lang>hr</lang>
@@ -4343,11 +4437,47 @@
 		<logo_filename>radiodalmacija_hrv.png</logo_filename>
 		<website>https://www.radiodalmacija.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Radio Daruvar">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiodaruvar_hrv.png</logo_filename>
+		<website>https://www.radio-daruvar.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Radio Deejay">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radiodeejay_hrv.png</logo_filename>
 		<website>https://www.deejay.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Delta Metković">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiodeltametkovic_hrv.png</logo_filename>
+		<website>https://radiodelta.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Donji Miholjac">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiodonjimiholjac_hrv.png</logo_filename>
+		<website>https://www.rdm.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Drava">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiodrava_hrv.png</logo_filename>
+		<website>https://www.radio-drava.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Drniš">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiodrnis_hrv.png</logo_filename>
+		<website>https://www.radiodrnis.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Dunav">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiodunav_hrv.png</logo_filename>
+		<website>https://radio-dunav.com/ </website>
 	</tvchannel>
 	<tvchannel name="Radio Djakovo">
 		<lang>hr</lang>
@@ -4355,6 +4485,12 @@
 		<logo_filename>radiodjakovo_hrv.png</logo_filename>
 		<label>Radio Đakovo</label>
 		<website>https://www.radio-djakovo.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Eurostar">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioeurostar_hrv.png</logo_filename>
+		<website>http://www.radioeurostar.hr/ </website>
 	</tvchannel>
 	<tvchannel name="Radio Glas Podravine">
 		<lang>hr</lang>
@@ -4368,11 +4504,41 @@
 		<logo_filename>radiogorkot_hrv.png</logo_filename>
 		<website>https://rgk.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Radio Grubišno Polje">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiogrubisnopolje_hrv.png</logo_filename>
+		<website>https://www.facebook.com/radiogrubisnopolje/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Hrvatsko Zagorje Krapina">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiohrvzagorjekrap_hrv.png</logo_filename>
+		<website>https://rhzk.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Ilok">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioilok_hrv.png</logo_filename>
+		<website>https://www.radio-ilok.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Imotski">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioimotski_hrv.png</logo_filename>
+		<website>https://radioimotski.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Radio Istra">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radioistra_hrv.png</logo_filename>
 		<website>https://www.radioistra.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Jaska">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiojaska_hrv.png</logo_filename>
+		<website>https://www.radio-jaska.hr/ </website>
 	</tvchannel>
 	<tvchannel name="Radio Kaj">
 		<lang>hr</lang>
@@ -4386,11 +4552,23 @@
 		<logo_filename>radiokoprivnica_hrv.png</logo_filename>
 		<website>https://rkc.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Radio Korčula">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiokorcula_hrv.png</logo_filename>
+		<website>https://www.radio-korcula.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Radio Korzo">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radiokorzo_hrv.png</logo_filename>
 		<website>https://rkc.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Križevci">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiokrizevci_hrv.png</logo_filename>
+		<website>https://radiokrizevci.hr/ </website>
 	</tvchannel>
 	<tvchannel name="Radio Labin">
 		<lang>hr</lang>
@@ -4404,11 +4582,23 @@
 		<logo_filename>radioludbreg_hrv.png</logo_filename>
 		<website>https://www.radio-ludbreg.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Radio-M">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiom_hrv.png</logo_filename>
+		<website>http://www.radio-m.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Radio Maestral">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radiomaestral_hrv.png</logo_filename>
 		<website>https://www.radio-maestral.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Makarska Rivijera">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiomakarskarivijera_hrv.png</logo_filename>
+		<website>http://www.radiomakarska.com/cms/ </website>
 	</tvchannel>
 	<tvchannel name="Radio Marija">
 		<lang>hr</lang>
@@ -4428,6 +4618,12 @@
 		<country>hr</country>
 		<logo_filename>radiomax_hrv.png</logo_filename>
 		<website>http://www.radiomax.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Megaton">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiomegaton_hrv.png</logo_filename>
+		<website>https://www.radiomegaton.hr/ </website>
 	</tvchannel>
 	<tvchannel name="Radio MIR">
 		<lang>hr</lang>
@@ -4453,17 +4649,59 @@
 		<logo_filename>radiomreznica_hrv.png</logo_filename>
 		<website>https://radio-mreznica.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Radio Našice">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radionasice_hrv.png</logo_filename>
+		<website>https://www.radionasice.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Nova Gradiška">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radionovagradiska_hrv.png</logo_filename>
+		<website>https://radiong.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Novi Marof">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radionovimarof_hrv.png</logo_filename>
+		<website>https://www.radionovimarof.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Radio Novska">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radionovska_hrv.png</logo_filename>
 		<website>https://www.radionovska.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Radio Ogulin">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioogulin_hrv.png</logo_filename>
+		<website>https://www.radio-ogulin.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Orahovica">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiorahovica_hrv.png</logo_filename>
+		<website>https://www.radioorahovica.com/ </website>
+	</tvchannel>
 	<tvchannel name="Radio Otočac">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radiootocac_hrv.png</logo_filename>
 		<website>https://hrvatski-radio-otocac.hr/radio/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Otok Krk">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiootokkrk_hrv.png</logo_filename>
+		<website>https://www.radio-otok-krk.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Prkos">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioprkos_hrv.png</logo_filename>
+		<website>http://www.radioprkos.hr/ </website>
 	</tvchannel>
 	<tvchannel name="Radio Quirinus">
 		<lang>hr</lang>
@@ -4472,11 +4710,23 @@
 		<label>Radio Quirinus 91.7</label>
 		<website>https://quirinusportal.com/ </website>
 	</tvchannel>
+	<tvchannel name="Radio Rab">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiorab_hrv.png</logo_filename>
+		<website>https://radio-rab.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Radio Ritam">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radioritam_hrv.png</logo_filename>
 		<website>https://www.radioritam.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Samobor">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiosamobor_hrv.png</logo_filename>
+		<website>http://www.radiosamobor.hr/ </website>
 	</tvchannel>
 	<tvchannel name="Radio Sisak">
 		<lang>hr</lang>
@@ -4535,11 +4785,35 @@
 		<logo_filename>radiosunce_hrv.png</logo_filename>
 		<website>https://www.radiosunce.com.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Radio Sveta Nedelja">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiosvetanedelja_hrv.png</logo_filename>
+		<website>https://radiosvn.com/ </website>
+	</tvchannel>
 	<tvchannel name="Radio Terezija">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radioterezija_hrv.png</logo_filename>
 		<website>https://www.terezija.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Val">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radioval_hrv.png</logo_filename>
+		<website>http://radioval.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Vallis Aurea">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiovalisaurea_hrv.png</logo_filename>
+		<website>https://www.rva.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Vinkovci">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiovinkovci_hrv.png</logo_filename>
+		<website>https://www.facebook.com/novosti.vinkovci/ </website>
 	</tvchannel>
 	<tvchannel name="Radio Vrbovec">
 		<lang>hr</lang>
@@ -4547,11 +4821,36 @@
 		<logo_filename>radiovrbovec_hrv.png</logo_filename>
 		<website>https://radiovrbovec.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Radio Zelina">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiozelina_hrv.png</logo_filename>
+		<website>http://radiozelina.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Radio Zlatar">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radiozlatar_hrv.png</logo_filename>
 		<website>https://www.radio-zlatar.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Radio Županja">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiozupanja_hrv.png</logo_filename>
+		<label>Hrvatski Radio Županja</label>
+		<website>https://www.radiozupanja.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Rovinj FM">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>rovinjfm_hrv.png</logo_filename>
+		<website>https://rovinj.fm/ </website>
+	</tvchannel>
+	<tvchannel name="Sjeverni FM">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>sjevernifm_hrv.png</logo_filename>
+		<website>https://sjeverni.fm/ </website>
 	</tvchannel>
 	<tvchannel name="Slavonski Radio">
 		<lang>hr</lang>
@@ -4565,6 +4864,36 @@
 		<logo_filename>soundsetragusa_hrv.png</logo_filename>
 		<website>https://www.soundsetragusa.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Studentski radio UNIOS">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>studentskiradiounios_hrv.png</logo_filename>
+		<website>http://radio.unios.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Studio M">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>studiom_hrv.png</logo_filename>
+		<website>http://www.studiom.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Super Radio">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>superradio_hrv.png</logo_filename>
+		<website>https://superradio.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Ultra Split">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>ultrasplit_hrv.png</logo_filename>
+		<website>https://ultrasplit.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Unidu radio">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>uniduradio_hrv.png</logo_filename>
+		<website>http://www.uniduradio.com/ </website>
+	</tvchannel>
 	<tvchannel name="Yammat FM">
 		<lang>hr</lang>
 		<country>hr</country>
@@ -4574,23 +4903,29 @@
 		<label>YAMMAT FM</label>
 		<website>http://yammat.fm/ </website>
 	</tvchannel>
-	<tvchannel name="Ultra Split">
-		<lang>hr</lang>
-		<country>hr</country>
-		<logo_filename>ultrasplit_hrv.png</logo_filename>
-		<website>https://ultrasplit.hr/ </website>
-	</tvchannel>
 	<tvchannel name="Z fm">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>zfm_hrv.png</logo_filename>
 		<website>https://zfm.hr/ </website>
 	</tvchannel>
+	<tvchannel name="Zagorski Radio">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>zagorskiradio_hrv.png</logo_filename>
+		<website>http://www.zagorski-radio.hr/ </website>
+	</tvchannel>
 	<tvchannel name="Županijski Radio Šibenik">
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>radiosibenik_hrv.png</logo_filename>
 		<website>http://radiosibenik.hr/ </website>
+	</tvchannel>
+	<tvchannel name="Županijski Radio Virovitica">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>radiovirovitica_hrv.png</logo_filename>
+		<website>https://www.icv.hr/radio/ </website>
 	</tvchannel>
 <!-- ####################     CROATIAN TV-CHANNELS/RADIOS END   ########################### -->
 <!-- ###################################################################################### -->

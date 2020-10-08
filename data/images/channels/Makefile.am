@@ -283,6 +283,7 @@ channels_logos = \
   grandlille_tv.png \
   grandtv_hrv.png \
   grossecaisse.png \
+  grradvirovitica_hrv.png \
   guangdongsoutherntv.png \
   gulli.png \
   guysentv.png \
@@ -308,6 +309,8 @@ channels_logos = \
   horrorchanneltv_hrv.png \
   hrcak_hrv.png \
   hr.png \
+  hrradiokarlovac_hrv.png \
+  hrradiovalpovstina_hrv.png \
   hrradiovukovar_hrv.png \
   hrt1tv_hrv.png \
   hrt2tv_hrv.png \
@@ -415,6 +418,7 @@ channels_logos = \
   medi1sat.png \
   mediaservis_hrv.png \
   mediasetitaliatv_hrv.png \
+  megamixradiohvar_hrv.png \
   mellotv.png \
   metropolys.png \
   mezzo.png \
@@ -440,9 +444,11 @@ channels_logos = \
   mtvclubtv_hrv.png \
   mtvdanceinternationaltv_hrv.png \
   mtvdance.png \
+  mtvdevedesettv_hrv.png \
   mtvhitsinternationaltv_hrv.png \
   mtvhits.png \
   mtvmusictv_hrv.png \
+  mtvosamdesettv_hrv.png \
   mtv.png \
   mtvrocksinternationaltv_hrv.png \
   mtvtv_hrv.png \
@@ -480,6 +486,7 @@ channels_logos = \
   novastv_hrv.png \
   novatv_hrv.png \
   novaworldtv_hrv.png \
+  noviradiodjakovo_hrv.png \
   noviradiozd_hrv.png \
   nrj12.png \
   nrjhits.png \
@@ -536,6 +543,7 @@ channels_logos = \
   pickboxtv_hrv.png \
   pikabootv_hrv.png \
   pinkplustv_hrv.png \
+  pitomiradio_hrv.png \
   planetearthtv_hrv.png \
   planetsport1tv_hrv.png \
   planetsport2tv_hrv.png \
@@ -548,6 +556,7 @@ channels_logos = \
   podravskiradio_hrv.png \
   pokerchannel.png \
   poljoprivrednatv_hrv.png \
+  pomorskiradio_hrv.png \
   powerturktv.png \
   pozitivtv_hrv.png \
   presstv.png \
@@ -563,18 +572,30 @@ channels_logos = \
   radio8.png \
   radiobaranja_hrv.png \
   radiobbr_hrv.png \
+  radiobenkovac_hrv.png \
+  radiobiogradnamoru_hrv.png \
   radioblagovest_hrv.png \
+  radioborovo_hrv.png \
   radiobrac_hrv.png \
   radiocanada.png \
   radiocean.png \
+  radiocentporec_hrv.png \
   radioclapas.png \
   radioclassique.png \
   radio-corsica.png \
   radiocrash_hrv.png \
   radiodalmacija_hrv.png \
+  radiodaruvar_hrv.png \
   radiodeejay_hrv.png \
+  radiodeltametkovic_hrv.png \
+  radiodevetdva_hrv.png \
   radiodjakovo_hrv.png \
+  radiodonjimiholjac_hrv.png \
+  radiodrava_hrv.png \
+  radiodrnis_hrv.png \
+  radiodunav_hrv.png \
   radioethic.png \
+  radioeurostar_hrv.png \
   radiofgamerica.png \
   radiofgchic.png \
   radiofgclassics.png \
@@ -583,35 +604,58 @@ channels_logos = \
   radiofgunderground.png \
   radioglaspodravine_hrv.png \
   radiogorkot_hrv.png \
+  radiogrubisnopolje_hrv.png \
+  radiohrvzagorjekrap_hrv.png \
   radioicietmaintenant.png \
+  radioilok_hrv.png \
+  radioimotski_hrv.png \
   radioistra_hrv.png \
+  radiojaska_hrv.png \
+  radiojedan_hrv.png \
   radiojunior.png \
   radiokaj_hrv.png \
   radiokoprivnica_hrv.png \
+  radiokorcula_hrv.png \
   radiokorzo_hrv.png \
+  radiokrizevci_hrv.png \
   radiolabin_hrv.png \
   radiolatina.png \
   radiolibertaire.png \
   radioludbreg_hrv.png \
   radiomaestral_hrv.png \
+  radiomakarskarivijera_hrv.png \
   radiomarija_hrv.png \
   radiomartin_hrv.png \
   radiomax_hrv.png \
+  radiomegaton_hrv.png \
   radiomelodie.png \
+  radiom_hrv.png \
   radiomir_hrv.png \
   radiomontblanc.png \
   radiomoslavina_hrv.png \
   radiomozaik_hrv.png \
   radiomreznica_hrv.png \
+  radionasice_hrv.png \
   radioneo.png \
   radionotredame.png \
+  radionovagradiska_hrv.png \
   radionova.png \
+  radionovimarof_hrv.png \
   radionovska_hrv.png \
+  radionulpetjedan_hrv.png \
+  radionulpetsedam_hrv.png \
+  radioogulin_hrv.png \
   radioo.png \
+  radioosamnulosam_hrv.png \
   radiootocac_hrv.png \
+  radiootokkrk_hrv.png \
+  radioprkos_hrv.png \
   radiopublicsante.png \
   radioquirinus_hrv.png \
+  radiorab_hrv.png \
+  radiorahovica_hrv.png \
   radioritam_hrv.png \
+  radiosamobor_hrv.png \
   radioscoop80s.png \
   radioscoopmusicpod.png \
   radioscoop.png \
@@ -625,15 +669,24 @@ channels_logos = \
   radioslavonija_hrv.png \
   radioslunj_hrv.png \
   radiostar.png \
+  radiostojedan_hrv.png \
+  radiostopet_hrv.png \
   radiostubica_hrv.png \
   radiostudent_hrv.png \
   radiosunce_hrv.png \
   radiosun.png \
+  radiosvetanedelja_hrv.png \
   radioterezija_hrv.png \
   radiotrogir_hrv.png \
   radio-tropicale.png \
+  radioval_hrv.png \
+  radiovalisaurea_hrv.png \
+  radiovinkovci_hrv.png \
+  radiovirovitica_hrv.png \
   radiovrbovec_hrv.png \
+  radiozelina_hrv.png \
   radiozlatar_hrv.png \
+  radiozupanja_hrv.png \
   raidue.png \
   raiduetv_hrv.png \
   railtv.png \
@@ -664,6 +717,7 @@ channels_logos = \
   rne.png \
   rocktv.png \
   rossija24.png \
+  rovinjfm_hrv.png \
   rsr-suisse.png \
   rtbf.png \
   rtbtv_hrv.png \
@@ -701,6 +755,7 @@ channels_logos = \
   servustvhd.png \
   shanghaidragontv.png \
   shenzhen_tv.png \
+  sjevernifm_hrv.png \
   sk1hdtv_hrv.png \
   sk1tv_hrv.png \
   sk2hdtv_hrv.png \
@@ -737,8 +792,11 @@ channels_logos = \
   stingray_hrv.png \
   stlfm.png \
   stoptv_hrv.png \
+  studentskiradiounios_hrv.png \
+  studiom_hrv.png \
   stv_hrv.png \
   sudradio.png \
+  superradio_hrv.png \
   suroyotv.png \
   swrhd.png \
   tagesschau24.png \
@@ -810,6 +868,7 @@ channels_logos = \
   tvvi.png \
   tvzapadtv_hrv.png \
   ultrasplit_hrv.png \
+  uniduradio_hrv.png \
   urbaniatv.png \
   vavoomtv_hrv.png \
   vesti.png \
@@ -844,6 +903,7 @@ channels_logos = \
   yammatfm_hrv.png \
   yementv.png \
   z1tv_hrv.png \
+  zagorskiradio_hrv.png \
   zahratv.png \
   zdf_de.png \
   zdfhdtv_hrv.png \
