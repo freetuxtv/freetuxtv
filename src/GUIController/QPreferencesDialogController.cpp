@@ -145,144 +145,54 @@ void QPreferencesDialogController::updateCtrl()
 void QPreferencesDialogController::onValidButtonClicked()
 {
 	qDebug("onValidButtonClicked");
+	QString szTmp;
 
-/*
-	FreetuxTVApp *app = (FreetuxTVApp*)user_data;
-	GtkWidget* widget;
-	gboolean bIsOk = TRUE;
-	const char* text;
+	// General
+	m_pPreferences->m_bChannelOnStartup = m_pPreferencesDialog->getCheckBoxPlayLastChannelOnStartup()->isChecked();
+	m_pPreferences->m_bEnableNotifications = m_pPreferencesDialog->getCheckBoxDesktopNotification()->isChecked();
+	m_pPreferences->m_bIgnoreDiacritics = m_pPreferencesDialog->getCheckBoxIgnoreDiacritics()->isChecked();
 
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-
-
-	if(response_id == GTK_RESPONSE_APPLY){
-		// Get prefs general
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_channelonstartup");
-		app->prefs.channelonstartup = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_enablenotifications");
-		app->prefs.enable_notifications = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_ignorediacritics");
-		app->prefs.ignore_diacritics = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-
-		// Get prefs libvlc
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_radioconfigfilenone");
-		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
-			app->prefs.libvlcconfigfile_mode = 0;
-		}
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_radioconfigfilecustom");
-		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
-			app->prefs.libvlcconfigfile_mode = 1;
-		}
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_radioconfigfilevlc");
-		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
-			app->prefs.libvlcconfigfile_mode = 2;
-		}
-
-
-		// Get prefs recording
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_directoryrecordings");
-		g_free(app->prefs.directoryrecordings);
-		app->prefs.directoryrecordings = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER (widget));
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_radiotranscodingno");
-		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
-			app->prefs.transcoding_mode = 0;
-		}
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_radiotranscodingpredefinedformats");
-		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
-			app->prefs.transcoding_mode = 1;
-		}
-
-		model = (GtkTreeModel *) gtk_builder_get_object (app->gui, "liststore_transcodeformat");
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_transcodingformats");
-		gtk_combo_box_get_active_iter (GTK_COMBO_BOX(widget), &iter);
-		app->prefs.transcoding_format = gtk_tree_model_get_string_from_iter (model, &iter);
-
-		// Get prefs network
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_entrytimeout");
-		text = gtk_entry_get_text (GTK_ENTRY(widget));
-		app->prefs.timeout = atoi(text);
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_radioproxyno");
-		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
-			app->prefs.proxy.proxy_mode = G_PROXY_MODE_NONE;
-		}
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_radioproxymanual");
-		if(gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))){
-			app->prefs.proxy.proxy_mode = G_PROXY_MODE_MANUAL;
-		}
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_entryproxyserver");
-		text = gtk_entry_get_text (GTK_ENTRY(widget));
-		if(app->prefs.proxy.proxy_server){
-			g_free(app->prefs.proxy.proxy_server);
-			app->prefs.proxy.proxy_server = NULL;
-		}
-		app->prefs.proxy.proxy_server = g_strdup(text);
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_entryproxyport");
-		text = gtk_entry_get_text (GTK_ENTRY(widget));
-		if(app->prefs.proxy.proxy_port){
-			g_free(app->prefs.proxy.proxy_port);
-			app->prefs.proxy.proxy_port = NULL;
-		}
-		app->prefs.proxy.proxy_port = g_strdup(text);
-
-		model = (GtkTreeModel *) gtk_builder_get_object (app->gui, "liststore_proxytype");
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_comboboxproxytype");
-		gtk_combo_box_get_active_iter (GTK_COMBO_BOX(widget), &iter);
-		app->prefs.proxy.proxy_type = gtk_tree_model_get_string_from_iter (model, &iter);
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_checkuseauth");
-		app->prefs.proxy.proxy_use_auth = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_entryproxyusername");
-		text = gtk_entry_get_text (GTK_ENTRY(widget));
-		if(app->prefs.proxy.proxy_username){
-			g_free(app->prefs.proxy.proxy_username);
-			app->prefs.proxy.proxy_username = NULL;
-		}
-		app->prefs.proxy.proxy_username = g_strdup(text);
-
-		widget = (GtkWidget *) gtk_builder_get_object (app->gui,
-													   "dialogpreferences_entryproxypassword");
-		text = gtk_entry_get_text (GTK_ENTRY(widget));
-		if(app->prefs.proxy.proxy_password){
-			g_free(app->prefs.proxy.proxy_password);
-			app->prefs.proxy.proxy_password = NULL;
-		}
-		app->prefs.proxy.proxy_password = g_strdup(text);
+	// LibVLC
+	if(m_pPreferencesDialog->getButtonConfigFileNone()->isChecked()){
+		m_pPreferences->m_iLibVLCConfigFileMode = 0;
+	}
+	if(m_pPreferencesDialog->getButtonConfigFileCustom()->isChecked()){
+		m_pPreferences->m_iLibVLCConfigFileMode = 1;
+	}
+	if(m_pPreferencesDialog->getButtonConfigFileVLCFile()->isChecked()){
+		m_pPreferences->m_iLibVLCConfigFileMode = 2;
 	}
 
-	if(bIsOk){
-		gtk_widget_hide(GTK_WIDGET(dialog));
+	// Recordings
+	m_pPreferences->m_szDirectoryRecordings = m_pPreferencesDialog->getLineEditDirectoryRecording()->text();
+	if(m_pPreferencesDialog->getButtonTranscodeNone()->isChecked()){
+		m_pPreferences->m_iTranscodingMode = 0;
 	}
-	*/
+	if(m_pPreferencesDialog->getButtonTranscodeCustom()->isChecked()){
+		m_pPreferences->m_iTranscodingMode = 1;
+	}
+	m_pPreferences->m_szTranscodingFormat = m_pPreferencesDialog->getComboBoxTranscodeCustom()->currentText();
+
+	// Network
+	szTmp = m_pPreferencesDialog->getLineEditDownloadTimeOut()->text();
+	m_pPreferences->m_iTimeout = szTmp.toInt();
+	if(m_pPreferencesDialog->getButtonProxyNone()->isChecked()){
+		m_pPreferences->m_iProxyMode = 0;
+	}
+	if(m_pPreferencesDialog->getButtonProxyCustom()->isChecked()){
+		m_pPreferences->m_iProxyMode = 1;
+	}
+	m_pPreferences->m_szProxyServer = m_pPreferencesDialog->getLineEditProxyServer()->text();
+	szTmp = m_pPreferencesDialog->getLineEditProxyPort()->text();
+	if(szTmp.isNull()) {
+		m_pPreferences->m_iProxyPort = -1;
+	}else{
+		m_pPreferences->m_iProxyPort = szTmp.toInt();
+	}
+	m_pPreferences->m_szProxyType = m_pPreferencesDialog->getComboBoxProxyType()->currentText();
+	m_pPreferences->m_bProxyAuth = m_pPreferencesDialog->getCheckBoxProxyAuth()->isChecked();
+	m_pPreferences->m_szProxyUser = m_pPreferencesDialog->getLineEditProxyUsername()->text();
+	m_pPreferences->m_szProxyPassword = m_pPreferencesDialog->getLineEditProxyPassword()->text();
 
 	m_pPreferencesDialog->accept();
 }
