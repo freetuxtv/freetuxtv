@@ -32,6 +32,7 @@
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QHBoxLayout>
+#include <QSplitter>
 
 #include "GUI/QCtrlBarView.h"
 
@@ -206,11 +207,7 @@ QMenuBar* QApplicationMainWindow::createMenuBar(QWidget* parent)
 
 QWidget* QApplicationMainWindow::createCentralWidget(QWidget* parent)
 {
-	QWidget* pMainWidget = new QWidget(parent);
-
-	QBoxLayout* pLayout = new QHBoxLayout();
-	//pLayout->setContentsMargins(2, 2, 2, 2);
-	pMainWidget->setLayout(pLayout);
+	QSplitter* pMainWidget = new QSplitter(parent);
 
 	QWidget* pTmpWidget;
 
@@ -223,14 +220,18 @@ QWidget* QApplicationMainWindow::createCentralWidget(QWidget* parent)
 		pTab->addTab(pTmpWidget, tr("Channels"));
 		pTab->addTab(new QWidget(), tr("Recordings"));
 
-		pLayout->addWidget(pTab, 1);
+		pMainWidget->addWidget(pTab);
 	}
 
 	// Video
 	{
 		pTmpWidget = createVideoView(pMainWidget);
-		pLayout->addWidget(pTmpWidget, 4);
+		pMainWidget->addWidget(pTmpWidget);
 	}
+
+	// Update display ratio
+	pMainWidget->setStretchFactor(0, 1);
+	pMainWidget->setStretchFactor(1, 3);
 
 	return pMainWidget;
 }
