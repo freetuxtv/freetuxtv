@@ -29,6 +29,7 @@ QPreferencesDialogController::~QPreferencesDialogController()
 void QPreferencesDialogController::init(QPreferencesDialog* pPreferencesDialog, Preferences* pPreferences)
 {
 	m_pPreferencesDialog = pPreferencesDialog;
+	m_pPreferences = pPreferences;
 
 	loadPreferences(pPreferences);
 	updateCtrl();
