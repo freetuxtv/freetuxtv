@@ -17,7 +17,7 @@
 
 #include "QPreferencesDialog.h"
 
-QPreferencesDialog::QPreferencesDialog()
+QPreferencesDialog::QPreferencesDialog(QWidget* pParent)
 {
 	QBoxLayout* pMainLayout = new QVBoxLayout();
 	setLayout(pMainLayout);
@@ -26,7 +26,7 @@ QPreferencesDialog::QPreferencesDialog()
 	QWidget* pTmpWidget;
 
 	{
-		QTabWidget* pTabWidget = new QTabWidget();
+		QTabWidget* pTabWidget = new QTabWidget(pParent);
 		pMainLayout->addWidget(pTabWidget);
 
 		pTmpWidget = createTabGeneral(pTabWidget);

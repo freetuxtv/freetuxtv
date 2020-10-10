@@ -281,21 +281,25 @@ set(FREETUXTV_SRC
 set(FREETUXTV_SRC
     src/Model/Preferences.cpp
     src/Model/Preferences.h
+    src/GUI/QAddChannelsGroupDialog.cpp
+    src/GUI/QAddChannelsGroupDialog.h
     src/GUI/QApplicationMainWindow.cpp
     src/GUI/QApplicationMainWindow.h
     src/GUI/QCtrlBarView.cpp
     src/GUI/QCtrlBarView.h
     src/GUI/QPreferencesDialog.cpp
     src/GUI/QPreferencesDialog.h
+    src/GUIController/QAddChannelsGroupDialogController.cpp
+    src/GUIController/QAddChannelsGroupDialogController.h
     src/GUIController/QApplicationMainWindowController.cpp
     src/GUIController/QApplicationMainWindowController.h
     src/GUIController/QPreferencesDialogController.cpp
     src/GUIController/QPreferencesDialogController.h
-    src/main.cpp
-)
+    src/main.cpp)
 
 # Creating MOC file for sources file using "slots" or Q_OBJECT macro
 set(APPLICATION_MOC_HEADERS
+    src/GUIController/QAddChannelsGroupDialogController.h
     src/GUIController/QApplicationMainWindowController.h
     src/GUIController/QPreferencesDialogController.h
 )

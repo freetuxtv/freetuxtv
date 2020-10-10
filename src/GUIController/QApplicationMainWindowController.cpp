@@ -12,8 +12,10 @@
 #include "GUI/QApplicationMainWindow.h"
 #include "GUI/QCtrlBarView.h"
 #include "GUI/QPreferencesDialog.h"
+#include "GUI/QAddChannelsGroupDialog.h"
 
 #include "GUIController/QPreferencesDialogController.h"
+#include "GUIController/QAddChannelsGroupDialogController.h"
 
 #include "QApplicationMainWindowController.h"
 
@@ -154,6 +156,17 @@ void QApplicationMainWindowController::onQuitTriggered()
 void QApplicationMainWindowController::onAddGroupTriggered()
 {
 	qDebug("onAddGroupTriggered");
+
+	QAddChannelsGroupDialog dialog(m_pMainWindow);
+
+	QAddChannelsGroupDialogController dialogController;
+
+	dialogController.init(&dialog);
+
+	dialog.exec();
+
+	dialogController.dispose();
+
 	/*
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 

@@ -17,7 +17,7 @@ class QComboBox;
 class QPreferencesDialog : public QDialog
 {
 public:
-	QPreferencesDialog();
+	QPreferencesDialog(QWidget* pParent = NULL);
 	virtual ~QPreferencesDialog();
 
 public:
