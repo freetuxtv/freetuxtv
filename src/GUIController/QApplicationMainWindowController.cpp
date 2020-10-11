@@ -137,14 +137,11 @@ void QApplicationMainWindowController::dispose()
 
 void QApplicationMainWindowController::onPreferencesTriggered()
 {
-	QPreferencesDialog dialog;
-
+	QPreferencesDialog dialog(m_pMainWindow);
+	dialog.setModal(true);
 	QPreferencesDialogController dialogController;
-
 	dialogController.init(&dialog, m_pPreferences);
-
 	dialog.exec();
-
 	dialogController.dispose();
 }
 
@@ -156,15 +153,11 @@ void QApplicationMainWindowController::onQuitTriggered()
 void QApplicationMainWindowController::onAddGroupTriggered()
 {
 	qDebug("onAddGroupTriggered");
-
 	QAddChannelsGroupDialog dialog(m_pMainWindow);
-
+	dialog.setModal(true);
 	QAddChannelsGroupDialogController dialogController;
-
-	dialogController.init(&dialog);
-
+	dialogController.init(&dialog, m_pPreferences);
 	dialog.exec();
-
 	dialogController.dispose();
 
 	/*

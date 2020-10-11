@@ -7,6 +7,8 @@
 
 #include <QString>
 
+#include "Model/Proxy.h"
+
 class Preferences
 {
 public:
@@ -29,13 +31,7 @@ public:
 
 	// Preferences network
 	int m_iTimeout;
-	int m_iProxyMode;
-	QString m_szProxyServer;
-	int m_iProxyPort;
-	QString m_szProxyType;
-	bool m_bProxyAuth;
-	QString m_szProxyUser;
-	QString m_szProxyPassword;
+	Proxy m_proxy;
 };
 
 

@@ -18,9 +18,6 @@ Preferences::Preferences()
 
 	// Preferences network
 	m_iTimeout = 20;
-	m_iProxyMode = 0;
-	m_iProxyPort = -1;
-	m_bProxyAuth = false;
 }
 
 Preferences::~Preferences()

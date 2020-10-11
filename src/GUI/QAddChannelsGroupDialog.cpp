@@ -31,6 +31,8 @@
 
 QAddChannelsGroupDialog::QAddChannelsGroupDialog(QWidget* pParent)
 {
+	m_iAllowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_ALL;
+
 	QBoxLayout* pMainLayout = new QVBoxLayout();
 	setLayout(pMainLayout);
 
@@ -38,17 +40,17 @@ QAddChannelsGroupDialog::QAddChannelsGroupDialog(QWidget* pParent)
 	QWidget* pTmpWidget;
 
 	{
-		QTabWidget* pTabWidget = new QTabWidget(pParent);
-		pMainLayout->addWidget(pTabWidget);
+		m_pTabWidget = new QTabWidget(pParent);
+		pMainLayout->addWidget(m_pTabWidget);
 
-		pTmpWidget = createTabExistingChannelsGroup(pTabWidget);
-		pTabWidget->addTab(pTmpWidget, tr("Existing channels group"));
+		pTmpWidget = createTabExistingChannelsGroup(m_pTabWidget);
+		m_pTabWidget->addTab(pTmpWidget, tr("Existing channels group"));
 
-		pTmpWidget = createTabCustomChannelsGroup(pTabWidget);
-		pTabWidget->addTab(pTmpWidget, tr("Custom channels group"));
+		pTmpWidget = createTabCustomChannelsGroup(m_pTabWidget);
+		m_pTabWidget->addTab(pTmpWidget, tr("Custom channels group"));
 
-		pTmpWidget = createTabSpecialGroup(pTabWidget);
-		pTabWidget->addTab(pTmpWidget, tr("Special group"));
+		pTmpWidget = createTabSpecialGroup(m_pTabWidget);
+		m_pTabWidget->addTab(pTmpWidget, tr("Special group"));
 	}
 
 	{
@@ -89,10 +91,11 @@ QWidget* QAddChannelsGroupDialog::createTabExistingChannelsGroup(QWidget* pParen
 		pTmpLayout->addWidget(new QLabel(tr("Channels groups file:")));
 
 		m_pLineEditChannelsGroupFile = new QLineEdit();
+		m_pLineEditChannelsGroupFile->setText("https://raw.githubusercontent.com/freetuxtv/freetuxtv/master/data/channels_groups.xml");
 		pTmpLayout->addWidget(m_pLineEditChannelsGroupFile);
 
-		m_pButtonRefresh = new QPushButton(tr("Refresh"));
-		pTmpLayout->addWidget(m_pButtonRefresh);
+		m_pButtonChannelsGroupListRefresh = new QPushButton(tr("Refresh"));
+		pTmpLayout->addWidget(m_pButtonChannelsGroupListRefresh);
 	}
 
 	// Info text
@@ -104,6 +107,7 @@ QWidget* QAddChannelsGroupDialog::createTabExistingChannelsGroup(QWidget* pParen
 	// Notifications
 	{
 		m_pTreeViewChannelsGroup = new QTreeView();
+		m_pTreeViewChannelsGroup->setSelectionMode(QTreeView::MultiSelection);
 		pMainLayout->addWidget(m_pTreeViewChannelsGroup);
 	}
 
@@ -218,314 +222,49 @@ QPushButton* QAddChannelsGroupDialog::getButtonValid() const
 	return m_pButtonValid;
 }
 
+
+QLineEdit* QAddChannelsGroupDialog::getLineEditChannelsGroupFile() const
+{
+	return m_pLineEditChannelsGroupFile;
+}
+
+QPushButton* QAddChannelsGroupDialog::getButtonChannelsGroupListRefresh() const
+{
+	return m_pButtonChannelsGroupListRefresh;
+}
+
+QTreeView* QAddChannelsGroupDialog::getTreeViewChannelsGroupList() const
+{
+	return m_pTreeViewChannelsGroup;
+}
+
+void QAddChannelsGroupDialog::setAllowedType(int iAllowedType)
+{
+	m_iAllowedType= iAllowedType;
 /*
-#include "freetuxtv-window-add-channels-group.h"
-
-#include "freetuxtv-gladexml.h"
-#include "freetuxtv-fileutils.h"
-#include "freetuxtv-models.h"
-#include "freetuxtv-db-sync.h"
-#include "freetuxtv-channels-list.h"
-#include "freetuxtv-window-main.h"
-#include "freetuxtv-cclosure-marshal.h"
-
-typedef struct _FreetuxTVWindowAddChannelsGroupPrivate FreetuxTVWindowAddChannelsGroupPrivate;
-struct _FreetuxTVWindowAddChannelsGroupPrivate
-{
-	FreetuxTVApp* app;
-
-	int allowedType;
-
-	GtkTreeModel* pModel;
-};
-
-#define FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), FREETUXTV_TYPE_WINDOW_ADD_CHANNELS_GROUP, FreetuxTVWindowAddChannelsGroupPrivate))
-
-G_DEFINE_TYPE (FreetuxTVWindowAddChannelsGroup, freetuxtv_window_add_channels_group, GTK_TYPE_BUILDER_WINDOW);
-
-enum {
-   SIGNAL_CHANNELS_GROUP_ADDED,
-   SIGNAL_CHANNELS_ADDED,
-   NB_SIGNALS
-};
-
-static guint g_signals [NB_SIGNALS] = { 0, 0 };
-
-static void
-on_buttonrefresh_clicked (GtkButton *button, gpointer user_data);
-
-static void
-on_buttonadd_clicked (GtkButton *button, gpointer user_data);
-
-static void
-on_buttonclose_clicked (GtkButton *button, gpointer user_data);
-
-static void
-gtk_notebook_set_page_visible(GtkNotebook* notebook, int page_num, gboolean visible);
-
-static void
-db_on_group_added (
-    FreetuxTVApp *app, DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    gpointer user_data, GError** error);
-
-static void
-db_on_channels_added (
-    FreetuxTVApp *app, DBSync *dbsync,
-    FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    gpointer user_data, GError** error);
-
-static void
-freetuxtv_window_add_channels_group_init (FreetuxTVWindowAddChannelsGroup *object)
-{
-	FreetuxTVWindowAddChannelsGroupPrivate* priv;
-
-	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(object);
-	priv->app = NULL;
-
-	priv->allowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_ALL;
-}
-
-static void
-freetuxtv_window_add_channels_group_finalize (GObject *object)
-{
-	FreetuxTVWindowAddChannelsGroupPrivate* priv;
-	
-	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(object);
-
-	priv->app = NULL;
-	
-	G_OBJECT_CLASS (freetuxtv_window_add_channels_group_parent_class)->finalize (object);
-}
-
-static void
-freetuxtv_window_add_channels_group_class_init (FreetuxTVWindowAddChannelsGroupClass *klass)
-{
-	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-
-	g_type_class_add_private (klass, sizeof (FreetuxTVWindowAddChannelsGroupPrivate));
-	
-	object_class->finalize = freetuxtv_window_add_channels_group_finalize;
-
-	g_signals [SIGNAL_CHANNELS_GROUP_ADDED] = g_signal_new (
-	    "channels-group-added",
-	    G_TYPE_FROM_CLASS (klass),
-	    G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
-	    G_STRUCT_OFFSET (FreetuxTVWindowAddChannelsGroupClass, channels_group_added),
-	    NULL, NULL,
-	    g_cclosure_marshal_VOID__OBJECT_POINTER_POINTER,
-	    G_TYPE_NONE,
-	    3,
-	    FREETUXTV_TYPE_CHANNELS_GROUP_INFOS,
-	    G_TYPE_POINTER,
-	    G_TYPE_POINTER
-	    );
-
-	g_signals [SIGNAL_CHANNELS_ADDED] = g_signal_new (
-	    "channels-added",
-	    G_TYPE_FROM_CLASS (klass),
-	    G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
-	    G_STRUCT_OFFSET (FreetuxTVWindowAddChannelsGroupClass, channels_added),
-	    NULL, NULL,
-	    g_cclosure_marshal_VOID__OBJECT_POINTER_POINTER,
-	    G_TYPE_NONE,
-	    3,
-	    FREETUXTV_TYPE_CHANNELS_GROUP_INFOS,
-	    G_TYPE_POINTER,
-	    G_TYPE_POINTER
-	    );
-}
-
-FreetuxTVWindowAddChannelsGroup*
-freetuxtv_window_add_channels_group_new (GtkWindow *parent, FreetuxTVApp* app, GError** error)
-{
-	g_return_val_if_fail(parent != NULL, NULL);
-	g_return_val_if_fail(GTK_IS_WINDOW(parent), NULL);
-	g_return_val_if_fail(app != NULL, NULL);
-	g_return_val_if_fail(error != NULL, NULL);
-	g_return_val_if_fail(*error == NULL, NULL);
-
-	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
-	FreetuxTVWindowAddChannelsGroupPrivate* priv;
-	GtkWidget *widget;
-	GtkWindow *pWindow;
-	
-	gchar* szUiFile = NULL;
-	szUiFile = g_build_filename (app->paths.szPathGladeXml, FREETUXTV_GUIFILE_ADDCHANNELSGROUPS, NULL);
-	
-	pWindowAddChannelsGroups = g_object_new (FREETUXTV_TYPE_WINDOW_ADD_CHANNELS_GROUP,
-	    "ui-file", szUiFile,
-	    "toplevel-widget-name", "dialogaddgroup",
-	    NULL);
-
-	if(szUiFile){
-		g_free(szUiFile);
-		szUiFile = NULL;
-	}
-
-	// Private members
-	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroups);
-	priv->app = app;
-	priv->pModel = (GtkTreeModel*) gtk_builder_object_get_object (
-	    GTK_BUILDER_OBJECT(pWindowAddChannelsGroups),
-	    "treestore_channelsgroup");
-
-	pWindow = gtk_builder_window_get_top_window (
-	    GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
-	
-	// Set the parent
-	gtk_window_set_transient_for (pWindow, parent);
-	gtk_window_set_position (pWindow, GTK_WIN_POS_CENTER_ON_PARENT);
-
-	// Set the tree selection mode
-	widget = (GtkWidget *) gtk_builder_object_get_object (
-	    GTK_BUILDER_OBJECT(pWindowAddChannelsGroups),
-		"treeview_channelsgroups");
-	GtkTreeSelection *selection;
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(widget));
-	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
-
-	// Signal to connect instance
-	widget = (GtkWidget*) gtk_builder_object_get_object (
-	    GTK_BUILDER_OBJECT(pWindowAddChannelsGroups),
-	    "button_add");
-	g_signal_connect(G_OBJECT(widget),
-		"clicked",
-	    G_CALLBACK(on_buttonadd_clicked),
-	    pWindowAddChannelsGroups);
-	
-	widget = (GtkWidget *)gtk_builder_object_get_object (
-	    GTK_BUILDER_OBJECT(pWindowAddChannelsGroups),
-	    "button_refresh");
-	g_signal_connect(G_OBJECT(widget),
-		"clicked",
-		G_CALLBACK(on_buttonrefresh_clicked),
-		pWindowAddChannelsGroups);
-	
-	widget = (GtkWidget *)gtk_builder_object_get_object (
-	    GTK_BUILDER_OBJECT(pWindowAddChannelsGroups),
-	    "button_close");
-	g_signal_connect(G_OBJECT(widget),
-		"clicked",
-		G_CALLBACK(on_buttonclose_clicked),
-	    pWindowAddChannelsGroups);
-
-	// We must load the interface event if the file is corrupted 
-	load_model_channels_group_from_file (priv->app, priv->pModel, error);
-	if(*error != NULL){
-		// So we just display the error message
-		windowmain_show_gerror (app, *error);
-		g_error_free (*error);
-		*error = NULL;
-	}
-
-	if(*error != NULL){
-		g_object_unref (G_OBJECT(pWindowAddChannelsGroups));
-		pWindowAddChannelsGroups = NULL;
-	}
-
-	return pWindowAddChannelsGroups;
-}
-
-void
-freetuxtv_window_add_channels_group_set_allowed_type (
-	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroup,
-    int allowedType)
-{
-	g_return_if_fail(pWindowAddChannelsGroup != NULL);
-	g_return_if_fail(FREETUXTV_IS_WINDOW_ADD_CHANNELS_GROUP(pWindowAddChannelsGroup));
-	
-	FreetuxTVWindowAddChannelsGroupPrivate* priv;
-	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroup);
-
-	priv->allowedType = allowedType;
-	
-	GtkBuilder *builder;
-	builder = gtk_builder_object_get_builder(GTK_BUILDER_OBJECT(pWindowAddChannelsGroup));
-
 	// Show the group allowed
-	GtkNotebook *notebook;
-	notebook = (GtkNotebook *) gtk_builder_get_object (builder, "notebook_dialogaddgroup");
-	if((priv->allowedType & FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING) 
+	if((m_iAllowedType & FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING)
 	    == FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING){
-		gtk_notebook_set_page_visible(notebook, 0, TRUE);
+		m_pTabWidget->removeTab();
 	}else{
 		gtk_notebook_set_page_visible(notebook, 0, FALSE);
 	}
-	if((priv->allowedType & FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM) 
+	if((m_iAllowedType & FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM)
 	    == FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM){
 		gtk_notebook_set_page_visible(notebook, 1, TRUE);
 	}else{
 		gtk_notebook_set_page_visible(notebook, 1, FALSE);
 	}
-	if((priv->allowedType & FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES) 
+	if((m_iAllowedType & FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES)
 	    == FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES){
 		gtk_notebook_set_page_visible(notebook, 2, TRUE);
 	}else{
 		gtk_notebook_set_page_visible(notebook, 2, FALSE);
 	}
+ 	*/
 }
+/*
 
-static void
-gtk_notebook_set_page_visible(GtkNotebook* notebook, int page_num, gboolean visible)
-{
-	GtkWidget* widget;
-	widget = gtk_notebook_get_nth_page (notebook, page_num);
-
-	if(widget){
-		if(visible){
-			gtk_widget_show(widget);
-		}else{
-			gtk_widget_hide(widget);
-		}
-	}
-}
-
-static void
-on_buttonrefresh_clicked (GtkButton *button, gpointer user_data)
-{
-	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
-	FreetuxTVWindowAddChannelsGroupPrivate* priv;
-	
-	FreetuxTVApp *app;
-
-	pWindowAddChannelsGroups = (FreetuxTVWindowAddChannelsGroup*)user_data;
-	priv = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_PRIVATE(pWindowAddChannelsGroups);
-	app = priv->app;
-
-	GtkBuilder *builder;
-	builder = gtk_builder_object_get_builder(GTK_BUILDER_OBJECT(pWindowAddChannelsGroups));
-
-	GError* error = NULL;
-
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Starting update of the channel's groups list\n");
-
-	GtkWidget* widget;
-	widget = (GtkWidget *) gtk_builder_get_object (builder,
-	    "dialogaddgroup_entrychannelsgroupfile");
-	gchar *url;
-	gchar *dst_file;
-	url = (gchar*)gtk_entry_get_text (GTK_ENTRY(widget));
-	dst_file = g_build_filename(g_get_user_cache_dir(), "freetuxtv", "channels_groups.dat", NULL);
-
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-	      "Downloading the file '%s'\n", url);
-	freetuxtv_fileutils_get_file (url, dst_file, &(app->prefs.proxy), app->prefs.timeout, &error);
-
-	if(error == NULL){
-		g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_INFO,
-			  "Updating the list of channel's groups\n");
-		load_model_channels_group_from_file(app, priv->pModel, &error);
-	}
-
-	if(error != NULL){
-		windowmain_show_gerror (app, error);
-		g_error_free (error);
-	}
-
-	g_free(dst_file);
-}
 
 static void
 on_buttonadd_clicked (GtkButton *button, gpointer user_data)

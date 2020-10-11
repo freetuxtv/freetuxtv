@@ -90,26 +90,26 @@ void QPreferencesDialogController::loadPreferences(Preferences* pPreferences)
 
 	// Network
 	m_pPreferencesDialog->getLineEditDownloadTimeOut()->setText(QString::number(pPreferences->m_iTimeout));
-	switch(pPreferences->m_iProxyMode)
+	switch(pPreferences->m_proxy.m_iProxyMode)
 	{
-		case 0:
+		case Proxy::ProxyModeNone:
 			m_pPreferencesDialog->getButtonProxyNone()->setChecked(true);
 			break;
-		case 1:
+		case Proxy::ProxyModeManual:
 			m_pPreferencesDialog->getButtonProxyCustom()->setChecked(true);
 			break;
 		default:
 			break;
 	}
-	m_pPreferencesDialog->getLineEditProxyServer()->setText(pPreferences->m_szProxyServer);
-	if(pPreferences->m_iProxyPort != -1){
-		szTmp = QString::number(pPreferences->m_iProxyPort);
+	m_pPreferencesDialog->getLineEditProxyServer()->setText(pPreferences->m_proxy.m_szProxyServer);
+	if(pPreferences->m_proxy.m_iProxyPort != -1){
+		szTmp = QString::number(pPreferences->m_proxy.m_iProxyPort);
 	}
 	m_pPreferencesDialog->getLineEditProxyPort()->setText(szTmp);
-	m_pPreferencesDialog->getComboBoxProxyType()->setCurrentText(pPreferences->m_szProxyType);
-	m_pPreferencesDialog->getCheckBoxProxyAuth()->setChecked(pPreferences->m_bProxyAuth);
-	m_pPreferencesDialog->getLineEditProxyUsername()->setText(pPreferences->m_szProxyUser);
-	m_pPreferencesDialog->getLineEditProxyPassword()->setText(pPreferences->m_szProxyPassword);
+	m_pPreferencesDialog->getComboBoxProxyType()->setCurrentText(pPreferences->m_proxy.m_szProxyType);
+	m_pPreferencesDialog->getCheckBoxProxyAuth()->setChecked(pPreferences->m_proxy.m_bProxyAuth);
+	m_pPreferencesDialog->getLineEditProxyUsername()->setText(pPreferences->m_proxy.m_szProxyUser);
+	m_pPreferencesDialog->getLineEditProxyPassword()->setText(pPreferences->m_proxy.m_szProxyPassword);
 }
 
 void QPreferencesDialogController::updateCtrl()
@@ -178,22 +178,22 @@ void QPreferencesDialogController::onValidButtonClicked()
 	szTmp = m_pPreferencesDialog->getLineEditDownloadTimeOut()->text();
 	m_pPreferences->m_iTimeout = szTmp.toInt();
 	if(m_pPreferencesDialog->getButtonProxyNone()->isChecked()){
-		m_pPreferences->m_iProxyMode = 0;
+		m_pPreferences->m_proxy.m_iProxyMode = Proxy::ProxyModeManual;
 	}
 	if(m_pPreferencesDialog->getButtonProxyCustom()->isChecked()){
-		m_pPreferences->m_iProxyMode = 1;
+		m_pPreferences->m_proxy.m_iProxyMode = Proxy::ProxyModeManual;
 	}
-	m_pPreferences->m_szProxyServer = m_pPreferencesDialog->getLineEditProxyServer()->text();
+	m_pPreferences->m_proxy.m_szProxyServer = m_pPreferencesDialog->getLineEditProxyServer()->text();
 	szTmp = m_pPreferencesDialog->getLineEditProxyPort()->text();
 	if(szTmp.isNull()) {
-		m_pPreferences->m_iProxyPort = -1;
+		m_pPreferences->m_proxy.m_iProxyPort = -1;
 	}else{
-		m_pPreferences->m_iProxyPort = szTmp.toInt();
+		m_pPreferences->m_proxy.m_iProxyPort = szTmp.toInt();
 	}
-	m_pPreferences->m_szProxyType = m_pPreferencesDialog->getComboBoxProxyType()->currentText();
-	m_pPreferences->m_bProxyAuth = m_pPreferencesDialog->getCheckBoxProxyAuth()->isChecked();
-	m_pPreferences->m_szProxyUser = m_pPreferencesDialog->getLineEditProxyUsername()->text();
-	m_pPreferences->m_szProxyPassword = m_pPreferencesDialog->getLineEditProxyPassword()->text();
+	m_pPreferences->m_proxy.m_szProxyType = m_pPreferencesDialog->getComboBoxProxyType()->currentText();
+	m_pPreferences->m_proxy.m_bProxyAuth = m_pPreferencesDialog->getCheckBoxProxyAuth()->isChecked();
+	m_pPreferences->m_proxy.m_szProxyUser = m_pPreferencesDialog->getLineEditProxyUsername()->text();
+	m_pPreferences->m_proxy.m_szProxyPassword = m_pPreferencesDialog->getLineEditProxyPassword()->text();
 
 	m_pPreferencesDialog->accept();
 }

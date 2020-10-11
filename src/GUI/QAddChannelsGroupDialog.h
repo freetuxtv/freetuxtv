@@ -27,6 +27,17 @@ class QPushButton;
 class QTreeView;
 class QRadioButton;
 
+enum FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW {
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING		= 1 << 0,
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM		= 1 << 1,
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES	= 1 << 2,
+
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_ALL			=
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING |
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM |
+	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES
+};
+
 class QAddChannelsGroupDialog : public QDialog
 {
 public:
@@ -37,18 +48,29 @@ public:
 	QPushButton* getButtonCancel() const;
 	QPushButton* getButtonValid() const;
 
+	QLineEdit* getLineEditChannelsGroupFile() const;
+	QPushButton* getButtonChannelsGroupListRefresh() const;
+	QTreeView* getTreeViewChannelsGroupList() const;
+
+public:
+	void setAllowedType(int iAllowedType);
+
 private:
 	QWidget* createTabExistingChannelsGroup(QWidget* pParent);
 	QWidget* createTabCustomChannelsGroup(QWidget* pParent);
 	QWidget* createTabSpecialGroup(QWidget* pParent);
 
 private:
+	int m_iAllowedType;
+
 	QPushButton* m_pButtonCancel;
 	QPushButton* m_pButtonValid;
 
+	QTabWidget* m_pTabWidget;
+
 	// Tab existing channels group
 	QLineEdit* m_pLineEditChannelsGroupFile;
-	QPushButton* m_pButtonRefresh;
+	QPushButton* m_pButtonChannelsGroupListRefresh;
 	QTreeView* m_pTreeViewChannelsGroup;
 
 	// Tab custom channels group
@@ -101,17 +123,6 @@ struct _FreetuxTVWindowAddChannelsGroupClass
 struct _FreetuxTVWindowAddChannelsGroup
 {
 	GtkBuilderWindow parent_instance;
-};
-
-enum FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW {
-	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING		= 1 << 0,
-	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM		= 1 << 1,
-	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES	= 1 << 2,
-	
-	FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_ALL			=
-		FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_EXISTING |
-		FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_CUSTOM |
-		FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_FAVOURITES
 };
 
 GType freetuxtv_window_add_channels_group_get_type (void) G_GNUC_CONST;

@@ -279,8 +279,18 @@ set(FREETUXTV_SRC
 )
 
 set(FREETUXTV_SRC
+    src/Global/FileUtils.cpp
+    src/Global/FileUtils.h
+    src/Global/QError.cpp
+    src/Global/QError.h
+    src/Global/QFileDownloader.cpp
+    src/Global/QFileDownloader.h
+    src/Global/UserPaths.cpp
+    src/Global/UserPaths.h
     src/Model/Preferences.cpp
     src/Model/Preferences.h
+    src/Model/Proxy.cpp
+    src/Model/Proxy.h
     src/GUI/QAddChannelsGroupDialog.cpp
     src/GUI/QAddChannelsGroupDialog.h
     src/GUI/QApplicationMainWindow.cpp
@@ -299,6 +309,7 @@ set(FREETUXTV_SRC
 
 # Creating MOC file for sources file using "slots" or Q_OBJECT macro
 set(APPLICATION_MOC_HEADERS
+    src/Global/QFileDownloader.h
     src/GUIController/QAddChannelsGroupDialogController.h
     src/GUIController/QApplicationMainWindowController.h
     src/GUIController/QPreferencesDialogController.h
