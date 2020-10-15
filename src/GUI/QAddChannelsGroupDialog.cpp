@@ -139,7 +139,6 @@ QWidget* QAddChannelsGroupDialog::createTabCustomChannelsGroup(QWidget* pParent)
 		pTmpFormLayout->addRow(tr("Group's name:"), m_pLineEditGroupName);
 
 		m_pLineEditPlaylistURI = new QLineEdit();
-		m_pLineEditPlaylistURI->setText("https://raw.githubusercontent.com/freetuxtv/freetuxtv/master/data/channels_groups.xml");
 		m_pLineEditPlaylistURI->setToolTip(tr("Playlist's URI of the group which will be added"));
 		pTmpFormLayout->addRow(tr("Playlist's URI:"), m_pLineEditPlaylistURI);
 	}
