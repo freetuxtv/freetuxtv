@@ -311,7 +311,7 @@ set(FREETUXTV_SRC
     src/GUIModel/QChannelsGroupItem.h
     src/GUIModel/QChannelsGroupListModel.cpp
     src/GUIModel/QChannelsGroupListModel.h
-    src/main.cpp)
+    src/main.cpp src/Global/Application.cpp src/Global/Application.h src/XML/ChannelsGroupsParserHandler.cpp src/XML/ChannelsGroupsParserHandler.h src/Model/ChannelsGroupSection.cpp src/Model/ChannelsGroupSection.h)
 
 # Creating MOC file for sources file using "slots" or Q_OBJECT macro
 set(APPLICATION_MOC_HEADERS

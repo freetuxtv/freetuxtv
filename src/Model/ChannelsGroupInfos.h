@@ -48,6 +48,9 @@ public:
 	void setURI(const QString& szURI);
 	const QString& getURI() const;
 
+	void setRequiredISP(const QString& szRequiredISP);
+	const QString& getRequiredISP() const;
+
 	void setGroupType(GroupType iGroupType);
 	GroupType getGroupType() const;
 
@@ -65,6 +68,7 @@ private:
 	int m_iPosition;
 	QString m_szName;
 	QString m_szURI;
+	QString m_szRequiredISP;
 
 	GroupType m_iGroupType;
 

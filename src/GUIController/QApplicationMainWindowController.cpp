@@ -9,6 +9,10 @@
 #include <QPushButton>
 #include <QSlider>
 
+#include "Model/Preferences.h"
+
+#include "Global/Application.h"
+
 #include "GUI/QApplicationMainWindow.h"
 #include "GUI/QCtrlBarView.h"
 #include "GUI/QPreferencesDialog.h"
@@ -30,10 +34,10 @@ QApplicationMainWindowController::~QApplicationMainWindowController()
 
 }
 
-void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow, Preferences* pPreferences)
+void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow, Application* pApplication)
 {
 	m_pMainWindow = pMainWindow;
-	m_pPreferences = pPreferences;
+	m_pApplication = pApplication;
 
 	QCtrlBarView* pCtrlBarView = m_pMainWindow->getCtrlBarView();
 
@@ -140,7 +144,7 @@ void QApplicationMainWindowController::onPreferencesTriggered()
 	QPreferencesDialog dialog(m_pMainWindow);
 	dialog.setModal(true);
 	QPreferencesDialogController dialogController;
-	dialogController.init(&dialog, m_pPreferences);
+	dialogController.init(&dialog, m_pApplication->getPreferences());
 	dialog.exec();
 	dialogController.dispose();
 }
@@ -156,7 +160,7 @@ void QApplicationMainWindowController::onAddGroupTriggered()
 	QAddChannelsGroupDialog dialog(m_pMainWindow);
 	dialog.setModal(true);
 	QAddChannelsGroupDialogController dialogController;
-	dialogController.init(&dialog, m_pPreferences);
+	dialogController.init(&dialog, m_pApplication);
 	dialog.exec();
 	dialogController.dispose();
 
@@ -758,7 +762,7 @@ on_channels_added (
 
 	GtkTreePath** ppTreePath = (GtkTreePath**)user_data;
 
-	if(ppTreePath){
+
 		channels_list_reload_channels_of_channels_group (app, dbsync, *ppTreePath, error);
 	}
 }

@@ -72,6 +72,17 @@ const QString& ChannelsGroupInfos::getURI() const
 	return m_szURI;
 }
 
+void ChannelsGroupInfos::setRequiredISP(const QString& szRequiredISP)
+{
+	m_szRequiredISP = szRequiredISP;
+}
+
+const QString& ChannelsGroupInfos::getRequiredISP() const
+{
+	return m_szRequiredISP;
+}
+
+
 void ChannelsGroupInfos::setGroupType(GroupType iGroupType)
 {
 	m_iGroupType = iGroupType;

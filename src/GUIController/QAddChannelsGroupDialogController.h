@@ -6,9 +6,12 @@
 #define FREETUXTV_QADDCHANNELSGROUPDIALOGCONTROLLER_H
 
 #include <QObject>
+#include <QList>
 #include <QStandardItemModel>
 
-#include "Model/Preferences.h"
+#include "Model/ChannelsGroupSection.h"
+
+class Application;
 
 class QError;
 
@@ -18,7 +21,7 @@ class QAddChannelsGroupDialogController : public QObject
 {
 	Q_OBJECT
 public:
-	void init(QAddChannelsGroupDialog* pPreferencesDialog, Preferences* pPreferences);
+	void init(QAddChannelsGroupDialog* pPreferencesDialog, Application* pApplication);
 	void dispose();
 
 private slots:
@@ -30,11 +33,12 @@ signals:
 	void channelsAdded();
 
 private:
-	bool loadChannelsGroupListFromFile(QStandardItemModel* pModel, QError *pError);
+	bool loadChannelsGroupListFromFile(const QString& szFilePath, QStandardItemModel* pModel, QError *pError);
+	bool fillChannelsGroupModel(const QList<ChannelsGroupSection>& listChannelsGroupSection, QStandardItemModel* pModel, QError *pError);
 
 private:
 	QAddChannelsGroupDialog* m_pAddChannelsGroupDialog;
-	Preferences* m_pPreferences;
+	Application* m_pApplication;
 
 	QStandardItemModel* m_pChannelsGroupListModel;
 };
