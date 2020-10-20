@@ -279,6 +279,8 @@ set(FREETUXTV_SRC
 )
 
 set(FREETUXTV_SRC
+    src/Global/Application.cpp
+    src/Global/Application.h
     src/Global/FileUtils.cpp
     src/Global/FileUtils.h
     src/Global/QError.cpp
@@ -287,12 +289,6 @@ set(FREETUXTV_SRC
     src/Global/QFileDownloader.h
     src/Global/UserPaths.cpp
     src/Global/UserPaths.h
-    src/Model/ChannelsGroupInfos.cpp
-    src/Model/ChannelsGroupInfos.h
-    src/Model/Preferences.cpp
-    src/Model/Preferences.h
-    src/Model/Proxy.cpp
-    src/Model/Proxy.h
     src/GUI/QAddChannelsGroupDialog.cpp
     src/GUI/QAddChannelsGroupDialog.h
     src/GUI/QApplicationMainWindow.cpp
@@ -311,7 +307,17 @@ set(FREETUXTV_SRC
     src/GUIModel/QChannelsGroupItem.h
     src/GUIModel/QChannelsGroupListModel.cpp
     src/GUIModel/QChannelsGroupListModel.h
-    src/main.cpp src/Global/Application.cpp src/Global/Application.h src/XML/ChannelsGroupsParserHandler.cpp src/XML/ChannelsGroupsParserHandler.h src/Model/ChannelsGroupSection.cpp src/Model/ChannelsGroupSection.h)
+    src/Model/ChannelsGroupInfos.cpp
+    src/Model/ChannelsGroupInfos.h
+    src/Model/ChannelsGroupSection.cpp
+    src/Model/ChannelsGroupSection.h
+    src/Model/Preferences.cpp
+    src/Model/Preferences.h
+    src/Model/Proxy.cpp
+    src/Model/Proxy.h
+    src/XML/ChannelsGroupsParserHandler.cpp
+    src/XML/ChannelsGroupsParserHandler.h
+    src/main.cpp)
 
 # Creating MOC file for sources file using "slots" or Q_OBJECT macro
 set(APPLICATION_MOC_HEADERS
