@@ -1735,7 +1735,7 @@ show_help()
 	qInfo("                    set data directory\n");
 	qInfo("  -v, --verbose     display a more detailled trace\n");
 	qInfo("\n");
-	qInfo("Report bugs to %s.\n", PACKAGE_BUGREPORT);
+	qInfo("Report bugs to %s.\n", APPLICATION_BUGREPORT);
 }
 
 static void
