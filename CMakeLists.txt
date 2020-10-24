@@ -192,92 +192,6 @@ include_directories (${PROJECT_BINARY_DIR})
 include_directories (${PROJECT_SOURCE_DIR}/lib)
 include_directories (${PROJECT_SOURCE_DIR}/src)
 
-# Compatiblity with autotools
-add_definitions(-DPACKAGE_LOCALE_DIR="${PACKAGE_LOCALE_DIR}")
-add_definitions(-DPACKAGE_DATA_DIR="${PACKAGE_DATA_DIR}")
-add_definitions(-DVERSION="${APPLICATION_VERSION}")
-add_definitions(-DPACKAGE="${APPLICATION_PACKAGE_NAME}")
-add_definitions(-DPACKAGE_BUGREPORT="${APPLICATION_BUGREPORT}")
-
-set(LIBDBEVOLUTION_SRC
-    lib/libdbevolution/db-evolution-instance.h
-    lib/libdbevolution/db-evolution-instance.c
-)
-
-set(LIBVLCGTK_SRC
-    lib/libvlc-gtk/gtk-libvlc-include.h
-    lib/libvlc-gtk/gtk-libvlc-instance.h
-    lib/libvlc-gtk/gtk-libvlc-instance.c
-    lib/libvlc-gtk/gtk-libvlc-media.h
-    lib/libvlc-gtk/gtk-libvlc-media.c
-    lib/libvlc-gtk/gtk-libvlc-media-player.h
-    lib/libvlc-gtk/gtk-libvlc-media-player.c
-    lib/libvlc-gtk/gtk-libvlc-private.h
-)
-
-set(FREETUXTV_LIB_SRC
-    src/gtk-builder-dialog.c
-    src/gtk-builder-dialog.h
-    src/gtk-builder-object.c
-    src/gtk-builder-object.h
-    src/gtk-builder-widget.c
-    src/gtk-builder-widget.h
-    src/gtk-builder-window.c
-    src/gtk-builder-window.h
-    src/gtk-date-time-picker.c
-    src/gtk-date-time-picker.h
-    src/gtk-progress-dialog.c
-    src/gtk-progress-dialog.h
-    src/lib-gmmkeys.c
-    src/lib-gmmkeys.h
-    src/lib-m3uparser.c
-    src/lib-m3uparser.h
-)
-
-set(FREETUXTV_SRC
-    src/freetuxtv-app.h
-    src/freetuxtv-cclosure-marshal.c
-    src/freetuxtv-cclosure-marshal.h
-    src/freetuxtv-cellrenderer-channelslist.c
-    src/freetuxtv-cellrenderer-channelslist.h
-    src/freetuxtv-cellrenderer-recordingslist.c
-    src/freetuxtv-cellrenderer-recordingslist.h
-    src/freetuxtv-channel-infos.c
-    src/freetuxtv-channel-infos.h
-    src/freetuxtv-channels-group-infos.c
-    src/freetuxtv-channels-group-infos.h
-    src/freetuxtv-channels-list.c
-    src/freetuxtv-channels-list.h
-    src/freetuxtv-db-sync.c
-    src/freetuxtv-db-sync.h
-    src/freetuxtv-fileutils.c
-    src/freetuxtv-fileutils.h
-    src/freetuxtv-gladexml.h
-    src/freetuxtv-i18n.h
-    src/freetuxtv-models.c
-    src/freetuxtv-models.h
-    src/freetuxtv-player-error-dialog.c
-    src/freetuxtv-player-error-dialog.h
-    src/freetuxtv-recording-infos.c
-    src/freetuxtv-recording-infos.h
-    src/freetuxtv-recordings-list.c
-    src/freetuxtv-recordings-list.h
-    src/freetuxtv-tv-channel-infos.c
-    src/freetuxtv-tv-channel-infos.h
-    src/freetuxtv-tv-channels-list.c
-    src/freetuxtv-tv-channels-list.h
-    src/freetuxtv-utils.c
-    src/freetuxtv-utils.h
-    src/freetuxtv-window-add-channels-group.c
-    src/freetuxtv-window-add-channels-group.h
-    src/freetuxtv-window-add-recording.c
-    src/freetuxtv-window-add-recording.h
-    src/freetuxtv-window-channel-properties.c
-    src/freetuxtv-window-channel-properties.h
-    src/freetuxtv-window-tv-channels-database.c
-    src/freetuxtv-window-tv-channels-database.h
-)
-
 set(FREETUXTV_SRC
     src/Global/Application.cpp
     src/Global/Application.h
@@ -317,7 +231,8 @@ set(FREETUXTV_SRC
     src/Model/Proxy.h
     src/XML/ChannelsGroupsParserHandler.cpp
     src/XML/ChannelsGroupsParserHandler.h
-    src/main.cpp)
+    src/main.cpp
+)
 
 # Creating MOC file for sources file using "slots" or Q_OBJECT macro
 set(APPLICATION_MOC_HEADERS
@@ -335,54 +250,42 @@ qt5_wrap_cpp(
 # Translations
 ####################
 
-find_program(GETTEXT_MSGFMT_EXECUTABLE msgfmt)
+set (I18N_FILES
+    src/Global/FileUtils.cpp
+    src/GUI/QAddChannelsGroupDialog.cpp
+    src/GUI/QApplicationMainWindow.cpp
+    src/GUI/QCtrlBarView.cpp
+    src/GUI/QPreferencesDialog.cpp
+    src/GUIController/QAddChannelsGroupDialogController.cpp
+    src/GUIController/QApplicationMainWindowController.cpp
+    src/GUIController/QPreferencesDialogController.cpp
+    src/GUIModel/QChannelsGroupItem.cpp
+    src/GUIModel/QChannelsGroupListModel.cpp
+    src/main.cpp
+)
 
-if(NOT GETTEXT_MSGFMT_EXECUTABLE)
-    message(FATAL "msgfmt not found")
-else(NOT GETTEXT_MSGFMT_EXECUTABLE)
+set (TS_FILES
+    ts/de.ts
+    ts/es.ts
+    ts/fr.ts
+    ts/hr.ts
+    ts/lt.ts
+    ts/pl.ts
+    ts/pt.ts
+    ts/ru.ts
+    ts/tr.ts
+    ts/zh_CN.ts
+    ts/zh_TW.ts
+)
 
-    SET(catalogname ${APPLICATION_PACKAGE_NAME})
+#option (UPDATE_TRANSLATIONS "Update source translation ts/*.ts files (WARNING: make clean will delete the source .ts files! Danger!)" ON)
+#if (UPDATE_TRANSLATIONS)
+#  qt_create_translation(qm_FILES ${TS_FILES} ${I18N_FILES})
+#else (UPDATE_TRANSLATIONS)
+#  qt_add_translation(qm_FILES ${TS_FILES})
+#endif (UPDATE_TRANSLATIONS)
 
-    FILE(GLOB PO_FILES po/*.po)
-    SET(GMO_FILES)
-
-    FOREACH(_poFile ${PO_FILES})
-        GET_FILENAME_COMPONENT(_poFileName ${_poFile} NAME)
-        STRING(REGEX REPLACE "^${catalogname}_?" "" _langCode ${_poFileName} )
-        STRING(REGEX REPLACE "\\.po$" "" _langCode ${_langCode} )
-
-        IF( _langCode )
-            GET_FILENAME_COMPONENT(_lang ${_poFile} NAME_WE)
-            SET(_gmoFile ${CMAKE_CURRENT_BINARY_DIR}/po/${_lang}.gmo)
-
-            ADD_CUSTOM_COMMAND(OUTPUT ${_gmoFile}
-                    COMMAND mkdir -p ${CMAKE_CURRENT_BINARY_DIR}/po
-                    COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} --check -o ${_gmoFile} ${_poFile}
-                    DEPENDS ${_poFile})
-            INSTALL(FILES ${_gmoFile} DESTINATION ${INSTALL_PATH_LOCALE}/${_langCode}/LC_MESSAGES/ RENAME ${catalogname}.mo)
-            LIST(APPEND GMO_FILES ${_gmoFile})
-        ENDIF( _langCode )
-
-    ENDFOREACH(_poFile ${PO_FILES})
-
-    ADD_CUSTOM_TARGET(translations ALL DEPENDS ${GMO_FILES})
-
-ENDIF(NOT GETTEXT_MSGFMT_EXECUTABLE)
-
-find_program(INTLTOOL_MERGE_EXECUTABLE intltool-merge)
-if(NOT INTLTOOL_MERGE_EXECUTABLE)
-    message(FATAL "intltool-merge not found")
-else(NOT INTLTOOL_MERGE_EXECUTABLE)
-    set(DESKTOP_FILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/data/menu/freetuxtv.desktop.in)
-    set(DESKTOP_FILE ${CMAKE_CURRENT_BINARY_DIR}/data/menu/freetuxtv.desktop)
-    ADD_CUSTOM_COMMAND(
-            OUTPUT ${DESKTOP_FILE}
-            COMMAND mkdir -p ${CMAKE_CURRENT_BINARY_DIR}/data/menu/
-            COMMAND ${INTLTOOL_MERGE_EXECUTABLE} -d ${CMAKE_CURRENT_SOURCE_DIR}/po/ ${DESKTOP_FILE_IN} ${DESKTOP_FILE}
-            DEPENDS ${DESKTOP_FILE_IN})
-
-    ADD_CUSTOM_TARGET(desktop_file ALL DEPENDS ${DESKTOP_FILE})
-endif()
+#add_custom_target(update_ts ALL DEPENDS ${qm_FILES})
 
 ####################
 # Create Executable
