@@ -1712,7 +1712,7 @@ show_help()
 	g_print("Debug options:\n");
 	g_print("      --datadir DATA_DIR\n");
 	g_print("                    set data directory\n");
-	g_print("  -v, --verbose     display a more detailled trace\n");
+	g_print("  -v, --verbose     display a more detailed trace\n");
 	g_print("\n");
 	g_print("Report bugs to %s.\n", PACKAGE_BUGREPORT);
 }

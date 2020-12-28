@@ -95,7 +95,7 @@ FreetuxTV 0.5.1 (2010-07-21)
 
 FreetuxTV 0.5.0 (2010-07-11)
   - Support for LibVLC 1.1.0.
-  - Created libdbevolution librairy for database evolution.
+  - Created libdbevolution library for database evolution.
   - Ability to create favorites channels group.
   - Database structure improvement.
   - Support for VLC options inside M3U playlist file.
@@ -110,7 +110,7 @@ FreetuxTV 0.5.0 (2010-07-11)
       WebTV: Alsace 20, AmericaFree TV, Weo 
 
 FreetuxTV 0.4.2 (2010-03-14)
-  - Added portugese localisation.
+  - Added portuguese localisation.
   - Improved configure.ac for better dependencies.
   - Added TV channel logos: GONG, RTC Télé Liège, jPopsuki TV, Seebit TV, Monterey Bay Aquarium, Oxyradio
   - Updated TV channel logos: Nolife
@@ -130,7 +130,7 @@ FreetuxTV 0.4.0 (2009-12-11)
   - Added menu to display and edit group properties.
   - Added tab in the add group window to easily add existing groups
     (WebTV, WebRadio, Webcam (depending to ISP (Internet Service Provider))
-    or between one of the twenty availiable languages).
+    or between one of the twenty available languages).
   - Ability to delete and refresh multiple groups at once.
   - Display number of installed channels.
   - Added playlists: 

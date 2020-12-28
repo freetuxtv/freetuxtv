@@ -344,7 +344,7 @@ freetuxtv_cellrenderer_channelslist_render (GtkCellRenderer *cell,
 	// If the cell contain a channel
 	if(self->type == CELLRENDERER_TYPE_CHANNEL){
 
-		// Backgroung of the cell
+		// Background of the cell
 #if GTK_API_VERSION == 3
 		gtk_style_context_set_state (pStyleContext, state);
 		// gtk_style_context_set_background (pStyleContext, window); // This block the main loop

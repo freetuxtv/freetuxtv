@@ -39,7 +39,7 @@
 #error "LIBVLC_VERSION_REVISION must be defined."
 #endif
 
-// List of options avaliable for each branche
+// List of options available for each branche
 // LIBVLC_OLD_INSTANCE : The branche use the old libvlc_instance_t interface
 // LIBVLC_OLD_VLCEXCEPTION : The branche use the deprecated libvlc_exception_t object
 // LIBVLC_DEPRECATED_PLAYLIST : The branche use the old playlist system

@@ -277,7 +277,7 @@ gtk_date_time_picker_class_init (GtkDateTimePickerClass *klass)
 	    PROP_DATE_FORMAT,
 	    g_param_spec_string ("date-format",
 		    "Date Format",
-		    "Date reprensentation format",
+		    "Date representation format",
 		    "%m/%d/%y",
 		    G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
