@@ -122,3 +122,21 @@ void QChannelsGroupListModel::clear()
 {
 	m_pRootItem->clear();
 }
+
+QVariant QChannelsGroupListModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+	if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
+		switch (section) {
+			case 0:
+				return tr("Languages/Channels group");
+			case 1:
+				return tr("Required ISP");
+			case 2:
+				return tr("URI");
+			default:
+				return QVariant();
+		}
+	}
+
+	return QVariant();
+}

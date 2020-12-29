@@ -32,24 +32,19 @@ void QAddChannelsGroupDialogController::init(QAddChannelsGroupDialog* pAddChanne
 
 	// Create model
 	m_pChannelsGroupListModel = new QChannelsGroupListModel();
-	m_pChannelsGroupListModel->setHeaderData(0, Qt::Horizontal, tr("Languages/Channels group"), Qt::DisplayRole);
-	m_pChannelsGroupListModel->setHeaderData(1, Qt::Horizontal, tr("Required ISP"), Qt::DisplayRole);
-	m_pChannelsGroupListModel->setHeaderData(2, Qt::Horizontal, tr("URI"), Qt::DisplayRole);
 
 	// Attach model to view
 	QTreeView* pTreeView = m_pAddChannelsGroupDialog->getTreeViewChannelsGroupList();
-	pTreeView->setSelectionMode(QAbstractItemView::MultiSelection);
+	pTreeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	pTreeView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	pTreeView->setModel(m_pChannelsGroupListModel);
-	/*
 	QHeaderView* pTreeHeader;
 	pTreeHeader = pTreeView->header();
 	if(pTreeHeader) {
 		pTreeHeader->setDefaultAlignment(Qt::AlignCenter);
-		pTreeHeader->setStretchLastSection(true);
-		pTreeHeader->setSectionResizeMode(QHeaderView::Interactive);
+		//pTreeHeader->setStretchLastSection(true);
+		pTreeHeader->setSectionResizeMode(QHeaderView::ResizeToContents);
 	}
-	 */
 
 	connect(m_pAddChannelsGroupDialog->getButtonCancel(), SIGNAL(clicked()), m_pAddChannelsGroupDialog, SLOT(reject()));
 	connect(m_pAddChannelsGroupDialog->getButtonValid(), SIGNAL(clicked()), this, SLOT(onValidButtonClicked()));

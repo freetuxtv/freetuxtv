@@ -261,7 +261,6 @@ set (I18N_FILES
     src/GUIController/QPreferencesDialogController.cpp
     src/GUIModel/QChannelsGroupItem.cpp
     src/GUIModel/QChannelsGroupListModel.cpp
-    src/GUIModel/QGrowDimensionProxyModel.cpp
     src/main.cpp
 )
 
