@@ -27,6 +27,22 @@ ChannelsGroupInfos::ChannelsGroupInfos()
 	m_iNbChannels = 0;
 }
 
+ChannelsGroupInfos::ChannelsGroupInfos(const ChannelsGroupInfos& other)
+{
+	m_id = other.m_id;
+	m_iPosition = other.m_iPosition;
+	m_szName = other.m_szName;
+	m_szURI = other.m_szURI;
+	m_szRequiredISP = other.m_szRequiredISP;
+
+	m_iGroupType = other.m_iGroupType;
+
+	m_szBRegex = other.m_szBRegex;
+	m_szERegex = other.m_szERegex;
+
+	m_iNbChannels = other.m_iNbChannels;
+}
+
 ChannelsGroupInfos::~ChannelsGroupInfos()
 {
 

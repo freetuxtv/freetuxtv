@@ -33,6 +33,8 @@ QAddChannelsGroupDialog::QAddChannelsGroupDialog(QWidget* pParent)
 {
 	m_iAllowedType = FREETUXTV_WINDOW_ADD_CHANNELS_GROUP_ALLOW_ALL;
 
+	resize(800, 600);
+
 	QBoxLayout* pMainLayout = new QVBoxLayout();
 	setLayout(pMainLayout);
 

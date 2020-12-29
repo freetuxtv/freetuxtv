@@ -7,6 +7,7 @@
 #include <QTreeView>
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QHeaderView>
 #include <QXmlInputSource>
 
 #include "Global/QError.h"
@@ -19,6 +20,9 @@
 
 #include "GUI/QAddChannelsGroupDialog.h"
 
+#include "GUIModel/QChannelsGroupItem.h"
+#include "GUIModel/QChannelsGroupListModel.h"
+
 #include "QAddChannelsGroupDialogController.h"
 
 void QAddChannelsGroupDialogController::init(QAddChannelsGroupDialog* pAddChannelsGroupDialog, Application* pApplication)
@@ -26,14 +30,31 @@ void QAddChannelsGroupDialogController::init(QAddChannelsGroupDialog* pAddChanne
 	m_pAddChannelsGroupDialog = pAddChannelsGroupDialog;
 	m_pApplication = pApplication;
 
-	m_pChannelsGroupListModel = new QStandardItemModel();
+	// Create model
+	m_pChannelsGroupListModel = new QChannelsGroupListModel();
+	m_pChannelsGroupListModel->setHeaderData(0, Qt::Horizontal, tr("Languages/Channels group"), Qt::DisplayRole);
+	m_pChannelsGroupListModel->setHeaderData(1, Qt::Horizontal, tr("Required ISP"), Qt::DisplayRole);
+	m_pChannelsGroupListModel->setHeaderData(2, Qt::Horizontal, tr("URI"), Qt::DisplayRole);
+
+	// Attach model to view
+	QTreeView* pTreeView = m_pAddChannelsGroupDialog->getTreeViewChannelsGroupList();
+	pTreeView->setSelectionMode(QAbstractItemView::MultiSelection);
+	pTreeView->setSelectionBehavior(QAbstractItemView::SelectRows);
+	pTreeView->setModel(m_pChannelsGroupListModel);
+	/*
+	QHeaderView* pTreeHeader;
+	pTreeHeader = pTreeView->header();
+	if(pTreeHeader) {
+		pTreeHeader->setDefaultAlignment(Qt::AlignCenter);
+		pTreeHeader->setStretchLastSection(true);
+		pTreeHeader->setSectionResizeMode(QHeaderView::Interactive);
+	}
+	 */
 
 	connect(m_pAddChannelsGroupDialog->getButtonCancel(), SIGNAL(clicked()), m_pAddChannelsGroupDialog, SLOT(reject()));
 	connect(m_pAddChannelsGroupDialog->getButtonValid(), SIGNAL(clicked()), this, SLOT(onValidButtonClicked()));
 
 	connect(m_pAddChannelsGroupDialog->getButtonChannelsGroupListRefresh(), SIGNAL(clicked()), this, SLOT(onChannelsGroupListRefreshButtonClicked()));
-
-	m_pAddChannelsGroupDialog->getTreeViewChannelsGroupList()->setModel(m_pChannelsGroupListModel);
 
 	// Load channels groups list
 	QError error;
@@ -80,7 +101,7 @@ void QAddChannelsGroupDialogController::onChannelsGroupListRefreshButtonClicked(
 };
 
 
-bool QAddChannelsGroupDialogController::loadChannelsGroupListFromFile(const QString& szFilePath, QStandardItemModel* pModel, QError *pError)
+bool QAddChannelsGroupDialogController::loadChannelsGroupListFromFile(const QString& szFilePath, QChannelsGroupListModel* pModel, QError *pError)
 {
 	bool bRes = true;
 
@@ -125,21 +146,20 @@ bool QAddChannelsGroupDialogController::loadChannelsGroupListFromFile(const QStr
 	return bRes;
 }
 
-bool QAddChannelsGroupDialogController::fillChannelsGroupModel(const QList<ChannelsGroupSection>& listChannelsGroupSection, QStandardItemModel* pModel, QError *pError)
+bool QAddChannelsGroupDialogController::fillChannelsGroupModel(const QList<ChannelsGroupSection>& listChannelsGroupSection, QChannelsGroupListModel* pModel, QError *pError)
 {
 	bool bRes = true;
 
 	QList<ChannelsGroupSection>::const_iterator iter_section;
 	QList<ChannelsGroupInfos>::const_iterator iter_group;
 
-	QStandardItem* pSectionItem;
-	QStandardItem* pChannelsGroupItem;
+	QChannelsGroupItem* pSectionItem;
+	QChannelsGroupItem* pChannelsGroupItem;
 
 	for(iter_section = listChannelsGroupSection.constBegin(); iter_section != listChannelsGroupSection.constEnd(); ++iter_section)
 	{
 		const ChannelsGroupSection& channelsGroupSection = (*iter_section);
-		pSectionItem = new QStandardItem();
-		pSectionItem->setText(channelsGroupSection.getLang());
+		pSectionItem = new QChannelsGroupItem(channelsGroupSection);
 		pModel->appendRow(pSectionItem);
 
 		const QList<ChannelsGroupInfos>& listChannelsGroupInfos = channelsGroupSection.getChannelsGroupList();
@@ -147,12 +167,9 @@ bool QAddChannelsGroupDialogController::fillChannelsGroupModel(const QList<Chann
 		for(iter_group = listChannelsGroupInfos.constBegin(); iter_group != listChannelsGroupInfos.constEnd(); ++iter_group)
 		{
 			const ChannelsGroupInfos& channelsGroupInfos = (*iter_group);
-			pChannelsGroupItem = new QStandardItem();
-			pChannelsGroupItem->setText(channelsGroupInfos.getName());
+			pChannelsGroupItem = new QChannelsGroupItem(channelsGroupInfos);
 			pSectionItem->appendRow(pChannelsGroupItem);
 		}
-
-
 	}
 
 	return bRes;

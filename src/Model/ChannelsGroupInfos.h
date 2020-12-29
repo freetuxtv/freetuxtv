@@ -26,6 +26,7 @@ class ChannelsGroupInfos
 {
 public:
 	ChannelsGroupInfos();
+	ChannelsGroupInfos(const ChannelsGroupInfos& other);
 	virtual ~ChannelsGroupInfos();
 
 public:

@@ -9,6 +9,8 @@
 #include <QList>
 #include <QStandardItemModel>
 
+#include "GUIModel/QChannelsGroupListModel.h"
+
 #include "Model/ChannelsGroupSection.h"
 
 class Application;
@@ -16,6 +18,7 @@ class Application;
 class QError;
 
 class QAddChannelsGroupDialog;
+class QChannelsGroupListModel;
 
 class QAddChannelsGroupDialogController : public QObject
 {
@@ -33,14 +36,14 @@ signals:
 	void channelsAdded();
 
 private:
-	bool loadChannelsGroupListFromFile(const QString& szFilePath, QStandardItemModel* pModel, QError *pError);
-	bool fillChannelsGroupModel(const QList<ChannelsGroupSection>& listChannelsGroupSection, QStandardItemModel* pModel, QError *pError);
+	bool loadChannelsGroupListFromFile(const QString& szFilePath, QChannelsGroupListModel* pModel, QError *pError);
+	bool fillChannelsGroupModel(const QList<ChannelsGroupSection>& listChannelsGroupSection, QChannelsGroupListModel* pModel, QError *pError);
 
 private:
 	QAddChannelsGroupDialog* m_pAddChannelsGroupDialog;
 	Application* m_pApplication;
 
-	QStandardItemModel* m_pChannelsGroupListModel;
+	QChannelsGroupListModel* m_pChannelsGroupListModel;
 };
 
 
