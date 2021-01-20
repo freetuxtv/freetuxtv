@@ -225,6 +225,8 @@ set(FREETUXTV_SRC
     src/GUIModel/QChannelsGroupItem.h
     src/GUIModel/QChannelsGroupListModel.cpp
     src/GUIModel/QChannelsGroupListModel.h
+    src/Model/ChannelInfos.cpp
+    src/Model/ChannelInfos.h
     src/Model/ChannelsGroupInfos.cpp
     src/Model/ChannelsGroupInfos.h
     src/Model/ChannelsGroupSection.cpp
@@ -240,6 +242,7 @@ set(FREETUXTV_SRC
 
 # Creating MOC file for sources file using "slots" or Q_OBJECT macro
 set(APPLICATION_MOC_HEADERS
+    src/Database/DatabaseController.h
     src/Global/QFileDownloader.h
     src/GUIController/QAddChannelsGroupDialogController.h
     src/GUIController/QApplicationMainWindowController.h
@@ -255,6 +258,7 @@ qt5_wrap_cpp(
 ####################
 
 set (I18N_FILES
+    src/Database/DatabaseController.cpp
     src/Global/FileUtils.cpp
     src/GUI/QAddChannelsGroupDialog.cpp
     src/GUI/QApplicationMainWindow.cpp

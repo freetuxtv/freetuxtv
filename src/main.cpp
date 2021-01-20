@@ -1738,16 +1738,39 @@ show_error(const QString& szErrMsg)
 	qCritical("Try `freetuxtv --help' for more information.\n");
 }
 
+struct NotifyChannelLoadedData
+{
+	Application* pApplication;
+	QStandardItem* pItem;
+};
 
-bool doNotifyChannelsGroupLoaded(DatabaseInstance& m_dbInstance, const ChannelsGroupInfos& channelGroupInfos, void* user_data)
+bool doNotifyChannelLoaded(DatabaseInstance& m_dbInstance, const ChannelInfos& channelInfos, void* user_data, QError& error)
+{
+	bool bRes = true;
+
+	NotifyChannelLoadedData* cbData = (NotifyChannelLoadedData*)user_data;
+
+	QStandardItem* pItem = new QStandardItem(channelInfos.getName());
+	cbData->pItem->appendRow(pItem);
+
+	return bRes;
+}
+
+bool doNotifyChannelsGroupLoaded(DatabaseInstance& dbInstance, const ChannelsGroupInfos& channelGroupInfos, void* user_data, QError& error)
 {
 	bool bRes = true;
 
 	Application* pApplication = (Application*)user_data;
 
-
 	QStandardItem* pItem = new QStandardItem(channelGroupInfos.getName());
 	pApplication->getChannelListModel()->appendRow(pItem);
+
+	NotifyChannelLoadedData cbData;
+	cbData.pApplication = pApplication;
+	cbData.pItem = pItem;
+
+	DatabaseController dbController(dbInstance);
+	bRes = dbController.loadChannels(channelGroupInfos.getId(), doNotifyChannelLoaded, &cbData, error);
 
 	return bRes;
 }
@@ -1871,6 +1894,7 @@ main (int argc, char *argv[])
 	qInfo("[Main] Loading FreetuxTV %s", APPLICATION_VERSION);
 
 	Application* pApplication = new Application();
+	QError error;
 
 	// Load data
 	if(bRes) {
@@ -1879,7 +1903,7 @@ main (int argc, char *argv[])
 		bRes = dbInstance.open();
 		if(bRes){
 			DatabaseController dbc(dbInstance);
-			bRes = dbc.loadChannelsGroups(doNotifyChannelsGroupLoaded, pApplication);
+			bRes = dbc.loadChannelsGroups(doNotifyChannelsGroupLoaded, pApplication, error);
 			if(!bRes){
 				qCritical("[Main] Unable to load channels list group");
 			}
