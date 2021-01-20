@@ -9,6 +9,8 @@
 
 #include "Model/ChannelsGroupInfos.h"
 
+typedef bool (*CBOnChannelsGroupLoaded)(DatabaseInstance& m_dbInstance, const ChannelsGroupInfos& channelGroupInfos, void* user_data);
+
 class DatabaseController
 {
 public:
@@ -16,7 +18,7 @@ public:
 	virtual ~DatabaseController();
 
 public:
-	bool loadChannelsGroups(ChannelsGroupInfosList& listChannelsGroupInfos);
+	bool loadChannelsGroups(CBOnChannelsGroupLoaded cbOnChannelsGroupLoaded, void* user_data);
 
 private:
 	DatabaseInstance& m_dbInstance;

@@ -1738,6 +1738,20 @@ show_error(const QString& szErrMsg)
 	qCritical("Try `freetuxtv --help' for more information.\n");
 }
 
+
+bool doNotifyChannelsGroupLoaded(DatabaseInstance& m_dbInstance, const ChannelsGroupInfos& channelGroupInfos, void* user_data)
+{
+	bool bRes = true;
+
+	Application* pApplication = (Application*)user_data;
+
+
+	QStandardItem* pItem = new QStandardItem(channelGroupInfos.getName());
+	pApplication->getChannelListModel()->appendRow(pItem);
+
+	return bRes;
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -1859,14 +1873,13 @@ main (int argc, char *argv[])
 	Application* pApplication = new Application();
 
 	// Load data
-	ChannelsGroupInfosList listChannelsGroupInfos;
 	if(bRes) {
 		qInfo("[Main] Loading data from database");
 		DatabaseInstance dbInstance("main");
 		bRes = dbInstance.open();
 		if(bRes){
 			DatabaseController dbc(dbInstance);
-			bRes = dbc.loadChannelsGroups(listChannelsGroupInfos);
+			bRes = dbc.loadChannelsGroups(doNotifyChannelsGroupLoaded, pApplication);
 			if(!bRes){
 				qCritical("[Main] Unable to load channels list group");
 			}
@@ -1881,7 +1894,6 @@ main (int argc, char *argv[])
 
 		pMainWindowController = new QApplicationMainWindowController();
 		pMainWindowController->init(pMainWindow, pApplication);
-		pMainWindowController->loadData(listChannelsGroupInfos);
 
 		pMainWindow->resize(1200, 800);
 		pMainWindow->show();

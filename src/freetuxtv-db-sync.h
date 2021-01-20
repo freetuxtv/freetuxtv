@@ -66,13 +66,6 @@ dbsync_update_db (DBSync *dbsync, gchar* szScriptFilename, GError** error);
 // Channels groups manipulation function
 
 void
-dbsync_select_channels_groups (DBSync *dbsync,
-    FreetuxTVApp *app,
-    int (*callback)(FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-	    DBSync *dbsync, gpointer user_data, GError** error),
-    gpointer user_data, GError** error);
-
-void
 dbsync_select_channels_of_channels_group (DBSync *dbsync,
     FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
     FreetuxTVApp *app,

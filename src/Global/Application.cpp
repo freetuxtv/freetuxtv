@@ -34,3 +34,8 @@ Preferences* Application::getPreferences()
 {
 	return m_pPreferences;
 }
+
+QStandardItemModel* Application::getChannelListModel()
+{
+	return &m_modelChannelsList;
+}

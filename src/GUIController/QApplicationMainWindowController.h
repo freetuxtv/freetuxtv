@@ -27,8 +27,6 @@ public:
 	void init(QApplicationMainWindow* pMainWindow, Application* pApplication);
 	void dispose();
 
-	void loadData(const ChannelsGroupInfosList& listChannelsGroupInfos);
-
 private slots:
 	// Menu actions
 	void onPreferencesTriggered();
@@ -57,8 +55,6 @@ private slots:
 private:
 	QApplicationMainWindow* m_pMainWindow;
 	Application* m_pApplication;
-
-	QStandardItemModel* m_pChannelsListModel;
 };
 
 

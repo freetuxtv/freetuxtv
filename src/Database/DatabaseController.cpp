@@ -18,7 +18,7 @@ DatabaseController::~DatabaseController()
 
 }
 
-bool DatabaseController::loadChannelsGroups(ChannelsGroupInfosList& listChannelsGroupInfos)
+bool DatabaseController::loadChannelsGroups(CBOnChannelsGroupLoaded cbOnChannelsGroupLoaded, void* user_data)
 {
 	bool bRes;
 
@@ -28,31 +28,34 @@ bool DatabaseController::loadChannelsGroups(ChannelsGroupInfosList& listChannels
 		qCritical("[Database] Unable to prepare query to load channels group");
 	}
 
-	QSharedPointer<ChannelsGroupInfos> pChannelsGroupInfos;
-
 	if(bRes) {
 		bRes = query.exec();
 		if (bRes){
 			while(query.next())
 			{
-				pChannelsGroupInfos = QSharedPointer<ChannelsGroupInfos>(new ChannelsGroupInfos());
+				ChannelsGroupInfos channelsGroupInfos;
 
-				pChannelsGroupInfos->setId(query.value(0).toInt());
+				channelsGroupInfos.setId(query.value(0).toInt());
 
-				pChannelsGroupInfos->setPosition(query.value(1).toInt());
-				pChannelsGroupInfos->setName(query.value(2).toString());
+				channelsGroupInfos.setPosition(query.value(1).toInt());
+				channelsGroupInfos.setName(query.value(2).toString());
 
-				pChannelsGroupInfos->setGroupType((ChannelsGroupInfos::GroupType)query.value(3).toInt());
+				channelsGroupInfos.setGroupType((ChannelsGroupInfos::GroupType)query.value(3).toInt());
 
-				pChannelsGroupInfos->setURI(query.value(4).toString());
+				channelsGroupInfos.setURI(query.value(4).toString());
 				//pChannelsGroupInfos->setRequiredISP();
 
-				pChannelsGroupInfos->setBRegex(query.value(5).toString());
-				pChannelsGroupInfos->setERegex(query.value(6).toString());
+				channelsGroupInfos.setBRegex(query.value(5).toString());
+				channelsGroupInfos.setERegex(query.value(6).toString());
 
-				pChannelsGroupInfos->setNbChannels(0);
+				channelsGroupInfos.setNbChannels(0);
 
-				listChannelsGroupInfos.append(pChannelsGroupInfos);
+				if(cbOnChannelsGroupLoaded){
+					bRes = cbOnChannelsGroupLoaded(m_dbInstance, channelsGroupInfos, user_data);
+					if(!bRes){
+						break;
+					}
+				}
 			}
 		}else{
 			qCritical("[Database] Unable to prepare query to load channels group");

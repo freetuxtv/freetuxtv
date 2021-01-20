@@ -7,6 +7,8 @@
 
 #include <QString>
 
+#include <QStandardItemModel>
+
 class Preferences;
 
 class Application
@@ -20,10 +22,14 @@ public:
 
 	Preferences* getPreferences();
 
+	QStandardItemModel* getChannelListModel();
+
 private:
 	QString m_szDataDir;
 
 	Preferences* m_pPreferences;
+
+	QStandardItemModel m_modelChannelsList;
 };
 
 

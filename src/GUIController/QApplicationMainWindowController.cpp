@@ -76,8 +76,7 @@ void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow,
 
 	// Model
 	QTreeView* pTreeView = m_pMainWindow->getTreeviewChannels();
-	m_pChannelsListModel = new QStandardItemModel();
-	pTreeView->setModel(m_pChannelsListModel);
+	pTreeView->setModel(pApplication->getChannelListModel());
 	pTreeView->header()->hide();
 
 	/*
@@ -144,22 +143,6 @@ void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow,
 void QApplicationMainWindowController::dispose()
 {
 
-}
-
-void QApplicationMainWindowController::loadData(const ChannelsGroupInfosList& listChannelsGroupInfos)
-{
-	ChannelsGroupInfosList::const_iterator iter;
-
-	QStandardItem* pItem;
-
-	m_pChannelsListModel->clear();
-
-	for(iter = listChannelsGroupInfos.constBegin(); iter != listChannelsGroupInfos.constEnd(); ++iter)
-	{
-		const QSharedPointer<ChannelsGroupInfos>& pChannelsGroupInfos = (*iter);
-		pItem = new QStandardItem(pChannelsGroupInfos->getName());
-		m_pChannelsListModel->appendRow(pItem);
-	}
 }
 
 void QApplicationMainWindowController::onPreferencesTriggered()
