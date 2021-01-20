@@ -42,6 +42,9 @@
 
 #include "Global/Application.h"
 
+#include "Database/DatabaseInstance.h"
+#include "Database/DatabaseController.h"
+
 #include "GUI/QApplicationMainWindow.h"
 
 #include "GUIController/QApplicationMainWindowController.h"
@@ -547,27 +550,6 @@ on_channels_added (
 	}
 }
 
-#if GTK_API_VERSION == 3
-static void
-on_window_add_channels_group_destroy (GtkWidget *widget, gpointer user_data)
-#else
-static void
-on_window_add_channels_group_destroy (GtkObject *object, gpointer user_data)
-#endif
-{
-	GtkTreePath** ppCurrentTreePath = (GtkTreePath**)user_data;
-
-	if(ppCurrentTreePath){
-		if(*ppCurrentTreePath){
-			gtk_tree_path_free (*ppCurrentTreePath);
-			*ppCurrentTreePath = NULL;
-		}
-		
-		g_free(ppCurrentTreePath);
-		ppCurrentTreePath = NULL;
-	}
-}
-
 static gboolean
 showplayer_error (gpointer data)
 {
@@ -839,8 +821,6 @@ splashscreen_app_init(gpointer data)
 					G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
 				g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
 					G_CALLBACK(on_channels_added), ppCurrentTreePath);
-				g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
-					G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);
 			}
 		}
 	}
@@ -1785,7 +1765,6 @@ main (int argc, char *argv[])
 	char* szDataDir = NULL;
 
 	int p;
-	int idLogHandler;
 
 	// Process programs args
 	QString szArg;
@@ -1853,32 +1832,56 @@ main (int argc, char *argv[])
 		bQuit = true;
 	}
 
-	if(!bQuit){
-		// Initialize translation
-		QTranslator qtTranslator;
-		qInfo("[Main] Current locale is %s", qPrintable(QLocale::system().name()));
-		// qDebug("[Main] Current locale path is %s", qPrintable(QLibraryInfo::location(QLibraryInfo::TranslationsPath)));
-		qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-		app.installTranslator(&qtTranslator);
-		QTranslator appTranslator;
-		appTranslator.load(QLocale::system().name(), ":/ts/");
-		app.installTranslator(&appTranslator);
+	if(bQuit){
+		return 0;
+	}
 
-		qInfo("[Main] Compiled with Qt %s", QT_VERSION_STR);
-		//qInfo("[Main] Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
+	bool bRes = true;
+
+	// Initialize translation
+	QTranslator qtTranslator;
+	qInfo("[Main] Current locale is %s", qPrintable(QLocale::system().name()));
+	// qDebug("[Main] Current locale path is %s", qPrintable(QLibraryInfo::location(QLibraryInfo::TranslationsPath)));
+	qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+	app.installTranslator(&qtTranslator);
+	QTranslator appTranslator;
+	appTranslator.load(QLocale::system().name(), ":/ts/");
+	app.installTranslator(&appTranslator);
+
+	qInfo("[Main] Compiled with Qt %s", QT_VERSION_STR);
+	//qInfo("[Main] Compiled with LibVLC version %s\n", gtk_libvlc_get_libvlc_version(NULL,NULL,NULL));
 #ifdef USE_LIBNOTIFY
-		qInfo("[Main] Compiled with libnotify version %d.%d.%d\n", LIBNOTIFY_VERSION_MAJOR, LIBNOTIFY_VERSION_MINOR, LIBNOTIFY_VERSION_REVISION);
+	qInfo("[Main] Compiled with libnotify version %d.%d.%d\n", LIBNOTIFY_VERSION_MAJOR, LIBNOTIFY_VERSION_MINOR, LIBNOTIFY_VERSION_REVISION);
 #endif
 
-		qInfo("[Main] Loading FreetuxTV %s", APPLICATION_VERSION);
+	qInfo("[Main] Loading FreetuxTV %s", APPLICATION_VERSION);
 
-		Application* pApplication = new Application();
+	Application* pApplication = new Application();
 
-		QApplicationMainWindow* pMainWindow = new QApplicationMainWindow();
+	// Load data
+	ChannelsGroupInfosList listChannelsGroupInfos;
+	if(bRes) {
+		qInfo("[Main] Loading data from database");
+		DatabaseInstance dbInstance("main");
+		bRes = dbInstance.open();
+		if(bRes){
+			DatabaseController dbc(dbInstance);
+			bRes = dbc.loadChannelsGroups(listChannelsGroupInfos);
+			if(!bRes){
+				qCritical("[Main] Unable to load channels list group");
+			}
+		}
+		dbInstance.close();
+	}
 
-		QApplicationMainWindowController* pMainWindowController = new QApplicationMainWindowController();
+	QApplicationMainWindow *pMainWindow = NULL;
+	QApplicationMainWindowController *pMainWindowController = NULL;
+	if(bRes) {
+		pMainWindow = new QApplicationMainWindow();
+
+		pMainWindowController = new QApplicationMainWindowController();
 		pMainWindowController->init(pMainWindow, pApplication);
-
+		pMainWindowController->loadData(listChannelsGroupInfos);
 
 		pMainWindow->resize(1200, 800);
 		pMainWindow->show();
@@ -1887,7 +1890,7 @@ main (int argc, char *argv[])
 		app = freetuxtv_app_create_app (szDataDir);
 		if (app != NULL) {
 
-#ifdef USE_LIBNOTIFY
+	#ifdef USE_LIBNOTIFY
 			// Initialize notifications
 			notify_init("FreetuxTV");
 
@@ -1896,27 +1899,27 @@ main (int argc, char *argv[])
 	#else
 			app->current.notification = notify_notification_new ("FreetuxTV", NULL, NULL);
 	#endif
-#endif
+	#endif
 
 
 			mmkeys = g_mmkeys_new ("FreetuxTV", freetuxtv_log);
 			g_mmkeys_activate (mmkeys);
 
 			g_signal_connect(G_OBJECT(mmkeys),
-				             "mm_key_pressed",
-				             G_CALLBACK(on_freetuxtv_mm_key_pressed),
-				             app);
+							 "mm_key_pressed",
+							 G_CALLBACK(on_freetuxtv_mm_key_pressed),
+							 app);
 
 			// Set the channel name to open
 			if(bOpenChannel){
 				app->current.open_channel_name = szChannelName;
 			}
-			
-#if GTK_API_VERSION == 3
+
+	#if GTK_API_VERSION == 3
 			g_idle_add(splashscreen_app_init, app);
-#else
+	#else
 			gtk_init_add (splashscreen_app_init, app);
-#endif
+	#endif
 		 */
 
 		app.exec();
@@ -1925,31 +1928,28 @@ main (int argc, char *argv[])
 
 		//freetuxtv_quit (app, GTK_WINDOW(widget));
 /*
-			g_mmkeys_deactivate (mmkeys);
-			g_object_unref(G_OBJECT(app->current.notification));
-		 */
+		g_mmkeys_deactivate (mmkeys);
+		g_object_unref(G_OBJECT(app->current.notification));
+	 */
 #ifdef USE_LIBNOTIFY
-			notify_uninit();
+		notify_uninit();
 #endif
+	}
 
+	if(pMainWindowController) {
 		pMainWindowController->dispose();
 		delete pMainWindowController;
 		pMainWindowController = NULL;
+	}
 
+	if(pMainWindow) {
 		delete pMainWindow;
 		pMainWindow = NULL;
+	}
 
-		if(pApplication){
-			delete pApplication;
-			pApplication = NULL;
-		}
-
-		/*	freetuxtv_app_destroy_app (&app);
-			app = NULL;
-		}
-
-		g_log_remove_handler (FREETUXTV_LOG_DOMAIN, idLogHandler);
-		 */
+	if(pApplication){
+		delete pApplication;
+		pApplication = NULL;
 	}
 
 	qInfo("[Main] Closing application");

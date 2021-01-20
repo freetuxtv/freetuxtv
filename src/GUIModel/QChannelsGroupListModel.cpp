@@ -120,7 +120,9 @@ void QChannelsGroupListModel::appendRow(QChannelsGroupItem* pSection)
 
 void QChannelsGroupListModel::clear()
 {
+	beginResetModel();
 	m_pRootItem->clear();
+	endResetModel();
 }
 
 QVariant QChannelsGroupListModel::headerData(int section, Qt::Orientation orientation, int role) const

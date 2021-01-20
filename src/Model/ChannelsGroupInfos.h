@@ -21,6 +21,8 @@
 #define _FREETUXTV_CHANNELS_GROUP_INFOS_H_
 
 #include <QString>
+#include <QSharedPointer>
+#include <QList>
 
 class ChannelsGroupInfos
 {
@@ -77,6 +79,13 @@ private:
 	QString m_szERegex;
 
 	int m_iNbChannels;
+};
+
+class ChannelsGroupInfosList : public QList< QSharedPointer<ChannelsGroupInfos> >
+{
+public:
+	ChannelsGroupInfosList();
+	virtual ~ChannelsGroupInfosList();
 };
 
 #endif /* _FREETUXTV_CHANNELS_GROUP_INFOS_H_ */

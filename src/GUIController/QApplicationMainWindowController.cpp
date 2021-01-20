@@ -8,6 +8,7 @@
 #include <QToolButton>
 #include <QPushButton>
 #include <QSlider>
+#include <QTreeView>
 
 #include "Model/Preferences.h"
 
@@ -71,6 +72,10 @@ void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow,
 	connect(pCtrlBarView->getSliderVolume(), SIGNAL(valueChanged(int)), this, SLOT(onSliderVolumeChanged(int)));
 	connect(pCtrlBarView->getButtonFullScreen(), SIGNAL(clicked()), this, SLOT(onCtrlFullScreenClicked()));
 	connect(pCtrlBarView->getButtonModeMini(), SIGNAL(clicked()), this, SLOT(onCtrlModeMiniClicked()));
+
+	// Model
+	m_pChannelsListModel = new QStandardItemModel();
+	m_pMainWindow->getTreeviewChannels()->setModel(m_pChannelsListModel);
 
 	/*
 	 * g_signal_connect(G_OBJECT(widget),
@@ -138,6 +143,21 @@ void QApplicationMainWindowController::dispose()
 
 }
 
+void QApplicationMainWindowController::loadData(const ChannelsGroupInfosList& listChannelsGroupInfos)
+{
+	ChannelsGroupInfosList::const_iterator iter;
+
+	QStandardItem* pItem;
+
+	m_pChannelsListModel->clear();
+
+	for(iter = listChannelsGroupInfos.constBegin(); iter != listChannelsGroupInfos.constEnd(); ++iter)
+	{
+		const QSharedPointer<ChannelsGroupInfos>& pChannelsGroupInfos = (*iter);
+		pItem = new QStandardItem(pChannelsGroupInfos->getName());
+		m_pChannelsListModel->appendRow(pItem);
+	}
+}
 
 void QApplicationMainWindowController::onPreferencesTriggered()
 {
@@ -165,31 +185,12 @@ void QApplicationMainWindowController::onAddGroupTriggered()
 	dialogController.dispose();
 
 	/*
-	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
-	GError* error = NULL;
-
-	FreetuxTVWindowAddChannelsGroup* pWindowAddChannelsGroups;
-
-	GtkWindow* pWindow;
-	GtkWidget* pParent;
-	pParent = (GtkWidget *) gtk_builder_get_object (app->gui, "windowmain");
-
-	pWindowAddChannelsGroups = freetuxtv_window_add_channels_group_new (
-			GTK_WINDOW(pParent), app, &error);
-
-	if(error == NULL){
-		pWindow = gtk_builder_window_get_top_window (GTK_BUILDER_WINDOW(pWindowAddChannelsGroups));
-		gtk_widget_show(GTK_WIDGET(pWindow));
-
-		GtkTreePath** ppCurrentTreePath = g_new0 (GtkTreePath*, 1);
 
 		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-group-added",
 						 G_CALLBACK(on_channels_group_added), ppCurrentTreePath);
 		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "channels-added",
 						 G_CALLBACK(on_channels_added), ppCurrentTreePath);
-		g_signal_connect(G_OBJECT(pWindowAddChannelsGroups), "destroy",
-						 G_CALLBACK(on_window_add_channels_group_destroy), ppCurrentTreePath);
 	}
 
 	if(error != NULL){
@@ -764,22 +765,6 @@ on_channels_added (
 
 
 		channels_list_reload_channels_of_channels_group (app, dbsync, *ppTreePath, error);
-	}
-}
-
-static void
-on_window_add_channels_group_destroy (GtkBuilderWidget *self, gpointer user_data)
-{
-	GtkTreePath** ppCurrentTreePath = (GtkTreePath**)user_data;
-
-	if(ppCurrentTreePath){
-		if(*ppCurrentTreePath){
-			gtk_tree_path_free (*ppCurrentTreePath);
-			*ppCurrentTreePath = NULL;
-		}
-
-		g_free(ppCurrentTreePath);
-		ppCurrentTreePath = NULL;
 	}
 }
 

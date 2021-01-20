@@ -7,7 +7,10 @@
 
 #include <QObject>
 
+#include "Model/ChannelsGroupInfos.h"
+
 class QAction;
+class QStandardItemModel;
 
 class QApplicationMainWindow;
 
@@ -23,6 +26,8 @@ public:
 public:
 	void init(QApplicationMainWindow* pMainWindow, Application* pApplication);
 	void dispose();
+
+	void loadData(const ChannelsGroupInfosList& listChannelsGroupInfos);
 
 private slots:
 	// Menu actions
@@ -52,6 +57,8 @@ private slots:
 private:
 	QApplicationMainWindow* m_pMainWindow;
 	Application* m_pApplication;
+
+	QStandardItemModel* m_pChannelsListModel;
 };
 
 

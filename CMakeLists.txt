@@ -193,6 +193,10 @@ include_directories (${PROJECT_SOURCE_DIR}/lib)
 include_directories (${PROJECT_SOURCE_DIR}/src)
 
 set(FREETUXTV_SRC
+    src/Database/DatabaseController.cpp
+    src/Database/DatabaseController.h
+    src/Database/DatabaseInstance.cpp
+    src/Database/DatabaseInstance.h
     src/Global/Application.cpp
     src/Global/Application.h
     src/Global/FileUtils.cpp

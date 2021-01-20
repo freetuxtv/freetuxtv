@@ -714,36 +714,6 @@ channels_list_switch_channel (FreetuxTVApp *app,
 
 }
 
-void
-channels_list_ui_add_channels_group (
-    FreetuxTVApp *app, FreetuxTVChannelsGroupInfos* pChannelsGroupInfos,
-    GtkTreePath** ppChannelsGroupTreePath)
-{
-	
-	g_return_if_fail(app != NULL);
-	g_return_if_fail(pChannelsGroupInfos != NULL);
-	g_return_if_fail(FREETUXTV_IS_CHANNELS_GROUP_INFOS(pChannelsGroupInfos));
-
-	// Add group in the treeview
-	GtkTreeIter iter_channelsgroup;
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, "Creating row in treestore '%s'\n", pChannelsGroupInfos->name);
-	gtk_tree_store_append (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup, NULL);
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, "Setting data in treestore row '%s'\n", pChannelsGroupInfos->name);
-	gtk_tree_store_set (GTK_TREE_STORE(app->channelslist), &iter_channelsgroup,
-	                    CHANNELSGROUP_COLUMN, pChannelsGroupInfos, -1);
-	g_log(FREETUXTV_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, "Added in treestore '%s'\n", pChannelsGroupInfos->name);
-
-	// Get the path of the new group
-	GtkTreePath* path;
-	path = gtk_tree_model_get_path(app->channelslist, &iter_channelsgroup);
-
-	if(ppChannelsGroupTreePath){
-		*ppChannelsGroupTreePath = path;
-	}else{
-		gtk_tree_path_free(path);
-	}
-}
-
 gboolean
 channels_list_get_prev_channel (FreetuxTVApp *app,
     GtkTreePath **path_prev_channel)

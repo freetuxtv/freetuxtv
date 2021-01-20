@@ -8,6 +8,20 @@
 
 #include "UserPaths.h"
 
+QDir UserPaths::getUserConfigPath()
+{
+	QDir dir;
+	dir = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
+	return dir.filePath("FreetuxTV");
+}
+
+QString UserPaths::getUserDatabasePath()
+{
+	QDir dir;
+	dir = getUserConfigPath();
+	return dir.filePath("freetuxtv.db");
+}
+
 QDir UserPaths::getUserCacheDir()
 {
 	QDir dir;
