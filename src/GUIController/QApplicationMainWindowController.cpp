@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QSlider>
 #include <QTreeView>
+#include <QHeaderView>
 
 #include "Model/Preferences.h"
 
@@ -74,8 +75,10 @@ void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow,
 	connect(pCtrlBarView->getButtonModeMini(), SIGNAL(clicked()), this, SLOT(onCtrlModeMiniClicked()));
 
 	// Model
+	QTreeView* pTreeView = m_pMainWindow->getTreeviewChannels();
 	m_pChannelsListModel = new QStandardItemModel();
-	m_pMainWindow->getTreeviewChannels()->setModel(m_pChannelsListModel);
+	pTreeView->setModel(m_pChannelsListModel);
+	pTreeView->header()->hide();
 
 	/*
 	 * g_signal_connect(G_OBJECT(widget),
