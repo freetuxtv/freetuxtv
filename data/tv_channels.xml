@@ -2707,6 +2707,8 @@
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>kcn2musictv_hrv.png</logo_filename>
+		<label>Kopernikus 2</label>
+		<label>KCN 2</label>
 		<website>http://tvkcn.net/tv-uzivo/tv-kcn-2-uzivo/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/302/kcn-music.aspx </guide_url>
 	</tvchannel>
@@ -2714,6 +2716,8 @@
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>kcn3svettv_hrv.png</logo_filename>
+		<label>Kopernikus 3</label>
+		<label>KCN 3</label>
 		<website>http://tvkcn.net/tv-uzivo/tv-kcn-3-uzivo/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/303/kcn-svet-.aspx </guide_url>
 	</tvchannel>
@@ -2899,6 +2903,7 @@
 		<label>MrežaTV</label>
 		<label>MrezaZG</label>
 		<label>Mreza ZG</label>
+		<label>Mreža TV</label>
 		<website>https://www.mreza.tv/tv-raspored/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/7/mrezazg.aspx </guide_url>
 	</tvchannel>
@@ -3125,6 +3130,13 @@
 		<website>http://osjecka.com/tv-raspored/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/113/osjecka-tv.aspx </guide_url>
 	</tvchannel>
+	<tvchannel name="OTV">
+		<lang>hr</lang>
+		<country>hr</country>
+		<logo_filename>otv_hrv.png</logo_filename>
+		<website>https://www.otv.hr/ </website>
+		<guide_url>https://mojtv.hr/kanal/tv-program/6/otv.aspx </guide_url>
+	</tvchannel>
 	<tvchannel name="OTV Valentino">
 		<lang>hr</lang>
 		<country>hr</country>
@@ -3175,6 +3187,7 @@
 		<label>Planetsport 1</label>
 		<label>PLANETSPORT 1</label>
 		<label>PlanetSport 1 PPV</label>
+		<label>Planet Sport 1</label>
 		<website>https://planetsport.a1.hr/raspored/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/650/planetsport-1.aspx </guide_url>
 	</tvchannel>
@@ -3185,6 +3198,7 @@
 		<label>Planetsport 2</label>
 		<label>PLANETSPORT 2</label>
 		<label>PlanetSport 2 PPV</label>
+		<label>Planet Sport 2</label>
 		<website>https://planetsport.a1.hr/raspored/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/651/planetsport-2.aspx </guide_url>
 	</tvchannel>
@@ -3195,6 +3209,7 @@
 		<label>Planetsport 3</label>
 		<label>PLANETSPORT 3</label>
 		<label>PlanetSport 3 PPV</label>
+		<label>Planet Sport 3</label>
 		<website>https://planetsport.a1.hr/raspored/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/652/planetsport-3.aspx </guide_url>
 	</tvchannel>
@@ -3205,6 +3220,7 @@
 		<label>Planetsport 4</label>
 		<label>PLANETSPORT 4</label>
 		<label>PlanetSport 4 PPV</label>
+		<label>Planet Sport 4</label>
 		<website>https://planetsport.a1.hr/raspored/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/653/planetsport-4.aspx </guide_url>
 	</tvchannel>
@@ -3215,6 +3231,7 @@
 		<label>Planetsport 5</label>
 		<label>PLANETSPORT 5</label>
 		<label>PlanetSport 5 PPV</label>
+		<label>Planet Sport 5</label>
 		<website>https://planetsport.a1.hr/raspored/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/654/planetsport-5.aspx </guide_url>
 	</tvchannel>
@@ -3831,6 +3848,7 @@
 		<lang>hr</lang>
 		<country>hr</country>
 		<logo_filename>tvbnsattv_hrv.png</logo_filename>
+		<label>BN TV</label>
 		<website>https://www.rtvbn.com/ </website>
 		<guide_url>https://mojtv.hr/kanal/tv-program/283/bn-sat.aspx </guide_url>
 	</tvchannel>
