@@ -1751,6 +1751,7 @@ bool doNotifyChannelLoaded(DatabaseInstance& m_dbInstance, const ChannelInfos& c
 	NotifyChannelLoadedData* cbData = (NotifyChannelLoadedData*)user_data;
 
 	QStandardItem* pItem = new QStandardItem(channelInfos.getName());
+	pItem->setEditable(false);
 	cbData->pItem->appendRow(pItem);
 
 	return bRes;
@@ -1763,6 +1764,7 @@ bool doNotifyChannelsGroupLoaded(DatabaseInstance& dbInstance, const ChannelsGro
 	Application* pApplication = (Application*)user_data;
 
 	QStandardItem* pItem = new QStandardItem(channelGroupInfos.getName());
+	pItem->setEditable(false);
 	pApplication->getChannelListModel()->appendRow(pItem);
 
 	NotifyChannelLoadedData cbData;
