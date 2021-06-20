@@ -4,6 +4,10 @@
 		<channels_group uri="http://vlc-media-player.org/m3u/alicetv.m3u" required_isp="Alice" name="Alice"/>
 		<channels_group uri="http://freetuxtv.eric-beuque.com/playlists/playlist_alicetv_unofficial.m3u" required_isp="Alice" name="Alice (Unofficial)"></channels_group>
 	</language>
+	<language lang="CorleoneTV" id="CorleoneTV">
+		<channels_group uri="" required_isp="CorleoneTV" name="CorleoneTV"/>
+		<channels_group uri="http://www.corleonetv.com.br/lia2.m3u" required_isp="Alice" name="CorleoneTV (OFICIAL)"></channels_group>
+	</language>
 	<language lang="Bouygues" id="bouygues">
 		<channels_group uri="http://bbox-news.com/documents/tv_sur_pc_bbox.m3u" required_isp="Bouygues" name="Bouygues TV"/>
 	</language>
