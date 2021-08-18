@@ -48,6 +48,11 @@
 	<language id="bn" lang="Bengali/Bangla Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_bn.m3u" name="Web TV (Bengali/Bangla)"></channels_group>
 	</language>
+	<language id="bs" lang="Bosnian and Herzegovina Web TV and Radio">
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_bs.m3u" name="Web TV (Bosnian)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_bs.m3u" name="Web Radio (Bosnian)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webcam_bs.m3u" name="Web Cam (Bosnian)"></channels_group>
+	</language>
 	<language id="bg" lang="Bulgarian Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_bg.m3u" name="Web TV (Bulgarian)"></channels_group>
 	</language>
@@ -65,6 +70,7 @@
 	<language id="hr" lang="Croatian Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_hr.m3u" name="Web TV (Croatian)"></channels_group>
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_hr.m3u" name="Web Radio (Croatian)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webcam_hr.m3u" name="Web Cam (Croatian)"></channels_group>
 		<channels_group uri="https://raw.githubusercontent.com/muzena/freetuxtv/radio_playlists/croatian_radios.m3u" name="Radio Browser Service (Croatian)"></channels_group>
 	</language>
 	<language id="cs" lang="Czech Web TV and Radio">
@@ -164,6 +170,7 @@
 	<language id="mk" lang="Macedonian Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_mk.m3u" name="Web TV (Macedonian)"></channels_group>
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_mk.m3u" name="Web Radio (Macedonian)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webcam_mk.m3u" name="Web Cam (Macedonian)"></channels_group>
 	</language>
 	<language id="ms" lang="Malay Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_ms.m3u" name="Web TV (Malay)"></channels_group>
@@ -180,6 +187,11 @@
 	</language>
 	<language id="mn" lang="Mongolian Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_mn.m3u" name="Web TV (Mongolian)"></channels_group>
+	</language>
+	<language id="mt" lang="Montenegro Web TV and Radio">
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_cn.m3u" name="Web TV (Montenegrin)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_cn.m3u" name="Web Radio (Montenegrin)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webcam_cn.m3u" name="Web Cam (Montenegrin)"></channels_group>
 	</language>
 	<language id="no" lang="Norwegian Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_no.m3u" name="Web TV (Norwegian)"></channels_group>
@@ -210,10 +222,12 @@
 	<language id="sr" lang="Serbian Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_sr.m3u" name="Web TV (Serbian)"></channels_group>
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_sr.m3u" name="Web Radio (Serbian)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webcam_sr.m3u" name="Web Cam (Serbian)"></channels_group>
 	</language>
 	<language id="sh" lang="Serbo-Croatian Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_sh.m3u" name="Web TV (Serbo-Croatian)"></channels_group>
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_sh.m3u" name="Web Radio (Serbo-Croatian)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webcam_sh.m3u" name="Web Cam (Serbo-Croatian)"></channels_group>
 	</language>
 	<language id="sk" lang="Slovak Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_sk.m3u" name="Web TV (Slovak)"></channels_group>
@@ -222,6 +236,7 @@
 	<language id="sl" lang="Slovenian Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_sl.m3u" name="Web TV (Slovenian)"></channels_group>
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_sl.m3u" name="Web Radio (Slovenian)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webcam_sl.m3u" name="Web Cam (Slovenian)"></channels_group>
 	</language>
 	<language id="es" lang="Spanish Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_es.m3u" name="Web TV (Spanish)"></channels_group>
