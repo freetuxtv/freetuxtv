@@ -8,13 +8,10 @@ msgstr ""
 "Project-Id-Version: freetuxtv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-06 14:04+0200\n"
-<<<<<<< HEAD
 "PO-Revision-Date: 2020-10-06 14:23+0200\n"
 "Last-Translator: gogo <linux.hr@protonmail.com>\n"
-=======
 "PO-Revision-Date: 2021-04-14 14:55+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
->>>>>>> Add files via upload
 "Language-Team: hr@li.org\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -511,11 +508,8 @@ msgstr "Nadopuni bazu podataka iz datoteke:"
 
 #: ../data/ui/tvchannelsdatabase.glade.h:3
 msgid " Synchronize TV Channel database"
-<<<<<<< HEAD
 msgstr "Uskladi bazu podataka TV programa"
-=======
 msgstr " Uskladi bazu podataka TV programa"
->>>>>>> Add files via upload
 
 #: ../data/ui/tvchannelsdatabase.glade.h:4
 msgid ""
