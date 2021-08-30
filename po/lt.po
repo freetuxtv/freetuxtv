@@ -8,17 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-27 13:59+0200\n"
-"PO-Revision-Date: 2013-02-28 13:43+0200\n"
-"Last-Translator: Algimantas Margevičius <margevicius.algimantas@gmail.com>\n"
+"POT-Creation-Date: 2020-10-06 14:04+0200\n"
+"PO-Revision-Date: 2019-06-10 13:52+0000\n"
+"Last-Translator: Algimantas Margevičius <Unknown>\n"
 "Language-Team: Lietuvių <>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Gtranslator 2.91.5\n"
+"X-Launchpad-Export-Date: 2021-08-30 13:36+0000\n"
+"X-Generator: Launchpad (build 76ef73296f01d64cdfe5c48bfc4daf35cdfde808)\n"
+"Language: \n"
 
 #: ../data/ui/addrecording.glade.h:1
 msgid "Add a recording"
@@ -201,7 +200,11 @@ msgstr "Projekto tinklapis"
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../data/ui/freetuxtv.glade.h:5
 msgid "translator-credits"
-msgstr "Algimantas Margevičius <margevicius.algimantas@gmail.com>"
+msgstr ""
+"Algimantas Margevičius <margevicius.algimantas@gmail.com>\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Algimantas Margevičius https://launchpad.net/~margevicius-algimantas"
 
 #: ../data/ui/freetuxtv.glade.h:6
 msgid "Group properties"
@@ -381,11 +384,11 @@ msgstr "Video - H.264 + MPGA (MP4)"
 
 #: ../data/ui/freetuxtv.glade.h:61
 msgid ""
-"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
-"channels=2"
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels="
+"2"
 msgstr ""
-"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
-"channels=2"
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels="
+"2"
 
 #: ../data/ui/freetuxtv.glade.h:62
 msgid "mp4"
@@ -494,6 +497,38 @@ msgstr "Grįžti į įprastą režimą"
 #: ../data/ui/freetuxtv.glade.h:88
 msgid "Activate/Deactivate the window always on top"
 msgstr "Įjungti/Išjungti lango „visada viršuje“ būseną"
+
+#: ../data/ui/tvchannelsdatabase.glade.h:1
+msgid ""
+"<i>This will re-associate each stream with a TV Channel in the current "
+"database. This allow to associate a logo to a channel.</i>"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:2
+msgid "Update database from file:"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:3
+msgid " Synchronize TV Channel database"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:4
+msgid ""
+"<i>This will download each logos recorded in the local database from the "
+"remote database.</i>"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:5
+msgid "Remote directory:"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:6
+msgid "Update logos list"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:7
+msgid "<b>TV Channels database</b>"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:1
 msgid "Alice (Unofficial)"
@@ -620,591 +655,598 @@ msgid "Web Radio (Croatian)"
 msgstr "Interneto radijo (Kroatų)"
 
 #: ../data/channels_groups.xml.in.h:32
+msgid "Radio Browser Service (Croatian)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:33
 msgid "Czech Web TV and Radio"
 msgstr "Čekijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:33
+#: ../data/channels_groups.xml.in.h:34
 msgid "Web TV (Czech)"
 msgstr "Internetinė televizija (Čekija)"
 
-#: ../data/channels_groups.xml.in.h:34
+#: ../data/channels_groups.xml.in.h:35
 msgid "Web Radio (Czech)"
 msgstr "Internetinė radija (Čekų)"
 
-#: ../data/channels_groups.xml.in.h:35
+#: ../data/channels_groups.xml.in.h:36
 msgid "Danish Web TV and Radio"
 msgstr "Danijos internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:36
+#: ../data/channels_groups.xml.in.h:37
 msgid "Web TV (Danish)"
 msgstr "Internetinė televizija (Danų kalba)"
 
-#: ../data/channels_groups.xml.in.h:37
+#: ../data/channels_groups.xml.in.h:38
 msgid "Dutch Web TV and Radio"
 msgstr "Olandų Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:38
+#: ../data/channels_groups.xml.in.h:39
 msgid "Web TV (Dutch)"
 msgstr "Internetinė televizija (Olandų)"
 
-#: ../data/channels_groups.xml.in.h:39
+#: ../data/channels_groups.xml.in.h:40
 msgid "Web Radio (Dutch)"
 msgstr "Internetinė radija (Olandų)"
 
-#: ../data/channels_groups.xml.in.h:40
+#: ../data/channels_groups.xml.in.h:41
 msgid "Web Cam (Dutch)"
 msgstr "Interneto kamera (Olandų)"
 
-#: ../data/channels_groups.xml.in.h:41
+#: ../data/channels_groups.xml.in.h:42
 msgid "English Web TV and Radio"
 msgstr "Anglų Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:42
+#: ../data/channels_groups.xml.in.h:43
 msgid "Web TV (English)"
 msgstr "Internetinė televizija (Anglų kalba)"
 
-#: ../data/channels_groups.xml.in.h:43
+#: ../data/channels_groups.xml.in.h:44
 msgid "Web Radio (English)"
 msgstr "Internetinė radija (Anglų kalba)"
 
-#: ../data/channels_groups.xml.in.h:44
+#: ../data/channels_groups.xml.in.h:45
 msgid "Web Programmes (English)"
 msgstr "Interneto programos (Anglų kalba)"
 
-#: ../data/channels_groups.xml.in.h:45
+#: ../data/channels_groups.xml.in.h:46
 msgid "Web Cam (English)"
 msgstr "Interneto kamera (Anglų k.)"
 
-#: ../data/channels_groups.xml.in.h:46
+#: ../data/channels_groups.xml.in.h:47
 msgid "Estonian Web TV and Radio"
 msgstr "Estijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:47
+#: ../data/channels_groups.xml.in.h:48
 msgid "Web TV (Estonian)"
 msgstr "Internetinė televizija (Estų)"
 
-#: ../data/channels_groups.xml.in.h:48
+#: ../data/channels_groups.xml.in.h:49
 msgid "Finnish Web TV and Radio"
 msgstr "Suomijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:49
+#: ../data/channels_groups.xml.in.h:50
 msgid "Web TV (Finnish)"
 msgstr "Internetinė televizija (Suomių kalba)"
 
-#: ../data/channels_groups.xml.in.h:50
+#: ../data/channels_groups.xml.in.h:51
 msgid "French Web TV and Radio"
 msgstr "Prancūzijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:51
+#: ../data/channels_groups.xml.in.h:52
 msgid "Web TV (French)"
 msgstr "Internetinė televizija (Prancūzų kalba)"
 
-#: ../data/channels_groups.xml.in.h:52
+#: ../data/channels_groups.xml.in.h:53
 msgid "Web Radio (French)"
 msgstr "Interneto radijo (Prancūzų kalba)"
 
-#: ../data/channels_groups.xml.in.h:53
+#: ../data/channels_groups.xml.in.h:54
 msgid "Web Programmes (French)"
 msgstr "Tinklinės programos (Prancūzijoje)"
 
-#: ../data/channels_groups.xml.in.h:54
+#: ../data/channels_groups.xml.in.h:55
 msgid "Georgian Web TV and Radio"
 msgstr "Gruzijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:55
+#: ../data/channels_groups.xml.in.h:56
 msgid "Web TV (Georgian)"
 msgstr "Internetinė televizija (Gruzinų)"
 
-#: ../data/channels_groups.xml.in.h:56
+#: ../data/channels_groups.xml.in.h:57
 msgid "German Web TV and Radio"
 msgstr "Vokietijos interneto TV ir radijas"
 
-#: ../data/channels_groups.xml.in.h:57
+#: ../data/channels_groups.xml.in.h:58
 msgid "Web TV (German)"
 msgstr "Internetinė televizija (Vokiečių kalba)"
 
-#: ../data/channels_groups.xml.in.h:58
+#: ../data/channels_groups.xml.in.h:59
 msgid "Web Radio (German)"
 msgstr "Interneto radijo (Vokiečių kalba)"
 
-#: ../data/channels_groups.xml.in.h:59
+#: ../data/channels_groups.xml.in.h:60
+msgid "Kodinerds (German)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:61
 msgid "Greek Web TV and Radio"
 msgstr "Graikijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:60
+#: ../data/channels_groups.xml.in.h:62
 msgid "Web TV (Greek)"
 msgstr "Internetinė televizija (Graikų)"
 
-#: ../data/channels_groups.xml.in.h:61
+#: ../data/channels_groups.xml.in.h:63
 msgid "Web Radio (Greek)"
 msgstr "Internetinė radija (Graikų)"
 
-#: ../data/channels_groups.xml.in.h:62
+#: ../data/channels_groups.xml.in.h:64
 msgid "Hebrew Web TV and Radio"
 msgstr "Hebrajų Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:63
+#: ../data/channels_groups.xml.in.h:65
 msgid "Web TV (Hebrew)"
 msgstr "Internetinė televizija (Hebrajų)"
 
-#: ../data/channels_groups.xml.in.h:64
+#: ../data/channels_groups.xml.in.h:66
 msgid "Web Radio (Hebrew)"
 msgstr "Internetinė radija (Hebrajų)"
 
-#: ../data/channels_groups.xml.in.h:65
+#: ../data/channels_groups.xml.in.h:67
 msgid "Web Cam (Hebrew)"
 msgstr "Interneto kamera (Hebrajų)"
 
-#: ../data/channels_groups.xml.in.h:66
+#: ../data/channels_groups.xml.in.h:68
 msgid "Hindi Web TV and Radio"
 msgstr "Hindi Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:67
+#: ../data/channels_groups.xml.in.h:69
 msgid "Web TV (Hindi)"
 msgstr "Internetinė televizija (Hindi)"
 
-#: ../data/channels_groups.xml.in.h:68
+#: ../data/channels_groups.xml.in.h:70
 msgid "Web Radio (Hindi)"
 msgstr "Internetinė radija (Hindi)"
 
-#: ../data/channels_groups.xml.in.h:69
+#: ../data/channels_groups.xml.in.h:71
 msgid "Hungarian Web TV and Radio"
 msgstr "Vengrijos Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:70
+#: ../data/channels_groups.xml.in.h:72
 msgid "Web TV (Hungarian)"
 msgstr "Internetinė televizija (Vengrijos)"
 
-#: ../data/channels_groups.xml.in.h:71
-#, fuzzy
+#: ../data/channels_groups.xml.in.h:73
 msgid "Web Radio (Hungarian)"
-msgstr "Internetinė televizija (Vengrijos)"
+msgstr ""
 
-#: ../data/channels_groups.xml.in.h:72
+#: ../data/channels_groups.xml.in.h:74
 msgid "Icelandic Web TV and Radio"
 msgstr "Islandijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:73
+#: ../data/channels_groups.xml.in.h:75
 msgid "Web TV (Icelandic)"
 msgstr "Internetinė televizija (Islandų)"
 
-#: ../data/channels_groups.xml.in.h:74
+#: ../data/channels_groups.xml.in.h:76
 msgid "Indonesian Web TV and Radio"
 msgstr "Indonezijos Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:75
+#: ../data/channels_groups.xml.in.h:77
 msgid "Web TV (Indonesian)"
 msgstr "Internetinė televizija (Indoneziečių)"
 
-#: ../data/channels_groups.xml.in.h:76
+#: ../data/channels_groups.xml.in.h:78
 msgid "Interlingua Web TV and Radio"
 msgstr "Interlingva Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:77
+#: ../data/channels_groups.xml.in.h:79
 msgid "Web Radio (Interlingua)"
 msgstr "Interneto radijo (Tarpinė kalba)"
 
-#: ../data/channels_groups.xml.in.h:78
+#: ../data/channels_groups.xml.in.h:80
 msgid "Irish Web TV and Radio"
 msgstr "Airijos Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:79
+#: ../data/channels_groups.xml.in.h:81
 msgid "Web TV (Irish)"
 msgstr "Internetinė televizija (Airija)"
 
-#: ../data/channels_groups.xml.in.h:80
+#: ../data/channels_groups.xml.in.h:82
 msgid "Web Radio (Irish)"
 msgstr "Interneto radijo (Airija)"
 
-#: ../data/channels_groups.xml.in.h:81
+#: ../data/channels_groups.xml.in.h:83
 msgid "Italian Web TV and Radio"
 msgstr "Italijos interneto TV ir radijas"
 
-#: ../data/channels_groups.xml.in.h:82
+#: ../data/channels_groups.xml.in.h:84
 msgid "Web TV (Italian)"
 msgstr "Internetinė televizija (Italų)"
 
-#: ../data/channels_groups.xml.in.h:83
+#: ../data/channels_groups.xml.in.h:85
 msgid "Web Radio (Italian)"
 msgstr "Internetinė radija (Italija)"
 
-#: ../data/channels_groups.xml.in.h:84
+#: ../data/channels_groups.xml.in.h:86
 msgid "Japanese Web TV and Radio"
 msgstr "Japonijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:85
+#: ../data/channels_groups.xml.in.h:87
 msgid "Web TV (Japanese)"
 msgstr "Internetinė televizija (Japonų kalba)"
 
-#: ../data/channels_groups.xml.in.h:86
+#: ../data/channels_groups.xml.in.h:88
 msgid "Web Radio (Japanese)"
 msgstr "Internetinė radija (Japonų)"
 
-#: ../data/channels_groups.xml.in.h:87
+#: ../data/channels_groups.xml.in.h:89
 msgid "Web Cam (Japanese)"
 msgstr "Interneto kamera (Japonų kalba)"
 
-#: ../data/channels_groups.xml.in.h:88
+#: ../data/channels_groups.xml.in.h:90
 msgid "Kazakh Web TV and Radio"
 msgstr "Kazachų Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:89
+#: ../data/channels_groups.xml.in.h:91
 msgid "Web TV (Kazakh)"
 msgstr "Internetinė televizija (Kazachstanas)"
 
-#: ../data/channels_groups.xml.in.h:90
+#: ../data/channels_groups.xml.in.h:92
 msgid "Korean Web TV and Radio"
 msgstr "Korėjos interneto TV ir radijas"
 
-#: ../data/channels_groups.xml.in.h:91
+#: ../data/channels_groups.xml.in.h:93
 msgid "Web TV (Korean)"
 msgstr "Internetinė televizija (Korėjiečių)"
 
-#: ../data/channels_groups.xml.in.h:92
+#: ../data/channels_groups.xml.in.h:94
 msgid "Kurdish Web TV and Radio"
 msgstr "Kurdų Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:93
+#: ../data/channels_groups.xml.in.h:95
 msgid "Web TV (Kurdish)"
 msgstr "Internetinė televizija (Kurdų)"
 
-#: ../data/channels_groups.xml.in.h:94
+#: ../data/channels_groups.xml.in.h:96
 msgid "Latin Web TV and Radio"
 msgstr "Lotynų Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:95
+#: ../data/channels_groups.xml.in.h:97
 msgid "Web TV (Latin)"
 msgstr "Internetinė televizija (Lotynų)"
 
-#: ../data/channels_groups.xml.in.h:96
+#: ../data/channels_groups.xml.in.h:98
 msgid "Latvian/Lettish Web TV and Radio"
 msgstr "Latvijos / latvių Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:97
+#: ../data/channels_groups.xml.in.h:99
 msgid "Web TV (Latvian/Lettish)"
 msgstr "Internetinė televizija (Latvių / Latviešu valoda)"
 
-#: ../data/channels_groups.xml.in.h:98
+#: ../data/channels_groups.xml.in.h:100
 msgid "Lithuanian Web TV and Radio"
 msgstr "Lietuvos Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:99
+#: ../data/channels_groups.xml.in.h:101
 msgid "Web TV (Lithuanian)"
 msgstr "Internetinė televizija (Lietuvių)"
 
-#: ../data/channels_groups.xml.in.h:100
+#: ../data/channels_groups.xml.in.h:102
 msgid "Macedonian Web TV and Radio"
 msgstr "Makedonų Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:101
+#: ../data/channels_groups.xml.in.h:103
 msgid "Web TV (Macedonian)"
 msgstr "Internetinė televizija (Makedonijos)"
 
-#: ../data/channels_groups.xml.in.h:102
+#: ../data/channels_groups.xml.in.h:104
 msgid "Web Radio (Macedonian)"
 msgstr "Interneto radijo (Makedonijos)"
 
-#: ../data/channels_groups.xml.in.h:103
+#: ../data/channels_groups.xml.in.h:105
 msgid "Malay Web TV and Radio"
 msgstr "Malajų Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:104
+#: ../data/channels_groups.xml.in.h:106
 msgid "Web TV (Malay)"
 msgstr "Internetinė televizija (Malajų)"
 
-#: ../data/channels_groups.xml.in.h:105
+#: ../data/channels_groups.xml.in.h:107
 msgid "Malayalam Web TV and Radio"
 msgstr "Malajalių Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:106
+#: ../data/channels_groups.xml.in.h:108
 msgid "Web TV (Malayalam)"
 msgstr "Internetinė televizija (Malayalam)"
 
-#: ../data/channels_groups.xml.in.h:107
+#: ../data/channels_groups.xml.in.h:109
 msgid "Maltese Web TV and Radio"
 msgstr "Maltos Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:108
+#: ../data/channels_groups.xml.in.h:110
 msgid "Web TV (Maltese)"
 msgstr "Internetinė televizija (Maltiečių)"
 
-#: ../data/channels_groups.xml.in.h:109
+#: ../data/channels_groups.xml.in.h:111
 msgid "Web Radio (Maltese)"
 msgstr "Interneto radijo (Maltiečių)"
 
-#: ../data/channels_groups.xml.in.h:110
+#: ../data/channels_groups.xml.in.h:112
 msgid "Moldavian Web TV and Radio"
 msgstr "Moldavų Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:111
+#: ../data/channels_groups.xml.in.h:113
 msgid "Web TV (Moldavian)"
 msgstr "Internetinė televizija (Moldavijos)"
 
-#: ../data/channels_groups.xml.in.h:112
+#: ../data/channels_groups.xml.in.h:114
 msgid "Mongolian Web TV and Radio"
 msgstr "Mongolų Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:113
+#: ../data/channels_groups.xml.in.h:115
 msgid "Web TV (Mongolian)"
 msgstr "Internetinė televizija (Mongolų)"
 
-#: ../data/channels_groups.xml.in.h:114
+#: ../data/channels_groups.xml.in.h:116
 msgid "Norwegian Web TV and Radio"
 msgstr "Norvegijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:115
+#: ../data/channels_groups.xml.in.h:117
 msgid "Web TV (Norwegian)"
 msgstr "Internetinė televizija (Norvegų kalba)"
 
-#: ../data/channels_groups.xml.in.h:116
+#: ../data/channels_groups.xml.in.h:118
 msgid "Persian Web TV and Radio"
 msgstr "Persijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:117
+#: ../data/channels_groups.xml.in.h:119
 msgid "Web TV (Persian)"
 msgstr "Internetinė televizija (Persian)"
 
-#: ../data/channels_groups.xml.in.h:118
+#: ../data/channels_groups.xml.in.h:120
 msgid "Polish Web TV and Radio"
 msgstr "Lenkijos Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:119
+#: ../data/channels_groups.xml.in.h:121
 msgid "Web TV (Polish)"
 msgstr "Internetinė televizija (Lenkų)"
 
-#: ../data/channels_groups.xml.in.h:120
+#: ../data/channels_groups.xml.in.h:122
 msgid "Web Radio (Polish)"
 msgstr "Interneto radijo (Lenkų)"
 
-#: ../data/channels_groups.xml.in.h:121
+#: ../data/channels_groups.xml.in.h:123
 msgid "Web Cam (Polish)"
 msgstr "Interneto kamera (Lenkų)"
 
-#: ../data/channels_groups.xml.in.h:122
+#: ../data/channels_groups.xml.in.h:124
 msgid "Portuguese Web TV and Radio"
 msgstr "Portugalijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:123
+#: ../data/channels_groups.xml.in.h:125
 msgid "Web TV (Portuguese)"
 msgstr "Internetinė televizija (Portugalų)"
 
-#: ../data/channels_groups.xml.in.h:124
+#: ../data/channels_groups.xml.in.h:126
 msgid "Web Radio (Portuguese)"
 msgstr "Interneto radijo (Portugalų)"
 
-#: ../data/channels_groups.xml.in.h:125
+#: ../data/channels_groups.xml.in.h:127
 msgid "Punjabi Web TV and Radio"
 msgstr "Pandžabi Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:126
+#: ../data/channels_groups.xml.in.h:128
 msgid "Web TV (Punjabi)"
 msgstr "Internetinė televizija (Pandžabų)"
 
-#: ../data/channels_groups.xml.in.h:127
+#: ../data/channels_groups.xml.in.h:129
 msgid "Romanian Web TV and Radio"
 msgstr "Rumunijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:128
+#: ../data/channels_groups.xml.in.h:130
 msgid "Web TV (Romanian)"
 msgstr "Internetinė televizija (Rumunų)"
 
-#: ../data/channels_groups.xml.in.h:129
+#: ../data/channels_groups.xml.in.h:131
 msgid "Web Radio (Romanian)"
 msgstr "Interneto radijo (Rumunų)"
 
-#: ../data/channels_groups.xml.in.h:130
+#: ../data/channels_groups.xml.in.h:132
 msgid "Russian Web TV and Radio"
 msgstr "Rusijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:131
+#: ../data/channels_groups.xml.in.h:133
 msgid "Web TV (Russian)"
 msgstr "Internetinė televizija (Rusų k.)"
 
-#: ../data/channels_groups.xml.in.h:132
+#: ../data/channels_groups.xml.in.h:134
 msgid "Web Radio (Russian)"
 msgstr "Web Radijas (Rusų k.)"
 
-#: ../data/channels_groups.xml.in.h:133
+#: ../data/channels_groups.xml.in.h:135
 msgid "Serbian Web TV and Radio"
 msgstr "Serbijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:134
+#: ../data/channels_groups.xml.in.h:136
 msgid "Web TV (Serbian)"
 msgstr "Internetinė televizija (Serbijos)"
 
-#: ../data/channels_groups.xml.in.h:135
+#: ../data/channels_groups.xml.in.h:137
 msgid "Web Radio (Serbian)"
 msgstr "Internetinė radija (Indeksas)"
 
-#: ../data/channels_groups.xml.in.h:136
+#: ../data/channels_groups.xml.in.h:138
 msgid "Serbo-Croatian Web TV and Radio"
 msgstr "Serbų-horvatų Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:137
+#: ../data/channels_groups.xml.in.h:139
 msgid "Web TV (Serbo-Croatian)"
 msgstr "Internetinė televizija (Serbų-horvatų)"
 
-#: ../data/channels_groups.xml.in.h:138
+#: ../data/channels_groups.xml.in.h:140
 msgid "Web Radio (Serbo-Croatian)"
 msgstr "Internetinė radija (Serbų-horvatų)"
 
-#: ../data/channels_groups.xml.in.h:139
+#: ../data/channels_groups.xml.in.h:141
 msgid "Slovak Web TV and Radio"
 msgstr "Slovakijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:140
+#: ../data/channels_groups.xml.in.h:142
 msgid "Web TV (Slovak)"
 msgstr "Internetinė televizija (Slovakijos)"
 
-#: ../data/channels_groups.xml.in.h:141
+#: ../data/channels_groups.xml.in.h:143
 msgid "Web Radio (Slovak)"
 msgstr "Internetinė radija (Slovakijos)"
 
-#: ../data/channels_groups.xml.in.h:142
+#: ../data/channels_groups.xml.in.h:144
 msgid "Slovenian Web TV and Radio"
 msgstr "Slovėnijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:143
+#: ../data/channels_groups.xml.in.h:145
 msgid "Web TV (Slovenian)"
 msgstr "Internetinė televizija (Slovėnų)"
 
-#: ../data/channels_groups.xml.in.h:144
+#: ../data/channels_groups.xml.in.h:146
 msgid "Web Radio (Slovenian)"
 msgstr "Internetinė radija (Slovėnų)"
 
-#: ../data/channels_groups.xml.in.h:145
+#: ../data/channels_groups.xml.in.h:147
 msgid "Spanish Web TV and Radio"
 msgstr "Spanish Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:146
+#: ../data/channels_groups.xml.in.h:148
 msgid "Web TV (Spanish)"
 msgstr "Internetinė televizija (Ispanų)"
 
-#: ../data/channels_groups.xml.in.h:147
+#: ../data/channels_groups.xml.in.h:149
 msgid "Web Radio (Spanish)"
 msgstr "Internetinė radija (Ispanų)"
 
-#: ../data/channels_groups.xml.in.h:148
+#: ../data/channels_groups.xml.in.h:150
 msgid "Web Programmes (Spanish)"
 msgstr "Interneto programos (Ispanų)"
 
-#: ../data/channels_groups.xml.in.h:149
+#: ../data/channels_groups.xml.in.h:151
 msgid "Web Cam (Spanish)"
 msgstr "Interneto kamera (Ispanų)"
 
-#: ../data/channels_groups.xml.in.h:150
+#: ../data/channels_groups.xml.in.h:152
 msgid "Swedish Web TV and Radio"
 msgstr "Švedijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:151
+#: ../data/channels_groups.xml.in.h:153
 msgid "Web TV (Swedish)"
 msgstr "Internetinė televizija (Švedų kalba)"
 
-#: ../data/channels_groups.xml.in.h:152
+#: ../data/channels_groups.xml.in.h:154
 msgid "Tagalog Web TV and Radio"
 msgstr "Tagalų Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:153
+#: ../data/channels_groups.xml.in.h:155
 msgid "Web TV (Tagalog)"
 msgstr "Internetinė televizija (Tagalog)"
 
-#: ../data/channels_groups.xml.in.h:154
+#: ../data/channels_groups.xml.in.h:156
 msgid "Tamil Web TV and Radio"
 msgstr "Tamil Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:155
+#: ../data/channels_groups.xml.in.h:157
 msgid "Web TV (Tamil)"
 msgstr "Internetinė televizija (Tamil)"
 
-#: ../data/channels_groups.xml.in.h:156
+#: ../data/channels_groups.xml.in.h:158
 msgid "Thai Web TV and Radio"
 msgstr "Tailando Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:157
+#: ../data/channels_groups.xml.in.h:159
 msgid "Web TV (Thai)"
 msgstr "Internetinė televizija (Tajų)"
 
-#: ../data/channels_groups.xml.in.h:158
+#: ../data/channels_groups.xml.in.h:160
 msgid "Turkish Web TV and Radio"
 msgstr "Turkijos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:159
+#: ../data/channels_groups.xml.in.h:161
 msgid "Web TV (Turkish)"
 msgstr "Internetinė televizija (Turkish)"
 
-#: ../data/channels_groups.xml.in.h:160
+#: ../data/channels_groups.xml.in.h:162
 msgid "Web Radio (Turkish)"
 msgstr "Internetinė radija (Turkish)"
 
-#: ../data/channels_groups.xml.in.h:161
+#: ../data/channels_groups.xml.in.h:163
 msgid "Turkmen Web TV and Radio"
 msgstr "Turkmėnų Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:162
+#: ../data/channels_groups.xml.in.h:164
 msgid "Web TV (Turkmen)"
 msgstr "Internetinė televizija (Turkmėnų)"
 
-#: ../data/channels_groups.xml.in.h:163
+#: ../data/channels_groups.xml.in.h:165
 msgid "Ukrainian Web TV and Radio"
 msgstr "Ukrainos Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:164
+#: ../data/channels_groups.xml.in.h:166
 msgid "Web TV (Ukrainian)"
 msgstr "Internetinė televizija (Ukrainiečių)"
 
-#: ../data/channels_groups.xml.in.h:165
+#: ../data/channels_groups.xml.in.h:167
 msgid "Web Cam (Ukrainian)"
 msgstr "Interneto kamera (Ukrainiečių)"
 
-#: ../data/channels_groups.xml.in.h:166
+#: ../data/channels_groups.xml.in.h:168
 msgid "Urdu Web TV and Radio"
 msgstr "Urdu Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:167
+#: ../data/channels_groups.xml.in.h:169
 msgid "Web TV (Urdu)"
 msgstr "Internetinė televizija (Urdu)"
 
-#: ../data/channels_groups.xml.in.h:168
+#: ../data/channels_groups.xml.in.h:170
 msgid "Uzbek Web TV and Radio"
 msgstr "Uzbekų Internetinė televizija ir radija"
 
-#: ../data/channels_groups.xml.in.h:169
+#: ../data/channels_groups.xml.in.h:171
 msgid "Web TV (Uzbek)"
 msgstr "Internetinė televizija (Uzbek)"
 
-#: ../data/channels_groups.xml.in.h:170
+#: ../data/channels_groups.xml.in.h:172
 msgid "Vietnamese Web TV and Radio"
 msgstr "Vietnamo Internetinė televizija ir radijas"
 
-#: ../data/channels_groups.xml.in.h:171
+#: ../data/channels_groups.xml.in.h:173
 msgid "Web TV (Vietnamese)"
 msgstr "Internetinė televizija (Vietnamese)"
 
-#: ../data/channels_groups.xml.in.h:172
+#: ../data/channels_groups.xml.in.h:174
 msgid "Web Radio (Vietnamese)"
 msgstr "Internetinė radija (Vietnamiečių)"
 
-#: ../data/channels_groups.xml.in.h:173
+#: ../data/channels_groups.xml.in.h:175
 msgid "No lang Web TV and Radio"
 msgstr "Internetinės televizijos ir radijas be kalbos"
 
-#: ../data/channels_groups.xml.in.h:174
+#: ../data/channels_groups.xml.in.h:176
 msgid "Web TV (No lang)"
 msgstr "Internetinė televizija (be kalbos)"
 
-#: ../data/channels_groups.xml.in.h:175
+#: ../data/channels_groups.xml.in.h:177
 msgid "Web Radio (No lang)"
 msgstr "Internetinė radija (be kalbos)"
 
-#: ../data/channels_groups.xml.in.h:176
+#: ../data/channels_groups.xml.in.h:178
 msgid "Web Programmes (No lang)"
 msgstr "Interneto programos (be kalbos)"
 
-#: ../data/channels_groups.xml.in.h:177
+#: ../data/channels_groups.xml.in.h:179
 msgid "Web Cam (No lang)"
 msgstr "Internetinė kamera (be kalbos)"
 
-#: ../data/channels_groups.xml.in.h:178
+#: ../data/channels_groups.xml.in.h:180
 msgid "WebCam"
 msgstr "Internetinė kamera"
 

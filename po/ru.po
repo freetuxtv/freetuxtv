@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-27 13:59+0200\n"
-"PO-Revision-Date: 2013-02-15 21:00+GMT+3\n"
-"Last-Translator: Eugen Z.<cdxncdxn@gmail.com>\n"
-"Language-Team: Russian \n"
-"Language: ru\n"
+"POT-Creation-Date: 2020-10-06 14:04+0200\n"
+"PO-Revision-Date: 2019-06-10 13:52+0000\n"
+"Last-Translator: Eugen Z. <Unknown>\n"
+"Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2021-08-30 13:36+0000\n"
+"X-Generator: Launchpad (build 76ef73296f01d64cdfe5c48bfc4daf35cdfde808)\n"
+"Language: ru\n"
 
 #: ../data/ui/addrecording.glade.h:1
 msgid "Add a recording"
@@ -131,8 +132,8 @@ msgstr ""
 "Например, в списке воспроизведения названия:\n"
 "\"11 - Телеканал 2x2\". \n"
 "\"12 - Культура\". \n"
-"\"11 - \" и \"12 - \" перед именем канала удаляется с помощью фильтра: "
-"\"[0-9]* - \""
+"\"11 - \" и \"12 - \" перед именем канала удаляется с помощью фильтра: \"[0-"
+"9]* - \""
 
 #: ../data/ui/addchannelsgroups.glade.h:17 ../data/ui/freetuxtv.glade.h:16
 msgid "<b>Processing of channels' name</b>"
@@ -202,7 +203,11 @@ msgstr "Сайт проекта"
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../data/ui/freetuxtv.glade.h:5
 msgid "translator-credits"
-msgstr "Eugen Z. <cdxncdxn@gmail.com>"
+msgstr ""
+"Eugen Z. <cdxncdxn@gmail.com>\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Eugen Z. https://launchpad.net/~cdxncdxn"
 
 #: ../data/ui/freetuxtv.glade.h:6
 msgid "Group properties"
@@ -382,8 +387,8 @@ msgstr ""
 
 #: ../data/ui/freetuxtv.glade.h:61
 msgid ""
-"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
-"channels=2"
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels="
+"2"
 msgstr ""
 
 #: ../data/ui/freetuxtv.glade.h:62
@@ -494,6 +499,38 @@ msgstr "Вернуться в нормальный режим"
 msgid "Activate/Deactivate the window always on top"
 msgstr "Закрепить поверх всех окон"
 
+#: ../data/ui/tvchannelsdatabase.glade.h:1
+msgid ""
+"<i>This will re-associate each stream with a TV Channel in the current "
+"database. This allow to associate a logo to a channel.</i>"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:2
+msgid "Update database from file:"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:3
+msgid " Synchronize TV Channel database"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:4
+msgid ""
+"<i>This will download each logos recorded in the local database from the "
+"remote database.</i>"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:5
+msgid "Remote directory:"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:6
+msgid "Update logos list"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:7
+msgid "<b>TV Channels database</b>"
+msgstr ""
+
 #: ../data/channels_groups.xml.in.h:1
 msgid "Alice (Unofficial)"
 msgstr ""
@@ -507,27 +544,24 @@ msgid "Afrikaans Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:4
-#, fuzzy
 msgid "Web TV (Afrikaans)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:5
 msgid "Albanian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:6
-#, fuzzy
 msgid "Web TV (Albanian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:7
 msgid "Amharic Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:8
-#, fuzzy
 msgid "Web TV (Amharic)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:9
 msgid "Arabic Web TV and Radio"
@@ -550,45 +584,40 @@ msgid "Armenian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:14
-#, fuzzy
 msgid "Web TV (Armenian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:15
 msgid "Azerbaijani Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:16
-#, fuzzy
 msgid "Web TV (Azerbaijani)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:17
 msgid "Bengali/Bangla Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:18
-#, fuzzy
 msgid "Web TV (Bengali/Bangla)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:19
 msgid "Bulgarian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:20
-#, fuzzy
 msgid "Web TV (Bulgarian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:21
 msgid "Cambodian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:22
-#, fuzzy
 msgid "Web TV (Cambodian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:23
 msgid "Catalan Web TV and Radio"
@@ -619,629 +648,606 @@ msgid "Croatian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:30
-#, fuzzy
 msgid "Web TV (Croatian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:31
 msgid "Web Radio (Croatian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:32
-msgid "Czech Web TV and Radio"
+msgid "Radio Browser Service (Croatian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:33
-msgid "Web TV (Czech)"
+msgid "Czech Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:34
-msgid "Web Radio (Czech)"
+msgid "Web TV (Czech)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:35
-msgid "Danish Web TV and Radio"
+msgid "Web Radio (Czech)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:36
-#, fuzzy
-msgid "Web TV (Danish)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Danish Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:37
-msgid "Dutch Web TV and Radio"
+msgid "Web TV (Danish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:38
-msgid "Web TV (Dutch)"
+msgid "Dutch Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:39
-msgid "Web Radio (Dutch)"
+msgid "Web TV (Dutch)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:40
-msgid "Web Cam (Dutch)"
+msgid "Web Radio (Dutch)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:41
-msgid "English Web TV and Radio"
+msgid "Web Cam (Dutch)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:42
-msgid "Web TV (English)"
+msgid "English Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:43
-msgid "Web Radio (English)"
+msgid "Web TV (English)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:44
-msgid "Web Programmes (English)"
+msgid "Web Radio (English)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:45
-msgid "Web Cam (English)"
+msgid "Web Programmes (English)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:46
-msgid "Estonian Web TV and Radio"
+msgid "Web Cam (English)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:47
-#, fuzzy
-msgid "Web TV (Estonian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Estonian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:48
-msgid "Finnish Web TV and Radio"
+msgid "Web TV (Estonian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:49
-#, fuzzy
-msgid "Web TV (Finnish)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Finnish Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:50
-msgid "French Web TV and Radio"
+msgid "Web TV (Finnish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:51
-msgid "Web TV (French)"
+msgid "French Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:52
-msgid "Web Radio (French)"
+msgid "Web TV (French)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:53
-msgid "Web Programmes (French)"
+msgid "Web Radio (French)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:54
-msgid "Georgian Web TV and Radio"
+msgid "Web Programmes (French)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:55
-#, fuzzy
-msgid "Web TV (Georgian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Georgian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:56
-msgid "German Web TV and Radio"
+msgid "Web TV (Georgian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:57
-msgid "Web TV (German)"
+msgid "German Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:58
-msgid "Web Radio (German)"
+msgid "Web TV (German)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:59
-msgid "Greek Web TV and Radio"
+msgid "Web Radio (German)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:60
-msgid "Web TV (Greek)"
+msgid "Kodinerds (German)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:61
-msgid "Web Radio (Greek)"
+msgid "Greek Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:62
-msgid "Hebrew Web TV and Radio"
+msgid "Web TV (Greek)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:63
-msgid "Web TV (Hebrew)"
+msgid "Web Radio (Greek)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:64
-msgid "Web Radio (Hebrew)"
+msgid "Hebrew Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:65
-msgid "Web Cam (Hebrew)"
+msgid "Web TV (Hebrew)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:66
-msgid "Hindi Web TV and Radio"
+msgid "Web Radio (Hebrew)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:67
-#, fuzzy
-msgid "Web TV (Hindi)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Cam (Hebrew)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:68
-msgid "Web Radio (Hindi)"
+msgid "Hindi Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:69
-msgid "Hungarian Web TV and Radio"
+msgid "Web TV (Hindi)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:70
-msgid "Web TV (Hungarian)"
+msgid "Web Radio (Hindi)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:71
-#, fuzzy
-msgid "Web Radio (Hungarian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Hungarian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:72
-msgid "Icelandic Web TV and Radio"
+msgid "Web TV (Hungarian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:73
-#, fuzzy
-msgid "Web TV (Icelandic)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Radio (Hungarian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:74
-msgid "Indonesian Web TV and Radio"
+msgid "Icelandic Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:75
-#, fuzzy
-msgid "Web TV (Indonesian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Icelandic)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:76
-msgid "Interlingua Web TV and Radio"
+msgid "Indonesian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:77
-msgid "Web Radio (Interlingua)"
+msgid "Web TV (Indonesian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:78
-msgid "Irish Web TV and Radio"
+msgid "Interlingua Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:79
-#, fuzzy
-msgid "Web TV (Irish)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Radio (Interlingua)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:80
-msgid "Web Radio (Irish)"
+msgid "Irish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:81
-msgid "Italian Web TV and Radio"
+msgid "Web TV (Irish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:82
-msgid "Web TV (Italian)"
+msgid "Web Radio (Irish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:83
-msgid "Web Radio (Italian)"
+msgid "Italian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:84
-msgid "Japanese Web TV and Radio"
+msgid "Web TV (Italian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:85
-msgid "Web TV (Japanese)"
+msgid "Web Radio (Italian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:86
-msgid "Web Radio (Japanese)"
+msgid "Japanese Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:87
-msgid "Web Cam (Japanese)"
+msgid "Web TV (Japanese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:88
-msgid "Kazakh Web TV and Radio"
+msgid "Web Radio (Japanese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:89
-#, fuzzy
-msgid "Web TV (Kazakh)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Cam (Japanese)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:90
-msgid "Korean Web TV and Radio"
+msgid "Kazakh Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:91
-msgid "Web TV (Korean)"
+msgid "Web TV (Kazakh)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:92
-msgid "Kurdish Web TV and Radio"
+msgid "Korean Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:93
-#, fuzzy
-msgid "Web TV (Kurdish)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Korean)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:94
-msgid "Latin Web TV and Radio"
+msgid "Kurdish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:95
-msgid "Web TV (Latin)"
+msgid "Web TV (Kurdish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:96
-msgid "Latvian/Lettish Web TV and Radio"
+msgid "Latin Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:97
-#, fuzzy
-msgid "Web TV (Latvian/Lettish)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Latin)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:98
-msgid "Lithuanian Web TV and Radio"
+msgid "Latvian/Lettish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:99
-#, fuzzy
-msgid "Web TV (Lithuanian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Latvian/Lettish)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:100
-msgid "Macedonian Web TV and Radio"
+msgid "Lithuanian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:101
-#, fuzzy
-msgid "Web TV (Macedonian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Lithuanian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:102
-msgid "Web Radio (Macedonian)"
+msgid "Macedonian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:103
-msgid "Malay Web TV and Radio"
+msgid "Web TV (Macedonian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:104
-#, fuzzy
-msgid "Web TV (Malay)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Radio (Macedonian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:105
-msgid "Malayalam Web TV and Radio"
+msgid "Malay Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:106
-msgid "Web TV (Malayalam)"
+msgid "Web TV (Malay)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:107
-msgid "Maltese Web TV and Radio"
+msgid "Malayalam Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:108
-#, fuzzy
-msgid "Web TV (Maltese)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Malayalam)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:109
-msgid "Web Radio (Maltese)"
+msgid "Maltese Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:110
-msgid "Moldavian Web TV and Radio"
+msgid "Web TV (Maltese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:111
-#, fuzzy
-msgid "Web TV (Moldavian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Radio (Maltese)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:112
-msgid "Mongolian Web TV and Radio"
+msgid "Moldavian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:113
-#, fuzzy
-msgid "Web TV (Mongolian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Moldavian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:114
-msgid "Norwegian Web TV and Radio"
+msgid "Mongolian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:115
-msgid "Web TV (Norwegian)"
+msgid "Web TV (Mongolian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:116
-msgid "Persian Web TV and Radio"
+msgid "Norwegian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:117
-msgid "Web TV (Persian)"
+msgid "Web TV (Norwegian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:118
-msgid "Polish Web TV and Radio"
+msgid "Persian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:119
-msgid "Web TV (Polish)"
+msgid "Web TV (Persian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:120
-msgid "Web Radio (Polish)"
+msgid "Polish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:121
-msgid "Web Cam (Polish)"
+msgid "Web TV (Polish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:122
-msgid "Portuguese Web TV and Radio"
+msgid "Web Radio (Polish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:123
-msgid "Web TV (Portuguese)"
+msgid "Web Cam (Polish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:124
-msgid "Web Radio (Portuguese)"
+msgid "Portuguese Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:125
-msgid "Punjabi Web TV and Radio"
+msgid "Web TV (Portuguese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:126
-#, fuzzy
-msgid "Web TV (Punjabi)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Radio (Portuguese)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:127
-msgid "Romanian Web TV and Radio"
+msgid "Punjabi Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:128
-msgid "Web TV (Romanian)"
+msgid "Web TV (Punjabi)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:129
-#, fuzzy
-msgid "Web Radio (Romanian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Romanian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:130
-msgid "Russian Web TV and Radio"
+msgid "Web TV (Romanian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:131
-msgid "Web TV (Russian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Radio (Romanian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:132
-msgid "Web Radio (Russian)"
+msgid "Russian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:133
+msgid "Web TV (Russian)"
+msgstr "Интернет ТВ (Русскоязычные каналы)"
+
+#: ../data/channels_groups.xml.in.h:134
+msgid "Web Radio (Russian)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:135
 msgid "Serbian Web TV and Radio"
 msgstr ""
 
-#: ../data/channels_groups.xml.in.h:134
-#, fuzzy
-msgid "Web TV (Serbian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
-
-#: ../data/channels_groups.xml.in.h:135
-msgid "Web Radio (Serbian)"
-msgstr ""
-
 #: ../data/channels_groups.xml.in.h:136
-msgid "Serbo-Croatian Web TV and Radio"
+msgid "Web TV (Serbian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:137
-#, fuzzy
-msgid "Web TV (Serbo-Croatian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Radio (Serbian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:138
-msgid "Web Radio (Serbo-Croatian)"
+msgid "Serbo-Croatian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:139
-msgid "Slovak Web TV and Radio"
+msgid "Web TV (Serbo-Croatian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:140
-msgid "Web TV (Slovak)"
+msgid "Web Radio (Serbo-Croatian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:141
-msgid "Web Radio (Slovak)"
+msgid "Slovak Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:142
-msgid "Slovenian Web TV and Radio"
+msgid "Web TV (Slovak)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:143
-#, fuzzy
-msgid "Web TV (Slovenian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Radio (Slovak)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:144
-msgid "Web Radio (Slovenian)"
+msgid "Slovenian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:145
-msgid "Spanish Web TV and Radio"
+msgid "Web TV (Slovenian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:146
-msgid "Web TV (Spanish)"
+msgid "Web Radio (Slovenian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:147
-msgid "Web Radio (Spanish)"
+msgid "Spanish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:148
-msgid "Web Programmes (Spanish)"
+msgid "Web TV (Spanish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:149
-msgid "Web Cam (Spanish)"
+msgid "Web Radio (Spanish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:150
-msgid "Swedish Web TV and Radio"
+msgid "Web Programmes (Spanish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:151
-msgid "Web TV (Swedish)"
+msgid "Web Cam (Spanish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:152
-msgid "Tagalog Web TV and Radio"
+msgid "Swedish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:153
-#, fuzzy
-msgid "Web TV (Tagalog)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Swedish)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:154
-msgid "Tamil Web TV and Radio"
+msgid "Tagalog Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:155
-#, fuzzy
-msgid "Web TV (Tamil)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Tagalog)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:156
-msgid "Thai Web TV and Radio"
+msgid "Tamil Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:157
-msgid "Web TV (Thai)"
+msgid "Web TV (Tamil)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:158
-msgid "Turkish Web TV and Radio"
+msgid "Thai Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:159
-msgid "Web TV (Turkish)"
+msgid "Web TV (Thai)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:160
-msgid "Web Radio (Turkish)"
+msgid "Turkish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:161
-msgid "Turkmen Web TV and Radio"
+msgid "Web TV (Turkish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:162
-#, fuzzy
-msgid "Web TV (Turkmen)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Radio (Turkish)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:163
-msgid "Ukrainian Web TV and Radio"
+msgid "Turkmen Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:164
-#, fuzzy
-msgid "Web TV (Ukrainian)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Turkmen)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:165
-msgid "Web Cam (Ukrainian)"
+msgid "Ukrainian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:166
-msgid "Urdu Web TV and Radio"
+msgid "Web TV (Ukrainian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:167
-#, fuzzy
-msgid "Web TV (Urdu)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web Cam (Ukrainian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:168
-msgid "Uzbek Web TV and Radio"
+msgid "Urdu Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:169
-#, fuzzy
-msgid "Web TV (Uzbek)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Urdu)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:170
-msgid "Vietnamese Web TV and Radio"
+msgid "Uzbek Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:171
-#, fuzzy
-msgid "Web TV (Vietnamese)"
-msgstr "Интернет ТВ (Русскоязычные каналы)"
+msgid "Web TV (Uzbek)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:172
-msgid "Web Radio (Vietnamese)"
+msgid "Vietnamese Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:173
-msgid "No lang Web TV and Radio"
+msgid "Web TV (Vietnamese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:174
-msgid "Web TV (No lang)"
+msgid "Web Radio (Vietnamese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:175
-msgid "Web Radio (No lang)"
+msgid "No lang Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:176
-msgid "Web Programmes (No lang)"
+msgid "Web TV (No lang)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:177
-msgid "Web Cam (No lang)"
+msgid "Web Radio (No lang)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:178
+msgid "Web Programmes (No lang)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:179
+msgid "Web Cam (No lang)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:180
 msgid "WebCam"
 msgstr ""
 
@@ -1258,9 +1264,9 @@ msgid "Watch television channels from internet"
 msgstr "Просмотр и запись ТВ -каналов онлайн"
 
 #: ../src/freetuxtv-cellrenderer-recordingslist.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "%ld min"
-msgstr "%lld мин"
+msgstr ""
 
 #. Update status bar
 #: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
@@ -1635,23 +1641,22 @@ msgid "Please enter the group's URI !"
 msgstr "Пожалуйста введите адрес списка каналов!"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Updating TV channel: %s"
-msgstr "_Обновить список каналов"
+msgstr ""
 
 #: ../src/freetuxtv-window-tv-channels-database.c:148
 msgid "TV channels synchronisation"
 msgstr ""
 
 #: ../src/freetuxtv-window-tv-channels-database.c:157
-#, fuzzy, c-format
+#, c-format
 msgid "Downloading the file '%s'"
-msgstr "Получаем: \"%s\""
+msgstr ""
 
 #: ../src/freetuxtv-window-tv-channels-database.c:172
-#, fuzzy
 msgid "Synchronizing TV channels from file"
-msgstr "Синхронизация списка каналов"
+msgstr ""
 
 #. Menu : FreetuxTV
 #: ../src/freetuxtv-window-main.c:278
@@ -1702,27 +1707,22 @@ msgstr "Отключить"
 msgid "Blend"
 msgstr ""
 
-# Смешивание"
 #: ../src/freetuxtv-window-main.c:353
 msgid "Bob"
 msgstr ""
 
-# Удваивание(Bob)"
 #: ../src/freetuxtv-window-main.c:362
 msgid "Discard"
 msgstr ""
 
-# Не учитывать(Discard)"
 #: ../src/freetuxtv-window-main.c:371
 msgid "Linear"
 msgstr ""
 
-# Выравнивание(Linear)"
 #: ../src/freetuxtv-window-main.c:380
 msgid "Mean"
 msgstr ""
 
-# Смешивание(Mean)"
 #: ../src/freetuxtv-window-main.c:389
 msgid "X"
 msgstr ""
