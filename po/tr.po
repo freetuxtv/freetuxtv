@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-27 13:59+0200\n"
-"PO-Revision-Date: 2012-10-26 18:41+0300\n"
-"Last-Translator: Şâkir Aşçı <sakirasci@gmail.com>\n"
+"POT-Creation-Date: 2020-10-06 14:04+0200\n"
+"PO-Revision-Date: 2019-06-10 13:53+0000\n"
+"Last-Translator: Şâkir Aşçı <Unknown>\n"
 "Language-Team: Ubuntu Türkçe Çeviri Takımı\n"
-"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Launchpad-Export-Date: 2021-08-30 13:36+0000\n"
+"X-Generator: Launchpad (build 76ef73296f01d64cdfe5c48bfc4daf35cdfde808)\n"
+"Language: tr\n"
 
 #: ../data/ui/addrecording.glade.h:1
 msgid "Add a recording"
@@ -195,7 +195,11 @@ msgstr "Proje Genelağ Sayfası"
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../data/ui/freetuxtv.glade.h:5
 msgid "translator-credits"
-msgstr "Şâkir Aşçı <sakirasci@gmail.com>"
+msgstr ""
+"Şâkir Aşçı <sakirasci@gmail.com>\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Şâkir Aşçı https://launchpad.net/~sakirasci"
 
 #: ../data/ui/freetuxtv.glade.h:6
 msgid "Group properties"
@@ -375,11 +379,11 @@ msgstr "İzleti - H.264 + MPGA (MP4)"
 
 #: ../data/ui/freetuxtv.glade.h:61
 msgid ""
-"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
-"channels=2"
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels="
+"2"
 msgstr ""
-"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
-"channels=2"
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels="
+"2"
 
 #: ../data/ui/freetuxtv.glade.h:62
 msgid "mp4"
@@ -489,6 +493,38 @@ msgstr "Varsayılan görünüm"
 msgid "Activate/Deactivate the window always on top"
 msgstr "Pencereyi üstte tutmayı aç/kapat"
 
+#: ../data/ui/tvchannelsdatabase.glade.h:1
+msgid ""
+"<i>This will re-associate each stream with a TV Channel in the current "
+"database. This allow to associate a logo to a channel.</i>"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:2
+msgid "Update database from file:"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:3
+msgid " Synchronize TV Channel database"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:4
+msgid ""
+"<i>This will download each logos recorded in the local database from the "
+"remote database.</i>"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:5
+msgid "Remote directory:"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:6
+msgid "Update logos list"
+msgstr ""
+
+#: ../data/ui/tvchannelsdatabase.glade.h:7
+msgid "<b>TV Channels database</b>"
+msgstr ""
+
 #: ../data/channels_groups.xml.in.h:1
 msgid "Alice (Unofficial)"
 msgstr "Alice (Resmî olmayan)"
@@ -498,34 +534,28 @@ msgid "SFR TV (Unofficial)"
 msgstr "SFR TV (Resmî olmayan)"
 
 #: ../data/channels_groups.xml.in.h:3
-#, fuzzy
 msgid "Afrikaans Web TV and Radio"
-msgstr "Farsça Genelağ TV ve Radyoları"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:4
-#, fuzzy
 msgid "Web TV (Afrikaans)"
-msgstr "Genelağ Televizyonu (Farsça)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:5
-#, fuzzy
 msgid "Albanian Web TV and Radio"
-msgstr "Romence Genelağ TV ve Radyoları"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:6
-#, fuzzy
 msgid "Web TV (Albanian)"
-msgstr "Genelağ Televizyonu (Romence)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:7
-#, fuzzy
 msgid "Amharic Web TV and Radio"
-msgstr "Arapça Genelağ TV ve Radyoları"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:8
-#, fuzzy
 msgid "Web TV (Amharic)"
-msgstr "Genelağ Televizyonu (Arapça)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:9
 msgid "Arabic Web TV and Radio"
@@ -540,59 +570,48 @@ msgid "Web Radio (Arabic)"
 msgstr "Genelağ Radyosu (Arapça)"
 
 #: ../data/channels_groups.xml.in.h:12
-#, fuzzy
 msgid "Web Cam (Arabic)"
-msgstr "Genelağ Televizyonu (Arapça)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:13
-#, fuzzy
 msgid "Armenian Web TV and Radio"
-msgstr "Romence Genelağ TV ve Radyoları"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:14
-#, fuzzy
 msgid "Web TV (Armenian)"
-msgstr "Genelağ Televizyonu (Romence)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:15
-#, fuzzy
 msgid "Azerbaijani Web TV and Radio"
-msgstr "Farsça Genelağ TV ve Radyoları"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:16
-#, fuzzy
 msgid "Web TV (Azerbaijani)"
-msgstr "Genelağ Televizyonu (Farsça)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:17
-#, fuzzy
 msgid "Bengali/Bangla Web TV and Radio"
-msgstr "Macarca Genelağ TV ve Radyoları"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:18
-#, fuzzy
 msgid "Web TV (Bengali/Bangla)"
-msgstr "Genelağ Televizyonu (Macarca)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:19
-#, fuzzy
 msgid "Bulgarian Web TV and Radio"
-msgstr "Macarca Genelağ TV ve Radyoları"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:20
-#, fuzzy
 msgid "Web TV (Bulgarian)"
-msgstr "Genelağ Televizyonu (Macarca)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:21
-#, fuzzy
 msgid "Cambodian Web TV and Radio"
-msgstr "İtalyanca Genelağ TV ve Radyoları"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:22
-#, fuzzy
 msgid "Web TV (Cambodian)"
-msgstr "Genelağ Televizyonu (Katalonca)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:23
 msgid "Catalan Web TV and Radio"
@@ -619,696 +638,610 @@ msgid "Web Radio (Chinese)"
 msgstr "Genelağ Radyosu (Çince)"
 
 #: ../data/channels_groups.xml.in.h:29
-#, fuzzy
 msgid "Croatian Web TV and Radio"
-msgstr "Katalonca Genelağ TV ve Radyoları"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:30
-#, fuzzy
 msgid "Web TV (Croatian)"
-msgstr "Genelağ Televizyonu (Katalonca)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:31
-#, fuzzy
 msgid "Web Radio (Croatian)"
-msgstr "Genelağ Radyosu (Katalonca)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:32
+msgid "Radio Browser Service (Croatian)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:33
 msgid "Czech Web TV and Radio"
 msgstr "Çekçe Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:33
+#: ../data/channels_groups.xml.in.h:34
 msgid "Web TV (Czech)"
 msgstr "Genelağ Televizyonu (Çekçe)"
 
-#: ../data/channels_groups.xml.in.h:34
-#, fuzzy
-msgid "Web Radio (Czech)"
-msgstr "Genelağ Radyosu (Fransızca)"
-
 #: ../data/channels_groups.xml.in.h:35
-#, fuzzy
-msgid "Danish Web TV and Radio"
-msgstr "İspanyolca Genelağ TV ve Radyoları"
+msgid "Web Radio (Czech)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:36
-#, fuzzy
-msgid "Web TV (Danish)"
-msgstr "Genelağ Televizyonu (İspanyolca)"
+msgid "Danish Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:37
+msgid "Web TV (Danish)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:38
 msgid "Dutch Web TV and Radio"
 msgstr "Flemenkçe Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:38
+#: ../data/channels_groups.xml.in.h:39
 msgid "Web TV (Dutch)"
 msgstr "Genelağ Televizyonu (Flemenkçe)"
 
-#: ../data/channels_groups.xml.in.h:39
-#, fuzzy
-msgid "Web Radio (Dutch)"
-msgstr "Genelağ Radyosu (Fransızca)"
-
 #: ../data/channels_groups.xml.in.h:40
-#, fuzzy
-msgid "Web Cam (Dutch)"
-msgstr "Genelağ Televizyonu (Flemenkçe)"
+msgid "Web Radio (Dutch)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:41
+msgid "Web Cam (Dutch)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:42
 msgid "English Web TV and Radio"
 msgstr "İngilizce Genelağ TV ve Radyosu"
 
-#: ../data/channels_groups.xml.in.h:42
+#: ../data/channels_groups.xml.in.h:43
 msgid "Web TV (English)"
 msgstr "Genelağ Televizyonu (İngilizce)"
 
-#: ../data/channels_groups.xml.in.h:43
+#: ../data/channels_groups.xml.in.h:44
 msgid "Web Radio (English)"
 msgstr "Genelağ Radyosu (İngilizce)"
 
-#: ../data/channels_groups.xml.in.h:44
+#: ../data/channels_groups.xml.in.h:45
 msgid "Web Programmes (English)"
 msgstr "Genelağ Programları (İngilizce)"
 
-#: ../data/channels_groups.xml.in.h:45
-#, fuzzy
-msgid "Web Cam (English)"
-msgstr "Genelağ Televizyonu (İngilizce)"
-
 #: ../data/channels_groups.xml.in.h:46
-#, fuzzy
-msgid "Estonian Web TV and Radio"
-msgstr "Romence Genelağ TV ve Radyoları"
+msgid "Web Cam (English)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:47
-#, fuzzy
-msgid "Web TV (Estonian)"
-msgstr "Genelağ Televizyonu (Romence)"
+msgid "Estonian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:48
-#, fuzzy
-msgid "Finnish Web TV and Radio"
-msgstr "İspanyolca Genelağ TV ve Radyoları"
+msgid "Web TV (Estonian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:49
-#, fuzzy
-msgid "Web TV (Finnish)"
-msgstr "Genelağ Televizyonu (İspanyolca)"
+msgid "Finnish Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:50
+msgid "Web TV (Finnish)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:51
 msgid "French Web TV and Radio"
 msgstr "Fransızca Genelağ TV ve Radyosu"
 
-#: ../data/channels_groups.xml.in.h:51
+#: ../data/channels_groups.xml.in.h:52
 msgid "Web TV (French)"
 msgstr "Genelağ Televizyonu (Fransızca)"
 
-#: ../data/channels_groups.xml.in.h:52
+#: ../data/channels_groups.xml.in.h:53
 msgid "Web Radio (French)"
 msgstr "Genelağ Radyosu (Fransızca)"
 
-#: ../data/channels_groups.xml.in.h:53
+#: ../data/channels_groups.xml.in.h:54
 msgid "Web Programmes (French)"
 msgstr "Genelağ Programları (Fransızca)"
 
-#: ../data/channels_groups.xml.in.h:54
-#, fuzzy
-msgid "Georgian Web TV and Radio"
-msgstr "Almanca Genelağ TV ve Radyoları"
-
 #: ../data/channels_groups.xml.in.h:55
-#, fuzzy
-msgid "Web TV (Georgian)"
-msgstr "Genelağ Televizyonu (Almanca)"
+msgid "Georgian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:56
+msgid "Web TV (Georgian)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:57
 msgid "German Web TV and Radio"
 msgstr "Almanca Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:57
+#: ../data/channels_groups.xml.in.h:58
 msgid "Web TV (German)"
 msgstr "Genelağ Televizyonu (Almanca)"
 
-#: ../data/channels_groups.xml.in.h:58
+#: ../data/channels_groups.xml.in.h:59
 msgid "Web Radio (German)"
 msgstr "Genelağ Radyosu (Almanca)"
 
-#: ../data/channels_groups.xml.in.h:59
+#: ../data/channels_groups.xml.in.h:60
+msgid "Kodinerds (German)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:61
 msgid "Greek Web TV and Radio"
 msgstr "Yunanca Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:60
+#: ../data/channels_groups.xml.in.h:62
 msgid "Web TV (Greek)"
 msgstr "Genelağ Televizyonu (Yunanca)"
 
-#: ../data/channels_groups.xml.in.h:61
-#, fuzzy
-msgid "Web Radio (Greek)"
-msgstr "Genelağ Radyosu (Almanca)"
-
-#: ../data/channels_groups.xml.in.h:62
-#, fuzzy
-msgid "Hebrew Web TV and Radio"
-msgstr "Yunanca Genelağ TV ve Radyoları"
-
 #: ../data/channels_groups.xml.in.h:63
-#, fuzzy
-msgid "Web TV (Hebrew)"
-msgstr "Genelağ Televizyonu (Yunanca)"
+msgid "Web Radio (Greek)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:64
-#, fuzzy
-msgid "Web Radio (Hebrew)"
-msgstr "Genelağ Radyosu (Fransızca)"
+msgid "Hebrew Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:65
-#, fuzzy
-msgid "Web Cam (Hebrew)"
-msgstr "Genelağ Televizyonu (Yunanca)"
+msgid "Web TV (Hebrew)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:66
-#, fuzzy
-msgid "Hindi Web TV and Radio"
-msgstr "Latince Genelağ TV ve Radyoları"
+msgid "Web Radio (Hebrew)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:67
-#, fuzzy
-msgid "Web TV (Hindi)"
-msgstr "Genelağ Televizyonu (Latince)"
+msgid "Web Cam (Hebrew)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:68
-#, fuzzy
-msgid "Web Radio (Hindi)"
-msgstr "Genelağ Radyosu (Çince)"
+msgid "Hindi Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:69
+msgid "Web TV (Hindi)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:70
+msgid "Web Radio (Hindi)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:71
 msgid "Hungarian Web TV and Radio"
 msgstr "Macarca Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:70
+#: ../data/channels_groups.xml.in.h:72
 msgid "Web TV (Hungarian)"
 msgstr "Genelağ Televizyonu (Macarca)"
 
-#: ../data/channels_groups.xml.in.h:71
-#, fuzzy
-msgid "Web Radio (Hungarian)"
-msgstr "Genelağ Televizyonu (Macarca)"
-
-#: ../data/channels_groups.xml.in.h:72
-#, fuzzy
-msgid "Icelandic Web TV and Radio"
-msgstr "İtalyanca Genelağ TV ve Radyoları"
-
 #: ../data/channels_groups.xml.in.h:73
-#, fuzzy
-msgid "Web TV (Icelandic)"
-msgstr "Genelağ Televizyonu (İtalyanca)"
+msgid "Web Radio (Hungarian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:74
-#, fuzzy
-msgid "Indonesian Web TV and Radio"
-msgstr "Farsça Genelağ TV ve Radyoları"
+msgid "Icelandic Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:75
-#, fuzzy
-msgid "Web TV (Indonesian)"
-msgstr "Genelağ Televizyonu (Farsça)"
+msgid "Web TV (Icelandic)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:76
-#, fuzzy
-msgid "Interlingua Web TV and Radio"
-msgstr "İtalyanca Genelağ TV ve Radyoları"
+msgid "Indonesian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:77
-#, fuzzy
-msgid "Web Radio (Interlingua)"
-msgstr "Genelağ Radyosu (İtalyanca)"
+msgid "Web TV (Indonesian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:78
-#, fuzzy
-msgid "Irish Web TV and Radio"
-msgstr "Türkçe Genelağ TV ve Radyoları"
+msgid "Interlingua Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:79
-#, fuzzy
-msgid "Web TV (Irish)"
-msgstr "Genelağ Televizyonu (Türkçe)"
+msgid "Web Radio (Interlingua)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:80
-#, fuzzy
-msgid "Web Radio (Irish)"
-msgstr "Genelağ Radyosu (İngilizce)"
+msgid "Irish Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:81
+msgid "Web TV (Irish)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:82
+msgid "Web Radio (Irish)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:83
 msgid "Italian Web TV and Radio"
 msgstr "İtalyanca Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:82
+#: ../data/channels_groups.xml.in.h:84
 msgid "Web TV (Italian)"
 msgstr "Genelağ Televizyonu (İtalyanca)"
 
-#: ../data/channels_groups.xml.in.h:83
+#: ../data/channels_groups.xml.in.h:85
 msgid "Web Radio (Italian)"
 msgstr "Genelağ Radyosu (İtalyanca)"
 
-#: ../data/channels_groups.xml.in.h:84
+#: ../data/channels_groups.xml.in.h:86
 msgid "Japanese Web TV and Radio"
 msgstr "Japonca Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:85
+#: ../data/channels_groups.xml.in.h:87
 msgid "Web TV (Japanese)"
 msgstr "Genelağ Televizyonu (Japonca)"
 
-#: ../data/channels_groups.xml.in.h:86
-#, fuzzy
-msgid "Web Radio (Japanese)"
-msgstr "Genelağ Radyosu (Çince)"
-
-#: ../data/channels_groups.xml.in.h:87
-#, fuzzy
-msgid "Web Cam (Japanese)"
-msgstr "Genelağ Televizyonu (Japonca)"
-
 #: ../data/channels_groups.xml.in.h:88
-#, fuzzy
-msgid "Kazakh Web TV and Radio"
-msgstr "Çekçe Genelağ TV ve Radyoları"
+msgid "Web Radio (Japanese)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:89
-#, fuzzy
-msgid "Web TV (Kazakh)"
-msgstr "Genelağ Televizyonu (Çekçe)"
+msgid "Web Cam (Japanese)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:90
+msgid "Kazakh Web TV and Radio"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:91
+msgid "Web TV (Kazakh)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:92
 msgid "Korean Web TV and Radio"
 msgstr "Korece Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:91
+#: ../data/channels_groups.xml.in.h:93
 msgid "Web TV (Korean)"
 msgstr "Genelağ Televizyonu (Korece)"
 
-#: ../data/channels_groups.xml.in.h:92
-#, fuzzy
-msgid "Kurdish Web TV and Radio"
-msgstr "Türkçe Genelağ TV ve Radyoları"
-
-#: ../data/channels_groups.xml.in.h:93
-#, fuzzy
-msgid "Web TV (Kurdish)"
-msgstr "Genelağ Televizyonu (Türkçe)"
-
 #: ../data/channels_groups.xml.in.h:94
+msgid "Kurdish Web TV and Radio"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:95
+msgid "Web TV (Kurdish)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:96
 msgid "Latin Web TV and Radio"
 msgstr "Latince Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:95
+#: ../data/channels_groups.xml.in.h:97
 msgid "Web TV (Latin)"
 msgstr "Genelağ Televizyonu (Latince)"
 
-#: ../data/channels_groups.xml.in.h:96
-#, fuzzy
-msgid "Latvian/Lettish Web TV and Radio"
-msgstr "Latince Genelağ TV ve Radyoları"
-
-#: ../data/channels_groups.xml.in.h:97
-#, fuzzy
-msgid "Web TV (Latvian/Lettish)"
-msgstr "Genelağ Televizyonu (Latince)"
-
 #: ../data/channels_groups.xml.in.h:98
-#, fuzzy
-msgid "Lithuanian Web TV and Radio"
-msgstr "İtalyanca Genelağ TV ve Radyoları"
+msgid "Latvian/Lettish Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:99
-#, fuzzy
-msgid "Web TV (Lithuanian)"
-msgstr "Genelağ Televizyonu (İtalyanca)"
+msgid "Web TV (Latvian/Lettish)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:100
-#, fuzzy
-msgid "Macedonian Web TV and Radio"
-msgstr "Romence Genelağ TV ve Radyoları"
+msgid "Lithuanian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:101
-#, fuzzy
-msgid "Web TV (Macedonian)"
-msgstr "Genelağ Televizyonu (Romence)"
+msgid "Web TV (Lithuanian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:102
-#, fuzzy
-msgid "Web Radio (Macedonian)"
-msgstr "Genelağ Radyosu (İtalyanca)"
+msgid "Macedonian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:103
-#, fuzzy
-msgid "Malay Web TV and Radio"
-msgstr "Katalonca Genelağ TV ve Radyoları"
+msgid "Web TV (Macedonian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:104
-#, fuzzy
-msgid "Web TV (Malay)"
-msgstr "Genelağ Televizyonu (Katalonca)"
+msgid "Web Radio (Macedonian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:105
-#, fuzzy
-msgid "Malayalam Web TV and Radio"
-msgstr "Katalonca Genelağ TV ve Radyoları"
+msgid "Malay Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:106
-#, fuzzy
-msgid "Web TV (Malayalam)"
-msgstr "Genelağ Televizyonu (Katalonca)"
+msgid "Web TV (Malay)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:107
-#, fuzzy
-msgid "Maltese Web TV and Radio"
-msgstr "Japonca Genelağ TV ve Radyoları"
+msgid "Malayalam Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:108
-#, fuzzy
-msgid "Web TV (Maltese)"
-msgstr "Genelağ Televizyonu (Japonca)"
+msgid "Web TV (Malayalam)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:109
-#, fuzzy
-msgid "Web Radio (Maltese)"
-msgstr "Genelağ Radyosu (Çince)"
+msgid "Maltese Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:110
-#, fuzzy
-msgid "Moldavian Web TV and Radio"
-msgstr "Romence Genelağ TV ve Radyoları"
+msgid "Web TV (Maltese)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:111
-#, fuzzy
-msgid "Web TV (Moldavian)"
-msgstr "Genelağ Televizyonu (Romence)"
+msgid "Web Radio (Maltese)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:112
-#, fuzzy
-msgid "Mongolian Web TV and Radio"
-msgstr "Romence Genelağ TV ve Radyoları"
+msgid "Moldavian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:113
-#, fuzzy
-msgid "Web TV (Mongolian)"
-msgstr "Genelağ Televizyonu (Romence)"
+msgid "Web TV (Moldavian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:114
+msgid "Mongolian Web TV and Radio"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:115
+msgid "Web TV (Mongolian)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:116
 msgid "Norwegian Web TV and Radio"
 msgstr "Norveççe Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:115
+#: ../data/channels_groups.xml.in.h:117
 msgid "Web TV (Norwegian)"
 msgstr "Genelağ Televizyonu (Norveççe)"
 
-#: ../data/channels_groups.xml.in.h:116
+#: ../data/channels_groups.xml.in.h:118
 msgid "Persian Web TV and Radio"
 msgstr "Farsça Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:117
+#: ../data/channels_groups.xml.in.h:119
 msgid "Web TV (Persian)"
 msgstr "Genelağ Televizyonu (Farsça)"
 
-#: ../data/channels_groups.xml.in.h:118
+#: ../data/channels_groups.xml.in.h:120
 msgid "Polish Web TV and Radio"
 msgstr "Lehçe Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:119
+#: ../data/channels_groups.xml.in.h:121
 msgid "Web TV (Polish)"
 msgstr "Genelağ Televizyonu (Lehçe)"
 
-#: ../data/channels_groups.xml.in.h:120
-#, fuzzy
-msgid "Web Radio (Polish)"
-msgstr "Genelağ Radyosu (İngilizce)"
-
-#: ../data/channels_groups.xml.in.h:121
-#, fuzzy
-msgid "Web Cam (Polish)"
-msgstr "Genelağ Televizyonu (Lehçe)"
-
 #: ../data/channels_groups.xml.in.h:122
+msgid "Web Radio (Polish)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:123
+msgid "Web Cam (Polish)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:124
 msgid "Portuguese Web TV and Radio"
 msgstr "Portekizce Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:123
+#: ../data/channels_groups.xml.in.h:125
 msgid "Web TV (Portuguese)"
 msgstr "Genelağ Televizyonu (Portekizce)"
 
-#: ../data/channels_groups.xml.in.h:124
-#, fuzzy
-msgid "Web Radio (Portuguese)"
-msgstr "Genelağ Televizyonu (Portekizce)"
-
-#: ../data/channels_groups.xml.in.h:125
-#, fuzzy
-msgid "Punjabi Web TV and Radio"
-msgstr "Arapça Genelağ TV ve Radyoları"
-
 #: ../data/channels_groups.xml.in.h:126
-#, fuzzy
-msgid "Web TV (Punjabi)"
-msgstr "Genelağ Televizyonu (Arapça)"
+msgid "Web Radio (Portuguese)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:127
+msgid "Punjabi Web TV and Radio"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:128
+msgid "Web TV (Punjabi)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:129
 msgid "Romanian Web TV and Radio"
 msgstr "Romence Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:128
+#: ../data/channels_groups.xml.in.h:130
 msgid "Web TV (Romanian)"
 msgstr "Genelağ Televizyonu (Romence)"
 
-#: ../data/channels_groups.xml.in.h:129
-#, fuzzy
+#: ../data/channels_groups.xml.in.h:131
 msgid "Web Radio (Romanian)"
-msgstr "Genelağ Radyosu (Rusça)"
+msgstr ""
 
-#: ../data/channels_groups.xml.in.h:130
+#: ../data/channels_groups.xml.in.h:132
 msgid "Russian Web TV and Radio"
 msgstr "Rusça Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:131
+#: ../data/channels_groups.xml.in.h:133
 msgid "Web TV (Russian)"
 msgstr "Genelağ Televizyonu (Rusça)"
 
-#: ../data/channels_groups.xml.in.h:132
+#: ../data/channels_groups.xml.in.h:134
 msgid "Web Radio (Russian)"
 msgstr "Genelağ Radyosu (Rusça)"
 
-#: ../data/channels_groups.xml.in.h:133
-#, fuzzy
-msgid "Serbian Web TV and Radio"
-msgstr "Farsça Genelağ TV ve Radyoları"
-
-#: ../data/channels_groups.xml.in.h:134
-#, fuzzy
-msgid "Web TV (Serbian)"
-msgstr "Genelağ Televizyonu (Farsça)"
-
 #: ../data/channels_groups.xml.in.h:135
-#, fuzzy
-msgid "Web Radio (Serbian)"
-msgstr "Genelağ Radyosu (Almanca)"
+msgid "Serbian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:136
-#, fuzzy
-msgid "Serbo-Croatian Web TV and Radio"
-msgstr "Farsça Genelağ TV ve Radyoları"
+msgid "Web TV (Serbian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:137
-#, fuzzy
-msgid "Web TV (Serbo-Croatian)"
-msgstr "Genelağ Televizyonu (Farsça)"
+msgid "Web Radio (Serbian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:138
-#, fuzzy
-msgid "Web Radio (Serbo-Croatian)"
-msgstr "Genelağ Radyosu (Katalonca)"
+msgid "Serbo-Croatian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:139
+msgid "Web TV (Serbo-Croatian)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:140
+msgid "Web Radio (Serbo-Croatian)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:141
 msgid "Slovak Web TV and Radio"
 msgstr "Slovakça Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:140
+#: ../data/channels_groups.xml.in.h:142
 msgid "Web TV (Slovak)"
 msgstr "Genelağ Televizyonu (Slovakça)"
 
-#: ../data/channels_groups.xml.in.h:141
-#, fuzzy
-msgid "Web Radio (Slovak)"
-msgstr "Genelağ Televizyonu (Slovakça)"
-
-#: ../data/channels_groups.xml.in.h:142
-#, fuzzy
-msgid "Slovenian Web TV and Radio"
-msgstr "Slovakça Genelağ TV ve Radyoları"
-
 #: ../data/channels_groups.xml.in.h:143
-#, fuzzy
-msgid "Web TV (Slovenian)"
-msgstr "Genelağ Televizyonu (Slovakça)"
+msgid "Web Radio (Slovak)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:144
-#, fuzzy
-msgid "Web Radio (Slovenian)"
-msgstr "Genelağ Radyosu (İtalyanca)"
+msgid "Slovenian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:145
+msgid "Web TV (Slovenian)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:146
+msgid "Web Radio (Slovenian)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:147
 msgid "Spanish Web TV and Radio"
 msgstr "İspanyolca Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:146
+#: ../data/channels_groups.xml.in.h:148
 msgid "Web TV (Spanish)"
 msgstr "Genelağ Televizyonu (İspanyolca)"
 
-#: ../data/channels_groups.xml.in.h:147
+#: ../data/channels_groups.xml.in.h:149
 msgid "Web Radio (Spanish)"
 msgstr "Genelağ Radyosu (İspanyolca)"
 
-#: ../data/channels_groups.xml.in.h:148
-#, fuzzy
-msgid "Web Programmes (Spanish)"
-msgstr "Genelağ Programları (İngilizce)"
-
-#: ../data/channels_groups.xml.in.h:149
-#, fuzzy
-msgid "Web Cam (Spanish)"
-msgstr "Genelağ Televizyonu (İspanyolca)"
-
 #: ../data/channels_groups.xml.in.h:150
+msgid "Web Programmes (Spanish)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:151
+msgid "Web Cam (Spanish)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:152
 msgid "Swedish Web TV and Radio"
 msgstr "İsveççe Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:151
+#: ../data/channels_groups.xml.in.h:153
 msgid "Web TV (Swedish)"
 msgstr "Genelağ Televizyonu (İsveççe)"
 
-#: ../data/channels_groups.xml.in.h:152
-#, fuzzy
-msgid "Tagalog Web TV and Radio"
-msgstr "Tayca Genelağ TV ve Radyoları"
-
-#: ../data/channels_groups.xml.in.h:153
-#, fuzzy
-msgid "Web TV (Tagalog)"
-msgstr "Genelağ Televizyonu (Tayca)"
-
 #: ../data/channels_groups.xml.in.h:154
-#, fuzzy
-msgid "Tamil Web TV and Radio"
-msgstr "Tayca Genelağ TV ve Radyoları"
+msgid "Tagalog Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:155
-#, fuzzy
-msgid "Web TV (Tamil)"
-msgstr "Genelağ Televizyonu (Tayca)"
+msgid "Web TV (Tagalog)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:156
+msgid "Tamil Web TV and Radio"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:157
+msgid "Web TV (Tamil)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:158
 msgid "Thai Web TV and Radio"
 msgstr "Tayca Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:157
+#: ../data/channels_groups.xml.in.h:159
 msgid "Web TV (Thai)"
 msgstr "Genelağ Televizyonu (Tayca)"
 
-#: ../data/channels_groups.xml.in.h:158
+#: ../data/channels_groups.xml.in.h:160
 msgid "Turkish Web TV and Radio"
 msgstr "Türkçe Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:159
+#: ../data/channels_groups.xml.in.h:161
 msgid "Web TV (Turkish)"
 msgstr "Genelağ Televizyonu (Türkçe)"
 
-#: ../data/channels_groups.xml.in.h:160
-#, fuzzy
-msgid "Web Radio (Turkish)"
-msgstr "Genelağ Televizyonu (Türkçe)"
-
-#: ../data/channels_groups.xml.in.h:161
-#, fuzzy
-msgid "Turkmen Web TV and Radio"
-msgstr "Türkçe Genelağ TV ve Radyoları"
-
 #: ../data/channels_groups.xml.in.h:162
-#, fuzzy
-msgid "Web TV (Turkmen)"
-msgstr "Genelağ Televizyonu (Türkçe)"
+msgid "Web Radio (Turkish)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:163
-#, fuzzy
-msgid "Ukrainian Web TV and Radio"
-msgstr "Romence Genelağ TV ve Radyoları"
+msgid "Turkmen Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:164
-#, fuzzy
-msgid "Web TV (Ukrainian)"
-msgstr "Genelağ Televizyonu (Romence)"
+msgid "Web TV (Turkmen)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:165
-#, fuzzy
-msgid "Web Cam (Ukrainian)"
-msgstr "Genelağ Televizyonu (Romence)"
+msgid "Ukrainian Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:166
-#, fuzzy
-msgid "Urdu Web TV and Radio"
-msgstr "Flemenkçe Genelağ TV ve Radyoları"
+msgid "Web TV (Ukrainian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:167
-#, fuzzy
-msgid "Web TV (Urdu)"
-msgstr "Genelağ Televizyonu (Flemenkçe)"
+msgid "Web Cam (Ukrainian)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:168
-#, fuzzy
-msgid "Uzbek Web TV and Radio"
-msgstr "Yunanca Genelağ TV ve Radyoları"
+msgid "Urdu Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:169
-#, fuzzy
-msgid "Web TV (Uzbek)"
-msgstr "Genelağ Televizyonu (Çekçe)"
+msgid "Web TV (Urdu)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:170
-#, fuzzy
-msgid "Vietnamese Web TV and Radio"
-msgstr "Çince Genelağ TV ve Radyoları"
+msgid "Uzbek Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:171
-#, fuzzy
-msgid "Web TV (Vietnamese)"
-msgstr "Genelağ Televizyonu (Çince)"
+msgid "Web TV (Uzbek)"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:172
-#, fuzzy
-msgid "Web Radio (Vietnamese)"
-msgstr "Genelağ Radyosu (Çince)"
+msgid "Vietnamese Web TV and Radio"
+msgstr ""
 
 #: ../data/channels_groups.xml.in.h:173
+msgid "Web TV (Vietnamese)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:174
+msgid "Web Radio (Vietnamese)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:175
 msgid "No lang Web TV and Radio"
 msgstr "Dil Ayrımsız Genelağ TV ve Radyoları"
 
-#: ../data/channels_groups.xml.in.h:174
+#: ../data/channels_groups.xml.in.h:176
 msgid "Web TV (No lang)"
 msgstr "Genelağ Televizyonu (Dil ayrımsız)"
 
-#: ../data/channels_groups.xml.in.h:175
+#: ../data/channels_groups.xml.in.h:177
 msgid "Web Radio (No lang)"
 msgstr "Genelağ Radyosu (Dil ayrımsız)"
 
-#: ../data/channels_groups.xml.in.h:176
-#, fuzzy
-msgid "Web Programmes (No lang)"
-msgstr "Genelağ Programları (İngilizce)"
-
-#: ../data/channels_groups.xml.in.h:177
-#, fuzzy
-msgid "Web Cam (No lang)"
-msgstr "Genelağ Televizyonu (Dil ayrımsız)"
-
 #: ../data/channels_groups.xml.in.h:178
+msgid "Web Programmes (No lang)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:179
+msgid "Web Cam (No lang)"
+msgstr ""
+
+#: ../data/channels_groups.xml.in.h:180
 msgid "WebCam"
 msgstr "Ağ Kamerası"
 
@@ -1325,9 +1258,9 @@ msgid "Watch television channels from internet"
 msgstr "Genelağdan televizyon kanallarını izleyin"
 
 #: ../src/freetuxtv-cellrenderer-recordingslist.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "%ld min"
-msgstr "%lld min"
+msgstr ""
 
 #. Update status bar
 #: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
@@ -1806,23 +1739,22 @@ msgid "Please enter the group's URI !"
 msgstr "Lütfen listenin bulunağını yazın !"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Updating TV channel: %s"
-msgstr "_TV Kanal listesini güncelle"
+msgstr ""
 
 #: ../src/freetuxtv-window-tv-channels-database.c:148
 msgid "TV channels synchronisation"
 msgstr ""
 
 #: ../src/freetuxtv-window-tv-channels-database.c:157
-#, fuzzy, c-format
+#, c-format
 msgid "Downloading the file '%s'"
-msgstr "\"%s\" dosyası alınıyor"
+msgstr ""
 
 #: ../src/freetuxtv-window-tv-channels-database.c:172
-#, fuzzy
 msgid "Synchronizing TV channels from file"
-msgstr "TV kanalları listesi eşleniyor"
+msgstr ""
 
 #. Menu : FreetuxTV
 #: ../src/freetuxtv-window-main.c:278
@@ -1844,9 +1776,8 @@ msgid "Add/create a channels group from different sources"
 msgstr ""
 
 #: ../src/freetuxtv-window-main.c:311
-#, fuzzy
 msgid "_Synchronize TV channels database"
-msgstr "TV kanalları listesi eşleniyor"
+msgstr ""
 
 #: ../src/freetuxtv-window-main.c:313
 msgid ""
@@ -1925,9 +1856,9 @@ msgid "An error occurred"
 msgstr "Bir hatâ oluştu"
 
 #: ../src/main.c:607
-#, fuzzy, c-format
+#, c-format
 msgid "Synchronizing the list of tv channels: %s..."
-msgstr "TV kanal listesi eşleniyor..."
+msgstr ""
 
 #: ../src/main.c:642
 msgid "Initializing user configuration..."
@@ -1975,9 +1906,3 @@ msgstr "Kaydediliyor: %s"
 #: ../src/main.c:1494
 msgid "Are you sure you want to quit?"
 msgstr "Çıkmak istediğinize emin misiniz?"
-
-#~ msgid "Modern Greek Web TV and Radio"
-#~ msgstr "Modern Yunanca Genelağ TV ve Radyoları"
-
-#~ msgid "Web TV (Modern Greek)"
-#~ msgstr "Genelağ Televizyonu (Modern Yunanca)"

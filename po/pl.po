@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-27 13:59+0200\n"
-"PO-Revision-Date: 2013-11-24 11:00+0100\n"
-"Last-Translator: Eric Beuque <eric.beuque@gmail.com>\n"
+"POT-Creation-Date: 2020-10-06 14:04+0200\n"
+"PO-Revision-Date: 2021-06-01 17:57+0000\n"
+"Last-Translator: kris777 <Unknown>\n"
 "Language-Team: Polish <eric.beuque@gmail.com>\n"
-"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2021-08-30 13:36+0000\n"
+"X-Generator: Launchpad (build 76ef73296f01d64cdfe5c48bfc4daf35cdfde808)\n"
+"Language: pl\n"
 
 #: ../data/ui/addrecording.glade.h:1
 msgid "Add a recording"
@@ -22,23 +24,23 @@ msgstr "Dodaj nagranie"
 
 #: ../data/ui/addrecording.glade.h:2
 msgid "Selected channel:"
-msgstr "Wybierz kanał"
+msgstr "Wybierz kanał:"
 
 #: ../data/ui/addrecording.glade.h:3
 msgid "Title:"
-msgstr "Tytuł"
+msgstr "Tytuł:"
 
 #: ../data/ui/addrecording.glade.h:4
 msgid "Start time:"
-msgstr "Czas początkowy"
+msgstr "Czas początkowy:"
 
 #: ../data/ui/addrecording.glade.h:5
 msgid "Duration:"
-msgstr "Czas nagrywania"
+msgstr "Czas nagrywania:"
 
 #: ../data/ui/addrecording.glade.h:6
 msgid "End time:"
-msgstr "Czas końcowy"
+msgstr "Czas końcowy:"
 
 #: ../data/ui/addrecording.glade.h:7
 msgid "minutes"
@@ -46,7 +48,7 @@ msgstr "minuty"
 
 #: ../data/ui/addrecording.glade.h:8
 msgid "<b>Recording period</b>"
-msgstr "<b>okres nagrywania</b>"
+msgstr "<b>Okres nagrywania</b>"
 
 #: ../data/ui/addchannelsgroups.glade.h:1
 msgid "Add a group"
@@ -62,11 +64,11 @@ msgid ""
 "button."
 msgstr ""
 "Wybierz jedną lub kilka grup kanałów jakie chcesz dodać i kliknij na "
-"przycisk."
+"dodajprzycisk."
 
 #: ../data/ui/addchannelsgroups.glade.h:4
 msgid "Languages/Channels group"
-msgstr "ęzyki/Grupy kanałów"
+msgstr "Języki/Grupy kanałów"
 
 #: ../data/ui/addchannelsgroups.glade.h:5
 msgid "Required ISP"
@@ -74,7 +76,7 @@ msgstr "Brakuje ISP"
 
 #: ../data/ui/addchannelsgroups.glade.h:6
 msgid "URI"
-msgstr ""
+msgstr "URI"
 
 #: ../data/ui/addchannelsgroups.glade.h:7
 msgid "Existing channels group"
@@ -103,15 +105,17 @@ msgstr "Usuń tekst przed nazwą:"
 #: ../data/ui/addchannelsgroups.glade.h:13 ../data/ui/freetuxtv.glade.h:13
 msgid "Text or regexp which must be deleted at the end of the channel's name"
 msgstr ""
+"Tekst lub wyrażenie regularne, które należy usunąć na końcu nazwy kanału"
 
 #: ../data/ui/addchannelsgroups.glade.h:14 ../data/ui/freetuxtv.glade.h:12
 msgid "Delete this text behind the name:"
-msgstr ""
+msgstr "Usuń ten tekst za nazwą:"
 
 #: ../data/ui/addchannelsgroups.glade.h:15 ../data/ui/freetuxtv.glade.h:14
 msgid ""
 "Text or regexp which must be deleted at the beginning of the channel's name"
 msgstr ""
+"Tekst lub wyrażenie regularne, które należy usunąć na początku nazwy kanału"
 
 #: ../data/ui/addchannelsgroups.glade.h:16 ../data/ui/freetuxtv.glade.h:15
 msgid ""
@@ -120,10 +124,14 @@ msgid ""
 "\"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV is able to remove the channel's "
 "number before the name, by using the regular expression \"[0-9]* - \"."
 msgstr ""
+"Możesz łatwo użyć wyrażeń regularnych, aby usunąć część tekstu z kanałuNazwa "
+"grupy. Na przykład, jeśli na swojej liście odtwarzania masz nazwy takie "
+"jak\"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV jest w stanie usunąć "
+"kanałnumer przed nazwą, używając wyrażenia regularnego"
 
 #: ../data/ui/addchannelsgroups.glade.h:17 ../data/ui/freetuxtv.glade.h:16
 msgid "<b>Processing of channels' name</b>"
-msgstr ""
+msgstr "<b>Przetwarzanie nazw kanałów</b>"
 
 #: ../data/ui/addchannelsgroups.glade.h:18
 msgid "Custom channels group"
@@ -135,7 +143,7 @@ msgstr "Ulubione"
 
 #: ../data/ui/addchannelsgroups.glade.h:20
 msgid "<b>Special group type:</b>"
-msgstr ""
+msgstr "<b>Specjalny typ grupy</b>"
 
 #: ../data/ui/addchannelsgroups.glade.h:21
 msgid "Special group"
@@ -155,7 +163,7 @@ msgstr "URI kanału:"
 
 #: ../data/ui/channelproperties.glade.h:4
 msgid "<b>Channel VLC options:</b>"
-msgstr ""
+msgstr "<b>Opcje kanału VLC:</b>"
 
 #: ../data/ui/channelproperties.glade.h:5 ../data/ui/freetuxtv.glade.h:17
 msgid "General"
@@ -163,53 +171,56 @@ msgstr "Ogólne"
 
 #: ../data/ui/channelproperties.glade.h:6
 msgid "Deinterlacement:"
-msgstr ""
+msgstr "Usuwanie przeplotu"
 
 #: ../data/ui/channelproperties.glade.h:7
 #: ../src/freetuxtv-window-channel-properties.c:176
 msgid "none"
-msgstr ""
+msgstr "Żaden"
 
 #: ../data/ui/channelproperties.glade.h:8
 msgid "Options"
-msgstr "Okcje"
+msgstr "Opcje"
 
 #: ../data/ui/freetuxtv.glade.h:1
 msgid "GNU General Public License v3"
-msgstr ""
+msgstr "Powszechna Licencja Publiczna GNU v3"
 
 #: ../data/ui/freetuxtv.glade.h:2
 msgid "Web TV channels player"
-msgstr ""
+msgstr "Odtwarzacz kanałów Web TV"
 
 #: ../data/ui/freetuxtv.glade.h:3
 msgid "Project's Web Site"
-msgstr ""
+msgstr "Strona internetowa projektu"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../data/ui/freetuxtv.glade.h:5
 msgid "translator-credits"
 msgstr ""
+"Launchpad Contributions:\n"
+"  Eric Beuque https://launchpad.net/~eric-beuque\n"
+"  kris777 https://launchpad.net/~kris777"
 
 #: ../data/ui/freetuxtv.glade.h:6
 msgid "Group properties"
-msgstr ""
+msgstr "Właściwości grupy"
 
 #: ../data/ui/freetuxtv.glade.h:18
 msgid "Number of channels:"
-msgstr ""
+msgstr "Liczba kanałów:"
 
 #: ../data/ui/freetuxtv.glade.h:19
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../data/ui/freetuxtv.glade.h:20
 msgid "Details"
-msgstr ""
+msgstr "Detale"
 
 #: ../data/ui/freetuxtv.glade.h:21
 msgid "View file"
-msgstr ""
+msgstr "Podgląd pliku"
 
 #: ../data/ui/freetuxtv.glade.h:22
 msgid "Preferences"
@@ -221,47 +232,47 @@ msgstr "Po uruchomieniu odtwarzaj ostatni kanał"
 
 #: ../data/ui/freetuxtv.glade.h:24
 msgid "<b>Startup</b>"
-msgstr ""
+msgstr "<b>Uruchomienie</b>"
 
 #: ../data/ui/freetuxtv.glade.h:25
 msgid "Enable desktop notifications"
-msgstr ""
+msgstr "Włącz powiadomienia na pulpicie"
 
 #: ../data/ui/freetuxtv.glade.h:26
 msgid "<b>Notifications</b>"
-msgstr ""
+msgstr "<b>Powiadomienia</b>"
 
 #: ../data/ui/freetuxtv.glade.h:27
 msgid "Ignore diacritics"
-msgstr ""
+msgstr "Ignoruj ​​znaki diakrytyczne"
 
 #: ../data/ui/freetuxtv.glade.h:28
 msgid "<b>Search of channels</b>"
-msgstr ""
+msgstr "<b>Wyszukiwanie kanałów</b>"
 
 #: ../data/ui/freetuxtv.glade.h:29
 msgid "None"
-msgstr ""
+msgstr "Żaden"
 
 #: ../data/ui/freetuxtv.glade.h:30
 msgid "Use a custom configuration file"
-msgstr ""
+msgstr "Użyj niestandardowego pliku konfiguracyjnego"
 
 #: ../data/ui/freetuxtv.glade.h:31
 msgid "Use the VLC configuration file"
-msgstr ""
+msgstr "Użyj pliku konfiguracyjnego VLC"
 
 #: ../data/ui/freetuxtv.glade.h:32
 msgid "<i>Restart the application after changing this option.</i>"
-msgstr ""
+msgstr "<i>Po zmianie tej opcji uruchom ponownie aplikację.</i>"
 
 #: ../data/ui/freetuxtv.glade.h:33
 msgid "<b>Configuration file (vlcrc)</b>"
-msgstr ""
+msgstr "<b>Plik konfiguracyjny (vlcrc)</b>"
 
 #: ../data/ui/freetuxtv.glade.h:34
 msgid "LibVLC"
-msgstr ""
+msgstr "LibVLC"
 
 #: ../data/ui/freetuxtv.glade.h:35
 msgid "Directory Record:"
@@ -273,59 +284,59 @@ msgstr "Wybierz katalog"
 
 #: ../data/ui/freetuxtv.glade.h:37
 msgid "<b>Destination</b>"
-msgstr ""
+msgstr "<b>Miejsce docelowe</b>"
 
 #: ../data/ui/freetuxtv.glade.h:38
 msgid "No transcoding"
-msgstr ""
+msgstr "Brak transkodowania"
 
 #: ../data/ui/freetuxtv.glade.h:39
 msgid "Predefined transcoding formats"
-msgstr ""
+msgstr "Predefiniowane formaty transkodowania"
 
 #: ../data/ui/freetuxtv.glade.h:40
 msgid "Format:"
-msgstr ""
+msgstr "Format:"
 
 #: ../data/ui/freetuxtv.glade.h:41
 msgid "<b>Transcoding options</b>"
-msgstr ""
+msgstr "<b>Opcje transkodowania</b>"
 
 #: ../data/ui/freetuxtv.glade.h:42
 msgid "Recordings"
-msgstr ""
+msgstr "Nagrania"
 
 #: ../data/ui/freetuxtv.glade.h:43
 msgid "Download timeout (seconds) :"
-msgstr ""
+msgstr "Limit czasu pobierania (seconds) :"
 
 #: ../data/ui/freetuxtv.glade.h:44
 msgid "<b>Connection</b>"
-msgstr ""
+msgstr "<b>Połączenie</b>"
 
 #: ../data/ui/freetuxtv.glade.h:45
 msgid "No proxy"
-msgstr ""
+msgstr "Brak proxy"
 
 #: ../data/ui/freetuxtv.glade.h:46
 msgid "Manual proxy configuration"
-msgstr ""
+msgstr "Ręczna konfiguracja serwera proxy"
 
 #: ../data/ui/freetuxtv.glade.h:47
 msgid "Proxy server:"
-msgstr ""
+msgstr "Serwer proxy:"
 
 #: ../data/ui/freetuxtv.glade.h:48
 msgid "Proxy port:"
-msgstr ""
+msgstr "Port proxy:"
 
 #: ../data/ui/freetuxtv.glade.h:49
 msgid "Proxy type:"
-msgstr ""
+msgstr "Typ proxy:"
 
 #: ../data/ui/freetuxtv.glade.h:50
 msgid "Use authentification"
-msgstr ""
+msgstr "Użyj uwierzytelniania"
 
 #: ../data/ui/freetuxtv.glade.h:51
 msgid "Username:"
@@ -333,11 +344,11 @@ msgstr "Nazwa użytkownika:"
 
 #: ../data/ui/freetuxtv.glade.h:52
 msgid "Password:"
-msgstr "Hasłó:"
+msgstr "Hasło:"
 
 #: ../data/ui/freetuxtv.glade.h:53
 msgid "<b>Proxy</b>"
-msgstr ""
+msgstr "<b>Proxy</b>"
 
 #: ../data/ui/freetuxtv.glade.h:54
 msgid "Network"
@@ -345,45 +356,47 @@ msgstr "Sieć"
 
 #: ../data/ui/freetuxtv.glade.h:55
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
 #: ../data/ui/freetuxtv.glade.h:56
 msgid "SOCKS"
-msgstr ""
+msgstr "SOCKS"
 
 #: ../data/ui/freetuxtv.glade.h:57
 msgid "Video - Theora + Vorbis (OGG)"
-msgstr ""
+msgstr "Video - Theora + Vorbis (OGG)"
 
 #: ../data/ui/freetuxtv.glade.h:58
 msgid "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2"
-msgstr ""
+msgstr "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2"
 
 #: ../data/ui/freetuxtv.glade.h:59
 msgid "ogg"
-msgstr ""
+msgstr "ogg"
 
 #: ../data/ui/freetuxtv.glade.h:60
 msgid "Video - H.264 + MPGA (MP4)"
-msgstr ""
+msgstr "Video - H.264 + MPGA (MP4)"
 
 #: ../data/ui/freetuxtv.glade.h:61
 msgid ""
-"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,"
-"channels=2"
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels="
+"2"
 msgstr ""
+"vcodec=h264,vb=768,width=368,height=208,fps=29.97,acodec=mpga,ab=64,channels="
+"2"
 
 #: ../data/ui/freetuxtv.glade.h:62
 msgid "mp4"
-msgstr ""
+msgstr "mp4"
 
 #: ../data/ui/freetuxtv.glade.h:63
 msgid "Video - MPEG-2 + MPGA (TS)"
-msgstr ""
+msgstr "Video - MPEG-2 + MPGA (TS)"
 
 #: ../data/ui/freetuxtv.glade.h:64
 msgid "vcodec=mp2v,vb=800,scale=1,acodec=mpga,ab=128,channels=2"
-msgstr ""
+msgstr "vcodec=mp2v,vb=800,scale=1,acodec=mpga,ab=128,channels=2"
 
 #: ../data/ui/freetuxtv.glade.h:65
 msgid "ts"
@@ -391,7 +404,7 @@ msgstr ""
 
 #: ../data/ui/freetuxtv.glade.h:66 ../data/menu/freetuxtv.desktop.in.h:1
 msgid "FreetuxTV"
-msgstr ""
+msgstr "FreetuxTV"
 
 #: ../data/ui/freetuxtv.glade.h:67
 msgid "Search:"
@@ -399,87 +412,123 @@ msgstr "Szukaj:"
 
 #: ../data/ui/freetuxtv.glade.h:68
 msgid "Channels' search text area"
-msgstr ""
+msgstr "Pole tekstowe wyszukiwania kanałów"
 
 #: ../data/ui/freetuxtv.glade.h:69
 msgid "Delete the search text area"
-msgstr ""
+msgstr "Usuń obszar wyszukiwania tekstu"
 
 #: ../data/ui/freetuxtv.glade.h:70
 msgid "Jump to current channel"
-msgstr ""
+msgstr "Przejdź do bieżącego kanału"
 
 #: ../data/ui/freetuxtv.glade.h:71
 msgid "Go to the current channel playing"
-msgstr ""
+msgstr "Przejdź do aktualnie odtwarzanego kanału"
 
 #: ../data/ui/freetuxtv.glade.h:72
 msgid "Channels"
-msgstr ""
+msgstr "Kanały"
 
 #: ../data/ui/freetuxtv.glade.h:73
 msgid "In progress"
-msgstr ""
+msgstr "W trakcie"
 
 #: ../data/ui/freetuxtv.glade.h:74
 msgid "Terminated"
-msgstr ""
+msgstr "Zakończony"
 
 #: ../data/ui/freetuxtv.glade.h:75
 msgid "00:00:00"
-msgstr ""
+msgstr "00:00:00"
 
 #: ../data/ui/freetuxtv.glade.h:76
 msgid "Previous channel"
-msgstr ""
+msgstr "Poprzedni kanał"
 
 #: ../data/ui/freetuxtv.glade.h:77
 msgid "Play the current channel"
-msgstr ""
+msgstr "Odtwórz bieżący kanał"
 
 #: ../data/ui/freetuxtv.glade.h:78
 msgid "Stop playing the current channel"
-msgstr ""
+msgstr "Zatrzymaj odtwarzanie bieżącego kanału"
 
 #: ../data/ui/freetuxtv.glade.h:79
 msgid "Record the current channel"
-msgstr ""
+msgstr "Nagraj bieżący kanał"
 
 #: ../data/ui/freetuxtv.glade.h:80
 msgid "Next channel"
-msgstr ""
+msgstr "Następny kanał"
 
 #: ../data/ui/freetuxtv.glade.h:81
 msgid "Vol:"
-msgstr ""
+msgstr "Głośność:"
 
 #: ../data/ui/freetuxtv.glade.h:82
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: ../data/ui/freetuxtv.glade.h:83
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #: ../data/ui/freetuxtv.glade.h:84
 msgid "Fullscreen mode"
-msgstr ""
+msgstr "Pełny ekran"
 
 #: ../data/ui/freetuxtv.glade.h:85
 msgid "Small mode"
-msgstr ""
+msgstr "Tryb pomniejszony"
 
 #: ../data/ui/freetuxtv.glade.h:86
 msgid " channels"
-msgstr ""
+msgstr " kanały"
 
 #: ../data/ui/freetuxtv.glade.h:87
 msgid "Go back to the normal mode"
-msgstr ""
+msgstr "Wróć do normalnego trybu"
 
 #: ../data/ui/freetuxtv.glade.h:88
 msgid "Activate/Deactivate the window always on top"
+msgstr "Aktywuj/dezaktywuj: okno zawsze na wierzchu"
+
+#: ../data/ui/tvchannelsdatabase.glade.h:1
+msgid ""
+"<i>This will re-associate each stream with a TV Channel in the current "
+"database. This allow to associate a logo to a channel.</i>"
 msgstr ""
+"<i>Spowoduje to ponowne skojarzenie każdego strumienia z kanałem "
+"telewizyjnym w bieżącejBazie danych. Pozwala to powiązać logo z kanałem.</i>"
+
+#: ../data/ui/tvchannelsdatabase.glade.h:2
+msgid "Update database from file:"
+msgstr "Zaktualizuj bazę danych z pliku:"
+
+#: ../data/ui/tvchannelsdatabase.glade.h:3
+msgid " Synchronize TV Channel database"
+msgstr " Synchronizuj bazę danych kanałów telewizyjnych"
+
+#: ../data/ui/tvchannelsdatabase.glade.h:4
+msgid ""
+"<i>This will download each logos recorded in the local database from the "
+"remote database.</i>"
+msgstr ""
+"<i>Spowoduje to pobranie każdego logo zarejestrowanego w lokalnej bazie "
+"danych z zdalnej bazie danych.</i>"
+
+#: ../data/ui/tvchannelsdatabase.glade.h:5
+msgid "Remote directory:"
+msgstr "Katalog zdalny:"
+
+#: ../data/ui/tvchannelsdatabase.glade.h:6
+msgid "Update logos list"
+msgstr "Zaktualizuj listę logo"
+
+#: ../data/ui/tvchannelsdatabase.glade.h:7
+msgid "<b>TV Channels database</b>"
+msgstr "<b>Baza kanałów telewizyjnych</b>"
 
 #: ../data/channels_groups.xml.in.h:1
 msgid "Alice (Unofficial)"
@@ -606,621 +655,629 @@ msgid "Web Radio (Croatian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:32
-msgid "Czech Web TV and Radio"
+msgid "Radio Browser Service (Croatian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:33
-msgid "Web TV (Czech)"
+msgid "Czech Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:34
-msgid "Web Radio (Czech)"
+msgid "Web TV (Czech)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:35
-msgid "Danish Web TV and Radio"
+msgid "Web Radio (Czech)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:36
-msgid "Web TV (Danish)"
+msgid "Danish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:37
-msgid "Dutch Web TV and Radio"
+msgid "Web TV (Danish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:38
-msgid "Web TV (Dutch)"
+msgid "Dutch Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:39
-msgid "Web Radio (Dutch)"
+msgid "Web TV (Dutch)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:40
-msgid "Web Cam (Dutch)"
+msgid "Web Radio (Dutch)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:41
-msgid "English Web TV and Radio"
+msgid "Web Cam (Dutch)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:42
-msgid "Web TV (English)"
+msgid "English Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:43
-msgid "Web Radio (English)"
+msgid "Web TV (English)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:44
-msgid "Web Programmes (English)"
+msgid "Web Radio (English)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:45
-msgid "Web Cam (English)"
+msgid "Web Programmes (English)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:46
-msgid "Estonian Web TV and Radio"
+msgid "Web Cam (English)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:47
-msgid "Web TV (Estonian)"
+msgid "Estonian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:48
-msgid "Finnish Web TV and Radio"
+msgid "Web TV (Estonian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:49
-msgid "Web TV (Finnish)"
+msgid "Finnish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:50
-msgid "French Web TV and Radio"
+msgid "Web TV (Finnish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:51
-msgid "Web TV (French)"
+msgid "French Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:52
-msgid "Web Radio (French)"
+msgid "Web TV (French)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:53
-msgid "Web Programmes (French)"
+msgid "Web Radio (French)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:54
-msgid "Georgian Web TV and Radio"
+msgid "Web Programmes (French)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:55
-msgid "Web TV (Georgian)"
+msgid "Georgian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:56
-msgid "German Web TV and Radio"
+msgid "Web TV (Georgian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:57
-msgid "Web TV (German)"
+msgid "German Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:58
-msgid "Web Radio (German)"
+msgid "Web TV (German)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:59
-msgid "Greek Web TV and Radio"
+msgid "Web Radio (German)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:60
-msgid "Web TV (Greek)"
+msgid "Kodinerds (German)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:61
-msgid "Web Radio (Greek)"
+msgid "Greek Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:62
-msgid "Hebrew Web TV and Radio"
+msgid "Web TV (Greek)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:63
-msgid "Web TV (Hebrew)"
+msgid "Web Radio (Greek)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:64
-msgid "Web Radio (Hebrew)"
+msgid "Hebrew Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:65
-msgid "Web Cam (Hebrew)"
+msgid "Web TV (Hebrew)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:66
-msgid "Hindi Web TV and Radio"
+msgid "Web Radio (Hebrew)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:67
-msgid "Web TV (Hindi)"
+msgid "Web Cam (Hebrew)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:68
-msgid "Web Radio (Hindi)"
+msgid "Hindi Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:69
-msgid "Hungarian Web TV and Radio"
+msgid "Web TV (Hindi)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:70
-msgid "Web TV (Hungarian)"
+msgid "Web Radio (Hindi)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:71
-msgid "Web Radio (Hungarian)"
+msgid "Hungarian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:72
-msgid "Icelandic Web TV and Radio"
+msgid "Web TV (Hungarian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:73
-msgid "Web TV (Icelandic)"
+msgid "Web Radio (Hungarian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:74
-msgid "Indonesian Web TV and Radio"
+msgid "Icelandic Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:75
-msgid "Web TV (Indonesian)"
+msgid "Web TV (Icelandic)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:76
-msgid "Interlingua Web TV and Radio"
+msgid "Indonesian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:77
-msgid "Web Radio (Interlingua)"
+msgid "Web TV (Indonesian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:78
-msgid "Irish Web TV and Radio"
+msgid "Interlingua Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:79
-msgid "Web TV (Irish)"
+msgid "Web Radio (Interlingua)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:80
-msgid "Web Radio (Irish)"
+msgid "Irish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:81
-msgid "Italian Web TV and Radio"
+msgid "Web TV (Irish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:82
-msgid "Web TV (Italian)"
+msgid "Web Radio (Irish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:83
-msgid "Web Radio (Italian)"
+msgid "Italian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:84
-msgid "Japanese Web TV and Radio"
+msgid "Web TV (Italian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:85
-msgid "Web TV (Japanese)"
+msgid "Web Radio (Italian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:86
-msgid "Web Radio (Japanese)"
+msgid "Japanese Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:87
-msgid "Web Cam (Japanese)"
+msgid "Web TV (Japanese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:88
-msgid "Kazakh Web TV and Radio"
+msgid "Web Radio (Japanese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:89
-msgid "Web TV (Kazakh)"
+msgid "Web Cam (Japanese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:90
-msgid "Korean Web TV and Radio"
+msgid "Kazakh Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:91
-msgid "Web TV (Korean)"
+msgid "Web TV (Kazakh)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:92
-msgid "Kurdish Web TV and Radio"
+msgid "Korean Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:93
-msgid "Web TV (Kurdish)"
+msgid "Web TV (Korean)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:94
-msgid "Latin Web TV and Radio"
+msgid "Kurdish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:95
-msgid "Web TV (Latin)"
+msgid "Web TV (Kurdish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:96
-msgid "Latvian/Lettish Web TV and Radio"
+msgid "Latin Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:97
-msgid "Web TV (Latvian/Lettish)"
+msgid "Web TV (Latin)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:98
-msgid "Lithuanian Web TV and Radio"
+msgid "Latvian/Lettish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:99
-msgid "Web TV (Lithuanian)"
+msgid "Web TV (Latvian/Lettish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:100
-msgid "Macedonian Web TV and Radio"
+msgid "Lithuanian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:101
-msgid "Web TV (Macedonian)"
+msgid "Web TV (Lithuanian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:102
-msgid "Web Radio (Macedonian)"
+msgid "Macedonian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:103
-msgid "Malay Web TV and Radio"
+msgid "Web TV (Macedonian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:104
-msgid "Web TV (Malay)"
+msgid "Web Radio (Macedonian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:105
-msgid "Malayalam Web TV and Radio"
+msgid "Malay Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:106
-msgid "Web TV (Malayalam)"
+msgid "Web TV (Malay)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:107
-msgid "Maltese Web TV and Radio"
+msgid "Malayalam Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:108
-msgid "Web TV (Maltese)"
+msgid "Web TV (Malayalam)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:109
-msgid "Web Radio (Maltese)"
+msgid "Maltese Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:110
-msgid "Moldavian Web TV and Radio"
+msgid "Web TV (Maltese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:111
-msgid "Web TV (Moldavian)"
+msgid "Web Radio (Maltese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:112
-msgid "Mongolian Web TV and Radio"
+msgid "Moldavian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:113
-msgid "Web TV (Mongolian)"
+msgid "Web TV (Moldavian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:114
-msgid "Norwegian Web TV and Radio"
+msgid "Mongolian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:115
-msgid "Web TV (Norwegian)"
+msgid "Web TV (Mongolian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:116
-msgid "Persian Web TV and Radio"
+msgid "Norwegian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:117
-msgid "Web TV (Persian)"
+msgid "Web TV (Norwegian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:118
-msgid "Polish Web TV and Radio"
+msgid "Persian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:119
-msgid "Web TV (Polish)"
+msgid "Web TV (Persian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:120
-msgid "Web Radio (Polish)"
+msgid "Polish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:121
-msgid "Web Cam (Polish)"
+msgid "Web TV (Polish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:122
-msgid "Portuguese Web TV and Radio"
+msgid "Web Radio (Polish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:123
-msgid "Web TV (Portuguese)"
+msgid "Web Cam (Polish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:124
-msgid "Web Radio (Portuguese)"
+msgid "Portuguese Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:125
-msgid "Punjabi Web TV and Radio"
+msgid "Web TV (Portuguese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:126
-msgid "Web TV (Punjabi)"
+msgid "Web Radio (Portuguese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:127
-msgid "Romanian Web TV and Radio"
+msgid "Punjabi Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:128
-msgid "Web TV (Romanian)"
+msgid "Web TV (Punjabi)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:129
-msgid "Web Radio (Romanian)"
+msgid "Romanian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:130
-msgid "Russian Web TV and Radio"
+msgid "Web TV (Romanian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:131
-msgid "Web TV (Russian)"
+msgid "Web Radio (Romanian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:132
-msgid "Web Radio (Russian)"
+msgid "Russian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:133
-msgid "Serbian Web TV and Radio"
+msgid "Web TV (Russian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:134
-msgid "Web TV (Serbian)"
+msgid "Web Radio (Russian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:135
-msgid "Web Radio (Serbian)"
+msgid "Serbian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:136
-msgid "Serbo-Croatian Web TV and Radio"
+msgid "Web TV (Serbian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:137
-msgid "Web TV (Serbo-Croatian)"
+msgid "Web Radio (Serbian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:138
-msgid "Web Radio (Serbo-Croatian)"
+msgid "Serbo-Croatian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:139
-msgid "Slovak Web TV and Radio"
+msgid "Web TV (Serbo-Croatian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:140
-msgid "Web TV (Slovak)"
+msgid "Web Radio (Serbo-Croatian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:141
-msgid "Web Radio (Slovak)"
+msgid "Slovak Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:142
-msgid "Slovenian Web TV and Radio"
+msgid "Web TV (Slovak)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:143
-msgid "Web TV (Slovenian)"
+msgid "Web Radio (Slovak)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:144
-msgid "Web Radio (Slovenian)"
+msgid "Slovenian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:145
-msgid "Spanish Web TV and Radio"
+msgid "Web TV (Slovenian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:146
-msgid "Web TV (Spanish)"
+msgid "Web Radio (Slovenian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:147
-msgid "Web Radio (Spanish)"
+msgid "Spanish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:148
-msgid "Web Programmes (Spanish)"
+msgid "Web TV (Spanish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:149
-msgid "Web Cam (Spanish)"
+msgid "Web Radio (Spanish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:150
-msgid "Swedish Web TV and Radio"
+msgid "Web Programmes (Spanish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:151
-msgid "Web TV (Swedish)"
+msgid "Web Cam (Spanish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:152
-msgid "Tagalog Web TV and Radio"
+msgid "Swedish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:153
-msgid "Web TV (Tagalog)"
+msgid "Web TV (Swedish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:154
-msgid "Tamil Web TV and Radio"
+msgid "Tagalog Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:155
-msgid "Web TV (Tamil)"
+msgid "Web TV (Tagalog)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:156
-msgid "Thai Web TV and Radio"
+msgid "Tamil Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:157
-msgid "Web TV (Thai)"
+msgid "Web TV (Tamil)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:158
-msgid "Turkish Web TV and Radio"
+msgid "Thai Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:159
-msgid "Web TV (Turkish)"
+msgid "Web TV (Thai)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:160
-msgid "Web Radio (Turkish)"
+msgid "Turkish Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:161
-msgid "Turkmen Web TV and Radio"
+msgid "Web TV (Turkish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:162
-msgid "Web TV (Turkmen)"
+msgid "Web Radio (Turkish)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:163
-msgid "Ukrainian Web TV and Radio"
+msgid "Turkmen Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:164
-msgid "Web TV (Ukrainian)"
+msgid "Web TV (Turkmen)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:165
-msgid "Web Cam (Ukrainian)"
+msgid "Ukrainian Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:166
-msgid "Urdu Web TV and Radio"
+msgid "Web TV (Ukrainian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:167
-msgid "Web TV (Urdu)"
+msgid "Web Cam (Ukrainian)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:168
-msgid "Uzbek Web TV and Radio"
+msgid "Urdu Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:169
-msgid "Web TV (Uzbek)"
+msgid "Web TV (Urdu)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:170
-msgid "Vietnamese Web TV and Radio"
+msgid "Uzbek Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:171
-msgid "Web TV (Vietnamese)"
+msgid "Web TV (Uzbek)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:172
-msgid "Web Radio (Vietnamese)"
+msgid "Vietnamese Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:173
-msgid "No lang Web TV and Radio"
+msgid "Web TV (Vietnamese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:174
-msgid "Web TV (No lang)"
+msgid "Web Radio (Vietnamese)"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:175
-msgid "Web Radio (No lang)"
+msgid "No lang Web TV and Radio"
 msgstr ""
 
 #: ../data/channels_groups.xml.in.h:176
-msgid "Web Programmes (No lang)"
-msgstr ""
+msgid "Web TV (No lang)"
+msgstr "Telewizja internetowa"
 
 #: ../data/channels_groups.xml.in.h:177
-msgid "Web Cam (No lang)"
-msgstr ""
+msgid "Web Radio (No lang)"
+msgstr "Radio internetowe"
 
 #: ../data/channels_groups.xml.in.h:178
+msgid "Web Programmes (No lang)"
+msgstr "Programy internetowe"
+
+#: ../data/channels_groups.xml.in.h:179
+msgid "Web Cam (No lang)"
+msgstr "Kamerka internetowa"
+
+#: ../data/channels_groups.xml.in.h:180
 msgid "WebCam"
-msgstr ""
+msgstr "WebCam"
 
 #: ../data/menu/freetuxtv.desktop.in.h:2
 msgid "Television Channels Player"
-msgstr ""
+msgstr "Odtwarzacz kanałów telewizyjnych"
 
 #: ../data/menu/freetuxtv.desktop.in.h:3
 msgid "FreetuxTV Television Channels Player"
-msgstr ""
+msgstr "FreetuxTV Odtwarzacz kanałów telewizyjnych"
 
 #: ../data/menu/freetuxtv.desktop.in.h:4
 msgid "Watch television channels from internet"
-msgstr ""
+msgstr "Oglądaj kanały telewizyjne z internetu"
 
 #: ../src/freetuxtv-cellrenderer-recordingslist.c:339
 #, c-format
 msgid "%ld min"
-msgstr ""
+msgstr "%ld min"
 
 #. Update status bar
 #: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
 #, c-format
 msgid "Update \"%s\" channels list"
-msgstr ""
+msgstr "Aktualizacja \"%s\" listy kanałów"
 
 #. Get the file of the playlist
 #: ../src/freetuxtv-channels-list.c:327 ../src/freetuxtv-channels-list.c:447
 #, c-format
 msgid "Getting the file: \"%s\""
-msgstr ""
+msgstr "Pobieranie pliku: \"%s\""
 
 #: ../src/freetuxtv-channels-list.c:358 ../src/freetuxtv-channels-list.c:478
 #, c-format
@@ -1230,20 +1287,24 @@ msgid ""
 "M3UParser has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas dodawania kanałów.\n"
+"\n"
+"M3UParser zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-channels-list.c:1335
 msgid "Delete group's channels"
-msgstr ""
+msgstr "Usuń grupy kanałów"
 
 #. Add to favourite is only for channels
 #: ../src/freetuxtv-channels-list.c:1385
 msgid "Add to favourites"
-msgstr ""
+msgstr "Dodaj do ulubionych"
 
 #. Add favourites to a new group
 #: ../src/freetuxtv-channels-list.c:1401
 msgid "New group"
-msgstr ""
+msgstr "Nowa grupa"
 
 #: ../src/freetuxtv-db-sync.c:160
 #, c-format
@@ -1253,6 +1314,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Nie można otworzyć bazy danych.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:317 ../src/freetuxtv-db-sync.c:420
 #: ../src/freetuxtv-db-sync.c:1446
@@ -1263,6 +1328,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas wyświetlania kanałów.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:478
 #, c-format
@@ -1272,6 +1341,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas pobierania kanału.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:552
 #, c-format
@@ -1281,6 +1354,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas dodawania kanału \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:593
 #, c-format
@@ -1290,6 +1367,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas usuwania kanału \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:616
 #, c-format
@@ -1299,6 +1380,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas aktualizacji pozycji kanałów w grupie \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:669 ../src/freetuxtv-db-sync.c:708
 #, c-format
@@ -1308,6 +1393,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas pobierania kanału według nazwy.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:748 ../src/freetuxtv-db-sync.c:991
 #: ../src/freetuxtv-db-sync.c:1014
@@ -1318,6 +1407,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas aktualizacji kanału \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:803 ../src/freetuxtv-db-sync.c:837
 #, c-format
@@ -1327,6 +1420,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas dodawania grupy \"%s\" w bazie danych.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:881 ../src/freetuxtv-db-sync.c:922
 #: ../src/freetuxtv-db-sync.c:945
@@ -1337,6 +1434,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas aktualizacji grupy \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1057
 #, c-format
@@ -1346,6 +1447,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas aktualizacji daty ostatniej aktualizacji grupy \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1091
 #, c-format
@@ -1355,6 +1460,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas usuwania grupy \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1112
 #, c-format
@@ -1364,6 +1473,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas aktualizacji pozycji grup.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1147
 #, c-format
@@ -1373,6 +1486,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas usuwania kanałów grupy \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1184 ../src/freetuxtv-db-sync.c:1220
 #, c-format
@@ -1382,6 +1499,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas aktualizacji kanałów grupy \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1246
 #, c-format
@@ -1391,6 +1512,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas usuwania listy kanałów telewizyjnych.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1290
 #, c-format
@@ -1400,6 +1525,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas dodawania kanału telewizyjnego '%s'.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1354
 #, c-format
@@ -1409,6 +1538,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas dodawania nagrania '%s'.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1480
 #, c-format
@@ -1418,6 +1551,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas dodawania etykiety loga kanału '%s'.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1514
 #, c-format
@@ -1427,6 +1564,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas łączenia kanału telewizyjnego '%s' do kanału.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1553
 #, c-format
@@ -1436,6 +1577,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas pobierania wersji bazy danych.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1585
 #, c-format
@@ -1445,6 +1590,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas aktualizacji wersji bazy danych.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1650
 #, c-format
@@ -1454,6 +1603,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas migracji bazy danych.\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1693
 #, c-format
@@ -1463,6 +1616,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas aktualizacji statusu nagrania \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1727
 #, c-format
@@ -1472,6 +1629,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas usuwania nagrania \"%s\".\n"
+"\n"
+"SQLite zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-fileutils.c:87
 #, c-format
@@ -1481,73 +1642,77 @@ msgid ""
 "CURL has returned error:\n"
 "%s."
 msgstr ""
+"Błąd podczas pobierania pliku z adresu URL -> %s.\n"
+"\n"
+"CURL zwrócił błąd:\n"
+"%s."
 
 #: ../src/freetuxtv-i18n.h:49
 msgid "%m/%d/%y"
-msgstr ""
+msgstr "%m/%d/%y"
 
 #: ../src/freetuxtv-i18n.h:50
 msgid "%m/%d/%Y"
-msgstr ""
+msgstr "%m/%d/%Y"
 
 #: ../src/freetuxtv-i18n.h:51
 msgid "%m/%d/%Y %H:%M"
-msgstr ""
+msgstr "%m/%d/%Y %H:%M"
 
 #: ../src/freetuxtv-recordings-list.c:448
 msgid "Do you want to move the related file on the hard disk to the trash?"
-msgstr ""
+msgstr "Czy chcesz przenieść powiązany plik na dysku twardym do kosza?"
 
 #: ../src/freetuxtv-tv-channels-list.c:72
 #, c-format
 msgid "Synchronizing the tv channels list"
-msgstr ""
+msgstr "Synchronizacja listy kanałów telewizyjnych"
 
 #: ../src/freetuxtv-utils.c:37
 #, c-format
 msgid "%02dh%02dm%02ds"
-msgstr ""
+msgstr "%02dh%02dm%02ds"
 
 #: ../src/freetuxtv-utils.c:47
 #, c-format
 msgid "%02d:%02d:%02d"
-msgstr ""
+msgstr "%02d:%02d:%02d"
 
 #: ../src/freetuxtv-utils.c:54
 #, c-format
 msgid "%ld byte"
-msgstr ""
+msgstr "%ld bajt"
 
 #: ../src/freetuxtv-utils.c:56
 #, c-format
 msgid "%ld bytes"
-msgstr ""
+msgstr "%ld bajty"
 
 #: ../src/freetuxtv-utils.c:58
 #, c-format
 msgid "%1.1f kB"
-msgstr ""
+msgstr "%1.1f kB"
 
 #: ../src/freetuxtv-utils.c:60
 #, c-format
 msgid "%1.1f MB"
-msgstr ""
+msgstr "%1.1f MB"
 
 #: ../src/freetuxtv-utils.c:62
 #, c-format
 msgid "%1.1f GB"
-msgstr ""
+msgstr "%1.1f GB"
 
 #: ../src/freetuxtv-window-add-channels-group.c:395
 #, c-format
 msgid "Please select a least one group !"
-msgstr ""
+msgstr "Proszę wybrać przynajmniej jedną grupę !"
 
 #: ../src/freetuxtv-window-add-channels-group.c:401
 #: ../src/freetuxtv-window-add-channels-group.c:549
 #: ../src/freetuxtv-window-add-channels-group.c:603
 msgid "Adding channels groups"
-msgstr ""
+msgstr "Dodawanie grup kanałów"
 
 #. Update progress dialog
 #: ../src/freetuxtv-window-add-channels-group.c:441
@@ -1556,129 +1721,131 @@ msgstr ""
 #: ../src/freetuxtv-window-add-channels-group.c:611
 #, c-format
 msgid "Adding channels group: <i>%s</i>"
-msgstr ""
+msgstr "Dodawanie grupy kanałów: <i>%s</i>"
 
 #: ../src/freetuxtv-window-add-channels-group.c:513
 #: ../src/freetuxtv-window-add-channels-group.c:580
 #: ../src/freetuxtv-window-add-channels-group.c:624
 #, c-format
 msgid "%d channels group(s) have been successfully added."
-msgstr ""
+msgstr "%d grupy kanałów zostały pomyślnie dodane."
 
 #: ../src/freetuxtv-window-add-channels-group.c:541
 #: ../src/freetuxtv-window-add-channels-group.c:598
 #: ../src/freetuxtv-window-main.c:1982
 #, c-format
 msgid "Please enter the group's name !"
-msgstr ""
+msgstr "Wpisz nazwę grupy!"
 
 #: ../src/freetuxtv-window-add-channels-group.c:544
 #: ../src/freetuxtv-window-main.c:1987
 #, c-format
 msgid "Please enter the group's URI !"
-msgstr ""
+msgstr "Wprowadź identyfikator URI grupy!"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:85
 #, c-format
 msgid "Updating TV channel: %s"
-msgstr ""
+msgstr "Aktualizowanie kanału telewizyjnego: %s"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:148
 msgid "TV channels synchronisation"
-msgstr ""
+msgstr "Synchronizacja kanałów telewizyjnych"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:157
 #, c-format
 msgid "Downloading the file '%s'"
-msgstr ""
+msgstr "Pobieranie pliku '%s'"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:172
 msgid "Synchronizing TV channels from file"
-msgstr ""
+msgstr "Synchronizing TV channels from file"
 
 #. Menu : FreetuxTV
 #: ../src/freetuxtv-window-main.c:278
 msgid "_FreetuxTV"
-msgstr ""
+msgstr "_FreetuxTV"
 
 #. End Menu : FreetuxTV
 #. Menu : Channels
 #: ../src/freetuxtv-window-main.c:299
 msgid "_Channels"
-msgstr ""
+msgstr "_Kanały"
 
 #: ../src/freetuxtv-window-main.c:303
 msgid "_Add a group"
-msgstr ""
+msgstr "_Dodaj grupę"
 
 #: ../src/freetuxtv-window-main.c:305
 msgid "Add/create a channels group from different sources"
-msgstr ""
+msgstr "Dodaj / utwórz grupę kanałów z różnych źródeł"
 
 #: ../src/freetuxtv-window-main.c:311
 msgid "_Synchronize TV channels database"
-msgstr ""
+msgstr "_Synchronizuj bazę danych kanałów telewizyjnych"
 
 #: ../src/freetuxtv-window-main.c:313
 msgid ""
 "Synchronize the TV channels list in the local database from the XML database"
 msgstr ""
+"Zsynchronizuj listę kanałów telewizyjnych w lokalnej bazie danych z bazy "
+"danych XML"
 
 #. End Menu : Channels
 #. Menu : Video
 #: ../src/freetuxtv-window-main.c:322
 msgid "_Video"
-msgstr ""
+msgstr "_Wideo"
 
 #. SubMenu : Deinterlace
 #: ../src/freetuxtv-window-main.c:327
 msgid "_Deinterlace"
-msgstr ""
+msgstr "_Usuń przeplot"
 
 #: ../src/freetuxtv-window-main.c:332
 msgid "Disable"
-msgstr ""
+msgstr "Wyłącz"
 
 #: ../src/freetuxtv-window-main.c:344
 msgid "Blend"
-msgstr ""
+msgstr "Kombinacja"
 
 #: ../src/freetuxtv-window-main.c:353
 msgid "Bob"
-msgstr ""
+msgstr "Pionowy"
 
 #: ../src/freetuxtv-window-main.c:362
 msgid "Discard"
-msgstr ""
+msgstr "Odrzuć"
 
 #: ../src/freetuxtv-window-main.c:371
 msgid "Linear"
-msgstr ""
+msgstr "Liniowy"
 
 #: ../src/freetuxtv-window-main.c:380
 msgid "Mean"
-msgstr ""
+msgstr "Średni"
 
 #: ../src/freetuxtv-window-main.c:389
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #. End SubMenu : Deinterlace
 #. End Menu : Video
 #. Menu : Help
 #: ../src/freetuxtv-window-main.c:401
 msgid "_Help"
-msgstr ""
+msgstr "_Pomoc"
 
 #. Create the menu items
 #: ../src/freetuxtv-window-main.c:1029
 msgid "Mute"
-msgstr ""
+msgstr "Wycisz"
 
 #: ../src/main.c:424
 #, c-format
 msgid "Recording: %s (%s) -> %s (%s)"
-msgstr ""
+msgstr "Nagranie: %s (%s) -> %s (%s)"
 
 #: ../src/main.c:577
 #, c-format
@@ -1687,58 +1854,61 @@ msgid ""
 "\n"
 "If the problem persist, you can report that the link is dead at %s"
 msgstr ""
+"Wystąpił błąd podczas odtwarzania kanału '%s' : %s\n"
+"\n"
+"Jeśli problem będzie się powtarzał, możesz zgłosić, że łącze nie działa o %s"
 
 #: ../src/main.c:581
 msgid "An error occurred"
-msgstr ""
+msgstr "Wystąpił błąd"
 
 #: ../src/main.c:607
 #, c-format
 msgid "Synchronizing the list of tv channels: %s..."
-msgstr ""
+msgstr "Synchronizacja listy kanałów telewizyjnych: %s..."
 
 #: ../src/main.c:642
 msgid "Initializing user configuration..."
-msgstr ""
+msgstr "Inicjowanie konfiguracji użytkownika..."
 
 #: ../src/main.c:649
 msgid "Loading user configuration..."
-msgstr ""
+msgstr "Ładowanie konfiguracji użytkownika..."
 
 #: ../src/main.c:719
 msgid "Synchronizing the list of tv channels..."
-msgstr ""
+msgstr "Synchronizacja listy kanałów telewizyjnych ..."
 
 #: ../src/main.c:752
 msgid "Loading the list of channels..."
-msgstr ""
+msgstr "Ładowanie listy kanałów ..."
 
 #: ../src/main.c:761
 msgid "Loading the list of recordings..."
-msgstr ""
+msgstr "Ładowanie listy nagrań ..."
 
 #: ../src/main.c:1080 ../src/main.c:1276
 #, c-format
 msgid "Playing: %s"
-msgstr ""
+msgstr "Odtwarza: %s"
 
 #: ../src/main.c:1089
 msgid "is playing"
-msgstr ""
+msgstr "jest odtwarzane"
 
 #: ../src/main.c:1278
 #, c-format
 msgid "Stopping channel: %s"
-msgstr ""
+msgstr "Zatrzymywanie kanału: %s"
 
 #: ../src/main.c:1322
 msgid "is recording"
-msgstr ""
+msgstr "nagrywa"
 
 #: ../src/main.c:1369
 #, c-format
 msgid "Recording: %s"
-msgstr ""
+msgstr "Nagranie: %s"
 
 #: ../src/main.c:1494
 msgid "Are you sure you want to quit?"

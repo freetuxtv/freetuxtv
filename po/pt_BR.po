@@ -1,118 +1,118 @@
-# Chinese Simp translation for freetuxtv
-# Copyright (C) 2011 freetuxtv contributors
+# Brazilian Portuguese translation for freetuxtv
+# Copyright (c) 2020 Rosetta Contributors and Canonical Ltd 2020
 # This file is distributed under the same license as the freetuxtv package.
-# Dean Lee <xslidian@gmail.com>, 2011.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: freetuxtv\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-10-06 14:04+0200\n"
-"PO-Revision-Date: 2019-06-10 13:53+0000\n"
-"Last-Translator: XsLiDian <xslidian@gmail.com>\n"
-"Language-Team: Chinese Simplified <xslidian+freetuxtv@gmail.com>\n"
+"PO-Revision-Date: 2021-06-19 17:43+0000\n"
+"Last-Translator: André Marcelo Alvarenga <andrealvarenga@gmx.net>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2021-08-30 13:36+0000\n"
 "X-Generator: Launchpad (build 76ef73296f01d64cdfe5c48bfc4daf35cdfde808)\n"
-"X-Poedit-Language: Chinese\n"
-"Language: Chinese\n"
 
 #: ../data/ui/addrecording.glade.h:1
 msgid "Add a recording"
-msgstr "添加录像任务"
+msgstr "Adicionar uma gravação"
 
 #: ../data/ui/addrecording.glade.h:2
 msgid "Selected channel:"
-msgstr "选中频道:"
+msgstr "Canal selecionado:"
 
 #: ../data/ui/addrecording.glade.h:3
 msgid "Title:"
-msgstr "标题:"
+msgstr "Título:"
 
 #: ../data/ui/addrecording.glade.h:4
 msgid "Start time:"
-msgstr "起始时间:"
+msgstr "Hora de início:"
 
 #: ../data/ui/addrecording.glade.h:5
 msgid "Duration:"
-msgstr "时长:"
+msgstr "Duração:"
 
 #: ../data/ui/addrecording.glade.h:6
 msgid "End time:"
-msgstr "终止时间:"
+msgstr "Hora de término:"
 
 #: ../data/ui/addrecording.glade.h:7
 msgid "minutes"
-msgstr "分钟"
+msgstr "minutos"
 
 #: ../data/ui/addrecording.glade.h:8
 msgid "<b>Recording period</b>"
-msgstr "<b>录制间隔</b>"
+msgstr "<b>Período de gravação</b>"
 
 #: ../data/ui/addchannelsgroups.glade.h:1
 msgid "Add a group"
-msgstr "添加组"
+msgstr "Adicionar grupo"
 
 #: ../data/ui/addchannelsgroups.glade.h:2
 msgid "Channels groups file:"
-msgstr "频道组文件:"
+msgstr "Arquivo de grupo de canais:"
 
 #: ../data/ui/addchannelsgroups.glade.h:3
 msgid ""
 "Select one or several channels group you want to add and click on the add "
 "button."
-msgstr "选择希望添加的一个或多个频道组并点击添加按钮。"
+msgstr ""
+"Selecione um ou mais grupos de canais que deseja adicionar e clique no botão "
+"adicionar."
 
 #: ../data/ui/addchannelsgroups.glade.h:4
 msgid "Languages/Channels group"
-msgstr "语言/频道组"
+msgstr "Idiomas/Grupos de canais"
 
 #: ../data/ui/addchannelsgroups.glade.h:5
 msgid "Required ISP"
-msgstr "所需 ISP"
+msgstr "ISP requerido"
 
 #: ../data/ui/addchannelsgroups.glade.h:6
 msgid "URI"
-msgstr "URI"
+msgstr "URL"
 
 #: ../data/ui/addchannelsgroups.glade.h:7
 msgid "Existing channels group"
-msgstr "现有频道组"
+msgstr "Grupos de canais conhecidos"
 
 #: ../data/ui/addchannelsgroups.glade.h:8 ../data/ui/freetuxtv.glade.h:7
 msgid "Group's name:"
-msgstr "组名:"
+msgstr "Nome do grupo:"
 
 #: ../data/ui/addchannelsgroups.glade.h:9 ../data/ui/freetuxtv.glade.h:9
 msgid "Name of the group which will be added"
-msgstr "将添加的组名"
+msgstr "Nome do grupo a ser adicionado"
 
 #: ../data/ui/addchannelsgroups.glade.h:10 ../data/ui/freetuxtv.glade.h:8
 msgid "Playlist's URI:"
-msgstr "播放列表 URI:"
+msgstr "URL da playlist:"
 
 #: ../data/ui/addchannelsgroups.glade.h:11 ../data/ui/freetuxtv.glade.h:10
 msgid "Playlist's URI of the group which will be added"
-msgstr "将添加组的播放列表 URI"
+msgstr "URL da playlist do grupo a ser adicionado"
 
 #: ../data/ui/addchannelsgroups.glade.h:12 ../data/ui/freetuxtv.glade.h:11
 msgid "Delete this text before the name:"
-msgstr "删除名称前的这些文字:"
+msgstr "Eliminar o texto antes do nome:"
 
 #: ../data/ui/addchannelsgroups.glade.h:13 ../data/ui/freetuxtv.glade.h:13
 msgid "Text or regexp which must be deleted at the end of the channel's name"
-msgstr "频道名称末尾必须删除的文本或正则表达式"
+msgstr "Texto ou regexp que deve ser apagado no fim do nome dos canais"
 
 #: ../data/ui/addchannelsgroups.glade.h:14 ../data/ui/freetuxtv.glade.h:12
 msgid "Delete this text behind the name:"
-msgstr "删除名称后的这些文字:"
+msgstr "Apagar o texto no final do nome:"
 
 #: ../data/ui/addchannelsgroups.glade.h:15 ../data/ui/freetuxtv.glade.h:14
 msgid ""
 "Text or regexp which must be deleted at the beginning of the channel's name"
-msgstr "频道名称开头必须删除的文本或正则表达式"
+msgstr "Texto ou regexp que deverá ser apagado no início do nome do canal"
 
 #: ../data/ui/addchannelsgroups.glade.h:16 ../data/ui/freetuxtv.glade.h:15
 msgid ""
@@ -121,90 +121,91 @@ msgid ""
 "\"11 - NT1\" or \"12 - NRJ 12\", FreetuxTV is able to remove the channel's "
 "number before the name, by using the regular expression \"[0-9]* - \"."
 msgstr ""
-"您可以使用正则表达式删除组中频道名称的部分文字。例如，如果您的播放列表中有类似 \"11 - NT1\" 或 \"12 - NRJ 12\" "
-"的名称，FreetuxTV 可以使用正则表达式 \"[0-9]* - \" 移除名称前的频道号。"
+"Você pode facilmente usar expressões para apagar texto no nome de canais e "
+"de grupos. Por exemplo, se na sua playlist você tem um nome como \"11 - "
+"NT1\" ou \"12 - NRJ 12\", FreetuxTV pode remover os números dos canais antes "
+"dos nomes usando a expressão regular  \"[0-9]* - \"."
 
 #: ../data/ui/addchannelsgroups.glade.h:17 ../data/ui/freetuxtv.glade.h:16
 msgid "<b>Processing of channels' name</b>"
-msgstr "<b>正在处理频道名称</b>"
+msgstr "<b>Processando o nome de canais</b>"
 
 #: ../data/ui/addchannelsgroups.glade.h:18
 msgid "Custom channels group"
-msgstr "自定义频道组"
+msgstr "Grupos de canais personalizados"
 
 #: ../data/ui/addchannelsgroups.glade.h:19
 msgid "Favourites"
-msgstr "收藏"
+msgstr "Favoritos"
 
 #: ../data/ui/addchannelsgroups.glade.h:20
 msgid "<b>Special group type:</b>"
-msgstr "<b>特殊组类:</b>"
+msgstr "<b>Tipo de grupo especial:</b>"
 
 #: ../data/ui/addchannelsgroups.glade.h:21
 msgid "Special group"
-msgstr "特殊组"
+msgstr "Grupo especial"
 
 #: ../data/ui/channelproperties.glade.h:1
 msgid "Channel properties"
-msgstr "频道属性"
+msgstr "Propriedades do canal"
 
 #: ../data/ui/channelproperties.glade.h:2
 msgid "Channel's name:"
-msgstr "频道名称:"
+msgstr "Nome do canal:"
 
 #: ../data/ui/channelproperties.glade.h:3
 msgid "Channel's URI:"
-msgstr "频道 URI:"
+msgstr "URL do canal:"
 
 #: ../data/ui/channelproperties.glade.h:4
 msgid "<b>Channel VLC options:</b>"
-msgstr "<b>频道 VLC 选项:</b>"
+msgstr "<b>Opções do VLC para o canal:</b>"
 
 #: ../data/ui/channelproperties.glade.h:5 ../data/ui/freetuxtv.glade.h:17
 msgid "General"
-msgstr "常规"
+msgstr "Geral"
 
 #: ../data/ui/channelproperties.glade.h:6
 msgid "Deinterlacement:"
-msgstr "反交错:"
+msgstr "Desentrelaçamento:"
 
 #: ../data/ui/channelproperties.glade.h:7
 #: ../src/freetuxtv-window-channel-properties.c:176
 msgid "none"
-msgstr "无"
+msgstr "nenhum"
 
 #: ../data/ui/channelproperties.glade.h:8
 msgid "Options"
-msgstr "选项"
+msgstr "Opções"
 
 #: ../data/ui/freetuxtv.glade.h:1
 msgid "GNU General Public License v3"
-msgstr "GNU 通用公共授权许可 第三版"
+msgstr "Licença Pública Geral GNU v3"
 
 #: ../data/ui/freetuxtv.glade.h:2
 msgid "Web TV channels player"
-msgstr "网络电视频道播放器"
+msgstr "Player de canais de Web TV"
 
 #: ../data/ui/freetuxtv.glade.h:3
 msgid "Project's Web Site"
-msgstr "项目网站"
+msgstr "Site do projeto"
 
 #. TRANSLATORS: Replace this string with your names, one name per line.
 #: ../data/ui/freetuxtv.glade.h:5
 msgid "translator-credits"
 msgstr ""
-"Dean Lee <xslidian+freetuxtv@gmail.com>\n"
-"\n"
 "Launchpad Contributions:\n"
-"  XsLiDian https://launchpad.net/~xslidian"
+"  André Marcelo Alvarenga https://launchpad.net/~andrealvarenga\n"
+"  Guilherme Roda https://launchpad.net/~glealroda"
 
 #: ../data/ui/freetuxtv.glade.h:6
 msgid "Group properties"
-msgstr "组属性"
+msgstr "Propriedades de grupo"
 
 #: ../data/ui/freetuxtv.glade.h:18
 msgid "Number of channels:"
-msgstr "频道数:"
+msgstr "Número de canais:"
 
 #: ../data/ui/freetuxtv.glade.h:19
 msgid "0"
@@ -212,59 +213,59 @@ msgstr "0"
 
 #: ../data/ui/freetuxtv.glade.h:20
 msgid "Details"
-msgstr "详细信息"
+msgstr "Detalhes"
 
 #: ../data/ui/freetuxtv.glade.h:21
 msgid "View file"
-msgstr "查看文件"
+msgstr "Ver arquivo"
 
 #: ../data/ui/freetuxtv.glade.h:22
 msgid "Preferences"
-msgstr "首选项"
+msgstr "Preferências"
 
 #: ../data/ui/freetuxtv.glade.h:23
 msgid "Play last channel on startup"
-msgstr "启动时播放上次播放的频道"
+msgstr "Ler o último canal ao iniciar"
 
 #: ../data/ui/freetuxtv.glade.h:24
 msgid "<b>Startup</b>"
-msgstr "<b>启动</b>"
+msgstr "<b>Inicio</b>"
 
 #: ../data/ui/freetuxtv.glade.h:25
 msgid "Enable desktop notifications"
-msgstr "启用桌面通知"
+msgstr "Ativar notificações na tela"
 
 #: ../data/ui/freetuxtv.glade.h:26
 msgid "<b>Notifications</b>"
-msgstr "<b>通知</b>"
+msgstr "<b>Notificações</b>"
 
 #: ../data/ui/freetuxtv.glade.h:27
 msgid "Ignore diacritics"
-msgstr "忽略变音符"
+msgstr "Ignorar acentos"
 
 #: ../data/ui/freetuxtv.glade.h:28
 msgid "<b>Search of channels</b>"
-msgstr "<b>搜索频道</b>"
+msgstr "<b>Busca de canais</b>"
 
 #: ../data/ui/freetuxtv.glade.h:29
 msgid "None"
-msgstr "无"
+msgstr "Nenhum"
 
 #: ../data/ui/freetuxtv.glade.h:30
 msgid "Use a custom configuration file"
-msgstr "使用自定义配置文件"
+msgstr "Use um arquivo de configuração personalizado"
 
 #: ../data/ui/freetuxtv.glade.h:31
 msgid "Use the VLC configuration file"
-msgstr "使用 VLC 配置文件"
+msgstr "Use o arquivo de configuração do VLC"
 
 #: ../data/ui/freetuxtv.glade.h:32
 msgid "<i>Restart the application after changing this option.</i>"
-msgstr "<i>更改此选项后请重新启动程序。</i>"
+msgstr "<i>Reinicie a aplicação após alterar esta opção.</i>"
 
 #: ../data/ui/freetuxtv.glade.h:33
 msgid "<b>Configuration file (vlcrc)</b>"
-msgstr "<b>配置文件 (vlcrc)</b>"
+msgstr "<b>Arquivo de configuração (vlcrc)</b>"
 
 #: ../data/ui/freetuxtv.glade.h:34
 msgid "LibVLC"
@@ -272,83 +273,83 @@ msgstr "LibVLC"
 
 #: ../data/ui/freetuxtv.glade.h:35
 msgid "Directory Record:"
-msgstr "录制目录:"
+msgstr "Pasta de gravação:"
 
 #: ../data/ui/freetuxtv.glade.h:36
 msgid "Select a directory"
-msgstr "选择目录"
+msgstr "Selecione uma pasta"
 
 #: ../data/ui/freetuxtv.glade.h:37
 msgid "<b>Destination</b>"
-msgstr "<b>目标</b>"
+msgstr "<b>Destino</b>"
 
 #: ../data/ui/freetuxtv.glade.h:38
 msgid "No transcoding"
-msgstr "无转码"
+msgstr "Sem transcodificação"
 
 #: ../data/ui/freetuxtv.glade.h:39
 msgid "Predefined transcoding formats"
-msgstr "预定义的转码格式"
+msgstr "Formatos de transcodificação pré-definidos"
 
 #: ../data/ui/freetuxtv.glade.h:40
 msgid "Format:"
-msgstr "格式:"
+msgstr "Formato:"
 
 #: ../data/ui/freetuxtv.glade.h:41
 msgid "<b>Transcoding options</b>"
-msgstr "<b>转码选项</b>"
+msgstr "<b>Opções de Transcodificação</b>"
 
 #: ../data/ui/freetuxtv.glade.h:42
 msgid "Recordings"
-msgstr "录像"
+msgstr "Gravações"
 
 #: ../data/ui/freetuxtv.glade.h:43
 msgid "Download timeout (seconds) :"
-msgstr "下载超时 (秒) :"
+msgstr "Tempo de espera de downloads (segundos):"
 
 #: ../data/ui/freetuxtv.glade.h:44
 msgid "<b>Connection</b>"
-msgstr "<b>连接</b>"
+msgstr "<b>Conexão</b>"
 
 #: ../data/ui/freetuxtv.glade.h:45
 msgid "No proxy"
-msgstr "无代理"
+msgstr "Nenhum proxy"
 
 #: ../data/ui/freetuxtv.glade.h:46
 msgid "Manual proxy configuration"
-msgstr "手动配置代理"
+msgstr "Configuração manual do proxy"
 
 #: ../data/ui/freetuxtv.glade.h:47
 msgid "Proxy server:"
-msgstr "代理服务器:"
+msgstr "Servidor de proxy:"
 
 #: ../data/ui/freetuxtv.glade.h:48
 msgid "Proxy port:"
-msgstr "代理端口:"
+msgstr "Porta do proxy:"
 
 #: ../data/ui/freetuxtv.glade.h:49
 msgid "Proxy type:"
-msgstr "代理类型:"
+msgstr "Tipo de proxy:"
 
 #: ../data/ui/freetuxtv.glade.h:50
 msgid "Use authentification"
-msgstr "使用身份认证"
+msgstr "Use autenticação"
 
 #: ../data/ui/freetuxtv.glade.h:51
 msgid "Username:"
-msgstr "用户名:"
+msgstr "Usuário:"
 
 #: ../data/ui/freetuxtv.glade.h:52
 msgid "Password:"
-msgstr "密码:"
+msgstr "Senha :"
 
 #: ../data/ui/freetuxtv.glade.h:53
 msgid "<b>Proxy</b>"
-msgstr "<b>代理</b>"
+msgstr "<b>Proxy</b>"
 
 #: ../data/ui/freetuxtv.glade.h:54
 msgid "Network"
-msgstr "网络"
+msgstr "Rede"
 
 #: ../data/ui/freetuxtv.glade.h:55
 msgid "HTTP"
@@ -360,7 +361,7 @@ msgstr "SOCKS"
 
 #: ../data/ui/freetuxtv.glade.h:57
 msgid "Video - Theora + Vorbis (OGG)"
-msgstr "视频 - Theora + Vorbis (OGG)"
+msgstr "Video - Theora + Vorbis (OGG)"
 
 #: ../data/ui/freetuxtv.glade.h:58
 msgid "vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2"
@@ -372,7 +373,7 @@ msgstr "ogg"
 
 #: ../data/ui/freetuxtv.glade.h:60
 msgid "Video - H.264 + MPGA (MP4)"
-msgstr "视频 - H.264 + MPGA (MP4)"
+msgstr "Vídeo - H.264 + MPGA (MP4)"
 
 #: ../data/ui/freetuxtv.glade.h:61
 msgid ""
@@ -388,7 +389,7 @@ msgstr "mp4"
 
 #: ../data/ui/freetuxtv.glade.h:63
 msgid "Video - MPEG-2 + MPGA (TS)"
-msgstr "视频 - MPEG-2 + MPGA (TS)"
+msgstr "Vídeo - MPEG-2 + MPGA (TS)"
 
 #: ../data/ui/freetuxtv.glade.h:64
 msgid "vcodec=mp2v,vb=800,scale=1,acodec=mpga,ab=128,channels=2"
@@ -404,35 +405,35 @@ msgstr "FreetuxTV"
 
 #: ../data/ui/freetuxtv.glade.h:67
 msgid "Search:"
-msgstr "搜索:"
+msgstr "Pesquisar:"
 
 #: ../data/ui/freetuxtv.glade.h:68
 msgid "Channels' search text area"
-msgstr "频道搜索文本域"
+msgstr "Pesquisa de canais"
 
 #: ../data/ui/freetuxtv.glade.h:69
 msgid "Delete the search text area"
-msgstr "删除搜索文本域"
+msgstr "Apagar a área de texto de pesquisa"
 
 #: ../data/ui/freetuxtv.glade.h:70
 msgid "Jump to current channel"
-msgstr "跳至当前频道"
+msgstr "Ir para o canal atual"
 
 #: ../data/ui/freetuxtv.glade.h:71
 msgid "Go to the current channel playing"
-msgstr "转到当前正在播放的频道"
+msgstr "Ir para o canal atual"
 
 #: ../data/ui/freetuxtv.glade.h:72
 msgid "Channels"
-msgstr "频道"
+msgstr "Canais"
 
 #: ../data/ui/freetuxtv.glade.h:73
 msgid "In progress"
-msgstr "正在进行"
+msgstr "Em andamento"
 
 #: ../data/ui/freetuxtv.glade.h:74
 msgid "Terminated"
-msgstr "已终止"
+msgstr "Finalizado"
 
 #: ../data/ui/freetuxtv.glade.h:75
 msgid "00:00:00"
@@ -440,27 +441,27 @@ msgstr "00:00:00"
 
 #: ../data/ui/freetuxtv.glade.h:76
 msgid "Previous channel"
-msgstr "上一频道"
+msgstr "Canal"
 
 #: ../data/ui/freetuxtv.glade.h:77
 msgid "Play the current channel"
-msgstr "播放当前频道"
+msgstr "Reproduzir o canal atual"
 
 #: ../data/ui/freetuxtv.glade.h:78
 msgid "Stop playing the current channel"
-msgstr "停止播放当前频道"
+msgstr "Parar de reproduzir o canal atual"
 
 #: ../data/ui/freetuxtv.glade.h:79
 msgid "Record the current channel"
-msgstr "录制当前频道"
+msgstr "Gravar o canal atual"
 
 #: ../data/ui/freetuxtv.glade.h:80
 msgid "Next channel"
-msgstr "下一频道"
+msgstr "Próximo canal"
 
 #: ../data/ui/freetuxtv.glade.h:81
 msgid "Vol:"
-msgstr "音量:"
+msgstr "Vol:"
 
 #: ../data/ui/freetuxtv.glade.h:82
 msgid "-"
@@ -472,804 +473,808 @@ msgstr "+"
 
 #: ../data/ui/freetuxtv.glade.h:84
 msgid "Fullscreen mode"
-msgstr "全屏模式"
+msgstr "Modo tela cheia"
 
 #: ../data/ui/freetuxtv.glade.h:85
 msgid "Small mode"
-msgstr "最简模式"
+msgstr "Modo tela pequena"
 
 #: ../data/ui/freetuxtv.glade.h:86
 msgid " channels"
-msgstr " 频道"
+msgstr " canais"
 
 #: ../data/ui/freetuxtv.glade.h:87
 msgid "Go back to the normal mode"
-msgstr "返回常规模式"
+msgstr "Voltar ao modo normal"
 
 #: ../data/ui/freetuxtv.glade.h:88
 msgid "Activate/Deactivate the window always on top"
-msgstr "启用/禁用窗口总在最前"
+msgstr "Ativa/Desativa sempre no topo"
 
 #: ../data/ui/tvchannelsdatabase.glade.h:1
 msgid ""
 "<i>This will re-associate each stream with a TV Channel in the current "
 "database. This allow to associate a logo to a channel.</i>"
 msgstr ""
+"<i>Isto ir[a reassociar cada stream com um canal de Tv na base de dados "
+"atual. Isto permite associar um logo para o canal.</i>"
 
 #: ../data/ui/tvchannelsdatabase.glade.h:2
 msgid "Update database from file:"
-msgstr ""
+msgstr "Atualiza base de dados do arquivo:"
 
 #: ../data/ui/tvchannelsdatabase.glade.h:3
 msgid " Synchronize TV Channel database"
-msgstr ""
+msgstr " Sincroniza base de dados dos canais de TV"
 
 #: ../data/ui/tvchannelsdatabase.glade.h:4
 msgid ""
 "<i>This will download each logos recorded in the local database from the "
 "remote database.</i>"
 msgstr ""
+"<i>Isto ira baixar cada logo gravado na base de dados local da base de dados "
+"remota.</i>"
 
 #: ../data/ui/tvchannelsdatabase.glade.h:5
 msgid "Remote directory:"
-msgstr ""
+msgstr "Pasta remota:"
 
 #: ../data/ui/tvchannelsdatabase.glade.h:6
 msgid "Update logos list"
-msgstr ""
+msgstr "Atualiza lista de logos"
 
 #: ../data/ui/tvchannelsdatabase.glade.h:7
 msgid "<b>TV Channels database</b>"
-msgstr ""
+msgstr "<b>Base de dados do canais de TV</b>"
 
 #: ../data/channels_groups.xml.in.h:1
 msgid "Alice (Unofficial)"
-msgstr "Alice (非官方)"
+msgstr "Alice (Não oficial)"
 
 #: ../data/channels_groups.xml.in.h:2
 msgid "SFR TV (Unofficial)"
-msgstr "SFR TV (非官方)"
+msgstr "SFR TV (Não oficial)"
 
 #: ../data/channels_groups.xml.in.h:3
 msgid "Afrikaans Web TV and Radio"
-msgstr ""
+msgstr "Africanos Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:4
 msgid "Web TV (Afrikaans)"
-msgstr ""
+msgstr "Web TV (Africanos)"
 
 #: ../data/channels_groups.xml.in.h:5
 msgid "Albanian Web TV and Radio"
-msgstr ""
+msgstr "Albanes Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:6
 msgid "Web TV (Albanian)"
-msgstr ""
+msgstr "Web TV (Albanes)"
 
 #: ../data/channels_groups.xml.in.h:7
 msgid "Amharic Web TV and Radio"
-msgstr ""
+msgstr "Amarico Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:8
 msgid "Web TV (Amharic)"
-msgstr ""
+msgstr "Web TV (Amarico)"
 
 #: ../data/channels_groups.xml.in.h:9
 msgid "Arabic Web TV and Radio"
-msgstr "阿拉伯语网络电视与电台"
+msgstr "Arabe Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:10
 msgid "Web TV (Arabic)"
-msgstr "网络电视 (阿拉伯语)"
+msgstr "Web TV (Arabe)"
 
 #: ../data/channels_groups.xml.in.h:11
 msgid "Web Radio (Arabic)"
-msgstr "网络电台 (阿拉伯语)"
+msgstr "Web Radio (Arabe)"
 
 #: ../data/channels_groups.xml.in.h:12
 msgid "Web Cam (Arabic)"
-msgstr ""
+msgstr "Web Cam (Arabe)"
 
 #: ../data/channels_groups.xml.in.h:13
 msgid "Armenian Web TV and Radio"
-msgstr ""
+msgstr "Armenio Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:14
 msgid "Web TV (Armenian)"
-msgstr ""
+msgstr "Web TV (Armenio)"
 
 #: ../data/channels_groups.xml.in.h:15
 msgid "Azerbaijani Web TV and Radio"
-msgstr ""
+msgstr "Azerbaijao Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:16
 msgid "Web TV (Azerbaijani)"
-msgstr ""
+msgstr "Web TV (Azerbaijao)"
 
 #: ../data/channels_groups.xml.in.h:17
 msgid "Bengali/Bangla Web TV and Radio"
-msgstr ""
+msgstr "Bengali/Bangla Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:18
 msgid "Web TV (Bengali/Bangla)"
-msgstr ""
+msgstr "Web TV (Bengali/Bangla)"
 
 #: ../data/channels_groups.xml.in.h:19
 msgid "Bulgarian Web TV and Radio"
-msgstr ""
+msgstr "Bulgaro Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:20
 msgid "Web TV (Bulgarian)"
-msgstr ""
+msgstr "Web TV (Bulgaro)"
 
 #: ../data/channels_groups.xml.in.h:21
 msgid "Cambodian Web TV and Radio"
-msgstr ""
+msgstr "Cambojano Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:22
 msgid "Web TV (Cambodian)"
-msgstr ""
+msgstr "Web TV (Cambojano)"
 
 #: ../data/channels_groups.xml.in.h:23
 msgid "Catalan Web TV and Radio"
-msgstr "加泰罗尼亚语网络电视与电台"
+msgstr "Catalao Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:24
 msgid "Web TV (Catalan)"
-msgstr "网络电视 (加泰罗尼亚语)"
+msgstr "Web TV (Catalao)"
 
 #: ../data/channels_groups.xml.in.h:25
 msgid "Web Radio (Catalan)"
-msgstr "网络电台 (加泰罗尼亚语)"
+msgstr "Web Radio (Catalao)"
 
 #: ../data/channels_groups.xml.in.h:26
 msgid "Chinese Web TV and Radio"
-msgstr "汉语网络电视与电台"
+msgstr "Chines Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:27
 msgid "Web TV (Chinese)"
-msgstr "网络电视 (汉语)"
+msgstr "Web TV (Chines)"
 
 #: ../data/channels_groups.xml.in.h:28
 msgid "Web Radio (Chinese)"
-msgstr "网络电台 (汉语)"
+msgstr "Web Radio (Chines)"
 
 #: ../data/channels_groups.xml.in.h:29
 msgid "Croatian Web TV and Radio"
-msgstr ""
+msgstr "Croata Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:30
 msgid "Web TV (Croatian)"
-msgstr ""
+msgstr "eb TV (Croata)"
 
 #: ../data/channels_groups.xml.in.h:31
 msgid "Web Radio (Croatian)"
-msgstr ""
+msgstr "Web Radio (Croata)"
 
 #: ../data/channels_groups.xml.in.h:32
 msgid "Radio Browser Service (Croatian)"
-msgstr ""
+msgstr "Radio Browser Service (Croata)"
 
 #: ../data/channels_groups.xml.in.h:33
 msgid "Czech Web TV and Radio"
-msgstr "捷克语网络电视与电台"
+msgstr "Tcheco Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:34
 msgid "Web TV (Czech)"
-msgstr "网络电视 (捷克语)"
+msgstr "Web TV (Tcheco)"
 
 #: ../data/channels_groups.xml.in.h:35
 msgid "Web Radio (Czech)"
-msgstr ""
+msgstr "Web Radio (Tcheco)"
 
 #: ../data/channels_groups.xml.in.h:36
 msgid "Danish Web TV and Radio"
-msgstr ""
+msgstr "Dinamarques Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:37
 msgid "Web TV (Danish)"
-msgstr ""
+msgstr "Web TV (Dinamarques)"
 
 #: ../data/channels_groups.xml.in.h:38
 msgid "Dutch Web TV and Radio"
-msgstr "荷兰语网络电视与电台"
+msgstr "Holandes Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:39
 msgid "Web TV (Dutch)"
-msgstr "网络电视 (荷兰语)"
+msgstr "Web TV (Holandes)"
 
 #: ../data/channels_groups.xml.in.h:40
 msgid "Web Radio (Dutch)"
-msgstr ""
+msgstr "Web Radio (Holandes)"
 
 #: ../data/channels_groups.xml.in.h:41
 msgid "Web Cam (Dutch)"
-msgstr ""
+msgstr "Web Cam (Holandes)"
 
 #: ../data/channels_groups.xml.in.h:42
 msgid "English Web TV and Radio"
-msgstr "英语网络电视与电台"
+msgstr "Ingles Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:43
 msgid "Web TV (English)"
-msgstr "网络电视 (英语)"
+msgstr "Web TV (Ingles)"
 
 #: ../data/channels_groups.xml.in.h:44
 msgid "Web Radio (English)"
-msgstr "网络电台 (英语)"
+msgstr "Web Radio (Ingles)"
 
 #: ../data/channels_groups.xml.in.h:45
 msgid "Web Programmes (English)"
-msgstr "网络节目 (英语)"
+msgstr "Web Programmes (Ingles)"
 
 #: ../data/channels_groups.xml.in.h:46
 msgid "Web Cam (English)"
-msgstr ""
+msgstr "Web Cam (Ingles)"
 
 #: ../data/channels_groups.xml.in.h:47
 msgid "Estonian Web TV and Radio"
-msgstr ""
+msgstr "Estoniano Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:48
 msgid "Web TV (Estonian)"
-msgstr ""
+msgstr "Web TV (Estoniano)"
 
 #: ../data/channels_groups.xml.in.h:49
 msgid "Finnish Web TV and Radio"
-msgstr ""
+msgstr "Finlandes Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:50
 msgid "Web TV (Finnish)"
-msgstr ""
+msgstr "Web TV (Finlandes)"
 
 #: ../data/channels_groups.xml.in.h:51
 msgid "French Web TV and Radio"
-msgstr "法语网络电视与电台"
+msgstr "Frances Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:52
 msgid "Web TV (French)"
-msgstr "网络电视 (法语)"
+msgstr "Web TV (Frances)"
 
 #: ../data/channels_groups.xml.in.h:53
 msgid "Web Radio (French)"
-msgstr "网络电台 (法语)"
+msgstr "Web Radio (Frances)"
 
 #: ../data/channels_groups.xml.in.h:54
 msgid "Web Programmes (French)"
-msgstr "网络节目 (法语)"
+msgstr "Web Programmes (Frances)"
 
 #: ../data/channels_groups.xml.in.h:55
 msgid "Georgian Web TV and Radio"
-msgstr ""
+msgstr "Georgiano Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:56
 msgid "Web TV (Georgian)"
-msgstr ""
+msgstr "Web TV (Georgiano)"
 
 #: ../data/channels_groups.xml.in.h:57
 msgid "German Web TV and Radio"
-msgstr "德语网络电视与电台"
+msgstr "Alemao Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:58
 msgid "Web TV (German)"
-msgstr "网络电视 (德语)"
+msgstr "Web TV (Alemao)"
 
 #: ../data/channels_groups.xml.in.h:59
 msgid "Web Radio (German)"
-msgstr "网络电台 (德语)"
+msgstr "Web Radio (Alemao)"
 
 #: ../data/channels_groups.xml.in.h:60
 msgid "Kodinerds (German)"
-msgstr ""
+msgstr "Kodinerds (Alemao)"
 
 #: ../data/channels_groups.xml.in.h:61
 msgid "Greek Web TV and Radio"
-msgstr "希腊语网络电视与电台"
+msgstr "Grego Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:62
 msgid "Web TV (Greek)"
-msgstr "网络电视 (希腊语)"
+msgstr "Web TV (Grego)"
 
 #: ../data/channels_groups.xml.in.h:63
 msgid "Web Radio (Greek)"
-msgstr ""
+msgstr "Web Radio (Grego)"
 
 #: ../data/channels_groups.xml.in.h:64
 msgid "Hebrew Web TV and Radio"
-msgstr ""
+msgstr "Hebraico Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:65
 msgid "Web TV (Hebrew)"
-msgstr ""
+msgstr "Web TV (Hebraico)"
 
 #: ../data/channels_groups.xml.in.h:66
 msgid "Web Radio (Hebrew)"
-msgstr ""
+msgstr "Web Radio (Hebraico)"
 
 #: ../data/channels_groups.xml.in.h:67
 msgid "Web Cam (Hebrew)"
-msgstr ""
+msgstr "Web Cam (Hebraico)"
 
 #: ../data/channels_groups.xml.in.h:68
 msgid "Hindi Web TV and Radio"
-msgstr ""
+msgstr "Hindi Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:69
 msgid "Web TV (Hindi)"
-msgstr ""
+msgstr "Web TV (Hindi)"
 
 #: ../data/channels_groups.xml.in.h:70
 msgid "Web Radio (Hindi)"
-msgstr ""
+msgstr "Web Radio (Hindi)"
 
 #: ../data/channels_groups.xml.in.h:71
 msgid "Hungarian Web TV and Radio"
-msgstr "匈牙利语网络电视与电台"
+msgstr "Hungaro Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:72
 msgid "Web TV (Hungarian)"
-msgstr "网络电视 (匈牙利语)"
+msgstr "Web TV (Hungaro)"
 
 #: ../data/channels_groups.xml.in.h:73
 msgid "Web Radio (Hungarian)"
-msgstr ""
+msgstr "Web Radio (Hungaro)"
 
 #: ../data/channels_groups.xml.in.h:74
 msgid "Icelandic Web TV and Radio"
-msgstr ""
+msgstr "Islandes Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:75
 msgid "Web TV (Icelandic)"
-msgstr ""
+msgstr "Web TV (Islandes)"
 
 #: ../data/channels_groups.xml.in.h:76
 msgid "Indonesian Web TV and Radio"
-msgstr ""
+msgstr "Indonesio Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:77
 msgid "Web TV (Indonesian)"
-msgstr ""
+msgstr "Web TV (Indonesio)"
 
 #: ../data/channels_groups.xml.in.h:78
 msgid "Interlingua Web TV and Radio"
-msgstr ""
+msgstr "Interlingua Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:79
 msgid "Web Radio (Interlingua)"
-msgstr ""
+msgstr "Web Radio (Interlingua)"
 
 #: ../data/channels_groups.xml.in.h:80
 msgid "Irish Web TV and Radio"
-msgstr ""
+msgstr "Irlandes Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:81
 msgid "Web TV (Irish)"
-msgstr ""
+msgstr "Web TV (Irlandes)"
 
 #: ../data/channels_groups.xml.in.h:82
 msgid "Web Radio (Irish)"
-msgstr ""
+msgstr "Web Radio (Irlandes)"
 
 #: ../data/channels_groups.xml.in.h:83
 msgid "Italian Web TV and Radio"
-msgstr "意大利语网络电视与电台"
+msgstr "Italiano Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:84
 msgid "Web TV (Italian)"
-msgstr "网络电视 (意大利语)"
+msgstr "Web TV (Italiano)"
 
 #: ../data/channels_groups.xml.in.h:85
 msgid "Web Radio (Italian)"
-msgstr "网络电台 (意大利语)"
+msgstr "Web Radio (Italiano)"
 
 #: ../data/channels_groups.xml.in.h:86
 msgid "Japanese Web TV and Radio"
-msgstr "日语网络电视与电台"
+msgstr "Japones Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:87
 msgid "Web TV (Japanese)"
-msgstr "网络电视 (日语)"
+msgstr "Web TV (Japones)"
 
 #: ../data/channels_groups.xml.in.h:88
 msgid "Web Radio (Japanese)"
-msgstr ""
+msgstr "Web Radio (Japones)"
 
 #: ../data/channels_groups.xml.in.h:89
 msgid "Web Cam (Japanese)"
-msgstr ""
+msgstr "Web Cam (Japones)"
 
 #: ../data/channels_groups.xml.in.h:90
 msgid "Kazakh Web TV and Radio"
-msgstr ""
+msgstr "Cazaque Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:91
 msgid "Web TV (Kazakh)"
-msgstr ""
+msgstr "Web TV (Cazaque)"
 
 #: ../data/channels_groups.xml.in.h:92
 msgid "Korean Web TV and Radio"
-msgstr "朝鲜语网络电视与电台"
+msgstr "Coreano Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:93
 msgid "Web TV (Korean)"
-msgstr "网络电视 (朝鲜语)"
+msgstr "Web TV (Coreano)"
 
 #: ../data/channels_groups.xml.in.h:94
 msgid "Kurdish Web TV and Radio"
-msgstr ""
+msgstr "Curdo Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:95
 msgid "Web TV (Kurdish)"
-msgstr ""
+msgstr "Web TV (Curdo)"
 
 #: ../data/channels_groups.xml.in.h:96
 msgid "Latin Web TV and Radio"
-msgstr "拉丁语网络电视与电台"
+msgstr "Latino Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:97
 msgid "Web TV (Latin)"
-msgstr "网络电视 (拉丁语)"
+msgstr "Web TV (Latino)"
 
 #: ../data/channels_groups.xml.in.h:98
 msgid "Latvian/Lettish Web TV and Radio"
-msgstr ""
+msgstr "Letônia Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:99
 msgid "Web TV (Latvian/Lettish)"
-msgstr ""
+msgstr "Web TV (Letônia)"
 
 #: ../data/channels_groups.xml.in.h:100
 msgid "Lithuanian Web TV and Radio"
-msgstr ""
+msgstr "Lituano Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:101
 msgid "Web TV (Lithuanian)"
-msgstr ""
+msgstr "Web TV (Lituano)"
 
 #: ../data/channels_groups.xml.in.h:102
 msgid "Macedonian Web TV and Radio"
-msgstr ""
+msgstr "Macedônio Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:103
 msgid "Web TV (Macedonian)"
-msgstr ""
+msgstr "Web TV (Macedônio)"
 
 #: ../data/channels_groups.xml.in.h:104
 msgid "Web Radio (Macedonian)"
-msgstr ""
+msgstr "Web Radio (Macedônio)"
 
 #: ../data/channels_groups.xml.in.h:105
 msgid "Malay Web TV and Radio"
-msgstr ""
+msgstr "Malaio Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:106
 msgid "Web TV (Malay)"
-msgstr ""
+msgstr "Web TV (Malaio)"
 
 #: ../data/channels_groups.xml.in.h:107
 msgid "Malayalam Web TV and Radio"
-msgstr ""
+msgstr "Malayalam Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:108
 msgid "Web TV (Malayalam)"
-msgstr ""
+msgstr "Web TV (Malayalam)"
 
 #: ../data/channels_groups.xml.in.h:109
 msgid "Maltese Web TV and Radio"
-msgstr ""
+msgstr "Maltês Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:110
 msgid "Web TV (Maltese)"
-msgstr ""
+msgstr "Web TV (Maltês)"
 
 #: ../data/channels_groups.xml.in.h:111
 msgid "Web Radio (Maltese)"
-msgstr ""
+msgstr "Web Radio (Maltês)"
 
 #: ../data/channels_groups.xml.in.h:112
 msgid "Moldavian Web TV and Radio"
-msgstr ""
+msgstr "Moldávia Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:113
 msgid "Web TV (Moldavian)"
-msgstr ""
+msgstr "Web TV (Moldávia)"
 
 #: ../data/channels_groups.xml.in.h:114
 msgid "Mongolian Web TV and Radio"
-msgstr ""
+msgstr "Mongol Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:115
 msgid "Web TV (Mongolian)"
-msgstr ""
+msgstr "Web TV (Mongol)"
 
 #: ../data/channels_groups.xml.in.h:116
 msgid "Norwegian Web TV and Radio"
-msgstr "挪威语网络电视与电台"
+msgstr "Norueguês Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:117
 msgid "Web TV (Norwegian)"
-msgstr "网络电视 (挪威语)"
+msgstr "Web TV (Norueguês)"
 
 #: ../data/channels_groups.xml.in.h:118
 msgid "Persian Web TV and Radio"
-msgstr "波斯语网络电视与电台"
+msgstr "Persa Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:119
 msgid "Web TV (Persian)"
-msgstr "网络电视 (波斯语)"
+msgstr "Web TV (Persa)"
 
 #: ../data/channels_groups.xml.in.h:120
 msgid "Polish Web TV and Radio"
-msgstr "波兰语网络电视与电台"
+msgstr "Polonês Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:121
 msgid "Web TV (Polish)"
-msgstr "网络电视 (波兰语)"
+msgstr "Web TV (Polonês)"
 
 #: ../data/channels_groups.xml.in.h:122
 msgid "Web Radio (Polish)"
-msgstr ""
+msgstr "Web Radio (Polonês)"
 
 #: ../data/channels_groups.xml.in.h:123
 msgid "Web Cam (Polish)"
-msgstr ""
+msgstr "Web Cam (Polonês)"
 
 #: ../data/channels_groups.xml.in.h:124
 msgid "Portuguese Web TV and Radio"
-msgstr "葡萄牙语网络电视与电台"
+msgstr "Português Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:125
 msgid "Web TV (Portuguese)"
-msgstr "网络电视 (葡萄牙语)"
+msgstr "Web TV (Português)"
 
 #: ../data/channels_groups.xml.in.h:126
 msgid "Web Radio (Portuguese)"
-msgstr ""
+msgstr "Web Radio (Português)"
 
 #: ../data/channels_groups.xml.in.h:127
 msgid "Punjabi Web TV and Radio"
-msgstr ""
+msgstr "Punjabi Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:128
 msgid "Web TV (Punjabi)"
-msgstr ""
+msgstr "Web TV (Punjabi)"
 
 #: ../data/channels_groups.xml.in.h:129
 msgid "Romanian Web TV and Radio"
-msgstr "罗马尼亚语网络电视与电台"
+msgstr "Romeno Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:130
 msgid "Web TV (Romanian)"
-msgstr "网络电视 (罗马尼亚语)"
+msgstr "Web TV (Romeno)"
 
 #: ../data/channels_groups.xml.in.h:131
 msgid "Web Radio (Romanian)"
-msgstr ""
+msgstr "Web Radio (Romeno)"
 
 #: ../data/channels_groups.xml.in.h:132
 msgid "Russian Web TV and Radio"
-msgstr "俄语网络电视与电台"
+msgstr "Russo Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:133
 msgid "Web TV (Russian)"
-msgstr "网络电视 (俄语)"
+msgstr "Web TV (Russo)"
 
 #: ../data/channels_groups.xml.in.h:134
 msgid "Web Radio (Russian)"
-msgstr "网络电台 (俄语)"
+msgstr "Web Radio (Russo)"
 
 #: ../data/channels_groups.xml.in.h:135
 msgid "Serbian Web TV and Radio"
-msgstr ""
+msgstr "Sérvio Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:136
 msgid "Web TV (Serbian)"
-msgstr ""
+msgstr "Web TV (Sérvio)"
 
 #: ../data/channels_groups.xml.in.h:137
 msgid "Web Radio (Serbian)"
-msgstr ""
+msgstr "Web Radio (Sérvio)"
 
 #: ../data/channels_groups.xml.in.h:138
 msgid "Serbo-Croatian Web TV and Radio"
-msgstr ""
+msgstr "Servo-croata Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:139
 msgid "Web TV (Serbo-Croatian)"
-msgstr ""
+msgstr "Web TV (Servo-croata)"
 
 #: ../data/channels_groups.xml.in.h:140
 msgid "Web Radio (Serbo-Croatian)"
-msgstr ""
+msgstr "Web Radio (Servo-croata)"
 
 #: ../data/channels_groups.xml.in.h:141
 msgid "Slovak Web TV and Radio"
-msgstr "斯洛伐克语网络电视与电台"
+msgstr "Eslovaco Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:142
 msgid "Web TV (Slovak)"
-msgstr "网络电视 (斯洛伐克语)"
+msgstr "Web TV (Eslovaco)"
 
 #: ../data/channels_groups.xml.in.h:143
 msgid "Web Radio (Slovak)"
-msgstr ""
+msgstr "Web Radio (Eslovaco)"
 
 #: ../data/channels_groups.xml.in.h:144
 msgid "Slovenian Web TV and Radio"
-msgstr ""
+msgstr "Esloveno Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:145
 msgid "Web TV (Slovenian)"
-msgstr ""
+msgstr "Web TV (Esloveno)"
 
 #: ../data/channels_groups.xml.in.h:146
 msgid "Web Radio (Slovenian)"
-msgstr ""
+msgstr "Web Radio (Esloveno)"
 
 #: ../data/channels_groups.xml.in.h:147
 msgid "Spanish Web TV and Radio"
-msgstr "西班牙语网络电视与电台"
+msgstr "Espanhol Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:148
 msgid "Web TV (Spanish)"
-msgstr "网络电视 (西班牙语)"
+msgstr "Web TV (Espanhol)"
 
 #: ../data/channels_groups.xml.in.h:149
 msgid "Web Radio (Spanish)"
-msgstr "网络电台 (西班牙语)"
+msgstr "Web Radio (Espanhol)"
 
 #: ../data/channels_groups.xml.in.h:150
 msgid "Web Programmes (Spanish)"
-msgstr ""
+msgstr "Web Programmes (Espanhol)"
 
 #: ../data/channels_groups.xml.in.h:151
 msgid "Web Cam (Spanish)"
-msgstr ""
+msgstr "Web Cam (Espanhol)"
 
 #: ../data/channels_groups.xml.in.h:152
 msgid "Swedish Web TV and Radio"
-msgstr "瑞典语网络电视与电台"
+msgstr "Sueco Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:153
 msgid "Web TV (Swedish)"
-msgstr "网络电视 (瑞典语)"
+msgstr "Web TV (Sueco)"
 
 #: ../data/channels_groups.xml.in.h:154
 msgid "Tagalog Web TV and Radio"
-msgstr ""
+msgstr "Tagalo Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:155
 msgid "Web TV (Tagalog)"
-msgstr ""
+msgstr "Web TV (Tagalo)"
 
 #: ../data/channels_groups.xml.in.h:156
 msgid "Tamil Web TV and Radio"
-msgstr ""
+msgstr "Tâmil Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:157
 msgid "Web TV (Tamil)"
-msgstr ""
+msgstr "Web TV (Tâmil)"
 
 #: ../data/channels_groups.xml.in.h:158
 msgid "Thai Web TV and Radio"
-msgstr "泰语网络电视与电台"
+msgstr "Tailandês Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:159
 msgid "Web TV (Thai)"
-msgstr "网络电视 (泰语)"
+msgstr "Web TV (Tailandês)"
 
 #: ../data/channels_groups.xml.in.h:160
 msgid "Turkish Web TV and Radio"
-msgstr "土耳其语网络电视与电台"
+msgstr "Turco Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:161
 msgid "Web TV (Turkish)"
-msgstr "网络电视 (土耳其语)"
+msgstr "Web TV (Turco)"
 
 #: ../data/channels_groups.xml.in.h:162
 msgid "Web Radio (Turkish)"
-msgstr ""
+msgstr "Web Radio (Turco)"
 
 #: ../data/channels_groups.xml.in.h:163
 msgid "Turkmen Web TV and Radio"
-msgstr ""
+msgstr "Turcomano Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:164
 msgid "Web TV (Turkmen)"
-msgstr ""
+msgstr "Web TV (Turcomano)"
 
 #: ../data/channels_groups.xml.in.h:165
 msgid "Ukrainian Web TV and Radio"
-msgstr ""
+msgstr "Ucraniano Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:166
 msgid "Web TV (Ukrainian)"
-msgstr ""
+msgstr "Web TV (Ucraniano)"
 
 #: ../data/channels_groups.xml.in.h:167
 msgid "Web Cam (Ukrainian)"
-msgstr ""
+msgstr "Web Cam (Ucraniano)"
 
 #: ../data/channels_groups.xml.in.h:168
 msgid "Urdu Web TV and Radio"
-msgstr ""
+msgstr "Urdu Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:169
 msgid "Web TV (Urdu)"
-msgstr ""
+msgstr "Web TV (Urdu)"
 
 #: ../data/channels_groups.xml.in.h:170
 msgid "Uzbek Web TV and Radio"
-msgstr ""
+msgstr "Uzbeque Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:171
 msgid "Web TV (Uzbek)"
-msgstr ""
+msgstr "Web TV (Uzbeque)"
 
 #: ../data/channels_groups.xml.in.h:172
 msgid "Vietnamese Web TV and Radio"
-msgstr ""
+msgstr "Vietnamita Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:173
 msgid "Web TV (Vietnamese)"
-msgstr ""
+msgstr "Web TV (Vietnamita)"
 
 #: ../data/channels_groups.xml.in.h:174
 msgid "Web Radio (Vietnamese)"
-msgstr ""
+msgstr "Web Radio (Vietnamita)"
 
 #: ../data/channels_groups.xml.in.h:175
 msgid "No lang Web TV and Radio"
-msgstr "未归类语言的网络电视与电台"
+msgstr "Sem idioma Web TV e Radio"
 
 #: ../data/channels_groups.xml.in.h:176
 msgid "Web TV (No lang)"
-msgstr "网络电视 (无语言归类)"
+msgstr "Web TV (Sem idioma)"
 
 #: ../data/channels_groups.xml.in.h:177
 msgid "Web Radio (No lang)"
-msgstr "网络电台 (无语言归类)"
+msgstr "Web Radio (Sem idioma)"
 
 #: ../data/channels_groups.xml.in.h:178
 msgid "Web Programmes (No lang)"
-msgstr ""
+msgstr "Web Programmes (Sem idioma)"
 
 #: ../data/channels_groups.xml.in.h:179
 msgid "Web Cam (No lang)"
-msgstr ""
+msgstr "Web Cam (Sem idioma)"
 
 #: ../data/channels_groups.xml.in.h:180
 msgid "WebCam"
-msgstr "摄像头"
+msgstr "WebCam"
 
 #: ../data/menu/freetuxtv.desktop.in.h:2
 msgid "Television Channels Player"
-msgstr "电视频道播放器"
+msgstr "Reprodutor de canais de televisão"
 
 #: ../data/menu/freetuxtv.desktop.in.h:3
 msgid "FreetuxTV Television Channels Player"
-msgstr "FreetuxTV 电视频道播放器"
+msgstr "Reprodutor de canais de televisão FreetuxTV"
 
 #: ../data/menu/freetuxtv.desktop.in.h:4
 msgid "Watch television channels from internet"
-msgstr "在网上观看电视频道"
+msgstr "Assista canais de televisão da internet"
 
 #: ../src/freetuxtv-cellrenderer-recordingslist.c:339
 #, c-format
 msgid "%ld min"
-msgstr ""
+msgstr "%ld min"
 
 #. Update status bar
 #: ../src/freetuxtv-channels-list.c:319 ../src/freetuxtv-channels-list.c:439
 #, c-format
 msgid "Update \"%s\" channels list"
-msgstr "更新 \"%s\" 频道列表"
+msgstr "Atualizar a lista de canais \"%s\""
 
 #. Get the file of the playlist
 #: ../src/freetuxtv-channels-list.c:327 ../src/freetuxtv-channels-list.c:447
 #, c-format
 msgid "Getting the file: \"%s\""
-msgstr "正在获取文件: \"%s\""
+msgstr "Obtendo o arquivo: \"%s\""
 
 #: ../src/freetuxtv-channels-list.c:358 ../src/freetuxtv-channels-list.c:478
 #, c-format
@@ -1279,24 +1284,24 @@ msgid ""
 "M3UParser has returned error:\n"
 "%s."
 msgstr ""
-"添加频道出错。\n"
+"Erro adicionando os canais.\n"
 "\n"
-"M3U 解析器返回错误:\n"
+"M3UParser encontrou o erro:\n"
 "%s."
 
 #: ../src/freetuxtv-channels-list.c:1335
 msgid "Delete group's channels"
-msgstr "删除组内频道"
+msgstr "Apagar grupo de canais"
 
 #. Add to favourite is only for channels
 #: ../src/freetuxtv-channels-list.c:1385
 msgid "Add to favourites"
-msgstr "添加到收藏"
+msgstr "Adicionar aos favoritos"
 
 #. Add favourites to a new group
 #: ../src/freetuxtv-channels-list.c:1401
 msgid "New group"
-msgstr "新建组"
+msgstr "Novo grupo"
 
 #: ../src/freetuxtv-db-sync.c:160
 #, c-format
@@ -1306,9 +1311,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"无法打开数据库。\n"
+"Náo foi possível abrir o banco de dados.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:317 ../src/freetuxtv-db-sync.c:420
@@ -1320,9 +1325,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"显示频道出错。\n"
+"Erro mostrando os canais.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:478
@@ -1333,9 +1338,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"获取频道出错。\n"
+"Erro obtendo o canal.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:552
@@ -1346,9 +1351,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"添加频道 \"%s\" 出错。\n"
+"Erro adicionando o canal \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:593
@@ -1359,9 +1364,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"删除频道 \"%s\" 出错。\n"
+"Erro deletando o canal \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:616
@@ -1372,9 +1377,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"更新组 \"%s\" 中频道位置出错。\n"
+"Erro atualizando a posição dos canais no grupo \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:669 ../src/freetuxtv-db-sync.c:708
@@ -1385,9 +1390,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"按名称获取频道出错。\n"
+"Erro obtendo o canal pelo nome.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:748 ../src/freetuxtv-db-sync.c:991
@@ -1399,9 +1404,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"更新频道 \"%s\" 出错。\n"
+"Erro atualizando o canal \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:803 ../src/freetuxtv-db-sync.c:837
@@ -1412,9 +1417,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"向数据库添加组 \"%s\" 出错。\n"
+"Erro adicionando o grupo \"%s\" no banco de dados.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:881 ../src/freetuxtv-db-sync.c:922
@@ -1426,9 +1431,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"更新组 \"%s\" 出错。\n"
+"Erro atualizando o grupo \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1057
@@ -1439,9 +1444,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"更新组 \"%s\" 上次更新日期出错。\n"
+"Erro atualizando a data de atualização do grupo \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1091
@@ -1452,9 +1457,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"删除组 \"%s\" 出错。\n"
+"Erro apagando o grupo \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1112
@@ -1465,9 +1470,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"更新组的位置出错。\n"
+"Erro atualizando a posição dos grupos.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1147
@@ -1478,9 +1483,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"删除组 \"%s\" 内频道出错。\n"
+"Erro apagando os canais do grupo \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1184 ../src/freetuxtv-db-sync.c:1220
@@ -1491,9 +1496,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"更新组 \"%s\" 内频道出错。\n"
+"Erro atualizando os canais do grupo \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1246
@@ -1504,9 +1509,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"删除电视频道列表出错。\n"
+"Erro apagando a lista de canais.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1290
@@ -1517,9 +1522,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"添加电视频道 '%s' 出错。\n"
+"Erro adicionando o canal '%s'.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1354
@@ -1530,10 +1535,10 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"添加录像任务 '%s' 出错。\n"
+"Erro adicionando a gravação '%s'.\n"
 "\n"
-"SQLite 返回错误:\n"
-"%s。"
+"SQLite retornou erro:\n"
+"%s."
 
 #: ../src/freetuxtv-db-sync.c:1480
 #, c-format
@@ -1543,9 +1548,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"添加频道 logo '%s' 的标签出错。\n"
+"Erro adicionando o logo do canal '%s'.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1514
@@ -1556,9 +1561,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"为电视频道 '%s' 建立链接时出错。\n"
+"Erro relacionando o canal de TV '%s' ao canal.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1553
@@ -1569,9 +1574,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"获取数据库版本出错。\n"
+"Erro obtendo a versão do banco de dados.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1585
@@ -1582,9 +1587,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"更新数据库版本出错。\n"
+"Erro atualizando a versão do banco de dados.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1650
@@ -1595,9 +1600,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"移植数据库出错。\n"
+"Erro migrando o banco de dados.\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1693
@@ -1608,9 +1613,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"更新录像任务 \"%s\" 的状态出错。\n"
+"Error atualizando o status da gravação \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-db-sync.c:1727
@@ -1621,9 +1626,9 @@ msgid ""
 "SQLite has returned error:\n"
 "%s."
 msgstr ""
-"删除录像任务 \"%s\" 出错。\n"
+"Erro apagando a gravação \"%s\".\n"
 "\n"
-"SQLite 返回错误:\n"
+"SQLite retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-fileutils.c:87
@@ -1634,31 +1639,31 @@ msgid ""
 "CURL has returned error:\n"
 "%s."
 msgstr ""
-"从该 URL 下载文件时出错 -> %s。\n"
+"Erro baixando o arquivo da URL -> %s.\n"
 "\n"
-"CURL 返回错误:\n"
+"CURL retornou erro:\n"
 "%s."
 
 #: ../src/freetuxtv-i18n.h:49
 msgid "%m/%d/%y"
-msgstr "%m/%d/%y"
+msgstr "%d/%m/%y"
 
 #: ../src/freetuxtv-i18n.h:50
 msgid "%m/%d/%Y"
-msgstr "%m/%d/%Y"
+msgstr "%d/%m/%Y"
 
 #: ../src/freetuxtv-i18n.h:51
 msgid "%m/%d/%Y %H:%M"
-msgstr "%m/%d/%Y %H:%M"
+msgstr "%d/%m/%Y %H:%M"
 
 #: ../src/freetuxtv-recordings-list.c:448
 msgid "Do you want to move the related file on the hard disk to the trash?"
-msgstr "是否希望将硬盘上的相关文件移入回收站?"
+msgstr "Deseja mover o arquivo local para a lixeira?"
 
 #: ../src/freetuxtv-tv-channels-list.c:72
 #, c-format
 msgid "Synchronizing the tv channels list"
-msgstr "正在同步电视频道列表"
+msgstr "Sincroniza a lista de canais de tv"
 
 #: ../src/freetuxtv-utils.c:37
 #, c-format
@@ -1673,12 +1678,12 @@ msgstr "%02d:%02d:%02d"
 #: ../src/freetuxtv-utils.c:54
 #, c-format
 msgid "%ld byte"
-msgstr "%ld 字节"
+msgstr "%ld byte"
 
 #: ../src/freetuxtv-utils.c:56
 #, c-format
 msgid "%ld bytes"
-msgstr "%ld 字节"
+msgstr "%ld bytes"
 
 #: ../src/freetuxtv-utils.c:58
 #, c-format
@@ -1698,13 +1703,13 @@ msgstr "%1.1f GB"
 #: ../src/freetuxtv-window-add-channels-group.c:395
 #, c-format
 msgid "Please select a least one group !"
-msgstr "请至少选择一个组!"
+msgstr "Selecione ao menos um grupo !"
 
 #: ../src/freetuxtv-window-add-channels-group.c:401
 #: ../src/freetuxtv-window-add-channels-group.c:549
 #: ../src/freetuxtv-window-add-channels-group.c:603
 msgid "Adding channels groups"
-msgstr "正在添加频道组"
+msgstr "Incluindo grupo de canais"
 
 #. Update progress dialog
 #: ../src/freetuxtv-window-add-channels-group.c:441
@@ -1713,45 +1718,45 @@ msgstr "正在添加频道组"
 #: ../src/freetuxtv-window-add-channels-group.c:611
 #, c-format
 msgid "Adding channels group: <i>%s</i>"
-msgstr "正在添加频道组: <i>%s</i>"
+msgstr "Incluindo grupo de canais: <i>%s</i>"
 
 #: ../src/freetuxtv-window-add-channels-group.c:513
 #: ../src/freetuxtv-window-add-channels-group.c:580
 #: ../src/freetuxtv-window-add-channels-group.c:624
 #, c-format
 msgid "%d channels group(s) have been successfully added."
-msgstr "%d 频道组已成功添加。"
+msgstr "%d grupo(s) de canais adicionado com sucesso"
 
 #: ../src/freetuxtv-window-add-channels-group.c:541
 #: ../src/freetuxtv-window-add-channels-group.c:598
 #: ../src/freetuxtv-window-main.c:1982
 #, c-format
 msgid "Please enter the group's name !"
-msgstr "请输入组名!"
+msgstr "Informe o nome do grupo !"
 
 #: ../src/freetuxtv-window-add-channels-group.c:544
 #: ../src/freetuxtv-window-main.c:1987
 #, c-format
 msgid "Please enter the group's URI !"
-msgstr "请输入组 URI !"
+msgstr "Informe a URL do grupo !"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:85
 #, c-format
 msgid "Updating TV channel: %s"
-msgstr ""
+msgstr "Atualizando canal de TV: %s"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:148
 msgid "TV channels synchronisation"
-msgstr ""
+msgstr "Sincronização dos canais de tv"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:157
 #, c-format
 msgid "Downloading the file '%s'"
-msgstr ""
+msgstr "Baixando o arquivo '%s'"
 
 #: ../src/freetuxtv-window-tv-channels-database.c:172
 msgid "Synchronizing TV channels from file"
-msgstr ""
+msgstr "Sincronizando canais de TV do arquivo"
 
 #. Menu : FreetuxTV
 #: ../src/freetuxtv-window-main.c:278
@@ -1762,59 +1767,59 @@ msgstr "_FreetuxTV"
 #. Menu : Channels
 #: ../src/freetuxtv-window-main.c:299
 msgid "_Channels"
-msgstr "频道(_C)"
+msgstr "_Canais"
 
 #: ../src/freetuxtv-window-main.c:303
 msgid "_Add a group"
-msgstr "添加组(_A)"
+msgstr "_Incluir um grupo"
 
 #: ../src/freetuxtv-window-main.c:305
 msgid "Add/create a channels group from different sources"
-msgstr ""
+msgstr "Adicionar/criar um grupo de canais de diferentes fontes"
 
 #: ../src/freetuxtv-window-main.c:311
 msgid "_Synchronize TV channels database"
-msgstr ""
+msgstr "_Sincroniza base de dados dos canais de TV"
 
 #: ../src/freetuxtv-window-main.c:313
 msgid ""
 "Synchronize the TV channels list in the local database from the XML database"
-msgstr ""
+msgstr "Sincroniza lista dos canais de tv do arquivo XML"
 
 #. End Menu : Channels
 #. Menu : Video
 #: ../src/freetuxtv-window-main.c:322
 msgid "_Video"
-msgstr "视频(_V)"
+msgstr "_Video"
 
 #. SubMenu : Deinterlace
 #: ../src/freetuxtv-window-main.c:327
 msgid "_Deinterlace"
-msgstr "反交错(_D)"
+msgstr "_Desentrelaçar"
 
 #: ../src/freetuxtv-window-main.c:332
 msgid "Disable"
-msgstr "禁用"
+msgstr "Desativar"
 
 #: ../src/freetuxtv-window-main.c:344
 msgid "Blend"
-msgstr "混合"
+msgstr "Mesclar"
 
 #: ../src/freetuxtv-window-main.c:353
 msgid "Bob"
-msgstr "摆动"
+msgstr "Bob"
 
 #: ../src/freetuxtv-window-main.c:362
 msgid "Discard"
-msgstr "丢弃"
+msgstr "Cancelar"
 
 #: ../src/freetuxtv-window-main.c:371
 msgid "Linear"
-msgstr "线性"
+msgstr "Linear"
 
 #: ../src/freetuxtv-window-main.c:380
 msgid "Mean"
-msgstr "平均"
+msgstr "Baixo"
 
 #: ../src/freetuxtv-window-main.c:389
 msgid "X"
@@ -1825,17 +1830,17 @@ msgstr "X"
 #. Menu : Help
 #: ../src/freetuxtv-window-main.c:401
 msgid "_Help"
-msgstr "帮助(_H)"
+msgstr "_Ajuda"
 
 #. Create the menu items
 #: ../src/freetuxtv-window-main.c:1029
 msgid "Mute"
-msgstr "静音"
+msgstr "Sem áudio"
 
 #: ../src/main.c:424
 #, c-format
 msgid "Recording: %s (%s) -> %s (%s)"
-msgstr "正在录制: %s (%s) -> %s (%s)"
+msgstr "Gravando: %s (%s) -> %s (%s)"
 
 #: ../src/main.c:577
 #, c-format
@@ -1844,62 +1849,63 @@ msgid ""
 "\n"
 "If the problem persist, you can report that the link is dead at %s"
 msgstr ""
-"播放频道 '%s' 时出错: %s\n"
+"Um erro ocorreu reproduzindo o canal '%s' : %s\n"
 "\n"
-"如果问题持续出现，您可以到 %s 报告死链"
+"Se o problema persistir, vou pode reportar que o link não está funcionando "
+"em %s"
 
 #: ../src/main.c:581
 msgid "An error occurred"
-msgstr "出现错误"
+msgstr "Ocorreu um erro"
 
 #: ../src/main.c:607
 #, c-format
 msgid "Synchronizing the list of tv channels: %s..."
-msgstr ""
+msgstr "Sincronizando lista de canais de tv: %s..."
 
 #: ../src/main.c:642
 msgid "Initializing user configuration..."
-msgstr "正在初始化用户配置..."
+msgstr "Inicializando configurações de usuário..."
 
 #: ../src/main.c:649
 msgid "Loading user configuration..."
-msgstr "正在载入用户配置..."
+msgstr "Carregando configurações de usuário..."
 
 #: ../src/main.c:719
 msgid "Synchronizing the list of tv channels..."
-msgstr "正在同步电视频道列表..."
+msgstr "Sincronizando lista de canais de tv..."
 
 #: ../src/main.c:752
 msgid "Loading the list of channels..."
-msgstr "正在载入频道列表..."
+msgstr "Obtendo lista de canais..."
 
 #: ../src/main.c:761
 msgid "Loading the list of recordings..."
-msgstr "正在载入录像列表..."
+msgstr "Carregando lista de gravações..."
 
 #: ../src/main.c:1080 ../src/main.c:1276
 #, c-format
 msgid "Playing: %s"
-msgstr "正在播放: %s"
+msgstr "Reproduzindo: %s"
 
 #: ../src/main.c:1089
 msgid "is playing"
-msgstr "正在播放"
+msgstr "reproduzindo"
 
 #: ../src/main.c:1278
 #, c-format
 msgid "Stopping channel: %s"
-msgstr "正在停止频道: %s"
+msgstr "Parando canal: %s"
 
 #: ../src/main.c:1322
 msgid "is recording"
-msgstr "正在录制"
+msgstr "gravando"
 
 #: ../src/main.c:1369
 #, c-format
 msgid "Recording: %s"
-msgstr "正在录制: %s"
+msgstr "Gravando: %s"
 
 #: ../src/main.c:1494
 msgid "Are you sure you want to quit?"
-msgstr "您是否确定要退出?"
+msgstr "Tem certeza que deseja sair?"
