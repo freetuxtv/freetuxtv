@@ -125,7 +125,7 @@
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_is.m3u" name="Web TV (Icelandic)"></channels_group>
 	</language>
 	<language id="in" lang="Indonesian Web TV and Radio">
-		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_in.m3u" name="Web TV (Indonesian)"></channels_group>
+		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webtv_id.m3u" name="Web TV (Indonesian)"></channels_group>
 	</language>
 	<language id="ia" lang="Interlingua Web TV and Radio">
 		<channels_group uri="http://database.freetuxtv.net/playlists/playlist_webradio_ia.m3u" name="Web Radio (Interlingua)"></channels_group>
