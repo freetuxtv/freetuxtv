@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.13.4)
 
 # Define project data
 set (APPLICATION_VENDOR_NAME "freetuxtv")
@@ -219,12 +219,16 @@ set(FREETUXTV_SRC
     src/GUIController/QAddChannelsGroupDialogController.h
     src/GUIController/QApplicationMainWindowController.cpp
     src/GUIController/QApplicationMainWindowController.h
+    src/GUIController/QChannelsItemDelegate.cpp
+    src/GUIController/QChannelsItemDelegate.h
     src/GUIController/QPreferencesDialogController.cpp
     src/GUIController/QPreferencesDialogController.h
     src/GUIModel/QChannelsGroupItem.cpp
     src/GUIModel/QChannelsGroupItem.h
     src/GUIModel/QChannelsGroupListModel.cpp
     src/GUIModel/QChannelsGroupListModel.h
+    src/GUIModel/QChannelsListItem.cpp
+    src/GUIModel/QChannelsListItem.h
     src/Model/ChannelInfos.cpp
     src/Model/ChannelInfos.h
     src/Model/ChannelsGroupInfos.cpp
@@ -247,6 +251,7 @@ set(APPLICATION_MOC_HEADERS
     src/GUIController/QAddChannelsGroupDialogController.h
     src/GUIController/QApplicationMainWindowController.h
     src/GUIController/QPreferencesDialogController.h
+    src/GUIController/QChannelsItemDelegate.h
 )
 qt5_wrap_cpp(
     APPLICATION_MOC_OUTFILES

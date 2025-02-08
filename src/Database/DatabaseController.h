@@ -5,6 +5,8 @@
 #ifndef FREETUXTV_DATABASECONTROLLER_H
 #define FREETUXTV_DATABASECONTROLLER_H
 
+#include <QSharedPointer>
+
 #include "Global/QError.h"
 
 #include "Database/DatabaseInstance.h"
@@ -12,8 +14,8 @@
 #include "Model/ChannelInfos.h"
 #include "Model/ChannelsGroupInfos.h"
 
-typedef bool (*CBOnChannelsGroupLoaded)(DatabaseInstance& m_dbInstance, const ChannelsGroupInfos& channelGroupInfos, void* user_data, QError& error);
-typedef bool (*CBOnChannelsLoaded)(DatabaseInstance& m_dbInstance, const ChannelInfos& channelInfos, void* user_data, QError& error);
+typedef bool (*CBOnChannelsGroupLoaded)(DatabaseInstance& m_dbInstance, const QSharedPointer<ChannelsGroupInfos>& pChannelGroupInfos, void* user_data, QError& error);
+typedef bool (*CBOnChannelsLoaded)(DatabaseInstance& m_dbInstance, const QSharedPointer<ChannelInfos>& pChannelInfos, void* user_data, QError& error);
 
 class DatabaseController : public QObject
 {

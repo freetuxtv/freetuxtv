@@ -48,6 +48,7 @@
 #include "GUI/QApplicationMainWindow.h"
 
 #include "GUIController/QApplicationMainWindowController.h"
+#include "GUIModel/QChannelsListItem.h"
 
 //#include "lib-gmmkeys.h"
 //#include "freetuxtv-app.h"
@@ -1744,26 +1745,26 @@ struct NotifyChannelLoadedData
 	QStandardItem* pItem;
 };
 
-bool doNotifyChannelLoaded(DatabaseInstance& m_dbInstance, const ChannelInfos& channelInfos, void* user_data, QError& error)
+bool doNotifyChannelLoaded(DatabaseInstance& m_dbInstance, const QSharedPointer<ChannelInfos>& pChannelInfos, void* user_data, QError& error)
 {
 	bool bRes = true;
 
 	NotifyChannelLoadedData* cbData = (NotifyChannelLoadedData*)user_data;
 
-	QStandardItem* pItem = new QStandardItem(channelInfos.getName());
+	QStandardItem* pItem = new QChannelsListItem(pChannelInfos);
 	pItem->setEditable(false);
 	cbData->pItem->appendRow(pItem);
 
 	return bRes;
 }
 
-bool doNotifyChannelsGroupLoaded(DatabaseInstance& dbInstance, const ChannelsGroupInfos& channelGroupInfos, void* user_data, QError& error)
+bool doNotifyChannelsGroupLoaded(DatabaseInstance& dbInstance, const QSharedPointer<ChannelsGroupInfos>& pChannelGroupInfos, void* user_data, QError& error)
 {
 	bool bRes = true;
 
 	Application* pApplication = (Application*)user_data;
 
-	QStandardItem* pItem = new QStandardItem(channelGroupInfos.getName());
+	QStandardItem* pItem = new QChannelsListItem(pChannelGroupInfos);
 	pItem->setEditable(false);
 	pApplication->getChannelListModel()->appendRow(pItem);
 
@@ -1772,7 +1773,7 @@ bool doNotifyChannelsGroupLoaded(DatabaseInstance& dbInstance, const ChannelsGro
 	cbData.pItem = pItem;
 
 	DatabaseController dbController(dbInstance);
-	bRes = dbController.loadChannels(channelGroupInfos.getId(), doNotifyChannelLoaded, &cbData, error);
+	bRes = dbController.loadChannels(pChannelGroupInfos->getId(), doNotifyChannelLoaded, &cbData, error);
 
 	return bRes;
 }

@@ -34,25 +34,25 @@ bool DatabaseController::loadChannelsGroups(CBOnChannelsGroupLoaded cbOnChannels
 		if (bRes){
 			while(query.next())
 			{
-				ChannelsGroupInfos channelsGroupInfos;
+				QSharedPointer<ChannelsGroupInfos> pChannelsGroupInfos = QSharedPointer<ChannelsGroupInfos>(new ChannelsGroupInfos());
 
-				channelsGroupInfos.setId(query.value(0).toInt());
+				pChannelsGroupInfos->setId(query.value(0).toInt());
 
-				channelsGroupInfos.setPosition(query.value(1).toInt());
-				channelsGroupInfos.setName(query.value(2).toString());
+				pChannelsGroupInfos->setPosition(query.value(1).toInt());
+				pChannelsGroupInfos->setName(query.value(2).toString());
 
-				channelsGroupInfos.setGroupType((ChannelsGroupInfos::GroupType)query.value(3).toInt());
+				pChannelsGroupInfos->setGroupType((ChannelsGroupInfos::GroupType)query.value(3).toInt());
 
-				channelsGroupInfos.setURI(query.value(4).toString());
+				pChannelsGroupInfos->setURI(query.value(4).toString());
 				//pChannelsGroupInfos->setRequiredISP();
 
-				channelsGroupInfos.setBRegex(query.value(5).toString());
-				channelsGroupInfos.setERegex(query.value(6).toString());
+				pChannelsGroupInfos->setBRegex(query.value(5).toString());
+				pChannelsGroupInfos->setERegex(query.value(6).toString());
 
-				channelsGroupInfos.setNbChannels(0);
+				pChannelsGroupInfos->setNbChannels(0);
 
 				if(cbOnChannelsGroupLoaded){
-					bRes = cbOnChannelsGroupLoaded(m_dbInstance, channelsGroupInfos, user_data, error);
+					bRes = cbOnChannelsGroupLoaded(m_dbInstance, pChannelsGroupInfos, user_data, error);
 					if(!bRes){
 						break;
 					}
@@ -94,12 +94,12 @@ bool DatabaseController::loadChannels(int iChannelsGroupId, CBOnChannelsLoaded c
 		if (bRes){
 			while(query.next())
 			{
-				ChannelInfos channelInfos;
+				QSharedPointer<ChannelInfos> pChannelInfos = QSharedPointer<ChannelInfos>(new ChannelInfos());
 
-				channelInfos.setId(query.value(0).toInt());
+				pChannelInfos->setId(query.value(0).toInt());
 
-				channelInfos.setName(query.value(1).toString());
-				channelInfos.setPosition(query.value(2).toInt());
+				pChannelInfos->setName(query.value(1).toString());
+				pChannelInfos->setPosition(query.value(2).toInt());
 
 				/*
 				channelsGroupInfos.setGroupType((ChannelsGroupInfos::GroupType)query.value(3).toInt());
@@ -114,7 +114,7 @@ bool DatabaseController::loadChannels(int iChannelsGroupId, CBOnChannelsLoaded c
 				 */
 
 				if(cbOnChannelsLoaded){
-					bRes = cbOnChannelsLoaded(m_dbInstance, channelInfos, user_data, error);
+					bRes = cbOnChannelsLoaded(m_dbInstance, pChannelInfos, user_data, error);
 					if(!bRes){
 						break;
 					}

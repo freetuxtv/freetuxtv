@@ -22,6 +22,7 @@
 
 #include "GUIController/QPreferencesDialogController.h"
 #include "GUIController/QAddChannelsGroupDialogController.h"
+#include "GUIController/QChannelsItemDelegate.h"
 
 #include "QApplicationMainWindowController.h"
 
@@ -77,6 +78,7 @@ void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow,
 	// Model
 	QTreeView* pTreeView = m_pMainWindow->getTreeviewChannels();
 	pTreeView->setModel(pApplication->getChannelListModel());
+	pTreeView->setItemDelegate(new QChannelsItemDelegate());
 	pTreeView->header()->hide();
 
 	/*
