@@ -2,8 +2,8 @@
 // Created by ebeuque on 20/01/2021.
 //
 
-#ifndef FREETUXTV_CHANNELINFOS_H
-#define FREETUXTV_CHANNELINFOS_H
+#ifndef FREETUXTV_MODEL_CHANNELINFOS_H
+#define FREETUXTV_MODEL_CHANNELINFOS_H
 
 #include <QStringList>
 
@@ -36,5 +36,4 @@ private:
 	QString m_szDeinterlaceMode;
 };
 
-
-#endif //FREETUXTV_CHANNELINFOS_H
+#endif //FREETUXTV_MODEL_CHANNELINFOS_H

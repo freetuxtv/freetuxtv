@@ -17,8 +17,8 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _FREETUXTV_CHANNELS_GROUP_INFOS_H_
-#define _FREETUXTV_CHANNELS_GROUP_INFOS_H_
+#ifndef FREETUXTV_MODEL_CHANNELSGROUPINFOS_H
+#define FREETUXTV_MODEL_CHANNELSGROUPINFOS_H
 
 #include <QString>
 #include <QSharedPointer>
@@ -81,12 +81,5 @@ private:
 	int m_iNbChannels;
 };
 
-class ChannelsGroupInfosList : public QList< QSharedPointer<ChannelsGroupInfos> >
-{
-public:
-	ChannelsGroupInfosList();
-	virtual ~ChannelsGroupInfosList();
-};
-
-#endif /* _FREETUXTV_CHANNELS_GROUP_INFOS_H_ */
+#endif //FREETUXTV_MODEL_CHANNELSGROUPINFOS_H
 

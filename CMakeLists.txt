@@ -233,6 +233,8 @@ set(FREETUXTV_SRC
     src/Model/ChannelInfos.h
     src/Model/ChannelsGroupInfos.cpp
     src/Model/ChannelsGroupInfos.h
+    src/Model/ChannelsGroupInfosList.cpp
+    src/Model/ChannelsGroupInfosList.h
     src/Model/ChannelsGroupSection.cpp
     src/Model/ChannelsGroupSection.h
     src/Model/Preferences.cpp

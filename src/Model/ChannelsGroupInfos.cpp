@@ -138,13 +138,3 @@ int ChannelsGroupInfos::getNbChannels() const
 {
 	return m_iNbChannels;
 }
-
-ChannelsGroupInfosList::ChannelsGroupInfosList()
-{
-
-}
-
-ChannelsGroupInfosList::~ChannelsGroupInfosList()
-{
-
-}

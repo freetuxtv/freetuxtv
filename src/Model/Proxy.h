@@ -2,8 +2,8 @@
 // Created by ebeuque on 11/10/2020.
 //
 
-#ifndef FREETUXTV_PROXY_H
-#define FREETUXTV_PROXY_H
+#ifndef FREETUXTV_MODEL_PROXY_H
+#define FREETUXTV_MODEL_PROXY_H
 
 #include <QString>
 
@@ -28,4 +28,4 @@ public:
 	QString m_szProxyPassword;
 };
 
-#endif //FREETUXTV_PROXY_H
+#endif //FREETUXTV_MODEL_PROXY_H

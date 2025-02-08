@@ -2,8 +2,8 @@
 // Created by ebeuque on 07/10/2020.
 //
 
-#ifndef FREETUXTV_PREFERENCES_H
-#define FREETUXTV_PREFERENCES_H
+#ifndef FREETUXTV_MODEL_PREFERENCES_H
+#define FREETUXTV_MODEL_PREFERENCES_H
 
 #include <QString>
 
@@ -34,5 +34,4 @@ public:
 	Proxy m_proxy;
 };
 
-
-#endif //FREETUXTV_PREFERENCES_H
+#endif //FREETUXTV_MODEL_PREFERENCES_H
