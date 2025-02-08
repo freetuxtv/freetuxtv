@@ -43,3 +43,33 @@ const QString& ChannelInfos::getName() const
 {
 	return m_szName;
 }
+
+void ChannelInfos::setLogoName(const QString& szName)
+{
+	m_szLogoName = szName;
+}
+
+const QString& ChannelInfos::getLogoName() const
+{
+	return m_szLogoName;
+}
+
+void ChannelInfos::setVLCOptions(const QStringList& listOptions)
+{
+	m_listVLCOptions = listOptions;
+}
+
+const QStringList& ChannelInfos::getVLCOptions() const
+{
+	return m_listVLCOptions;
+}
+
+void ChannelInfos::setDeinterlaceMode(const QString& szMode)
+{
+	m_szDeinterlaceMode = szMode;
+}
+
+const QString& ChannelInfos::getDeinterlaceMode() const
+{
+	return m_szDeinterlaceMode;
+}

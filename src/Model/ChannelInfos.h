@@ -23,6 +23,15 @@ public:
 	void setName(const QString& szName);
 	const QString& getName() const;
 
+	void setLogoName(const QString& szName);
+	const QString& getLogoName() const;
+
+	void setVLCOptions(const QStringList& listOptions);
+	const QStringList& getVLCOptions() const;
+
+	void setDeinterlaceMode(const QString& szMode);
+	const QString& getDeinterlaceMode() const;
+
 private:
 	int m_id;
 	int m_iPosition;
@@ -31,9 +40,12 @@ private:
 
 	QString m_szLogoName;
 
-	QStringList listVLCOptions;
+	QStringList m_listVLCOptions;
 
 	QString m_szDeinterlaceMode;
+
+	int m_iChannelsGroupsInfosId;
+	//QSharedPointer<ChannelsGroupInfos> m_pChannelsGroupInfos;
 };
 
 #endif //FREETUXTV_MODEL_CHANNELINFOS_H

@@ -33,5 +33,4 @@ private:
 	QList<ChannelsGroupSection>& m_listChannelsGroupSection;
 };
 
-
 #endif //FREETUXTV_CHANNELSGROUPSPARSERHANDLER_H

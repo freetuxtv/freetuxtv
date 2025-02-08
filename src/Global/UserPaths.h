@@ -7,12 +7,21 @@
 
 #include <QDir>
 
-class UserPaths
-{
+class UserPaths {
 public:
 	static QDir getUserConfigPath();
+
 	static QString getUserDatabasePath();
+
 	static QDir getUserCacheDir();
+	static QDir getUserShareDir();
+
+	static QDir getUserImagesPath();
+	static QDir getUserImagesChannelsPath();
+
+	static QDir getApplicationSharePath();
+	static QDir getApplicationImagesPath();
+	static QDir getApplicationImagesChannelsPath();
 };
 
 

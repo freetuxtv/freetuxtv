@@ -193,10 +193,17 @@ include_directories (${PROJECT_SOURCE_DIR}/lib)
 include_directories (${PROJECT_SOURCE_DIR}/src)
 
 set(FREETUXTV_SRC
+    src/Controller/ApplicationController.cpp
+    src/Controller/ApplicationController.h
+    src/Controller/TVChannelInfosListSynchronizer.cpp
+    src/Controller/TVChannelInfosListSynchronizer.h
+    src/Controller/TVChannelsController.cpp
+    src/Controller/TVChannelsController.h
     src/Database/DatabaseController.cpp
     src/Database/DatabaseController.h
     src/Database/DatabaseInstance.cpp
     src/Database/DatabaseInstance.h
+    src/Database/DatabaseTables.h
     src/Global/Application.cpp
     src/Global/Application.h
     src/Global/FileUtils.cpp
@@ -237,17 +244,23 @@ set(FREETUXTV_SRC
     src/Model/ChannelsGroupInfosList.h
     src/Model/ChannelsGroupSection.cpp
     src/Model/ChannelsGroupSection.h
+    src/Model/TVChannelInfos.cpp
+    src/Model/TVChannelInfos.h
     src/Model/Preferences.cpp
     src/Model/Preferences.h
     src/Model/Proxy.cpp
     src/Model/Proxy.h
     src/XML/ChannelsGroupsParserHandler.cpp
     src/XML/ChannelsGroupsParserHandler.h
+    src/XML/TVChannelInfosListParserHandler.cpp
+    src/XML/TVChannelInfosListParserHandler.h
     src/main.cpp
 )
 
 # Creating MOC file for sources file using "slots" or Q_OBJECT macro
 set(APPLICATION_MOC_HEADERS
+    src/Controller/TVChannelInfosListSynchronizer.h
+    src/Controller/TVChannelsController.h
     src/Database/DatabaseController.h
     src/Global/QFileDownloader.h
     src/GUIController/QAddChannelsGroupDialogController.h

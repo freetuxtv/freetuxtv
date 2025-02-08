@@ -66,6 +66,7 @@ void QAddChannelsGroupDialogController::dispose()
 void QAddChannelsGroupDialogController::onValidButtonClicked()
 {
 	qDebug("onValidButtonClicked");
+#warning "complete this"
 /*
 	QError error;
 
@@ -406,7 +407,6 @@ void QAddChannelsGroupDialogController::onChannelsGroupListRefreshButtonClicked(
 		QMessageBox::critical(m_pAddChannelsGroupDialog, tr("Error"), error.getErrorMsg());
 	}
 };
-
 
 bool QAddChannelsGroupDialogController::loadChannelsGroupListFromFile(const QString& szFilePath, QChannelsGroupListModel* pModel, QError *pError)
 {

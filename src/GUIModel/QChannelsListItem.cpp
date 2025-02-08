@@ -14,6 +14,13 @@ QChannelsListItem::QChannelsListItem(const QSharedPointer<ChannelInfos>& pChanne
 {
 	m_pChannelInfos = pChannelInfos;
 	setText(pChannelInfos->getName());
+
+	/*
+	QString szFileName = m_pChannelInfos
+
+	QIcon icon = QIcon::addFile(m_pChannelInfos->);
+	setIcon(icon);
+	 */
 }
 
 QChannelsListItem::~QChannelsListItem()

@@ -31,3 +31,45 @@ QDir UserPaths::getUserCacheDir()
 	// TODO: prefer the standard path
 	//return QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
 }
+
+QDir UserPaths::getUserShareDir()
+{
+	QDir dir;
+	dir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+	return dir.filePath("freetuxtv");
+}
+
+QDir UserPaths::getUserImagesPath()
+{
+	QDir dir = getUserShareDir();
+	return dir.filePath("images");
+}
+
+QDir UserPaths::getUserImagesChannelsPath()
+{
+	QDir dir;
+	dir = getUserImagesPath();
+	#warning "Verify the path here"
+	// must be // .local/share/freetuxtv/images/channels
+	return dir.filePath("channels");
+}
+
+QDir UserPaths::getApplicationSharePath()
+{
+	QDir dir;
+#warning "Allow debug path"
+	dir.setPath("/usr/share/freetuxtv");
+	return dir;
+}
+
+QDir UserPaths::getApplicationImagesPath()
+{
+	QDir dir = getApplicationSharePath();
+	return dir.filePath("images");
+}
+
+QDir UserPaths::getApplicationImagesChannelsPath()
+{
+	QDir dir = getApplicationSharePath();
+	return dir.filePath("channels");
+}
