@@ -57,7 +57,14 @@ QDir UserPaths::getUserImagesChannelsPath()
 QDir UserPaths::getApplicationSharePath()
 {
 	QDir dir;
-#warning "Allow debug path"
+
+#ifdef QT_DEBUG
+	dir.setPath("../data/");
+	if(dir.exists("freetuxtv.png")){
+		return dir.absolutePath();
+	}
+#endif
+
 	dir.setPath("/usr/share/freetuxtv");
 	return dir;
 }
@@ -70,6 +77,6 @@ QDir UserPaths::getApplicationImagesPath()
 
 QDir UserPaths::getApplicationImagesChannelsPath()
 {
-	QDir dir = getApplicationSharePath();
+	QDir dir = getApplicationImagesPath();
 	return dir.filePath("channels");
 }

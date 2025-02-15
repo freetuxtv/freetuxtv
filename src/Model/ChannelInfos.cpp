@@ -7,6 +7,8 @@
 ChannelInfos::ChannelInfos()
 {
 	m_id = 0;
+	m_iPosition = 0;
+	m_iChannelsGroupsInfosId = 0;
 }
 
 ChannelInfos::~ChannelInfos()
@@ -44,14 +46,14 @@ const QString& ChannelInfos::getName() const
 	return m_szName;
 }
 
-void ChannelInfos::setLogoName(const QString& szName)
+void ChannelInfos::setUrl(const QString& szUrl)
 {
-	m_szLogoName = szName;
+	m_szUrl = szUrl;
 }
 
-const QString& ChannelInfos::getLogoName() const
+const QString& ChannelInfos::getUrl() const
 {
-	return m_szLogoName;
+	return m_szUrl;
 }
 
 void ChannelInfos::setVLCOptions(const QStringList& listOptions)
@@ -72,4 +74,24 @@ void ChannelInfos::setDeinterlaceMode(const QString& szMode)
 const QString& ChannelInfos::getDeinterlaceMode() const
 {
 	return m_szDeinterlaceMode;
+}
+
+void ChannelInfos::setChannelsGroupsInfosId(int iId)
+{
+	m_iChannelsGroupsInfosId = iId;
+}
+
+int ChannelInfos::getChannelsGroupsInfosId() const
+{
+	return m_iChannelsGroupsInfosId;
+}
+
+void ChannelInfos::setLogoFileName(const QString& szName)
+{
+	m_szLogoFileName = szName;
+}
+
+const QString& ChannelInfos::getLogoFileName() const
+{
+	return m_szLogoFileName;
 }

@@ -17,9 +17,14 @@ public:
 	QChannelsListItem(const QSharedPointer<ChannelInfos>& pChannelInfos);
 	virtual ~QChannelsListItem();
 
+	bool isPlaying() const;
+	void setIsPlaying(bool bIsPlaying);
+
 public:
 	QSharedPointer<ChannelsGroupInfos> m_pChannelGroupsInfos;
 	QSharedPointer<ChannelInfos> m_pChannelInfos;
+
+	bool m_bIsPlaying;
 
 };
 

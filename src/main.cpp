@@ -45,10 +45,13 @@
 #include "Database/DatabaseInstance.h"
 #include "Database/DatabaseController.h"
 
+#include "Controller/TVChannelsController.h"
+
 #include "GUI/QApplicationMainWindow.h"
 
 #include "GUIController/QApplicationMainWindowController.h"
 #include "GUIModel/QChannelsListItem.h"
+
 
 //#include "lib-gmmkeys.h"
 //#include "freetuxtv-app.h"
@@ -1753,6 +1756,14 @@ bool doNotifyChannelLoaded(DatabaseInstance& m_dbInstance, const QSharedPointer<
 
 	QStandardItem* pItem = new QChannelsListItem(pChannelInfos);
 	pItem->setEditable(false);
+
+	auto szLogoFilePath = TVChannelsController::getTVChannelLogoPathForChannel(pChannelInfos, true);
+	//qDebug("Loading image: %s", qPrintable(szLogoFilePath));
+	QPixmap pixmap;
+	if(pixmap.load(szLogoFilePath)){
+		pItem->setIcon(pixmap);
+	}
+
 	cbData->pItem->appendRow(pItem);
 
 	return bRes;

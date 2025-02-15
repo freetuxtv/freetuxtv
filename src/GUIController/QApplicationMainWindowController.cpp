@@ -79,6 +79,7 @@ void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow,
 	QTreeView* pTreeView = m_pMainWindow->getTreeviewChannels();
 	pTreeView->setModel(pApplication->getChannelListModel());
 	pTreeView->setItemDelegate(new QChannelsItemDelegate());
+	pTreeView->setIconSize(QSize(48, 48));
 	pTreeView->header()->hide();
 
 	/*

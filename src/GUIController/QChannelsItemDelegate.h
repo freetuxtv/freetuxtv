@@ -23,6 +23,9 @@ public:
 	void setModelData(QWidget *editor, QAbstractItemModel *model,
 					  const QModelIndex &index) const override;
 
+protected:
+	void initStyleOption(QStyleOptionViewItem *option, const QModelIndex &index) const override;
+
 private slots:
 	void commitAndCloseEditor();
 };

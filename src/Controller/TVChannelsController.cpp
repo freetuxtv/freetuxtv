@@ -15,7 +15,7 @@ bool TVChannelsController::synchronize (DatabaseInstance& dbInstance, const QStr
 	return sync.synchronize(error);
 }
 
-QString TVChannelsController::getTVChannelLogoPath(const QString& szLogoName, bool bNoneIcon)
+QString TVChannelsController::getTVChannelLogoPath(const QString& szLogoFileName, bool bNoneIcon)
 {
 	QString szImgFile;
 	QDir dirUserImgChannels;
@@ -23,15 +23,16 @@ QString TVChannelsController::getTVChannelLogoPath(const QString& szLogoName, bo
 
 	dirUserImgChannels = UserPaths::getUserImagesChannelsPath();
 
-	if(szLogoName != NULL){
+	if(szLogoFileName != nullptr){
 		// We look in the user logo directory
-		szImgFile = dirUserImgChannels.filePath(szLogoName);
+		szImgFile = dirUserImgChannels.filePath(szLogoFileName);
 		QFile file(szImgFile);
 		if(file.exists()){
 			bFound = true;
 		}
 		if(!bFound){
-			szImgFile = UserPaths::getApplicationImagesChannelsPath().filePath(szLogoName);
+			szImgFile = UserPaths::getApplicationImagesChannelsPath().filePath(szLogoFileName);
+			file.setFileName(szImgFile);
 			if(file.exists()){
 				bFound = true;
 			}
@@ -53,13 +54,22 @@ QString TVChannelsController::getTVChannelLogoPath(const QString& szLogoName, bo
 	return szImgFile;
 }
 
-QString TVChannelsController::getTVChannelLogoPathForChannel(const QSharedPointer<TVChannelInfos>& pChannelInfos, bool bNoneIcon)
+QString TVChannelsController::getTVChannelLogoPathForTVChannel(const QSharedPointer<TVChannelInfos>& pTVChannelInfos, bool bNoneIcon)
 {
-	QString szLogoName;
-	if(pChannelInfos){
-		szLogoName = pChannelInfos->getLogoFileName();
+	QString szLogoFileName;
+	if(pTVChannelInfos){
+		szLogoFileName = pTVChannelInfos->getLogoFileName();
 	}
-	return getTVChannelLogoPath(szLogoName, bNoneIcon);
+	return getTVChannelLogoPath(szLogoFileName, bNoneIcon);
+}
+
+QString TVChannelsController::getTVChannelLogoPathForChannel(const QSharedPointer<ChannelInfos>& pChannelInfos, bool bNoneIcon)
+{
+	QString szLogoFileName;
+	if(pChannelInfos){
+		szLogoFileName = pChannelInfos->getLogoFileName();
+	}
+	return getTVChannelLogoPath(szLogoFileName, bNoneIcon);
 }
 
 QString TVChannelsController::getTVChannelLogoPathForRecording(const QSharedPointer<RecordingInfos>& pRecordingInfos, bool bNoneIcon)
@@ -67,10 +77,8 @@ QString TVChannelsController::getTVChannelLogoPathForRecording(const QSharedPoin
 #warning "fix this"
 	QSharedPointer<TVChannelInfos> pChannelInfos;
 	//pChannelInfos = channels_list_get_channel_by_id(app, pRecordingInfos->channel_id);
-	return getTVChannelLogoPathForChannel(pChannelInfos, bNoneIcon);
+	return getTVChannelLogoPathForTVChannel(pChannelInfos, bNoneIcon);
 }
-
-
 
 void TVChannelsController::downloadLogos(const QString& szLogosDirectoryURL, const QDir& dirUserImgChannels, const char* szLogoName, Application* pApplication)
 {

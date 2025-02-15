@@ -23,8 +23,8 @@ public:
 	void setName(const QString& szName);
 	const QString& getName() const;
 
-	void setLogoName(const QString& szName);
-	const QString& getLogoName() const;
+	void setUrl(const QString& szUrl);
+	const QString& getUrl() const;
 
 	void setVLCOptions(const QStringList& listOptions);
 	const QStringList& getVLCOptions() const;
@@ -32,19 +32,28 @@ public:
 	void setDeinterlaceMode(const QString& szMode);
 	const QString& getDeinterlaceMode() const;
 
+	void setChannelsGroupsInfosId(int iId);
+	int getChannelsGroupsInfosId() const;
+
+	// Infos from TV Channels
+
+	void setLogoFileName(const QString& szName);
+	const QString& getLogoFileName() const;
+
 private:
 	int m_id;
 	int m_iPosition;
 	QString m_szName;
 	QString m_szUrl;
 
-	QString m_szLogoName;
-
 	QStringList m_listVLCOptions;
 
 	QString m_szDeinterlaceMode;
 
 	int m_iChannelsGroupsInfosId;
+
+	QString m_szLogoFileName;
+
 	//QSharedPointer<ChannelsGroupInfos> m_pChannelsGroupInfos;
 };
 

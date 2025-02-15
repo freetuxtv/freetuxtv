@@ -222,14 +222,15 @@ bool DatabaseController::loadChannels(int iChannelsGroupId, CBOnChannelsLoaded c
 
 				pChannelInfos->setName(query.value(1).toString());
 				pChannelInfos->setPosition(query.value(2).toInt());
-				pChannelInfos->setLogoName(query.value(3).toString());
+				pChannelInfos->setUrl(query.value(3).toString());
 				pChannelInfos->setVLCOptions(query.value(4).toString().split(";"));
-				pChannelInfos->setDeinterlaceMode(query.value(5).toString());
+				pChannelInfos->setChannelsGroupsInfosId(query.value(6).toInt());
+				pChannelInfos->setDeinterlaceMode(query.value(8).toString());
+				pChannelInfos->setLogoFileName(query.value(10).toString());
 
 				/*
 				channelsGroupInfos.setGroupType((ChannelsGroupInfos::GroupType)query.value(3).toInt());
 
-				channelsGroupInfos.setURI(query.value(4).toString());
 				//pChannelsGroupInfos->setRequiredISP();
 
 				channelsGroupInfos.setBRegex(query.value(5).toString());

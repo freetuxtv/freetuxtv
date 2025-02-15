@@ -10,6 +10,7 @@
 #include <QSharedPointer>
 
 #include "Model/TVChannelInfos.h"
+#include "Model/ChannelInfos.h"
 #include "Model/RecordingInfos.h"
 
 #include "Database/DatabaseInstance.h"
@@ -25,12 +26,12 @@ class TVChannelsController : public QObject
 public:
 	static bool synchronize (DatabaseInstance& dbInstance, const QString& szLogosURL, SynchronizeProgressCB funcCB, void* user_data, QError& error);
 
-	static QString getTVChannelLogoPathForChannel(const QSharedPointer<TVChannelInfos>& pChannelInfos, bool bNoneIcon);
-
+	static QString getTVChannelLogoPathForTVChannel(const QSharedPointer<TVChannelInfos>& pChannelInfos, bool bNoneIcon);
+	static QString getTVChannelLogoPathForChannel(const QSharedPointer<ChannelInfos>& pChannelInfos, bool bNoneIcon);
 	static QString getTVChannelLogoPathForRecording(const QSharedPointer<RecordingInfos>& pRecordingInfos, bool bNoneIcon);
 
 private:
-	static QString getTVChannelLogoPath(const QString& szLogoName, bool bNoneIcon);
+	static QString getTVChannelLogoPath(const QString& szLogoFileName, bool bNoneIcon);
 	static void downloadLogos(const QString& szLogosDirectoryURL, const QDir& dirUserImgChannels, const char* szLogoName, Application* pApplication);
 };
 

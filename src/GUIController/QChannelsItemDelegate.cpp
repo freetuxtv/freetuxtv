@@ -2,6 +2,8 @@
 // Created by ebeuque on 07/06/2021.
 //
 
+#include <QStyleOptionViewItem>
+
 #include "Model/ChannelInfos.h"
 
 #include "GUIModel/QChannelsListItem.h"
@@ -83,7 +85,7 @@ QSize QChannelsItemDelegate::sizeHint(const QStyleOptionViewItem &option, const 
 
 	int coefHeight = 2;
 	if(pItem->m_pChannelInfos){
-		coefHeight = 4;
+		coefHeight = 1;
 	}
 
 	/*
@@ -96,4 +98,20 @@ QSize QChannelsItemDelegate::sizeHint(const QStyleOptionViewItem &option, const 
 	size.setHeight(size.height() * coefHeight);
 
 	return size;
+}
+
+void QChannelsItemDelegate::initStyleOption(QStyleOptionViewItem *option, const QModelIndex &index) const
+{
+	QStyledItemDelegate::initStyleOption(option, index);
+
+	QStandardItemModel *model = (QStandardItemModel *) index.model();
+	QChannelsListItem *pItem = (QChannelsListItem*)model->itemFromIndex(index);
+
+	// Display playing item in bold
+	option->font.setBold(pItem->isPlaying());
+	option->font.setItalic(pItem->isPlaying());
+
+	if(pItem->m_pChannelInfos) {
+		option->rect.setLeft(0);
+	}
 }
