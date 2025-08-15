@@ -217,6 +217,8 @@ set(FREETUXTV_SRC
     src/Global/Application.h
     src/Global/FileUtils.cpp
     src/Global/FileUtils.h
+    src/Global/Utils.cpp
+    src/Global/Utils.h
     src/Global/QError.cpp
     src/Global/QError.h
     src/Global/QFileDownloader.cpp
