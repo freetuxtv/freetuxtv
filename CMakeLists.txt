@@ -263,6 +263,8 @@ set(FREETUXTV_SRC
     src/Model/Preferences.h
     src/Model/Proxy.cpp
     src/Model/Proxy.h
+    src/Model/RecordingInfos.cpp
+    src/Model/RecordingInfos.h
     src/VideoPlayer/QVLCVideoPlayer.cpp
     src/VideoPlayer/QVLCVideoPlayer.h
     src/XML/ChannelsGroupsParserHandler.cpp
