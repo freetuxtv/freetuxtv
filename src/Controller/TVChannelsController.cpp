@@ -74,10 +74,15 @@ QString TVChannelsController::getTVChannelLogoPathForChannel(const QSharedPointe
 
 QString TVChannelsController::getTVChannelLogoPathForRecording(const QSharedPointer<RecordingInfos>& pRecordingInfos, bool bNoneIcon)
 {
-#warning "fix this"
-	QSharedPointer<TVChannelInfos> pChannelInfos;
-	//pChannelInfos = channels_list_get_channel_by_id(app, pRecordingInfos->channel_id);
-	return getTVChannelLogoPathForTVChannel(pChannelInfos, bNoneIcon);
+	// TODO: Implement database lookup to get channel info by ID
+	// For now, return a default logo path based on channel ID
+	if (!pRecordingInfos) {
+		return getTVChannelLogoPath("", bNoneIcon);
+	}
+	
+	// Use channel ID as a fallback logo name
+	QString logoName = QString("channel_%1").arg(pRecordingInfos->getChannelId());
+	return getTVChannelLogoPath(logoName, bNoneIcon);
 }
 
 void TVChannelsController::downloadLogos(const QString& szLogosDirectoryURL, const QDir& dirUserImgChannels, const char* szLogoName, Application* pApplication)
