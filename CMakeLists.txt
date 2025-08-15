@@ -219,6 +219,8 @@ set(FREETUXTV_SRC
     src/Global/FileUtils.h
     src/Global/Utils.cpp
     src/Global/Utils.h
+    src/Global/M3UParser.cpp
+    src/Global/M3UParser.h
     src/Global/QError.cpp
     src/Global/QError.h
     src/Global/QFileDownloader.cpp
@@ -294,6 +296,8 @@ qt5_wrap_cpp(
 set (I18N_FILES
     src/Database/DatabaseController.cpp
     src/Global/FileUtils.cpp
+    src/Global/M3UParser.cpp
+    src/Global/Utils.cpp
     src/GUI/QAddChannelsGroupDialog.cpp
     src/GUI/QApplicationMainWindow.cpp
     src/GUI/QCtrlBarView.cpp
