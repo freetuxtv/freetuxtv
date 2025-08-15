@@ -20,16 +20,20 @@
 #include "GUI/QPreferencesDialog.h"
 #include "GUI/QAddChannelsGroupDialog.h"
 
+#include "GUIModel/QChannelsListItem.h"
+
 #include "GUIController/QPreferencesDialogController.h"
 #include "GUIController/QAddChannelsGroupDialogController.h"
 #include "GUIController/QChannelsItemDelegate.h"
+
+#include "VideoPlayer/QVLCVideoPlayer.h"
 
 #include "QApplicationMainWindowController.h"
 
 
 QApplicationMainWindowController::QApplicationMainWindowController()
 {
-
+	m_pChannelsListModel = nullptr;
 }
 
 QApplicationMainWindowController::~QApplicationMainWindowController()
@@ -77,11 +81,14 @@ void QApplicationMainWindowController::init(QApplicationMainWindow* pMainWindow,
 
 	// Model
 	QTreeView* pTreeView = m_pMainWindow->getTreeviewChannels();
-	pTreeView->setModel(pApplication->getChannelListModel());
+	m_pChannelsListModel = pApplication->getChannelListModel();
+	pTreeView->setModel(m_pChannelsListModel);
 	pTreeView->setItemDelegate(new QChannelsItemDelegate());
 	pTreeView->setIconSize(QSize(48, 48));
 	pTreeView->header()->hide();
+	connect(pTreeView, &QTreeView::doubleClicked, this, &QApplicationMainWindowController::onChannelsListItemDoubleClicked);
 
+#warning "Convert this"
 	/*
 	 * g_signal_connect(G_OBJECT(widget),
 					 "focus-in-event",
@@ -165,7 +172,7 @@ void QApplicationMainWindowController::onQuitTriggered()
 
 void QApplicationMainWindowController::onAddGroupTriggered()
 {
-	qDebug("onAddGroupTriggered");
+	qDebug("TODO: onAddGroupTriggered");
 	QAddChannelsGroupDialog dialog(m_pMainWindow);
 	dialog.setModal(true);
 	QAddChannelsGroupDialogController dialogController;
@@ -191,7 +198,7 @@ void QApplicationMainWindowController::onAddGroupTriggered()
 
 void QApplicationMainWindowController::onSynchronizeTVChannelsTriggered()
 {
-	qDebug("onSynchronizeTVChannelsTriggered");
+	qDebug("TODO: onSynchronizeTVChannelsTriggered");
 	/*
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
@@ -218,7 +225,7 @@ void QApplicationMainWindowController::onSynchronizeTVChannelsTriggered()
 
 void QApplicationMainWindowController::onDeinterlaceModeTriggered(QAction *action)
 {
-	qDebug("onDeinterlaceModeTriggered");
+	qDebug("TODO: onDeinterlaceModeTriggered");
 
 	const char* szMode = NULL;
 	if(action == m_pMainWindow->getActionDeinterlaceDisable()){
@@ -271,7 +278,7 @@ void QApplicationMainWindowController::onDeinterlaceModeTriggered(QAction *actio
 
 void QApplicationMainWindowController::onAboutTriggered()
 {
-	qDebug("onAboutTriggered");
+	qDebug("TODO: onAboutTriggered");
 
 	/*
 		FreetuxTVApp *app = (FreetuxTVApp *) user_data;
@@ -285,7 +292,7 @@ void QApplicationMainWindowController::onAboutTriggered()
 
 void QApplicationMainWindowController::onSearchTextChanged(const QString& szText)
 {
-	qDebug("onSearchTextChanged");
+	qDebug("TODO: onSearchTextChanged");
 
 	/*
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
@@ -312,6 +319,7 @@ void QApplicationMainWindowController::onSearchTextChanged(const QString& szText
 
 void QApplicationMainWindowController::onSearchTextResetClicked()
 {
+	qDebug("TODO: onSearchTextResetClicked");
 	m_pMainWindow->getLineEditSearch()->clear();
 
 	/*
@@ -333,16 +341,25 @@ void QApplicationMainWindowController::onSearchTextResetClicked()
 
 void QApplicationMainWindowController::onJumpCurrentChannelClicked()
 {
-	qDebug("onJumpCurrentChannelClicked");
+	qDebug("TODO: onJumpCurrentChannelClicked");
 	/*
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 	channels_list_set_playing(app, app->current.pPathChannel);
 	*/
 }
 
+void QApplicationMainWindowController::onChannelsListItemDoubleClicked(const QModelIndex& index)
+{
+	auto pItem = (QChannelsListItem*)m_pChannelsListModel->itemFromIndex(index);
+	if(pItem){
+		auto szUrl = pItem->m_pChannelInfos->getUrl();
+		m_pMainWindow->getVideoPlayer()->playMRL(szUrl);
+	}
+}
+
 void QApplicationMainWindowController::onSliderTimeChanged(int value)
 {
-	qDebug("onSliderTimeChanged");
+	qDebug("TODO: onSliderTimeChanged");
 	/*
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
@@ -366,7 +383,7 @@ void QApplicationMainWindowController::onSliderTimeChanged(int value)
 
 void QApplicationMainWindowController::onCtrlPlayClicked()
 {
-	qDebug("onCtrlPlayClicked");
+	qDebug("TODO: onCtrlPlayClicked");
 
 	/*
 	GError* error = NULL;
@@ -383,7 +400,7 @@ void QApplicationMainWindowController::onCtrlPlayClicked()
 
 void QApplicationMainWindowController::onCtrlStopClicked()
 {
-	qDebug("onCtrlStopClicked");
+	qDebug("TODO: onCtrlStopClicked");
 	/*
 	GError* error = NULL;
 
@@ -404,7 +421,7 @@ void QApplicationMainWindowController::onCtrlStopClicked()
 
 void QApplicationMainWindowController::onCtrlRecordClicked()
 {
-	qDebug("onCtrlRecordClicked");
+	qDebug("TODO: onCtrlRecordClicked");
 	/*
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
@@ -425,7 +442,7 @@ void QApplicationMainWindowController::onCtrlRecordClicked()
 
 void QApplicationMainWindowController::onCtrlBackwardClicked()
 {
-	qDebug("onCtrlBackwardClicked");
+	qDebug("TODO: onCtrlBackwardClicked");
 	/*
 	GError* error = NULL;
 
@@ -441,7 +458,7 @@ void QApplicationMainWindowController::onCtrlBackwardClicked()
 
 void QApplicationMainWindowController::onCtrlForwardClicked()
 {
-	qDebug("onCtrlForwardClicked");
+	qDebug("TODO: onCtrlForwardClicked");
 /*
 	GError* error = NULL;
 
@@ -457,7 +474,7 @@ void QApplicationMainWindowController::onCtrlForwardClicked()
 
 void QApplicationMainWindowController::onSliderVolumeChanged(int value)
 {
-	qDebug("onSliderVolumeChanged");
+	qDebug("TODO: onSliderVolumeChanged");
 	/*
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;
 
@@ -475,7 +492,7 @@ void QApplicationMainWindowController::onSliderVolumeChanged(int value)
 
 void QApplicationMainWindowController::onCtrlFullScreenClicked()
 {
-	qDebug("onCtrlFullScreenClicked");
+	qDebug("TODO: onCtrlFullScreenClicked");
 
 /*
 	GError* error = NULL;
@@ -492,7 +509,7 @@ void QApplicationMainWindowController::onCtrlFullScreenClicked()
 
 void QApplicationMainWindowController::onCtrlModeMiniClicked()
 {
-	qDebug("onCtrlModeMiniClicked");
+	qDebug("TODO: onCtrlModeMiniClicked");
 
 	/*
 	FreetuxTVApp *app = (FreetuxTVApp *) user_data;

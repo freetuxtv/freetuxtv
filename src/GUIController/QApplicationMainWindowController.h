@@ -40,6 +40,7 @@ private slots:
 	void onSearchTextChanged(const QString& szText);
 	void onSearchTextResetClicked();
 	void onJumpCurrentChannelClicked();
+	void onChannelsListItemDoubleClicked(const QModelIndex &index);
 
 	// Ctrl bar
 	void onSliderTimeChanged(int value);
@@ -55,6 +56,8 @@ private slots:
 private:
 	QApplicationMainWindow* m_pMainWindow;
 	Application* m_pApplication;
+
+	QStandardItemModel* m_pChannelsListModel;
 };
 
 

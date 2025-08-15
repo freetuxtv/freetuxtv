@@ -156,6 +156,15 @@ if(CURL_FOUND)
     list(APPEND PACKAGE_DEPS "libcurl4 (>= ${CURL_VERSION})")
 endif()
 
+# Check for vlc
+pkg_check_modules(LIBVLC REQUIRED libvlc)
+if(LIBVLC_FOUND)
+    message(STATUS "Found libvlc ${LIBVLC_VERSION}")
+    include_directories(${LIBVLC_INCLUDE_DIRS})
+    link_directories(${LIBVLC_LIBRARY_DIRS})
+    list(APPEND PACKAGE_DEPS "libvlc (>= ${LIBVLC_VERSION})")
+endif()
+
 # Setting up Intl
 find_package (Intl REQUIRED)
 find_package(Gettext REQUIRED)
@@ -250,6 +259,8 @@ set(FREETUXTV_SRC
     src/Model/Preferences.h
     src/Model/Proxy.cpp
     src/Model/Proxy.h
+    src/VideoPlayer/QVLCVideoPlayer.cpp
+    src/VideoPlayer/QVLCVideoPlayer.h
     src/XML/ChannelsGroupsParserHandler.cpp
     src/XML/ChannelsGroupsParserHandler.h
     src/XML/TVChannelInfosListParserHandler.cpp
@@ -267,6 +278,7 @@ set(APPLICATION_MOC_HEADERS
     src/GUIController/QApplicationMainWindowController.h
     src/GUIController/QPreferencesDialogController.h
     src/GUIController/QChannelsItemDelegate.h
+    src/VideoPlayer/QVLCVideoPlayer.h
 )
 qt5_wrap_cpp(
     APPLICATION_MOC_OUTFILES
@@ -322,7 +334,7 @@ set (TS_FILES
 #add_executable(${APPLICATION_EXE_NAME} ${LIBDBEVOLUTION_SRC} ${LIBVLCGTK_SRC} ${FREETUXTV_LIB_SRC} ${FREETUXTV_SRC})
 #target_link_libraries(${APPLICATION_EXE_NAME} ${QT_LIBRARIES} ${LIBNOTIFY_LIBRARIES} ${LIBVLC_LIBRARIES} ${SQLITE3_LIBRARIES} ${CURL_LIBRARIES})
 add_executable(${APPLICATION_EXE_NAME} ${FREETUXTV_SRC} ${APPLICATION_MOC_OUTFILES})
-target_link_libraries(${APPLICATION_EXE_NAME} ${QT_LIBRARIES})
+target_link_libraries(${APPLICATION_EXE_NAME} ${QT_LIBRARIES} ${LIBVLC_LIBRARIES})
 install(TARGETS ${APPLICATION_EXE_NAME} DESTINATION ${INSTALL_PATH_BIN})
 
 ############################

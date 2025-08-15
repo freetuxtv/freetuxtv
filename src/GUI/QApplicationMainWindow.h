@@ -29,6 +29,7 @@ class QTreeView;
 class QPushButton;
 
 class QCtrlBarView;
+class QVLCVideoPlayer;
 
 //#include "freetuxtv-app.h"
 
@@ -92,6 +93,9 @@ public:
 	// Ctrl bar
 	QCtrlBarView* getCtrlBarView() const;
 
+	// Video player
+	QVLCVideoPlayer* getVideoPlayer() const;
+
 protected:
 	virtual void closeEvent(QCloseEvent *event);
 
@@ -130,7 +134,7 @@ private:
 	QPushButton* m_pButtonJumpToChannel;
 
 	// Video view
-	QWidget* m_pVideoView;
+	QVLCVideoPlayer* m_pVideoPlayer;
 
 	// Ctrl bar view
 	QCtrlBarView* m_pCtrlBarView;

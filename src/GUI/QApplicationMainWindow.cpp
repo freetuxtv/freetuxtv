@@ -36,6 +36,8 @@
 
 #include "GUI/QCtrlBarView.h"
 
+#include "VideoPlayer/QVLCVideoPlayer.h"
+
 #include "QApplicationMainWindow.h"
 /*
 #include "freetuxtv-window-add-recording.h"
@@ -282,10 +284,9 @@ QWidget* QApplicationMainWindow::createVideoView(QWidget* parent)
 	pMainLayout->setContentsMargins(0,0,0,0);
 	pMainWidget->setLayout(pMainLayout);
 
-	m_pVideoView = new QWidget(pMainWidget);
-	m_pVideoView->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-	m_pVideoView->setStyleSheet("background-color:black;");
-	pMainLayout->addWidget(m_pVideoView);
+	m_pVideoPlayer = new QVLCVideoPlayer(pMainWidget);
+	m_pVideoPlayer->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+	pMainLayout->addWidget(m_pVideoPlayer);
 
 	m_pCtrlBarView = new QCtrlBarView(pMainWidget);
 	pMainLayout->addWidget(m_pCtrlBarView);
@@ -381,6 +382,11 @@ QPushButton* QApplicationMainWindow::getButtonJumpToChannel() const
 QCtrlBarView* QApplicationMainWindow::getCtrlBarView() const
 {
 	return m_pCtrlBarView;
+}
+
+QVLCVideoPlayer* QApplicationMainWindow::getVideoPlayer() const
+{
+	return m_pVideoPlayer;
 }
 
 void QApplicationMainWindow::closeEvent(QCloseEvent *event)
