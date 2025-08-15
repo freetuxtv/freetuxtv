@@ -28,6 +28,9 @@ public:
 public:
 	//void raise(libvlc_exception_t * ex);
 
+signals:
+	void volumeChanged(int volume);
+
 public slots:
 	void playMRL(const QString& szMrl);
 	void updateInterface();

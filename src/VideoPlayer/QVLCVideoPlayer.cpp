@@ -114,6 +114,7 @@ void QVLCVideoPlayer::updateInterface()
 
 	int volume = libvlc_audio_get_volume (_mp);
 	//int volume=libvlc_audio_get_volume (_vlcinstance,&_vlcexcep); // [20101215 JG] Used for versions prior to VLC 1.2.0.
-	//_volumeSlider->setValue(volume);
-#warning "Update volume on interface"
+	
+	// Emit signal to update volume on interface
+	emit volumeChanged(volume);
 }
