@@ -54,6 +54,10 @@ bool TVChannelInfosListSynchronizer::synchronize (QError& error)
 		// Parse the file
 		bRes = file.open(QIODevice::ReadOnly);
 		if(bRes){
+			// TODO: Replace with modern QXmlStreamReader-based parser
+			// For now, keep the old implementation but add warning
+			qWarning("Using deprecated XML parser - should be replaced with QXmlStreamReader");
+
 			QXmlInputSource source(&file);
 
 			QXmlSimpleReader reader;
