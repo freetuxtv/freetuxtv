@@ -233,8 +233,12 @@ set(FREETUXTV_SRC
     src/GUI/QApplicationMainWindow.h
     src/GUI/QCtrlBarView.cpp
     src/GUI/QCtrlBarView.h
+    src/GUI/QPlayerErrorDialog.cpp
+    src/GUI/QPlayerErrorDialog.h
     src/GUI/QPreferencesDialog.cpp
     src/GUI/QPreferencesDialog.h
+    src/GUI/QProgressDialog.cpp
+    src/GUI/QProgressDialog.h
     src/GUIController/QAddChannelsGroupDialogController.cpp
     src/GUIController/QAddChannelsGroupDialogController.h
     src/GUIController/QApplicationMainWindowController.cpp
@@ -284,6 +288,8 @@ set(APPLICATION_MOC_HEADERS
     src/Controller/TVChannelsController.h
     src/Database/DatabaseController.h
     src/Global/QFileDownloader.h
+    src/GUI/QPlayerErrorDialog.h
+    src/GUI/QProgressDialog.h
     src/GUIController/QAddChannelsGroupDialogController.h
     src/GUIController/QApplicationMainWindowController.h
     src/GUIController/QPreferencesDialogController.h
