@@ -241,6 +241,10 @@ set(FREETUXTV_SRC
     src/GUI/QPreferencesDialog.h
     src/GUI/QProgressDialog.cpp
     src/GUI/QProgressDialog.h
+    src/GUI/QRecordingsList.cpp
+    src/GUI/QRecordingsList.h
+    src/GUI/QChannelsList.cpp
+    src/GUI/QChannelsList.h
     src/GUI/QChannelPropertiesDialog.cpp
     src/GUI/QChannelPropertiesDialog.h
     src/GUIController/QAddChannelsGroupDialogController.cpp
@@ -295,6 +299,8 @@ set(APPLICATION_MOC_HEADERS
     src/GUI/QDateTimePicker.h
     src/GUI/QPlayerErrorDialog.h
     src/GUI/QProgressDialog.h
+    src/GUI/QRecordingsList.h
+    src/GUI/QChannelsList.h
     src/GUI/QChannelPropertiesDialog.h
     src/GUIController/QAddChannelsGroupDialogController.h
     src/GUIController/QApplicationMainWindowController.h
