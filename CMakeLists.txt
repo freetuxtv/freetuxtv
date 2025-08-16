@@ -269,8 +269,12 @@ set(FREETUXTV_SRC
     src/VideoPlayer/QVLCVideoPlayer.h
     src/XML/ChannelsGroupsParserHandler.cpp
     src/XML/ChannelsGroupsParserHandler.h
+    src/XML/ChannelsGroupsStreamParser.cpp
+    src/XML/ChannelsGroupsStreamParser.h
     src/XML/TVChannelInfosListParserHandler.cpp
     src/XML/TVChannelInfosListParserHandler.h
+    src/XML/TVChannelInfosStreamParser.cpp
+    src/XML/TVChannelInfosStreamParser.h
     src/main.cpp
 )
 
@@ -309,6 +313,8 @@ set (I18N_FILES
     src/GUIController/QPreferencesDialogController.cpp
     src/GUIModel/QChannelsGroupItem.cpp
     src/GUIModel/QChannelsGroupListModel.cpp
+    src/XML/ChannelsGroupsStreamParser.cpp
+    src/XML/TVChannelInfosStreamParser.cpp
     src/main.cpp
 )
 
