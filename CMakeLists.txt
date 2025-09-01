@@ -195,10 +195,16 @@ add_definitions(-DHAVE_VERSION_H)
 include_directories (${PROJECT_BINARY_DIR})
 
 ####################
-# Add sources
+# Build libraries
 ####################
 
 include_directories (${PROJECT_SOURCE_DIR}/lib)
+add_subdirectory(lib)
+
+####################
+# Add sources
+####################
+
 include_directories (${PROJECT_SOURCE_DIR}/src)
 
 set(FREETUXTV_SRC
@@ -208,8 +214,12 @@ set(FREETUXTV_SRC
     src/Controller/TVChannelInfosListSynchronizer.h
     src/Controller/TVChannelsController.cpp
     src/Controller/TVChannelsController.h
+    src/Database/DatabaseApplication.cpp
+    src/Database/DatabaseApplication.h
     src/Database/DatabaseController.cpp
     src/Database/DatabaseController.h
+    src/Database/DatabaseControllerFactoryApplication.cpp
+    src/Database/DatabaseControllerFactoryApplication.h
     src/Database/DatabaseInstance.cpp
     src/Database/DatabaseInstance.h
     src/Database/DatabaseTables.h
@@ -313,6 +323,12 @@ qt5_wrap_cpp(
     ${APPLICATION_MOC_HEADERS}
 )
 
+# Resources
+set (QRC_FILES
+    data/app.qrc
+)
+qt5_add_resources(RCS_OUTFILES ${QRC_FILES})
+
 ####################
 # Translations
 ####################
@@ -368,8 +384,20 @@ set (TS_FILES
 
 #add_executable(${APPLICATION_EXE_NAME} ${LIBDBEVOLUTION_SRC} ${LIBVLCGTK_SRC} ${FREETUXTV_LIB_SRC} ${FREETUXTV_SRC})
 #target_link_libraries(${APPLICATION_EXE_NAME} ${QT_LIBRARIES} ${LIBNOTIFY_LIBRARIES} ${LIBVLC_LIBRARIES} ${SQLITE3_LIBRARIES} ${CURL_LIBRARIES})
-add_executable(${APPLICATION_EXE_NAME} ${FREETUXTV_SRC} ${APPLICATION_MOC_OUTFILES})
-target_link_libraries(${APPLICATION_EXE_NAME} ${QT_LIBRARIES} ${LIBVLC_LIBRARIES})
+add_executable(
+    ${APPLICATION_EXE_NAME}
+    ${FREETUXTV_SRC}
+    ${APPLICATION_MOC_OUTFILES}
+    ${RCS_OUTFILES}
+)
+target_link_libraries(
+    ${APPLICATION_EXE_NAME}
+    common_database
+    toolkit
+    libqdbevolution
+    ${QT_LIBRARIES}
+    ${LIBVLC_LIBRARIES}
+)
 install(TARGETS ${APPLICATION_EXE_NAME} DESTINATION ${INSTALL_PATH_BIN})
 
 ############################
@@ -433,9 +461,6 @@ endif(UNIX AND NOT WIN32)
 
 # Splashscreen
 install(FILES "${PROJECT_SOURCE_DIR}/data/splashscreen.png" DESTINATION ${INSTALL_PATH_SHARE})
-
-# Database file
-install(FILES "${PROJECT_SOURCE_DIR}/data/sqlite3-create-tables.sql" DESTINATION ${INSTALL_PATH_SHARE})
 
 # UI files
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/data/ui/" DESTINATION ${INSTALL_PATH_SHARE}/ui FILES_MATCHING PATTERN "*.glade")

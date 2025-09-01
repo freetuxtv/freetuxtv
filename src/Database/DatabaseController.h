@@ -2,8 +2,8 @@
 // Created by ebeuque on 20/01/2021.
 //
 
-#ifndef FREETUXTV_DATABASECONTROLLER_H
-#define FREETUXTV_DATABASECONTROLLER_H
+#ifndef FREETUXTV_DATABASE_DATABASECONTROLLER_H
+#define FREETUXTV_DATABASE_DATABASECONTROLLER_H
 
 #include <QSharedPointer>
 
@@ -18,12 +18,12 @@
 typedef bool (*CBOnChannelsGroupLoaded)(DatabaseInstance& m_dbInstance, const QSharedPointer<ChannelsGroupInfos>& pChannelGroupInfos, void* user_data, QError& error);
 typedef bool (*CBOnChannelsLoaded)(DatabaseInstance& m_dbInstance, const QSharedPointer<ChannelInfos>& pChannelInfos, void* user_data, QError& error);
 
-class DatabaseController : public QObject
+class DatabaseControllerMain : public QObject, public DatabaseController
 {
 	Q_OBJECT
 public:
-	DatabaseController(DatabaseInstance& dbInstance);
-	virtual ~DatabaseController();
+	DatabaseControllerMain(DatabaseConnection* dbc, DatabaseErrorHandler errorHandler);
+	virtual ~DatabaseControllerMain();
 
 public:
 	// About TV Channel
@@ -33,10 +33,10 @@ public:
 	bool deleteTVChannels(QError& error);
 
 	// About Channels Group
-	bool loadChannelsGroups(CBOnChannelsGroupLoaded cbOnChannelsGroupLoaded, void* user_data, QError& error);
+	bool loadChannelsGroups(CBOnChannelsGroupLoaded cbOnChannelsGroupLoaded, DatabaseInstance& dbInstance, void* user_data, QError& error);
 
 	// About Channel
-	bool loadChannels(int iChannelsGroupId, CBOnChannelsLoaded cbOnChannelsLoaded, void* user_data, QError& error);
+	bool loadChannels(int iChannelsGroupId, DatabaseInstance& dbInstance, CBOnChannelsLoaded cbOnChannelsLoaded, void* user_data, QError& error);
 	bool saveChannelInfos(const QSharedPointer<ChannelInfos>& pChannelInfos, bool bUpdate, QError& error);
 
 
@@ -152,11 +152,7 @@ dbsync_delete_recording (DBSync *dbsync,
     FreetuxTVRecordingInfos* pRecordingInfos,
     GError** error);
 	 */
-
-private:
-	DatabaseInstance& m_dbInstance;
-	QSqlDatabase& m_db;
 };
 
 
-#endif //FREETUXTV_DATABASECONTROLLER_H
+#endif //FREETUXTV_DATABASE_DATABASECONTROLLER_H

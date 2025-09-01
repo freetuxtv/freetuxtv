@@ -33,8 +33,7 @@ bool TVChannelInfosListSynchronizer::synchronize (QError& error)
 	qDebug("[TVChannelsController] Synchronizing the tv channels list");
 
 	// Delete the TV channel in the database
-	DatabaseController dbc(m_dbInstance);
-	bRes = dbc.deleteTVChannels(error);
+	bRes = m_dbInstance.dbcMain().deleteTVChannels(error);
 
 	// Load the list of TV channel in the database for the XML file
 	if(bRes){
@@ -93,8 +92,7 @@ bool TVChannelInfosListSynchronizer::finalize(const QSharedPointer<TVChannelInfo
 	bool bRes;
 
 	// We have a channel pending, we add it in database
-	DatabaseController dbc(m_dbInstance);
-	bRes = dbc.addTVChannelInfos(pTVChannelInfos, error);
+	bRes = m_dbInstance.dbcMain().addTVChannelInfos(pTVChannelInfos, error);
 
 	// Download logo for the channel if required
 	if(bRes){

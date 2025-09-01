@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+	<file alias="sqlite3-create-tables.sql">sqlite3-create-tables.sql</file>
+</qresource>
+</RCC>

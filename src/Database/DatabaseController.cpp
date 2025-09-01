@@ -10,18 +10,18 @@
 
 #include "DatabaseController.h"
 
-DatabaseController::DatabaseController(DatabaseInstance& dbInstance)
-	: m_dbInstance(dbInstance), m_db(dbInstance.db())
+DatabaseControllerMain::DatabaseControllerMain(DatabaseConnection* dbc, DatabaseErrorHandler errorHandler)
+	: DatabaseController(dbc, errorHandler)
 {
 
 }
 
-DatabaseController::~DatabaseController()
+DatabaseControllerMain::~DatabaseControllerMain()
 {
 
 }
 
-bool DatabaseController::addTVChannelInfos(const QSharedPointer<TVChannelInfos>& pChannelInfos, QError& error)
+bool DatabaseControllerMain::addTVChannelInfos(const QSharedPointer<TVChannelInfos>& pChannelInfos, QError& error)
 {
 	bool bRes;
 	QString szQuery;
@@ -30,7 +30,7 @@ bool DatabaseController::addTVChannelInfos(const QSharedPointer<TVChannelInfos>&
 	auto szName = pChannelInfos->getName();
 
 	// Add TV channel in the database
-	QSqlQuery query(m_db);
+	QSqlQuery query(db());
 	szQuery = "INSERT INTO " DB_TVCHANNEL " (name, logo_filename) VALUES (:name, :logo_filename);";
 	bRes = query.prepare(szQuery);
 	if(bRes) {
@@ -69,13 +69,13 @@ bool DatabaseController::addTVChannelInfos(const QSharedPointer<TVChannelInfos>&
 	return bRes;
 }
 
-bool DatabaseController::addTVChannelInfosLabel(int iTVChannelInfos, const QString& szLabel, QError& error)
+bool DatabaseControllerMain::addTVChannelInfosLabel(int iTVChannelInfos, const QString& szLabel, QError& error)
 {
 	bool bRes;
 	QString szQuery;
 
 	// Add an alternative label for the TV channel
-	QSqlQuery query(m_db);
+	QSqlQuery query(db());
 	szQuery = "INSERT INTO " DB_LABELTVCHANNEL " (label, tvchannel_id) VALUES (:label, :tvchannel_id);";
 	bRes = query.prepare(szQuery);
 	if(bRes) {
@@ -98,7 +98,7 @@ bool DatabaseController::addTVChannelInfosLabel(int iTVChannelInfos, const QStri
 	return bRes;
 }
 
-bool DatabaseController::linkTVChannelToChannelsFromLabel(const QString& szLabel, int iTVChannelInfos, QError& error)
+bool DatabaseControllerMain::linkTVChannelToChannelsFromLabel(const QString& szLabel, int iTVChannelInfos, QError& error)
 {
 	bool bRes;
 	QString szQuery;
@@ -106,7 +106,7 @@ bool DatabaseController::linkTVChannelToChannelsFromLabel(const QString& szLabel
 #warning "verify test this query"
 
 	// Link TV channel to channels
-	QSqlQuery query(m_db);
+	QSqlQuery query(db());
 	szQuery = "UPDATE " DB_CHANNEL " SET id_tvchannel=:id_tvchannel WHERE name LIKE '" + szLabel + "%%'";
 	bRes = query.prepare(szQuery);
 	if(bRes) {
@@ -124,13 +124,13 @@ bool DatabaseController::linkTVChannelToChannelsFromLabel(const QString& szLabel
 	return bRes;
 }
 
-bool DatabaseController::deleteTVChannels(QError& error)
+bool DatabaseControllerMain::deleteTVChannels(QError& error)
 {
 	bool bRes;
 	QString szQuery;
 
 	// Delete all TV channels from the database
-	QSqlQuery query(m_db);
+	QSqlQuery query(db());
 	szQuery = "DELETE FROM " DB_TVCHANNEL;
 	bRes = query.exec(szQuery);
 	if(!bRes){
@@ -140,12 +140,11 @@ bool DatabaseController::deleteTVChannels(QError& error)
 	return bRes;
 }
 
-
-bool DatabaseController::loadChannelsGroups(CBOnChannelsGroupLoaded cbOnChannelsGroupLoaded, void* user_data, QError& error)
+bool DatabaseControllerMain::loadChannelsGroups(CBOnChannelsGroupLoaded cbOnChannelsGroupLoaded, DatabaseInstance& dbInstance, void* user_data, QError& error)
 {
 	bool bRes;
 
-	QSqlQuery query(m_db);
+	QSqlQuery query(db());
 	bRes = query.prepare("SELECT id, position, name, type, uri, bregex, eregex, last_update FROM channels_group ORDER BY position");
 	if(!bRes){
 		qCritical("[Database] Unable to prepare query to load channels group");
@@ -174,7 +173,7 @@ bool DatabaseController::loadChannelsGroups(CBOnChannelsGroupLoaded cbOnChannels
 				pChannelsGroupInfos->setNbChannels(0);
 
 				if(cbOnChannelsGroupLoaded){
-					bRes = cbOnChannelsGroupLoaded(m_dbInstance, pChannelsGroupInfos, user_data, error);
+					bRes = cbOnChannelsGroupLoaded(dbInstance, pChannelsGroupInfos, user_data, error);
 					if(!bRes){
 						break;
 					}
@@ -188,7 +187,7 @@ bool DatabaseController::loadChannelsGroups(CBOnChannelsGroupLoaded cbOnChannels
 	return bRes;
 }
 
-bool DatabaseController::loadChannels(int iChannelsGroupId, CBOnChannelsLoaded cbOnChannelsLoaded, void* user_data, QError& error)
+bool DatabaseControllerMain::loadChannels(int iChannelsGroupId, DatabaseInstance& dbInstance, CBOnChannelsLoaded cbOnChannelsLoaded, void* user_data, QError& error)
 {
 	bool bRes;
 
@@ -200,7 +199,7 @@ bool DatabaseController::loadChannels(int iChannelsGroupId, CBOnChannelsLoaded c
 		 " WHERE channel.channelsgroup_id=:channelsgroup_id  " \
 		 " ORDER BY channel.position";
 
-	QSqlQuery query(m_db);
+	QSqlQuery query(db());
 	bRes = query.prepare(szQuery);
 	if(!bRes){
 		qCritical("[Database] Unable to prepare query to load channels");
@@ -240,7 +239,7 @@ bool DatabaseController::loadChannels(int iChannelsGroupId, CBOnChannelsLoaded c
 				 */
 
 				if(cbOnChannelsLoaded){
-					bRes = cbOnChannelsLoaded(m_dbInstance, pChannelInfos, user_data, error);
+					bRes = cbOnChannelsLoaded(dbInstance, pChannelInfos, user_data, error);
 					if(!bRes){
 						break;
 					}
@@ -260,7 +259,7 @@ bool DatabaseController::loadChannels(int iChannelsGroupId, CBOnChannelsLoaded c
 	return bRes;
 }
 
-bool DatabaseController::saveChannelInfos(const QSharedPointer<ChannelInfos>& pChannelInfos, bool bUpdate, QError& error)
+bool DatabaseControllerMain::saveChannelInfos(const QSharedPointer<ChannelInfos>& pChannelInfos, bool bUpdate, QError& error)
 {
 #warning "finish implementation"
 	bool bRes = true;

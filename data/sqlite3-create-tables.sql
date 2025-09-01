@@ -1,5 +1,3 @@
--- @libdbevolution-lastdbversion=0.5.0.1
-
 -- @libdbevolution-dbversion=0.1.0.1
 
 CREATE TABLE IF NOT EXISTS channel_logo (
@@ -8,12 +6,16 @@ CREATE TABLE IF NOT EXISTS channel_logo (
    filename_channellogo VARCHAR(20)
 );
 
+-- @libdbevolution-separator
+
 CREATE TABLE IF NOT EXISTS label_channellogo (
    id_labelchannellogo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
    label_labelchannellogo VARCHAR(50) NOT NULL,
    idchannellogo_labelchannellogo INTEGER NOT NULL
      CONSTRAINT fk_idchannellogo_labelchannellogo REFERENCES channel_logo(id_channellogo) ON DELETE CASCADE
 );
+
+-- @libdbevolution-separator
 
 CREATE TABLE IF NOT EXISTS channels_group (
    id_channelsgroup INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -22,6 +24,8 @@ CREATE TABLE IF NOT EXISTS channels_group (
    eregex_channelsgroup VARCHAR(50) NULL,
    uri_channelsgroup VARCHAR(500) NULL
 );
+
+-- @libdbevolution-separator
 
 CREATE TABLE IF NOT EXISTS channel (
    id_channel INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -34,12 +38,16 @@ CREATE TABLE IF NOT EXISTS channel (
      CONSTRAINT fk_channelsgroup_channel REFERENCES channels_group(id_channelsgroup) ON DELETE CASCADE
 );
 
+-- @libdbevolution-separator
+
 CREATE TRIGGER fkd_channellogo_id
   BEFORE DELETE ON channel_logo
   FOR EACH ROW BEGIN
       UPDATE channel SET idchannellogo_channel = NULL WHERE idchannellogo_channel = OLD.id_channellogo;
       DELETE FROM label_channellogo WHERE idchannellogo_labelchannellogo = OLD.id_channellogo;
   END;
+
+-- @libdbevolution-separator
 
 CREATE TRIGGER fkd_channel_id
   BEFORE DELETE ON channels_group
@@ -50,12 +58,19 @@ CREATE TRIGGER fkd_channel_id
 -- @libdbevolution-dbversion=0.5.0.1
 
 ALTER TABLE channels_group RENAME TO channels_group_tmp;
+
+-- @libdbevolution-separator
+
 ALTER TABLE channel RENAME TO channel_tmp;
+
+-- @libdbevolution-separator
 
 CREATE TABLE IF NOT EXISTS config (
    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
    dbversion VARCHAR(50) NOT NULL
 );
+
+-- @libdbevolution-separator
 
 CREATE TABLE IF NOT EXISTS tvchannel (
    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -67,12 +82,16 @@ CREATE TABLE IF NOT EXISTS tvchannel (
    tvguide_url VARCHAR(255)
 );
 
+-- @libdbevolution-separator
+
 CREATE TABLE IF NOT EXISTS label_tvchannel (
    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
    label VARCHAR(50) NOT NULL,
    tvchannel_id INTEGER NOT NULL
      CONSTRAINT fk_labeltvchannel_tvchannelid REFERENCES tvchannel(id) ON DELETE CASCADE
 );
+
+-- @libdbevolution-separator
 
 CREATE TABLE IF NOT EXISTS channels_group (
    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -84,6 +103,8 @@ CREATE TABLE IF NOT EXISTS channels_group (
    eregex VARCHAR(50) NULL,
    last_update DATETIME NULL
 );
+
+-- @libdbevolution-separator
 
 CREATE TABLE IF NOT EXISTS channel (
    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -98,6 +119,8 @@ CREATE TABLE IF NOT EXISTS channel (
      CONSTRAINT fk_channel_tvchannelid REFERENCES tvchannel(id) ON DELETE SET NULL
 );
 
+-- @libdbevolution-separator
+
 CREATE TRIGGER fkd_delele_tvchannel
   BEFORE DELETE ON tvchannel
   FOR EACH ROW BEGIN
@@ -105,20 +128,28 @@ CREATE TRIGGER fkd_delele_tvchannel
       DELETE FROM label_tvchannel WHERE tvchannel_id = OLD.id;
   END;
 
+-- @libdbevolution-separator
+
 CREATE TRIGGER fkd_delete_channelsgroup
   BEFORE DELETE ON channels_group
   FOR EACH ROW BEGIN
       DELETE from channel WHERE channelsgroup_id = OLD.id;
   END;
 
+-- @libdbevolution-separator
+
 INSERT INTO tvchannel (id, name, logo_filename)
 SELECT id_channellogo, label_channellogo, filename_channellogo
 FROM channel_logo;
+
+-- @libdbevolution-separator
 
 INSERT INTO label_tvchannel (id, label, tvchannel_id)
 SELECT id_labelchannellogo, label_labelchannellogo,
    idchannellogo_labelchannellogo
 FROM label_channellogo;
+
+-- @libdbevolution-separator
 
 INSERT INTO channels_group (id, position, name, type, uri, bregex, eregex, last_update)
 SELECT id_channelsgroup,
@@ -130,15 +161,34 @@ SELECT id_channelsgroup,
   bregex_channelsgroup, eregex_channelsgroup, DATETIME('NOW', 'localtime')
 FROM channels_group_tmp;
 
+-- @libdbevolution-separator
+
 INSERT INTO channel (id, name, position, uri, channelsgroup_id, tvchannel_id)
 SELECT id_channel, name_channel, order_channel, uri_channel, channelsgroup_channel, idchannellogo_channel
 FROM channel_tmp;
 
+-- @libdbevolution-separator
+
 DROP TRIGGER fkd_channel_id;
+
+-- @libdbevolution-separator
+
 DROP TRIGGER fkd_channellogo_id;
+
+-- @libdbevolution-separator
+
 DROP TABLE channel_tmp;
+
+-- @libdbevolution-separator
+
 DROP TABLE channels_group_tmp;
+
+-- @libdbevolution-separator
+
 DROP TABLE label_channellogo;
+
+-- @libdbevolution-separator
+
 DROP TABLE channel_logo;
 
 -- @libdbevolution-dbversion=0.5.1.1
@@ -160,6 +210,8 @@ CREATE TABLE IF NOT EXISTS recording (
    channel_id INTEGER NULL
      CONSTRAINT fk_recording_channelid REFERENCES channel(id) ON DELETE SET NULL
 );
+
+-- @libdbevolution-separator
 
 CREATE TRIGGER fkd_delele_channel
   BEFORE DELETE ON channel

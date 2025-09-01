@@ -31,6 +31,7 @@
 #include <QIcon>
 #include <QTranslator>
 #include <QLibraryInfo>
+#include <QStandardPaths>
 
 #ifdef USE_LIBNOTIFY
 #include <libnotify/notify.h>
@@ -44,6 +45,8 @@
 
 #include "Database/DatabaseInstance.h"
 #include "Database/DatabaseController.h"
+#include "Database/DatabaseApplication.h"
+#include "Database/DatabaseControllerFactoryApplication.h"
 
 #include "Controller/TVChannelsController.h"
 
@@ -63,6 +66,12 @@
 //#include "freetuxtv-models.h"
 //#include "freetuxtv-window-add-channels-group.h"
 //#include "freetuxtv-player-error-dialog.h"
+
+enum {
+	InitLog 				= 1 << 0,
+	InitConfig	 			= 1 << 1,
+	InitDatabase			= 1 << 2,
+};
 
 /*
 static void
@@ -1783,8 +1792,7 @@ bool doNotifyChannelsGroupLoaded(DatabaseInstance& dbInstance, const QSharedPoin
 	cbData.pApplication = pApplication;
 	cbData.pItem = pItem;
 
-	DatabaseController dbController(dbInstance);
-	bRes = dbController.loadChannels(pChannelGroupInfos->getId(), doNotifyChannelLoaded, &cbData, error);
+	bRes = dbInstance.dbcMain().loadChannels(pChannelGroupInfos->getId(), dbInstance, doNotifyChannelLoaded, &cbData, error);
 
 	return bRes;
 }
@@ -1889,6 +1897,9 @@ main (int argc, char *argv[])
 
 	bool bRes = true;
 
+	// If retrying we must consider that everything is ok
+	int iInitFlags = 0;
+
 	// Initialize translation
 	QTranslator qtTranslator;
 	qInfo("[Main] Current locale is %s", qPrintable(QLocale::system().name()));
@@ -1907,22 +1918,40 @@ main (int argc, char *argv[])
 
 	qInfo("[Main] Loading FreetuxTV %s", APPLICATION_VERSION);
 
-	Application* pApplication = new Application();
+	auto pApplication = new Application();
+
+	// Setup config directory
+	QDir dirAppConfig = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+	dirAppConfig.setPath(dirAppConfig.filePath("FreetuxTV"));
+	qInfo("[Main] Using config directory: %s", qPrintable(dirAppConfig.path()));
+
 	QError error;
+
+	// Initialize
+	//DatabaseInstance::setErrorHandler(ApplicationDatabaseErrorHandler);
+	DatabaseControllerFactoryApplication dbcfApplication;
+	DatabaseInstance::setDatabaseControllerFactory(&dbcfApplication);
+	DatabaseApplication databaseApp;
+	if(bRes){
+		qDebug("[Main] Initializing database");
+		databaseApp.setDatabaseDirectory(dirAppConfig);
+
+		bRes = databaseApp.init();
+		iInitFlags |= InitDatabase;
+	}
 
 	// Load data
 	if(bRes) {
 		qInfo("[Main] Loading data from database");
 		DatabaseInstance dbInstance("main");
-		bRes = dbInstance.open();
+		bRes = dbInstance.dbcMain().open("main");
 		if(bRes){
-			DatabaseController dbc(dbInstance);
-			bRes = dbc.loadChannelsGroups(doNotifyChannelsGroupLoaded, pApplication, error);
+			bRes = dbInstance.dbcMain().loadChannelsGroups(doNotifyChannelsGroupLoaded, dbInstance, pApplication, error);
 			if(!bRes){
 				qCritical("[Main] Unable to load channels list group");
 			}
 		}
-		dbInstance.close();
+		dbInstance.dbcMain().close("main");
 	}
 
 	QApplicationMainWindow *pMainWindow = NULL;
@@ -1984,6 +2013,12 @@ main (int argc, char *argv[])
 #ifdef USE_LIBNOTIFY
 		notify_uninit();
 #endif
+
+		if(iInitFlags & InitDatabase){
+			qDebug("[Main] Disposing database");
+			databaseApp.dispose();
+		}
+
 	}
 
 	if(pMainWindowController) {

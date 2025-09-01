@@ -1,28 +1,27 @@
-//
-// Created by ebeuque on 20/01/2021.
-//
+/*
+ * DatabaseInstance.h
+ *
+ *  Created on: 24 mars 2014
+ *      Author: ebeuque
+ */
 
-#ifndef FREETUXTV_DATABASEINSTANCE_H
-#define FREETUXTV_DATABASEINSTANCE_H
+#ifndef FREETUXTV_DATABASE_DATABASEINSTANCE_H_
+#define FREETUXTV_DATABASE_DATABASEINSTANCE_H_
 
-#include <QSqlDatabase>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
-class DatabaseInstance
-{
-public:
-	DatabaseInstance(const QString& szName);
-	virtual ~DatabaseInstance();
+#include <Common/Database/DatabaseInstance.h>
 
-public:
-	QSqlDatabase& db();
+#include "Database/DatabaseController.h"
 
-	bool open();
-	void close();
+class DatabaseManager;
 
-private:
-	QSqlDatabase m_db;
-	QString m_szConnectionName;
-};
+DatabaseManager* databaseManagerLocal();
 
+#define DBNAME_MAIN "main"
+#define dbcMain() dbcCast<DatabaseControllerMain>(DBNAME_MAIN)
+#define db_main(dbInstance) (dbInstance.dbcMain())
 
-#endif //FREETUXTV_DATABASEINSTANCE_H
+#endif /* FREETUXTV_DATABASE_DATABASEINSTANCE_H_ */

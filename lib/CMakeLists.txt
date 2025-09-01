@@ -1,0 +1,3 @@
+add_subdirectory(Toolkit)
+add_subdirectory(libqdbevolution)
+add_subdirectory(Common/Database)
