@@ -33,6 +33,7 @@
 #include <QStatusBar>
 #include <QHBoxLayout>
 #include <QSplitter>
+#include <QActionGroup>
 
 #include "GUI/QCtrlBarView.h"
 

@@ -4,6 +4,7 @@
 
 #include <QCoreApplication>
 #include <QAction>
+#include <QActionGroup>
 #include <QLineEdit>
 #include <QToolButton>
 #include <QPushButton>

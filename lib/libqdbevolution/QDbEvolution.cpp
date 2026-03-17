@@ -7,7 +7,7 @@
 
 #include <QFile>
 
-//#include <Toolkit/QtCore/QtCompat.h>
+#include <Toolkit/QtCompat.h>
 
 #ifdef USE_NO_QREGEXP
 #include <QRegularExpression>

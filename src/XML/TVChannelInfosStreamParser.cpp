@@ -35,7 +35,7 @@ bool TVChannelInfosStreamParser::parse(QIODevice *device)
     m_reader.setDevice(device);
     
     if (m_reader.readNextStartElement()) {
-        if (m_reader.name() == "channels") {
+        if (m_reader.name().toString() == "channels") {
             parseChannelsElement();
         } else {
             m_reader.raiseError(QObject::tr("The file is not a valid channels file."));
@@ -58,10 +58,10 @@ QString TVChannelInfosStreamParser::errorString() const
 
 void TVChannelInfosStreamParser::parseChannelsElement()
 {
-    Q_ASSERT(m_reader.isStartElement() && m_reader.name() == "channels");
+    Q_ASSERT(m_reader.isStartElement() && m_reader.name().toString() == "channels");
 
     while (m_reader.readNextStartElement()) {
-        if (m_reader.name() == "channel") {
+        if (m_reader.name().toString() == "channel") {
             parseChannelElement();
         } else {
             skipUnknownElement();
@@ -71,7 +71,7 @@ void TVChannelInfosStreamParser::parseChannelsElement()
 
 void TVChannelInfosStreamParser::parseChannelElement()
 {
-    Q_ASSERT(m_reader.isStartElement() && m_reader.name() == "channel");
+    Q_ASSERT(m_reader.isStartElement() && m_reader.name().toString() == "channel");
 
     TVChannelInfos channelInfo;
     
@@ -86,11 +86,11 @@ void TVChannelInfosStreamParser::parseChannelElement()
     
     // Read child elements
     while (m_reader.readNextStartElement()) {
-        if (m_reader.name() == "name") {
+        if (m_reader.name().toString() == "name") {
             channelInfo.setName(m_reader.readElementText());
-        } else if (m_reader.name() == "logo") {
+        } else if (m_reader.name().toString() == "logo") {
             channelInfo.setLogoFileName(m_reader.readElementText());
-        } else if (m_reader.name() == "label") {
+        } else if (m_reader.name().toString() == "label") {
             channelInfo.addLabel(m_reader.readElementText());
         } else {
             skipUnknownElement();

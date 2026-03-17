@@ -38,7 +38,7 @@ bool ChannelsGroupsStreamParser::parse(QIODevice *device)
     m_reader.setDevice(device);
     
     if (m_reader.readNextStartElement()) {
-        if (m_reader.name() == "channelsgroups") {
+        if (m_reader.name().toString() == "channelsgroups") {
             parseChannelsGroupsElement();
         } else {
             m_reader.raiseError(QObject::tr("The file is not a valid channels groups file."));
@@ -61,10 +61,10 @@ QString ChannelsGroupsStreamParser::errorString() const
 
 void ChannelsGroupsStreamParser::parseChannelsGroupsElement()
 {
-    Q_ASSERT(m_reader.isStartElement() && m_reader.name() == "channelsgroups");
+    Q_ASSERT(m_reader.isStartElement() && m_reader.name().toString() == "channelsgroups");
 
     while (m_reader.readNextStartElement()) {
-        if (m_reader.name() == "channelsgroupsection") {
+        if (m_reader.name().toString() == "channelsgroupsection") {
             parseChannelsGroupSectionElement();
         } else {
             skipUnknownElement();
@@ -74,7 +74,7 @@ void ChannelsGroupsStreamParser::parseChannelsGroupsElement()
 
 void ChannelsGroupsStreamParser::parseChannelsGroupSectionElement()
 {
-    Q_ASSERT(m_reader.isStartElement() && m_reader.name() == "channelsgroupsection");
+    Q_ASSERT(m_reader.isStartElement() && m_reader.name().toString() == "channelsgroupsection");
 
     ChannelsGroupSection section;
     
@@ -90,7 +90,7 @@ void ChannelsGroupsStreamParser::parseChannelsGroupSectionElement()
     m_pCurrentChannelsGroupSection = &section;
     
     while (m_reader.readNextStartElement()) {
-        if (m_reader.name() == "channelsgroup") {
+        if (m_reader.name().toString() == "channelsgroup") {
             parseChannelsGroupElement();
         } else {
             skipUnknownElement();
@@ -103,7 +103,7 @@ void ChannelsGroupsStreamParser::parseChannelsGroupSectionElement()
 
 void ChannelsGroupsStreamParser::parseChannelsGroupElement()
 {
-    Q_ASSERT(m_reader.isStartElement() && m_reader.name() == "channelsgroup");
+    Q_ASSERT(m_reader.isStartElement() && m_reader.name().toString() == "channelsgroup");
 
     if (!m_pCurrentChannelsGroupSection) {
         skipUnknownElement();

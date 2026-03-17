@@ -7,6 +7,8 @@
 #include <QEventLoop>
 #include <QTimer>
 
+#include <Toolkit/QtCompat.h>
+
 #include "QFileDownloader.h"
 
 QFileDownloader::QFileDownloader(const QUrl& url, QObject *parent)
@@ -41,7 +43,11 @@ bool QFileDownloader::download()
 
 	QNetworkRequest request(m_url);
 	// Add support for redirect attribute
+#ifdef USE_REDIRECTPOLICYATTRIBUTE
+	request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, true);
+#else
 	request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+#endif
 
 	// Define an event loop
 	QEventLoop loop;

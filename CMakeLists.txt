@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.13.4)
 
+set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
+
 # Define project data
 set (APPLICATION_VENDOR_NAME "freetuxtv")
 set (APPLICATION_VENDOR_DOMAIN "https://github.com/freetuxtv/freetuxtv")
 set (APPLICATION_NAME "FreetuxTV")
-set (APPLICATION_VERSION_MAJOR 0)
-set (APPLICATION_VERSION_MINOR 7)
+set (APPLICATION_VERSION_MAJOR 1)
+set (APPLICATION_VERSION_MINOR 0)
 set (APPLICATION_VERSION_PATCH 0)
 if(NOT DEFINED APPLICATION_VERSION_BUILD)
     set(APPLICATION_VERSION_BUILD "")
@@ -81,30 +83,23 @@ endmacro(JOINLIST)
 # Library checking
 ####################
 
-set(QT_COMPONENTS Core Gui Widgets Network Xml Sql)
-set(QT_LIBRARIES "")
-find_package (Qt5 5.1.0 REQUIRED ${QT_COMPONENTS})
-if(Qt5_FOUND)
-    message(STATUS "Found Qt5 ${Qt5_VERSION}")
-    include_directories(${Qt5_INCLUDE_DIRS})
-    link_directories(${Qt5_LIBRARY_DIRS})
-    if (Qt5_POSITION_INDEPENDENT_CODE)
-        set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-    endif()
-
-    # Qt Components
-    foreach(TMP_COMPONENT ${QT_COMPONENTS})
-        add_definitions (${Qt5${TMP_COMPONENT}_DEFINITIONS})
-        include_directories(${Qt5${TMP_COMPONENT}_INCLUDE_DIRS})
-        set(QT_LIBRARIES ${QT_LIBRARIES} ${Qt5${TMP_COMPONENT}_LIBRARIES})
-    endforeach(TMP_COMPONENT)
+# Compiler
+set(WITH_COMPILER_LIBRARIES ON CACHE BOOL "Enable build with compiler libraries")
+# GUI
+set(WITH_QT ON CACHE BOOL "Enable build with qt library")
+#set(QT_USE_VERSION 5)
+set(QT4_COMPONENTS QtCore QtGui QtDBus QtNetwork QtSql QtTest)
+set(QT5_COMPONENTS Core Gui Widgets DBus Network Sql Test)
+set(QT6_COMPONENTS Core Core5Compat Gui Widgets DBus Network Sql Test)
+if(WIN32)
+    set(QT_PLATFORMS_COMPONENTS qwindows qminimal)
+elseif(APPLE)
+    set(QT_PLATFORMS_COMPONENTS qcocoa)
+else()
+    set(QT_PLATFORMS_COMPONENTS qxcb qminimal)
 endif()
-
-find_package(Qt5LinguistTools REQUIRED)
-if(Qt5LinguistTools_FOUND)
-    message(STATUS "Found Qt5LinguistTools ${Qt5LinguistTools_VERSION}")
-endif()
-
+set(QT_IMAGEFORMATS_COMPONENTS qjpeg)
+set(QT_SQL_COMPONENTS qsqlite qsqlmysql qsqlpsql)
 
 # Check for pkg-config
 find_package(PkgConfig REQUIRED)
@@ -165,13 +160,13 @@ if(LIBVLC_FOUND)
     list(APPEND PACKAGE_DEPS "libvlc (>= ${LIBVLC_VERSION})")
 endif()
 
-# Setting up Intl
-find_package (Intl REQUIRED)
-find_package(Gettext REQUIRED)
-include_directories(${INTL_INCLUDE_DIRS})
-link_directories(${INTL_LIBRARY_DIRS})
-add_definitions(-DENABLE_NLS -DGETTEXT_PACKAGE=\"${APPLICATION_PACKAGE_NAME}\")
+# Set packaging options
+set (PACKAGE_DEPS)
+if(WITH_AUTONOMOUS_PACKAGE_BUILD)
+    set(AUTONOMOUS_PACKAGE_BUILD ON CACHE BOOL "Enable build of autonomous package without dependencies")
+endif()
 
+include (CMakeModules/ProjectIncludeLibraries.cmake)
 
 ####################
 # Config file
@@ -318,7 +313,7 @@ set(APPLICATION_MOC_HEADERS
     src/GUIController/QChannelsItemDelegate.h
     src/VideoPlayer/QVLCVideoPlayer.h
 )
-qt5_wrap_cpp(
+qtx_wrap_cpp(
     APPLICATION_MOC_OUTFILES
     ${APPLICATION_MOC_HEADERS}
 )
@@ -327,7 +322,7 @@ qt5_wrap_cpp(
 set (QRC_FILES
     data/app.qrc
 )
-qt5_add_resources(RCS_OUTFILES ${QRC_FILES})
+qtx_add_resources(RCS_OUTFILES ${QRC_FILES})
 
 ####################
 # Translations
