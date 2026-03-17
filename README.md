@@ -70,16 +70,17 @@
 
    ### Installing from GIT repository
    1) Install build dependencies according to your distribution
-      - Ubuntu
+      - Debian/Ubuntu/Linux Mint
         ```
-        sudo apt install git gcc make autoconf automake intltool libtool libtool-bin \
-                           gettext libgtk-3-dev libsqlite3-0 libsqlite3-dev libcurl4 \
+        sudo apt install git gcc cmake \
+                            qt6-base-dev qt6-base-private-dev qt6-tools-dev qt6-base-dev-tools libqt6core5compat6-dev \
+                            libsqlite3-0 libsqlite3-dev libcurl4 \
                            libcurl4-openssl-dev vlc libvlc-dev libnotify-dev
         ```
       - openSUSE
         ```
         su root
-        zypper install git gcc autoconf automake make gettext-tools gtk2-devel vlc vlc-devel \
+        zypper install cmake vlc vlc-devel \
                          sqlite3-devel libcurl-devel libnotify-devel
         exit
         ```
