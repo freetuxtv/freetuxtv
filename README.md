@@ -74,8 +74,7 @@
         ```
         sudo apt install git gcc cmake \
                             qt6-base-dev qt6-base-private-dev qt6-tools-dev qt6-base-dev-tools libqt6core5compat6-dev \
-                            libsqlite3-0 libsqlite3-dev libcurl4 \
-                           libcurl4-openssl-dev vlc libvlc-dev libnotify-dev
+                            libcurl4 libcurl4-openssl-dev vlc libvlc-dev libnotify-dev
         ```
       - openSUSE
         ```

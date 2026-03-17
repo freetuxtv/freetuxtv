@@ -133,15 +133,6 @@ if(LIBVLC_FOUND)
     list(APPEND PACKAGE_DEPS "libvlc5 (>= ${LIBVLC_VERSION})")
 endif()
 
-# Check for sqlite3
-pkg_check_modules(SQLITE3 REQUIRED sqlite3)
-if(SQLITE3_FOUND)
-    message(STATUS "Found sqlite3 ${SQLITE3_VERSION}")
-    include_directories(${SQLITE3_INCLUDE_DIRS})
-    link_directories(${SQLITE3_LIBRARY_DIRS})
-    list(APPEND PACKAGE_DEPS "libsqlite3-0 (>= ${SQLITE3_VERSION})")
-endif()
-
 # Check for curl
 pkg_check_modules(CURL REQUIRED libcurl)
 if(CURL_FOUND)
