@@ -25,59 +25,18 @@ set (APPLICATION_BUGREPORT "https://github.com/freetuxtv/freetuxtv/issues")
 
 project (freetuxtv C CXX)
 
-if(WIN32)
-    set(AUTO_NEWLINE_STYLE WIN32)
-else()
-    set(AUTO_NEWLINE_STYLE UNIX)
-endif()
-if(CMAKE_HOST_SYSTEM MATCHES Windows)
-    set(HOST_WIN32 TRUE)
-else()
-    set(HOST_WIN32 FALSE)
-endif()
+##############################
+# Project configuration
+##############################
 
-# Define install paths
-if(WIN32)
-    set(INSTALL_PATH_BIN ".")
-    set(INSTALL_PATH_SHARE ".")
-    set(INSTALL_PATH_DOC ".")
-    set(INSTALL_PATH_APPLICATIONS ".")
-    set(INSTALL_PATH_ICONS ".")
-elseif(APPLE)
-    set(INSTALL_PATH_BIN ".")
-    set(INSTALL_PATH_SHARE ".")
-    set(INSTALL_PATH_FRAMEWORKS "../Frameworks")
-    set(INSTALL_PATH_DOC ".")
-    set(INSTALL_PATH_APPLICATIONS ".")
-    set(INSTALL_PATH_ICONS ".")
-else(WIN32)
-    set(CMAKE_INSTALL_PREFIX "/usr")
-    set(INSTALL_PATH_BIN "${CMAKE_INSTALL_PREFIX}/bin/")
-    set(INSTALL_PATH_SHARE "${CMAKE_INSTALL_PREFIX}/share/${APPLICATION_PACKAGE_NAME}")
-    set(INSTALL_PATH_DOC "${CMAKE_INSTALL_PREFIX}/share/${APPLICATION_PACKAGE_NAME}/doc")
-    set(INSTALL_PATH_APPLICATIONS "${CMAKE_INSTALL_PREFIX}/share/applications")
-    set(INSTALL_PATH_ICONS "${CMAKE_INSTALL_PREFIX}/share/icons/")
-    set(INSTALL_PATH_LOCALE "${CMAKE_INSTALL_PREFIX}/share/locale/")
-endif(WIN32)
+# Define common project config
+include (CMakeModules/ProjectCommonConfig.cmake)
 
-####################
-# Macro definition
-####################
+##################
+# Define options
+##################
 
-macro(JOINLIST list_name sep output)
-    # create empty list - necessary?
-    # prefix and suffix elements
-    foreach(l ${${list_name}})
-        if(NOT DEFINED list_name_TMP)
-            SET(list_name_TMP ${l})
-        else()
-            SET(list_name_TMP ${list_name_TMP}${sep}${l})
-        endif()
-    endforeach()
-    # replace list by tmp list
-    SET(${output} ${list_name_TMP})
-    UNSET(list_name_TMP)
-endmacro(JOINLIST)
+include (CMakeModules/ProjectCompilerChecks.cmake)
 
 ####################
 # Library checking
