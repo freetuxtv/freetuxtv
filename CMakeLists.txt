@@ -324,6 +324,17 @@ set (TS_FILES
 #add_custom_target(update_ts ALL DEPENDS ${qm_FILES})
 
 ####################
+# RPATH
+####################
+
+if(UNIX AND NOT APPLE)
+	# Default library path for debian
+	set(CMAKE_INSTALL_RPATH "/usr/${INSTALL_PATH_LIB}")
+	# Define RPATH instead of RUNPATH
+	set(CMAKE_EXE_LINKER_FLAGS "-Wl,--disable-new-dtags")
+endif(UNIX AND NOT APPLE)
+
+####################
 # Create Executable
 ####################
 
