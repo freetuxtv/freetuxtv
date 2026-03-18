@@ -401,6 +401,10 @@ install(FILES "${PROJECT_BINARY_DIR}/INSTALL${DOCFILES_EXT}" DESTINATION ${INSTA
 
 # Desktop file
 if(UNIX AND NOT WIN32)
+    configure_file (
+            "${PROJECT_SOURCE_DIR}/data/menu/freetuxtv.desktop.in"
+            "${PROJECT_BINARY_DIR}/data/menu/freetuxtv.desktop"
+    )
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/data/menu/freetuxtv.desktop DESTINATION ${INSTALL_PATH_APPLICATIONS})
 endif(UNIX AND NOT WIN32)
 
