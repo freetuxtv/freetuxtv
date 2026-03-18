@@ -47,9 +47,9 @@ set(WITH_COMPILER_LIBRARIES ON CACHE BOOL "Enable build with compiler libraries"
 # GUI
 set(WITH_QT ON CACHE BOOL "Enable build with qt library")
 #set(QT_USE_VERSION 5)
-set(QT4_COMPONENTS QtCore QtGui QtNetwork QtXml QtSql)
-set(QT5_COMPONENTS Core Gui Widgets Network Xml Sql)
-set(QT6_COMPONENTS Core Core5Compat Gui Widgets Network Xml Sql)
+set(QT4_COMPONENTS QtCore QtGui QtDBus QtNetwork QtXml QtSql)
+set(QT5_COMPONENTS Core Gui Widgets DBus Network Xml Sql)
+set(QT6_COMPONENTS Core Core5Compat DBus Gui Widgets Network Xml Sql)
 if(WIN32)
 	set(QT_PLATFORMS_COMPONENTS qwindows qminimal)
 elseif(APPLE)
